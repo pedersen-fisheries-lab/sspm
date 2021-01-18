@@ -1,0 +1,19 @@
+Package: spaspm
+Type: Package
+Title: Spatial Surprlus Production Model framework for Northern Shrimp populations
+Version: 0.1.0
+Author@R: c(
+    person("Valentin", "Lucet", email = "valentin.lucet@gmail.com", role = c("aut", "cre")),
+    person("Eric", "Pedersen", email = "eric.pedersen@concordia.ca", role = c("aut")))
+Description: The goal of `spaspm` is to implement a gam-based spatial surplus 
+    production model, aimed at modeling northern shrimp population in Canada but 
+    potentially to any stock in any location. The package is opinionated it in 
+    implementation of SPMs as it internally makes the choice to use penalized 
+    spatial gams with time lags  based on Pedersen et al. (2020). However, it 
+    also aims to provide options for the user to customize their model.
+License: TBD
+BugReports: https://github.com/pedersen-fisheries-lab/spaspm/issues
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
