@@ -4,3 +4,4 @@
 ^\.Rproj\.user$
 .Rprofile
 ^README\.Rmd$
+man/figures/make_hex
