@@ -45,14 +45,35 @@ setMethod("show",
           "spaspm",
           function(object) {
             cat("SPASPM model object \n") ; cat("\n")
-
-            cat("Name:", object@name, "\n") ; cat("\n")
-
-            cat("Data:") ; cat("\n")
-            print(head(object@data)) ; cat("\n")
-
-            cat("Boundaries:") ; cat("\n")
-            print(head(object@boundaries)) ; cat("\n")
-
+            cat_basics(object)
           }
 )
+
+setMethod("show",
+          "spaspm_discrete",
+          function(object) {
+            cat("SPASPM model object (DISCRETE )\n") ; cat("\n")
+            cat_basics(object)
+            cat_discrete(object)
+          }
+)
+
+# Print helpers -----------------------------------------------------------
+
+cat_basics <- function(object){
+  cat("Name:", object@name, "\n") ; cat("\n")
+
+  cat("Data:") ; cat("\n")
+  print(head(object@data)) ; cat("\n")
+
+  cat("Boundaries:") ; cat("\n")
+  print(head(object@boundaries)) ; cat("\n")
+}
+
+cat_discrete <- function(object){
+  # TODO replace with a call to a show method for the
+  # Discretization method object
+  cat("Discretization method :") ; cat("\n")
+  print(object@method) ; cat("\n")
+}
+

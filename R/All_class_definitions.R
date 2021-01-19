@@ -18,15 +18,26 @@ setClass("discretization_method",
                       patches = "sf")
 )
 
+setClass("voronoi_discretization",
+         slots = list(number_of_patches = "numeric"),
+         contains = "discretization_method"
+)
+
 # Discretized model => spaspm + discretization_method
 setClass("spaspm_discrete",
-         slots = list(method = "discretization_method",
-                      call = "formula"),
+         slots = list(method = "discretization_method"),
          contains = c("spaspm"))
 
 # Fitted model => spaspm + discretization_method + has been fitted
 setClass("spaspm_gam_fit",
-         slots = list(fit = "data.frame",
-                      call = "formula"),
+         slots = list(gam_fit = "data.frame",
+                      gam_call = "formula"),
+         contains = "spaspm_discrete"
+)
+
+# Modelled SPM ~ end of workflow
+setClass("spaspm_spm_fit",
+         slots = list(spm_fit = "data.frame",
+                      spm_call = "formula"),
          contains = "spaspm_discrete"
 )
