@@ -1,41 +1,56 @@
 # Generics ----------------------------------------------------------------
 
 #' @export
-setGeneric(name = "spm_boundaries", signature = "x",
-           def = function(x) standardGeneric("spm_boundaries")
+setGeneric(name = "spm_boundaries",
+           def = function(spaspm_object) standardGeneric("spm_boundaries")
 )
 
 #' @export
-setGeneric(name = "spm_data", signature = "x",
-           def = function(x) standardGeneric("spm_data")
+setGeneric(name = "spm_data",
+           def = function(spaspm_object) standardGeneric("spm_data")
 )
 
 #' @export
-setGeneric(name = "spm_name", signature = "x",
-           def = function(x) standardGeneric("spm_name")
+setGeneric(name = "spm_name",
+           def = function(spaspm_object) standardGeneric("spm_name")
+)
+
+#' @export
+setGeneric(name = "spm_discret_method",
+           def = function(spaspm_object) standardGeneric("spm_discret_method")
 )
 
 # Methods for package generics --------------------------------------------
 
 #' @export
-setMethod(f = "spm_boundaries", signature = c("x" = "spaspm"),
-          function(x){
-            x@boundaries
+setMethod("spm_boundaries", signature("spaspm_object" = "spaspm"),
+          function(spaspm_object) spaspm_object@boundaries
+)
+
+#' @export
+setMethod("spm_data", signature("spaspm_object" = "spaspm"),
+          function(spaspm_object) spaspm_object@data
+)
+
+#' @export
+setMethod("spm_name", signature("spaspm_object" = "spaspm"),
+          function(spaspm_object) spaspm_object@name
+)
+
+#' @export
+setMethod("spm_discret_method",
+          signature("spaspm_object" = "spaspm"),
+          function(spaspm_object){
+            message(paste0("Model object '", spm_name(spaspm_object),
+                           "' is not a discrete model"))
+            message("See ?spm_discretize for discretization methods")
           }
 )
 
 #' @export
-setMethod(f = "spm_data", signature = c("x" = "spaspm"),
-          function(x){
-            x@data
-          }
-)
-
-#' @export
-setMethod(f = "spm_name", signature = c("x" = "spaspm"),
-          function(x){
-            x@name
-          }
+setMethod("spm_discret_method",
+          signature("spaspm_object" = "spaspm_discrete"),
+          function(spaspm_object) spaspm_object@method
 )
 
 # Methods for global generics ---------------------------------------------
@@ -52,11 +67,15 @@ setMethod("show",
 setMethod("show",
           "spaspm_discrete",
           function(object) {
-            cat("SPASPM model object (DISCRETE )\n") ; cat("\n")
+            cat("SPASPM model object (DISCRETE)\n") ; cat("\n")
             cat_basics(object)
             cat_discrete(object)
           }
 )
+
+# TODO dim should get dims of data and sf if discrete
+# setMethod("dim",
+#           "spaspm", function(x) length(x@snpid))
 
 # Print helpers -----------------------------------------------------------
 
