@@ -27,15 +27,27 @@ setGeneric(name = "spm_discretize",
 
 #' @export
 setMethod(f = "spm_discretize",
-          signature(spaspm_object = "spaspm"),
+          signature(spaspm_object = "spaspm",
+                    discretization_method = "character"),
           function(spaspm_object, discretization_method){
             print("spm_discretize spaspm signature")
 
-            # TODO deal with discretization
-            # PSEUDOCODE
-            #
+            # TODO MAKE the discretization method from character, then
+            # call the the method again, this will dispatch to next one
 
           }
+)
+
+#' @export
+setMethod(f = "spm_discretize",
+          signature(spaspm_object = "spaspm",
+                    discretization_method = "discretization_method"),
+          function(spaspm_object, discretization_method){
+            print("spm_discretize spaspm signature")
+
+            # TODO call the actual discretization code
+
+          }w
 )
 
 #' @export

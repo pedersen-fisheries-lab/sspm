@@ -1,4 +1,3 @@
-#' @import methods
 #' @import sf
 #' @import checkmate
 
@@ -15,6 +14,7 @@ setClass("spaspm",
 # Discretization method
 setClass("discretization_method",
          slots = list(method = "character",
+                      fun = 'function',
                       boundaries = "sf",
                       patches = "sf")
 )

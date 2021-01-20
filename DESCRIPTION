@@ -1,6 +1,6 @@
 Package: spaspm
 Type: Package
-Title: Spatial Surprlus Production Model framework for Northern Shrimp populations
+Title: Spatial Surprlus Production Model Framework for Northern Shrimp Populations
 Version: 0.1.0
 Authors@R: c(
     person("Valentin", "Lucet", email = "valentin.lucet@gmail.com", role = c("aut", "cre")),
@@ -18,7 +18,8 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 Depends: sf
-Imports: sf,
+Imports: methods,
+    utils,
     checkmate,
     statmod
 Suggests: 
