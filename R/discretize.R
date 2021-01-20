@@ -33,6 +33,7 @@ setMethod(f = "spm_discretize",
 
             # TODO deal with discretization
             # PSEUDOCODE
+            #
 
           }
 )
@@ -52,7 +53,8 @@ setMethod(f = "spm_discretize",
               print("spm_discretize spaspm_discrete signature")
               # TODO finish casting code
               # new_object <- new(...)
-              # spm_discretize(new_object)
+              # spm_discretize(new_object,
+              #                discretization_method = discretization_method)
             }
           }
 )
