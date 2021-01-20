@@ -1,3 +1,6 @@
+
+# Exported ----------------------------------------------------------------
+
 #' @export
 length_to_weigth <- function(length, sex){
 
@@ -10,8 +13,29 @@ length_to_weigth <- function(length, sex){
   return(weigth)
 }
 
-# Using statmod package, this has functions for randomized quantile residuals
+# This should be simple enough to test (use mgcv gam example code)
 #' @export
+check_model_family <- function(family){
+
+  checkmate::check_class(family, "family")
+
+  if (!grepl("^Tweedie|^Negative Binomial|^poisson|^binomial|^gaussian|^Gamma|^inverse.gaussian",
+             family)){
+    stop(paste0("family " , family,
+                " is not currently supported by the statmod library,
+               and any randomized quantile residuals would be inaccurate."))
+  }
+}
+
+#' @export
+all_methods_choices <- function(){
+  choices <- c('tesselate_voronoi')
+  return(choices)
+}
+
+# Not exported ------------------------------------------------------------
+
+# Using statmod package, this has functions for randomized quantile residuals
 rqresiduals <- function (gam.obj) {
 
   checkmate::assert_class(gam.obj, "gam")
@@ -42,18 +66,4 @@ rqresiduals <- function (gam.obj) {
 
   }
   return(qres)
-}
-
-# This should be simple enough to test (use mgcv gam example code)
-#' @export
-check_model_family <- function(family){
-
-  checkmate::check_class(family, "family")
-
-  if (!grepl("^Tweedie|^Negative Binomial|^poisson|^binomial|^gaussian|^Gamma|^inverse.gaussian",
-             family)){
-    stop(paste0("family " , family,
-                " is not currently supported by the statmod library,
-               and any randomized quantile residuals would be inaccurate."))
-  }
 }

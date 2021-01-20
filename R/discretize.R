@@ -8,7 +8,16 @@ setGeneric(name = "spm_discretize",
                           discretization_method = "tesselate_voronoi",
                           ...){
 
-             checkmate::assert_character(discretization_method)
+             # Check first if character and if parts of possible choices
+             # if not, check if object of class discretization_method
+             if(checkmate::test_character(discretization_method)){
+               checkmate::assert_choice(discretization_method,
+                                        all_methods_choices())
+             } else {
+
+               checkmate::assert_class(discretization_method,
+                                       "discretization_method")
+             }
 
              standardGeneric("spm_discretize")
            }
@@ -23,6 +32,7 @@ setMethod(f = "spm_discretize",
             print("spm_discretize spaspm signature")
 
             # TODO deal with discretization
+            # PSEUDOCODE
 
           }
 )
