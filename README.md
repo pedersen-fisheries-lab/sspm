@@ -5,6 +5,7 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/pedersen-fisheries-lab/spaspm/workflows/R-CMD-check/badge.svg)](https://github.com/pedersen-fisheries-lab/spaspm/actions)
 <!-- badges: end -->
 
 The goal of `spaspm` is to implement a gam-based spatial surplus

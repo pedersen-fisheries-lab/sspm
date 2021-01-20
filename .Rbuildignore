@@ -5,3 +5,4 @@
 .Rprofile
 ^README\.Rmd$
 man/figures/make_hex
+^\.github$
