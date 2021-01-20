@@ -8,7 +8,8 @@
 setClass("spaspm",
          slots = list(name = "character",
                       data = "data.frame",
-                      boundaries = "sf")
+                      boundaries = "sf"),
+         prototype = list(name = "Default Model Name")
 )
 
 # Discretization method
@@ -18,14 +19,10 @@ setClass("discretization_method",
                       patches = "sf")
 )
 
-setClass("voronoi_discretization",
-         slots = list(number_of_patches = "numeric"),
-         contains = "discretization_method"
-)
-
 # Discretized model => spaspm + discretization_method
 setClass("spaspm_discrete",
          slots = list(method = "discretization_method"),
+         prototype = list(name = "Default Model Name"),
          contains = c("spaspm"))
 
 # Fitted model => spaspm + discretization_method + has been fitted
@@ -39,5 +36,12 @@ setClass("spaspm_gam_fit",
 setClass("spaspm_spm_fit",
          slots = list(spm_fit = "data.frame",
                       spm_call = "formula"),
-         contains = "spaspm_discrete"
+         contains = "spaspm_gam_fit"
 )
+
+# -------------------------------------------------------------------------
+
+# setClass("voronoi_discretization",
+#          slots = list(number_of_patches = "numeric"),
+#          contains = "discretization_method"
+# )
