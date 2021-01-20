@@ -39,9 +39,9 @@ setClass("spaspm_spm_fit",
          contains = "spaspm_gam_fit"
 )
 
-# -------------------------------------------------------------------------
+# Subclass Defs -----------------------------------------------------------
 
-# setClass("voronoi_discretization",
-#          slots = list(number_of_patches = "numeric"),
-#          contains = "discretization_method"
-# )
+setClass("voronoi_discretization",
+         slots = list(number_of_patches = "numeric"),
+         contains = "discretization_method"
+)
