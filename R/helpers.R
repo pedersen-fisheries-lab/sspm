@@ -28,7 +28,7 @@ check_model_family <- function(family){
 }
 
 #' @export
-all_methods_choices <- function(){
+spm_methods <- function(){
   choices <- c('tesselate_voronoi')
   return(choices)
 }
@@ -66,4 +66,15 @@ rqresiduals <- function (gam.obj) {
 
   }
   return(qres)
+}
+
+dispatch_method <- function(discretization_method){
+
+  checkmate::assert_character(discretization_method)
+
+  if (discretization_method == "tesselate_voronoi"){
+    return(tesselate_voronoi)
+  } else {
+    strop()
+  }
 }
