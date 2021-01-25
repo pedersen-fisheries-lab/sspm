@@ -47,7 +47,7 @@ setMethod(f = "spm_discretize",
 
             # TODO call the actual discretization code
 
-          }w
+          }
 )
 
 #' @export
@@ -58,15 +58,18 @@ setMethod(f = "spm_discretize",
             checkmate::assert_logical(force)
 
             if (!force){
-              message(paste0("Object '", spm_name(spaspm_object),
+              message(paste0("Model '", spm_name(spaspm_object),
                              "' is already discretized"))
               message("Use 'force = TRUE' to discretize again")
             } else{
-              print("spm_discretize spaspm_discrete signature")
-              # TODO finish casting code
-              # new_object <- new(...)
-              # spm_discretize(new_object,
-              #                discretization_method = discretization_method)
+              message(paste0("Re-discretizing model '",
+                             spm_name(spaspm_object), "'"))
+
+              new_object <- new("spaspm",
+                                data = spm_data(spaspm_object),
+                                boundaries = spm_boundaries(spaspm_object))
+              spm_discretize(new_object,
+                             discretization_method = discretization_method)
             }
           }
 )

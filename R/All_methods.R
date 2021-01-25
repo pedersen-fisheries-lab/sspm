@@ -73,6 +73,13 @@ setMethod("show",
           }
 )
 
+# TODO finish show method for method object
+# setMethod("show",
+#           "discretization_method",
+#           function(object) {
+#           }
+# )
+
 # TODO dim should get dims of data and sf if discrete
 # setMethod("dim",
 #           "spaspm", function(x) length(x@snpid))
