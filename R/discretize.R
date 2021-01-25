@@ -83,7 +83,8 @@ setMethod(f = "spm_discretize",
                                 data = spm_data(spaspm_object),
                                 boundaries = spm_boundaries(spaspm_object))
               spm_discretize(new_object,
-                             discretization_method = discretization_method)
+                             discretization_method = discretization_method,
+                             ...)
             }
           }
 )
