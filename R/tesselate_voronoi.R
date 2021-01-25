@@ -3,6 +3,7 @@ tesselate_voronoi <- function(spaspm_object,
                               data = NULL,
                               boundaries = NULL,
                               boundary_col = "sfa",
+                              min_size = 1500,
                               coords = c("lat", "lon"),
                               nb_samples = c(`4` = 10, `5` = 30, `6` = 30, `7` = 5),
                               sample_points = NULL) {
