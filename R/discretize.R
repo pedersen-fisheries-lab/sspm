@@ -11,7 +11,10 @@ setGeneric(name = "spm_discretize",
              # if not, check if object of class discretization_method
              if(checkmate::test_character(discretization_method)){
                checkmate::assert_choice(discretization_method,
-                                        spm_methods())
+                                        spm_methods(),
+                                        info = paste0("Method must be one of: ",
+                                                      paste0(spm_methods(),
+                                                             collapse =  ", " )))
              } else {
 
                checkmate::assert_class(discretization_method,
@@ -29,7 +32,6 @@ setMethod(f = "spm_discretize",
           signature(spaspm_object = "spaspm",
                     discretization_method = "character"),
           function(spaspm_object, discretization_method){
-            print("spm_discretize spaspm signature")
 
             the_method <- new("discretization_method",
                               method = discretization_method,
@@ -49,7 +51,7 @@ setMethod(f = "spm_discretize",
           signature(spaspm_object = "spaspm",
                     discretization_method = "discretization_method"),
           function(spaspm_object, discretization_method){
-            print("spm_discretize spaspm signature")
+
 
             # TODO call the actual discretization code
 
