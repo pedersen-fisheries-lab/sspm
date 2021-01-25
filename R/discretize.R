@@ -10,11 +10,11 @@ setGeneric(name = "spm_discretize",
              # Check first if character and if parts of possible choices
              # if not, check if object of class discretization_method
              if(checkmate::test_character(discretization_method)){
-               checkmate::assert_choice(discretization_method,
-                                        spm_methods(),
-                                        info = paste0("Method must be one of: ",
-                                                      paste0(spm_methods(),
-                                                             collapse =  ", " )))
+               if(!checkmate::test_choice(discretization_method, spm_methods())){
+                 paste0("Method must be one of: ", paste0(spm_methods(),
+                                                          collapse =  ", " ))
+               }
+
              } else {
 
                checkmate::assert_class(discretization_method,
@@ -31,17 +31,14 @@ setGeneric(name = "spm_discretize",
 setMethod(f = "spm_discretize",
           signature(spaspm_object = "spaspm",
                     discretization_method = "character"),
-          function(spaspm_object, discretization_method){
+          function(spaspm_object, discretization_method, ...){
 
             the_method <- new("discretization_method",
                               name = discretization_method,
                               method = dispatch_method(discretization_method),
                               boundaries = spm_boundaries(spaspm_object))
 
-            message(paste0("Discretizing using method '",
-                           discretization_method,"'"))
-
-            spm_discretize(spaspm_object, the_method)
+            spm_discretize(spaspm_object, the_method, ...)
 
           }
 )
@@ -50,10 +47,17 @@ setMethod(f = "spm_discretize",
 setMethod(f = "spm_discretize",
           signature(spaspm_object = "spaspm",
                     discretization_method = "discretization_method"),
-          function(spaspm_object, discretization_method){
+          function(spaspm_object, discretization_method, ...){
 
+            message(paste0("Discretizing using method '",
+                           discretization_method@name,"'"))
+
+            other_args <- list(...)
+
+            # TODO get slot with actual method here
             results <- do.call(discretization_method@method,
-                               spaspm_object, ...)
+                               args = append(list(spaspm_object = spaspm_object),
+                                             other_args))
 
             return(results)
           }
@@ -62,7 +66,7 @@ setMethod(f = "spm_discretize",
 #' @export
 setMethod(f = "spm_discretize",
           signature(spaspm_object = "spaspm_discrete"),
-          function(spaspm_object, discretization_method, force = FALSE){
+          function(spaspm_object, discretization_method, force = FALSE, ...){
 
             checkmate::assert_logical(force)
 
@@ -71,6 +75,7 @@ setMethod(f = "spm_discretize",
                              "' is already discretized"))
               message("Use 'force = TRUE' to discretize again")
             } else{
+
               message(paste0("Re-discretizing model '",
                              spm_name(spaspm_object), "'"))
 
