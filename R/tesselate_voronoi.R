@@ -1,5 +1,6 @@
 #' @export
-tesselate_voronoi <- function(sapspm_model, data, long, lat, boundaries,
+tesselate_voronoi <- function(sapspm_model, data, boundaries,
+                              long, lat,
                               nb_samples = NULL,
                               sample_points = NULL){
 

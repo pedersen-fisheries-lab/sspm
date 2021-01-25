@@ -13,8 +13,8 @@ setClass("spaspm",
 
 # Discretization method
 setClass("discretization_method",
-         slots = list(method = "character",
-                      fun = 'function',
+         slots = list(name = "character",
+                      method = 'function',
                       boundaries = "sf")
 )
 

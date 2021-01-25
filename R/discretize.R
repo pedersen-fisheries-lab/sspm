@@ -34,8 +34,8 @@ setMethod(f = "spm_discretize",
           function(spaspm_object, discretization_method){
 
             the_method <- new("discretization_method",
-                              method = discretization_method,
-                              fun = dispatch_method(discretization_method),
+                              name = discretization_method,
+                              method = dispatch_method(discretization_method),
                               boundaries = spm_boundaries(spaspm_object))
 
             message(paste0("Discretizing using method '",
@@ -52,9 +52,10 @@ setMethod(f = "spm_discretize",
                     discretization_method = "discretization_method"),
           function(spaspm_object, discretization_method){
 
+            results <- do.call(discretization_method@method,
+                               spaspm_object, ...)
 
-            # TODO call the actual discretization code
-
+            return(results)
           }
 )
 
