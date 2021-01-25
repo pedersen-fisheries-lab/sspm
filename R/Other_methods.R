@@ -1,4 +1,7 @@
-# Generics ----------------------------------------------------------------
+# Package Generics --------------------------------------------------------
+# -------------------------------------------------------------------------
+
+# Exported ----------------------------------------------------------------
 
 #' @export
 setGeneric(name = "spm_boundaries",
@@ -21,10 +24,13 @@ setGeneric(name = "spm_discret_method",
 )
 
 # Methods for package generics --------------------------------------------
+# -------------------------------------------------------------------------
+
+# Exported ----------------------------------------------------------------
 
 #' @export
-setMethod("spm_boundaries", signature("spaspm_object" = "spaspm"),
-          function(spaspm_object) spaspm_object@boundaries
+setMethod("spm_name", signature("spaspm_object" = "spaspm"),
+          function(spaspm_object) spaspm_object@name
 )
 
 #' @export
@@ -33,8 +39,8 @@ setMethod("spm_data", signature("spaspm_object" = "spaspm"),
 )
 
 #' @export
-setMethod("spm_name", signature("spaspm_object" = "spaspm"),
-          function(spaspm_object) spaspm_object@name
+setMethod("spm_boundaries", signature("spaspm_object" = "spaspm"),
+          function(spaspm_object) spaspm_object@boundaries
 )
 
 #' @export
@@ -54,13 +60,14 @@ setMethod("spm_discret_method",
 )
 
 # Methods for global generics ---------------------------------------------
+# -------------------------------------------------------------------------
 
 # Show method for spaspm object
 setMethod("show",
           "spaspm",
           function(object) {
             cat("SPASPM model object \n") ; cat("\n")
-            cat_basics(object)
+            cat_model_basics(object)
           }
 )
 
@@ -68,8 +75,8 @@ setMethod("show",
           "spaspm_discrete",
           function(object) {
             cat("SPASPM model object (DISCRETE)\n") ; cat("\n")
-            cat_basics(object)
-            cat_discrete(object)
+            cat_model_basics(object)
+            cat_model_discrete(object)
           }
 )
 
@@ -85,8 +92,9 @@ setMethod("show",
 #           "spaspm", function(x) length(x@snpid))
 
 # Print helpers -----------------------------------------------------------
+# -------------------------------------------------------------------------
 
-cat_basics <- function(object){
+cat_model_basics <- function(object){
   cat("Name:", object@name, "\n") ; cat("\n")
 
   cat("Data:") ; cat("\n")
@@ -96,7 +104,7 @@ cat_basics <- function(object){
   print(head(object@boundaries)) ; cat("\n")
 }
 
-cat_discrete <- function(object){
+cat_model_discrete <- function(object){
   # TODO replace with a call to a show method for the
   # Discretization method object
   cat("Discretization method :") ; cat("\n")
