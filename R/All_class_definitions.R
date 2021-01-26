@@ -21,7 +21,8 @@ setClass("discretization_method",
 # Discretized model => spaspm + discretization_method
 setClass("spaspm_discrete",
          slots = list(method = "discretization_method",
-                      patches = "sf"),
+                      patches = "sf",
+                      points = "sf"),
          prototype = list(name = "Default Model Name"),
          contains = c("spaspm"))
 
