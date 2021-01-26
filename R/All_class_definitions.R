@@ -1,9 +1,15 @@
-#' @import sf
-#' @import checkmate
-
-# Class Defs --------------------------------------------------------------
-
-# Main model class
+#' SPASPM model classes
+#'
+#' @slot name **\[character\]** Name of the model.
+#' @slot data **\[data.frame\]** Observationnal data.
+#' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
+#' @slot method **\[discretization_method\]** *(if discrete)* discretization
+#'     method used.
+#' @slot patches **\[sf\]** *(if discrete)* Patches resulting from
+#'     discretization.
+#' @slot points **\[sf\]** *(if discrete)* Sample points used for
+#'     discretization.
+#'
 setClass("spaspm",
          slots = list(name = "character",
                       data = "data.frame",
@@ -11,14 +17,14 @@ setClass("spaspm",
          prototype = list(name = "Default Model Name")
 )
 
-# Discretization method
 setClass("discretization_method",
          slots = list(name = "character",
                       method = 'function',
                       boundaries = "sf")
 )
 
-# Discretized model => spaspm + discretization_method
+#' Dsicrete model test
+#' @rdname `spaspm-class` Discretized model
 setClass("spaspm_discrete",
          slots = list(method = "discretization_method",
                       patches = "sf",

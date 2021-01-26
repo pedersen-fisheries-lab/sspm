@@ -1,3 +1,5 @@
+#' @import sf
+
 # Model Object Constructor
 #' @export
 spaspm <- function(name="SPSPM Model",
