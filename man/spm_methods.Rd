@@ -11,10 +11,8 @@ A \verb{character vector} of all available discretization methods.
 }
 \description{
 Currently, only one discretization method is supported:
-\itemize{
-\item \code{"tesselate_voronoi"} Voronoi tessellation using the function
+* \code{"tesselate_voronoi"} Voronoi tessellation using the function
 \link{tesselate_voronoi}.
-}
 }
 \details{
 You can create your own methid using TODO.

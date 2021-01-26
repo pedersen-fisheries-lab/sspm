@@ -3,21 +3,34 @@
 
 # Exported ----------------------------------------------------------------
 
+#' Accessing `spaspm` model elements
+#'
+#' All methods described here allow to access the elements of contained in
+#' objects of class [spaspm][spaspm-class] and others derivative classes
+#' (`spaspm_discrete`, etc...).
+#'
+#' @param spaspm_object **\[spaspm OR adjacent\]** An object of class
+#'     [spaspm][spaspm-class] or others derivative classes.
+#'
+#' @rdname accessors
 #' @export
 setGeneric(name = "spm_boundaries",
            def = function(spaspm_object) standardGeneric("spm_boundaries")
 )
 
+#' @describeIn accessors TODO
 #' @export
 setGeneric(name = "spm_data",
            def = function(spaspm_object) standardGeneric("spm_data")
 )
 
+#' @describeIn accessors TODO
 #' @export
 setGeneric(name = "spm_name",
            def = function(spaspm_object) standardGeneric("spm_name")
 )
 
+#' @describeIn accessors TODO
 #' @export
 setGeneric(name = "spm_discret_method",
            def = function(spaspm_object) standardGeneric("spm_discret_method")
@@ -28,16 +41,19 @@ setGeneric(name = "spm_discret_method",
 
 # Exported ----------------------------------------------------------------
 
+#' @describeIn accessors TODO
 #' @export
 setMethod("spm_name", signature("spaspm_object" = "spaspm"),
           function(spaspm_object) spaspm_object@name
 )
 
+#' @describeIn accessors TODO
 #' @export
 setMethod("spm_data", signature("spaspm_object" = "spaspm"),
           function(spaspm_object) spaspm_object@data
 )
 
+#' @describeIn accessors TODO
 #' @export
 setMethod("spm_boundaries", signature("spaspm_object" = "spaspm"),
           function(spaspm_object) spaspm_object@boundaries
@@ -53,6 +69,7 @@ setMethod("spm_discret_method",
           }
 )
 
+#' @describeIn accessors TODO
 #' @export
 setMethod("spm_discret_method",
           signature("spaspm_object" = "spaspm_discrete"),

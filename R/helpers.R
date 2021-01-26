@@ -3,8 +3,8 @@
 #' Get the list of available discretization methods
 #'
 #' Currently, only one discretization method is supported:
-#'  * `"tesselate_voronoi"` Voronoi tessellation using the function
-#'  [tesselate_voronoi][tesselate_voronoi].
+#'     * `"tesselate_voronoi"` Voronoi tessellation using the function
+#'       [tesselate_voronoi][tesselate_voronoi].
 #'
 #' You can create your own methid using TODO.
 #'
