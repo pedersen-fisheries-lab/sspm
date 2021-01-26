@@ -50,20 +50,21 @@ tesselate_voronoi <- function(spaspm_object,
 
   # 3. Create the polygons
   voronoi <-
-    suppressMessages(
-      voronoi_points %>%
-        sf::st_union() %>%
-        sf::st_voronoi() %>%
-        sf::st_cast() %>%
-        sf::st_sf() %>%
-        sf::st_intersection(x=boundaries, y =.) %>%
-        dplyr::mutate(voronoi_id =  paste("V", 1:dplyr::n(),sep = "")) %>%
-        dplyr::group_by(voronoi_id, .data[[boundary_col]]) %>%
-        dplyr::summarize() %>%
-        dplyr::ungroup() %>%
-        dplyr::mutate(area_km2 = sf::st_area(.),
-                      area_km2 = as.numeric(units::set_units(area_km2,
-                                                             value = "km^2"))))
+    suppressWarnings(
+      suppressMessages(
+        voronoi_points %>%
+          sf::st_union() %>%
+          sf::st_voronoi() %>%
+          sf::st_cast() %>%
+          sf::st_sf() %>%
+          sf::st_intersection(x=boundaries, y =.) %>%
+          dplyr::mutate(voronoi_id =  paste("V", 1:dplyr::n(),sep = "")) %>%
+          dplyr::group_by(voronoi_id, .data[[boundary_col]]) %>%
+          dplyr::summarize() %>%
+          dplyr::ungroup() %>%
+          dplyr::mutate(area_km2 = sf::st_area(.),
+                        area_km2 = as.numeric(units::set_units(area_km2,
+                                                               value = "km^2")))))
 
   # 4. Fix size
   small_voronoi <- voronoi$voronoi_id[which(voronoi$area_km2 < min_size)]
@@ -80,14 +81,15 @@ tesselate_voronoi <- function(spaspm_object,
   }
 
   voronoi <-
-    suppressMessages(
-      voronoi %>%
-        dplyr::group_by(.data[[boundary_col]], voronoi_id) %>%
-        dplyr::summarize() %>%
-        dplyr::ungroup() %>%
-        dplyr::mutate(area_km2 = sf::st_area(.),
-                      area_km2 = as.numeric(units::set_units(area_km2, value = "km^2")),
-                      voronoi_id = factor(paste("V", 1:n(),sep = ""))))
+    suppressWarnings(
+      suppressMessages(
+        voronoi %>%
+          dplyr::group_by(.data[[boundary_col]], voronoi_id) %>%
+          dplyr::summarize() %>%
+          dplyr::ungroup() %>%
+          dplyr::mutate(area_km2 = sf::st_area(.),
+                        area_km2 = as.numeric(units::set_units(area_km2, value = "km^2")),
+                        voronoi_id = factor(paste("V", 1:n(),sep = "")))))
 
   # Core method must return a list of "patches" and "points"
   return(list(patches=voronoi,
