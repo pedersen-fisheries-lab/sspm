@@ -109,8 +109,8 @@ tesselate_voronoi <- function(spaspm_object,
   # TODO vectorize this
   for(i in small_voronoi){
     current_polygons <- voronoi[voronoi_edges[[i]],] %>%
-      dplyr::filter(.data[[boundary_col]] == .data[[boundary_col]][voronoi_id == i]) %>%
-      dplyr::filter(area_km2 == max(area_km2))
+      dplyr::filter(.data[[boundary_col]] == .data[[boundary_col]][.data$voronoi_id == i]) %>%
+      dplyr::filter(.data$area_km2 == max(.data$area_km2))
     max_id <- current_polygons$voronoi_id
     voronoi$voronoi_id[voronoi$voronoi_id==i] <- max_id
   }
