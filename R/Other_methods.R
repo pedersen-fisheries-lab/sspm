@@ -66,7 +66,7 @@ setMethod("spm_discret_method",
 setMethod("show",
           "spaspm",
           function(object) {
-            cat("SPASPM model object \n") ; cat("\n")
+            cat("  * SPASPM model object \n")
             cat_model_basics(object)
           }
 )
@@ -74,18 +74,21 @@ setMethod("show",
 setMethod("show",
           "spaspm_discrete",
           function(object) {
-            cat("SPASPM model object (DISCRETE)\n") ; cat("\n")
+            cat("  * SPASPM model object (DISCRETE) \n")
             cat_model_basics(object)
+            cat(" \n")
+            cat("  * DISCRETIZATION INFO \n")
+            show(object@method)
             cat_model_discrete(object)
           }
 )
 
-# TODO finish show method for method object
-# setMethod("show",
-#           "discretization_method",
-#           function(object) {
-#           }
-# )
+setMethod("show",
+          "discretization_method",
+          function(object) {
+            cat("  Disc. method :", object@name, "\n")
+          }
+)
 
 # TODO dim should get dims of data and sf if discrete
 # setMethod("dim",
@@ -95,19 +98,17 @@ setMethod("show",
 # -------------------------------------------------------------------------
 
 cat_model_basics <- function(object){
-  cat("Name:", object@name, "\n") ; cat("\n")
-
-  cat("Data:") ; cat("\n")
-  print(head(object@data)) ; cat("\n")
-
-  cat("Boundaries:") ; cat("\n")
-  print(head(object@boundaries)) ; cat("\n")
+  cat("  Name         :", object@name, "\n")
+  cat("  Data         :", "`data.frame`,",
+      dim(object@data)[1], "obs. of", dim(object@data)[2], "variables \n")
+  cat("  Boundaries   :", "Simple feature collection with",
+      dim(object@boundaries)[1] ,"features and", dim(object@boundaries)[2], "field \n")
 }
 
 cat_model_discrete <- function(object){
-  # TODO replace with a call to a show method for the
-  # Discretization method object
-  cat("Discretization method :") ; cat("\n")
-  print(object@method) ; cat("\n")
+  cat("  Patches      :", "Simple feature collection with",
+      dim(object@patches)[1] ,"features and", dim(object@patches)[2], "field \n")
+  cat("  Points       :", "Simple feature collection with",
+      dim(object@points)[1] ,"features and", dim(object@points)[2], "field \n")
 }
 
