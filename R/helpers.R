@@ -86,3 +86,7 @@ dispatch_method <- function(discretization_method){
     stop()
   }
 }
+
+suppressAll <- function(x){
+  suppressWarnings(suppressMessages(x))
+}
