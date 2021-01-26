@@ -7,8 +7,8 @@
 \description{
 The different model classes follow the typical workflow of \code{spaspm}:
 \itemize{
-\item \code{spaspm} Basic model object.
-\item \code{spaspm} Discretized model object. Contains a
+\item \strong{\code{spaspm}} Basic model object.
+\item \strong{\code{spaspm_discrete}} Discretized model object. Contains a
 \link[=discretization_method-class]{discretization_method} object.
 }
 }

@@ -1,6 +1,18 @@
-# Generic -----------------------------------------------------------------
-
-# Takes in `spaspm` and return `spaspm_discrete`
+#' Discretize a `spaspm` model object
+#'
+#' Discretize a [spaspm][spaspm-class] model object with a function from a
+#' [discretization_method][discretization_method-class] object class.
+#'
+#' @param spaspm_object **\[spaspm\]**
+#' @param discretization_method **\[character OR discretization_method\]**
+#'    Either a `character` from the list of available methods
+#'    (see [spm_methods][spm_methods] for the list) **OR** an object of class
+#'    [discretization_method][discretization_method-class].
+#'
+#' @return
+#' An object of class [spaspm_discrete][spaspm-class] (the updated
+#' and discretized `spaspm` object given as input).
+#'
 #' @export
 setGeneric(name = "spm_discretize",
            def = function(spaspm_object,
@@ -26,9 +38,11 @@ setGeneric(name = "spm_discretize",
 )
 
 # Methods -----------------------------------------------------------------
+# TODO finish the describeIn description
 
 # If `spaspm` + character, check against list, create `discretization_method`
 # and call next signature.
+#' @describeIn spm_discretize TODO
 #' @export
 setMethod(f = "spm_discretize",
           signature(spaspm_object = "spaspm",
@@ -44,6 +58,7 @@ setMethod(f = "spm_discretize",
 )
 
 # All signatures point to this one
+#' @describeIn spm_discretize TODO
 #' @export
 setMethod(f = "spm_discretize",
           signature(spaspm_object = "spaspm",
@@ -73,6 +88,7 @@ setMethod(f = "spm_discretize",
 
 # If `spaspm_discrete` confirm that we want to re-discretize and then jump to
 # the next appropriate signature
+#' @describeIn spm_discretize TODO
 #' @export
 setMethod(f = "spm_discretize",
           signature(spaspm_object = "spaspm_discrete"),

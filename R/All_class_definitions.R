@@ -16,8 +16,8 @@ setClass("discretization_method",
 #' SPASPM model classes
 #'
 #' The different model classes follow the typical workflow of `spaspm`:
-#'  * `**spaspm**` Basic model object.
-#'  * `**spaspm_discrete**` Discretized model object. Contains a
+#'  * **`spaspm`** Basic model object.
+#'  * **`spaspm_discrete`** Discretized model object. Contains a
 #'  [discretization_method][discretization_method-class] object.
 #'
 #' @slot name **\[character\]** Name of the model.
