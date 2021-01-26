@@ -1,3 +1,31 @@
+#' Perform voronoi tesselation
+#'
+#' Generates voronoi polygons by first performing stratified sampling across
+#' boundary polygons, then by running  the voronoisation with
+#' [st_voronoi()][sf::st_voronoi()]. The sampling can be bypassed by providing
+#' points via `sample_points`.
+#'
+#' @param spaspm_object **\[spaspm\]** `spaspm` object to be discretized.
+#' @param data **\[data.frame\]** Overwrites the data slot of `spaspm_object`.
+#' @param boundaries **\[sf\]** Overwrites the boundaries slot of `spaspm_object`.
+#' @param boundary_col **\[character\]** The column in `boundaries` that is to
+#'     be used for the stratified sampling.
+#' @param nb_samples **\[named character vector\]** The number of samples to draw
+#'     by boundary polygons (must bear the levels of `boundary_col` as names).
+#' @param min_size **\[numeric\]** The minimum size for a polygon above which it
+#'     will be merged (in km2).
+#' @param coords **\[character vector\]** The columns in `data` (or the `data`
+#'     slot of `spaspm_object`) that contains the coordinates (lat, long) of the
+#'     individual observations.
+#' @param sample_points **\[sf\]** A set of points to use for voronoisation,
+#'     all parameters used for sampling are ignored.
+#' @param seed **\[numeric\]** Passed onto [`set.seed()`][base::set.seed()],
+#'     important for reproducibility of sampling.
+#'
+#' @return
+#' A named list with two elements (each an `sf` object): `patches`, the voronoi
+#' polygons generated and the `points` used for the tessellation.
+#'
 #' @export
 tesselate_voronoi <- function(spaspm_object,
                               data = NULL,
@@ -46,6 +74,8 @@ tesselate_voronoi <- function(spaspm_object,
     voronoi_points <- suppressMessages(sf::st_join(data_sf, boundaries)) %>%
       dplyr::filter(!is.na(eval(dplyr::sym(boundary_col)))) %>%
       dplyr::group_by(.data[[boundary_col]]) %>%
+      # TODO revise here: allows stratified sampling, but doesn't allow a given
+      # number (like "want to sample 100" polygons)
       dplyr::filter(1:dplyr::n() %in%
                       sample(1:dplyr::n(),
                              size = nb_samples[[.data[[boundary_col]][1]]]))
