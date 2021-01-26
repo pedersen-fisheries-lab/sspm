@@ -3,10 +3,11 @@ tesselate_voronoi <- function(spaspm_object,
                               data = NULL,
                               boundaries = NULL,
                               boundary_col = "sfa",
+                              nb_samples = c(`4` = 10, `5` = 30, `6` = 30, `7` = 5),
                               min_size = 1500,
                               coords = c("lat", "lon"),
-                              nb_samples = c(`4` = 10, `5` = 30, `6` = 30, `7` = 5),
-                              sample_points = NULL) {
+                              sample_points = NULL,
+                              seed = 1) {
 
   # Check main params
   checkmate::assert_class(spaspm_object, "spaspm")
@@ -31,16 +32,64 @@ tesselate_voronoi <- function(spaspm_object,
   data_sf <- sf::st_as_sf(data, coords=coords,
                           crs = sf::st_crs(boundaries), remove =FALSE)
 
-  # 2. Create (sample) the points
-  voronoi_points <- suppressMessages(sf::st_join(data_sf, boundaries)) %>%
-    dplyr::filter(!is.na(eval(dplyr::sym(boundary_col)))) %>%
-    dplyr::group_by(boundary_col = eval(dplyr::sym(boundary_col))) %>%
-    dplyr::filter(1:dplyr::n() %in%
-                    sample(1:dplyr::n(),
-                           size = nb_samples[[boundary_col[1]]]))
+  # Make sure seed is set just before called sample
+  if(getRversion()>=3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))
+  set.seed(seed)
 
-  return(TRUE)
-  # return `spm_discrete object` OR the 2 after and build after?
-  # 1. (the voronoi polygons)
-  # 2. the updated `data.frame` with points.
+  # 2. Create (sample) the points
+  if(is.null(sample_points)){
+    voronoi_points <- suppressMessages(sf::st_join(data_sf, boundaries)) %>%
+      dplyr::filter(!is.na(eval(dplyr::sym(boundary_col)))) %>%
+      dplyr::group_by(.data[[boundary_col]]) %>%
+      dplyr::filter(1:dplyr::n() %in%
+                      sample(1:dplyr::n(),
+                             size = nb_samples[[.data[[boundary_col]][1]]]))
+  } else {
+    voronoi_points <- sample_points
+  }
+
+  # 3. Create the polygons
+  voronoi <-
+    suppressMessages(
+      voronoi_points %>%
+        sf::st_union() %>%
+        sf::st_voronoi() %>%
+        sf::st_cast() %>%
+        sf::st_sf() %>%
+        sf::st_intersection(x=boundaries, y =.) %>%
+        dplyr::mutate(voronoi_id =  paste("V", 1:dplyr::n(),sep = "")) %>%
+        dplyr::group_by(voronoi_id, .data[[boundary_col]]) %>%
+        dplyr::summarize() %>%
+        dplyr::ungroup() %>%
+        dplyr::mutate(area_km2 = sf::st_area(.),
+                      area_km2 = as.numeric(units::set_units(area_km2,
+                                                             value = "km^2"))))
+
+  # 4. Fix size
+  small_voronoi <- voronoi$voronoi_id[which(voronoi$area_km2 < min_size)]
+  voronoi_edges <- suppressMessages(sf::st_intersects(voronoi))
+  names(voronoi_edges) <- voronoi$voronoi_id
+
+  # TODO vectorize this
+  for(i in small_voronoi){
+    current_polygons <- voronoi[voronoi_edges[[i]],] %>%
+      filter(.data[[boundary_col]] == .data[[boundary_col]][voronoi_id == i]) %>%
+      filter(area_km2 == max(area_km2))
+    max_id <- current_polygons$voronoi_id
+    voronoi$voronoi_id[voronoi$voronoi_id==i] <- max_id
+  }
+
+  voronoi <-
+    suppressMessages(
+      voronoi %>%
+        dplyr::group_by(.data[[boundary_col]], voronoi_id) %>%
+        dplyr::summarize() %>%
+        dplyr::ungroup() %>%
+        dplyr::mutate(area_km2 = sf::st_area(.),
+                      area_km2 = as.numeric(units::set_units(area_km2, value = "km^2")),
+                      voronoi_id = factor(paste("V", 1:n(),sep = ""))))
+
+  # Core method must return a list of "patches" and "points"
+  return(list(patches=voronoi,
+              points = voronoi_points))
 }

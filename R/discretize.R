@@ -38,8 +38,7 @@ setMethod(f = "spm_discretize",
                               method = dispatch_method(discretization_method),
                               boundaries = spm_boundaries(spaspm_object))
 
-            spm_discretize(spaspm_object, the_method, ...)
-
+            discrete <- spm_discretize(spaspm_object, the_method, ...)
           }
 )
 
@@ -55,11 +54,18 @@ setMethod(f = "spm_discretize",
             other_args <- list(...)
 
             # TODO get slot with actual method here
-            results <- do.call(discretization_method@method,
-                               args = append(list(spaspm_object = spaspm_object),
-                                             other_args))
+            discrete <- do.call(discretization_method@method,
+                                args = append(list(spaspm_object = spaspm_object),
+                                              other_args))
 
-            return(results)
+            new_spaspm_discrete <- new("spaspm_discrete",
+                                       data = spm_data(spaspm_object),
+                                       boundaries = spm_boundaries(spaspm_object),
+                                       method = discretization_method,
+                                       patches = discrete[["patches"]],
+                                       points = discrete[["points"]])
+
+            return(new_spaspm_discrete)
           }
 )
 
