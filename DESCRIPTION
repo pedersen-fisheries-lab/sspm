@@ -11,7 +11,7 @@ Description: The goal of `spaspm` is to implement a gam-based spatial surplus
     implementation of SPMs as it internally makes the choice to use penalized 
     spatial gams with time lags  based on Pedersen et al. (2020). However, it 
     also aims to provide options for the user to customize their model.
-License: TBD
+License: MIT + file LICENSE
 BugReports: https://github.com/pedersen-fisheries-lab/spaspm/issues
 Encoding: UTF-8
 LazyData: true
