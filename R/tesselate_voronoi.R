@@ -109,8 +109,8 @@ tesselate_voronoi <- function(spaspm_object,
   # TODO vectorize this
   for(i in small_voronoi){
     current_polygons <- voronoi[voronoi_edges[[i]],] %>%
-      filter(.data[[boundary_col]] == .data[[boundary_col]][voronoi_id == i]) %>%
-      filter(area_km2 == max(area_km2))
+      dplyr::filter(.data[[boundary_col]] == .data[[boundary_col]][voronoi_id == i]) %>%
+      dplyr::filter(area_km2 == max(area_km2))
     max_id <- current_polygons$voronoi_id
     voronoi$voronoi_id[voronoi$voronoi_id==i] <- max_id
   }
@@ -124,7 +124,7 @@ tesselate_voronoi <- function(spaspm_object,
           dplyr::ungroup() %>%
           dplyr::mutate(area_km2 = sf::st_area(.),
                         area_km2 = as.numeric(units::set_units(area_km2, value = "km^2")),
-                        voronoi_id = factor(paste("V", 1:n(),sep = "")))))
+                        voronoi_id = factor(paste("V", 1:dplyr::n(),sep = "")))))
 
   # Core function must return a list of "patches" and "points"
   return(list(patches=voronoi,
