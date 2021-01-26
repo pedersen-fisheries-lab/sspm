@@ -1,6 +1,24 @@
 # Exported ----------------------------------------------------------------
 
+#' Get the list of available discretization methods
+#'
+#' Currently, only one discretization method is supported:
+#'  * `"tesselate_voronoi"` Voronoi tessellation using the function
+#'  [tesselate_voronoi][tesselate_voronoi].
+#'
+#' You can create your own methid using TODO.
+#'
+#' @return
+#' A `character vector` of all available discretization methods.
+#'
 #' @export
+spm_methods <- function(){
+  choices <- c('tesselate_voronoi')
+  return(choices)
+}
+
+# Not exported ------------------------------------------------------------
+
 length_to_weigth <- function(length, sex){
 
   checkmate::assert_character(sex)
@@ -13,7 +31,6 @@ length_to_weigth <- function(length, sex){
 }
 
 # This should be simple enough to test (use mgcv gam example code)
-#' @export
 check_model_family <- function(family){
 
   checkmate::check_class(family, "family")
@@ -25,14 +42,6 @@ check_model_family <- function(family){
                and any randomized quantile residuals would be inaccurate."))
   }
 }
-
-#' @export
-spm_methods <- function(){
-  choices <- c('tesselate_voronoi')
-  return(choices)
-}
-
-# Not exported ------------------------------------------------------------
 
 # Using statmod package, this has functions for randomized quantile residuals
 rqresiduals <- function (gam.obj) {
