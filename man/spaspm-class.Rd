@@ -5,7 +5,12 @@
 \alias{spaspm-class}
 \title{SPASPM model classes}
 \description{
-SPASPM model classes
+The different model classes follow the typical workflow of \code{spaspm}:
+\itemize{
+\item \code{spaspm} Basic model object.
+\item \code{spaspm} Discretized model object. Contains a
+\link[=discretization_method-class]{discretization_method} object.
+}
 }
 \section{Slots}{
 
@@ -16,8 +21,8 @@ SPASPM model classes
 
 \item{\code{boundaries}}{\strong{[sf]} Spatial boundaries (polygons).}
 
-\item{\code{method}}{\strong{[discretization_method]} \emph{(if discrete)} discretization
-method used.}
+\item{\code{method}}{\strong{[\link[=discretization_method-class]{discretization_method}]}
+\emph{(if discrete)} discretization method used.}
 
 \item{\code{patches}}{\strong{[sf]} \emph{(if discrete)} Patches resulting from
 discretization.}

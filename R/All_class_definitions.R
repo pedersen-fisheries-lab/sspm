@@ -1,10 +1,30 @@
+#' SPASPM discretization method class
+#'
+#' This class encapsulates a name and a method (function) used for
+#' discretization.
+#'
+#' @slot name **\[character\]** Name of the discretization method.
+#' @slot method **\[function\]** Function used for discretization.
+#'
+setClass("discretization_method",
+         slots = list(name = "character",
+                      method = 'function')
+)
+
+# -------------------------------------------------------------------------
+
 #' SPASPM model classes
+#'
+#' The different model classes follow the typical workflow of `spaspm`:
+#'  * `**spaspm**` Basic model object.
+#'  * `**spaspm_discrete**` Discretized model object. Contains a
+#'  [discretization_method][discretization_method-class] object.
 #'
 #' @slot name **\[character\]** Name of the model.
 #' @slot data **\[data.frame\]** Observationnal data.
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
-#' @slot method **\[discretization_method\]** *(if discrete)* discretization
-#'     method used.
+#' @slot method **\[[discretization_method][discretization_method-class]\]**
+#'     *(if discrete)* discretization method used.
 #' @slot patches **\[sf\]** *(if discrete)* Patches resulting from
 #'     discretization.
 #' @slot points **\[sf\]** *(if discrete)* Sample points used for
@@ -17,20 +37,16 @@ setClass("spaspm",
          prototype = list(name = "Default Model Name")
 )
 
-setClass("discretization_method",
-         slots = list(name = "character",
-                      method = 'function',
-                      boundaries = "sf")
-)
-
-#' Dsicrete model test
-#' @rdname `spaspm-class` Discretized model
 setClass("spaspm_discrete",
          slots = list(method = "discretization_method",
                       patches = "sf",
                       points = "sf"),
          prototype = list(name = "Default Model Name"),
          contains = c("spaspm"))
+
+# -------------------------------------------------------------------------
+
+# TODO finish documenting the fit object
 
 # Fitted model => spaspm + discretization_method + has been fitted
 setClass("spaspm_gam_fit",
@@ -45,14 +61,3 @@ setClass("spaspm_spm_fit",
                       spm_call = "formula"),
          contains = "spaspm_gam_fit"
 )
-
-# Subclass Defs -----------------------------------------------------------
-
-# This subclass doensn't work because you need to pass a function that is
-# not exported yet. It would work if it was part of a different package.
-# setClass("voronoi_discretization",
-#          slots = list(number_of_patches = "numeric"),
-#          contains = "discretization_method",
-#          prototype = list(method = "voronoi_discretization",
-#                           fun = tesselate_voronoi))
-# )

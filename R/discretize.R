@@ -37,8 +37,7 @@ setMethod(f = "spm_discretize",
 
             the_method <- new("discretization_method",
                               name = discretization_method,
-                              method = dispatch_method(discretization_method),
-                              boundaries = spm_boundaries(spaspm_object))
+                              method = dispatch_method(discretization_method))
 
             discrete <- spm_discretize(spaspm_object, the_method, ...)
           }
