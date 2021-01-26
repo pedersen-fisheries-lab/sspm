@@ -8,6 +8,7 @@
 \alias{spm_name,spaspm-method}
 \alias{spm_data,spaspm-method}
 \alias{spm_boundaries,spaspm-method}
+\alias{spm_discret_method,spaspm-method}
 \alias{spm_discret_method,spaspm_discrete-method}
 \title{Accessing \code{spaspm} model elements}
 \usage{
@@ -24,6 +25,8 @@ spm_discret_method(spaspm_object)
 \S4method{spm_data}{spaspm}(spaspm_object)
 
 \S4method{spm_boundaries}{spaspm}(spaspm_object)
+
+\S4method{spm_discret_method}{spaspm}(spaspm_object)
 
 \S4method{spm_discret_method}{spaspm_discrete}(spaspm_object)
 }
@@ -49,6 +52,8 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 \item \code{spm_data,spaspm-method}: TODO
 
 \item \code{spm_boundaries,spaspm-method}: TODO
+
+\item \code{spm_discret_method,spaspm-method}: TODO
 
 \item \code{spm_discret_method,spaspm_discrete-method}: TODO
 }}

@@ -59,6 +59,7 @@ setMethod("spm_boundaries", signature("spaspm_object" = "spaspm"),
           function(spaspm_object) spaspm_object@boundaries
 )
 
+#' @describeIn accessors TODO
 #' @export
 setMethod("spm_discret_method",
           signature("spaspm_object" = "spaspm"),

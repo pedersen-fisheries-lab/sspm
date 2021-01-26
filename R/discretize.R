@@ -8,6 +8,11 @@
 #'    Either a `character` from the list of available methods
 #'    (see [spm_methods][spm_methods] for the list) **OR** an object of class
 #'    [discretization_method][discretization_method-class].
+#' @param ... **\[named list\]** Further arguments to be passed onto the function used in the
+#'    `discretization_method`.
+#' @param force **\[boolean\]** Only used when calling `spm_discretize` onto
+#'     an object of class [spaspm_discrete][spaspm-class]: whether you wish
+#'     to force the re-discretization of that model.
 #'
 #' @return
 #' An object of class [spaspm_discrete][spaspm-class] (the updated

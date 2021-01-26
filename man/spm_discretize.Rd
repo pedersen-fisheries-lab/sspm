@@ -22,6 +22,13 @@ spm_discretize(spaspm_object, discretization_method = "tesselate_voronoi", ...)
 Either a \code{character} from the list of available methods
 (see \link{spm_methods} for the list) \strong{OR} an object of class
 \link[=discretization_method-class]{discretization_method}.}
+
+\item{...}{\strong{[named list]} Further arguments to be passed onto the function used in the
+\code{discretization_method}.}
+
+\item{force}{\strong{[boolean]} Only used when calling \code{spm_discretize} onto
+an object of class \link[=spaspm-class]{spaspm_discrete}: whether you wish
+to force the re-discretization of that model.}
 }
 \value{
 An object of class \link[=spaspm-class]{spaspm_discrete} (the updated
