@@ -83,6 +83,6 @@ dispatch_method <- function(discretization_method){
   if (discretization_method == "tesselate_voronoi"){
     return(tesselate_voronoi)
   } else {
-    strop()
+    stop()
   }
 }
