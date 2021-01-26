@@ -74,7 +74,7 @@ setMethod("show",
 setMethod("show",
           "spaspm_discrete",
           function(object) {
-            cat("  * SPASPM model object (DISCRETE) \n")
+            cat("  * SPASPM model object (DISCRETIZED) \n")
             cat_model_basics(object)
             cat(" \n")
             cat("  * DISCRETIZATION INFO \n")
