@@ -1,4 +1,5 @@
 #' @import sf
+#' @importFrom rlang .data
 
 # Model Object Constructor
 #' @export
