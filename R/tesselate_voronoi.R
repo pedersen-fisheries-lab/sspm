@@ -9,6 +9,11 @@ tesselate_voronoi <- function(spaspm_object,
                               sample_points = NULL,
                               seed = 1) {
 
+  # TODO some steps in original code not supported as these are not general:
+  # To be discussed
+  # 1. breaking of big polygons
+  # 2. NAFO division
+
   # Check main params
   checkmate::assert_class(spaspm_object, "spaspm")
   checkmate::assert_character(coords)
@@ -91,7 +96,7 @@ tesselate_voronoi <- function(spaspm_object,
                         area_km2 = as.numeric(units::set_units(area_km2, value = "km^2")),
                         voronoi_id = factor(paste("V", 1:n(),sep = "")))))
 
-  # Core method must return a list of "patches" and "points"
+  # Core function must return a list of "patches" and "points"
   return(list(patches=voronoi,
               points = voronoi_points))
 }

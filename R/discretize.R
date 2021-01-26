@@ -1,6 +1,6 @@
 # Generic -----------------------------------------------------------------
 
-# Takes in spaspm and spits out the spaspm_discrete
+# Takes in `spaspm` and return `spaspm_discrete`
 #' @export
 setGeneric(name = "spm_discretize",
            def = function(spaspm_object,
@@ -27,6 +27,8 @@ setGeneric(name = "spm_discretize",
 
 # Methods -----------------------------------------------------------------
 
+# If `spaspm` + character, check against list, create `discretization_method`
+# and call next signature.
 #' @export
 setMethod(f = "spm_discretize",
           signature(spaspm_object = "spaspm",
@@ -42,6 +44,7 @@ setMethod(f = "spm_discretize",
           }
 )
 
+# All signatures point to this one
 #' @export
 setMethod(f = "spm_discretize",
           signature(spaspm_object = "spaspm",
@@ -69,6 +72,8 @@ setMethod(f = "spm_discretize",
           }
 )
 
+# If `spaspm_discrete` confirm that we want to re-discretize and then jump to
+# the next appropriate signature
 #' @export
 setMethod(f = "spm_discretize",
           signature(spaspm_object = "spaspm_discrete"),
