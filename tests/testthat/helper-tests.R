@@ -1,8 +1,11 @@
 # Objects used for tests
 borealis <- as.data.frame(readRDS("../../data/borealis_full_summary.rds")) %>%
-  filter(season!="summer") %>%
-  arrange(trip)
+  dplyr::filter(season!="summer") %>%
+  dplyr::arrange(trip)
+predator <- as.data.frame(readRDS("../../data/predator_full_summary.rds"))
+
 borealis_spatial <- st_as_sf(borealis, coords = c('lon_dec','lat_dec'))
+predator_spatial <- st_as_sf(predator, coords = c('lon_dec','lat_dec'))
 
 sfa <- st_read("../../data/sfa/sfa_boundaries.shp", quiet=TRUE)
 the_patches <- st_read("../../data/patches/patches.shp", quiet=TRUE)
