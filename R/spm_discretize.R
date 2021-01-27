@@ -30,27 +30,7 @@ setGeneric(name = "spm_discretize",
 # Methods -----------------------------------------------------------------
 # TODO finish the describeIn description
 
-# If `spaspm` + character, check against list, create `discretization_method`
-# and call next signature.
-#' @describeIn spm_discretize TODO
-#' @export
-setMethod(f = "spm_discretize",
-          signature(spaspm_object = "spaspm",
-                    discretization_method = "character"),
-          function(spaspm_object, discretization_method, ...){
-
-            if(!checkmate::test_choice(discretization_method, spm_methods())){
-              paste0("Method must be one of: ", paste0(spm_methods(),
-                                                       collapse =  ", " ))
-            }
-
-            the_method <- new("discretization_method",
-                              name = discretization_method,
-                              method = dispatch_method(discretization_method))
-
-            discrete <- spm_discretize(spaspm_object, the_method, ...)
-          }
-)
+setClassUnion("ANY_method", c("discretization_method", "character"))
 
 # All signatures point to this one
 #' @describeIn spm_discretize TODO
@@ -85,7 +65,27 @@ setMethod(f = "spm_discretize",
           }
 )
 
-setClassUnion("ANY_method", c("discretization_method", "character"))
+# If `spaspm` + character, check against list, create `discretization_method`
+# and call next signature.
+#' @describeIn spm_discretize TODO
+#' @export
+setMethod(f = "spm_discretize",
+          signature(spaspm_object = "spaspm",
+                    discretization_method = "character"),
+          function(spaspm_object, discretization_method, ...){
+
+            if(!checkmate::test_choice(discretization_method, spm_methods())){
+              paste0("Method must be one of: ", paste0(spm_methods(),
+                                                       collapse =  ", " ))
+            }
+
+            the_method <- new("discretization_method",
+                              name = discretization_method,
+                              method = dispatch_method(discretization_method))
+
+            discrete <- spm_discretize(spaspm_object, the_method, ...)
+          }
+)
 
 # If `spaspm_discrete` confirm that we want to re-discretize and then jump to
 # the next appropriate signature
