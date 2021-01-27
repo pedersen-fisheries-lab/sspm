@@ -21,6 +21,9 @@ The different model classes follow the typical workflow of \code{spaspm}:
 
 \item{\code{boundaries}}{\strong{[sf]} Spatial boundaries (polygons).}
 
+\item{\code{data_spatial}}{\strong{[sf]} \emph{(if discrete)} Spatial version of \code{data},
+resulting from discretization.}
+
 \item{\code{method}}{\strong{[\link[=discretization_method-class]{discretization_method}]}
 \emph{(if discrete)} discretization method used.}
 

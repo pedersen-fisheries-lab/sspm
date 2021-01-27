@@ -23,8 +23,10 @@
 #'     important for reproducibility of sampling.
 #'
 #' @return
-#' A named list with two elements (each an `sf` object): `patches`, the voronoi
-#' polygons generated and the `points` used for the tessellation.
+#' A named list with three elements (each an `sf` object):
+#'     * `data_spatial`, the spatialized version of `data`
+#'     * `patches`, the voronoi polygons generated
+#'     * `points`, the points used for the tessellation.
 #'
 #' @export
 tesselate_voronoi <- function(spaspm_object,
@@ -62,8 +64,8 @@ tesselate_voronoi <- function(spaspm_object,
 
   # 1. Make data a sf object
   # TODO reminder that crs are assumed to be the same
-  data_sf <- sf::st_as_sf(data, coords=coords,
-                          crs = sf::st_crs(boundaries), remove =FALSE)
+  data_spatial <- sf::st_as_sf(data, coords=coords,
+                               crs = sf::st_crs(boundaries), remove =FALSE)
 
   # Make sure seed is set just before called sample
   if(getRversion()>=3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))
@@ -71,7 +73,7 @@ tesselate_voronoi <- function(spaspm_object,
 
   # 2. Create (sample) the points
   if(is.null(sample_points)){
-    voronoi_points <- suppressMessages(sf::st_join(data_sf, boundaries)) %>%
+    voronoi_points <- suppressMessages(sf::st_join(data_spatial, boundaries)) %>%
       dplyr::filter(!is.na(eval(dplyr::sym(boundary_col)))) %>%
       dplyr::group_by(.data[[boundary_col]]) %>%
       # TODO revise here: allows stratified sampling, but doesn't allow a given
@@ -136,6 +138,7 @@ tesselate_voronoi <- function(spaspm_object,
                   voronoi_id = factor(paste("V", 1:dplyr::n(),sep = "")))
 
   # Core function must return a list of "patches" and "points"
-  return(list(patches=voronoi,
+  return(list(data_spatial = data_spatial,
+              patches=voronoi,
               points = voronoi_points))
 }

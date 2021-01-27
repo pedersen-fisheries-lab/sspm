@@ -24,6 +24,8 @@ spm_discret_method(spaspm_object)
 
 \S4method{spm_data}{spaspm}(spaspm_object)
 
+\S4method{spm_data}{spaspm}(spaspm_object)
+
 \S4method{spm_boundaries}{spaspm}(spaspm_object)
 
 \S4method{spm_discret_method}{spaspm}(spaspm_object)
@@ -48,6 +50,8 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 \item \code{spm_discret_method}: TODO
 
 \item \code{spm_name,spaspm-method}: TODO
+
+\item \code{spm_data,spaspm-method}: TODO
 
 \item \code{spm_data,spaspm-method}: TODO
 

@@ -55,6 +55,13 @@ setMethod("spm_data", signature("spaspm_object" = "spaspm"),
 
 #' @describeIn accessors TODO
 #' @export
+setMethod("spm_data", signature("spaspm_object" = "spaspm"),
+          function(spaspm_object) list(data = spaspm_object@data,
+                                       data_spatial = spaspm_object@data_spatial)
+)
+
+#' @describeIn accessors TODO
+#' @export
 setMethod("spm_boundaries", signature("spaspm_object" = "spaspm"),
           function(spaspm_object) spaspm_object@boundaries
 )
@@ -124,6 +131,8 @@ cat_model_basics <- function(object){
 }
 
 cat_model_discrete <- function(object){
+  cat("  Spatial data :", "`data.frame`,",
+      dim(object@data_spatial)[1], "obs. of", dim(object@data_spatial)[2], "variables \n")
   cat("  Patches      :", "Simple feature collection with",
       dim(object@patches)[1] ,"features and", dim(object@patches)[2], "field \n")
   cat("  Points       :", "Simple feature collection with",

@@ -43,8 +43,10 @@ all parameters used for sampling are ignored.}
 important for reproducibility of sampling.}
 }
 \value{
-A named list with two elements (each an \code{sf} object): \code{patches}, the voronoi
-polygons generated and the \code{points} used for the tessellation.
+A named list with three elements (each an \code{sf} object):
+* \code{data_spatial}, the spatialized version of \code{data}
+* \code{patches}, the voronoi polygons generated
+* \code{points}, the points used for the tessellation.
 }
 \description{
 Generates voronoi polygons by first performing stratified sampling across

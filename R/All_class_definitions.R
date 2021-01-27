@@ -1,3 +1,10 @@
+# Set class unions (not possible, PR in sf)
+# setOldClass("data.frame")
+# setOldClass("sf")
+# setClassUnion("spatial.data.frame", c("sf", "data.frame"))
+
+NULL
+
 #' SPASPM discretization method class
 #'
 #' This class encapsulates a name and a method (function) used for
@@ -23,6 +30,8 @@ setClass("discretization_method",
 #' @slot name **\[character\]** Name of the model.
 #' @slot data **\[data.frame\]** Observationnal data.
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
+#' @slot data_spatial **\[sf\]** *(if discrete)* Spatial version of `data`,
+#'     resulting from discretization.
 #' @slot method **\[[discretization_method][discretization_method-class]\]**
 #'     *(if discrete)* discretization method used.
 #' @slot patches **\[sf\]** *(if discrete)* Patches resulting from
@@ -38,7 +47,8 @@ setClass("spaspm",
 )
 
 setClass("spaspm_discrete",
-         slots = list(method = "discretization_method",
+         slots = list(data_spatial = "sf",
+                      method = "discretization_method",
                       patches = "sf",
                       points = "sf"),
          prototype = list(name = "Default Model Name"),
