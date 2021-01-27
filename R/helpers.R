@@ -112,6 +112,5 @@ cat_model_discrete <- function(object){
 
 message_not_discrete <- function(object){
   message(paste0("Model object '", spm_name(object),
-                 "' is not a discrete model"))
-  message("See ?spm_discretize for discretization methods")
+                 "' is not a discrete model. See ?spm_discretize for discretization methods"))
 }

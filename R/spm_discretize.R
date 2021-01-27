@@ -85,20 +85,25 @@ setMethod(f = "spm_discretize",
           }
 )
 
+setClassUnion("ANY_method", c("discretization_method", "character"))
+
 # If `spaspm_discrete` confirm that we want to re-discretize and then jump to
 # the next appropriate signature
 #' @describeIn spm_discretize TODO
 #' @export
 setMethod(f = "spm_discretize",
-          signature(spaspm_object = "spaspm_discrete"),
+          signature(spaspm_object = "spaspm_discrete",
+                    discretization_method = "ANY_method"),
           function(spaspm_object, discretization_method, force = FALSE, ...){
 
             checkmate::assert_logical(force)
 
             if (!force){
+
               message(paste0("Model '", spm_name(spaspm_object),
                              "' is already discretized"))
               message("Use 'force = TRUE' to discretize again")
+
             } else{
 
               message(paste0("Re-discretizing model '",

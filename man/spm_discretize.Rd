@@ -4,7 +4,7 @@
 \alias{spm_discretize}
 \alias{spm_discretize,spaspm,character-method}
 \alias{spm_discretize,spaspm,discretization_method-method}
-\alias{spm_discretize,spaspm_discrete,ANY-method}
+\alias{spm_discretize,spaspm_discrete,ANY_method-method}
 \title{Discretize a \code{spaspm} model object}
 \usage{
 spm_discretize(spaspm_object, discretization_method = "tesselate_voronoi", ...)
@@ -13,7 +13,7 @@ spm_discretize(spaspm_object, discretization_method = "tesselate_voronoi", ...)
 
 \S4method{spm_discretize}{spaspm,discretization_method}(spaspm_object, discretization_method = "tesselate_voronoi", ...)
 
-\S4method{spm_discretize}{spaspm_discrete,ANY}(spaspm_object, discretization_method, force = FALSE, ...)
+\S4method{spm_discretize}{spaspm_discrete,ANY_method}(spaspm_object, discretization_method, force = FALSE, ...)
 }
 \arguments{
 \item{spaspm_object}{\strong{[spaspm]}}
@@ -44,6 +44,6 @@ Discretize a \link[=spaspm-class]{spaspm} model object with a function from a
 
 \item \code{spm_discretize,spaspm,discretization_method-method}: TODO
 
-\item \code{spm_discretize,spaspm_discrete,ANY-method}: TODO
+\item \code{spm_discretize,spaspm_discrete,ANY_method-method}: TODO
 }}
 
