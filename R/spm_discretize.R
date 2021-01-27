@@ -105,6 +105,7 @@ setMethod(f = "spm_discretize",
                              spm_name(spaspm_object), "'"))
 
               new_object <- new("spaspm",
+                                name = spm_name(spaspm_object),
                                 data = spm_data(spaspm_object)$data,
                                 boundaries = spm_boundaries(spaspm_object))
               spm_discretize(new_object,

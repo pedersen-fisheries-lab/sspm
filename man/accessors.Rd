@@ -5,12 +5,18 @@
 \alias{spm_data}
 \alias{spm_name}
 \alias{spm_discret_method}
+\alias{spm_patches}
+\alias{spm_points}
 \alias{spm_name,spaspm-method}
 \alias{spm_data,spaspm-method}
 \alias{spm_data,spaspm_discrete-method}
 \alias{spm_boundaries,spaspm-method}
 \alias{spm_discret_method,spaspm-method}
+\alias{spm_patches,spaspm-method}
+\alias{spm_points,spaspm-method}
 \alias{spm_discret_method,spaspm_discrete-method}
+\alias{spm_patches,spaspm_discrete-method}
+\alias{spm_points,spaspm_discrete-method}
 \title{Accessing \code{spaspm} model elements}
 \usage{
 spm_boundaries(spaspm_object)
@@ -20,6 +26,10 @@ spm_data(spaspm_object)
 spm_name(spaspm_object)
 
 spm_discret_method(spaspm_object)
+
+spm_patches(spaspm_object)
+
+spm_points(spaspm_object)
 
 \S4method{spm_name}{spaspm}(spaspm_object)
 
@@ -31,7 +41,15 @@ spm_discret_method(spaspm_object)
 
 \S4method{spm_discret_method}{spaspm}(spaspm_object)
 
+\S4method{spm_patches}{spaspm}(spaspm_object)
+
+\S4method{spm_points}{spaspm}(spaspm_object)
+
 \S4method{spm_discret_method}{spaspm_discrete}(spaspm_object)
+
+\S4method{spm_patches}{spaspm_discrete}(spaspm_object)
+
+\S4method{spm_points}{spaspm_discrete}(spaspm_object)
 }
 \arguments{
 \item{spaspm_object}{\strong{[spaspm OR adjacent]} An object of class
@@ -50,6 +68,10 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 
 \item \code{spm_discret_method}: TODO
 
+\item \code{spm_patches}: TODO
+
+\item \code{spm_points}: TODO
+
 \item \code{spm_name,spaspm-method}: TODO
 
 \item \code{spm_data,spaspm-method}: TODO
@@ -60,6 +82,14 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 
 \item \code{spm_discret_method,spaspm-method}: TODO
 
+\item \code{spm_patches,spaspm-method}: TODO
+
+\item \code{spm_points,spaspm-method}: TODO
+
 \item \code{spm_discret_method,spaspm_discrete-method}: TODO
+
+\item \code{spm_patches,spaspm_discrete-method}: TODO
+
+\item \code{spm_points,spaspm_discrete-method}: TODO
 }}
 

@@ -35,6 +35,18 @@ setGeneric(name = "spm_discret_method",
            def = function(spaspm_object) standardGeneric("spm_discret_method")
 )
 
+#' @describeIn accessors TODO
+#' @export
+setGeneric(name = "spm_patches",
+           def = function(spaspm_object) standardGeneric("spm_patches")
+)
+
+#' @describeIn accessors TODO
+#' @export
+setGeneric(name = "spm_points",
+           def = function(spaspm_object) standardGeneric("spm_points")
+)
+
 # Methods for package generics --------------------------------------------
 
 # Exported ----------------------------------------------------------------
@@ -75,10 +87,43 @@ setMethod("spm_discret_method",
 
 #' @describeIn accessors TODO
 #' @export
+setMethod("spm_patches",
+          signature("spaspm_object" = "spaspm"),
+          function(spaspm_object){
+            message_not_discrete(spaspm_object)
+          }
+)
+
+#' @describeIn accessors TODO
+#' @export
+setMethod("spm_points",
+          signature("spaspm_object" = "spaspm"),
+          function(spaspm_object){
+            message_not_discrete(spaspm_object)
+          }
+)
+
+#' @describeIn accessors TODO
+#' @export
 setMethod("spm_discret_method",
           signature("spaspm_object" = "spaspm_discrete"),
           function(spaspm_object) spaspm_object@method
 )
+
+#' @describeIn accessors TODO
+#' @export
+setMethod("spm_patches",
+          signature("spaspm_object" = "spaspm_discrete"),
+          function(spaspm_object) spaspm_object@patches
+)
+
+#' @describeIn accessors TODO
+#' @export
+setMethod("spm_points",
+          signature("spaspm_object" = "spaspm_discrete"),
+          function(spaspm_object) spaspm_object@points
+)
+
 
 # Methods for global generics ---------------------------------------------
 
