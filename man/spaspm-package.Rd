@@ -4,7 +4,7 @@
 \name{spaspm-package}
 \alias{spaspm}
 \alias{spaspm-package}
-\title{spaspm: Spatial Surprlus Production Model Framework for Northern Shrimp Populations}
+\title{spaspm: Spatial Surplus Production Model Framework for Northern Shrimp Populations}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 

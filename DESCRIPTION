@@ -1,6 +1,6 @@
 Package: spaspm
 Type: Package
-Title: Spatial Surprlus Production Model Framework for Northern Shrimp Populations
+Title: Spatial Surplus Production Model Framework for Northern Shrimp Populations
 Version: 0.1.0
 Authors@R: c(
     person("Valentin", "Lucet", email = "valentin.lucet@gmail.com", role = c("aut", "cre")),
