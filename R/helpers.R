@@ -90,3 +90,28 @@ dispatch_method <- function(discretization_method){
 suppressAll <- function(x){
   suppressWarnings(suppressMessages(x))
 }
+
+# Print helpers -----------------------------------------------------------
+
+cat_model_basics <- function(object){
+  cat("  Name         :", object@name, "\n")
+  cat("  Data         :", "`data.frame`,",
+      dim(object@data)[1], "obs. of", dim(object@data)[2], "variables \n")
+  cat("  Boundaries   :", "Simple feature collection with",
+      dim(object@boundaries)[1] ,"features and", dim(object@boundaries)[2], "field \n")
+}
+
+cat_model_discrete <- function(object){
+  cat("  Spatial data :", "`data.frame`,",
+      dim(object@data_spatial)[1], "obs. of", dim(object@data_spatial)[2], "variables \n")
+  cat("  Patches      :", "Simple feature collection with",
+      dim(object@patches)[1] ,"features and", dim(object@patches)[2], "field \n")
+  cat("  Points       :", "Simple feature collection with",
+      dim(object@points)[1] ,"features and", dim(object@points)[2], "field \n")
+}
+
+message_not_discrete <- function(object){
+  message(paste0("Model object '", spm_name(object),
+                 "' is not a discrete model"))
+  message("See ?spm_discretize for discretization methods")
+}

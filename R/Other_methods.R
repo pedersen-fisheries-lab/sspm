@@ -1,5 +1,4 @@
 # Package Generics --------------------------------------------------------
-# -------------------------------------------------------------------------
 
 # Exported ----------------------------------------------------------------
 
@@ -37,7 +36,6 @@ setGeneric(name = "spm_discret_method",
 )
 
 # Methods for package generics --------------------------------------------
-# -------------------------------------------------------------------------
 
 # Exported ----------------------------------------------------------------
 
@@ -71,9 +69,7 @@ setMethod("spm_boundaries", signature("spaspm_object" = "spaspm"),
 setMethod("spm_discret_method",
           signature("spaspm_object" = "spaspm"),
           function(spaspm_object){
-            message(paste0("Model object '", spm_name(spaspm_object),
-                           "' is not a discrete model"))
-            message("See ?spm_discretize for discretization methods")
+            message_not_discrete(spaspm_object)
           }
 )
 
@@ -85,7 +81,6 @@ setMethod("spm_discret_method",
 )
 
 # Methods for global generics ---------------------------------------------
-# -------------------------------------------------------------------------
 
 # Show method for spaspm object
 setMethod("show",
@@ -118,24 +113,3 @@ setMethod("show",
 # TODO dim should get dims of data and sf if discrete
 # setMethod("dim",
 #           "spaspm", function(x) length(x@snpid))
-
-# Print helpers -----------------------------------------------------------
-# -------------------------------------------------------------------------
-
-cat_model_basics <- function(object){
-  cat("  Name         :", object@name, "\n")
-  cat("  Data         :", "`data.frame`,",
-      dim(object@data)[1], "obs. of", dim(object@data)[2], "variables \n")
-  cat("  Boundaries   :", "Simple feature collection with",
-      dim(object@boundaries)[1] ,"features and", dim(object@boundaries)[2], "field \n")
-}
-
-cat_model_discrete <- function(object){
-  cat("  Spatial data :", "`data.frame`,",
-      dim(object@data_spatial)[1], "obs. of", dim(object@data_spatial)[2], "variables \n")
-  cat("  Patches      :", "Simple feature collection with",
-      dim(object@patches)[1] ,"features and", dim(object@patches)[2], "field \n")
-  cat("  Points       :", "Simple feature collection with",
-      dim(object@points)[1] ,"features and", dim(object@points)[2], "field \n")
-}
-
