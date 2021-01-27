@@ -8,6 +8,8 @@
 [![R-CMD-check](https://github.com/pedersen-fisheries-lab/spaspm/workflows/R-CMD-check/badge.svg)](https://github.com/pedersen-fisheries-lab/spaspm/actions)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Codecov test
+coverage](https://codecov.io/gh/pedersen-fisheries-lab/spaspm/branch/main/graph/badge.svg)](https://codecov.io/gh/pedersen-fisheries-lab/spaspm?branch=main)
 <!-- badges: end -->
 
 The goal of `spaspm` is to implement a gam-based spatial surplus

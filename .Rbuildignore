@@ -8,3 +8,4 @@ man/figures/make_hex
 ^\.github$
 ^data$
 ^LICENSE\.md$
+^codecov\.yml$
