@@ -23,21 +23,6 @@ setGeneric(name = "spm_discretize",
            def = function(spaspm_object,
                           discretization_method = "tesselate_voronoi",
                           ...){
-
-             # Check first if character and if parts of possible choices
-             # if not, check if object of class discretization_method
-             if(checkmate::test_character(discretization_method)){
-               if(!checkmate::test_choice(discretization_method, spm_methods())){
-                 paste0("Method must be one of: ", paste0(spm_methods(),
-                                                          collapse =  ", " ))
-               }
-
-             } else {
-
-               checkmate::assert_class(discretization_method,
-                                       "discretization_method")
-             }
-
              standardGeneric("spm_discretize")
            }
 )
@@ -53,6 +38,11 @@ setMethod(f = "spm_discretize",
           signature(spaspm_object = "spaspm",
                     discretization_method = "character"),
           function(spaspm_object, discretization_method, ...){
+
+            if(!checkmate::test_choice(discretization_method, spm_methods())){
+              paste0("Method must be one of: ", paste0(spm_methods(),
+                                                       collapse =  ", " ))
+            }
 
             the_method <- new("discretization_method",
                               name = discretization_method,
@@ -70,6 +60,9 @@ setMethod(f = "spm_discretize",
                     discretization_method = "discretization_method"),
           function(spaspm_object, discretization_method, ...){
 
+            checkmate::assert_class(discretization_method,
+                                    "discretization_method")
+
             message(paste0("Discretizing using method '",
                            discretization_method@name,"'"))
 
@@ -83,6 +76,7 @@ setMethod(f = "spm_discretize",
             new_spaspm_discrete <- new("spaspm_discrete",
                                        data = spm_data(spaspm_object),
                                        boundaries = spm_boundaries(spaspm_object),
+                                       data_spatial = discrete[["data_spatial"]],
                                        method = discretization_method,
                                        patches = discrete[["patches"]],
                                        points = discrete[["points"]])
@@ -111,7 +105,7 @@ setMethod(f = "spm_discretize",
                              spm_name(spaspm_object), "'"))
 
               new_object <- new("spaspm",
-                                data = spm_data(spaspm_object),
+                                data = spm_data(spaspm_object)$data,
                                 boundaries = spm_boundaries(spaspm_object))
               spm_discretize(new_object,
                              discretization_method = discretization_method,
