@@ -55,7 +55,7 @@ setMethod("spm_data", signature("spaspm_object" = "spaspm"),
 
 #' @describeIn accessors TODO
 #' @export
-setMethod("spm_data", signature("spaspm_object" = "spaspm"),
+setMethod("spm_data", signature("spaspm_object" = "spaspm_discrete"),
           function(spaspm_object) list(data = spaspm_object@data,
                                        data_spatial = spaspm_object@data_spatial)
 )
