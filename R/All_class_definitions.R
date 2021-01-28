@@ -62,7 +62,7 @@ setClass("spaspm_discrete",
 setClass("spaspm_gam_fit",
          slots = list(gam_fit = "data.frame",
                       gam_call = "formula"),
-         contains = "spaspm_discrete"
+         contains = c("spaspm_discrete", "spaspm")
 )
 
 # Modelled SPM ~ end of workflow
