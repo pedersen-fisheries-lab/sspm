@@ -1,4 +1,5 @@
 # Class construction
+
 test_that("spaspm object is created correctly", {
   expect_class({spaspm_base <- new("spaspm",
                                    name="Model test",

@@ -1,3 +1,7 @@
+library(checkmate)
+library(dplyr)
+library(sf)
+
 # Objects used for tests
 borealis <- as.data.frame(readRDS("../../data/borealis_full_summary.rds")) %>%
   dplyr::filter(season!="summer") %>%
