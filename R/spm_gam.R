@@ -16,6 +16,7 @@ setMethod(f = "spm_gam",
 
             # Step 1: do spatial join
 
+            return(TRUE)
 
           }
 )
