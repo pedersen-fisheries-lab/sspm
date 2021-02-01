@@ -43,7 +43,7 @@ setMethod(f = "spm_discretize",
             checkmate::assert_class(discretization_method,
                                     "discretization_method")
 
-            message(paste0("Discretizing using method '",
+            message(paste0("  Discretizing using method '",
                            discretization_method@name,"'"))
 
             other_args <- list(...)
@@ -100,13 +100,13 @@ setMethod(f = "spm_discretize",
 
             if (!force){
 
-              message(paste0("Model '", spm_name(spaspm_object),
+              message(paste0("  Model '", spm_name(spaspm_object),
                              "' is already discretized"))
-              message("Use 'force = TRUE' to discretize again")
+              message("  Use 'force = TRUE' to discretize again")
 
             } else{
 
-              message(paste0("Re-discretizing model '",
+              message(paste0("  Re-discretizing model '",
                              spm_name(spaspm_object), "'"))
 
               new_object <- new("spaspm",
