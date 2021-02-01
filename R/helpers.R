@@ -96,14 +96,14 @@ suppressAll <- function(x){
 cat_model_basics <- function(object){
   cat("  Name         :", object@name, "\n")
   cat("  Unique ID    :", object@ID, "\n")
-  cat("  Data         :", "`data.frame`,",
+  cat("  Data         :", "data.frame,",
       dim(object@data)[1], "obs. of", dim(object@data)[2], "variables \n")
   cat("  Boundaries   :", "Simple feature collection with",
       dim(object@boundaries)[1] ,"features and", dim(object@boundaries)[2], "field \n")
 }
 
 cat_model_discrete <- function(object){
-  cat("  Spatial data :", "`data.frame`,",
+  cat("  Spatial data :", "data.frame,",
       dim(object@data_spatial)[1], "obs. of", dim(object@data_spatial)[2], "variables \n")
   cat("  Patches      :", "Simple feature collection with",
       dim(object@patches)[1] ,"features and", dim(object@patches)[2], "field \n")
