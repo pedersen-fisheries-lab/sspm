@@ -2,18 +2,18 @@
 % Please edit documentation in R/spaspm-plot.R
 \name{plot}
 \alias{plot}
-\alias{plot,spaspm_discrete-method}
+\alias{plot,spaspm_discrete,ANY-method}
 \title{S4 plot method}
 \usage{
-\S4method{plot}{spaspm}(x)
+\S4method{plot}{spaspm,ANY}(x)
 
-\S4method{plot}{spaspm_discrete}(x)
+\S4method{plot}{spaspm_discrete,ANY}(x)
 }
 \description{
 S4 plot method
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{spaspm_discrete}: TODO
+\item \code{x = spaspm_discrete,y = ANY}: TODO
 }}
 
