@@ -95,6 +95,7 @@ suppressAll <- function(x){
 
 cat_model_basics <- function(object){
   cat("  Name         :", object@name, "\n")
+  cat("  Unique ID    :", object@ID, "\n")
   cat("  Data         :", "`data.frame`,",
       dim(object@data)[1], "obs. of", dim(object@data)[2], "variables \n")
   cat("  Boundaries   :", "Simple feature collection with",

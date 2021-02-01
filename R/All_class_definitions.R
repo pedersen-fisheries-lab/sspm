@@ -42,8 +42,10 @@ setClass("discretization_method",
 setClass("spaspm",
          slots = list(name = "character",
                       data = "data.frame",
+                      ID = "character",
                       boundaries = "sf"),
-         prototype = list(name = "Default Model Name")
+         prototype = list(name = "Default Model Name",
+                          ID = "trawl_id")
 )
 
 setClass("spaspm_discrete",

@@ -7,6 +7,7 @@
 \alias{spm_discret_method}
 \alias{spm_patches}
 \alias{spm_points}
+\alias{spm_id}
 \alias{spm_name,spaspm-method}
 \alias{spm_data,spaspm-method}
 \alias{spm_data,spaspm_discrete-method}
@@ -14,6 +15,7 @@
 \alias{spm_discret_method,spaspm-method}
 \alias{spm_patches,spaspm-method}
 \alias{spm_points,spaspm-method}
+\alias{spm_id,spaspm-method}
 \alias{spm_discret_method,spaspm_discrete-method}
 \alias{spm_patches,spaspm_discrete-method}
 \alias{spm_points,spaspm_discrete-method}
@@ -31,6 +33,8 @@ spm_patches(spaspm_object)
 
 spm_points(spaspm_object)
 
+spm_id(spaspm_object)
+
 \S4method{spm_name}{spaspm}(spaspm_object)
 
 \S4method{spm_data}{spaspm}(spaspm_object)
@@ -44,6 +48,8 @@ spm_points(spaspm_object)
 \S4method{spm_patches}{spaspm}(spaspm_object)
 
 \S4method{spm_points}{spaspm}(spaspm_object)
+
+\S4method{spm_id}{spaspm}(spaspm_object)
 
 \S4method{spm_discret_method}{spaspm_discrete}(spaspm_object)
 
@@ -72,6 +78,8 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 
 \item \code{spm_points}: TODO
 
+\item \code{spm_id}: TODO
+
 \item \code{spm_name,spaspm-method}: TODO
 
 \item \code{spm_data,spaspm-method}: TODO
@@ -85,6 +93,8 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 \item \code{spm_patches,spaspm-method}: TODO
 
 \item \code{spm_points,spaspm-method}: TODO
+
+\item \code{spm_id,spaspm-method}: TODO
 
 \item \code{spm_discret_method,spaspm_discrete-method}: TODO
 

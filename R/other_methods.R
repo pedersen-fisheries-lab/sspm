@@ -47,6 +47,12 @@ setGeneric(name = "spm_points",
            def = function(spaspm_object) standardGeneric("spm_points")
 )
 
+#' @describeIn accessors TODO
+#' @export
+setGeneric(name = "spm_id",
+           def = function(spaspm_object) standardGeneric("spm_id")
+)
+
 # Methods for package generics --------------------------------------------
 
 # Exported ----------------------------------------------------------------
@@ -105,6 +111,13 @@ setMethod("spm_points",
 
 #' @describeIn accessors TODO
 #' @export
+setMethod("spm_id",
+          signature("spaspm_object" = "spaspm"),
+          function(spaspm_object) spaspm_object@ID
+)
+
+#' @describeIn accessors TODO
+#' @export
 setMethod("spm_discret_method",
           signature("spaspm_object" = "spaspm_discrete"),
           function(spaspm_object) spaspm_object@method
@@ -123,7 +136,6 @@ setMethod("spm_points",
           signature("spaspm_object" = "spaspm_discrete"),
           function(spaspm_object) spaspm_object@points
 )
-
 
 # Methods for global generics ---------------------------------------------
 
