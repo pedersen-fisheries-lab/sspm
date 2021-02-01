@@ -53,6 +53,17 @@ setMethod(f = "spm_discretize",
                                 args = append(list(spaspm_object = spaspm_object),
                                               other_args))
 
+            # Check names of results
+            checkmate::assert_names(x = names(discrete),
+                                    subset.of = c("data_spatial",
+                                                  "patches",
+                                                  "points"))
+
+            # Join data_spatial and patches
+            discrete$data_spatial <-
+              suppressMessages(sf::st_join(discrete$patches,
+                                           discrete$data_spatial))
+
             new_spaspm_discrete <- new("spaspm_discrete",
                                        data = spm_data(spaspm_object),
                                        boundaries = spm_boundaries(spaspm_object),
