@@ -131,7 +131,7 @@ setMethod("spm_points",
 setMethod("show",
           "spaspm",
           function(object) {
-            cat("  * SPASPM model object \n")
+            cat("  * SPASPM object \n")
             cat_model_basics(object)
           }
 )
@@ -139,7 +139,7 @@ setMethod("show",
 setMethod("show",
           "spaspm_discrete",
           function(object) {
-            cat("  * SPASPM model object (DISCRETIZED) \n")
+            cat("  * SPASPM object (DISCRETIZED) \n")
             cat_model_basics(object)
             cat(" \n")
             cat("  * DISCRETIZATION INFO \n")
