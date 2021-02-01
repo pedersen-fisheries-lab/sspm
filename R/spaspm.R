@@ -6,17 +6,22 @@
 #' @export
 spaspm <- function(name="SPSPM Model",
                    data,
+                   ID,
                    boundaries,
-                   discretize = TRUE,
-                   discretization_method = "tesselate_voronoi",
-                   fit_gam = TRUE,
+                   # discretize = TRUE,
+                   # discretization_method = "tesselate_voronoi",
+                   # fit_gam = TRUE,
                    ...){
 
-  # Check name to be character and data to be a data.frame/tibble
-  checkmate::assert_class(name, "character")
-  checkmate::assert_class(data, c("data.frame"))
-  checkmate::assert_multi_class(boundaries, c("sf", "sfc", "sfc_POLYGON",
-                                              "sfc_MULTIPOLYGON"))
+  if(!checkmate::test_subset(ID, names(data))){
+    stop("`ID` must be a column of `data`")
+  }
 
-  new("spaspm", name = name, data = data, boundaries = boundaries)
+  the_object <- new("spaspm",
+                    name = name,
+                    ID = ID,
+                    data = data,
+                    boundaries = boundaries)
+
+  return(the_object)
 }
