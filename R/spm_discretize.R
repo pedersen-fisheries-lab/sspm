@@ -30,8 +30,6 @@ setGeneric(name = "spm_discretize",
 # Methods -----------------------------------------------------------------
 # TODO finish the describeIn description
 
-setClassUnion("ANY_method", c("discretization_method", "character"))
-
 # All signatures point to this one
 #' @describeIn spm_discretize TODO
 #' @export
@@ -100,6 +98,10 @@ setMethod(f = "spm_discretize",
 
 # If `spaspm_discrete` confirm that we want to re-discretize and then jump to
 # the next appropriate signature
+
+# Set class union to group input types here
+setClassUnion("ANY_method", c("discretization_method", "character"))
+
 #' @describeIn spm_discretize TODO
 #' @export
 setMethod(f = "spm_discretize",

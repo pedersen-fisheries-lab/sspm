@@ -1,10 +1,3 @@
-#' @import sf
-#' @importFrom rlang .data
-#' @importFrom methods new show
-#' @importFrom graphics par
-
-NULL
-
 #' Create a spaspm model object
 #'
 #' TODO
@@ -28,8 +21,6 @@ spaspm <- function(data,
 }
 
 # Methods -----------------------------------------------------------------
-
-setClassUnion("ANY_method", c("discretization_method", "character"))
 
 #' @export
 setGeneric(name = "as_spaspm_data",

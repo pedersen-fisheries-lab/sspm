@@ -1,9 +1,18 @@
-# -------------------------------------------------------------------------
+# Imports -----------------------------------------------------------------
 
-# Declare old class - not possible to set a class union
+#' @import sf
+#' @importFrom rlang .data
+#' @importFrom methods new show
+#' @importFrom graphics par
+
+# OldClasses --------------------------------------------------------------
+
 setOldClass("data.frame")
 setOldClass("sf")
-# setClassUnion("spatial.data.frame", c("sf", "data.frame"))
+
+# ClassUnions -------------------------------------------------------------
+
+setClassUnion("ANY_coords", c("character", "NULL"))
 
 # -------------------------------------------------------------------------
 
@@ -19,7 +28,7 @@ setClass("spaspm_data",
          slots = list(data = "ANY",
                       uniqueID = "character",
                       is_spatial = "logical",
-                      coords = "character",
+                      coords = "ANY_coords",
                       representation = "character"),
          contains = c("sf", "data.frame"))
 
