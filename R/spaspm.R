@@ -1,8 +1,14 @@
 #' @import sf
 #' @importFrom rlang .data
 #' @importFrom methods new show
+#' @importFrom graphics par
 
-# Model Object Constructor
+NULL
+
+#' Create a spaspm model object
+#'
+#' TODO
+#'
 #' @export
 spaspm <- function(data,
                    name = "My model",
@@ -10,10 +16,6 @@ spaspm <- function(data,
                    uniqueID,
                    boundaries,
                    ...){
-
-  if(!checkmate::test_subset(coords, names(data))){
-    stop("`coords` must be columns of `data`")
-  }
 
   the_spapspm_data <- as_spaspm_data(data, coords, uniqueID)
 
@@ -25,7 +27,9 @@ spaspm <- function(data,
   return(the_object)
 }
 
-# -------------------------------------------------------------------------
+# Methods -----------------------------------------------------------------
+
+setClassUnion("ANY_method", c("discretization_method", "character"))
 
 #' @export
 setGeneric(name = "as_spaspm_data",
@@ -47,7 +51,7 @@ setMethod(f = "as_spaspm_data",
             the_spaspm_data <- new("spaspm_data",
                                    uniqueID = uniqueID,
                                    is_spatial = FALSE,
-                                   coords = "No coordinates given",
+                                   coords = NULL,
                                    representation = "dataframe")
 
             return(the_spaspm_data)
@@ -59,6 +63,11 @@ setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "character"),
           function(data, coords, uniqueID, ...){
 
+            # Check coords
+            if(!checkmate::test_subset(coords, names(data))){
+              stop("`coords` must be columns of `data`")
+            }
+
             # From a data.frame and coords, cast as sf
             the_data <- sf::st_as_sf(x = data, coords = coords)
             the_spaspm_data <- new("spaspm_data",
@@ -66,6 +75,28 @@ setMethod(f = "as_spaspm_data",
                                    uniqueID = uniqueID,
                                    is_spatial = TRUE,
                                    coords = coords,
+                                   representation = "spatial dataframe")
+
+            return(the_spaspm_data)
+          }
+)
+
+#' @export
+setMethod(f = "as_spaspm_data",
+          signature(data = "sf", coords = "ANY"),
+          function(data, coords, uniqueID, ...){
+
+            if (!is.null(coords)){
+              message("  Argument `coords` ignored")
+            }
+
+            # From a data.frame and coords, cast as sf
+            the_data <- sf::st_as_sf(x = data, coords = coords)
+            the_spaspm_data <- new("spaspm_data",
+                                   data = data,
+                                   uniqueID = uniqueID,
+                                   is_spatial = TRUE,
+                                   coords = NULL,
                                    representation = "spatial dataframe")
 
             return(the_spaspm_data)
