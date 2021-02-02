@@ -6,7 +6,7 @@
 #' @export
 spaspm <- function(data,
                    name = "My model",
-                   coords = c("lat", "lon"),
+                   coords = c('lon','lat'),
                    uniqueID,
                    boundaries,
                    ...){
