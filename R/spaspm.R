@@ -4,14 +4,16 @@
 #'
 #' @export
 spaspm <- function(data,
-                   name = "My model",
+                   name = "My SPASPM model",
                    coords = c('lon','lat'),
                    uniqueID,
                    boundaries,
                    ...){
 
+  # 1. Ingest data and perform the correct checks
   the_spapspm_data <- as_spaspm_data(data, coords, uniqueID)
 
+  # 2. Create basis spaspm object
   the_object <- new("spaspm",
                     name = name,
                     data = the_spapspm_data,
@@ -49,6 +51,7 @@ setMethod(f = "as_spaspm_data",
           }
 )
 
+# If data.frame with coords, make it sf
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "character"),
@@ -66,29 +69,24 @@ setMethod(f = "as_spaspm_data",
                                    uniqueID = uniqueID,
                                    is_spatial = TRUE,
                                    coords = coords,
-                                   representation = "spatial dataframe")
+                                   representation = "Simple feature collection")
 
             return(the_spaspm_data)
           }
 )
 
+# If sf, ingest as is
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "sf", coords = "ANY"),
           function(data, coords, uniqueID, ...){
 
-            if (!is.null(coords)){
-              message("  Argument `coords` ignored")
-            }
-
-            # From a data.frame and coords, cast as sf
-            the_data <- sf::st_as_sf(x = data, coords = coords)
             the_spaspm_data <- new("spaspm_data",
                                    data = data,
                                    uniqueID = uniqueID,
                                    is_spatial = TRUE,
                                    coords = NULL,
-                                   representation = "spatial dataframe")
+                                   representation = "Simple feature collection")
 
             return(the_spaspm_data)
           }

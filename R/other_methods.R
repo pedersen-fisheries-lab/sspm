@@ -154,7 +154,7 @@ setMethod("show",
             cat("  * SPASPM object (DISCRETIZED) \n")
             cat_model_basics(object)
             cat(" \n")
-            cat("  * DISCRETIZATION INFO \n")
+            cat("  * Discretization info \n")
             show(object@method)
             cat_model_discrete(object)
           }
@@ -163,7 +163,7 @@ setMethod("show",
 setMethod("show",
           "discretization_method",
           function(object) {
-            cat("  Disc. method :", object@name, "\n")
+            cat("  Disc. method   :", object@name, "\n")
           }
 )
 

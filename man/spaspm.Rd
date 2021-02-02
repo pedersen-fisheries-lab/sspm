@@ -6,7 +6,7 @@
 \usage{
 spaspm(
   data,
-  name = "My model",
+  name = "My SPASPM model",
   coords = c("lon", "lat"),
   uniqueID,
   boundaries,
