@@ -5,6 +5,9 @@
 \alias{spaspm-class}
 \title{SPASPM model classes}
 \description{
+TODO updates slots
+}
+\details{
 The different model classes follow the typical workflow of \code{spaspm}:
 \itemize{
 \item \strong{\code{spaspm}} Basic model object.
@@ -17,7 +20,7 @@ The different model classes follow the typical workflow of \code{spaspm}:
 \describe{
 \item{\code{name}}{\strong{[character]} Name of the model.}
 
-\item{\code{data}}{\strong{[data.frame]} Observationnal data.}
+\item{\code{data}}{\strong{[\link[=spaspm_data-class]{spaspm_data}]} Observationnal data.}
 
 \item{\code{boundaries}}{\strong{[sf]} Spatial boundaries (polygons).}
 
@@ -32,5 +35,8 @@ discretization.}
 
 \item{\code{points}}{\strong{[sf]} \emph{(if discrete)} Sample points used for
 discretization.}
+
+\item{\code{mapped_datasets}}{\strong{[list]} \emph{(if discrete)} List of
+\link[=spaspm_data-class]{spaspm_data} objects.}
 }}
 
