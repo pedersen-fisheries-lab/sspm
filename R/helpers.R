@@ -94,7 +94,7 @@ suppressAll <- function(x){
 # Print helpers -----------------------------------------------------------
 
 cat_model_basics <- function(object){
-  cat("  Name         :", object@name, "\n")
+  cat("  Name           :", object@name, "\n")
   cat("  _______________________________________________________________________ \n")
   cat("  Data           :", object@data@representation, "with",
       dim(object@data@data)[1], "obs. of", dim(object@data@data)[2], "variables \n")
