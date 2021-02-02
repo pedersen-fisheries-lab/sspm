@@ -19,7 +19,6 @@ spaspm <- function(data,
 
   the_object <- new("spaspm",
                     name = name,
-                    uniqueID = uniqueID,
                     data = the_spapspm_data,
                     boundaries = boundaries)
 
