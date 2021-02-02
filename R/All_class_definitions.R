@@ -1,6 +1,6 @@
 # Imports -----------------------------------------------------------------
 
-#' @import sf
+#' @import sf cli
 #' @importFrom rlang .data
 #' @importFrom methods new show
 #' @importFrom graphics par
