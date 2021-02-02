@@ -3,15 +3,15 @@
 #' TODO
 #'
 #' @export
-spaspm <- function(data,
-                   name = "My SPASPM model",
-                   coords = c('lon','lat'),
+spaspm <- function(name = "My SPASPM model",
+                   data,
                    uniqueID,
                    boundaries,
+                   coords = NULL,
                    ...){
 
   # 1. Ingest data and perform the correct checks
-  the_spapspm_data <- as_spaspm_data(data, coords, uniqueID)
+  the_spapspm_data <- as_spaspm_data(data, coords, uniqueID, ...)
 
   # 2. Create basis spaspm object
   the_object <- new("spaspm",
@@ -45,7 +45,7 @@ setMethod(f = "as_spaspm_data",
                                    uniqueID = uniqueID,
                                    is_spatial = FALSE,
                                    coords = NULL,
-                                   representation = "dataframe")
+                                   representation = "Dataframe")
 
             return(the_spaspm_data)
           }

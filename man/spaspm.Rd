@@ -5,11 +5,11 @@
 \title{Create a spaspm model object}
 \usage{
 spaspm(
-  data,
   name = "My SPASPM model",
-  coords = c("lon", "lat"),
+  data,
   uniqueID,
   boundaries,
+  coords = NULL,
   ...
 )
 }
