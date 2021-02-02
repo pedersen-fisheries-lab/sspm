@@ -44,6 +44,8 @@ tesselate_voronoi <- function(spaspm_object,
   # 1. breaking of big polygons
   # 2. NAFO division
 
+  # Prep --------------------------------------------------------------------
+
   # Check main params
   checkmate::assert_class(spaspm_object, "spaspm")
   checkmate::assert_character(coords)
@@ -61,6 +63,8 @@ tesselate_voronoi <- function(spaspm_object,
   checkmate::assert_data_frame(data)
   checkmate::assert_subset(coords, names(data))
   checkmate::assert_class(boundaries, "sf")
+
+  # Body --------------------------------------------------------------------
 
   # 1. Make data a sf object
   # TODO reminder that crs are assumed to be the same
