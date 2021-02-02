@@ -143,7 +143,7 @@ setMethod("spm_points",
 setMethod("show",
           "spaspm",
           function(object) {
-            cat("  * SPASPM object * \n")
+            cli::cli_h3(cli::col_red(cli::style_bold("SPASPM object")))
             cat_model_basics(object)
           }
 )
@@ -151,10 +151,10 @@ setMethod("show",
 setMethod("show",
           "spaspm_discrete",
           function(object) {
-            cat("  * SPASPM object (DISCRETIZED) * \n")
+            cli::cli_h3(cli::col_red(cli::style_bold("SPASPM object (DISCRETIZED)")))
             cat_model_basics(object)
             cat(" \n")
-            cat("  * Discretization info \n")
+            cli::cli_h3(cli::style_bold("Discretization info"))
             show(object@method)
             cat_model_discrete(object)
           }

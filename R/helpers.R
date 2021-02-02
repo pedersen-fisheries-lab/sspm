@@ -94,21 +94,20 @@ suppressAll <- function(x){
 # Print helpers -----------------------------------------------------------
 
 cat_model_basics <- function(object){
-  cat("  Name           :", object@name, "\n")
-  cat("  _______________________________________________________________________ \n")
-  cat("  Data           :", object@data@representation, "with",
+  cat("   Name           :", object@name)
+  cli::cli_h3(cli::style_bold("Model data"))
+  cat("   Data matrix    :", object@data@representation, "with",
       dim(object@data@data)[1], "obs. of", dim(object@data@data)[2], "variables \n")
-  cat("  Data unique ID :", object@data@uniqueID, "\n")
-  cat("  _______________________________________________________________________ \n")
-  cat("  Boundaries     :", "Simple feature collection with",
+  cat("   Data unique ID :", cli::style_italic(object@data@uniqueID))
+  cli::cli_h3(cli::style_bold("Boundaries"))
+  cat("   Boundary data  :", "Simple feature collection with",
       dim(object@boundaries)[1] ,"features and", dim(object@boundaries)[2], "field \n")
+  cat("\n")
 }
 
 cat_model_discrete <- function(object){
-  cat("  _______________________________________________________________________ \n")
   cat("  Spatial data   :", "data.frame,",
       dim(object@data_spatial)[1], "obs. of", dim(object@data_spatial)[2], "variables \n")
-  cat("  _______________________________________________________________________ \n")
   cat("  Patches        :", "Simple feature collection with",
       dim(object@patches)[1] ,"features and", dim(object@patches)[2], "field \n")
   cat("  Points         :", "Simple feature collection with",
