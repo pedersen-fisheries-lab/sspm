@@ -1,7 +1,3 @@
-# Package Generics --------------------------------------------------------
-
-# Exported ----------------------------------------------------------------
-
 #' Accessing `spaspm` model elements
 #'
 #' All methods described here allow to access the elements of contained in
@@ -23,6 +19,43 @@ setMethod("spm_name", signature("spaspm_object" = "spaspm"),
           function(spaspm_object) spaspm_object@name
 )
 
+#' @describeIn accessors TODO
+#' @export
+setMethod("spm_name", signature("spaspm_object" = "spaspm_data"),
+          function(spaspm_object) spaspm_object@name
+)
+
+# Datasets ----------------------------------------------------------------
+
+#' @describeIn accessors TODO
+#' @export
+setGeneric(name = "spm_datasets",
+           def = function(spaspm_object) standardGeneric("spm_datasets")
+)
+
+#' @describeIn accessors TODO
+#' @export
+setMethod("spm_datasets", signature("spaspm_object" = "spaspm"),
+          function(spaspm_object) spaspm_object@data
+)
+
+#' @describeIn accessors TODO
+#' @export
+setMethod("spm_datasets", signature("spaspm_object" = "spaspm_discrete"),
+          function(spaspm_object){
+            # List of mapped datasets
+            TRUE
+          }
+)
+
+#' @describeIn accessors TODO
+#' @export
+setMethod("spm_datasets", signature("spaspm_object" = "spaspm_data"),
+          function(spaspm_object) {
+            cli::cli_alert_danger("Use `spm_data` to access the data of a dataset object")
+          }
+)
+
 # Data --------------------------------------------------------------------
 
 #' @describeIn accessors TODO
@@ -34,14 +67,15 @@ setGeneric(name = "spm_data",
 #' @describeIn accessors TODO
 #' @export
 setMethod("spm_data", signature("spaspm_object" = "spaspm"),
-          function(spaspm_object) spaspm_object@data
+          function(spaspm_object) {
+            cli::cli_alert_danger("Use `spm_datasets` to access the datasets of a spaspm object")
+          }
 )
 
 #' @describeIn accessors TODO
 #' @export
-setMethod("spm_data", signature("spaspm_object" = "spaspm_discrete"),
-          function(spaspm_object) list(data = spaspm_object@data,
-                                       data_spatial = spaspm_object@data_spatial)
+setMethod("spm_data", signature("spaspm_object" = "spaspm_data"),
+          function(spaspm_object) spaspm_object@data
 )
 
 # ID ----------------------------------------------------------------------

@@ -3,9 +3,14 @@
 \name{spm_name}
 \alias{spm_name}
 \alias{spm_name,spaspm-method}
+\alias{spm_name,spaspm_data-method}
+\alias{spm_datasets}
+\alias{spm_datasets,spaspm-method}
+\alias{spm_datasets,spaspm_discrete-method}
+\alias{spm_datasets,spaspm_data-method}
 \alias{spm_data}
 \alias{spm_data,spaspm-method}
-\alias{spm_data,spaspm_discrete-method}
+\alias{spm_data,spaspm_data-method}
 \alias{spm_unique_ID}
 \alias{spm_unique_ID,spaspm-method}
 \alias{spm_coords_col}
@@ -26,11 +31,21 @@ spm_name(spaspm_object)
 
 \S4method{spm_name}{spaspm}(spaspm_object)
 
+\S4method{spm_name}{spaspm_data}(spaspm_object)
+
+spm_datasets(spaspm_object)
+
+\S4method{spm_datasets}{spaspm}(spaspm_object)
+
+\S4method{spm_datasets}{spaspm_discrete}(spaspm_object)
+
+\S4method{spm_datasets}{spaspm_data}(spaspm_object)
+
 spm_data(spaspm_object)
 
 \S4method{spm_data}{spaspm}(spaspm_object)
 
-\S4method{spm_data}{spaspm_discrete}(spaspm_object)
+\S4method{spm_data}{spaspm_data}(spaspm_object)
 
 spm_unique_ID(spaspm_object)
 
@@ -73,11 +88,21 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 \itemize{
 \item \code{spm_name,spaspm-method}: TODO
 
+\item \code{spm_name,spaspm_data-method}: TODO
+
+\item \code{spm_datasets}: TODO
+
+\item \code{spm_datasets,spaspm-method}: TODO
+
+\item \code{spm_datasets,spaspm_discrete-method}: TODO
+
+\item \code{spm_datasets,spaspm_data-method}: TODO
+
 \item \code{spm_data}: TODO
 
 \item \code{spm_data,spaspm-method}: TODO
 
-\item \code{spm_data,spaspm_discrete-method}: TODO
+\item \code{spm_data,spaspm_data-method}: TODO
 
 \item \code{spm_unique_ID}: TODO
 
