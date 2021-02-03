@@ -143,29 +143,49 @@ setMethod("spm_points",
 setMethod("show",
           "spaspm",
           function(object) {
-            cli::cli_h3(cli::col_red(cli::style_bold("SPASPM object")))
-            cat_model_basics(object)
+            cli::cli_h2(cli::col_blue(cli::style_bold("SPASPM object '", object@name, "'")))
+            show(object@data)
+            cli::cli_h3(cli::col_cyan("Boundaries"))
+            cat_boundaries(object)
           }
 )
 
 setMethod("show",
           "spaspm_discrete",
           function(object) {
-            cli::cli_h3(cli::col_red(cli::style_bold("SPASPM object (DISCRETIZED)")))
-            cat_model_basics(object)
-            cat(" \n")
-            cli::cli_h3(cli::style_bold("Discretization info"))
+            cli::cli_h2(cli::col_blue(cli::style_bold("SPASPM object '", object@name, "' ",
+                                                      cli::col_green("(DISCRETIZED)"))))
+            show(object@data)
+            cat_boundaries(object)
             show(object@method)
-            cat_model_discrete(object)
+            # cat_model_discrete(object)
           }
 )
 
 setMethod("show",
           "discretization_method",
           function(object) {
-            cat("  Disc. method   :", object@name, "\n")
+            cli::cli_h3(cli::col_cyan("Discretization method"))
+            cli::cat_bullet(" Test")
           }
 )
+
+setMethod("show",
+          "spaspm_data",
+          function(object) {
+            cli::cli_h3(cli::col_cyan("SPASPM Dataset"))
+            cli::cat_bullet(" Data matrix      : ", object@representation, " with ",
+                            dim(object@data)[1], " feature(s) and ",
+                            dim(object@data)[2], " variable(s)")
+            cli::cat_bullet(" Data unique ID   : ", cli::col_green(object@uniqueID))
+            if(!is.null(object@coords)){
+              cli::cat_bullet(" Coordinates cols : ",
+                              paste(cli::col_green(object@coords), collapse = ", "))
+            }
+          }
+)
+
+
 
 # TODO dim should get dims of data and sf if discrete
 # setMethod("dim",
