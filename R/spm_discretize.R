@@ -47,7 +47,7 @@ setMethod(f = "spm_discretize",
             other_args <- list(...)
 
             # TODO get slot with actual method here
-            discrete <- do.call(discretization_method@method,
+            discrete <- do.call(method_func(discretization_method),
                                 args = append(list(spaspm_object = spaspm_object),
                                               other_args))
 
