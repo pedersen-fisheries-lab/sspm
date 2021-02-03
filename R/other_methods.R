@@ -185,8 +185,6 @@ setMethod("show",
           }
 )
 
-
-
 # TODO dim should get dims of data and sf if discrete
 # setMethod("dim",
 #           "spaspm", function(x) length(x@snpid))
