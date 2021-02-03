@@ -4,7 +4,7 @@
 \alias{as_spaspm_data}
 \title{Create a spaspm_data structure}
 \usage{
-as_spaspm_data(data, coords, uniqueID, ...)
+as_spaspm_data(data, coords, uniqueID, crs, ...)
 }
 \description{
 TODO
