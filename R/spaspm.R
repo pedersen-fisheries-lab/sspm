@@ -10,8 +10,11 @@ spaspm <- function(name = "My SPASPM model",
                    coords = NULL,
                    ...){
 
+  # TODO CRS checks
+
   # 1. Ingest data and perform the correct checks
-  the_spapspm_data <- as_spaspm_data(data, coords, uniqueID, ...)
+  the_spapspm_data <- as_spaspm_data(data, coords, uniqueID,
+                                     crs = sf::st_crs(boundaries), ...)
 
   # 2. Create basis spaspm object
   the_object <- new("spaspm",
@@ -22,11 +25,15 @@ spaspm <- function(name = "My SPASPM model",
   return(the_object)
 }
 
-# Methods -----------------------------------------------------------------
+# -------------------------------------------------------------------------
 
+#' Create a spaspm_data structure
+#'
+#' TODO
+#'
 #' @export
 setGeneric(name = "as_spaspm_data",
-           def = function(data, coords, uniqueID, ...){
+           def = function(data, coords, uniqueID, crs, ...){
 
              if(!checkmate::test_subset(uniqueID, names(data))){
                stop("`uniqueID` must be a column of `data`")
@@ -36,18 +43,15 @@ setGeneric(name = "as_spaspm_data",
            }
 )
 
+# Methods -----------------------------------------------------------------
+
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "NULL"),
-          function(data, coords, uniqueID, ...){
+          function(data, coords, uniqueID, crs, ...){
 
-            the_spaspm_data <- new("spaspm_data",
-                                   uniqueID = uniqueID,
-                                   is_spatial = FALSE,
-                                   coords = NULL,
-                                   representation = "Dataframe")
-
-            return(the_spaspm_data)
+            stop("Argument `coords` must be provided when data matrix is a dataframe",
+                 call. = FALSE)
           }
 )
 
@@ -55,19 +59,27 @@ setMethod(f = "as_spaspm_data",
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "character"),
-          function(data, coords, uniqueID, ...){
+          function(data, coords, uniqueID, crs, ...){
+
+            # TODO CRS checks
 
             # Check coords
             if(!checkmate::test_subset(coords, names(data))){
               stop("`coords` must be columns of `data`")
             }
 
-            # From a data.frame and coords, cast as sf
-            the_data <- sf::st_as_sf(x = data, coords = coords)
+            # From a data.frame and coords, cast as sf (keep columns)
+            info_message <-
+              paste0("Casting data matrix into simple feature collection using columns: ",
+                     paste(cli::col_green(coords), collapse = ", "))
+            cli::cli_alert_info(info_message)
+
+            new_data <- sf::st_as_sf(x = data, coords = coords, crs = crs,
+                                     remove = FALSE)
+
             the_spaspm_data <- new("spaspm_data",
-                                   data = data,
+                                   data = new_data,
                                    uniqueID = uniqueID,
-                                   is_spatial = TRUE,
                                    coords = coords,
                                    representation = "Simple feature collection")
 
@@ -79,13 +91,14 @@ setMethod(f = "as_spaspm_data",
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "sf", coords = "ANY"),
-          function(data, coords, uniqueID, ...){
+          function(data, coords, uniqueID, crs, ...){
+
+            # TODO CRS checks
 
             the_spaspm_data <- new("spaspm_data",
                                    data = data,
                                    uniqueID = uniqueID,
-                                   is_spatial = TRUE,
-                                   coords = NULL,
+                                   coords = coords,
                                    representation = "Simple feature collection")
 
             return(the_spaspm_data)
