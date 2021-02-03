@@ -10,11 +10,11 @@ SPASPM dataset structure
 \section{Slots}{
 
 \describe{
+\item{\code{name}}{\strong{[character]} TODO}
+
 \item{\code{data}}{\strong{[ANY]} TODO}
 
 \item{\code{uniqueID}}{\strong{[character]} TODO}
-
-\item{\code{is_spatial}}{\strong{[logical]} TODO}
 
 \item{\code{coords}}{\strong{[character]} TODO}
 

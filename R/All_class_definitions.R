@@ -18,9 +18,9 @@ setClassUnion("characterOrNULL", c("character", "NULL"))
 
 #' SPASPM dataset structure
 #'
+#' @slot name **\[character\]** TODO
 #' @slot data **\[ANY\]** TODO
 #' @slot uniqueID **\[character\]** TODO
-#' @slot is_spatial **\[logical\]** TODO
 #' @slot coords **\[character\]** TODO
 #' @slot representation **\[character\]** TODO
 #'
@@ -67,8 +67,6 @@ setClass("discretization_method",
 #' @slot data **\[[spaspm_data][spaspm_data-class]\]** Observationnal data.
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
 #'
-#' @slot data_spatial **\[sf\]** *(if discrete)* Spatial version of `data`,
-#'     resulting from discretization.
 #' @slot method **\[[discretization_method][discretization_method-class]\]**
 #'     *(if discrete)* discretization method used.
 #' @slot patches **\[sf\]** *(if discrete)* Patches resulting from
@@ -95,8 +93,6 @@ setClass("spaspm_discrete",
          contains = c("spaspm"))
 
 # -------------------------------------------------------------------------
-
-# TODO finish documenting the fit object
 
 # Fitted model => spaspm + discretization_method + has been fitted
 setClass("spaspm_gam_fit",
