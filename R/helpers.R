@@ -94,9 +94,26 @@ suppressAll <- function(x){
 # Print helpers -----------------------------------------------------------
 
 cat_boundaries <- function(object){
+  cli::cli_h3(cli::col_cyan("Boundaries"))
   cli::cat_bullet(" Boundary data    : ", " Simple feature collection with ",
                   dim(object@boundaries)[1] ," feature(s) and ",
-                  dim(object@boundaries)[2], " variable(s) \n")
+                  dim(object@boundaries)[2], " variable(s)")
+}
+
+cat_discretization_info <- function(object){
+  cli::cli_h3(cli::col_cyan("Discretization info"))
+  cli::cat_bullet(" Method name      : '", object@method@name, "'")
+  cli::cat_bullet(" Patches          : ", "Simple feature collection with ",
+                  dim(object@patches)[1] ," patches (and ",
+                  dim(object@patches)[2], " field(s))")
+  cli::cat_bullet(" Points           : ", "Simple feature collection with ",
+                  dim(object@points)[1] ," points (and ",
+                  dim(object@points)[2], " field(s))")
+}
+
+cat_mapped_datasets <- function(object){
+  cli::cli_h3(cli::col_cyan("Mapped Datasets"))
+  cat_bullet(" TODO")
 }
 
 message_not_discrete <- function(object){
