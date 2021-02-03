@@ -25,6 +25,27 @@ setMethod("spm_name", signature("spaspm_object" = "spaspm_data"),
           function(spaspm_object) spaspm_object@name
 )
 
+
+# Base dataset ------------------------------------------------------------
+
+#' @describeIn accessors TODO
+#' @export
+setGeneric(name = "spm_base_dataset",
+           def = function(spaspm_object) standardGeneric("spm_base_dataset")
+)
+
+#' @describeIn accessors TODO
+#' @export
+setMethod("spm_base_dataset", signature("spaspm_object" = "spaspm"),
+          function(spaspm_object) spaspm_object@data
+)
+
+#' @describeIn accessors TODO
+#' @export
+setMethod("spm_base_dataset", signature("spaspm_object" = "spaspm_discrete"),
+          function(spaspm_object) spaspm_object@data
+)
+
 # Datasets ----------------------------------------------------------------
 
 #' @describeIn accessors TODO
@@ -43,8 +64,16 @@ setMethod("spm_datasets", signature("spaspm_object" = "spaspm"),
 #' @export
 setMethod("spm_datasets", signature("spaspm_object" = "spaspm_discrete"),
           function(spaspm_object){
-            # List of mapped datasets
-            TRUE
+            if(length(spaspm_object@mapped_datasets) > 0){
+              datasets <- unlist(list(list(Main_dataset = spaspm_object@data),
+                                      Mapped_datasets = spaspm_object@mapped_datasets),
+                                 recursive = FALSE)
+              names(datasets) <- c(spaspm_object@data@name,
+                                   sapply(spm_name, spaspm_object@mapped_datasets))
+            } else {
+              datasets <- spaspm_object@data
+            }
+            return(datasets)
           }
 )
 
@@ -90,7 +119,24 @@ setGeneric(name = "spm_unique_ID",
 #' @export
 setMethod("spm_unique_ID",
           signature("spaspm_object" = "spaspm"),
+          function(spaspm_object) spaspm_object@data@uniqueID
+)
+
+#' @describeIn accessors TODO
+#' @export
+setMethod("spm_unique_ID",
+          signature("spaspm_object" = "spaspm_data"),
           function(spaspm_object) spaspm_object@uniqueID
+)
+
+#' @describeIn accessors TODO
+#' @export
+setMethod("spm_unique_ID",
+          signature("spaspm_object" = "spaspm_discrete"),
+          function(spaspm_object) {
+            # TODO adjust this for list
+            spaspm_object@data@uniqueID
+          }
 )
 
 # Coords ------------------------------------------------------------------
@@ -99,6 +145,20 @@ setMethod("spm_unique_ID",
 #' @export
 setGeneric(name = "spm_coords_col",
            def = function(spaspm_object) standardGeneric("spm_coords_col")
+)
+
+#' @describeIn accessors TODO
+#' @export
+setMethod("spm_coords_col",
+          signature("spaspm_object" = "spaspm"),
+          function(spaspm_object) spaspm_object@data@coords
+)
+
+#' @describeIn accessors TODO
+#' @export
+setMethod("spm_coords_col",
+          signature("spaspm_object" = "spaspm_data"),
+          function(spaspm_object) spaspm_object@coords
 )
 
 # Boundaries --------------------------------------------------------------
