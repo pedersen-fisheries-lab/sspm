@@ -25,10 +25,12 @@ setClassUnion("characterOrNULL", c("character", "NULL"))
 #' @slot representation **\[character\]** TODO
 #'
 setClass("spaspm_data",
-         slots = list(data = "ANY",
+         slots = list(name = "character",
+                      data = "ANY",
                       uniqueID = "character",
                       coords = "characterOrNULL",
                       representation = "character"),
+         prototype = prototype(name = "Biomass"),
          contains = c("sf", "data.frame"))
 
 # TODO reconsider using the stack approach
@@ -80,7 +82,7 @@ setClass("spaspm",
          slots = list(name = "character",
                       data = "spaspm_data",
                       boundaries = "sf"),
-         prototype = list(name = "Default Model Name")
+         prototype = prototype(name = "Default Model Name")
 )
 
 setClass("spaspm_discrete",
@@ -88,7 +90,7 @@ setClass("spaspm_discrete",
                       patches = "sf",
                       points = "sf",
                       mapped_datasets = "list"),
-         prototype = list(name = "Default Model Name",
+         prototype = prototype(name = "Default Model Name",
                           mapped_datasets = list()),
          contains = c("spaspm"))
 
