@@ -12,7 +12,7 @@ setOldClass("sf")
 
 # ClassUnions -------------------------------------------------------------
 
-setClassUnion("ANY_coords", c("character", "NULL"))
+setClassUnion("characterOrNULL", c("character", "NULL"))
 
 # -------------------------------------------------------------------------
 
@@ -27,8 +27,7 @@ setClassUnion("ANY_coords", c("character", "NULL"))
 setClass("spaspm_data",
          slots = list(data = "ANY",
                       uniqueID = "character",
-                      is_spatial = "logical",
-                      coords = "ANY_coords",
+                      coords = "characterOrNULL",
                       representation = "character"),
          contains = c("sf", "data.frame"))
 
@@ -89,7 +88,8 @@ setClass("spaspm_discrete",
                       patches = "sf",
                       points = "sf",
                       mapped_datasets = "list"),
-         prototype = list(name = "Default Model Name"),
+         prototype = list(name = "Default Model Name",
+                          mapped_datasets = list()),
          contains = c("spaspm"))
 
 # -------------------------------------------------------------------------
