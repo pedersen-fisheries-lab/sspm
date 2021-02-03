@@ -1,0 +1,51 @@
+# Show methods for spaspm objects
+
+setMethod("show",
+          "spaspm",
+          function(object) {
+            cli::cli_h2(cli::col_blue(cli::style_bold("SPASPM object '", object@name, "'")))
+            show(object@data)
+            cat_boundaries(object)
+            cat("\n")
+          }
+)
+
+setMethod("show",
+          "spaspm_discrete",
+          function(object) {
+            cli::cli_h2(cli::col_blue(cli::style_bold("SPASPM object '", object@name, "' ",
+                                                      cli::col_green("(DISCRETIZED)"))))
+            show(object@data)
+            cat_boundaries(object)
+            cat_discretization_info(object)
+            if (length(object@mapped_datasets) > 1){
+              cat_mapped_datasets(object)
+            }
+            cat("\n")
+          }
+)
+
+setMethod("show",
+          "discretization_method",
+          function(object) {
+            cli::cli_h3(cli::col_cyan("Discretization method"))
+            cli::cat_bullet(" Name             : '", object@name, "'")
+            # TODO manage to print function name
+            # cli::cat_bullet(" Function         :", object@method)
+          }
+)
+
+setMethod("show",
+          "spaspm_data",
+          function(object) {
+            cli::cli_h3(cli::col_cyan("SPASPM Dataset '", object@name, "' "))
+            cli::cat_bullet(" Data matrix      : ", object@representation, " with ",
+                            dim(object@data)[1], " feature(s) and ",
+                            dim(object@data)[2], " variable(s)")
+            cli::cat_bullet(" Data unique ID   : ", cli::col_green(object@uniqueID))
+            if(!is.null(object@coords)){
+              cli::cat_bullet(" Coordinates cols : ",
+                              paste(cli::col_green(object@coords), collapse = ", "))
+            }
+          }
+)
