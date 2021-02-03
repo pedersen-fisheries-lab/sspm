@@ -35,7 +35,7 @@ tesselate_voronoi <- function(spaspm_object,
                               boundary_col = "sfa",
                               nb_samples = c(`4` = 10, `5` = 30, `6` = 30, `7` = 5),
                               min_size = 1500,
-                              coords = c("lat", "lon"),
+                              coords = NULL,
                               sample_points = NULL,
                               seed = 1) {
 
@@ -48,16 +48,20 @@ tesselate_voronoi <- function(spaspm_object,
 
   # Check main params
   checkmate::assert_class(spaspm_object, "spaspm")
-  checkmate::assert_character(coords)
   checkmate::assert_numeric(nb_samples)
+
+  if (!checkmate::test_null(coords)) {
+    checkmate::assert_class(coords, "character")
+  }
   if (!checkmate::test_null(sample_points)) {
     checkmate::assert_class(sample_points, "sf")
   }
 
   # Get params from model object if necessary
   name <- spm_name(spaspm_object)
-  data <- if (is.null(data)) spm_data(spaspm_object) else data
+  data <- if (is.null(data)) spm_base_dataset(spaspm_object) else data
   boundaries <- if (is.null(boundaries)) spm_boundaries(spaspm_object) else boundaries
+  coords <- if(is.null(coords)) spm_coords_col(spaspm_object) else coords
 
   # Check these params as well
   checkmate::assert_class(data, "spaspm_data")
@@ -66,8 +70,7 @@ tesselate_voronoi <- function(spaspm_object,
   # Body --------------------------------------------------------------------
 
   # 1. Make data a sf object
-  # TODO review accessors and use them here
-  data_spatial <- data@data
+  data_spatial <- spm_data(data)
 
   # Make sure seed is set just before called sample
   if(getRversion()>=3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))
@@ -98,8 +101,8 @@ tesselate_voronoi <- function(spaspm_object,
     suppressAll(sf::st_intersection(x=boundaries, y = voronoi))
   voronoi <-
     suppressAll(voronoi %>%
-                  dplyr::mutate(voronoi_id =  paste("V", 1:dplyr::n(),sep = "")) %>%
-                  dplyr::group_by(.data$voronoi_id, .data[[boundary_col]]) %>%
+                  dplyr::mutate(patch_id =  paste("V", 1:dplyr::n(),sep = "")) %>%
+                  dplyr::group_by(.data$patch_id, .data[[boundary_col]]) %>%
                   dplyr::summarize() %>%
                   dplyr::ungroup())
   voronoi <-
@@ -111,17 +114,17 @@ tesselate_voronoi <- function(spaspm_object,
                                                                      value = "km^2"))))
 
   # 4. Fix size
-  small_voronoi <- voronoi$voronoi_id[which(voronoi$area_km2 < min_size)]
+  small_voronoi <- voronoi$patch_id[which(voronoi$area_km2 < min_size)]
   voronoi_edges <- suppressMessages(sf::st_intersects(voronoi))
-  names(voronoi_edges) <- voronoi$voronoi_id
+  names(voronoi_edges) <- voronoi$patch_id
 
   # TODO vectorize this
   for(i in small_voronoi){
     current_polygons <- voronoi[voronoi_edges[[i]],] %>%
-      dplyr::filter(.data[[boundary_col]] == .data[[boundary_col]][.data$voronoi_id == i]) %>%
+      dplyr::filter(.data[[boundary_col]] == .data[[boundary_col]][.data$patch_id == i]) %>%
       dplyr::filter(.data$area_km2 == max(.data$area_km2))
-    max_id <- current_polygons$voronoi_id
-    voronoi$voronoi_id[voronoi$voronoi_id==i] <- max_id
+    max_id <- current_polygons$patch_id
+    voronoi$patch_id[voronoi$patch_id==i] <- max_id
   }
 
   # Summarise and calculate area
@@ -129,7 +132,7 @@ tesselate_voronoi <- function(spaspm_object,
     suppressWarnings(
       suppressMessages(
         voronoi %>%
-          dplyr::group_by(.data[[boundary_col]], .data$voronoi_id) %>%
+          dplyr::group_by(.data[[boundary_col]], .data$patch_id) %>%
           dplyr::summarize() %>%
           dplyr::ungroup()))
   voronoi <-
@@ -137,7 +140,7 @@ tesselate_voronoi <- function(spaspm_object,
   voronoi <-
     dplyr::mutate(voronoi,
                   area_km2 = as.numeric(units::set_units(.data$area_km2, value = "km^2")),
-                  voronoi_id = factor(paste("V", 1:dplyr::n(),sep = "")))
+                  patch_id = factor(paste("V", 1:dplyr::n(),sep = "")))
 
   # Core function must return a list of "patches" and "points"
   return(list(data_spatial = data_spatial,

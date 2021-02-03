@@ -53,19 +53,20 @@ setMethod(f = "spm_discretize",
 
             # Check names of results
             checkmate::assert_names(x = names(discrete),
-                                    subset.of = c("data_spatial",
-                                                  "patches",
+                                    subset.of = c("data_spatial", "patches",
                                                   "points"))
 
             # Join data_spatial and patches
             discrete$data_spatial <-
-              suppressMessages(sf::st_join(discrete$patches,
-                                           discrete$data_spatial))
+              suppressMessages(sf::st_join(discrete$data_spatial,
+                                           discrete$patches)) %>%
+              dplyr::filter(!duplicated(.data[[spm_unique_ID(spaspm_object)]]))
+
             spaspm_object@data@data <- discrete$data_spatial
 
             new_spaspm_discrete <- new("spaspm_discrete",
                                        name = spm_name(spaspm_object),
-                                       data = spm_data(spaspm_object),
+                                       data = spm_base_dataset(spaspm_object),
                                        boundaries = spm_boundaries(spaspm_object),
                                        method = discretization_method,
                                        patches = discrete[["patches"]],
@@ -114,19 +115,34 @@ setMethod(f = "spm_discretize",
 
             if (!force){
 
-              message(paste0("  Model '", spm_name(spaspm_object),
-                             "' is already discretized"))
-              message("  Use 'force = TRUE' to discretize again")
+              cli::cli_alert_danger(paste0(" Model '", spm_name(spaspm_object),
+                                           "' is already discretized"))
+              cli::cli_alert_info(" Use 'force = TRUE' to discretize again. but mapped datasets will be lost!")
 
             } else{
 
-              message(paste0("  Re-discretizing model '",
-                             spm_name(spaspm_object), "'"))
+              cli::cli_alert_info(paste0(" Re-discretizing model '",
+                                         spm_name(spaspm_object), "'"))
 
-              new_object <- new("spaspm",
-                                name = spm_name(spaspm_object),
-                                data = spm_data(spaspm_object)$data,
-                                boundaries = spm_boundaries(spaspm_object))
+              # Strip old geometry
+              the_data <- spm_data(spm_base_dataset(spaspm_object))
+              st_geometry(the_data) <- NULL
+
+              # Remove the columns that are in common
+              names_to_remove <- names(spm_boundaries(spaspm_object))
+              names_to_remove <- name_to_remove[name_to_remove %in%
+                                                  names(the_data)]
+
+              the_data <- the_data %>%
+                select(-c(names_to_remove, "patch_id"))
+
+              new_object <- spaspm(model_name = spm_name(spaspm_object),
+                                   dataset_name = spm_name(spm_base_dataset(spaspm_object)),
+                                   data = the_data,
+                                   coords = spm_coords_col(spaspm_object),
+                                   uniqueID = spm_unique_ID(spaspm_object),
+                                   boundaries = spm_boundaries(spaspm_object))
+
               spm_discretize(new_object,
                              discretization_method = discretization_method,
                              ...)
