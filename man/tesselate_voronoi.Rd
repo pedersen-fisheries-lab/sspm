@@ -11,7 +11,7 @@ tesselate_voronoi(
   boundary_col = "sfa",
   nb_samples = c(`4` = 10, `5` = 30, `6` = 30, `7` = 5),
   min_size = 1500,
-  coords = c("lat", "lon"),
+  coords = NULL,
   sample_points = NULL,
   seed = 1
 )

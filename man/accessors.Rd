@@ -4,6 +4,9 @@
 \alias{spm_name}
 \alias{spm_name,spaspm-method}
 \alias{spm_name,spaspm_data-method}
+\alias{spm_base_dataset}
+\alias{spm_base_dataset,spaspm-method}
+\alias{spm_base_dataset,spaspm_discrete-method}
 \alias{spm_datasets}
 \alias{spm_datasets,spaspm-method}
 \alias{spm_datasets,spaspm_discrete-method}
@@ -13,7 +16,11 @@
 \alias{spm_data,spaspm_data-method}
 \alias{spm_unique_ID}
 \alias{spm_unique_ID,spaspm-method}
+\alias{spm_unique_ID,spaspm_data-method}
+\alias{spm_unique_ID,spaspm_discrete-method}
 \alias{spm_coords_col}
+\alias{spm_coords_col,spaspm-method}
+\alias{spm_coords_col,spaspm_data-method}
 \alias{spm_boundaries}
 \alias{spm_boundaries,spaspm-method}
 \alias{spm_discret_method}
@@ -33,6 +40,12 @@ spm_name(spaspm_object)
 
 \S4method{spm_name}{spaspm_data}(spaspm_object)
 
+spm_base_dataset(spaspm_object)
+
+\S4method{spm_base_dataset}{spaspm}(spaspm_object)
+
+\S4method{spm_base_dataset}{spaspm_discrete}(spaspm_object)
+
 spm_datasets(spaspm_object)
 
 \S4method{spm_datasets}{spaspm}(spaspm_object)
@@ -51,7 +64,15 @@ spm_unique_ID(spaspm_object)
 
 \S4method{spm_unique_ID}{spaspm}(spaspm_object)
 
+\S4method{spm_unique_ID}{spaspm_data}(spaspm_object)
+
+\S4method{spm_unique_ID}{spaspm_discrete}(spaspm_object)
+
 spm_coords_col(spaspm_object)
+
+\S4method{spm_coords_col}{spaspm}(spaspm_object)
+
+\S4method{spm_coords_col}{spaspm_data}(spaspm_object)
 
 spm_boundaries(spaspm_object)
 
@@ -90,6 +111,12 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 
 \item \code{spm_name,spaspm_data-method}: TODO
 
+\item \code{spm_base_dataset}: TODO
+
+\item \code{spm_base_dataset,spaspm-method}: TODO
+
+\item \code{spm_base_dataset,spaspm_discrete-method}: TODO
+
 \item \code{spm_datasets}: TODO
 
 \item \code{spm_datasets,spaspm-method}: TODO
@@ -108,7 +135,15 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 
 \item \code{spm_unique_ID,spaspm-method}: TODO
 
+\item \code{spm_unique_ID,spaspm_data-method}: TODO
+
+\item \code{spm_unique_ID,spaspm_discrete-method}: TODO
+
 \item \code{spm_coords_col}: TODO
+
+\item \code{spm_coords_col,spaspm-method}: TODO
+
+\item \code{spm_coords_col,spaspm_data-method}: TODO
 
 \item \code{spm_boundaries}: TODO
 
