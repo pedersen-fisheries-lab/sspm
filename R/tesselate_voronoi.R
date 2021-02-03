@@ -60,16 +60,14 @@ tesselate_voronoi <- function(spaspm_object,
   boundaries <- if (is.null(boundaries)) spm_boundaries(spaspm_object) else boundaries
 
   # Check these params as well
-  checkmate::assert_data_frame(data)
-  checkmate::assert_subset(coords, names(data))
+  checkmate::assert_class(data, "spaspm_data")
   checkmate::assert_class(boundaries, "sf")
 
   # Body --------------------------------------------------------------------
 
   # 1. Make data a sf object
-  # TODO reminder that crs are assumed to be the same
-  data_spatial <- sf::st_as_sf(data, coords=coords,
-                               crs = sf::st_crs(boundaries), remove =FALSE)
+  # TODO review accessors and use them here
+  data_spatial <- data@data
 
   # Make sure seed is set just before called sample
   if(getRversion()>=3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))

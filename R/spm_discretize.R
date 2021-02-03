@@ -61,11 +61,12 @@ setMethod(f = "spm_discretize",
             discrete$data_spatial <-
               suppressMessages(sf::st_join(discrete$patches,
                                            discrete$data_spatial))
+            spaspm_object@data@data <- discrete$data_spatial
 
             new_spaspm_discrete <- new("spaspm_discrete",
+                                       name = spm_name(spaspm_object),
                                        data = spm_data(spaspm_object),
                                        boundaries = spm_boundaries(spaspm_object),
-                                       data_spatial = discrete[["data_spatial"]],
                                        method = discretization_method,
                                        patches = discrete[["patches"]],
                                        points = discrete[["points"]])
