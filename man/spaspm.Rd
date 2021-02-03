@@ -5,7 +5,8 @@
 \title{Create a spaspm model object}
 \usage{
 spaspm(
-  name = "My SPASPM model",
+  model_name = "My SPASPM model",
+  dataset_name = "Biomass",
   data,
   uniqueID,
   boundaries,
