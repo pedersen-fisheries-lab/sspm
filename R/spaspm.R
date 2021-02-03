@@ -3,7 +3,8 @@
 #' TODO
 #'
 #' @export
-spaspm <- function(name = "My SPASPM model",
+spaspm <- function(model_name = "My SPASPM model",
+                   dataset_name = "Biomass",
                    data,
                    uniqueID,
                    boundaries,
@@ -13,12 +14,12 @@ spaspm <- function(name = "My SPASPM model",
   # TODO CRS checks
 
   # 1. Ingest data and perform the correct checks
-  the_spapspm_data <- as_spaspm_data(data, coords, uniqueID,
+  the_spapspm_data <- as_spaspm_data(data, coords, dataset_name, uniqueID,
                                      crs = sf::st_crs(boundaries), ...)
 
   # 2. Create basis spaspm object
   the_object <- new("spaspm",
-                    name = name,
+                    name = model_name,
                     data = the_spapspm_data,
                     boundaries = boundaries)
 
@@ -33,7 +34,7 @@ spaspm <- function(name = "My SPASPM model",
 #'
 #' @export
 setGeneric(name = "as_spaspm_data",
-           def = function(data, coords, uniqueID, crs, ...){
+           def = function(data, coords, dataset_name, uniqueID, crs, ...){
 
              if(!checkmate::test_subset(uniqueID, names(data))){
                stop("`uniqueID` must be a column of `data`")
@@ -48,7 +49,7 @@ setGeneric(name = "as_spaspm_data",
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "NULL"),
-          function(data, coords, uniqueID, crs, ...){
+          function(data, coords, dataset_name, uniqueID, crs, ...){
 
             stop("Argument `coords` must be provided when data matrix is a dataframe",
                  call. = FALSE)
@@ -59,7 +60,7 @@ setMethod(f = "as_spaspm_data",
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "character"),
-          function(data, coords, uniqueID, crs, ...){
+          function(data, coords, dataset_name, uniqueID, crs, ...){
 
             # TODO CRS checks
 
@@ -78,6 +79,7 @@ setMethod(f = "as_spaspm_data",
                                      remove = FALSE)
 
             the_spaspm_data <- new("spaspm_data",
+                                   name = dataset_name,
                                    data = new_data,
                                    uniqueID = uniqueID,
                                    coords = coords,
@@ -96,6 +98,7 @@ setMethod(f = "as_spaspm_data",
             # TODO CRS checks
 
             the_spaspm_data <- new("spaspm_data",
+                                   name = dataset_name,
                                    data = data,
                                    uniqueID = uniqueID,
                                    coords = coords,
