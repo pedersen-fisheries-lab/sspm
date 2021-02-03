@@ -5,7 +5,7 @@
 setMethod("plot",
           signature(x = "spaspm"),
           definition = function(x) {
-            message("  This model is not discretized and cannot be plotted")
+            cli::cli_alert_danger(" This model is not discretized and cannot be plotted")
           }
 )
 
