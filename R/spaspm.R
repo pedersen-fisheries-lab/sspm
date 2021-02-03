@@ -71,7 +71,7 @@ setMethod(f = "as_spaspm_data",
 
             # From a data.frame and coords, cast as sf (keep columns)
             info_message <-
-              paste0("Casting data matrix into simple feature collection using columns: ",
+              paste0(" Casting data matrix into simple feature collection using columns: ",
                      paste(cli::col_green(coords), collapse = ", "))
             cli::cli_alert_info(info_message)
 
