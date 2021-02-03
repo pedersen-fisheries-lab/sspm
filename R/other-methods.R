@@ -69,7 +69,7 @@ setMethod("spm_datasets", signature("spaspm_object" = "spaspm_discrete"),
                                       Mapped_datasets = spaspm_object@mapped_datasets),
                                  recursive = FALSE)
               names(datasets) <- c(spaspm_object@data@name,
-                                   sapply(spm_name, spaspm_object@mapped_datasets))
+                                   sapply(spaspm_object@mapped_datasets, spm_name))
             } else {
               datasets <- spaspm_object@data
             }

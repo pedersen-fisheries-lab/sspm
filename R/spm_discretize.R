@@ -130,11 +130,11 @@ setMethod(f = "spm_discretize",
 
               # Remove the columns that are in common
               names_to_remove <- names(spm_boundaries(spaspm_object))
-              names_to_remove <- name_to_remove[name_to_remove %in%
+              names_to_remove <- names_to_remove[names_to_remove %in%
                                                   names(the_data)]
 
               the_data <- the_data %>%
-                select(-c(names_to_remove, "patch_id"))
+                select(-c(all_of(names_to_remove), "patch_id"))
 
               new_object <- spaspm(model_name = spm_name(spaspm_object),
                                    dataset_name = spm_name(spm_base_dataset(spaspm_object)),
