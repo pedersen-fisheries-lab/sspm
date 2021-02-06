@@ -69,6 +69,7 @@ suppressAll <- function(x){
 
 # Prints out error that an object is not a discrete object
 message_not_discrete <- function(object){
-  message(paste0("Model object '", spm_name(object),
-                 "' is not a discrete model. See ?spm_discretize for discretization methods"))
+  cli::cli_alert_danger(paste0(" Model object '", spm_name(object),
+                               "' is not a discrete model"))
+  cli::cli_alert_info(" See ?spm_discretize for discretization methods")
 }
