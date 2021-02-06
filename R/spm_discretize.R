@@ -41,8 +41,8 @@ setMethod(f = "spm_discretize",
             checkmate::assert_class(discretization_method,
                                     "discretization_method")
 
-            cli::cli_alert_success(paste0(" Discretizing using method '",
-                                          discretization_method@name,"'"))
+            cli::cli_alert_info(paste0(" Discretizing using method '",
+                                       discretization_method@name,"'"))
 
             other_args <- list(...)
 
