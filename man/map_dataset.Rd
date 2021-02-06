@@ -2,10 +2,33 @@
 % Please edit documentation in R/map_dataset.R
 \name{map_dataset}
 \alias{map_dataset}
+\alias{map_dataset,spaspm_discrete,data.frame-method}
+\alias{map_dataset,spaspm_discrete,spaspm_data-method}
+\alias{map_dataset,spaspm_discrete,list-method}
+\alias{map_dataset,spaspm,ANY-method}
 \title{Map dataset onto a discretized SPASPM object}
 \usage{
-map_dataset(spaspm_object, ...)
+map_dataset(spaspm_object, dataset, ...)
+
+\S4method{map_dataset}{spaspm_discrete,data.frame}(spaspm_object, dataset, ...)
+
+\S4method{map_dataset}{spaspm_discrete,spaspm_data}(spaspm_object, dataset, ...)
+
+\S4method{map_dataset}{spaspm_discrete,list}(spaspm_object, dataset, ...)
+
+\S4method{map_dataset}{spaspm,ANY}(spaspm_object, dataset, ...)
 }
 \description{
-Template description
+TODO
 }
+\section{Functions}{
+\itemize{
+\item \code{map_dataset,spaspm_discrete,data.frame-method}: TODO
+
+\item \code{map_dataset,spaspm_discrete,spaspm_data-method}: TODO
+
+\item \code{map_dataset,spaspm_discrete,list-method}: TODO
+
+\item \code{map_dataset,spaspm,ANY-method}: TODO
+}}
+
