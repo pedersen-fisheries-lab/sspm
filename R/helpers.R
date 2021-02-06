@@ -1,24 +1,10 @@
 # Exported ----------------------------------------------------------------
 
-#' Get the list of available discretization methods
-#'
-#' Currently, only one discretization method is supported:
-#'     * `"tesselate_voronoi"` Voronoi tessellation using the function
-#'       [tesselate_voronoi][tesselate_voronoi].
-#'
-#' You can create your own methid using TODO.
-#'
-#' @return
-#' A `character vector` of all available discretization methods.
-#'
-#' @export
-spm_methods <- function(){
-  choices <- c('tesselate_voronoi')
-  return(choices)
-}
+NULL
 
 # Not exported ------------------------------------------------------------
 
+# Convert shrimp length to weight
 length_to_weigth <- function(length, sex){
 
   checkmate::assert_character(sex)
@@ -76,21 +62,12 @@ rqresiduals <- function (gam.obj) {
   return(qres)
 }
 
-dispatch_method <- function(discretization_method){
-
-  checkmate::assert_character(discretization_method)
-
-  if (discretization_method == "tesselate_voronoi"){
-    return(tesselate_voronoi)
-  } else {
-    stop()
-  }
-}
-
+# Suppress both messages and warnings
 suppressAll <- function(x){
   suppressWarnings(suppressMessages(x))
 }
 
+# Prints out error that an object is not a discrete object
 message_not_discrete <- function(object){
   message(paste0("Model object '", spm_name(object),
                  "' is not a discrete model. See ?spm_discretize for discretization methods"))
