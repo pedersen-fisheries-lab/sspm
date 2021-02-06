@@ -84,14 +84,7 @@ setMethod(f = "spm_discretize",
                     discretization_method = "character"),
           function(spaspm_object, discretization_method, ...){
 
-            if(!checkmate::test_choice(discretization_method, spm_methods())){
-              paste0("Method must be one of: ", paste0(spm_methods(),
-                                                       collapse =  ", " ))
-            }
-
-            the_method <- new("discretization_method",
-                              name = discretization_method,
-                              method = dispatch_method(discretization_method))
+            the_method <- as_discretization_method(discretization_method)
 
             discrete <- spm_discretize(spaspm_object, the_method, ...)
           }
@@ -100,14 +93,25 @@ setMethod(f = "spm_discretize",
 # If `spaspm_discrete` confirm that we want to re-discretize and then jump to
 # the next appropriate signature
 
-# Set class union to group input types here
-setClassUnion("ANY_method", c("discretization_method", "character"))
+# SAME CODE than `spaspm` + character
+#' @describeIn spm_discretize TODO
+#' @export
+setMethod(f = "spm_discretize",
+          signature(spaspm_object = "spaspm_discrete",
+                    discretization_method = "character"),
+          function(spaspm_object, discretization_method, ...){
+
+            the_method <- as_discretization_method(discretization_method)
+
+            discrete <- spm_discretize(spaspm_object, the_method, ...)
+          }
+)
 
 #' @describeIn spm_discretize TODO
 #' @export
 setMethod(f = "spm_discretize",
           signature(spaspm_object = "spaspm_discrete",
-                    discretization_method = "ANY_method"),
+                    discretization_method = "discretization_method"),
           function(spaspm_object, discretization_method, force = FALSE, ...){
 
             checkmate::assert_logical(force)
