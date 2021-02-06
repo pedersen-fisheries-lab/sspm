@@ -7,7 +7,6 @@
 #' @param spaspm_object **\[spaspm OR adjacent\]** An object of class
 #'     [spaspm][spaspm-class] or others derivative classes.
 #'
-#' @rdname accessors
 #' @export
 setGeneric(name = "spm_name",
            def = function(spaspm_object) standardGeneric("spm_name")
