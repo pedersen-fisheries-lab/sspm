@@ -1,4 +1,4 @@
-#' Accessing `spaspm` model elements
+#' Accessing OR replacing `spaspm` model elements
 #'
 #' All methods described here allow to access the elements of contained in
 #' objects of class [spaspm][spaspm-class] and others derivative classes
@@ -12,6 +12,8 @@
 setGeneric(name = "spm_name",
            def = function(spaspm_object) standardGeneric("spm_name")
 )
+
+# Accessors ---------------------------------------------------------------
 
 #' @describeIn accessors-methods TODO
 #' @export
@@ -31,7 +33,16 @@ setMethod("spm_name", signature("spaspm_object" = "discretization_method"),
           function(spaspm_object) spaspm_object@name
 )
 
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods TODO
+#' @export
+setGeneric(name = "spm_name<-",
+           def = function(object, value) standardGeneric("spm_name<-")
+)
+
 # Base dataset ------------------------------------------------------------
+# Accesors ----------------------------------------------------------------
 
 #' @describeIn accessors-methods TODO
 #' @export
@@ -51,7 +62,16 @@ setMethod("spm_base_dataset", signature("spaspm_object" = "spaspm_discrete"),
           function(spaspm_object) spaspm_object@data
 )
 
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods TODO
+#' @export
+setGeneric(name = "spm_base_dataset<-",
+           def = function(object, value) standardGeneric("spm_base_dataset<-")
+)
+
 # Datasets ----------------------------------------------------------------
+# No replacers here as we aggregate different datasets 'types'
 
 #' @describeIn accessors-methods TODO
 #' @export
@@ -94,6 +114,7 @@ setMethod("spm_datasets", signature("spaspm_object" = "spaspm_data"),
 )
 
 # Data --------------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
 
 #' @describeIn accessors-methods TODO
 #' @export
@@ -115,7 +136,16 @@ setMethod("spm_data", signature("spaspm_object" = "spaspm_data"),
           function(spaspm_object) spaspm_object@data
 )
 
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods TODO
+#' @export
+setGeneric(name = "spm_data<-",
+           def = function(object, value) standardGeneric("spm_data<-")
+)
+
 # ID ----------------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
 
 #' @describeIn accessors-methods TODO
 #' @export
@@ -152,7 +182,16 @@ setMethod("spm_unique_ID",
           }
 )
 
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods TODO
+#' @export
+setGeneric(name = "spm_unique_ID<-",
+           def = function(object, value) standardGeneric("spm_unique_ID<-")
+)
+
 # Coords ------------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
 
 #' @describeIn accessors-methods TODO
 #' @export
@@ -189,7 +228,16 @@ setMethod("spm_coords_col",
           }
 )
 
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods TODO
+#' @export
+setGeneric(name = "spm_coords_col<-",
+           def = function(object, value) standardGeneric("spm_coords_col<-")
+)
+
 # Boundaries --------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
 
 #' @describeIn accessors-methods TODO
 #' @export
@@ -203,7 +251,16 @@ setMethod("spm_boundaries", signature("spaspm_object" = "spaspm"),
           function(spaspm_object) spaspm_object@boundaries
 )
 
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods TODO
+#' @export
+setGeneric(name = "spm_boundaries<-",
+           def = function(object, value) standardGeneric("spm_boundaries<-")
+)
+
 # Discretization method ---------------------------------------------------
+# Accessors ---------------------------------------------------------------
 
 #' @describeIn accessors-methods TODO
 #' @export
@@ -227,7 +284,16 @@ setMethod("spm_discret_method",
           function(spaspm_object) spaspm_object@method
 )
 
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods TODO
+#' @export
+setGeneric(name = "spm_discret_method<-",
+           def = function(object, value) standardGeneric("spm_discret_method<-")
+)
+
 # For method --------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
 
 #' @describeIn accessors-methods TODO
 #' @export
@@ -242,7 +308,16 @@ setMethod("method_func",
           function(spaspm_object) spaspm_object@method
 )
 
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods TODO
+#' @export
+setGeneric(name = "method_func<-",
+           def = function(object, value) standardGeneric("method_func<-")
+)
+
 # Patches -----------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
 
 #' @describeIn accessors-methods TODO
 #' @export
@@ -266,7 +341,16 @@ setMethod("spm_patches",
           function(spaspm_object) spaspm_object@patches
 )
 
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods TODO
+#' @export
+setGeneric(name = "spm_patches<-",
+           def = function(object, value) standardGeneric("spm_patches<-")
+)
+
 # Points ------------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
 
 #' @describeIn accessors-methods TODO
 #' @export
@@ -288,6 +372,14 @@ setMethod("spm_points",
 setMethod("spm_points",
           signature("spaspm_object" = "spaspm_discrete"),
           function(spaspm_object) spaspm_object@points
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods TODO
+#' @export
+setGeneric(name = "spm_points<-",
+           def = function(object, value) standardGeneric("spm_points<-")
 )
 
 # Mapped datasets ---------------------------------------------------------
