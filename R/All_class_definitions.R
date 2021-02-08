@@ -30,6 +30,9 @@ setClassUnion("characterOrNULL", c("character", "NULL"))
 #' @slot representation **\[character\]** Used internally and for print methods,
 #'     encodes the type of dataset.
 #'
+#' @name spaspm_data-class
+#' @rdname spaspm_data-class
+#'
 setClass("spaspm_data",
          slots = list(name = "character",
                       data = "ANY",
@@ -52,6 +55,9 @@ setClass("spaspm_data",
 #'
 #' @slot name **\[character\]** Name of the discretization method.
 #' @slot method **\[function\]** Function used for discretization.
+#'
+#' @name discretization_method-class
+#' @rdname discretization_method-class
 #'
 setClass("discretization_method",
          slots = list(name = "character",
@@ -82,6 +88,9 @@ setClass("discretization_method",
 #'     [spaspm_data][spaspm_data-class] objects that are mapped ontp the
 #'     base dataset.
 #'
+#' @name spaspm-class
+#' @rdname spaspm-class
+#'
 setClass("spaspm",
          slots = list(name = "character",
                       data = "spaspm_data",
@@ -89,6 +98,7 @@ setClass("spaspm",
          prototype = prototype(name = "Default Model Name")
 )
 
+#' @describeIn spaspm-class spaspm_discrete
 setClass("spaspm_discrete",
          slots = list(method = "discretization_method",
                       patches = "sf",
