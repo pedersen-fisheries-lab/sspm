@@ -5,7 +5,7 @@
 #' @rdname spaspm-constructor
 #' @export
 spaspm <- function(model_name = "My SPASPM model",
-                   dataset_name = "Biomass",
+                   name = "Biomass",
                    data,
                    uniqueID,
                    boundaries,
@@ -15,7 +15,7 @@ spaspm <- function(model_name = "My SPASPM model",
   # TODO CRS checks
 
   # 1. Ingest data and perform the correct checks
-  the_spapspm_data <- as_spaspm_data(data, coords, dataset_name, uniqueID,
+  the_spapspm_data <- as_spaspm_data(data, coords, name, uniqueID,
                                      crs = sf::st_crs(boundaries), ...)
 
   # 2. Create basis spaspm object

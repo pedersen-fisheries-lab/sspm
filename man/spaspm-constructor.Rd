@@ -6,7 +6,7 @@
 \usage{
 spaspm(
   model_name = "My SPASPM model",
-  dataset_name = "Biomass",
+  name = "Biomass",
   data,
   uniqueID,
   boundaries,

@@ -140,7 +140,7 @@ setMethod(f = "spm_discretize",
                 dplyr::select(-c(dplyr::all_of(names_to_remove), "patch_id"))
 
               new_object <- spaspm(model_name = spm_name(spaspm_object),
-                                   dataset_name = spm_name(spm_base_dataset(spaspm_object)),
+                                   name = spm_name(spm_base_dataset(spaspm_object)),
                                    data = the_data,
                                    coords = spm_coords_col(spaspm_object),
                                    uniqueID = spm_unique_ID(spaspm_object),

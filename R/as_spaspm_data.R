@@ -3,14 +3,14 @@
 #' @param data **\[data.frame OR sf\]** The dataset.
 #' @param coords **\[character\]** The column of `data` for longitude and
 #'     latitude of the observations.
-#' @param dataset_name **\[character\]** The name of the dataset, default to "Biomass".
+#' @param name **\[character\]** The name of the dataset, default to "Biomass".
 #' @param uniqueID **\[character\]** The column of `data` that is unique for all
 #'     rows of the data matrix.
 #' @param crs Coordinate reference system, passed onto [st_as_sf][sf].
 #'
 #' @export
 setGeneric(name = "as_spaspm_data",
-           def = function(data, coords, dataset_name, uniqueID, crs, ...){
+           def = function(data, coords, name, uniqueID, crs, ...){
 
              if(!checkmate::test_subset(uniqueID, names(data))){
                stop("`uniqueID` must be a column of `data`")
@@ -37,7 +37,7 @@ setMethod(f = "as_spaspm_data",
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "NULL"),
-          function(data, coords, dataset_name, uniqueID, crs, ...){
+          function(data, coords, name, uniqueID, crs, ...){
 
             stop("Argument `coords` must be provided when data matrix is a dataframe",
                  call. = FALSE)
@@ -49,7 +49,7 @@ setMethod(f = "as_spaspm_data",
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "character"),
-          function(data, coords, dataset_name, uniqueID, crs, ...){
+          function(data, coords, name, uniqueID, crs, ...){
 
             # TODO CRS checks
 
@@ -68,7 +68,7 @@ setMethod(f = "as_spaspm_data",
                                      remove = FALSE)
 
             the_spaspm_data <- new("spaspm_data",
-                                   name = dataset_name,
+                                   name = name,
                                    data = new_data,
                                    uniqueID = uniqueID,
                                    coords = coords,
@@ -88,7 +88,7 @@ setMethod(f = "as_spaspm_data",
             # TODO CRS checks
 
             the_spaspm_data <- new("spaspm_data",
-                                   name = dataset_name,
+                                   name = name,
                                    data = data,
                                    uniqueID = uniqueID,
                                    coords = coords,
