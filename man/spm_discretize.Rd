@@ -19,7 +19,8 @@ spm_discretize(spaspm_object, discretization_method = "tesselate_voronoi", ...)
 \S4method{spm_discretize}{spaspm_discrete,discretization_method}(spaspm_object, discretization_method, force = FALSE, ...)
 }
 \arguments{
-\item{spaspm_object}{\strong{[spaspm]}}
+\item{spaspm_object}{\strong{[spaspm]} An object of class
+\link[=spaspm-class]{spaspm}.}
 
 \item{discretization_method}{\strong{[character OR discretization_method]}
 Either a \code{character} from the list of available methods
