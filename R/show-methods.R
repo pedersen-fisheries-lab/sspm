@@ -54,7 +54,7 @@ setMethod("show",
 
 cat_boundaries <- function(object){
   cli::cli_h3(cli::col_cyan("Boundaries"))
-  cli::cat_bullet(" Boundary data      : ", " Simple feature collection with ",
+  cli::cat_bullet(" Boundary data      : ", "Simple feature collection with ",
                   dim(object@boundaries)[1] ," feature(s) and ",
                   dim(object@boundaries)[2], " variable(s)")
 }
