@@ -42,7 +42,7 @@ setMethod("show",
             cli::cat_bullet(" Data matrix      : ", object@representation, " with ",
                             dim(object@data)[1], " feature(s) and ",
                             dim(object@data)[2], " variable(s)")
-            cli::cat_bullet(" Data unique ID   : ", cli::col_green(object@uniqueID))
+            cli::cat_bullet(" Data unique ID   : ", cli::col_cyan(object@uniqueID))
             if(!is.null(object@coords)){
               cli::cat_bullet(" Coordinates cols : ",
                               paste(cli::col_green(object@coords), collapse = ", "))
