@@ -3,7 +3,8 @@
 #' Discretize a [spaspm][spaspm-class] model object with a function from a
 #' [discretization_method][discretization_method-class] object class.
 #'
-#' @param spaspm_object **\[spaspm\]**
+#' @param spaspm_object **\[spaspm\]** An object of class
+#'    [spaspm][spaspm-class].
 #' @param discretization_method **\[character OR discretization_method\]**
 #'    Either a `character` from the list of available methods
 #'    (see [spm_methods][spm_methods] for the list) **OR** an object of class
