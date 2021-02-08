@@ -43,7 +43,19 @@ setMethod("method_func<-",
 
 # Name --------------------------------------------------------------------
 
+#' @describeIn discret_method-accessors-methods TODO
 #' @export
 setMethod("spm_name", signature("spaspm_object" = "discretization_method"),
           function(spaspm_object) spaspm_object@name
+)
+
+#' @describeIn discret_method-accessors-methods TODO
+#' @export
+setMethod("spm_name<-",
+          signature("object" = "discretization_method"),
+          function(object, value){
+            object@name <- value
+            validObject(object)
+            return(object)
+          }
 )
