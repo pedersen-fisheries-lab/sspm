@@ -1,8 +1,6 @@
-# -------------------------------------------------------------------------
-
-#' Create a spaspm_data structure
+#' Create a `spaspm_data` dataset structure
 #'
-#' TODO
+#'
 #'
 #' @export
 setGeneric(name = "as_spaspm_data",
@@ -21,6 +19,7 @@ setGeneric(name = "as_spaspm_data",
 
 # Methods -----------------------------------------------------------------
 
+#' @describeIn as_spaspm_data TODO
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "spaspm_data"),
@@ -40,6 +39,7 @@ setMethod(f = "as_spaspm_data",
 )
 
 # If data.frame with coords, make it sf
+#' @describeIn as_spaspm_data TODO
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "character"),
@@ -73,6 +73,7 @@ setMethod(f = "as_spaspm_data",
 )
 
 # If sf, ingest as is
+#' @describeIn as_spaspm_data TODO
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "sf", coords = "ANY"),
