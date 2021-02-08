@@ -29,7 +29,7 @@ setMethod("show",
           "discretization_method",
           function(object) {
             cli::cli_h3(cli::col_cyan("Discretization method"))
-            cli::cat_bullet(" Name             : '", object@name, "'")
+            cli::cat_bullet(" Name               : '", object@name, "'")
             # TODO manage to print function name
             # cli::cat_bullet(" Function         :", object@method)
           }
@@ -39,12 +39,12 @@ setMethod("show",
           "spaspm_data",
           function(object) {
             cli::cli_h3(cli::col_cyan("SPASPM Dataset '", object@name, "' "))
-            cli::cat_bullet(" Data matrix      : ", object@representation, " with ",
+            cli::cat_bullet(" Data matrix        : ", object@representation, " with ",
                             dim(object@data)[1], " feature(s) and ",
                             dim(object@data)[2], " variable(s)")
-            cli::cat_bullet(" Data unique ID   : ", cli::col_cyan(object@uniqueID))
+            cli::cat_bullet(" Data unique ID     : ", cli::col_cyan(object@uniqueID))
             if(!is.null(object@coords)){
-              cli::cat_bullet(" Coordinates cols : ",
+              cli::cat_bullet(" Coordinates cols   : ",
                               paste(cli::col_green(object@coords), collapse = ", "))
             }
           }
@@ -54,23 +54,26 @@ setMethod("show",
 
 cat_boundaries <- function(object){
   cli::cli_h3(cli::col_cyan("Boundaries"))
-  cli::cat_bullet(" Boundary data    : ", " Simple feature collection with ",
+  cli::cat_bullet(" Boundary data      : ", " Simple feature collection with ",
                   dim(object@boundaries)[1] ," feature(s) and ",
                   dim(object@boundaries)[2], " variable(s)")
 }
 
 cat_discretization_info <- function(object){
   cli::cli_h3(cli::col_cyan("Discretization info"))
-  cli::cat_bullet(" Method name      : '", object@method@name, "'")
-  cli::cat_bullet(" Patches          : ", "Simple feature collection with ",
+  cli::cat_bullet(" Method name        : '", object@method@name, "'")
+  cli::cat_bullet(" Patches            : ", "Simple feature collection with ",
                   dim(object@patches)[1] ," patches (and ",
                   dim(object@patches)[2], " field(s))")
-  cli::cat_bullet(" Points           : ", "Simple feature collection with ",
+  cli::cat_bullet(" Points             : ", "Simple feature collection with ",
                   dim(object@points)[1] ," points (and ",
                   dim(object@points)[2], " field(s))")
 }
 
 cat_mapped_datasets <- function(object){
+  datasets <- object@mapped_datasets
   cli::cli_h3(cli::col_cyan("Mapped Datasets"))
-  cat_bullet(" TODO")
+  cli::cat_bullet(" ", cli::col_cyan(length(datasets)),
+             " mapped dataset(s): ", paste(cli::col_magenta(sapply(datasets , spm_name)),
+                                           collapse = ", "))
 }
