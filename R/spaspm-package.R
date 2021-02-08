@@ -1,4 +1,5 @@
 #' @keywords internal
+#' @name spaspm-package
 #' @aliases spaspm-package
 "_PACKAGE"
 
