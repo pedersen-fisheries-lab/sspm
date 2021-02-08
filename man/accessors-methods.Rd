@@ -39,6 +39,9 @@
 \alias{spm_mapped_datasets}
 \alias{spm_mapped_datasets,spaspm-method}
 \alias{spm_mapped_datasets,spaspm_discrete-method}
+\alias{spm_mapped_datasets<-}
+\alias{spm_mapped_datasets<-,spaspm_discrete-method}
+\alias{spm_mapped_datasets<-,spaspm-method}
 \title{Accessing \code{spaspm} model elements}
 \usage{
 spm_name(spaspm_object)
@@ -116,6 +119,12 @@ spm_mapped_datasets(spaspm_object)
 \S4method{spm_mapped_datasets}{spaspm}(spaspm_object)
 
 \S4method{spm_mapped_datasets}{spaspm_discrete}(spaspm_object)
+
+spm_mapped_datasets(object) <- value
+
+\S4method{spm_mapped_datasets}{spaspm_discrete}(object) <- value
+
+\S4method{spm_mapped_datasets}{spaspm}(object) <- value
 }
 \arguments{
 \item{spaspm_object}{\strong{[spaspm OR adjacent]} An object of class
@@ -201,5 +210,11 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 \item \code{spm_mapped_datasets,spaspm-method}: TODO
 
 \item \code{spm_mapped_datasets,spaspm_discrete-method}: TODO
+
+\item \code{spm_mapped_datasets<-}: TODO
+
+\item \code{spm_mapped_datasets<-,spaspm_discrete-method}: TODO
+
+\item \code{spm_mapped_datasets<-,spaspm-method}: TODO
 }}
 
