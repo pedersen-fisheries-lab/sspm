@@ -3,6 +3,7 @@
 \docType{class}
 \name{spaspm-class}
 \alias{spaspm-class}
+\alias{spaspm_discrete-class}
 \title{SPASPM model classes}
 \description{
 The different model classes follow the typical workflow of \code{spaspm}:
@@ -13,6 +14,11 @@ The different model classes follow the typical workflow of \code{spaspm}:
 containes "mapped datasets" (for example, predator or observator data).
 }
 }
+\section{Functions}{
+\itemize{
+\item \code{spaspm_discrete-class}: spaspm_discrete
+}}
+
 \section{Slots}{
 
 \describe{
