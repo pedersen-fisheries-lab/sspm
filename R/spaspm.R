@@ -39,6 +39,9 @@ setGeneric(name = "as_spaspm_data",
              if(!checkmate::test_subset(uniqueID, names(data))){
                stop("`uniqueID` must be a column of `data`")
              }
+             if(!(length(unique(data[[uniqueID]])) == nrow(data))){
+               stop("`uniqueID` must be unique for each row of `data`")
+             }
 
              standardGeneric("as_spaspm_data")
            }
