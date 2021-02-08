@@ -5,19 +5,23 @@
 \alias{spaspm_data-class}
 \title{SPASPM dataset structure}
 \description{
-SPASPM dataset structure
+The first step in the \code{spaspm} workflow is to register the base dataset
+(usually biomass) using the \link{spaspm} function.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{name}}{\strong{[character]} TODO}
+\item{\code{name}}{\strong{[character]} The name of the dataset, default to "Biomass".}
 
-\item{\code{data}}{\strong{[ANY]} TODO}
+\item{\code{data}}{\strong{[data.frame OR sf]} The dataset.}
 
-\item{\code{uniqueID}}{\strong{[character]} TODO}
+\item{\code{uniqueID}}{\strong{[character]} The column of \code{data} that is unique for all
+rows of the data matrix.}
 
-\item{\code{coords}}{\strong{[character]} TODO}
+\item{\code{coords}}{\strong{[character]} The column of \code{data} for longitude and
+latitude of the observations.}
 
-\item{\code{representation}}{\strong{[character]} TODO}
+\item{\code{representation}}{\strong{[character]} Used internally and for print methods,
+encodes the type of dataset.}
 }}
 

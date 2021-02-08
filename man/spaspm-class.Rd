@@ -5,14 +5,12 @@
 \alias{spaspm-class}
 \title{SPASPM model classes}
 \description{
-TODO updates slots
-}
-\details{
 The different model classes follow the typical workflow of \code{spaspm}:
 \itemize{
 \item \strong{\code{spaspm}} Basic model object.
 \item \strong{\code{spaspm_discrete}} Discretized model object. Contains a
-\link[=discretization_method-class]{discretization_method} object.
+\link[=discretization_method-class]{discretization_method} object. It can also
+containes "mapped datasets" (for example, predator or observator data).
 }
 }
 \section{Slots}{
@@ -34,6 +32,7 @@ discretization.}
 discretization.}
 
 \item{\code{mapped_datasets}}{\strong{[list]} \emph{(if discrete)} List of
-\link[=spaspm_data-class]{spaspm_data} objects.}
+\link[=spaspm_data-class]{spaspm_data} objects that are mapped ontp the
+base dataset.}
 }}
 

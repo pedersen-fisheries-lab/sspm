@@ -18,11 +18,17 @@ setClassUnion("characterOrNULL", c("character", "NULL"))
 
 #' SPASPM dataset structure
 #'
-#' @slot name **\[character\]** TODO
-#' @slot data **\[ANY\]** TODO
-#' @slot uniqueID **\[character\]** TODO
-#' @slot coords **\[character\]** TODO
-#' @slot representation **\[character\]** TODO
+#' The first step in the `spaspm` workflow is to register the base dataset
+#' (usually biomass) using the [spaspm] function.
+#'
+#' @slot name **\[character\]** The name of the dataset, default to "Biomass".
+#' @slot data **\[data.frame OR sf\]** The dataset.
+#' @slot uniqueID **\[character\]** The column of `data` that is unique for all
+#'     rows of the data matrix.
+#' @slot coords **\[character\]** The column of `data` for longitude and
+#'     latitude of the observations.
+#' @slot representation **\[character\]** Used internally and for print methods,
+#'     encodes the type of dataset.
 #'
 setClass("spaspm_data",
          slots = list(name = "character",
@@ -56,12 +62,11 @@ setClass("discretization_method",
 
 #' SPASPM model classes
 #'
-#' TODO updates slots
-#'
 #' The different model classes follow the typical workflow of `spaspm`:
 #'  * **`spaspm`** Basic model object.
 #'  * **`spaspm_discrete`** Discretized model object. Contains a
-#'  [discretization_method][discretization_method-class] object.
+#'  [discretization_method][discretization_method-class] object. It can also
+#'  containes "mapped datasets" (for example, predator or observator data).
 #'
 #' @slot name **\[character\]** Name of the model.
 #' @slot data **\[[spaspm_data][spaspm_data-class]\]** Observationnal data.
@@ -74,7 +79,8 @@ setClass("discretization_method",
 #' @slot points **\[sf\]** *(if discrete)* Sample points used for
 #'     discretization.
 #' @slot mapped_datasets **\[list\]** *(if discrete)* List of
-#'     [spaspm_data][spaspm_data-class] objects.
+#'     [spaspm_data][spaspm_data-class] objects that are mapped ontp the
+#'     base dataset.
 #'
 setClass("spaspm",
          slots = list(name = "character",
