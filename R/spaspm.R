@@ -48,6 +48,14 @@ setGeneric(name = "as_spaspm_data",
 
 #' @export
 setMethod(f = "as_spaspm_data",
+          signature(data = "spaspm_data"),
+          function(data, ...){
+            return(data)
+          }
+)
+
+#' @export
+setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "NULL"),
           function(data, coords, dataset_name, uniqueID, crs, ...){
 
