@@ -17,7 +17,7 @@ NULL
 #' @export
 setMethod("plot",
           signature(x = "spaspm"),
-          definition = function(x, y) {
+          definition = function(x) {
             cli::cli_alert_danger(" This model is not discretized and cannot be plotted")
           }
 )
@@ -26,7 +26,7 @@ setMethod("plot",
 #' @export
 setMethod("plot",
           signature(x = "spaspm_discrete"),
-          definition = function(x, y) {
+          definition = function(x) {
 
             old_par <- par(no.readonly = TRUE)
             par(mfrow=c(1,2))

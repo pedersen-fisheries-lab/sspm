@@ -6,9 +6,9 @@
 \alias{plot,spaspm_discrete-method}
 \title{Plot a discrete \code{spaspm} model object}
 \usage{
-\S4method{plot}{spaspm}(x, y)
+\S4method{plot}{spaspm}(x)
 
-\S4method{plot}{spaspm_discrete}(x, y)
+\S4method{plot}{spaspm_discrete}(x)
 }
 \arguments{
 \item{x}{\strong{[spaspm_discrete]} An object of class
