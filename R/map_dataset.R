@@ -11,6 +11,9 @@ setGeneric(name = "map_dataset",
 
 # Methods -----------------------------------------------------------------
 
+# Have to duplicate code here because setting class union between data.frame
+# and sf is not possible as `sf` is not exported.
+
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
@@ -18,14 +21,36 @@ setMethod(f = "map_dataset",
                     dataset = "data.frame"),
           function(spaspm_object, dataset, ...){
 
-            # Cast data.frame as spaspm_data
-            spaspm_data <- as_spaspm_data(data = dataset, ...)
+            updated_object <- cast_and_return(spaspm_object, dataset, ...)
+            return(updated_object)
 
-            # Call next method
-            map_dataset(spaspm_object = spaspm_object,
-                        dataset = spaspm_data, ...)
           }
 )
+
+#' @export
+#' @describeIn map_dataset TODO
+setMethod(f = "map_dataset",
+          signature(spaspm_object = "spaspm_discrete",
+                    dataset = "sf"),
+          function(spaspm_object, dataset, ...){
+
+            updated_object <- cast_and_return(spaspm_object, dataset, ...)
+            return(updated_object)
+
+          }
+)
+
+# Helper for the two methods above
+cast_and_return <- function(spaspm_object, dataset, ...){
+  # Cast data.frame as spaspm_data
+  spaspm_data <- as_spaspm_data(data = dataset, ...)
+
+  # Call next method
+  mapped_objects <- map_dataset(spaspm_object = spaspm_object,
+                                dataset = spaspm_data, ...)
+  return(mapped_objects)
+}
+
 
 #' @export
 #' @describeIn map_dataset TODO
@@ -36,11 +61,15 @@ setMethod(f = "map_dataset",
 
             # Append to list of mapped_datasets
             mapped_tmp <- spm_mapped_datasets(spaspm_object)
-            mapped_tmp <- append(mapped_tmp, dataset)
+            all_names <- unlist(c(lapply(mapped_tmp, names), spm_name(dataset)))
+
+            mapped_tmp <- append(mapped_tmp, list(dataset))
+            names(mapped_tmp) <- all_names
+
+            spm_mapped_datasets(spaspm_object) <- mapped_tmp
 
             # Return updated spaspm_discretized
-            updated_discretized
-
+            return(spaspm_object)
           }
 )
 
@@ -51,9 +80,8 @@ setMethod(f = "map_dataset",
                     dataset = "list"),
           function(spaspm_object, dataset, ...){
 
-            # identify if list of data.frames OR
-            # list of spaspm_data,
-            # lapply acoordingly
+            # If list is provided, lapply or for loop depending on case
+            # if ()
 
           }
 )
