@@ -51,6 +51,7 @@ setMethod("spm_data<-",
 # Name --------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
+#' @describeIn spaspm_data-accessors-methods TODO
 #' @export
 setMethod("spm_name", signature("spaspm_object" = "spaspm_data"),
           function(spaspm_object) spaspm_object@name
@@ -58,6 +59,7 @@ setMethod("spm_name", signature("spaspm_object" = "spaspm_data"),
 
 # Replacers ---------------------------------------------------------------
 
+#' @describeIn spaspm_data-accessors-methods TODO
 #' @export
 setMethod("spm_name<-",
           signature("object" = "spaspm_data"),
