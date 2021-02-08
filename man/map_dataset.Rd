@@ -9,20 +9,40 @@
 \alias{map_dataset,spaspm,ANY-method}
 \title{Map dataset onto a discretized SPASPM object}
 \usage{
-map_dataset(spaspm_object, dataset, ...)
+map_dataset(spaspm_object, data, ...)
 
-\S4method{map_dataset}{spaspm_discrete,data.frame}(spaspm_object, dataset, ...)
+\S4method{map_dataset}{spaspm_discrete,data.frame}(spaspm_object, data, ...)
 
-\S4method{map_dataset}{spaspm_discrete,sf}(spaspm_object, dataset, ...)
+\S4method{map_dataset}{spaspm_discrete,sf}(spaspm_object, data, ...)
 
-\S4method{map_dataset}{spaspm_discrete,spaspm_data}(spaspm_object, dataset, ...)
+\S4method{map_dataset}{spaspm_discrete,spaspm_data}(spaspm_object, data, ...)
 
-\S4method{map_dataset}{spaspm_discrete,list}(spaspm_object, dataset, ...)
+\S4method{map_dataset}{spaspm_discrete,list}(spaspm_object, data, ...)
 
-\S4method{map_dataset}{spaspm,ANY}(spaspm_object, dataset, ...)
+\S4method{map_dataset}{spaspm,ANY}(spaspm_object, data, ...)
+}
+\arguments{
+\item{spaspm_object}{\strong{[spaspm_discrete]} An object of class
+\link[=spaspm_discrete-class]{spaspm_discrete}.}
+
+\item{data}{\strong{[data.frame OR sf]} The dataset.}
+
+\item{...}{
+  Arguments passed on to \code{\link[=as_spaspm_data]{as_spaspm_data}}
+  \describe{
+    \item{\code{coords}}{\strong{[character]} The column of \code{data} for longitude and
+latitude of the observations.}
+    \item{\code{name}}{\strong{[character]} The name of the dataset, default to "Biomass".}
+    \item{\code{uniqueID}}{\strong{[character]} The column of \code{data} that is unique for all
+rows of the data matrix.}
+    \item{\code{crs}}{Coordinate reference system, passed onto \link[=sf]{st_as_sf}.}
+  }}
+}
+\value{
+The updated object, of class \link[=spaspm_discrete-class]{spaspm_discrete}.
 }
 \description{
-TODO
+After discretizing, the next step is to map coavriate datasets.
 }
 \section{Functions}{
 \itemize{

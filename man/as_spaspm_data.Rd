@@ -8,15 +8,15 @@
 \alias{as_spaspm_data,sf,ANY-method}
 \title{Create a \code{spaspm_data} dataset structure}
 \usage{
-as_spaspm_data(data, coords, name, uniqueID, crs, ...)
+as_spaspm_data(data, coords, name, uniqueID, crs)
 
-\S4method{as_spaspm_data}{spaspm_data,ANY}(data, coords, name, uniqueID, crs, ...)
+\S4method{as_spaspm_data}{spaspm_data,ANY}(data)
 
-\S4method{as_spaspm_data}{data.frame,`NULL`}(data, coords, name, uniqueID, crs, ...)
+\S4method{as_spaspm_data}{data.frame,`NULL`}(data, coords, name, uniqueID, crs)
 
-\S4method{as_spaspm_data}{data.frame,character}(data, coords, name, uniqueID, crs, ...)
+\S4method{as_spaspm_data}{data.frame,character}(data, coords, name, uniqueID, crs)
 
-\S4method{as_spaspm_data}{sf,ANY}(data, coords, name, uniqueID, crs, ...)
+\S4method{as_spaspm_data}{sf,ANY}(data, coords, name, uniqueID, crs)
 }
 \arguments{
 \item{data}{\strong{[data.frame OR sf]} The dataset.}
@@ -31,8 +31,12 @@ rows of the data matrix.}
 
 \item{crs}{Coordinate reference system, passed onto \link[=sf]{st_as_sf}.}
 }
+\value{
+An object of class \code{\link[=spaspm_data-class]{spaspm_data}}.
+}
 \description{
-Create a \code{spaspm_data} dataset structure
+This casts a \code{data.frame} or \code{sf} object into  an object of class
+\code{\link[=spaspm_data-class]{spaspm_data}}.
 }
 \section{Functions}{
 \itemize{

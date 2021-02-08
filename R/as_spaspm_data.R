@@ -1,5 +1,8 @@
 #' Create a `spaspm_data` dataset structure
 #'
+#' This casts a `data.frame` or `sf` object into  an object of class
+#' [`spaspm_data`][spaspm_data-class].
+#'
 #' @param data **\[data.frame OR sf\]** The dataset.
 #' @param coords **\[character\]** The column of `data` for longitude and
 #'     latitude of the observations.
@@ -8,9 +11,12 @@
 #'     rows of the data matrix.
 #' @param crs Coordinate reference system, passed onto [st_as_sf][sf].
 #'
+#' @return
+#' An object of class [`spaspm_data`][spaspm_data-class].
+#'
 #' @export
 setGeneric(name = "as_spaspm_data",
-           def = function(data, coords, name, uniqueID, crs, ...){
+           def = function(data, coords, name, uniqueID, crs){
 
              if(!checkmate::test_subset(uniqueID, names(data))){
                stop("`uniqueID` must be a column of `data`")
@@ -29,7 +35,7 @@ setGeneric(name = "as_spaspm_data",
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "spaspm_data"),
-          function(data, ...){
+          function(data){
             return(data)
           }
 )
@@ -38,7 +44,7 @@ setMethod(f = "as_spaspm_data",
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "NULL"),
-          function(data, coords, name, uniqueID, crs, ...){
+          function(data, coords, name, uniqueID, crs){
 
             stop("Argument `coords` must be provided when data matrix is a dataframe",
                  call. = FALSE)
@@ -50,7 +56,7 @@ setMethod(f = "as_spaspm_data",
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "character"),
-          function(data, coords, name, uniqueID, crs, ...){
+          function(data, coords, name, uniqueID, crs){
 
             # TODO CRS checks
 
@@ -84,7 +90,7 @@ setMethod(f = "as_spaspm_data",
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "sf", coords = "ANY"),
-          function(data, coords, uniqueID, crs, ...){
+          function(data, coords, name, uniqueID, crs){
 
             # TODO CRS checks
 

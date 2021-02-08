@@ -5,6 +5,7 @@
 #'
 #' @param spaspm_object **\[spaspm_data\]** An object of class
 #'     [spaspm_data][spaspm_data-class].
+#' @inheritParams base::Extract
 #'
 #' @rdname spaspm_data-accessors-methods
 
@@ -16,6 +17,7 @@ setGeneric(name = "spm_data",
            def = function(spaspm_object) standardGeneric("spm_data")
 )
 
+#' @export
 #' @describeIn spaspm_data-accessors-methods TODO
 setMethod("spm_data", signature("spaspm_object" = "spaspm"),
           function(spaspm_object) {

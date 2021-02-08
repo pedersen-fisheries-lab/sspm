@@ -6,6 +6,8 @@
 #' @param spaspm_object **\[discretization_method\]** An object of class
 #'     [discretization_method][discretization_method-class].
 #'
+#' @inheritParams base::Extract
+#'
 #' @rdname discret_method-accessors-methods
 
 # Function ----------------------------------------------------------------

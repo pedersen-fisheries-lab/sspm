@@ -27,6 +27,13 @@ spm_data(object) <- value
 \arguments{
 \item{spaspm_object}{\strong{[spaspm_data]} An object of class
 \link[=spaspm_data-class]{spaspm_data}.}
+
+\item{object}{
+    object from which to extract element(s) or in which to replace element(s).
+  }
+
+\item{value}{typically an array-like \R object of a similar class as
+    \code{x}.}
 }
 \description{
 All methods described here allow to access the elements of contained in

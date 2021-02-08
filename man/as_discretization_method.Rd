@@ -3,17 +3,27 @@
 \name{as_discretization_method}
 \alias{as_discretization_method}
 \alias{as_discretization_method,character-method}
-\title{Cast into a discretization_method object}
+\title{Cast into a \code{discretization_method} object}
 \usage{
-as_discretization_method(method, ...)
+as_discretization_method(method)
 
-\S4method{as_discretization_method}{character}(method, ...)
+\S4method{as_discretization_method}{character}(method)
+}
+\arguments{
+\item{method}{\strong{[character]} The name of the method.}
+}
+\value{
+An objectof class \code{\link[=discretization_method-class]{discretization_method}}.
 }
 \description{
-TODO
+Cast a character value into \code{\link[=discretization_method-class]{discretization_method}}
+object, using the list of possible methods in \code{\link{spm_methods}}.
 }
 \section{Functions}{
 \itemize{
 \item \code{as_discretization_method,character-method}: TODO
 }}
 
+\seealso{
+\link{spm_methods}.
+}

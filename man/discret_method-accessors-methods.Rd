@@ -24,6 +24,13 @@ method_func(object) <- value
 \arguments{
 \item{spaspm_object}{\strong{[discretization_method]} An object of class
 \link[=discretization_method-class]{discretization_method}.}
+
+\item{object}{
+    object from which to extract element(s) or in which to replace element(s).
+  }
+
+\item{value}{typically an array-like \R object of a similar class as
+    \code{x}.}
 }
 \description{
 All methods described here allow to access the elements of contained in
