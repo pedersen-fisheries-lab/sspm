@@ -3,6 +3,7 @@
 \name{map_dataset}
 \alias{map_dataset}
 \alias{map_dataset,spaspm_discrete,data.frame-method}
+\alias{map_dataset,spaspm_discrete,sf-method}
 \alias{map_dataset,spaspm_discrete,spaspm_data-method}
 \alias{map_dataset,spaspm_discrete,list-method}
 \alias{map_dataset,spaspm,ANY-method}
@@ -11,6 +12,8 @@
 map_dataset(spaspm_object, dataset, ...)
 
 \S4method{map_dataset}{spaspm_discrete,data.frame}(spaspm_object, dataset, ...)
+
+\S4method{map_dataset}{spaspm_discrete,sf}(spaspm_object, dataset, ...)
 
 \S4method{map_dataset}{spaspm_discrete,spaspm_data}(spaspm_object, dataset, ...)
 
@@ -24,6 +27,8 @@ TODO
 \section{Functions}{
 \itemize{
 \item \code{map_dataset,spaspm_discrete,data.frame-method}: TODO
+
+\item \code{map_dataset,spaspm_discrete,sf-method}: TODO
 
 \item \code{map_dataset,spaspm_discrete,spaspm_data-method}: TODO
 
