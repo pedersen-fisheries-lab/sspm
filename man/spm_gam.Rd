@@ -15,8 +15,21 @@ spm_gam(spaspm_object, ...)
 
 \S4method{spm_gam}{spaspm_gam_fit}(spaspm_object, force = FALSE, ...)
 }
+\arguments{
+\item{spaspm_object}{\strong{[spaspm_discrete]} An object of class
+\link[=spaspm_discrete-class]{spaspm_discrete}.}
+
+\item{...}{TBD}
+
+\item{force}{\strong{[boolean]} Only used when calling \code{spm_discretize} onto
+an object of class \link[=spaspm-class]{spaspm_discrete}: whether you wish
+to force the re-discretization of that model.}
+}
+\value{
+TBD.
+}
 \description{
-Fit spatial gams
+TBD.
 }
 \section{Functions}{
 \itemize{

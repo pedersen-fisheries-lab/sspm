@@ -2,8 +2,8 @@
 % Please edit documentation in R/spaspm-package.R
 \docType{package}
 \name{spaspm-package}
-\alias{spaspm}
 \alias{spaspm-package}
+\alias{_PACKAGE}
 \title{spaspm: Spatial Surplus Production Model Framework for Northern Shrimp Populations}
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}

@@ -1,5 +1,15 @@
 #' Fit spatial gams
 #'
+#' TBD.
+#'
+#' @param spaspm_object **\[spaspm_discrete\]** An object of class
+#'    [spaspm_discrete][spaspm_discrete-class].
+#' @inheritParams spm_discretize
+#' @param ... TBD
+#'
+#' @return
+#' TBD.
+#'
 #' @export
 setGeneric(name = "spm_gam",
            def = function(spaspm_object,

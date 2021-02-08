@@ -1,6 +1,14 @@
 #' Create a `spaspm` model object
 #'
-#' The starting point of the `spaspm` workflow
+#' The starting point of the `spaspm` workflow: creating a base `spaspm` object.
+#'
+#' @param model_name **\[character\]** The name to be given to the model
+#' @param boundaries **\[sf\]** The spatial boundaries (polygons) for the model.
+#' @inheritParams as_spaspm_data
+#' @param ... TBD
+#'
+#' @return
+#' An object of class  [spaspm][spaspm-class].
 #'
 #' @rdname spaspm-constructor
 #' @export

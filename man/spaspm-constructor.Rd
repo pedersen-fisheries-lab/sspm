@@ -2,7 +2,7 @@
 % Please edit documentation in R/spaspm.R
 \name{spaspm}
 \alias{spaspm}
-\title{Create a spaspm model object}
+\title{Create a \code{spaspm} model object}
 \usage{
 spaspm(
   model_name = "My SPASPM model",
@@ -14,6 +14,26 @@ spaspm(
   ...
 )
 }
+\arguments{
+\item{model_name}{\strong{[character]} The name to be given to the model}
+
+\item{name}{\strong{[character]} The name of the dataset, default to "Biomass".}
+
+\item{data}{\strong{[data.frame OR sf]} The dataset.}
+
+\item{uniqueID}{\strong{[character]} The column of \code{data} that is unique for all
+rows of the data matrix.}
+
+\item{boundaries}{\strong{[sf]} The spatial boundaries (polygons) for the model.}
+
+\item{coords}{\strong{[character]} The column of \code{data} for longitude and
+latitude of the observations.}
+
+\item{...}{TBD}
+}
+\value{
+An object of class  \link[=spaspm-class]{spaspm}.
+}
 \description{
-TODO
+The starting point of the \code{spaspm} workflow: creating a base \code{spaspm} object.
 }
