@@ -2,10 +2,28 @@
 % Please edit documentation in R/as_spaspm_data.R
 \name{as_spaspm_data}
 \alias{as_spaspm_data}
-\title{Create a spaspm_data structure}
+\alias{as_spaspm_data,spaspm_data,ANY-method}
+\alias{as_spaspm_data,data.frame,character-method}
+\alias{as_spaspm_data,sf,ANY-method}
+\title{Create a \code{spaspm_data} dataset structure}
 \usage{
 as_spaspm_data(data, coords, dataset_name, uniqueID, crs, ...)
+
+\S4method{as_spaspm_data}{spaspm_data,ANY}(data, coords, dataset_name, uniqueID, crs, ...)
+
+\S4method{as_spaspm_data}{data.frame,character}(data, coords, dataset_name, uniqueID, crs, ...)
+
+\S4method{as_spaspm_data}{sf,ANY}(data, coords, dataset_name, uniqueID, crs, ...)
 }
 \description{
-TODO
+Create a \code{spaspm_data} dataset structure
 }
+\section{Functions}{
+\itemize{
+\item \code{as_spaspm_data,spaspm_data,ANY-method}: TODO
+
+\item \code{as_spaspm_data,data.frame,character-method}: TODO
+
+\item \code{as_spaspm_data,sf,ANY-method}: TODO
+}}
+
