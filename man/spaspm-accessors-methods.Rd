@@ -2,6 +2,7 @@
 % Please edit documentation in R/accessors-methods.R
 \name{spm_name}
 \alias{spm_name}
+\alias{spm_}
 \alias{spm_name,spaspm-method}
 \alias{spm_name<-}
 \alias{spm_name<-,spaspm-method}
