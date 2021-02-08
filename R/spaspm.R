@@ -15,10 +15,10 @@ spaspm <- function(model_name = "My SPASPM model",
   # TODO CRS checks
 
   # 1. Ingest data and perform the correct checks
-  the_spapspm_data <- as_spaspm_data(data,
-                                     coords,
-                                     name,
-                                     uniqueID,
+  the_spapspm_data <- as_spaspm_data(data = data,
+                                     coords = coords,
+                                     name = name,
+                                     uniqueID = uniqueID,
                                      crs = sf::st_crs(boundaries),
                                      ...)
 
