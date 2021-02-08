@@ -2,7 +2,7 @@
 
 #' @import sf cli
 #' @importFrom rlang .data
-#' @importFrom methods new show
+#' @importFrom methods new show validObject
 #' @importFrom graphics par
 
 # OldClasses --------------------------------------------------------------
