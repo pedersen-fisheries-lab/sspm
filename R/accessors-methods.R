@@ -291,6 +291,7 @@ setMethod("spm_points",
 )
 
 # Mapped datasets ---------------------------------------------------------
+# Accesors ----------------------------------------------------------------
 
 #' @describeIn accessors-methods TODO
 #' @export
@@ -312,6 +313,34 @@ setMethod("spm_mapped_datasets",
 setMethod("spm_mapped_datasets",
           signature("spaspm_object" = "spaspm_discrete"),
           function(spaspm_object) spaspm_object@mapped_datasets
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods TODO
+#' @export
+setGeneric(name = "spm_mapped_datasets<-",
+           def = function(object, value) standardGeneric("spm_mapped_datasets<-")
+)
+
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_mapped_datasets<-",
+          signature("object" = "spaspm_discrete"),
+          function(object, value){
+            object@mapped_datasets <- value
+            return(object)
+          }
+)
+
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_mapped_datasets<-",
+          signature("object" = "spaspm"),
+          function(object, value){
+            message_not_discrete(object)
+            return(object)
+          }
 )
 
 # -------------------------------------------------------------------------
