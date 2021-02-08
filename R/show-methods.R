@@ -18,7 +18,7 @@ setMethod("show",
             show(object@data)
             cat_boundaries(object)
             cat_discretization_info(object)
-            if (length(object@mapped_datasets) > 1){
+            if (length(object@mapped_datasets) >= 1){
               cat_mapped_datasets(object)
             }
             cat("\n")
