@@ -18,9 +18,12 @@ setMethod(f = "map_dataset",
                     dataset = "data.frame"),
           function(spaspm_object, dataset, ...){
 
-            # call as_spaspm_data
-            # call next method
+            # Cast data.frame as spaspm_data
+            spaspm_data <- as_spaspm_data(data = dataset, ...)
 
+            # Call next method
+            map_dataset(spaspm_object = spaspm_object,
+                        dataset = spaspm_data, ...)
           }
 )
 
@@ -31,8 +34,12 @@ setMethod(f = "map_dataset",
                     dataset = "spaspm_data"),
           function(spaspm_object, dataset, ...){
 
-            # append to list of mapped_datasets
-            # return new spaspm_discretized
+            # Append to list of mapped_datasets
+            mapped_tmp <- spm_mapped_datasets(spaspm_object)
+            mapped_tmp <- append(mapped_tmp, dataset)
+
+            # Return updated spaspm_discretized
+            updated_discretized
 
           }
 )
