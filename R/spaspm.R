@@ -1,6 +1,6 @@
-#' Create a spaspm model object
+#' Create a `spaspm` model object
 #'
-#' TODO
+#' The starting point of the `spaspm` workflow
 #'
 #' @rdname spaspm-constructor
 #' @export
