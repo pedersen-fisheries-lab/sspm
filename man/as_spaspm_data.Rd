@@ -3,6 +3,7 @@
 \name{as_spaspm_data}
 \alias{as_spaspm_data}
 \alias{as_spaspm_data,spaspm_data,ANY-method}
+\alias{as_spaspm_data,data.frame,NULL-method}
 \alias{as_spaspm_data,data.frame,character-method}
 \alias{as_spaspm_data,sf,ANY-method}
 \title{Create a \code{spaspm_data} dataset structure}
@@ -10,6 +11,8 @@
 as_spaspm_data(data, coords, name, uniqueID, crs, ...)
 
 \S4method{as_spaspm_data}{spaspm_data,ANY}(data, coords, name, uniqueID, crs, ...)
+
+\S4method{as_spaspm_data}{data.frame,`NULL`}(data, coords, name, uniqueID, crs, ...)
 
 \S4method{as_spaspm_data}{data.frame,character}(data, coords, name, uniqueID, crs, ...)
 
@@ -34,6 +37,8 @@ Create a \code{spaspm_data} dataset structure
 \section{Functions}{
 \itemize{
 \item \code{as_spaspm_data,spaspm_data,ANY-method}: TODO
+
+\item \code{as_spaspm_data,data.frame,NULL-method}: TODO
 
 \item \code{as_spaspm_data,data.frame,character-method}: TODO
 

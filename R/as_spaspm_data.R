@@ -34,6 +34,7 @@ setMethod(f = "as_spaspm_data",
           }
 )
 
+#' @describeIn as_spaspm_data TODO
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "NULL"),
