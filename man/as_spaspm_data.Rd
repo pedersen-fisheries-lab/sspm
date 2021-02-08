@@ -15,6 +15,19 @@ as_spaspm_data(data, coords, dataset_name, uniqueID, crs, ...)
 
 \S4method{as_spaspm_data}{sf,ANY}(data, coords, dataset_name, uniqueID, crs, ...)
 }
+\arguments{
+\item{data}{\strong{[data.frame OR sf]} The dataset.}
+
+\item{coords}{\strong{[character]} The column of \code{data} for longitude and
+latitude of the observations.}
+
+\item{dataset_name}{\strong{[character]} The name of the dataset, default to "Biomass".}
+
+\item{uniqueID}{\strong{[character]} The column of \code{data} that is unique for all
+rows of the data matrix.}
+
+\item{crs}{Coordinate reference system, passed onto \link[=sf]{st_as_sf}.}
+}
 \description{
 Create a \code{spaspm_data} dataset structure
 }

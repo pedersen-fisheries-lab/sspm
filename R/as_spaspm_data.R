@@ -1,6 +1,12 @@
 #' Create a `spaspm_data` dataset structure
 #'
-#'
+#' @param data **\[data.frame OR sf\]** The dataset.
+#' @param coords **\[character\]** The column of `data` for longitude and
+#'     latitude of the observations.
+#' @param dataset_name **\[character\]** The name of the dataset, default to "Biomass".
+#' @param uniqueID **\[character\]** The column of `data` that is unique for all
+#'     rows of the data matrix.
+#' @param crs Coordinate reference system, passed onto [st_as_sf][sf].
 #'
 #' @export
 setGeneric(name = "as_spaspm_data",
