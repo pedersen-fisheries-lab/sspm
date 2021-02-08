@@ -41,6 +41,17 @@ setGeneric(name = "spm_name<-",
            def = function(object, value) standardGeneric("spm_name<-")
 )
 
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_name<-",
+          signature("object" = "spaspm"),
+          function(object, value){
+            object@name <- value
+            validObject(object)
+            return(object)
+          }
+)
+
 # Base dataset ------------------------------------------------------------
 # Accesors ----------------------------------------------------------------
 
@@ -68,6 +79,17 @@ setMethod("spm_base_dataset", signature("spaspm_object" = "spaspm_discrete"),
 #' @export
 setGeneric(name = "spm_base_dataset<-",
            def = function(object, value) standardGeneric("spm_base_dataset<-")
+)
+
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_base_dataset<-",
+          signature("object" = "spaspm"),
+          function(object, value){
+            object@data <- value
+            validObject(object)
+            return(object)
+          }
 )
 
 # Datasets ----------------------------------------------------------------
@@ -144,6 +166,17 @@ setGeneric(name = "spm_data<-",
            def = function(object, value) standardGeneric("spm_data<-")
 )
 
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_data<-",
+          signature("object" = "spaspm_data"),
+          function(object, value){
+            object@data <- value
+            validObject(object)
+            return(object)
+          }
+)
+
 # ID ----------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
@@ -188,6 +221,17 @@ setMethod("spm_unique_ID",
 #' @export
 setGeneric(name = "spm_unique_ID<-",
            def = function(object, value) standardGeneric("spm_unique_ID<-")
+)
+
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_unique_ID<-",
+          signature("object" = "spaspm"),
+          function(object, value){
+            object@unique_ID <- value
+            validObject(object)
+            return(object)
+          }
 )
 
 # Coords ------------------------------------------------------------------
@@ -236,6 +280,19 @@ setGeneric(name = "spm_coords_col<-",
            def = function(object, value) standardGeneric("spm_coords_col<-")
 )
 
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_coords_col<-",
+          signature("object" = "spaspm"),
+          function(object, value){
+            object@coords <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+# DISCRETE BEYOND THIS POINT ----------------------------------------------
+
 # Boundaries --------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
@@ -257,6 +314,27 @@ setMethod("spm_boundaries", signature("spaspm_object" = "spaspm"),
 #' @export
 setGeneric(name = "spm_boundaries<-",
            def = function(object, value) standardGeneric("spm_boundaries<-")
+)
+
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_boundaries<-",
+          signature("object" = "spaspm_discrete"),
+          function(object, value){
+            object@boundaries <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_boundaries<-",
+          signature("object" = "spaspm"),
+          function(object, value){
+            message_not_discrete(object)
+            return(object)
+          }
 )
 
 # Discretization method ---------------------------------------------------
@@ -292,6 +370,27 @@ setGeneric(name = "spm_discret_method<-",
            def = function(object, value) standardGeneric("spm_discret_method<-")
 )
 
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_discret_method<-",
+          signature("object" = "spaspm_discrete"),
+          function(object, value){
+            object@method <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_boundaries<-",
+          signature("object" = "spaspm"),
+          function(object, value){
+            message_not_discrete(object)
+            return(object)
+          }
+)
+
 # For method --------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
@@ -314,6 +413,17 @@ setMethod("method_func",
 #' @export
 setGeneric(name = "method_func<-",
            def = function(object, value) standardGeneric("method_func<-")
+)
+
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("method_func<-",
+          signature("object" = "discretization_method"),
+          function(object, value){
+            object@method <- value
+            validObject(object)
+            return(object)
+          }
 )
 
 # Patches -----------------------------------------------------------------
@@ -349,6 +459,27 @@ setGeneric(name = "spm_patches<-",
            def = function(object, value) standardGeneric("spm_patches<-")
 )
 
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_patches<-",
+          signature("object" = "spaspm_discrete"),
+          function(object, value){
+            object@patches <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_patches<-",
+          signature("object" = "spaspm"),
+          function(object, value){
+            message_not_discrete(object)
+            return(object)
+          }
+)
+
 # Points ------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
@@ -380,6 +511,27 @@ setMethod("spm_points",
 #' @export
 setGeneric(name = "spm_points<-",
            def = function(object, value) standardGeneric("spm_points<-")
+)
+
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_points<-",
+          signature("object" = "spaspm_discrete"),
+          function(object, value){
+            object@points <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+#' @describeIn accessors-methods TODO
+#' @export
+setMethod("spm_points<-",
+          signature("object" = "spaspm"),
+          function(object, value){
+            message_not_discrete(object)
+            return(object)
+          }
 )
 
 # Mapped datasets ---------------------------------------------------------
@@ -421,6 +573,7 @@ setMethod("spm_mapped_datasets<-",
           signature("object" = "spaspm_discrete"),
           function(object, value){
             object@mapped_datasets <- value
+            validObject(object)
             return(object)
           }
 )

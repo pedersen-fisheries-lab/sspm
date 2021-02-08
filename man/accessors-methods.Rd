@@ -5,9 +5,13 @@
 \alias{spm_name,spaspm-method}
 \alias{spm_name,spaspm_data-method}
 \alias{spm_name,discretization_method-method}
+\alias{spm_name<-}
+\alias{spm_name<-,spaspm-method}
 \alias{spm_base_dataset}
 \alias{spm_base_dataset,spaspm-method}
 \alias{spm_base_dataset,spaspm_discrete-method}
+\alias{spm_base_dataset<-}
+\alias{spm_base_dataset<-,spaspm-method}
 \alias{spm_datasets}
 \alias{spm_datasets,spaspm-method}
 \alias{spm_datasets,spaspm_discrete-method}
@@ -15,34 +19,53 @@
 \alias{spm_data}
 \alias{spm_data,spaspm-method}
 \alias{spm_data,spaspm_data-method}
+\alias{spm_data<-}
+\alias{spm_data<-,spaspm_data-method}
 \alias{spm_unique_ID}
 \alias{spm_unique_ID,spaspm-method}
 \alias{spm_unique_ID,spaspm_data-method}
 \alias{spm_unique_ID,spaspm_discrete-method}
+\alias{spm_unique_ID<-}
+\alias{spm_unique_ID<-,spaspm-method}
 \alias{spm_coords_col}
 \alias{spm_coords_col,spaspm-method}
 \alias{spm_coords_col,spaspm_data-method}
 \alias{spm_coords_col,spaspm_discrete-method}
+\alias{spm_coords_col<-}
+\alias{spm_coords_col<-,spaspm-method}
 \alias{spm_boundaries}
 \alias{spm_boundaries,spaspm-method}
+\alias{spm_boundaries<-}
+\alias{spm_boundaries<-,spaspm_discrete-method}
+\alias{spm_boundaries<-,spaspm-method}
 \alias{spm_discret_method}
 \alias{spm_discret_method,spaspm-method}
 \alias{spm_discret_method,spaspm_discrete-method}
+\alias{spm_discret_method<-}
+\alias{spm_discret_method<-,spaspm_discrete-method}
 \alias{method_func}
 \alias{method_func,discretization_method-method}
+\alias{method_func<-}
+\alias{method_func<-,discretization_method-method}
 \alias{spm_patches}
 \alias{spm_patches,spaspm-method}
 \alias{spm_patches,spaspm_discrete-method}
+\alias{spm_patches<-}
+\alias{spm_patches<-,spaspm_discrete-method}
+\alias{spm_patches<-,spaspm-method}
 \alias{spm_points}
 \alias{spm_points,spaspm-method}
 \alias{spm_points,spaspm_discrete-method}
+\alias{spm_points<-}
+\alias{spm_points<-,spaspm_discrete-method}
+\alias{spm_points<-,spaspm-method}
 \alias{spm_mapped_datasets}
 \alias{spm_mapped_datasets,spaspm-method}
 \alias{spm_mapped_datasets,spaspm_discrete-method}
 \alias{spm_mapped_datasets<-}
 \alias{spm_mapped_datasets<-,spaspm_discrete-method}
 \alias{spm_mapped_datasets<-,spaspm-method}
-\title{Accessing \code{spaspm} model elements}
+\title{Accessing OR replacing \code{spaspm} model elements}
 \usage{
 spm_name(spaspm_object)
 
@@ -52,11 +75,19 @@ spm_name(spaspm_object)
 
 \S4method{spm_name}{discretization_method}(spaspm_object)
 
+spm_name(object) <- value
+
+\S4method{spm_name}{spaspm}(object) <- value
+
 spm_base_dataset(spaspm_object)
 
 \S4method{spm_base_dataset}{spaspm}(spaspm_object)
 
 \S4method{spm_base_dataset}{spaspm_discrete}(spaspm_object)
+
+spm_base_dataset(object) <- value
+
+\S4method{spm_base_dataset}{spaspm}(object) <- value
 
 spm_datasets(spaspm_object)
 
@@ -72,6 +103,10 @@ spm_data(spaspm_object)
 
 \S4method{spm_data}{spaspm_data}(spaspm_object)
 
+spm_data(object) <- value
+
+\S4method{spm_data}{spaspm_data}(object) <- value
+
 spm_unique_ID(spaspm_object)
 
 \S4method{spm_unique_ID}{spaspm}(spaspm_object)
@@ -79,6 +114,10 @@ spm_unique_ID(spaspm_object)
 \S4method{spm_unique_ID}{spaspm_data}(spaspm_object)
 
 \S4method{spm_unique_ID}{spaspm_discrete}(spaspm_object)
+
+spm_unique_ID(object) <- value
+
+\S4method{spm_unique_ID}{spaspm}(object) <- value
 
 spm_coords_col(spaspm_object)
 
@@ -88,9 +127,19 @@ spm_coords_col(spaspm_object)
 
 \S4method{spm_coords_col}{spaspm_discrete}(spaspm_object)
 
+spm_coords_col(object) <- value
+
+\S4method{spm_coords_col}{spaspm}(object) <- value
+
 spm_boundaries(spaspm_object)
 
 \S4method{spm_boundaries}{spaspm}(spaspm_object)
+
+spm_boundaries(object) <- value
+
+\S4method{spm_boundaries}{spaspm_discrete}(object) <- value
+
+\S4method{spm_boundaries}{spaspm}(object) <- value
 
 spm_discret_method(spaspm_object)
 
@@ -98,9 +147,19 @@ spm_discret_method(spaspm_object)
 
 \S4method{spm_discret_method}{spaspm_discrete}(spaspm_object)
 
+spm_discret_method(object) <- value
+
+\S4method{spm_discret_method}{spaspm_discrete}(object) <- value
+
+\S4method{spm_boundaries}{spaspm}(object) <- value
+
 method_func(spaspm_object)
 
 \S4method{method_func}{discretization_method}(spaspm_object)
+
+method_func(object) <- value
+
+\S4method{method_func}{discretization_method}(object) <- value
 
 spm_patches(spaspm_object)
 
@@ -108,11 +167,23 @@ spm_patches(spaspm_object)
 
 \S4method{spm_patches}{spaspm_discrete}(spaspm_object)
 
+spm_patches(object) <- value
+
+\S4method{spm_patches}{spaspm_discrete}(object) <- value
+
+\S4method{spm_patches}{spaspm}(object) <- value
+
 spm_points(spaspm_object)
 
 \S4method{spm_points}{spaspm}(spaspm_object)
 
 \S4method{spm_points}{spaspm_discrete}(spaspm_object)
+
+spm_points(object) <- value
+
+\S4method{spm_points}{spaspm_discrete}(object) <- value
+
+\S4method{spm_points}{spaspm}(object) <- value
 
 spm_mapped_datasets(spaspm_object)
 
@@ -143,11 +214,19 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 
 \item \code{spm_name,discretization_method-method}: TODO
 
+\item \code{spm_name<-}: TODO
+
+\item \code{spm_name<-,spaspm-method}: TODO
+
 \item \code{spm_base_dataset}: TODO
 
 \item \code{spm_base_dataset,spaspm-method}: TODO
 
 \item \code{spm_base_dataset,spaspm_discrete-method}: TODO
+
+\item \code{spm_base_dataset<-}: TODO
+
+\item \code{spm_base_dataset<-,spaspm-method}: TODO
 
 \item \code{spm_datasets}: TODO
 
@@ -163,6 +242,10 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 
 \item \code{spm_data,spaspm_data-method}: TODO
 
+\item \code{spm_data<-}: TODO
+
+\item \code{spm_data<-,spaspm_data-method}: TODO
+
 \item \code{spm_unique_ID}: TODO
 
 \item \code{spm_unique_ID,spaspm-method}: TODO
@@ -170,6 +253,10 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 \item \code{spm_unique_ID,spaspm_data-method}: TODO
 
 \item \code{spm_unique_ID,spaspm_discrete-method}: TODO
+
+\item \code{spm_unique_ID<-}: TODO
+
+\item \code{spm_unique_ID<-,spaspm-method}: TODO
 
 \item \code{spm_coords_col}: TODO
 
@@ -179,9 +266,19 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 
 \item \code{spm_coords_col,spaspm_discrete-method}: TODO
 
+\item \code{spm_coords_col<-}: TODO
+
+\item \code{spm_coords_col<-,spaspm-method}: TODO
+
 \item \code{spm_boundaries}: TODO
 
 \item \code{spm_boundaries,spaspm-method}: TODO
+
+\item \code{spm_boundaries<-}: TODO
+
+\item \code{spm_boundaries<-,spaspm_discrete-method}: TODO
+
+\item \code{spm_boundaries<-,spaspm-method}: TODO
 
 \item \code{spm_discret_method}: TODO
 
@@ -189,9 +286,19 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 
 \item \code{spm_discret_method,spaspm_discrete-method}: TODO
 
+\item \code{spm_discret_method<-}: TODO
+
+\item \code{spm_discret_method<-,spaspm_discrete-method}: TODO
+
+\item \code{spm_boundaries<-,spaspm-method}: TODO
+
 \item \code{method_func}: TODO
 
 \item \code{method_func,discretization_method-method}: TODO
+
+\item \code{method_func<-}: TODO
+
+\item \code{method_func<-,discretization_method-method}: TODO
 
 \item \code{spm_patches}: TODO
 
@@ -199,11 +306,23 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 
 \item \code{spm_patches,spaspm_discrete-method}: TODO
 
+\item \code{spm_patches<-}: TODO
+
+\item \code{spm_patches<-,spaspm_discrete-method}: TODO
+
+\item \code{spm_patches<-,spaspm-method}: TODO
+
 \item \code{spm_points}: TODO
 
 \item \code{spm_points,spaspm-method}: TODO
 
 \item \code{spm_points,spaspm_discrete-method}: TODO
+
+\item \code{spm_points<-}: TODO
+
+\item \code{spm_points<-,spaspm_discrete-method}: TODO
+
+\item \code{spm_points<-,spaspm-method}: TODO
 
 \item \code{spm_mapped_datasets}: TODO
 
