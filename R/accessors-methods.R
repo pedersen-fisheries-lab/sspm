@@ -70,9 +70,12 @@ setMethod("spm_datasets", signature("spaspm_object" = "spaspm"),
 setMethod("spm_datasets", signature("spaspm_object" = "spaspm_discrete"),
           function(spaspm_object){
             if(length(spm_mapped_datasets(spaspm_object)) > 0){
+              # A bit ugly but required to format list of different length
+              # without using purrr
               datasets <- unlist(list(list(Main_dataset = spm_base_dataset(spaspm_object)),
                                       Mapped_datasets = spm_mapped_datasets(spaspm_object)),
                                  recursive = FALSE)
+              # Add names
               names(datasets) <- c(spm_name(spm_base_dataset(spaspm_object)),
                                    sapply(spm_mapped_datasets(spaspm_object), spm_name))
             } else {
