@@ -7,13 +7,15 @@
 #' @param spaspm_object **\[spaspm OR adjacent\]** An object of class
 #'     [spaspm][spaspm-class] or others derivative classes.
 #'
-#' @rdname spaspm-spaspm-accessors-methods
+#' @rdname spaspm-accessors-methods
+
+# Accessors ---------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
 #' @export
 setGeneric(name = "spm_name",
            def = function(spaspm_object) standardGeneric("spm_name")
 )
-
-# Accessors ---------------------------------------------------------------
 
 #' @describeIn spaspm-accessors-methods TODO
 #' @export
@@ -345,41 +347,6 @@ setMethod("spm_boundaries<-",
           signature("object" = "spaspm"),
           function(object, value){
             message_not_discrete(object)
-            return(object)
-          }
-)
-
-# For method --------------------------------------------------------------
-# Accessors ---------------------------------------------------------------
-
-#' @describeIn spaspm-accessors-methods TODO
-#' @export
-setGeneric(name = "method_func",
-           def = function(spaspm_object) standardGeneric("method_func")
-)
-
-#' @describeIn spaspm-accessors-methods TODO
-#' @export
-setMethod("method_func",
-          signature("spaspm_object" = "discretization_method"),
-          function(spaspm_object) spaspm_object@method
-)
-
-# Replacers ---------------------------------------------------------------
-
-#' @describeIn spaspm-accessors-methods TODO
-#' @export
-setGeneric(name = "method_func<-",
-           def = function(object, value) standardGeneric("method_func<-")
-)
-
-#' @describeIn spaspm-accessors-methods TODO
-#' @export
-setMethod("method_func<-",
-          signature("object" = "discretization_method"),
-          function(object, value){
-            object@method <- value
-            validObject(object)
             return(object)
           }
 )

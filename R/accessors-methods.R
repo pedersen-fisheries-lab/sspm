@@ -7,6 +7,7 @@
 #' @param spaspm_object **\[spaspm OR adjacent\]** An object of class
 #'     [spaspm][spaspm-class] or others derivative classes.
 #'
+#' @name spaspm-accessors-methods
 #' @rdname spaspm-accessors-methods
 
 # Name --------------------------------------------------------------------

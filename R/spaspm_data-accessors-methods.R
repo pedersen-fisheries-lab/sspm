@@ -31,13 +31,13 @@ setMethod("spm_data", signature("spaspm_object" = "spaspm_data"),
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn spaspm-accessors-methods TODO
+#' @describeIn spaspm_data-accessors-methods TODO
 #' @export
 setGeneric(name = "spm_data<-",
            def = function(object, value) standardGeneric("spm_data<-")
 )
 
-#' @describeIn spaspm-accessors-methods TODO
+#' @describeIn spaspm_data-accessors-methods TODO
 #' @export
 setMethod("spm_data<-",
           signature("object" = "spaspm_data"),
@@ -51,7 +51,6 @@ setMethod("spm_data<-",
 # Name --------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @describeIn spaspm-accessors-methods TODO
 #' @export
 setMethod("spm_name", signature("spaspm_object" = "spaspm_data"),
           function(spaspm_object) spaspm_object@name
@@ -59,7 +58,6 @@ setMethod("spm_name", signature("spaspm_object" = "spaspm_data"),
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn spaspm-accessors-methods TODO
 #' @export
 setMethod("spm_name<-",
           signature("object" = "spaspm_data"),

@@ -5,7 +5,6 @@
 \alias{method_func,discretization_method-method}
 \alias{method_func<-}
 \alias{method_func<-,discretization_method-method}
-\alias{spm_name,discretization_method-method}
 \title{Accessing OR replacing \code{discretization_method} model elements}
 \usage{
 method_func(spaspm_object)
@@ -15,8 +14,6 @@ method_func(spaspm_object)
 method_func(object) <- value
 
 \S4method{method_func}{discretization_method}(object) <- value
-
-\S4method{spm_name}{discretization_method}(spaspm_object)
 }
 \arguments{
 \item{spaspm_object}{\strong{[discretization_method]} An object of class
@@ -33,7 +30,5 @@ objects of class \link[=discretization_method-class]{discretization_method}.
 \item \code{method_func<-}: TODO
 
 \item \code{method_func<-,discretization_method-method}: TODO
-
-\item \code{spm_name,discretization_method-method}: TODO
 }}
 

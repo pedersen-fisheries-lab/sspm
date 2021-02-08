@@ -43,7 +43,6 @@ setMethod("method_func<-",
 
 # Name --------------------------------------------------------------------
 
-#' @describeIn discret_method-accessors-methods TODO
 #' @export
 setMethod("spm_name", signature("spaspm_object" = "discretization_method"),
           function(spaspm_object) method_object@name
