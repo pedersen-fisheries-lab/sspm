@@ -45,5 +45,5 @@ setMethod("method_func<-",
 
 #' @export
 setMethod("spm_name", signature("spaspm_object" = "discretization_method"),
-          function(spaspm_object) method_object@name
+          function(spaspm_object) spaspm_object@name
 )
