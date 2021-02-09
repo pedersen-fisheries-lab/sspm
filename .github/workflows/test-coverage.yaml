@@ -42,5 +42,5 @@ jobs:
         shell: Rscript {0}
 
       - name: Test coverage
-        run: if(FALSE){covr::codecov()}
+        run: if(TRUE){covr::codecov()}
         shell: Rscript {0}
