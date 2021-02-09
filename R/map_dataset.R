@@ -69,7 +69,7 @@ setMethod(f = "map_dataset",
 
             # Append to list of mapped_datasets
             mapped_tmp <- spm_mapped_datasets(spaspm_object)
-            all_names <- unlist(c(lapply(mapped_tmp, names), spm_name(data)))
+            all_names <- unlist(c(lapply(mapped_tmp, spm_name), spm_name(data)))
 
             mapped_tmp <- append(mapped_tmp, list(data))
             names(mapped_tmp) <- all_names
