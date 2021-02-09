@@ -21,7 +21,7 @@ setGeneric(name = "spm_data",
 #' @describeIn spaspm_data-accessors-methods TODO
 setMethod("spm_data", signature("spaspm_object" = "spaspm"),
           function(spaspm_object) {
-            cli::cli_alert_danger("Use `spm_datasets` to access the datasets of a spaspm object")
+            cli::cli_alert_danger("Use `spm_datasets` or `spm_base_dataset` to access the datasets of a spaspm object")
           }
 )
 
