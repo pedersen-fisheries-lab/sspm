@@ -88,9 +88,17 @@ setMethod(f = "map_dataset",
                     data = "list"),
           function(spaspm_object, data, ...){
 
-            # If list is provided, lapply or for loop depending on case
-            # if ()
+            # TODO:
+            # Note that all datasets need to have the same ... arguments
+            # including names
+            tmp_spaspm_discrete <- spaspm_object
+            for (dataset in data){
+              tmp_spaspm_discrete <- map_dataset(spaspm_object = tmp_spaspm_discrete,
+                                                 data = dataset,
+                                                 ...)
+            }
 
+            return(tmp_spaspm_discrete)
           }
 )
 
