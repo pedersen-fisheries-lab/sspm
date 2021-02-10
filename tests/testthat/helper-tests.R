@@ -1,3 +1,4 @@
+library(testthat)
 library(checkmate)
 library(dplyr)
 library(sf)
@@ -21,6 +22,13 @@ spaspm_data <- new("spaspm_data",
                    coords = c('lon_dec','lat_dec'),
                    representation = "Simple feature collection")
 
+spaspm_data_pred <- new("spaspm_data",
+                        name = "Predator",
+                        data = predator_simulated,
+                        uniqueID = "uniqueID",
+                        coords = c('lon_dec','lat_dec'),
+                        representation = "Simple feature collection")
+
 spaspm_base <- new("spaspm",
                    name="Model test",
                    data=spaspm_data,
@@ -37,3 +45,13 @@ spaspm_discrete <- new("spaspm_discrete",
                        method = discret_method,
                        patches = borealis_patches,
                        points = borealis_points)
+
+spaspm_discrete_mapped <- new("spaspm_discrete",
+                              name = spm_name(spaspm_base),
+                              data = spm_base_dataset(spaspm_base),
+                              boundaries = spm_boundaries(spaspm_base),
+                              method = discret_method,
+                              patches = borealis_patches,
+                              points = borealis_points,
+                              mapped_datasets = list(Predator = spaspm_data_pred))
+
