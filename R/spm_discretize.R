@@ -121,7 +121,7 @@ setMethod(f = "spm_discretize",
 
               cli::cli_alert_danger(paste0(" Model '", spm_name(spaspm_object),
                                            "' is already discretized"))
-              cli::cli_alert_info(" Use 'force = TRUE' to discretize again. but mapped datasets will be lost!")
+              cli::cli_alert_info(" Use 'force = TRUE' to discretize again. but mapped datasets/smooths will be lost!")
 
             } else{
 
