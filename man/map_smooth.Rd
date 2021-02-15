@@ -12,6 +12,16 @@ map_smooth(spaspm_object, time, space, space_time, ...)
 
 \S4method{map_smooth}{spaspm_discrete}(spaspm_object, time, space, space_time, ...)
 }
+\arguments{
+\item{time}{TODO}
+
+\item{space}{TODO}
+
+\item{space_time}{TODO}
+}
+\value{
+The updated object, of class \link[=spaspm_discrete-class]{spaspm_discrete}.
+}
 \description{
 Allows to specify a smoothing model for a discrete \code{spaspm} object.
 }

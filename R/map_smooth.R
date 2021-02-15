@@ -2,11 +2,18 @@
 #'
 #' Allows to specify a smoothing model for a discrete `spaspm` object.
 #'
+#' @param time TODO
+#' @param space TODO
+#' @param space_time TODO
+#'
+#' @return
+#' The updated object, of class [spaspm_discrete][spaspm_discrete-class].
+#'
 #' @export
 setGeneric(name = "map_smooth",
            def = function(spaspm_object, time, space, space_time,
                           ...){
-             standardGeneric("")
+             standardGeneric("map_smooth")
            }
 )
 
