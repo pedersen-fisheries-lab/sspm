@@ -2,9 +2,15 @@
 #'
 #' Allows to specify a smoothing model for a discrete `spaspm` object.
 #'
-#' @param time TODO
-#' @param space TODO
-#' @param space_time TODO
+#' @param spaspm_object **\[spaspm_discrete\]** An object of class
+#'    [spaspm_discrete][spaspm_discrete-class].
+#' @param time **\[list\]** Specifications for the modeling the temporal
+#'    dimension of the smooth model.
+#' @param space **\[list\]** Specifications for the modeling the spatial
+#'    dimension of the smooth model.
+#' @param space_time **\[list\]** Specifications for the modeling the
+#'    spatio-temporal dimension of the smooth model.
+#' @param ... Other arguments, none used at the moment.
 #'
 #' @return
 #' The updated object, of class [spaspm_discrete][spaspm_discrete-class].

@@ -4,6 +4,7 @@
 #' @importFrom rlang .data
 #' @importFrom methods new show validObject
 #' @importFrom graphics par
+#' @importFrom mgcv s
 
 # OldClasses --------------------------------------------------------------
 
@@ -108,9 +109,50 @@ setClass("spaspm_discrete",
                       mapped_datasets = "list",
                       mapped_smooths = "list"),
          prototype = prototype(name = "Default Model Name",
-                          mapped_datasets = list(),
-                          mapped_smooths = list()),
+                               mapped_datasets = list(),
+                               mapped_smooths = list()),
          contains = c("spaspm"))
+
+# -------------------------------------------------------------------------
+
+#' SPASPM smooth object
+#'
+#' This class is a wrapper around the `xxx.smooth.spec` classes in [mgcv][mgcv].
+#' These S3 classes represents all possibe smooths that can be fitted in the
+#' package. It is used internally to formally cast users inputs for smooths
+#' specifications. It is not directly intended for the user to instantiate
+#' objects, but it is still exported.
+#'
+#' @slot representation **\[character\]** A name for the way the user specified
+#'     the smooths input.
+#' @slot smooth **\[xxx.smooth.spec\]** An object of class `xxx.smooth.spec`.
+#'
+#' @seealso See the `mgcv` function for defining smooths: [s()][mgcv::s].
+#'
+#' @name spaspm_smooth-class
+
+check_spaspm_smooth_class <- function(object){
+  checked_rep <- checkmate::test_character(object@representation)
+  if(checked_rep){
+    checked_smooth  <- grepl("smooth.spec", class(object@smooth), fixed = TRUE)
+    if(checked_smooth){
+      return(TRUE)
+    } else {
+      cli::cli_alert_danger("Invalid smooth object")
+      return("smooth object must be of class `xxx.smooth.spec`")
+    }
+  } else {
+    cli::cli_alert_danger("Invalid smooth object")
+    return("smooth object name must be of class character")
+  }
+}
+
+#' @describeIn spaspm_smooth-class TODO
+setClass("spaspm_smooth",
+         slots = list(representation = "character",
+                      smooth = "ANY"),
+         validity = check_spaspm_smooth_class
+)
 
 # -------------------------------------------------------------------------
 

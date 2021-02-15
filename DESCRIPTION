@@ -29,7 +29,8 @@ Imports:
     magrittr,
     dplyr,
     units,
-    rlang
+    rlang,
+    mgcv
 Suggests: 
     testthat (>= 3.0.0),
     covr
