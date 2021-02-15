@@ -21,6 +21,9 @@ setMethod("show",
             if (length(object@mapped_datasets) >= 1){
               cat_mapped_datasets(object)
             }
+            if (length(object@mapped_smooths) >= 1){
+              cat_mapped_smooths(object)
+            }
             cat("\n")
           }
 )
@@ -76,4 +79,10 @@ cat_mapped_datasets <- function(object){
   cli::cat_bullet(" ", cli::col_cyan(length(datasets)),
              " mapped dataset(s): ", paste(cli::col_magenta(sapply(datasets , spm_name)),
                                            collapse = ", "))
+}
+
+cat_mapped_smooths <- function(object){
+  smooths <- object@mapped_smooths
+  cli::cli_h3(cli::col_cyan("Mapped smooths"))
+  cli::cat_bullet(cli::col_red("TODO"))
 }
