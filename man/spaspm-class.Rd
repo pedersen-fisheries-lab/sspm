@@ -40,5 +40,8 @@ discretization.}
 \item{\code{mapped_datasets}}{\strong{[list]} \emph{(if discrete)} List of
 \link[=spaspm_data-class]{spaspm_data} objects that are mapped ontp the
 base dataset.}
+
+\item{\code{mapped_smooths}}{\strong{[list]} \emph{(if discrete)} List of mapped smoothed
+used to specify a given set of models.}
 }}
 

@@ -87,6 +87,8 @@ setClass("discretization_method",
 #' @slot mapped_datasets **\[list\]** *(if discrete)* List of
 #'     [spaspm_data][spaspm_data-class] objects that are mapped ontp the
 #'     base dataset.
+#' @slot mapped_smooths **\[list\]** *(if discrete)* List of mapped smoothed
+#'     used to specify a given set of models.
 #'
 #' @name spaspm-class
 #' @rdname spaspm-class
@@ -103,14 +105,17 @@ setClass("spaspm_discrete",
          slots = list(method = "discretization_method",
                       patches = "sf",
                       points = "sf",
-                      mapped_datasets = "list"),
+                      mapped_datasets = "list",
+                      mapped_smooths = "list"),
          prototype = prototype(name = "Default Model Name",
-                          mapped_datasets = list()),
+                          mapped_datasets = list(),
+                          mapped_smooths = list()),
          contains = c("spaspm"))
 
 # -------------------------------------------------------------------------
 
 # Fitted model => spaspm + discretization_method + has been fitted
+# TODO finish specifying these objects
 setClass("spaspm_gam_fit",
          slots = list(gam_fit = "data.frame",
                       gam_call = "formula"),
