@@ -13,11 +13,19 @@ map_smooth(spaspm_object, time, space, space_time, ...)
 \S4method{map_smooth}{spaspm_discrete}(spaspm_object, time, space, space_time, ...)
 }
 \arguments{
-\item{time}{TODO}
+\item{spaspm_object}{\strong{[spaspm_discrete]} An object of class
+\link[=spaspm_discrete-class]{spaspm_discrete}.}
 
-\item{space}{TODO}
+\item{time}{\strong{[list]} Specifications for the modeling the temporal
+dimension of the smooth model.}
 
-\item{space_time}{TODO}
+\item{space}{\strong{[list]} Specifications for the modeling the spatial
+dimension of the smooth model.}
+
+\item{space_time}{\strong{[list]} Specifications for the modeling the
+spatio-temporal dimension of the smooth model.}
+
+\item{...}{Other arguments, none used at the moment.}
 }
 \value{
 The updated object, of class \link[=spaspm_discrete-class]{spaspm_discrete}.
