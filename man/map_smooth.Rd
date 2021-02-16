@@ -8,7 +8,7 @@
 \usage{
 map_smooth(
   spaspm_object,
-  dataset_name = "Biomass",
+  dataset = "Biomass",
   time = NULL,
   space = NULL,
   space_time = NULL,
@@ -17,7 +17,7 @@ map_smooth(
 
 \S4method{map_smooth}{spaspm}(
   spaspm_object,
-  dataset_name = "Biomass",
+  dataset = "Biomass",
   time = NULL,
   space = NULL,
   space_time = NULL,
@@ -26,7 +26,7 @@ map_smooth(
 
 \S4method{map_smooth}{spaspm_discrete}(
   spaspm_object,
-  dataset_name = "Biomass",
+  dataset = "Biomass",
   time = NULL,
   space = NULL,
   space_time = NULL,
@@ -37,7 +37,7 @@ map_smooth(
 \item{spaspm_object}{\strong{[spaspm_discrete]} An object of class
 \link[=spaspm_discrete-class]{spaspm_discrete}.}
 
-\item{dataset_name}{\strong{[character]} The name of the dataset on which to
+\item{dataset}{\strong{[character]} The name of the dataset on which to
 map the smooth. See also \link[=spaspm_smooth-class]{spaspm_smooth}.}
 
 \item{time}{\strong{[list]} Specifications for the modeling the temporal

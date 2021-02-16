@@ -17,7 +17,7 @@
 #'
 #' @export
 setGeneric(name = "map_smooth",
-           def = function(spaspm_object, dataset_name = "Biomass",
+           def = function(spaspm_object, dataset = "Biomass",
                           time = NULL, space = NULL, space_time = NULL,
                           ...){
              standardGeneric("map_smooth")
@@ -30,7 +30,7 @@ setGeneric(name = "map_smooth",
 #' @describeIn map_smooth TODO
 setMethod(f = "map_smooth",
           signature(spaspm_object = "spaspm"),
-          function(spaspm_object, dataset_name, time, space, space_time, ...){
+          function(spaspm_object, dataset, time, space, space_time, ...){
             message_not_discrete()
           }
 )
@@ -39,7 +39,7 @@ setMethod(f = "map_smooth",
 #' @describeIn map_smooth TODO
 setMethod(f = "map_smooth",
           signature(spaspm_object = "spaspm_discrete"),
-          function(spaspm_object, dataset_name, time, space, space_time, ...){
+          function(spaspm_object, dataset, time, space, space_time, ...){
 
             # Start with list
             list_of_smooths <- list(time = time,
@@ -66,30 +66,3 @@ setMethod(f = "map_smooth",
             }
           }
 )
-
-# This function is responsible for checking the inputs of each time, space
-# and space_time smooth. It will return TRUE or send an error message
-check_smooth <- function(smooth_object, smooth_name){
-
-  if(is.null(smooth_object) | is.list(smooth_object)){
-    return_value <- TRUE
-  } else {
-    the_class <- class(smooth_object)
-    checked  <- grepl("smooth.spec", the_class, fixed = TRUE)
-
-    if(!checked){
-      cli::cli_alert_danger(paste0("Specifications for '",
-                                   smooth_name,
-                                   "' smooth are incorrect"))
-      return_value <- FALSE
-
-    } else {
-      return_value <- TRUE
-    }
-  }
-
-  return(return_value)
-}
-
-# This functions gets a named list of the missing smooths and return default
-# smooths
