@@ -1,0 +1,4 @@
+#' @export
+ICAR <- function(...){
+  TRUE
+}

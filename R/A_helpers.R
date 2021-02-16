@@ -26,13 +26,14 @@ spm_methods <- function(){
 #' A `character vector` of all available smooth types.
 #'
 #' @export
-spm_methods <- function(){
-  choices <- c('tesselate_voronoi')
+spm_smooth_types <- function(){
+  choices <- c('ICAR')
   return(choices)
 }
 
 # Not exported ------------------------------------------------------------
 
+# Dispatch the correct function based on the name of the method
 dispatch_method <- function(discretization_method){
 
   checkmate::assert_character(discretization_method)
@@ -43,6 +44,20 @@ dispatch_method <- function(discretization_method){
     cli::cli_alert_danger(paste0("Method '", discretization_method,
                                  "' is not part of the supported methods."))
     cli::cli_alert_info("See `?spm_methods()`")
+  }
+}
+
+# Dispatch the correct smooth type based on the name of the type
+dispatch_smooth_type <- function(smooth_type){
+
+  checkmate::assert_character(smooth_type)
+
+  if (smooth_type == "ICAR"){
+    return(ICAR)
+  } else {
+    cli::cli_alert_danger(paste0("Smooth type '", smooth_type,
+                                 "' is not part of the supported methods."))
+    cli::cli_alert_info("See `?spm_smooth_types()`")
   }
 }
 
