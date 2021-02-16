@@ -50,7 +50,6 @@ setMethod(f = "as_spaspm_smooth",
                     type = "missing", args = "missing"),
           function(smooth, dataset_name, type, args, ...){
             if (is_smooth_spec(smooth)){
-              # TODO
               the_smooth <- new("spaspm_smooth",
                                 representation = get_base_smooth_type(smooth),
                                 dataset_name = dataset_name,
