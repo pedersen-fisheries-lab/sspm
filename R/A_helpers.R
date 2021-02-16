@@ -79,3 +79,10 @@ get_base_smooth_type <- function(object){
   type <- gsub(".smooth.spec", "", class(object), fixed = TRUE)
   return(type)
 }
+
+# Returns TRUE if it is a mgcv smooth, FALSE otherwise
+# object = expected to be the mgcv smooth object
+is_smooth_spec <- function(object){
+  checked_smooth  <- grepl("smooth.spec", class(object), fixed = TRUE)
+  return(checked_smooth)
+}
