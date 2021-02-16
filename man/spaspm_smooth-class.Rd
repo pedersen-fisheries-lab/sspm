@@ -3,11 +3,7 @@
 \docType{class}
 \name{spaspm_smooth-class}
 \alias{spaspm_smooth-class}
-\alias{check_spaspm_smooth_class}
 \title{SPASPM smooth object}
-\usage{
-check_spaspm_smooth_class(object)
-}
 \description{
 This class is a wrapper around the \code{xxx.smooth.spec} classes in \link{mgcv}.
 These S3 classes represents all possibe smooths that can be fitted in the
@@ -15,11 +11,6 @@ package. It is used internally to formally cast users inputs for smooths
 specifications. It is not directly intended for the user to instantiate
 objects, but it is still exported.
 }
-\section{Functions}{
-\itemize{
-\item \code{spaspm_smooth-class}: TODO
-}}
-
 \section{Slots}{
 
 \describe{
