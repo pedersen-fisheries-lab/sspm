@@ -17,6 +17,10 @@ objects, but it is still exported.
 \item{\code{representation}}{\strong{[character]} A name for the way the user specified
 the smooths input.}
 
+\item{\code{dataset_name}}{\strong{[character]} The name of the dataset the smooth object is
+to be mapped onto. Will be checked against the list of datasets in the
+SPASPM object when \link{map_smooth} is called.}
+
 \item{\code{smooth}}{\strong{[xxx.smooth.spec]} An object of class \code{xxx.smooth.spec}.}
 }}
 
