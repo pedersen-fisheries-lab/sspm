@@ -53,6 +53,15 @@ setMethod("show",
           }
 )
 
+setMethod("show",
+          "spaspm_smooth",
+          function(object) {
+            cli::cli_h3(cli::col_cyan("SPASPM Smooth object"))
+            cli::cat_bullet(" Representation    : smooth of type '", object@representation, "'")
+            cli::cat_bullet(" Mapped on dataset : '", cli::col_magenta(object@dataset_name), "'")
+          }
+)
+
 # Helpers -----------------------------------------------------------------
 
 cat_boundaries <- function(object){
