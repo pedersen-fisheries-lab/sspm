@@ -6,15 +6,39 @@
 \alias{map_smooth,spaspm_discrete-method}
 \title{Specify a smoothing model for a discrete \code{spaspm} object}
 \usage{
-map_smooth(spaspm_object, time, space, space_time, ...)
+map_smooth(
+  spaspm_object,
+  dataset_name = "Biomass",
+  time = NULL,
+  space = NULL,
+  space_time = NULL,
+  ...
+)
 
-\S4method{map_smooth}{spaspm}(spaspm_object, time, space, space_time, ...)
+\S4method{map_smooth}{spaspm}(
+  spaspm_object,
+  dataset_name = "Biomass",
+  time = NULL,
+  space = NULL,
+  space_time = NULL,
+  ...
+)
 
-\S4method{map_smooth}{spaspm_discrete}(spaspm_object, time, space, space_time, ...)
+\S4method{map_smooth}{spaspm_discrete}(
+  spaspm_object,
+  dataset_name = "Biomass",
+  time = NULL,
+  space = NULL,
+  space_time = NULL,
+  ...
+)
 }
 \arguments{
 \item{spaspm_object}{\strong{[spaspm_discrete]} An object of class
 \link[=spaspm_discrete-class]{spaspm_discrete}.}
+
+\item{dataset_name}{\strong{[character]} The name of the dataset of the
+object to map the smooth for.}
 
 \item{time}{\strong{[list]} Specifications for the modeling the temporal
 dimension of the smooth model.}
