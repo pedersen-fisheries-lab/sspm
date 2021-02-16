@@ -3,7 +3,8 @@
 setMethod("show",
           "spaspm",
           function(object) {
-            cli::cli_h2(cli::col_blue(cli::style_bold("SPASPM object '", object@name, "'")))
+            cli::cli_h2(cli::col_blue(cli::style_bold("SPASPM object '",
+                                                      object@name, "'")))
             show(object@data)
             cat_boundaries(object)
             cat("\n")
@@ -13,7 +14,8 @@ setMethod("show",
 setMethod("show",
           "spaspm_discrete",
           function(object) {
-            cli::cli_h2(cli::col_blue(cli::style_bold("SPASPM object '", object@name, "' ",
+            cli::cli_h2(cli::col_blue(cli::style_bold("SPASPM object '",
+                                                      object@name, "' ",
                                                       cli::col_green("(DISCRETIZED)"))))
             show(object@data)
             cat_boundaries(object)
@@ -57,8 +59,11 @@ setMethod("show",
           "spaspm_smooth",
           function(object) {
             cli::cli_h3(cli::col_cyan("SPASPM Smooth object"))
-            cli::cat_bullet(" Representation    : smooth of type '", object@representation, "'")
-            cli::cat_bullet(" Mapped on dataset : '", cli::col_magenta(object@dataset_name), "'")
+            cli::cat_bullet(" Representation    : smooth of type '",
+                            object@representation, "', for dimension '",
+                            object@dimension, "'")
+            cli::cat_bullet(" Mapped on dataset : '",
+                            cli::col_magenta(object@dataset_name), "'")
           }
 )
 
@@ -86,7 +91,8 @@ cat_mapped_datasets <- function(object){
   datasets <- object@mapped_datasets
   cli::cli_h3(cli::col_cyan("Mapped Datasets"))
   cli::cat_bullet(" ", cli::col_cyan(length(datasets)),
-             " mapped dataset(s): ", paste(cli::col_magenta(sapply(datasets , spm_name)),
+             " mapped dataset(s): ", paste(cli::col_magenta(sapply(datasets ,
+                                                                   spm_name)),
                                            collapse = ", "))
 }
 
