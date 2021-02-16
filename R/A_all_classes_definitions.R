@@ -20,6 +20,10 @@ setClassUnion("characterOrNULL", c("character", "NULL"))
 # Returns TRUE if valid spaspm_smooth
 # object = expected to be the spaspm_smooth object
 validate_spaspm_smooth_class <- function(object){
+
+  # TODO revisit this to check for dimenstion to be part of set
+  # space, time, space_time
+
   checked_rep <- checkmate::test_character(object@representation)
   if(checked_rep){
     checked_smooth <- is_smooth_spec(object@smooth) # From helpers
@@ -148,6 +152,8 @@ setClass("spaspm_discrete",
 #' @slot dataset_name **\[character\]** The name of the dataset the smooth object is
 #'     to be mapped onto. Will be checked against the list of datasets in the
 #'     SPASPM object when [map_smooth] is called.
+#' @slot dimension **\[character\]** The smoothing dimension the smooth is
+#'     applied to: one if "space", "time", "space_time".
 #' @slot smooth **\[xxx.smooth.spec\]** An object of class `xxx.smooth.spec`.
 #'
 #' @seealso See the `mgcv` function for defining smooths: [s()][mgcv::s].
@@ -155,6 +161,7 @@ setClass("spaspm_discrete",
 setClass("spaspm_smooth",
          slots = list(representation = "character",
                       dataset_name = "character",
+                      dimension = "character",
                       smooth = "ANY"),
          validity = validate_spaspm_smooth_class
 )
