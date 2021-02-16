@@ -21,6 +21,9 @@ the smooths input.}
 to be mapped onto. Will be checked against the list of datasets in the
 SPASPM object when \link{map_smooth} is called.}
 
+\item{\code{dimension}}{\strong{[character]} The smoothing dimension the smooth is
+applied to: one if "space", "time", "space_time".}
+
 \item{\code{smooth}}{\strong{[xxx.smooth.spec]} An object of class \code{xxx.smooth.spec}.}
 }}
 
