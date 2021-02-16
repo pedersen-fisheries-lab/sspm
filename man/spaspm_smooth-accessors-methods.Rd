@@ -3,9 +3,12 @@
 \name{spm_rep,spaspm_smooth-method}
 \alias{spm_rep,spaspm_smooth-method}
 \alias{spm_rep<-,spaspm_smooth-method}
+\alias{spm_smooth}
 \alias{spm_smooth,spaspm_smooth-method}
 \alias{spm_smooth<-}
 \alias{spm_smooth<-,spaspm_smooth-method}
+\alias{spm_dataset_name}
+\alias{spm_dataset_name,spaspm_smooth-method}
 \alias{spm_dataset_name<-}
 \alias{spm_dataset_name<-,spaspm_smooth-method}
 \title{Accessing OR replacing \code{spaspm_smooth} object elements}
@@ -14,11 +17,17 @@
 
 \S4method{spm_rep}{spaspm_smooth}(object) <- value
 
+spm_smooth(spaspm_object)
+
 \S4method{spm_smooth}{spaspm_smooth}(spaspm_object)
 
 spm_smooth(object) <- value
 
 \S4method{spm_smooth}{spaspm_smooth}(object) <- value
+
+spm_dataset_name(spaspm_object)
+
+\S4method{spm_dataset_name}{spaspm_smooth}(spaspm_object)
 
 spm_dataset_name(object) <- value
 
@@ -43,11 +52,17 @@ objects of class \link[=spaspm_smooth-class]{spaspm_smooth}.
 \itemize{
 \item \code{spm_rep<-,spaspm_smooth-method}: TODO
 
+\item \code{spm_smooth}: TODO
+
 \item \code{spm_smooth,spaspm_smooth-method}: TODO
 
 \item \code{spm_smooth<-}: TODO
 
 \item \code{spm_smooth<-,spaspm_smooth-method}: TODO
+
+\item \code{spm_dataset_name}: TODO
+
+\item \code{spm_dataset_name,spaspm_smooth-method}: TODO
 
 \item \code{spm_dataset_name<-}: TODO
 

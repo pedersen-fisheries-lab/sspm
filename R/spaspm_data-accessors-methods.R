@@ -83,9 +83,7 @@ setGeneric(name = "spm_rep",
 #' @export
 #' @describeIn spaspm_data-accessors-methods TODO
 setMethod("spm_rep", signature("spaspm_object" = "spaspm_data"),
-          function(spaspm_object) {
-            function(spaspm_object) spaspm_object@representation
-          }
+          function(spaspm_object) spaspm_object@representation
 )
 
 # Replacers ---------------------------------------------------------------

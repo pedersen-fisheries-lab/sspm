@@ -14,9 +14,7 @@
 
 #' @export
 setMethod("spm_rep", signature("spaspm_object" = "spaspm_smooth"),
-          function(spaspm_object) {
-            function(spaspm_object) spaspm_object@representation
-          }
+          function(spaspm_object) spaspm_object@representation
 )
 
 # Replacers ---------------------------------------------------------------
@@ -35,17 +33,16 @@ setMethod("spm_rep<-",
 # Smooth
 # Accessors ---------------------------------------------------------------
 
+#' @describeIn spaspm_smooth-accessors-methods TODO
 #' @export
 setGeneric(name = "spm_smooth",
            def = function(spaspm_object) standardGeneric("spm_smooth")
 )
 
-#' @export
 #' @describeIn spaspm_smooth-accessors-methods TODO
+#' @export
 setMethod("spm_smooth", signature("spaspm_object" = "spaspm_smooth"),
-          function(spaspm_object) {
-            function(spaspm_object) spaspm_object@smooth
-          }
+          function(spaspm_object) spaspm_object@smooth
 )
 
 # Replacers ---------------------------------------------------------------
@@ -70,16 +67,16 @@ setMethod("spm_smooth<-",
 # Dataset name ------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
+#' @describeIn spaspm_smooth-accessors-methods TODO
 #' @export
 setGeneric(name = "spm_dataset_name",
            def = function(spaspm_object) standardGeneric("spm_dataset_name")
 )
 
+#' @describeIn spaspm_smooth-accessors-methods TODO
 #' @export
 setMethod("spm_dataset_name", signature("spaspm_object" = "spaspm_smooth"),
-          function(spaspm_object) {
-            function(spaspm_object) spaspm_object@dataset_name
-          }
+          function(spaspm_object) spaspm_object@dataset_name
 )
 
 # Replacers ---------------------------------------------------------------
