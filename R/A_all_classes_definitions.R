@@ -29,7 +29,7 @@ validate_spaspm_smooth_class <- function(object){
     }
   } else {
     cli::cli_alert_danger("Invalid smooth object")
-    return("smooth object name must be of class character")
+    return("smooth object representation must be of class character")
   }
 }
 
