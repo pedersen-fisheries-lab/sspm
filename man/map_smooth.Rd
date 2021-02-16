@@ -37,8 +37,8 @@ map_smooth(
 \item{spaspm_object}{\strong{[spaspm_discrete]} An object of class
 \link[=spaspm_discrete-class]{spaspm_discrete}.}
 
-\item{dataset_name}{\strong{[character]} The name of the dataset of the
-object to map the smooth for.}
+\item{dataset_name}{\strong{[character]} The name of the dataset on which to
+map the smooth. See also \link[=spaspm_smooth-class]{spaspm_smooth}.}
 
 \item{time}{\strong{[list]} Specifications for the modeling the temporal
 dimension of the smooth model.}

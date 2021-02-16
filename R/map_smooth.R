@@ -2,10 +2,8 @@
 #'
 #' Allows to specify a smoothing model for a discrete `spaspm` object.
 #'
-#' @param spaspm_object **\[spaspm_discrete\]** An object of class
-#'    [spaspm_discrete][spaspm_discrete-class].
-#' @param dataset_name **\[character\]** The name of the dataset of the
-#'    object to map the smooth for.
+#' @inheritParams map_dataset
+#' @inheritParams as_spaspm_smooth
 #' @param time **\[list\]** Specifications for the modeling the temporal
 #'    dimension of the smooth model.
 #' @param space **\[list\]** Specifications for the modeling the spatial
