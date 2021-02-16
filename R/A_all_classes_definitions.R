@@ -17,19 +17,12 @@ setClassUnion("characterOrNULL", c("character", "NULL"))
 
 # Validation functions ----------------------------------------------------
 
-# Returns TRUE if it is a mgcv smooth, FALSE otherwise
-# object = expected to be the mgcv smooth object
-is_smooth_spec <- function(object){
-  checked_smooth  <- grepl("smooth.spec", class(object), fixed = TRUE)
-  return(checked_smooth)
-}
-
 # Returns TRUE if valid spaspm_smooth
 # object = expected to be the spaspm_smooth object
 validate_spaspm_smooth_class <- function(object){
   checked_rep <- checkmate::test_character(object@representation)
   if(checked_rep){
-    checked_smooth <- is_smooth_spec(object@smooth)
+    checked_smooth <- is_smooth_spec(object@smooth) # From helpers
     if(checked_smooth){
       return(TRUE)
     } else {
@@ -168,17 +161,17 @@ setClass("spaspm_smooth",
 
 # -------------------------------------------------------------------------
 
-# Fitted model => spaspm + discretization_method + has been fitted
-# TODO finish specifying these objects
-setClass("spaspm_gam_fit",
-         slots = list(gam_fit = "data.frame",
-                      gam_call = "formula"),
-         contains = c("spaspm_discrete", "spaspm")
-)
-
-# Modelled SPM ~ end of workflow
-setClass("spaspm_spm_fit",
-         slots = list(spm_fit = "data.frame",
-                      spm_call = "formula"),
-         contains = "spaspm_gam_fit"
-)
+# # Fitted model => spaspm + discretization_method + has been fitted
+# # TODO finish specifying these objects
+# setClass("spaspm_gam_fit",
+#          slots = list(gam_fit = "data.frame",
+#                       gam_call = "formula"),
+#          contains = c("spaspm_discrete", "spaspm")
+# )
+#
+# # Modelled SPM ~ end of workflow
+# setClass("spaspm_spm_fit",
+#          slots = list(spm_fit = "data.frame",
+#                       spm_call = "formula"),
+#          contains = "spaspm_gam_fit"
+# )
