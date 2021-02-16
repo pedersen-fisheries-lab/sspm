@@ -1,8 +1,50 @@
 # Exported ----------------------------------------------------------------
 
-NULL
+#' Get the list of available discretization methods
+#'
+#' Currently, only one discretization method is supported:
+#'     * `"tesselate_voronoi"` Voronoi tessellation using the function
+#'       [tesselate_voronoi][tesselate_voronoi].
+#'
+#' You can create your own method using TODO.
+#'
+#' @return
+#' A `character vector` of all available discretization methods.
+#'
+#' @export
+spm_methods <- function(){
+  choices <- c('tesselate_voronoi')
+  return(choices)
+}
+
+#' Get the list of available smooth types
+#'
+#' Currently, only one smooth type is supported:
+#'     * `"ICAR"`
+#'
+#' @return
+#' A `character vector` of all available smooth types.
+#'
+#' @export
+spm_methods <- function(){
+  choices <- c('tesselate_voronoi')
+  return(choices)
+}
 
 # Not exported ------------------------------------------------------------
+
+dispatch_method <- function(discretization_method){
+
+  checkmate::assert_character(discretization_method)
+
+  if (discretization_method == "tesselate_voronoi"){
+    return(tesselate_voronoi)
+  } else {
+    cli::cli_alert_danger(paste0("Method '", discretization_method,
+                                 "' is not part of the supported methods."))
+    cli::cli_alert_info("See `?spm_methods()`")
+  }
+}
 
 # Convert shrimp length to weight
 length_to_weigth <- function(length, sex){

@@ -37,34 +37,3 @@ setMethod(f = "as_discretization_method",
             return(method_object)
           }
 )
-
-
-# Helpers -----------------------------------------------------------------
-
-#' Get the list of available discretization methods
-#'
-#' Currently, only one discretization method is supported:
-#'     * `"tesselate_voronoi"` Voronoi tessellation using the function
-#'       [tesselate_voronoi][tesselate_voronoi].
-#'
-#' You can create your own method using TODO.
-#'
-#' @return
-#' A `character vector` of all available discretization methods.
-#'
-#' @export
-spm_methods <- function(){
-  choices <- c('tesselate_voronoi')
-  return(choices)
-}
-
-dispatch_method <- function(discretization_method){
-
-  checkmate::assert_character(discretization_method)
-
-  if (discretization_method == "tesselate_voronoi"){
-    return(tesselate_voronoi)
-  } else {
-    stop()
-  }
-}
