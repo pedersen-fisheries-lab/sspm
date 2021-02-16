@@ -15,6 +15,25 @@ setOldClass("sf")
 
 setClassUnion("characterOrNULL", c("character", "NULL"))
 
+
+# Validation functions ----------------------------------------------------
+
+validate_spaspm_smooth_class <- function(object){
+  checked_rep <- checkmate::test_character(object@representation)
+  if(checked_rep){
+    checked_smooth  <- grepl("smooth.spec", class(object@smooth), fixed = TRUE)
+    if(checked_smooth){
+      return(TRUE)
+    } else {
+      cli::cli_alert_danger("Invalid smooth object")
+      return("smooth object must be of class `xxx.smooth.spec`")
+    }
+  } else {
+    cli::cli_alert_danger("Invalid smooth object")
+    return("smooth object name must be of class character")
+  }
+}
+
 # -------------------------------------------------------------------------
 
 #' SPASPM dataset structure
@@ -129,7 +148,6 @@ setClass("spaspm_discrete",
 #'
 #' @seealso See the `mgcv` function for defining smooths: [s()][mgcv::s].
 #'
-#' @include validate-classes.R
 setClass("spaspm_smooth",
          slots = list(representation = "character",
                       smooth = "ANY"),
