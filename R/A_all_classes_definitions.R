@@ -15,7 +15,6 @@ setOldClass("sf")
 
 setClassUnion("characterOrNULL", c("character", "NULL"))
 
-
 # Validation functions ----------------------------------------------------
 
 validate_spaspm_smooth_class <- function(object){
