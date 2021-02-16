@@ -7,15 +7,15 @@
 #' @param dataset_name **\[character\]** The name of the dataset on which to
 #'     map the smooth. See also [spaspm_smooth][spaspm_smooth-class].
 #' @param type **\[character\]**
-#' @param args **\[list\]**
-#' @param ... Other arguments, none used at the moment.
 #'
 #' @return
 #' An object of class [`spaspm_smooth`][spaspm_smooth-class].
 #'
+#' @seealso See the `mgcv` function for defining smooths: [s()][mgcv::s].
+#'
 #' @export
 setGeneric(name = "as_spaspm_smooth",
-           def = function(smooth, dataset_name, type, args, ...){
+           def = function(smooth, dataset_name, type, ...){
              standardGeneric("as_spaspm_smooth")
            }
 )
@@ -36,19 +36,22 @@ setMethod(f = "as_spaspm_smooth",
 #' @describeIn as_spaspm_smooth TODO
 #' @export
 setMethod(f = "as_spaspm_smooth",
-          signature(smooth = "ANY", dataset_name = "missing"),
-          function(smooth, dataset_name, type, args, ...){
+          signature(smooth = "ANY",
+                    dataset_name = "missing"),
+          function(smooth, dataset_name, type, ...){
             cli::cli_alert_danger("Required argument `dataset_name` missing or not specified with `dataset_name=`")
 
           }
 )
 
+# Assess mgcv smooth and cast it
 #' @describeIn as_spaspm_smooth TODO
 #' @export
 setMethod(f = "as_spaspm_smooth",
-          signature(smooth = "ANY", dataset_name = "character",
-                    type = "missing", args = "missing"),
-          function(smooth, dataset_name, type, args, ...){
+          signature(smooth = "ANY",
+                    dataset_name = "character",
+                    type = "missing"),
+          function(smooth, dataset_name, type, ...){
             if (is_smooth_spec(smooth)){
               the_smooth <- new("spaspm_smooth",
                                 representation = get_base_smooth_type(smooth),
@@ -61,34 +64,26 @@ setMethod(f = "as_spaspm_smooth",
           }
 )
 
+# TODO doesnt work as expected
 #' @describeIn as_spaspm_smooth TODO
 #' @export
 setMethod(f = "as_spaspm_smooth",
-          signature(smooth = "ANY", dataset_name = "character",
-                    type = "ANY", args = "ANY"),
-          function(smooth, dataset_name, type, args, ...){
-            cli::cli_alert_danger("Arguments `type` or `args` cannot be specified when `smooth` is specified")
+          signature(smooth = "ANY",
+                    dataset_name = "character",
+                    type = "ANY"),
+          function(smooth, dataset_name, type, ...){
+            cli::cli_alert_danger("Argument `type` cannot be specified when `smooth` is specified")
           }
 )
 
+# If type (ICAR, etc...)
 #' @describeIn as_spaspm_smooth TODO
 #' @export
 setMethod(f = "as_spaspm_smooth",
-          signature(smooth = "missing", dataset_name = "character",
-                    type = "character", args = "list"),
-          function(smooth, dataset_name, type, args, ...){
-            # TODO
-            print("TYPE CHARACTER METHOD")
-          }
-)
-
-#' @describeIn as_spaspm_smooth TODO
-#' @export
-setMethod(f = "as_spaspm_smooth",
-          signature(smooth = "missing", dataset_name = "character",
-                    type = "missing", args = "list"),
-          function(smooth, dataset_name, type, args, ...){
-            # TODO
-            print("ARGS LIST METHOD")
+          signature(smooth = "missing",
+                    dataset_name = "character",
+                    type = "character"),
+          function(smooth, dataset_name, type, ...){
+            # Check if types
           }
 )
