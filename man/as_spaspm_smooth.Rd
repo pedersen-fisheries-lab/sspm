@@ -2,22 +2,39 @@
 % Please edit documentation in R/as_spaspm_smooth.R
 \name{as_spaspm_smooth}
 \alias{as_spaspm_smooth}
-\alias{as_spaspm_smooth,spaspm_smooth-method}
+\alias{as_spaspm_smooth,spaspm_smooth,ANY,ANY,ANY-method}
+\alias{as_spaspm_smooth,ANY,missing,ANY,ANY-method}
+\alias{as_spaspm_smooth,ANY,character,missing,missing-method}
+\alias{as_spaspm_smooth,ANY,character,ANY,ANY-method}
+\alias{as_spaspm_smooth,missing,character,character,list-method}
+\alias{as_spaspm_smooth,missing,character,missing,list-method}
 \title{Create a \code{spaspm_smooth} object}
 \usage{
-as_spaspm_smooth(smooth, type, args)
+as_spaspm_smooth(smooth, dataset_name, type, args, ...)
 
-\S4method{as_spaspm_smooth}{spaspm_smooth}(smooth)
+\S4method{as_spaspm_smooth}{spaspm_smooth,ANY,ANY,ANY}(smooth)
+
+\S4method{as_spaspm_smooth}{ANY,missing,ANY,ANY}(smooth, dataset_name, type, args, ...)
+
+\S4method{as_spaspm_smooth}{ANY,character,missing,missing}(smooth, dataset_name, type, args, ...)
+
+\S4method{as_spaspm_smooth}{ANY,character,ANY,ANY}(smooth, dataset_name, type, args, ...)
+
+\S4method{as_spaspm_smooth}{missing,character,character,list}(smooth, dataset_name, type, args, ...)
+
+\S4method{as_spaspm_smooth}{missing,character,missing,list}(smooth, dataset_name, type, args, ...)
 }
 \arguments{
 \item{smooth}{\strong{[mgcv xxx.smooth.spec object]} A smooth object from \link{mgcv}.}
+
+\item{dataset_name}{\strong{[character]} The name of the dataset on which to
+map the smooth. See also \link[=spaspm_smooth-class]{spaspm_smooth}.}
 
 \item{type}{\strong{[character]}}
 
 \item{args}{\strong{[list]}}
 
-\item{dataset_name}{\strong{[character]} The name of the dataset on which to
-map the smooth. See also \link[=spaspm_smooth-class]{spaspm_smooth}.}
+\item{...}{Other arguments, none used at the moment.}
 }
 \value{
 An object of class \code{\link[=spaspm_smooth-class]{spaspm_smooth}}.
@@ -28,6 +45,16 @@ This function allows to cast different inputs into an object of class
 }
 \section{Functions}{
 \itemize{
-\item \code{as_spaspm_smooth,spaspm_smooth-method}: TODO
+\item \code{as_spaspm_smooth,spaspm_smooth,ANY,ANY,ANY-method}: TODO
+
+\item \code{as_spaspm_smooth,ANY,missing,ANY,ANY-method}: TODO
+
+\item \code{as_spaspm_smooth,ANY,character,missing,missing-method}: TODO
+
+\item \code{as_spaspm_smooth,ANY,character,ANY,ANY-method}: TODO
+
+\item \code{as_spaspm_smooth,missing,character,character,list-method}: TODO
+
+\item \code{as_spaspm_smooth,missing,character,missing,list-method}: TODO
 }}
 
