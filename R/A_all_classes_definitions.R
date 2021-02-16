@@ -161,17 +161,17 @@ setClass("spaspm_smooth",
 
 # -------------------------------------------------------------------------
 
-# # Fitted model => spaspm + discretization_method + has been fitted
-# # TODO finish specifying these objects
-# setClass("spaspm_gam_fit",
-#          slots = list(gam_fit = "data.frame",
-#                       gam_call = "formula"),
-#          contains = c("spaspm_discrete", "spaspm")
-# )
-#
-# # Modelled SPM ~ end of workflow
-# setClass("spaspm_spm_fit",
-#          slots = list(spm_fit = "data.frame",
-#                       spm_call = "formula"),
-#          contains = "spaspm_gam_fit"
-# )
+# Fitted model => spaspm + discretization_method + has been fitted
+# TODO finish specifying these objects
+setClass("spaspm_gam_fit",
+         slots = list(gam_fit = "data.frame",
+                      gam_call = "formula"),
+         contains = c("spaspm_discrete", "spaspm")
+)
+
+# Modelled SPM ~ end of workflow
+setClass("spaspm_spm_fit",
+         slots = list(spm_fit = "data.frame",
+                      spm_call = "formula"),
+         contains = "spaspm_gam_fit"
+)
