@@ -48,12 +48,12 @@ dispatch_method <- function(discretization_method){
 }
 
 # Dispatch the correct smooth type based on the name of the type
-dispatch_smooth_type <- function(smooth_type){
+dispatch_smooth_type <- function(smooth_type, dimension, ...){
 
   checkmate::assert_character(smooth_type)
 
   if (smooth_type == "ICAR"){
-    return(ICAR)
+    return(ICAR(dimension, ...))
   } else {
     cli::cli_alert_danger(paste0("Smooth type '", smooth_type,
                                  "' is not part of the supported methods."))
@@ -142,4 +142,10 @@ get_base_smooth_type <- function(object){
 is_smooth_spec <- function(object){
   checked_smooth  <- grepl("smooth.spec", class(object), fixed = TRUE)
   return(checked_smooth)
+}
+
+# Get the list of possible dimensions
+spm_dimensions <- function(){
+  dimension_choices <- c("space", "time", "space_time")
+  return(dimension_choices)
 }
