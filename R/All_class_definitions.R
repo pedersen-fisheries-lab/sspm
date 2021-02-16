@@ -131,7 +131,7 @@ setClass("spaspm_discrete",
 #'
 #' @name spaspm_smooth-class
 
-check_spaspm_smooth_class <- function(object){
+validate_spaspm_smooth_class <- function(object){
   checked_rep <- checkmate::test_character(object@representation)
   if(checked_rep){
     checked_smooth  <- grepl("smooth.spec", class(object@smooth), fixed = TRUE)
@@ -151,7 +151,7 @@ check_spaspm_smooth_class <- function(object){
 setClass("spaspm_smooth",
          slots = list(representation = "character",
                       smooth = "ANY"),
-         validity = check_spaspm_smooth_class
+         validity = validate_spaspm_smooth_class
 )
 
 # -------------------------------------------------------------------------
