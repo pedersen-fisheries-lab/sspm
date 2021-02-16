@@ -4,30 +4,32 @@
 \alias{as_spaspm_smooth}
 \alias{as_spaspm_smooth,spaspm_smooth,ANY,ANY-method}
 \alias{as_spaspm_smooth,ANY,missing,ANY-method}
-\alias{as_spaspm_smooth,ANY,character,missing-method}
-\alias{as_spaspm_smooth,ANY,character,ANY-method}
-\alias{as_spaspm_smooth,missing,character,character-method}
+\alias{as_spaspm_smooth,character,character,character-method}
+\alias{as_spaspm_smooth,ANY,character,character-method}
 \title{Create a \code{spaspm_smooth} object}
 \usage{
-as_spaspm_smooth(smooth, dataset_name, type, ...)
+as_spaspm_smooth(smooth, dataset_name, dimension, ...)
 
 \S4method{as_spaspm_smooth}{spaspm_smooth,ANY,ANY}(smooth)
 
-\S4method{as_spaspm_smooth}{ANY,missing,ANY}(smooth, dataset_name, type, ...)
+\S4method{as_spaspm_smooth}{ANY,missing,ANY}(smooth, dataset_name, dimension, ...)
 
-\S4method{as_spaspm_smooth}{ANY,character,missing}(smooth, dataset_name, type, ...)
+\S4method{as_spaspm_smooth}{character,character,character}(smooth, dataset_name, dimension, ...)
 
-\S4method{as_spaspm_smooth}{ANY,character,ANY}(smooth, dataset_name, type, ...)
-
-\S4method{as_spaspm_smooth}{missing,character,character}(smooth, dataset_name, type, ...)
+\S4method{as_spaspm_smooth}{ANY,character,character}(smooth, dataset_name, dimension, ...)
 }
 \arguments{
-\item{smooth}{\strong{[mgcv xxx.smooth.spec object]} A smooth object from \link{mgcv}.}
+\item{smooth}{\strong{[mgcv xxx.smooth.spec object OR character]} A smooth
+object from \link{mgcv} or a character value from the suppported default types. See
+\link[=spm_smooth_types]{spm_smooth_types()}.}
 
 \item{dataset_name}{\strong{[character]} The name of the dataset on which to
 map the smooth. See also \link[=spaspm_smooth-class]{spaspm_smooth}.}
 
-\item{type}{\strong{[character]}}
+\item{dimension}{\strong{[character]} The smoothing dimension the smooth is
+applied to: one if "space", "time", "space_time".}
+
+\item{...}{Further arguments passed on to build the smooth \code{TODO}.}
 }
 \value{
 An object of class \code{\link[=spaspm_smooth-class]{spaspm_smooth}}.
@@ -42,11 +44,9 @@ This function allows to cast different inputs into an object of class
 
 \item \code{as_spaspm_smooth,ANY,missing,ANY-method}: TODO
 
-\item \code{as_spaspm_smooth,ANY,character,missing-method}: TODO
+\item \code{as_spaspm_smooth,character,character,character-method}: TODO
 
-\item \code{as_spaspm_smooth,ANY,character,ANY-method}: TODO
-
-\item \code{as_spaspm_smooth,missing,character,character-method}: TODO
+\item \code{as_spaspm_smooth,ANY,character,character-method}: TODO
 }}
 
 \seealso{
