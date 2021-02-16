@@ -71,3 +71,38 @@ setMethod("spm_name<-",
             return(object)
           }
 )
+
+# Rep ---------------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @export
+setGeneric(name = "spm_rep",
+           def = function(spaspm_object) standardGeneric("spm_rep")
+)
+
+#' @export
+#' @describeIn spaspm_data-accessors-methods TODO
+setMethod("spm_rep", signature("spaspm_object" = "spaspm_data"),
+          function(spaspm_object) {
+            function(spaspm_object) spaspm_object@representation
+          }
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn spaspm_data-accessors-methods TODO
+#' @export
+setGeneric(name = "spm_rep<-",
+           def = function(object, value) standardGeneric("spm_rep<-")
+)
+
+#' @describeIn spaspm_data-accessors-methods TODO
+#' @export
+setMethod("spm_rep<-",
+          signature("object" = "spaspm_data"),
+          function(object, value){
+            object@representation <- value
+            validObject(object)
+            return(object)
+          }
+)
