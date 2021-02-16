@@ -66,3 +66,37 @@ setMethod("spm_smooth<-",
             return(object)
           }
 )
+
+# Dataset name ------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @export
+setGeneric(name = "spm_dataset_name",
+           def = function(spaspm_object) standardGeneric("spm_dataset_name")
+)
+
+#' @export
+setMethod("spm_dataset_name", signature("spaspm_object" = "spaspm_smooth"),
+          function(spaspm_object) {
+            function(spaspm_object) spaspm_object@dataset_name
+          }
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn spaspm_smooth-accessors-methods TODO
+#' @export
+setGeneric(name = "spm_dataset_name<-",
+           def = function(object, value) standardGeneric("spm_dataset_name<-")
+)
+
+#' @describeIn spaspm_smooth-accessors-methods TODO
+#' @export
+setMethod("spm_dataset_name<-",
+          signature("object" = "spaspm_smooth"),
+          function(object, value){
+            object@dataset_name <- value
+            validObject(object)
+            return(object)
+          }
+)

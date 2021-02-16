@@ -6,6 +6,8 @@
 \alias{spm_smooth,spaspm_smooth-method}
 \alias{spm_smooth<-}
 \alias{spm_smooth<-,spaspm_smooth-method}
+\alias{spm_dataset_name<-}
+\alias{spm_dataset_name<-,spaspm_smooth-method}
 \title{Accessing OR replacing \code{spaspm_smooth} object elements}
 \usage{
 \S4method{spm_rep}{spaspm_smooth}(spaspm_object)
@@ -17,6 +19,10 @@
 spm_smooth(object) <- value
 
 \S4method{spm_smooth}{spaspm_smooth}(object) <- value
+
+spm_dataset_name(object) <- value
+
+\S4method{spm_dataset_name}{spaspm_smooth}(object) <- value
 }
 \arguments{
 \item{spaspm_object}{\strong{[spaspm_smooth]} An object of class
@@ -42,5 +48,9 @@ objects of class \link[=spaspm_smooth-class]{spaspm_smooth}.
 \item \code{spm_smooth<-}: TODO
 
 \item \code{spm_smooth<-,spaspm_smooth-method}: TODO
+
+\item \code{spm_dataset_name<-}: TODO
+
+\item \code{spm_dataset_name<-,spaspm_smooth-method}: TODO
 }}
 
