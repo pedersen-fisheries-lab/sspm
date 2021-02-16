@@ -73,3 +73,9 @@ message_not_discrete <- function(object){
                                "' is not a discrete model"))
   cli::cli_alert_info(" See ?spm_discretize for discretization methods")
 }
+
+# Extract the base smooth type form a mgcv smooth object
+get_base_smooth_type <- function(object){
+  type <- gsub(".smooth.spec", "", class(object), fixed = TRUE)
+  return(type)
+}
