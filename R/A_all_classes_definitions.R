@@ -17,10 +17,19 @@ setClassUnion("characterOrNULL", c("character", "NULL"))
 
 # Validation functions ----------------------------------------------------
 
+# Returns TRUE if it is a mgcv smooth, FALSE otherwise
+# object = expected to be the mgcv smooth object
+is_smooth_spec <- function(object){
+  checked_smooth  <- grepl("smooth.spec", class(object), fixed = TRUE)
+  return(checked_smooth)
+}
+
+# Returns TRUE if valid spaspm_smooth
+# object = expected to be the spaspm_smooth object
 validate_spaspm_smooth_class <- function(object){
   checked_rep <- checkmate::test_character(object@representation)
   if(checked_rep){
-    checked_smooth  <- grepl("smooth.spec", class(object@smooth), fixed = TRUE)
+    checked_smooth <- is_smooth_spec(object@smooth)
     if(checked_smooth){
       return(TRUE)
     } else {
@@ -143,6 +152,9 @@ setClass("spaspm_discrete",
 #'
 #' @slot representation **\[character\]** A name for the way the user specified
 #'     the smooths input.
+#' @slot dataset **\[character\]** The name of the dataset the smooth object is
+#'     to be mapped onto. Will be checked against the list of datasets in the
+#'     SPASPM object when [map_smooth] is called.
 #' @slot smooth **\[xxx.smooth.spec\]** An object of class `xxx.smooth.spec`.
 #'
 #' @seealso See the `mgcv` function for defining smooths: [s()][mgcv::s].
