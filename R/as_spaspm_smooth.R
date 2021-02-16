@@ -6,7 +6,7 @@
 #' @param smooth **\[mgcv xxx.smooth.spec object OR character\]** A smooth
 #'     object from [mgcv] or a character value from the suppported default types. See
 #'     [spm_smooth_types()][spm_smooth_types].
-#' @param dataset_name **\[character\]** The name of the dataset on which to
+#' @param dataset **\[character\]** The name of the dataset on which to
 #'     map the smooth. See also [spaspm_smooth][spaspm_smooth-class].
 #' @param dimension **\[character\]** The smoothing dimension the smooth is
 #'     applied to: one if "space", "time", "space_time".
@@ -19,7 +19,7 @@
 #'
 #' @export
 setGeneric(name = "as_spaspm_smooth",
-           def = function(smooth, dataset_name, dimension, ...){
+           def = function(smooth, dataset, dimension, ...){
 
              if(!checkmate::test_choice(dimension, spm_dimensions())){
                stop(paste0("Dimension must be one of: ",
@@ -48,10 +48,10 @@ setMethod(f = "as_spaspm_smooth",
 #' @export
 setMethod(f = "as_spaspm_smooth",
           signature(smooth = "ANY",
-                    dataset_name = "missing",
+                    dataset = "missing",
                     dimension = "ANY"),
-          function(smooth, dataset_name, dimension, ...){
-            cli::cli_alert_danger("Required argument `dataset_name` missing or not specified with `dataset_name =`")
+          function(smooth, dataset, dimension, ...){
+            cli::cli_alert_danger("Required argument `dataset` missing or not specified with `dataset =`")
           }
 )
 
@@ -60,9 +60,9 @@ setMethod(f = "as_spaspm_smooth",
 #' @export
 setMethod(f = "as_spaspm_smooth",
           signature(smooth = "character",
-                    dataset_name = "character",
+                    dataset = "character",
                     dimension = "character"),
-          function(smooth, dataset_name, dimension, ...){
+          function(smooth, dataset, dimension, ...){
 
             if(!checkmate::test_choice(smooth, spm_smooth_types())){
               paste0("Smooth type must be one of: ", paste0(spm_smooth_types(),
@@ -75,7 +75,7 @@ setMethod(f = "as_spaspm_smooth",
 
             smooth_object <-  new("spaspm_smooth",
                                   representation = get_base_smooth_type(smooth),
-                                  dataset_name = dataset_name,
+                                  dataset = dataset,
                                   dimension = dimension,
                                   smooth = smooth)
 
@@ -88,13 +88,13 @@ setMethod(f = "as_spaspm_smooth",
 #' @export
 setMethod(f = "as_spaspm_smooth",
           signature(smooth = "ANY",
-                    dataset_name = "character",
+                    dataset = "character",
                     dimension = "character"),
-          function(smooth, dataset_name, dimension, ...){
+          function(smooth, dataset, dimension, ...){
             if (is_smooth_spec(smooth)){
               the_smooth <- new("spaspm_smooth",
                                 representation = get_base_smooth_type(smooth),
-                                dataset_name = dataset_name,
+                                dataset = dataset,
                                 dimension = dimension,
                                 smooth = smooth)
               return(the_smooth)

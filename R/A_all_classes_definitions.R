@@ -149,7 +149,7 @@ setClass("spaspm_discrete",
 #'
 #' @slot representation **\[character\]** A name for the way the user specified
 #'     the smooths input.
-#' @slot dataset_name **\[character\]** The name of the dataset the smooth object is
+#' @slot dataset **\[character\]** The name of the dataset the smooth object is
 #'     to be mapped onto. Will be checked against the list of datasets in the
 #'     SPASPM object when [map_smooth] is called.
 #' @slot dimension **\[character\]** The smoothing dimension the smooth is
@@ -160,7 +160,7 @@ setClass("spaspm_discrete",
 #'
 setClass("spaspm_smooth",
          slots = list(representation = "character",
-                      dataset_name = "character",
+                      dataset = "character",
                       dimension = "character",
                       smooth = "ANY"),
          validity = validate_spaspm_smooth_class

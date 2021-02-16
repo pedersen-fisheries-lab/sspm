@@ -8,22 +8,22 @@
 \alias{as_spaspm_smooth,ANY,character,character-method}
 \title{Create a \code{spaspm_smooth} object}
 \usage{
-as_spaspm_smooth(smooth, dataset_name, dimension, ...)
+as_spaspm_smooth(smooth, dataset, dimension, ...)
 
 \S4method{as_spaspm_smooth}{spaspm_smooth,ANY,ANY}(smooth)
 
-\S4method{as_spaspm_smooth}{ANY,missing,ANY}(smooth, dataset_name, dimension, ...)
+\S4method{as_spaspm_smooth}{ANY,missing,ANY}(smooth, dataset, dimension, ...)
 
-\S4method{as_spaspm_smooth}{character,character,character}(smooth, dataset_name, dimension, ...)
+\S4method{as_spaspm_smooth}{character,character,character}(smooth, dataset, dimension, ...)
 
-\S4method{as_spaspm_smooth}{ANY,character,character}(smooth, dataset_name, dimension, ...)
+\S4method{as_spaspm_smooth}{ANY,character,character}(smooth, dataset, dimension, ...)
 }
 \arguments{
 \item{smooth}{\strong{[mgcv xxx.smooth.spec object OR character]} A smooth
 object from \link{mgcv} or a character value from the suppported default types. See
 \link[=spm_smooth_types]{spm_smooth_types()}.}
 
-\item{dataset_name}{\strong{[character]} The name of the dataset on which to
+\item{dataset}{\strong{[character]} The name of the dataset on which to
 map the smooth. See also \link[=spaspm_smooth-class]{spaspm_smooth}.}
 
 \item{dimension}{\strong{[character]} The smoothing dimension the smooth is
