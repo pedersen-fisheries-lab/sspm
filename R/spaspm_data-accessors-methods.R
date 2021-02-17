@@ -104,3 +104,74 @@ setMethod("spm_rep<-",
             return(object)
           }
 )
+
+# Unique ID ---------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @describeIn spaspm_data-accessors-methods TODO
+#' @export
+setMethod("spm_unique_ID",
+          signature("spaspm_object" = "spaspm_data"),
+          function(spaspm_object) spaspm_object@uniqueID
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn spaspm_data-accessors-methods TODO
+#' @export
+setMethod("spm_unique_ID<-",
+          signature("object" = "spaspm_data"),
+          function(object, value){
+            object@unique_ID <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+# Coords ------------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @describeIn spaspm_data-accessors-methods TODO
+#' @export
+setMethod("spm_coords_col",
+          signature("spaspm_object" = "spaspm_data"),
+          function(spaspm_object) spaspm_object@coords
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn spaspm_data-accessors-methods TODO
+#' @export
+setMethod("spm_coords_col<-",
+          signature("object" = "spaspm_data"),
+          function(object, value){
+            object@coords <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+# Time col ----------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @describeIn spaspm_data-accessors-methods TODO
+#' @export
+setMethod("spm_time_col",
+          signature("spaspm_object" = "spaspm_data"),
+          function(spaspm_object) spaspm_object@time_col
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn spaspm_data-accessors-methods TODO
+#' @export
+setMethod("spm_time_col<-",
+          signature("object" = "spaspm_data"),
+          function(object, value){
+            object@time_col <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+

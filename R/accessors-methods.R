@@ -146,13 +146,6 @@ setMethod("spm_unique_ID",
 #' @describeIn spaspm-accessors-methods TODO
 #' @export
 setMethod("spm_unique_ID",
-          signature("spaspm_object" = "spaspm_data"),
-          function(spaspm_object) spaspm_object@uniqueID
-)
-
-#' @describeIn spaspm-accessors-methods TODO
-#' @export
-setMethod("spm_unique_ID",
           signature("spaspm_object" = "spaspm_discrete"),
           function(spaspm_object) {
             if(length(spm_mapped_datasets(spaspm_object)) > 0){
@@ -178,7 +171,7 @@ setGeneric(name = "spm_unique_ID<-",
 setMethod("spm_unique_ID<-",
           signature("object" = "spaspm"),
           function(object, value){
-            object@unique_ID <- value
+            object@data@uniqueID <- value
             validObject(object)
             return(object)
           }
@@ -198,13 +191,6 @@ setGeneric(name = "spm_coords_col",
 setMethod("spm_coords_col",
           signature("spaspm_object" = "spaspm"),
           function(spaspm_object) spaspm_object@data@coords
-)
-
-#' @describeIn spaspm-accessors-methods TODO
-#' @export
-setMethod("spm_coords_col",
-          signature("spaspm_object" = "spaspm_data"),
-          function(spaspm_object) spaspm_object@coords
 )
 
 #' @describeIn spaspm-accessors-methods TODO
@@ -235,7 +221,57 @@ setGeneric(name = "spm_coords_col<-",
 setMethod("spm_coords_col<-",
           signature("object" = "spaspm"),
           function(object, value){
-            object@coords <- value
+            object@data@coords <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+# Time col ----------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setGeneric(name = "spm_time_col",
+           def = function(spaspm_object) standardGeneric("spm_time_col")
+)
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setMethod("spm_time_col",
+          signature("spaspm_object" = "spaspm"),
+          function(spaspm_object) spaspm_object@data@time_col
+)
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setMethod("spm_time_col",
+          signature("spaspm_object" = "spaspm_discrete"),
+          function(spaspm_object) {
+            if(length(spm_mapped_datasets(spaspm_object)) > 0){
+              cols <- lapply(spm_datasets(spaspm_object),
+                             spm_time_col)
+            } else {
+              cols <- spaspm_object@data@time_col
+            }
+            return(cols)
+          }
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setGeneric(name = "spm_time_col<-",
+           def = function(object, value) standardGeneric("spm_time_col<-")
+)
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setMethod("spm_time_col<-",
+          signature("object" = "spaspm"),
+          function(object, value){
+            object@data@time_col <- value
             validObject(object)
             return(object)
           }
