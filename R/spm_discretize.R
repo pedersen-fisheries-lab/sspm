@@ -143,6 +143,7 @@ setMethod(f = "spm_discretize",
               new_object <- spaspm(model_name = spm_name(spaspm_object),
                                    name = spm_name(spm_base_dataset(spaspm_object)),
                                    data = the_data,
+                                   time_col = spm_time_col(spaspm_object),
                                    coords = spm_coords_col(spaspm_object),
                                    uniqueID = spm_unique_ID(spaspm_object),
                                    boundaries = spm_boundaries(spaspm_object))
