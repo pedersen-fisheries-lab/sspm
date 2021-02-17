@@ -48,10 +48,13 @@ validate_spaspm_smooth_class <- function(object){
 #'
 #' @slot name **\[character\]** The name of the dataset, default to "Biomass".
 #' @slot data **\[data.frame OR sf\]** The dataset.
+#' @slot time_col **\[character\]** The column of `data` that represents the
+#'     temporal dimension of the dataset.
+#' @slot coords **\[character\]** The columns of `data` that represent the
+#'     spatial dimension of the dataset: the two columns for longitude and
+#'     latitude of the observations.
 #' @slot uniqueID **\[character\]** The column of `data` that is unique for all
 #'     rows of the data matrix.
-#' @slot coords **\[character\]** The column of `data` for longitude and
-#'     latitude of the observations.
 #' @slot representation **\[character\]** Used internally and for print methods,
 #'     encodes the type of dataset.
 #'
@@ -61,8 +64,9 @@ validate_spaspm_smooth_class <- function(object){
 setClass("spaspm_data",
          slots = list(name = "character",
                       data = "ANY",
-                      uniqueID = "character",
+                      time_col = "character",
                       coords = "characterOrNULL",
+                      uniqueID = "character",
                       representation = "character"),
          prototype = prototype(name = "Biomass"),
          contains = c("sf", "data.frame"))

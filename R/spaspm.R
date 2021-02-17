@@ -15,6 +15,7 @@
 spaspm <- function(model_name = "My SPASPM model",
                    name = "Biomass",
                    data,
+                   time_col,
                    uniqueID,
                    boundaries,
                    coords = NULL,
@@ -24,6 +25,7 @@ spaspm <- function(model_name = "My SPASPM model",
 
   # 1. Ingest data and perform the correct checks
   the_spapspm_data <- as_spaspm_data(data = data,
+                                     time_col = time_col,
                                      coords = coords,
                                      name = name,
                                      uniqueID = uniqueID,

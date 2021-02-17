@@ -30,6 +30,8 @@ map_dataset(spaspm_object, data, ...)
 \item{...}{
   Arguments passed on to \code{\link[=as_spaspm_data]{as_spaspm_data}}
   \describe{
+    \item{\code{time_col}}{\strong{[character]} The column of \code{data} for the temporal
+dimensions (i.e. year).}
     \item{\code{coords}}{\strong{[character]} The column of \code{data} for longitude and
 latitude of the observations.}
     \item{\code{name}}{\strong{[character]} The name of the dataset, default to "Biomass".}

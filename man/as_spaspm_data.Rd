@@ -2,24 +2,27 @@
 % Please edit documentation in R/as_spaspm_data.R
 \name{as_spaspm_data}
 \alias{as_spaspm_data}
-\alias{as_spaspm_data,spaspm_data,ANY-method}
-\alias{as_spaspm_data,data.frame,NULL-method}
-\alias{as_spaspm_data,data.frame,character-method}
-\alias{as_spaspm_data,sf,ANY-method}
+\alias{as_spaspm_data,spaspm_data,ANY,ANY-method}
+\alias{as_spaspm_data,data.frame,ANY,NULL-method}
+\alias{as_spaspm_data,data.frame,ANY,character-method}
+\alias{as_spaspm_data,sf,ANY,ANY-method}
 \title{Create a \code{spaspm_data} dataset structure}
 \usage{
-as_spaspm_data(data, coords, name, uniqueID, crs)
+as_spaspm_data(data, time_col, coords, name, uniqueID, crs)
 
-\S4method{as_spaspm_data}{spaspm_data,ANY}(data)
+\S4method{as_spaspm_data}{spaspm_data,ANY,ANY}(data)
 
-\S4method{as_spaspm_data}{data.frame,`NULL`}(data, coords, name, uniqueID, crs)
+\S4method{as_spaspm_data}{data.frame,ANY,`NULL`}(data, time_col, coords, name, uniqueID, crs)
 
-\S4method{as_spaspm_data}{data.frame,character}(data, coords, name, uniqueID, crs)
+\S4method{as_spaspm_data}{data.frame,ANY,character}(data, time_col, coords, name, uniqueID, crs)
 
-\S4method{as_spaspm_data}{sf,ANY}(data, coords, name, uniqueID, crs)
+\S4method{as_spaspm_data}{sf,ANY,ANY}(data, time_col, coords, name, uniqueID, crs)
 }
 \arguments{
 \item{data}{\strong{[data.frame OR sf]} The dataset.}
+
+\item{time_col}{\strong{[character]} The column of \code{data} for the temporal
+dimensions (i.e. year).}
 
 \item{coords}{\strong{[character]} The column of \code{data} for longitude and
 latitude of the observations.}
@@ -40,12 +43,12 @@ This casts a \code{data.frame} or \code{sf} object into  an object of class
 }
 \section{Functions}{
 \itemize{
-\item \code{as_spaspm_data,spaspm_data,ANY-method}: TODO
+\item \code{as_spaspm_data,spaspm_data,ANY,ANY-method}: TODO
 
-\item \code{as_spaspm_data,data.frame,NULL-method}: TODO
+\item \code{as_spaspm_data,data.frame,ANY,NULL-method}: TODO
 
-\item \code{as_spaspm_data,data.frame,character-method}: TODO
+\item \code{as_spaspm_data,data.frame,ANY,character-method}: TODO
 
-\item \code{as_spaspm_data,sf,ANY-method}: TODO
+\item \code{as_spaspm_data,sf,ANY,ANY-method}: TODO
 }}
 

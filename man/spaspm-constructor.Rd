@@ -8,6 +8,7 @@ spaspm(
   model_name = "My SPASPM model",
   name = "Biomass",
   data,
+  time_col,
   uniqueID,
   boundaries,
   coords = NULL,
@@ -20,6 +21,9 @@ spaspm(
 \item{name}{\strong{[character]} The name of the dataset, default to "Biomass".}
 
 \item{data}{\strong{[data.frame OR sf]} The dataset.}
+
+\item{time_col}{\strong{[character]} The column of \code{data} for the temporal
+dimensions (i.e. year).}
 
 \item{uniqueID}{\strong{[character]} The column of \code{data} that is unique for all
 rows of the data matrix.}

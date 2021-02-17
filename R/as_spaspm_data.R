@@ -4,6 +4,8 @@
 #' [`spaspm_data`][spaspm_data-class].
 #'
 #' @param data **\[data.frame OR sf\]** The dataset.
+#' @param time_col **\[character\]** The column of `data` for the temporal
+#'     dimensions (i.e. year).
 #' @param coords **\[character\]** The column of `data` for longitude and
 #'     latitude of the observations.
 #' @param name **\[character\]** The name of the dataset, default to "Biomass".
@@ -16,13 +18,17 @@
 #'
 #' @export
 setGeneric(name = "as_spaspm_data",
-           def = function(data, coords, name, uniqueID, crs){
+           def = function(data, time_col, coords, name, uniqueID, crs){
 
              if(!checkmate::test_subset(uniqueID, names(data))){
                stop("`uniqueID` must be a column of `data`")
              }
              if(!(length(unique(data[[uniqueID]])) == nrow(data))){
                stop("`uniqueID` must be unique for each row of `data`")
+             }
+
+             if(!checkmate::test_subset(time_col, names(data))){
+               stop("`time_col` must be a column of `data`")
              }
 
              standardGeneric("as_spaspm_data")
@@ -44,7 +50,7 @@ setMethod(f = "as_spaspm_data",
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "NULL"),
-          function(data, coords, name, uniqueID, crs){
+          function(data, time_col, coords, name, uniqueID, crs){
 
             stop("Argument `coords` must be provided when data matrix is a dataframe",
                  call. = FALSE)
@@ -56,7 +62,7 @@ setMethod(f = "as_spaspm_data",
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "character"),
-          function(data, coords, name, uniqueID, crs){
+          function(data, time_col, coords, name, uniqueID, crs){
 
             # TODO CRS checks
 
@@ -77,6 +83,7 @@ setMethod(f = "as_spaspm_data",
             the_spaspm_data <- new("spaspm_data",
                                    name = name,
                                    data = new_data,
+                                   time_col = time_col,
                                    uniqueID = uniqueID,
                                    coords = coords,
                                    representation = "Simple feature collection")
@@ -90,13 +97,14 @@ setMethod(f = "as_spaspm_data",
 #' @export
 setMethod(f = "as_spaspm_data",
           signature(data = "sf", coords = "ANY"),
-          function(data, coords, name, uniqueID, crs){
+          function(data, time_col, coords, name, uniqueID, crs){
 
             # TODO CRS checks
 
             the_spaspm_data <- new("spaspm_data",
                                    name = name,
                                    data = data,
+                                   time_col = time_col,
                                    uniqueID = uniqueID,
                                    coords = coords,
                                    representation = "Simple feature collection")

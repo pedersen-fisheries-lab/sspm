@@ -15,11 +15,15 @@ The first step in the \code{spaspm} workflow is to register the base dataset
 
 \item{\code{data}}{\strong{[data.frame OR sf]} The dataset.}
 
+\item{\code{time_col}}{\strong{[character]} The column of \code{data} that represents the
+temporal dimension of the dataset.}
+
+\item{\code{coords}}{\strong{[character]} The columns of \code{data} that represent the
+spatial dimension of the dataset: the two columns for longitude and
+latitude of the observations.}
+
 \item{\code{uniqueID}}{\strong{[character]} The column of \code{data} that is unique for all
 rows of the data matrix.}
-
-\item{\code{coords}}{\strong{[character]} The column of \code{data} for longitude and
-latitude of the observations.}
 
 \item{\code{representation}}{\strong{[character]} Used internally and for print methods,
 encodes the type of dataset.}
