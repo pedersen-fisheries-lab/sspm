@@ -17,16 +17,19 @@
 \alias{spm_datasets,spaspm_data-method}
 \alias{spm_unique_ID}
 \alias{spm_unique_ID,spaspm-method}
-\alias{spm_unique_ID,spaspm_data-method}
 \alias{spm_unique_ID,spaspm_discrete-method}
 \alias{spm_unique_ID<-}
 \alias{spm_unique_ID<-,spaspm-method}
 \alias{spm_coords_col}
 \alias{spm_coords_col,spaspm-method}
-\alias{spm_coords_col,spaspm_data-method}
 \alias{spm_coords_col,spaspm_discrete-method}
 \alias{spm_coords_col<-}
 \alias{spm_coords_col<-,spaspm-method}
+\alias{spm_time_col}
+\alias{spm_time_col,spaspm-method}
+\alias{spm_time_col,spaspm_discrete-method}
+\alias{spm_time_col<-}
+\alias{spm_time_col<-,spaspm-method}
 \alias{spm_boundaries}
 \alias{spm_boundaries,spaspm-method}
 \alias{spm_boundaries<-}
@@ -87,8 +90,6 @@ spm_unique_ID(spaspm_object)
 
 \S4method{spm_unique_ID}{spaspm}(spaspm_object)
 
-\S4method{spm_unique_ID}{spaspm_data}(spaspm_object)
-
 \S4method{spm_unique_ID}{spaspm_discrete}(spaspm_object)
 
 spm_unique_ID(object) <- value
@@ -99,13 +100,21 @@ spm_coords_col(spaspm_object)
 
 \S4method{spm_coords_col}{spaspm}(spaspm_object)
 
-\S4method{spm_coords_col}{spaspm_data}(spaspm_object)
-
 \S4method{spm_coords_col}{spaspm_discrete}(spaspm_object)
 
 spm_coords_col(object) <- value
 
 \S4method{spm_coords_col}{spaspm}(object) <- value
+
+spm_time_col(spaspm_object)
+
+\S4method{spm_time_col}{spaspm}(spaspm_object)
+
+\S4method{spm_time_col}{spaspm_discrete}(spaspm_object)
+
+spm_time_col(object) <- value
+
+\S4method{spm_time_col}{spaspm}(object) <- value
 
 spm_boundaries(spaspm_object)
 
@@ -211,8 +220,6 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 
 \item \code{spm_unique_ID,spaspm-method}: TODO
 
-\item \code{spm_unique_ID,spaspm_data-method}: TODO
-
 \item \code{spm_unique_ID,spaspm_discrete-method}: TODO
 
 \item \code{spm_unique_ID<-}: TODO
@@ -223,13 +230,21 @@ objects of class \link[=spaspm-class]{spaspm} and others derivative classes
 
 \item \code{spm_coords_col,spaspm-method}: TODO
 
-\item \code{spm_coords_col,spaspm_data-method}: TODO
-
 \item \code{spm_coords_col,spaspm_discrete-method}: TODO
 
 \item \code{spm_coords_col<-}: TODO
 
 \item \code{spm_coords_col<-,spaspm-method}: TODO
+
+\item \code{spm_time_col}: TODO
+
+\item \code{spm_time_col,spaspm-method}: TODO
+
+\item \code{spm_time_col,spaspm_discrete-method}: TODO
+
+\item \code{spm_time_col<-}: TODO
+
+\item \code{spm_time_col<-,spaspm-method}: TODO
 
 \item \code{spm_boundaries}: TODO
 

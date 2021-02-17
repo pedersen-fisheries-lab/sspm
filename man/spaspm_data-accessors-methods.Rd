@@ -11,6 +11,12 @@
 \alias{spm_rep,spaspm_data-method}
 \alias{spm_rep<-}
 \alias{spm_rep<-,spaspm_data-method}
+\alias{spm_unique_ID,spaspm_data-method}
+\alias{spm_unique_ID<-,spaspm_data-method}
+\alias{spm_coords_col,spaspm_data-method}
+\alias{spm_coords_col<-,spaspm_data-method}
+\alias{spm_time_col,spaspm_data-method}
+\alias{spm_time_col<-,spaspm_data-method}
 \title{Accessing OR replacing \code{spaspm_data} model elements}
 \usage{
 spm_data(spaspm_object)
@@ -32,6 +38,18 @@ spm_data(object) <- value
 spm_rep(object) <- value
 
 \S4method{spm_rep}{spaspm_data}(object) <- value
+
+\S4method{spm_unique_ID}{spaspm_data}(spaspm_object)
+
+\S4method{spm_unique_ID}{spaspm_data}(object) <- value
+
+\S4method{spm_coords_col}{spaspm_data}(spaspm_object)
+
+\S4method{spm_coords_col}{spaspm_data}(object) <- value
+
+\S4method{spm_time_col}{spaspm_data}(spaspm_object)
+
+\S4method{spm_time_col}{spaspm_data}(object) <- value
 }
 \arguments{
 \item{spaspm_object}{\strong{[spaspm_data]} An object of class
@@ -67,5 +85,17 @@ objects of class \link[=spaspm_data-class]{spaspm_data}.
 \item \code{spm_rep<-}: TODO
 
 \item \code{spm_rep<-,spaspm_data-method}: TODO
+
+\item \code{spm_unique_ID,spaspm_data-method}: TODO
+
+\item \code{spm_unique_ID<-,spaspm_data-method}: TODO
+
+\item \code{spm_coords_col,spaspm_data-method}: TODO
+
+\item \code{spm_coords_col<-,spaspm_data-method}: TODO
+
+\item \code{spm_time_col,spaspm_data-method}: TODO
+
+\item \code{spm_time_col<-,spaspm_data-method}: TODO
 }}
 
