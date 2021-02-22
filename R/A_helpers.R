@@ -131,24 +131,24 @@ message_not_discrete <- function(object){
   cli::cli_alert_info(" See ?spm_discretize for discretization methods")
 }
 
-# Extract the base smooth type form a mgcv smooth object
-get_base_smooth_type <- function(object){
-  type <- gsub(".smooth.spec", "", class(object), fixed = TRUE)
-  return(type)
-}
+# # Extract the base smooth type form a mgcv smooth object
+# get_base_smooth_type <- function(object){
+#   type <- gsub(".smooth.spec", "", class(object), fixed = TRUE)
+#   return(type)
+# }
 
-# Returns TRUE if it is a mgcv smooth, FALSE otherwise
-# object = expected to be the mgcv smooth object
-is_smooth_spec <- function(object){
-  checked_smooth  <- grepl("smooth.spec", class(object), fixed = TRUE)
-  return(checked_smooth)
-}
+# # Returns TRUE if it is a mgcv smooth, FALSE otherwise
+# # object = expected to be the mgcv smooth object
+# is_smooth_spec <- function(object){
+#   checked_smooth  <- grepl("smooth.spec", class(object), fixed = TRUE)
+#   return(checked_smooth)
+# }
 
-# Get the list of possible dimensions
-spm_dimensions <- function(){
-  dimension_choices <- c("space", "time", "space_time")
-  return(dimension_choices)
-}
+# # Get the list of possible dimensions
+# spm_dimensions <- function(){
+#   dimension_choices <- c("space", "time", "space_time")
+#   return(dimension_choices)
+# }
 
 # This functions takes a list of arguments args and modify the call of another
 # function as to add those arguments. This is necessary to pass key arguments
