@@ -4,13 +4,16 @@
 \alias{smooth_time}
 \alias{smooth_space}
 \alias{smooth_space_time}
+\alias{smooth_time,ANY,character,spaspm_discrete-method}
 \title{SPASPM Smoothing functions}
 \usage{
-smooth_time(type)
+smooth_time(type = "ICAR", dataset, spaspm_object, ...)
 
-smooth_space(type)
+smooth_space(type = "ICAR", dataset, spaspm_object, ...)
 
-smooth_space_time(type)
+smooth_space_time(type = "ICAR", dataset, spaspm_object, ...)
+
+\S4method{smooth_time}{ANY,character,spaspm_discrete}(type = "ICAR", dataset, spaspm_object, ...)
 }
 \arguments{
 \item{type}{\strong{[character]} Type of smooths.}
@@ -24,5 +27,7 @@ A full spaspm formula contains calls to the smoothing terms \code{smooth_time()}
 \item \code{smooth_space}: TODO
 
 \item \code{smooth_space_time}: TODO
+
+\item \code{smooth_time,ANY,character,spaspm_discrete-method}: TODO
 }}
 
