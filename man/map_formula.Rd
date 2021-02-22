@@ -2,12 +2,21 @@
 % Please edit documentation in R/map_formula.R
 \name{map_formula}
 \alias{map_formula}
-\alias{map_formula,spaspm-method}
+\alias{map_formula,spaspm,ANY,ANY-method}
+\alias{map_formula,spaspm_discrete,missing,ANY-method}
+\alias{map_formula,spaspm_discrete,ANY,missing-method}
+\alias{map_formula,spaspm_discrete,character,formula-method}
 \title{Map model formula onto a discretized SPASPM object}
 \usage{
 map_formula(spaspm_object, dataset, formula, ...)
 
-\S4method{map_formula}{spaspm}(spaspm_object, dataset, formula, ...)
+\S4method{map_formula}{spaspm,ANY,ANY}(spaspm_object, dataset, formula, ...)
+
+\S4method{map_formula}{spaspm_discrete,missing,ANY}(spaspm_object, dataset, formula, ...)
+
+\S4method{map_formula}{spaspm_discrete,ANY,missing}(spaspm_object, dataset, formula, ...)
+
+\S4method{map_formula}{spaspm_discrete,character,formula}(spaspm_object, dataset, formula, ...)
 }
 \description{
 This functions allows to specify a model formula for a given discrete SPASPM
@@ -28,6 +37,12 @@ response ~ smoothing_terms + ...
 }
 \section{Functions}{
 \itemize{
-\item \code{map_formula,spaspm-method}: TODO
+\item \code{map_formula,spaspm,ANY,ANY-method}: TODO
+
+\item \code{map_formula,spaspm_discrete,missing,ANY-method}: TODO
+
+\item \code{map_formula,spaspm_discrete,ANY,missing-method}: TODO
+
+\item \code{map_formula,spaspm_discrete,character,formula-method}: TODO
 }}
 
