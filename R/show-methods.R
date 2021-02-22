@@ -23,8 +23,8 @@ setMethod("show",
             if (length(object@mapped_datasets) >= 1){
               cat_mapped_datasets(object)
             }
-            if (length(object@mapped_smooths) >= 1){
-              cat_mapped_smooths(object)
+            if (length(object@mapped_formulas) >= 1){
+              cat_mapped_formulas(object)
             }
             cat("\n")
           }
@@ -85,8 +85,10 @@ cat_mapped_datasets <- function(object){
                                            collapse = ", "))
 }
 
-cat_mapped_smooths <- function(object){
-  smooths <- object@mapped_smooths
-  cli::cli_h3(cli::col_cyan("Mapped smooths"))
-  cli::cat_bullet(cli::col_red("TODO"))
+cat_mapped_formulas <- function(object){
+  smooths <- object@mapped_formulas
+  cli::cli_h3(cli::col_cyan("Mapped formulas"))
+  for(form in smooths){
+    cli::cat_bullet(" ", cli::col_magenta(form))
+  }
 }

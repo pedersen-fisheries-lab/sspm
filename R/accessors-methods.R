@@ -547,13 +547,13 @@ setMethod("spm_mapped_datasets<-",
 
 #' @describeIn spaspm-accessors-methods TODO
 #' @export
-setGeneric(name = "spm_mapped_smooths",
-           def = function(spaspm_object) standardGeneric("spm_mapped_smooths")
+setGeneric(name = "spm_mapped_formulas",
+           def = function(spaspm_object) standardGeneric("spm_mapped_formulas")
 )
 
 #' @describeIn spaspm-accessors-methods TODO
 #' @export
-setMethod("spm_mapped_smooths",
+setMethod("spm_mapped_formulas",
           signature("spaspm_object" = "spaspm"),
           function(spaspm_object){
             message_not_discrete(spaspm_object)
@@ -562,25 +562,25 @@ setMethod("spm_mapped_smooths",
 
 #' @describeIn spaspm-accessors-methods TODO
 #' @export
-setMethod("spm_mapped_smooths",
+setMethod("spm_mapped_formulas",
           signature("spaspm_object" = "spaspm_discrete"),
-          function(spaspm_object) spaspm_object@mapped_smooths
+          function(spaspm_object) spaspm_object@mapped_formulas
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @describeIn spaspm-accessors-methods TODO
 #' @export
-setGeneric(name = "spm_mapped_smooths<-",
-           def = function(object, value) standardGeneric("spm_mapped_smooths<-")
+setGeneric(name = "spm_mapped_formulas<-",
+           def = function(object, value) standardGeneric("spm_mapped_formulas<-")
 )
 
 #' @describeIn spaspm-accessors-methods TODO
 #' @export
-setMethod("spm_mapped_smooths<-",
+setMethod("spm_mapped_formulas<-",
           signature("object" = "spaspm_discrete"),
           function(object, value){
-            object@mapped_smooths <- value
+            object@mapped_formulas <- value
             validObject(object)
             return(object)
           }
@@ -588,7 +588,7 @@ setMethod("spm_mapped_smooths<-",
 
 #' @describeIn spaspm-accessors-methods TODO
 #' @export
-setMethod("spm_mapped_smooths<-",
+setMethod("spm_mapped_formulas<-",
           signature("object" = "spaspm"),
           function(object, value){
             message_not_discrete(object)
