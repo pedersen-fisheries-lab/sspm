@@ -15,30 +15,6 @@ setOldClass("sf")
 
 setClassUnion("characterOrNULL", c("character", "NULL"))
 
-# Validation functions ----------------------------------------------------
-
-# Returns TRUE if valid spaspm_smooth
-# object = expected to be the spaspm_smooth object
-validate_spaspm_smooth_class <- function(object){
-
-  # TODO revisit this to check for dimenstion to be part of set
-  # space, time, space_time
-
-  checked_rep <- checkmate::test_character(object@representation)
-  if(checked_rep){
-    checked_smooth <- is_smooth_spec(object@smooth) # From helpers
-    if(checked_smooth){
-      return(TRUE)
-    } else {
-      cli::cli_alert_danger("Invalid smooth object")
-      return("smooth object must be of class `xxx.smooth.spec`")
-    }
-  } else {
-    cli::cli_alert_danger("Invalid smooth object")
-    return("smooth object representation must be of class character")
-  }
-}
-
 # -------------------------------------------------------------------------
 
 #' SPASPM dataset structure
@@ -140,35 +116,6 @@ setClass("spaspm_discrete",
                                mapped_datasets = list(),
                                mapped_smooths = list()),
          contains = c("spaspm"))
-
-# -------------------------------------------------------------------------
-
-#' SPASPM smooth object
-#'
-#' This class is a wrapper around the `xxx.smooth.spec` classes in [mgcv][mgcv].
-#' These S3 classes represents all possibe smooths that can be fitted in the
-#' package. It is used internally to formally cast users inputs for smooths
-#' specifications. It is not directly intended for the user to instantiate
-#' objects, but it is still exported.
-#'
-#' @slot representation **\[character\]** A name for the way the user specified
-#'     the smooths input.
-#' @slot dataset **\[character\]** The name of the dataset the smooth object is
-#'     to be mapped onto. Will be checked against the list of datasets in the
-#'     SPASPM object when [map_smooth] is called.
-#' @slot dimension **\[character\]** The smoothing dimension the smooth is
-#'     applied to: one if "space", "time", "space_time".
-#' @slot smooth **\[xxx.smooth.spec\]** An object of class `xxx.smooth.spec`.
-#'
-#' @seealso See the `mgcv` function for defining smooths: [s()][mgcv::s].
-#'
-setClass("spaspm_smooth",
-         slots = list(representation = "character",
-                      dataset = "character",
-                      dimension = "character",
-                      smooth = "ANY"),
-         validity = validate_spaspm_smooth_class
-)
 
 # -------------------------------------------------------------------------
 
