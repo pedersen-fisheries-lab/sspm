@@ -149,3 +149,13 @@ spm_dimensions <- function(){
   dimension_choices <- c("space", "time", "space_time")
   return(dimension_choices)
 }
+
+# This functions takes a list of arguments args and modify the call of another
+# function as to add those arguments. This is necessary to pass key arguments
+# to the smoothing functions
+modify_call <- function(the_call, args){
+  for (index in seq_len(length(args))){
+    the_call[[names(args)[index]]] <- args[[index]]
+  }
+  return(the_call)
+}
