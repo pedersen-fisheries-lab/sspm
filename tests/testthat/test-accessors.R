@@ -28,7 +28,7 @@ test_that("Accessors work as expected on `spaspm`", {
   expect_class({spm_base_dataset(spaspm_base)}, "spaspm_data")
 
   expect_class({spm_datasets(spaspm_base)}, "spaspm_data")
-  expect_length({spm_datasets(spaspm_discrete)}, 0)
+  expect_length({spm_datasets(spaspm_discrete)}, 1)
 
   # Not valid
   expect_message({spm_data(spaspm_base)},
@@ -59,8 +59,8 @@ test_that("accessors work on `spaspm_discrete`", {
 
   expect_class({spm_base_dataset(spaspm_discrete)}, "spaspm_data")
 
-  expect_class({spm_datasets(spaspm_discrete)}, "spaspm_data")
-  expect_length({spm_datasets(spaspm_discrete)}, 0)
+  expect_class({spm_datasets(spaspm_discrete)}, "list")
+  expect_length({spm_datasets(spaspm_discrete)}, 1)
 
   expect_class({spm_discret_method(spaspm_discrete)}, "discretization_method")
 
