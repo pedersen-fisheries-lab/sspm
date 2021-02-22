@@ -541,6 +541,60 @@ setMethod("spm_mapped_datasets<-",
 )
 
 # -------------------------------------------------------------------------
+# Mapped formulas ---------------------------------------------------------
+
+# Accesors ----------------------------------------------------------------
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setGeneric(name = "spm_mapped_smooths",
+           def = function(spaspm_object) standardGeneric("spm_mapped_smooths")
+)
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setMethod("spm_mapped_smooths",
+          signature("spaspm_object" = "spaspm"),
+          function(spaspm_object){
+            message_not_discrete(spaspm_object)
+          }
+)
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setMethod("spm_mapped_smooths",
+          signature("spaspm_object" = "spaspm_discrete"),
+          function(spaspm_object) spaspm_object@mapped_smooths
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setGeneric(name = "spm_mapped_smooths<-",
+           def = function(object, value) standardGeneric("spm_mapped_smooths<-")
+)
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setMethod("spm_mapped_smooths<-",
+          signature("object" = "spaspm_discrete"),
+          function(object, value){
+            object@mapped_smooths <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setMethod("spm_mapped_smooths<-",
+          signature("object" = "spaspm"),
+          function(object, value){
+            message_not_discrete(object)
+            return(object)
+          }
+)
 
 # TODO dim should get dims of data and sf if discrete
 # setMethod("dim",
