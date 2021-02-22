@@ -113,7 +113,8 @@ setMethod("spm_datasets", signature("spaspm_object" = "spaspm_discrete"),
               names(datasets) <- c(spm_name(spm_base_dataset(spaspm_object)),
                                    sapply(spm_mapped_datasets(spaspm_object), spm_name))
             } else {
-              datasets <- spm_base_dataset(spaspm_object)
+              datasets <- list(spm_base_dataset(spaspm_object))
+              names(datasets) <- spm_name(spm_base_dataset(spaspm_object))
             }
             return(datasets)
           }
