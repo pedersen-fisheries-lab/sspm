@@ -173,5 +173,3 @@ setMethod("spm_time_col<-",
             return(object)
           }
 )
-
-
