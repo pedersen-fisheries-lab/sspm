@@ -11,6 +11,7 @@
 #' @rdname accessors-methods-discret_method
 
 # Function ----------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
 
 #' @export
 setGeneric(name = "method_func",
@@ -44,12 +45,15 @@ setMethod("method_func<-",
 )
 
 # Name --------------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
 
 #' @describeIn accessors-methods-discret_method TODO
 #' @export
 setMethod("spm_name", signature("spaspm_object" = "discretization_method"),
           function(spaspm_object) spaspm_object@name
 )
+
+# Replacers ---------------------------------------------------------------
 
 #' @describeIn accessors-methods-discret_method TODO
 #' @export
