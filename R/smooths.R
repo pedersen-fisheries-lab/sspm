@@ -49,8 +49,23 @@ setMethod(f = "smooth_time",
                     spaspm_object = "spaspm_discrete"),
           function(type, dataset, spaspm_object, ...){
 
+            # Get args from ellipsis add time_col as the first element by appending
+            args <- as.list(match.call(expand.dots = FALSE)$`...`)
 
+            # Get the default arguments for the smooth type used
+            if(!is.null(type)){
+              if(type == "ICAR"){
+                args_and_vars <- do.call(ICAR,
+                                         append(list(spaspm_object = spaspm_object,
+                                                     dataset = dataset,
+                                                     dimension = "time"),
+                                                args))
+              } else {
+                stop("Smooth type provided not supported")
+              }
+            }
 
+            return(args_and_vars)
 
           }
 )

@@ -21,9 +21,24 @@ setGeneric(name = "map_formula",
                           dataset,
                           formula,
                           ...){
+
+             all_dataset_names <- names(spm_datasets(spaspm_object))
+             if(!checkmate::test_choice(dataset, all_dataset_names)){
+               stop(paste0("Argument 'dataset' must be one of: ",
+                           paste0(all_dataset_names,
+                                  collapse =  ", " )), call. = FALSE)
+             }
+
              standardGeneric("map_formula")
            }
 )
+
+## IMPORTANT NOTES:
+# I have realized that when gam or bam evaluate the formula, it looks for
+# variables in the s() statement in the parent environment and it will looks for
+# response/predictors in the environment provided with the data=argument.
+# Therefore all connot be enclosed in the environment captured by the
+# formula
 
 # Methods -----------------------------------------------------------------
 
@@ -75,8 +90,8 @@ setMethod(f = "map_formula",
             other_terms <- terms_labels[!is_special]
 
             # Reconstruct base formula
-            base_formula <- (paste(response, "~", paste(other_terms, collapse = " + ")
-                                   , collapse = " "))
+            base_formula <- (paste(response, "~", paste(other_terms, collapse = " + "),
+                                   collapse = " "))
 
             # Capture calls and modify them
             smooth_calls <- lapply(smooth_terms_labels, str2lang)
@@ -86,22 +101,82 @@ setMethod(f = "map_formula",
                      args = list(spaspm_object = substitute(spaspm_object),
                                  dataset = substitute(dataset)))
 
-            # Evaluate the calls to get the quoted smooths
-            evaluated <- lapply(smooth_calls_modified, eval)
-            evaluated_string <- sapply(evaluated, deparse)
+            # Evaluate the calls to get the args to make a smooth
+            args_and_vars <-
+              lapply(smooth_calls_modified, eval,
+                     envir = list(. = spaspm_object))
+
+            # Turn args into a call, and convert that call to a string
+            string_smooths <-
+              lapply(X = args_and_vars,
+                     FUN = function(x){deparse(call2("s", !!!x$args),
+                                               width.cutoff = 500)})
 
             # Paste them into formula
             final_formula <- paste0(base_formula, " + ",
-                                    paste(evaluated_string, collapse = " + "))
+                                    paste(string_smooths, collapse = " + "))
 
             # Cast as formula
-            # TODO unsure if it's worth casting here
-            # final_formula_casted <- as.formula(final_formula)
+            form_env <- list2env(sapply(args_and_vars, `[[`, "vars"))
+            final_formula_casted <- as.formula(final_formula,
+                                               env = form_env)
 
-            # Returns an updated spaspm object WITH mapped formula
-            # TODO add the formula to dataset (we know which from argument)
+            spm_mapped_formulas(spaspm_object) <-
+              append(spm_mapped_formulas(spaspm_object),
+                     list(final_formula_casted))
 
-            updated_spaspm_object <- spaspm_object
-            return(updated_spaspm_object)
+            return(spaspm_object)
           }
 )
+
+# -------------------------------------------------------------------------
+
+# assemble_smooth <- function(spaspm_object, dataset, dimension, ...){
+#   # Evaluate the specific smooth
+#   # browser()
+#   the_smooth <- quote(s(x=dimension))
+#   return(the_smooth)
+# }
+
+ICAR <- function(spaspm_object, dataset, dimension, column,
+                 k = 30, bs = "re", ...){
+
+  # Recapture the ellipsis again
+  args <- as.list(match.call(expand.dots = FALSE)$`...`)
+
+  # Get data/dataset
+  the_dataset <- spm_datasets(spaspm_object)[[dataset]]
+  the_data <- spm_data(the_dataset)
+
+  vars <- list()
+  if (dimension == "time") {
+
+    column <- spm_time_col(spm_datasets(spaspm_object)[[dataset]])
+
+    # Creating an auto-regressive year penalty; this matrix means that the
+    # estimate for each year is penalized to be close to the years before and
+    # after it
+
+    time_levels <- unique(the_data[[column]])
+    n_time_levels = length(time_levels)
+
+    pen_mat = matrix(0, nrow=n_time_levels, ncol = n_time_levels)
+    dimnames(pen_mat) = list(time_levels, time_levels)
+
+    diag(pen_mat[-1,-n_time_levels]) = diag(pen_mat[-n_time_levels,-1]) = -1
+    diag(pen_mat) = -(colSums(pen_mat)-diag(pen_mat))
+
+    pen_expression <- rlang::expr(pen_mat_time)
+    vars$pen_mat_time <- pen_mat
+
+  } else if (dimension == "space"){
+
+  }
+
+  return(list(args = append(list(str2lang(column),
+                                 k = k,
+                                 bs = bs,
+                                 xt = list(penalty = pen_expression)),
+                            args),
+              vars = vars))
+}
