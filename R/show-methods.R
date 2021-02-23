@@ -80,19 +80,19 @@ cat_mapped_datasets <- function(object){
   datasets <- object@mapped_datasets
   cli::cli_h3(cli::col_cyan("Mapped Datasets"))
   cli::cat_bullet(" ", cli::col_cyan(length(datasets)),
-             " mapped dataset(s): ", paste(cli::col_magenta(sapply(datasets ,
-                                                                   spm_name)),
-                                           collapse = ", "))
+                  " mapped dataset(s): ", paste(cli::col_magenta(sapply(datasets ,
+                                                                        spm_name)),
+                                                collapse = ", "))
 }
 
 cat_mapped_formulas <- function(object){
   smooths <- object@mapped_formulas
   cli::cli_h3(cli::col_cyan("Mapped formulas"))
-  for(form in smooths){
-    formatted <- gsub(format(form), pattern = "\\\"", replacement="'")
+  for(form_id in seq_len(length.out = length(smooths))){
+    formatted <- gsub(format(smooths[[form_id]]), pattern = "\\\"", replacement="'")
     # TODO modify to work with dataset
-    cli::cat_bullet(" Formula: ",
-                    cli::col_magenta(paste0(strtrim(formatted, 50), "...")),
-                    " for dataset ...")
+    cli::cat_line(cli::col_cyan(paste0(form_id, ") ")),
+                  cli::col_magenta(paste0(strtrim(formatted, 50), "...")),
+                  " for dataset ...")
   }
 }
