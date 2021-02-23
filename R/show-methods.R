@@ -89,6 +89,10 @@ cat_mapped_formulas <- function(object){
   smooths <- object@mapped_formulas
   cli::cli_h3(cli::col_cyan("Mapped formulas"))
   for(form in smooths){
-    cli::cat_bullet(" ", cli::col_magenta(form))
+    formatted <- gsub(format(form), pattern = "\\\"", replacement="'")
+    # TODO modify to work with dataset
+    cli::cat_bullet(" Formula: ",
+                    cli::col_magenta(paste0(strtrim(formatted, 50), "...")),
+                    " for dataset ...")
   }
 }
