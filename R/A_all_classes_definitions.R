@@ -119,6 +119,29 @@ setClass("spaspm_discrete",
 
 # -------------------------------------------------------------------------
 
+#' SPASPM formula object
+#'
+#' This class is a wrapper around the `formula` class.
+#'
+#' @slot raw_formula **\[formula\]** The raw formula call
+#' @slot translated_formula **\[formula\]** The translated formula call ready
+#'     to be evaluated.
+#' @slot dataset **\[character\]** The name of the dataset the formula object is
+#'     to be mapped onto.
+#' @slot vars **\[list\]** List of relevant variables for the evaluation of the
+#'     different smooths.
+#'
+#' @seealso See the `mgcv` function for defining smooths: [s()][mgcv::s].
+#'
+setClass("spaspm_formula",
+         slots = list(raw_formula = "formula",
+                      translated_formula = "formula",
+                      dataset = "character",
+                      vars = "list")
+)
+
+# -------------------------------------------------------------------------
+
 # Fitted model => spaspm + discretization_method + has been fitted
 # TODO finish specifying these objects
 setClass("spaspm_gam_fit",
