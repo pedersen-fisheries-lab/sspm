@@ -47,20 +47,6 @@ dispatch_method <- function(discretization_method){
   }
 }
 
-# Dispatch the correct smooth type based on the name of the type
-dispatch_smooth_type <- function(smooth_type, dimension, ...){
-
-  checkmate::assert_character(smooth_type)
-
-  if (smooth_type == "ICAR"){
-    return(ICAR(dimension, ...))
-  } else {
-    cli::cli_alert_danger(paste0("Smooth type '", smooth_type,
-                                 "' is not part of the supported methods."))
-    cli::cli_alert_info("See `?spm_smooth_types()`")
-  }
-}
-
 # Convert shrimp length to weight
 length_to_weigth <- function(length, sex){
 
