@@ -43,7 +43,7 @@ setMethod("show",
 setMethod("show",
           "spaspm_data",
           function(object) {
-            cli::cli_h3(cli::col_cyan("SPASPM Dataset '", object@name, "' "))
+            cli::cli_h3(cli::col_cyan("Base dataset '", object@name, "' "))
             cli::cat_bullet(" Data matrix        : ", object@representation, " with ",
                             dim(object@data)[1], " feature(s) and ",
                             dim(object@data)[2], " variable(s)")
