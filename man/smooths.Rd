@@ -16,7 +16,8 @@ smooth_space_time(type = "ICAR", dataset, spaspm_object, ...)
 \S4method{smooth_time}{ANY,character,spaspm_discrete}(type = "ICAR", dataset, spaspm_object, ...)
 }
 \arguments{
-\item{type}{\strong{[character]} Type of smooths.}
+\item{type}{\strong{[character]} Type of smooth, currently only "ICAR" is
+supported.}
 
 \item{dataset}{\strong{[character]} The name of the dataset among base and/or
 mapped datasets for which to specify the formula}
@@ -25,6 +26,13 @@ mapped datasets for which to specify the formula}
 \link[=spaspm_discrete-class]{spaspm_discrete}.}
 
 \item{...}{Further arguments passed down, none used for now.}
+}
+\value{
+A list of 2 lists:
+\itemize{
+\item \code{args}, contains the arguments to be passed on to the mgcv smooths
+\item \code{vars}, contains variables relevant to the evaluation of the smooth.
+}
 }
 \description{
 A full spaspm formula contains calls to the smoothing terms \code{smooth_time()},

@@ -30,6 +30,9 @@ response ~ smoothing_terms + ...}
 
 \item{...}{Further arguments passed down, none used for now.}
 }
+\value{
+The updated object, of class \link[=spaspm_discrete-class]{spaspm_discrete}.
+}
 \description{
 This functions allows to specify a model formula for a given discrete SPASPM
 object. This formula makes use of specific smoothing terms \code{smooth_time()},

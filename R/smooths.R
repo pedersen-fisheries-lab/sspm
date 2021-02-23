@@ -3,8 +3,14 @@
 #' A full spaspm formula contains calls to the smoothing terms `smooth_time()`,
 #' `smooth_space()`, `smooth_space_time()`.
 #'
-#' @param type **\[character\]** Type of smooths.
+#' @param type **\[character\]** Type of smooth, currently only "ICAR" is
+#'     supported.
 #' @inheritParams map_formula
+#'
+#' @return
+#' A list of 2 lists:
+#' * `args`, contains the arguments to be passed on to the mgcv smooths
+#' * `vars`, contains variables relevant to the evaluation of the smooth.
 #'
 #' @rdname smooths
 #' @export

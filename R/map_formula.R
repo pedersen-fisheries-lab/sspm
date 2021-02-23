@@ -15,6 +15,9 @@
 #'     response ~ smoothing_terms + ...
 #' @param ... Further arguments passed down, none used for now.
 #'
+#' @return
+#' The updated object, of class [spaspm_discrete][spaspm_discrete-class].
+#'
 #' @export
 setGeneric(name = "map_formula",
            def = function(spaspm_object,
