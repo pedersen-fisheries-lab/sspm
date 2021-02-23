@@ -102,15 +102,11 @@ setMethod(f = "map_formula",
                                  dataset = substitute(dataset)))
 
             # Evaluate the calls to get the args to make a smooth
-            args_and_vars <-
-              lapply(smooth_calls_modified, eval,
-                     envir = list(. = spaspm_object))
+            args_and_vars <-lapply(smooth_calls_modified, eval,
+                                   envir = list(. = spaspm_object))
 
             # Turn args into a call, and convert that call to a string
-            string_smooths <-
-              lapply(X = args_and_vars,
-                     FUN = function(x){deparse(call2("s", !!!x$args),
-                                               width.cutoff = 500)})
+            string_smooths <- lapply(args_and_vars, assemble_smooth)
 
             # Paste them into formula
             final_formula <- paste0(base_formula, " + ",
@@ -131,12 +127,10 @@ setMethod(f = "map_formula",
 
 # -------------------------------------------------------------------------
 
-# assemble_smooth <- function(spaspm_object, dataset, dimension, ...){
-#   # Evaluate the specific smooth
-#   # browser()
-#   the_smooth <- quote(s(x=dimension))
-#   return(the_smooth)
-# }
+assemble_smooth <- function(args_and_vars){
+  deparse(rlang::call2("s", !!!args_and_vars$args),
+          width.cutoff = 500, nlines = 1)
+}
 
 ICAR <- function(spaspm_object, dataset, dimension, column,
                  k = 30, bs = "re", ...){
