@@ -18,6 +18,18 @@ map_formula(spaspm_object, dataset, formula, ...)
 
 \S4method{map_formula}{spaspm_discrete,character,formula}(spaspm_object, dataset, formula, ...)
 }
+\arguments{
+\item{spaspm_object}{\strong{[spaspm_discrete]} An object of class
+\link[=spaspm_discrete-class]{spaspm_discrete}.}
+
+\item{dataset}{\strong{[character]} The name of the dataset among base and/or
+mapped datasets for which to specify the formula}
+
+\item{formula}{\strong{[formula]} A formula definition of the form
+response ~ smoothing_terms + ...}
+
+\item{...}{Further arguments passed down, none used for now.}
+}
 \description{
 This functions allows to specify a model formula for a given discrete SPASPM
 object. This formula makes use of specific smoothing terms \code{smooth_time()},
@@ -25,15 +37,6 @@ object. This formula makes use of specific smoothing terms \code{smooth_time()},
 effects and custom smooths, and can make use of specific smoothing terms
 \code{smooth_time()}, \code{smooth_space()}, \code{smooth_space_time()}. See Details for
 more explanations.
-}
-\details{
-@param spaspm_object \strong{[spaspm_discrete]} An object of class
-\link[=spaspm_discrete-class]{spaspm_discrete}.
-@param dataset \strong{[character]} The name of the dataset among base and/or
-mapped datasets for which to specify the formula
-@param formula \strong{[formula]} A formula definition of the form
-response ~ smoothing_terms + ...
-@param ... Further arguments passed down, none used for now.
 }
 \section{Functions}{
 \itemize{

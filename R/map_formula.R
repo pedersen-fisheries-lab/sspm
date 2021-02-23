@@ -7,13 +7,13 @@
 #' `smooth_time()`, `smooth_space()`, `smooth_space_time()`. See Details for
 #' more explanations.
 #'
-#'  @param spaspm_object **\[spaspm_discrete\]** An object of class
-#'    [spaspm_discrete][spaspm_discrete-class].
-#'  @param dataset **\[character\]** The name of the dataset among base and/or
-#'    mapped datasets for which to specify the formula
-#'  @param formula **\[formula\]** A formula definition of the form
-#'    response ~ smoothing_terms + ...
-#'  @param ... Further arguments passed down, none used for now.
+#' @param spaspm_object **\[spaspm_discrete\]** An object of class
+#'     [spaspm_discrete][spaspm_discrete-class].
+#' @param dataset **\[character\]** The name of the dataset among base and/or
+#'     mapped datasets for which to specify the formula
+#' @param formula **\[formula\]** A formula definition of the form
+#'     response ~ smoothing_terms + ...
+#' @param ... Further arguments passed down, none used for now.
 #'
 #' @export
 setGeneric(name = "map_formula",
