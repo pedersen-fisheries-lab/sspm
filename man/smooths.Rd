@@ -17,6 +17,14 @@ smooth_space_time(type = "ICAR", dataset, spaspm_object, ...)
 }
 \arguments{
 \item{type}{\strong{[character]} Type of smooths.}
+
+\item{dataset}{\strong{[character]} The name of the dataset among base and/or
+mapped datasets for which to specify the formula}
+
+\item{spaspm_object}{\strong{[spaspm_discrete]} An object of class
+\link[=spaspm_discrete-class]{spaspm_discrete}.}
+
+\item{...}{Further arguments passed down, none used for now.}
 }
 \description{
 A full spaspm formula contains calls to the smoothing terms \code{smooth_time()},
