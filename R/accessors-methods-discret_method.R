@@ -8,7 +8,7 @@
 #'
 #' @inheritParams base::Extract
 #'
-#' @rdname discret_method-accessors-methods
+#' @rdname accessors-methods-discret_method
 
 # Function ----------------------------------------------------------------
 
@@ -17,7 +17,7 @@ setGeneric(name = "method_func",
            def = function(spaspm_object) standardGeneric("method_func")
 )
 
-#' @describeIn discret_method-accessors-methods TODO
+#' @describeIn accessors-methods-discret_method TODO
 #' @export
 setMethod("method_func",
           signature("spaspm_object" = "discretization_method"),
@@ -26,13 +26,13 @@ setMethod("method_func",
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn discret_method-accessors-methods TODO
+#' @describeIn accessors-methods-discret_method TODO
 #' @export
 setGeneric(name = "method_func<-",
            def = function(object, value) standardGeneric("method_func<-")
 )
 
-#' @describeIn discret_method-accessors-methods TODO
+#' @describeIn accessors-methods-discret_method TODO
 #' @export
 setMethod("method_func<-",
           signature("object" = "discretization_method"),
@@ -45,13 +45,13 @@ setMethod("method_func<-",
 
 # Name --------------------------------------------------------------------
 
-#' @describeIn discret_method-accessors-methods TODO
+#' @describeIn accessors-methods-discret_method TODO
 #' @export
 setMethod("spm_name", signature("spaspm_object" = "discretization_method"),
           function(spaspm_object) spaspm_object@name
 )
 
-#' @describeIn discret_method-accessors-methods TODO
+#' @describeIn accessors-methods-discret_method TODO
 #' @export
 setMethod("spm_name<-",
           signature("object" = "discretization_method"),
