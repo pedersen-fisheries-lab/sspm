@@ -166,6 +166,7 @@ ICAR <- function(spaspm_object, dataset, dimension,
                  k, bs, ...){
 
   # TODO add assert statements
+  # TODO if xt is provided, do not make a new one
 
   # Recapture the ellipsis again
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
