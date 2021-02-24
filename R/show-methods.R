@@ -108,5 +108,7 @@ cat_mapped_formulas <- function(object){
 }
 
 format_formula <- function(form){
-  gsub(format(form), pattern = "\\\"", replacement="'")
+  gsub(format(
+    paste0(trimws(format(form)), collapse = " ")
+  ), pattern = "\\\"", replacement="'")
 }

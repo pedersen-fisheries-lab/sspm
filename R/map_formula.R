@@ -80,9 +80,7 @@ setMethod(f = "map_formula",
           signature(spaspm_object = "spaspm_discrete",
                     dataset = "character",
                     formula = "formula"),
-          function(spaspm_object, dataset, formula, ... ){
-
-            browser()
+          function(spaspm_object, dataset, formula, ...){
 
             # Retrieve terms, response, and term labels
             formula_terms <- terms(formula)
@@ -107,18 +105,16 @@ setMethod(f = "map_formula",
                                  dataset = substitute(dataset)))
 
             # Evaluate the calls to get the args to make a smooth
-            args_and_vars <-lapply(smooth_calls_modified, eval,
+            smooth_and_vars <-lapply(smooth_calls_modified, eval,
                                    envir = list(. = spaspm_object))
-
-            # Turn args into a call, and convert that call to a string
-            string_smooths <- lapply(args_and_vars, assemble_smooth)
+            smooth_list <- vars_list <- sapply(smooth_and_vars, `[[`, "smooth")
+            vars_list <- sapply(smooth_and_vars, `[[`, "vars")
 
             # Paste them into formula
             final_formula <- paste0(base_formula, " + ",
-                                    paste(string_smooths, collapse = " + "))
+                                    paste(smooth_list, collapse = " + "))
 
             # Cast as formula
-            vars_list <- sapply(args_and_vars, `[[`, "vars")
             # form_env <- list2env()
             final_formula_casted <- as.formula(final_formula)
 
