@@ -3,6 +3,7 @@
 #' @import sf cli
 #' @importFrom rlang .data
 #' @importFrom methods new show validObject
+#' @importFrom stats terms as.formula
 #' @importFrom graphics par
 #' @importFrom mgcv s
 

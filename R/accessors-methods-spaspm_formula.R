@@ -47,6 +47,7 @@ setMethod("raw_formula<-",
 # Translated_formula ------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
+#' @describeIn accessors-methods-spaspm_formula TODO
 #' @export
 setGeneric(name = "translated_formula",
            def = function(spaspm_object) standardGeneric("translated_formula")
@@ -81,6 +82,7 @@ setMethod("translated_formula<-",
 # Dataset -----------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
+#' @describeIn accessors-methods-spaspm_formula TODO
 #' @export
 setGeneric(name = "dataset",
            def = function(spaspm_object) standardGeneric("dataset")
@@ -115,6 +117,7 @@ setMethod("dataset<-",
 # Vars --------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
+#' @describeIn accessors-methods-spaspm_formula TODO
 #' @export
 setGeneric(name = "formula_vars",
            def = function(spaspm_object) standardGeneric("formula_vars")

@@ -5,12 +5,15 @@
 \alias{raw_formula,spaspm_formula-method}
 \alias{raw_formula<-}
 \alias{raw_formula<-,spaspm_formula-method}
+\alias{translated_formula}
 \alias{translated_formula,spaspm_formula-method}
 \alias{translated_formula<-}
 \alias{translated_formula<-,spaspm_formula-method}
+\alias{dataset}
 \alias{dataset,spaspm_formula-method}
 \alias{dataset<-}
 \alias{dataset<-,spaspm_formula-method}
+\alias{formula_vars}
 \alias{formula_vars,spaspm_formula-method}
 \alias{formula_vars<-}
 \alias{formula_vars<-,spaspm_formula-method}
@@ -24,17 +27,23 @@ raw_formula(object) <- value
 
 \S4method{raw_formula}{spaspm_formula}(object) <- value
 
+translated_formula(spaspm_object)
+
 \S4method{translated_formula}{spaspm_formula}(spaspm_object)
 
 translated_formula(object) <- value
 
 \S4method{translated_formula}{spaspm_formula}(object) <- value
 
+dataset(spaspm_object)
+
 \S4method{dataset}{spaspm_formula}(spaspm_object)
 
 dataset(object) <- value
 
 \S4method{dataset}{spaspm_formula}(object) <- value
+
+formula_vars(spaspm_object)
 
 \S4method{formula_vars}{spaspm_formula}(spaspm_object)
 
@@ -65,17 +74,23 @@ objects of class \link[=spaspm_formula-class]{spaspm_formula}.
 
 \item \code{raw_formula<-,spaspm_formula-method}: TODO
 
+\item \code{translated_formula}: TODO
+
 \item \code{translated_formula,spaspm_formula-method}: TODO
 
 \item \code{translated_formula<-}: TODO
 
 \item \code{translated_formula<-,spaspm_formula-method}: TODO
 
+\item \code{dataset}: TODO
+
 \item \code{dataset,spaspm_formula-method}: TODO
 
 \item \code{dataset<-}: TODO
 
 \item \code{dataset<-,spaspm_formula-method}: TODO
+
+\item \code{formula_vars}: TODO
 
 \item \code{formula_vars,spaspm_formula-method}: TODO
 
