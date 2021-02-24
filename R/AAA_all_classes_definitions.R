@@ -121,7 +121,8 @@ setClass("spaspm_discrete",
 
 #' SPASPM formula object
 #'
-#' This class is a wrapper around the `formula` class.
+#' This class is a wrapper around the `formula` class. It is not intended for
+#' users to directly manipulate and create new objects.
 #'
 #' @slot raw_formula **\[formula\]** The raw formula call
 #' @slot translated_formula **\[formula\]** The translated formula call ready

@@ -5,7 +5,8 @@
 \alias{spaspm_formula-class}
 \title{SPASPM formula object}
 \description{
-This class is a wrapper around the \code{formula} class.
+This class is a wrapper around the \code{formula} class. It is not intended for
+users to directly manipulate and create new objects.
 }
 \section{Slots}{
 
