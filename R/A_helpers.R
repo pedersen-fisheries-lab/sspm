@@ -6,7 +6,7 @@
 #'     * `"tesselate_voronoi"` Voronoi tessellation using the function
 #'       [tesselate_voronoi][tesselate_voronoi].
 #'
-#' You can create your own method using TODO.
+#' You can create your own method (tutorial TBD).
 #'
 #' @return
 #' A `character vector` of all available discretization methods.
@@ -17,16 +17,16 @@ spm_methods <- function(){
   return(choices)
 }
 
-#' Get the list of available smooth types
+#' Get the list of available smoothing methods
 #'
-#' Currently, only one smooth type is supported:
-#'     * `"ICAR"`
+#' Currently, only one smoothing method is supported:
+#'     * `"ICAR"`: Intrinsic Conditional Auto-Regressive models.
 #'
 #' @return
-#' A `character vector` of all available smooth types.
+#' A `character vector` of all available smoothing methods.
 #'
 #' @export
-spm_smooth_types <- function(){
+spm_smooth_methods <- function(){
   choices <- c('ICAR')
   return(choices)
 }
@@ -44,6 +44,20 @@ dispatch_method <- function(discretization_method){
     cli::cli_alert_danger(paste0("Method '", discretization_method,
                                  "' is not part of the supported methods."))
     cli::cli_alert_info("See `?spm_methods()`")
+  }
+}
+
+# Dispatch the correct function based on the name of the method
+dispatch_smooth <- function(smooth_method){
+
+  checkmate::assert_character(smooth_method)
+
+  if (smooth_method == "ICAR"){
+    return(ICAR)
+  } else {
+    cli::cli_alert_danger(paste0("Smoothing method '", smooth_method,
+                                 "' is not part of the supported methods."))
+    cli::cli_alert_info("See `?spm_smooth_methods()`")
   }
 }
 
