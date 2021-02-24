@@ -56,6 +56,16 @@ setMethod("show",
           }
 )
 
+setMethod("show",
+          "spaspm_formula",
+          function(object) {
+            cli::cli_h3(cli::col_cyan("SPASPM Formula for dataset ", cli::col_magenta(object@dataset) ))
+            cli::cat_bullet(" Raw formula        : ", format_formula(object@raw_formula))
+            cli::cat_bullet(" Translated formula : ", format_formula(object@translated_formula))
+            cli::cat_bullet(" Variables          : ", paste0(names(object@vars), collapse = ", "))
+          }
+)
+
 # Helpers -----------------------------------------------------------------
 
 cat_boundaries <- function(object){
@@ -80,19 +90,23 @@ cat_mapped_datasets <- function(object){
   datasets <- object@mapped_datasets
   cli::cli_h3(cli::col_cyan("Mapped Datasets"))
   cli::cat_bullet(" ", cli::col_cyan(length(datasets)),
-                  " mapped dataset(s): ", paste(cli::col_magenta(sapply(datasets ,
-                                                                        spm_name)),
+                  " mapped dataset(s): ", paste(cli::col_cyan(sapply(datasets ,
+                                                                     spm_name)),
                                                 collapse = ", "))
 }
 
 cat_mapped_formulas <- function(object){
-  smooths <- object@mapped_formulas
+  formulas <- object@mapped_formulas
   cli::cli_h3(cli::col_cyan("Mapped formulas"))
-  for(form_id in seq_len(length.out = length(smooths))){
-    formatted <- gsub(format(smooths[[form_id]]), pattern = "\\\"", replacement="'")
-    # TODO modify to work with dataset
+  for(form_id in seq_len(length.out = length(formulas))){
+    the_formula <- formulas[[form_id]]
+    formatted <- format_formula(the_formula@raw_formula)
     cli::cat_line(cli::col_cyan(paste0(form_id, ") ")),
-                  cli::col_magenta(paste0(strtrim(formatted, 50), "...")),
-                  " for dataset ...")
+                  cli::col_yellow(paste0(strtrim(formatted, 70), "...")),
+                  " for dataset ", cli::col_cyan(paste0("'", the_formula@dataset, "'")))
   }
+}
+
+format_formula <- function(form){
+  gsub(format(form), pattern = "\\\"", replacement="'")
 }
