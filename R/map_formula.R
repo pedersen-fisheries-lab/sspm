@@ -82,7 +82,9 @@ setMethod(f = "map_formula",
                     formula = "formula"),
           function(spaspm_object, dataset, formula, ... ){
 
-            # retrieve terms, response, and term labels
+            browser()
+
+            # Retrieve terms, response, and term labels
             formula_terms <- terms(formula)
             response <- all.vars(formula)[1]
             terms_labels <- attr(formula_terms, "term.labels")
@@ -116,13 +118,20 @@ setMethod(f = "map_formula",
                                     paste(string_smooths, collapse = " + "))
 
             # Cast as formula
-            form_env <- list2env(sapply(args_and_vars, `[[`, "vars"))
-            final_formula_casted <- as.formula(final_formula,
-                                               env = form_env)
+            vars_list <- sapply(args_and_vars, `[[`, "vars")
+            # form_env <- list2env()
+            final_formula_casted <- as.formula(final_formula)
+
+            # Create new spaspm_formula object
+            spaspm_formula <- new("spaspm_formula",
+                                  raw_formula = formula,
+                                  translated_formula = final_formula_casted,
+                                  dataset = dataset,
+                                  vars = vars_list)
 
             spm_mapped_formulas(spaspm_object) <-
               append(spm_mapped_formulas(spaspm_object),
-                     list(final_formula_casted))
+                     list(spaspm_formula))
 
             return(spaspm_object)
           }
