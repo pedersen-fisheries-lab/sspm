@@ -75,6 +75,7 @@ setMethod("spm_name<-",
 # Rep ---------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setGeneric(name = "spm_rep",
            def = function(spaspm_object) standardGeneric("spm_rep")

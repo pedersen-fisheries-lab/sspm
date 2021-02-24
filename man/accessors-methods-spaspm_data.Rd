@@ -8,6 +8,7 @@
 \alias{spm_data<-,spaspm_data-method}
 \alias{spm_name,spaspm_data-method}
 \alias{spm_name<-,spaspm_data-method}
+\alias{spm_rep}
 \alias{spm_rep,spaspm_data-method}
 \alias{spm_rep<-}
 \alias{spm_rep<-,spaspm_data-method}
@@ -32,6 +33,8 @@ spm_data(object) <- value
 \S4method{spm_name}{spaspm_data}(spaspm_object)
 
 \S4method{spm_name}{spaspm_data}(object) <- value
+
+spm_rep(spaspm_object)
 
 \S4method{spm_rep}{spaspm_data}(spaspm_object)
 
@@ -79,6 +82,8 @@ objects of class \link[=spaspm_data-class]{spaspm_data}.
 \item \code{spm_name,spaspm_data-method}: TODO
 
 \item \code{spm_name<-,spaspm_data-method}: TODO
+
+\item \code{spm_rep}: TODO
 
 \item \code{spm_rep,spaspm_data-method}: TODO
 
