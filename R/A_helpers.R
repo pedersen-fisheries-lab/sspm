@@ -6,7 +6,7 @@
 #'     * `"tesselate_voronoi"` Voronoi tessellation using the function
 #'       [tesselate_voronoi][tesselate_voronoi].
 #'
-#' You can create your own method using TODO.
+#' You can create your own method (tutorial TBD).
 #'
 #' @return
 #' A `character vector` of all available discretization methods.
@@ -17,16 +17,16 @@ spm_methods <- function(){
   return(choices)
 }
 
-#' Get the list of available smooth types
+#' Get the list of available smoothing methods
 #'
-#' Currently, only one smooth type is supported:
-#'     * `"ICAR"`
+#' Currently, only one smoothing method is supported:
+#'     * `"ICAR"`: Intrinsic Conditional Auto-Regressive models.
 #'
 #' @return
-#' A `character vector` of all available smooth types.
+#' A `character vector` of all available smoothing methods.
 #'
 #' @export
-spm_smooth_types <- function(){
+spm_smooth_methods <- function(){
   choices <- c('ICAR')
   return(choices)
 }
@@ -47,17 +47,17 @@ dispatch_method <- function(discretization_method){
   }
 }
 
-# Dispatch the correct smooth type based on the name of the type
-dispatch_smooth_type <- function(smooth_type, dimension, ...){
+# Dispatch the correct function based on the name of the method
+dispatch_smooth <- function(smooth_method){
 
-  checkmate::assert_character(smooth_type)
+  checkmate::assert_character(smooth_method)
 
-  if (smooth_type == "ICAR"){
-    return(ICAR(dimension, ...))
+  if (smooth_method == "ICAR"){
+    return(ICAR)
   } else {
-    cli::cli_alert_danger(paste0("Smooth type '", smooth_type,
+    cli::cli_alert_danger(paste0("Smoothing method '", smooth_method,
                                  "' is not part of the supported methods."))
-    cli::cli_alert_info("See `?spm_smooth_types()`")
+    cli::cli_alert_info("See `?spm_smooth_methods()`")
   }
 }
 
@@ -82,7 +82,8 @@ check_model_family <- function(family){
              family)){
     stop(paste0("family " , family,
                 " is not currently supported by the statmod library,
-               and any randomized quantile residuals would be inaccurate."))
+               and any randomized quantile residuals would be inaccurate."),
+         call. = FALSE)
   }
 }
 
@@ -131,21 +132,12 @@ message_not_discrete <- function(object){
   cli::cli_alert_info(" See ?spm_discretize for discretization methods")
 }
 
-# Extract the base smooth type form a mgcv smooth object
-get_base_smooth_type <- function(object){
-  type <- gsub(".smooth.spec", "", class(object), fixed = TRUE)
-  return(type)
-}
-
-# Returns TRUE if it is a mgcv smooth, FALSE otherwise
-# object = expected to be the mgcv smooth object
-is_smooth_spec <- function(object){
-  checked_smooth  <- grepl("smooth.spec", class(object), fixed = TRUE)
-  return(checked_smooth)
-}
-
-# Get the list of possible dimensions
-spm_dimensions <- function(){
-  dimension_choices <- c("space", "time", "space_time")
-  return(dimension_choices)
+# This functions takes a list of arguments args and modify the call of another
+# function as to add those arguments. This is necessary to pass key arguments
+# to the smoothing functions
+modify_call <- function(the_call, args){
+  for (index in seq_len(length(args))){
+    the_call[[names(args)[index]]] <- args[[index]]
+  }
+  return(the_call)
 }

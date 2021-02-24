@@ -15,5 +15,5 @@ Currently, only one discretization method is supported:
 \link{tesselate_voronoi}.
 }
 \details{
-You can create your own method using TODO.
+You can create your own method (tutorial TBD).
 }

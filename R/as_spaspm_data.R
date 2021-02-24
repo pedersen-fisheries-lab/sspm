@@ -21,14 +21,14 @@ setGeneric(name = "as_spaspm_data",
            def = function(data, time_col, coords, name, uniqueID, crs){
 
              if(!checkmate::test_subset(uniqueID, names(data))){
-               stop("`uniqueID` must be a column of `data`")
+               stop("`uniqueID` must be a column of `data`", call. = FALSE)
              }
              if(!(length(unique(data[[uniqueID]])) == nrow(data))){
-               stop("`uniqueID` must be unique for each row of `data`")
+               stop("`uniqueID` must be unique for each row of `data`", call. = FALSE)
              }
 
              if(!checkmate::test_subset(time_col, names(data))){
-               stop("`time_col` must be a column of `data`")
+               stop("`time_col` must be a column of `data`", call. = FALSE)
              }
 
              standardGeneric("as_spaspm_data")
@@ -68,7 +68,7 @@ setMethod(f = "as_spaspm_data",
 
             # Check coords
             if(!checkmate::test_subset(coords, names(data))){
-              stop("`coords` must be columns of `data`")
+              stop("`coords` must be columns of `data`", call. = FALSE)
             }
 
             # From a data.frame and coords, cast as sf (keep columns)

@@ -113,7 +113,8 @@ setMethod("spm_datasets", signature("spaspm_object" = "spaspm_discrete"),
               names(datasets) <- c(spm_name(spm_base_dataset(spaspm_object)),
                                    sapply(spm_mapped_datasets(spaspm_object), spm_name))
             } else {
-              datasets <- spm_base_dataset(spaspm_object)
+              datasets <- list(spm_base_dataset(spaspm_object))
+              names(datasets) <- spm_name(spm_base_dataset(spaspm_object))
             }
             return(datasets)
           }
@@ -540,6 +541,60 @@ setMethod("spm_mapped_datasets<-",
 )
 
 # -------------------------------------------------------------------------
+# Mapped formulas ---------------------------------------------------------
+
+# Accesors ----------------------------------------------------------------
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setGeneric(name = "spm_mapped_formulas",
+           def = function(spaspm_object) standardGeneric("spm_mapped_formulas")
+)
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setMethod("spm_mapped_formulas",
+          signature("spaspm_object" = "spaspm"),
+          function(spaspm_object){
+            message_not_discrete(spaspm_object)
+          }
+)
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setMethod("spm_mapped_formulas",
+          signature("spaspm_object" = "spaspm_discrete"),
+          function(spaspm_object) spaspm_object@mapped_formulas
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setGeneric(name = "spm_mapped_formulas<-",
+           def = function(object, value) standardGeneric("spm_mapped_formulas<-")
+)
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setMethod("spm_mapped_formulas<-",
+          signature("object" = "spaspm_discrete"),
+          function(object, value){
+            object@mapped_formulas <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+#' @describeIn spaspm-accessors-methods TODO
+#' @export
+setMethod("spm_mapped_formulas<-",
+          signature("object" = "spaspm"),
+          function(object, value){
+            message_not_discrete(object)
+            return(object)
+          }
+)
 
 # TODO dim should get dims of data and sf if discrete
 # setMethod("dim",

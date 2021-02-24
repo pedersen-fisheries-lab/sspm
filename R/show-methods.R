@@ -23,8 +23,8 @@ setMethod("show",
             if (length(object@mapped_datasets) >= 1){
               cat_mapped_datasets(object)
             }
-            if (length(object@mapped_smooths) >= 1){
-              cat_mapped_smooths(object)
+            if (length(object@mapped_formulas) >= 1){
+              cat_mapped_formulas(object)
             }
             cat("\n")
           }
@@ -43,7 +43,7 @@ setMethod("show",
 setMethod("show",
           "spaspm_data",
           function(object) {
-            cli::cli_h3(cli::col_cyan("SPASPM Dataset '", object@name, "' "))
+            cli::cli_h3(cli::col_cyan("Base dataset '", object@name, "' "))
             cli::cat_bullet(" Data matrix        : ", object@representation, " with ",
                             dim(object@data)[1], " feature(s) and ",
                             dim(object@data)[2], " variable(s)")
@@ -57,14 +57,12 @@ setMethod("show",
 )
 
 setMethod("show",
-          "spaspm_smooth",
+          "spaspm_formula",
           function(object) {
-            cli::cli_h3(cli::col_cyan("SPASPM Smooth object"))
-            cli::cat_bullet(" Representation    : smooth of type '",
-                            object@representation, "', for dimension '",
-                            object@dimension, "'")
-            cli::cat_bullet(" Mapped on dataset : '",
-                            cli::col_magenta(object@dataset_name), "'")
+            cli::cli_h3(cli::col_cyan("SPASPM Formula for dataset ", cli::col_magenta(object@dataset) ))
+            cli::cat_bullet(" Raw formula        : ", format_formula(object@raw_formula))
+            cli::cat_bullet(" Translated formula : ", format_formula(object@translated_formula))
+            cli::cat_bullet(" Variables          : ", paste0(names(object@vars), collapse = ", "))
           }
 )
 
@@ -92,13 +90,25 @@ cat_mapped_datasets <- function(object){
   datasets <- object@mapped_datasets
   cli::cli_h3(cli::col_cyan("Mapped Datasets"))
   cli::cat_bullet(" ", cli::col_cyan(length(datasets)),
-             " mapped dataset(s): ", paste(cli::col_magenta(sapply(datasets ,
-                                                                   spm_name)),
-                                           collapse = ", "))
+                  " mapped dataset(s): ", paste(cli::col_cyan(sapply(datasets ,
+                                                                     spm_name)),
+                                                collapse = ", "))
 }
 
-cat_mapped_smooths <- function(object){
-  smooths <- object@mapped_smooths
-  cli::cli_h3(cli::col_cyan("Mapped smooths"))
-  cli::cat_bullet(cli::col_red("TODO"))
+cat_mapped_formulas <- function(object){
+  formulas <- object@mapped_formulas
+  cli::cli_h3(cli::col_cyan("Mapped formulas"))
+  for(form_id in seq_len(length.out = length(formulas))){
+    the_formula <- formulas[[form_id]]
+    formatted <- format_formula(the_formula@raw_formula)
+    cli::cat_line(cli::col_cyan(paste0(form_id, ") ")),
+                  cli::col_yellow(paste0(strtrim(formatted, 70), "...")),
+                  " for dataset ", cli::col_cyan(paste0("'", the_formula@dataset, "'")))
+  }
+}
+
+format_formula <- function(form){
+  gsub(format(
+    paste0(trimws(format(form)), collapse = " ")
+  ), pattern = "\\\"", replacement="'")
 }

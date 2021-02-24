@@ -25,6 +25,8 @@ setMethod(f = "as_discretization_method",
           signature(method = "character"),
           function(method){
 
+
+            # TODO review validity of this
             if(!checkmate::test_choice(method, spm_methods())){
               paste0("Method must be one of: ", paste0(spm_methods(),
                                                        collapse =  ", " ))

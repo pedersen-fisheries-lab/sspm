@@ -7,7 +7,7 @@
 #'     [spaspm_data][spaspm_data-class].
 #' @inheritParams base::Extract
 #'
-#' @rdname spaspm_data-accessors-methods
+#' @rdname accessors-methods-spaspm_data
 
 # Data --------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
@@ -18,14 +18,14 @@ setGeneric(name = "spm_data",
 )
 
 #' @export
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 setMethod("spm_data", signature("spaspm_object" = "spaspm"),
           function(spaspm_object) {
             cli::cli_alert_danger("Use `spm_datasets` or `spm_base_dataset` to access the datasets of a spaspm object")
           }
 )
 
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setMethod("spm_data", signature("spaspm_object" = "spaspm_data"),
           function(spaspm_object) spaspm_object@data
@@ -33,13 +33,13 @@ setMethod("spm_data", signature("spaspm_object" = "spaspm_data"),
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setGeneric(name = "spm_data<-",
            def = function(object, value) standardGeneric("spm_data<-")
 )
 
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setMethod("spm_data<-",
           signature("object" = "spaspm_data"),
@@ -53,7 +53,7 @@ setMethod("spm_data<-",
 # Name --------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setMethod("spm_name", signature("spaspm_object" = "spaspm_data"),
           function(spaspm_object) spaspm_object@name
@@ -61,7 +61,7 @@ setMethod("spm_name", signature("spaspm_object" = "spaspm_data"),
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setMethod("spm_name<-",
           signature("object" = "spaspm_data"),
@@ -81,20 +81,20 @@ setGeneric(name = "spm_rep",
 )
 
 #' @export
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 setMethod("spm_rep", signature("spaspm_object" = "spaspm_data"),
           function(spaspm_object) spaspm_object@representation
 )
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setGeneric(name = "spm_rep<-",
            def = function(object, value) standardGeneric("spm_rep<-")
 )
 
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setMethod("spm_rep<-",
           signature("object" = "spaspm_data"),
@@ -108,7 +108,7 @@ setMethod("spm_rep<-",
 # Unique ID ---------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setMethod("spm_unique_ID",
           signature("spaspm_object" = "spaspm_data"),
@@ -117,7 +117,7 @@ setMethod("spm_unique_ID",
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setMethod("spm_unique_ID<-",
           signature("object" = "spaspm_data"),
@@ -131,7 +131,7 @@ setMethod("spm_unique_ID<-",
 # Coords ------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setMethod("spm_coords_col",
           signature("spaspm_object" = "spaspm_data"),
@@ -140,7 +140,7 @@ setMethod("spm_coords_col",
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setMethod("spm_coords_col<-",
           signature("object" = "spaspm_data"),
@@ -154,7 +154,7 @@ setMethod("spm_coords_col<-",
 # Time col ----------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setMethod("spm_time_col",
           signature("spaspm_object" = "spaspm_data"),
@@ -163,7 +163,7 @@ setMethod("spm_time_col",
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn spaspm_data-accessors-methods TODO
+#' @describeIn accessors-methods-spaspm_data TODO
 #' @export
 setMethod("spm_time_col<-",
           signature("object" = "spaspm_data"),
@@ -173,5 +173,3 @@ setMethod("spm_time_col<-",
             return(object)
           }
 )
-
-

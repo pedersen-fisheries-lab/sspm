@@ -28,6 +28,7 @@ Imports:
     statmod,
     magrittr,
     dplyr,
+    purrr,
     units,
     rlang,
     mgcv

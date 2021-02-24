@@ -15,30 +15,6 @@ setOldClass("sf")
 
 setClassUnion("characterOrNULL", c("character", "NULL"))
 
-# Validation functions ----------------------------------------------------
-
-# Returns TRUE if valid spaspm_smooth
-# object = expected to be the spaspm_smooth object
-validate_spaspm_smooth_class <- function(object){
-
-  # TODO revisit this to check for dimenstion to be part of set
-  # space, time, space_time
-
-  checked_rep <- checkmate::test_character(object@representation)
-  if(checked_rep){
-    checked_smooth <- is_smooth_spec(object@smooth) # From helpers
-    if(checked_smooth){
-      return(TRUE)
-    } else {
-      cli::cli_alert_danger("Invalid smooth object")
-      return("smooth object must be of class `xxx.smooth.spec`")
-    }
-  } else {
-    cli::cli_alert_danger("Invalid smooth object")
-    return("smooth object representation must be of class character")
-  }
-}
-
 # -------------------------------------------------------------------------
 
 #' SPASPM dataset structure
@@ -116,8 +92,8 @@ setClass("discretization_method",
 #' @slot mapped_datasets **\[list\]** *(if discrete)* List of
 #'     [spaspm_data][spaspm_data-class] objects that are mapped ontp the
 #'     base dataset.
-#' @slot mapped_smooths **\[list\]** *(if discrete)* List of mapped smoothed
-#'     used to specify a given set of models.
+#' @slot mapped_formulas **\[list\]** *(if discrete)* List of mapped formulas
+#'     used to specify a model.
 #'
 #' @name spaspm-class
 #' @rdname spaspm-class
@@ -135,39 +111,34 @@ setClass("spaspm_discrete",
                       patches = "sf",
                       points = "sf",
                       mapped_datasets = "list",
-                      mapped_smooths = "list"),
+                      mapped_formulas = "list"),
          prototype = prototype(name = "Default Model Name",
                                mapped_datasets = list(),
-                               mapped_smooths = list()),
+                               mapped_formulas = list()),
          contains = c("spaspm"))
 
 # -------------------------------------------------------------------------
 
-#' SPASPM smooth object
+#' SPASPM formula object
 #'
-#' This class is a wrapper around the `xxx.smooth.spec` classes in [mgcv][mgcv].
-#' These S3 classes represents all possibe smooths that can be fitted in the
-#' package. It is used internally to formally cast users inputs for smooths
-#' specifications. It is not directly intended for the user to instantiate
-#' objects, but it is still exported.
+#' This class is a wrapper around the `formula` class. It is not intended for
+#' users to directly manipulate and create new objects.
 #'
-#' @slot representation **\[character\]** A name for the way the user specified
-#'     the smooths input.
-#' @slot dataset **\[character\]** The name of the dataset the smooth object is
-#'     to be mapped onto. Will be checked against the list of datasets in the
-#'     SPASPM object when [map_smooth] is called.
-#' @slot dimension **\[character\]** The smoothing dimension the smooth is
-#'     applied to: one if "space", "time", "space_time".
-#' @slot smooth **\[xxx.smooth.spec\]** An object of class `xxx.smooth.spec`.
+#' @slot raw_formula **\[formula\]** The raw formula call
+#' @slot translated_formula **\[formula\]** The translated formula call ready
+#'     to be evaluated.
+#' @slot dataset **\[character\]** The name of the dataset the formula object is
+#'     to be mapped onto.
+#' @slot vars **\[list\]** List of relevant variables for the evaluation of the
+#'     different smooths.
 #'
 #' @seealso See the `mgcv` function for defining smooths: [s()][mgcv::s].
 #'
-setClass("spaspm_smooth",
-         slots = list(representation = "character",
+setClass("spaspm_formula",
+         slots = list(raw_formula = "formula",
+                      translated_formula = "formula",
                       dataset = "character",
-                      dimension = "character",
-                      smooth = "ANY"),
-         validity = validate_spaspm_smooth_class
+                      vars = "list")
 )
 
 # -------------------------------------------------------------------------
