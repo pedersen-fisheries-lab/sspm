@@ -96,6 +96,10 @@ setMethod(f = "map_formula",
             base_formula <- (paste(response, "~", paste(other_terms, collapse = " + "),
                                    collapse = " "))
 
+            if(length(other_terms)>0) {
+              base_formula <- paste0(base_formula, " + ")
+            }
+
             # Capture calls and modify them
             smooth_calls <- lapply(smooth_terms_labels, str2lang)
 
@@ -116,7 +120,7 @@ setMethod(f = "map_formula",
             vars_list <- vars_list[unique(names(vars_list))]
 
             # Paste them into formula
-            final_formula <- paste0(base_formula, " + ",
+            final_formula <- paste0(base_formula,
                                     paste(smooth_list, collapse = " + "))
 
             # Cast as formula
