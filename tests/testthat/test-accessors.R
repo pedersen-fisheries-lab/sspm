@@ -151,14 +151,14 @@ test_that("Accessors work as expected on `spaspm_discrete (MAPPED + FORMULAS)`",
 
 })
 
-test_that("Accesors work as expected on `discretization_method`"{
+test_that("Accesors work as expected on `discretization_method`", {
 
   expect_character(spm_name(discret_method))
   expect_class(method_func(discret_method), "function")
 
 })
 
-test_that("Accesors work as expected on `spaspm_formula`"{
+test_that("Accesors work as expected on `spaspm_formula`", {
 
   expect_class(raw_formula(spaspm_formula), "formula")
   expect_class(translated_formula(spaspm_formula), "formula")
