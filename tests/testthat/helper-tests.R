@@ -2,6 +2,7 @@ library(testthat)
 library(checkmate)
 library(dplyr)
 library(sf)
+library(spaspm)
 
 # Objects used for tests
 borealis_simulated <- spaspm:::borealis_simulated
