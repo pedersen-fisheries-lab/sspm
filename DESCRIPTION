@@ -21,17 +21,18 @@ Depends:
     sf,
     R (>= 2.10)
 Imports: 
-    cli,
     methods,
     utils,
     checkmate,
-    statmod,
+    cli,
     magrittr,
     dplyr,
     purrr,
     units,
     rlang,
-    mgcv
+    statmod,
+    mgcv,
+    tweedie
 Suggests: 
     testthat (>= 3.0.0),
     covr
