@@ -15,7 +15,10 @@ test_that("Accessors work as expected on `spaspm_data`", {
 test_that("Accessors work as expected on `spaspm`", {
 
   # Valid
-  expect_class({spm_name(spaspm_base)}, "character")
+  new_name <- "Model test - changed"
+  expect_match({
+    spm_name(spaspm_base) <- "Model test - changed"
+    spm_name(spaspm_base)}, new_name)
 
   expect_class({spm_unique_ID(spaspm_base)}, "character")
   expect_length({spm_unique_ID(spaspm_base)}, 1)
