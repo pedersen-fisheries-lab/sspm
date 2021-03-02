@@ -111,12 +111,13 @@ setMethod(f = "map_formula",
             # Evaluate the calls to get the args to make a smooth
             smooth_and_vars <-lapply(smooth_calls_modified, eval,
                                    envir = list(. = spaspm_object))
+
             smooth_list <- sapply(smooth_and_vars, `[[`, "smooth")
 
-            vars_list <- sapply(smooth_and_vars, `[[`, "vars")
-            if(purrr::vec_depth(vars_list)>2){
-              vars_list <- purrr::flatten(vars_list)
-            }
+            vars_list <- purrr::flatten(lapply(smooth_and_vars, `[[`, "vars"))
+            # if(purrr::vec_depth(vars_list)>2){
+            #   vars_list <- purrr::flatten(vars_list)
+            # }
             vars_list <- vars_list[unique(names(vars_list))]
 
             # Paste them into formula
