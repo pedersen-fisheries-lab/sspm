@@ -57,16 +57,22 @@ setMethod(f = "fit_smooths",
 
               # Get data
               the_data <- spm_data(spm_datasets(spaspm_object)[[dataset(form)]])
+              form_vars <- formula_vars(form)
 
-              # Fit the formula
-              all_fit[[form_id]] <- with(formula_vars(form), {
+              # Modify formula env, best solution for now
+              form_env <- attr(translated_formula(form), ".Environment")
+              for(var in names(form_vars)){
+                assign(x = var, value = form_vars[[var]], envir = form_env)
+              }
+
+              # Fit the formula, important to attach the vars
+              all_fit[[form_id]] <-
                 mgcv::bam(formula = translated_formula(form),
                           data = the_data,
                           family = family,
                           drop.unused.levels = drop.unused.levels,
                           method = method,
                           ...)
-              })
 
             }
 
