@@ -10,6 +10,7 @@
 
 test_that("Accessors work as expected on `spaspm_data`", {
 
+  # Valid
   expect_class(spm_name(spaspm_data), "character")
 
   expect_data_frame(spm_data(spaspm_data))
@@ -26,6 +27,10 @@ test_that("Accessors work as expected on `spaspm_data`", {
   expect_class(spm_time_col(spaspm_data), "character")
   expect_length(spm_time_col(spaspm_data), 1)
 
+  # Invalid
+  expect_message(spm_datasets(spaspm_data),
+                 "Use `spm_data` to access the data of a dataset object")
+
 })
 
 test_that("Accessors work as expected on `spaspm`", {
@@ -38,6 +43,9 @@ test_that("Accessors work as expected on `spaspm`", {
 
   expect_class(spm_coords_col(spaspm_base), "character")
   expect_length(spm_coords_col(spaspm_base), 2)
+
+  expect_class(spm_time_col(spaspm_base), "character")
+  expect_length(spm_time_col(spaspm_base), 1)
 
   expect_class(spm_boundaries(spaspm_base), "sf")
 
@@ -71,6 +79,9 @@ test_that("accessors work on `spaspm_discrete`", {
   expect_class(spm_coords_col(spaspm_discrete), "character")
   expect_length(spm_coords_col(spaspm_discrete), 2)
 
+  expect_class(spm_time_col(spaspm_discrete), "character")
+  expect_length(spm_time_col(spaspm_discrete), 1)
+
   expect_class(spm_boundaries(spaspm_discrete), "sf")
 
   expect_class(spm_base_dataset(spaspm_discrete), "spaspm_data")
@@ -101,6 +112,9 @@ test_that("Accessors work as expected on `spaspm_discrete (MAPPED)`", {
 
   expect_class(spm_coords_col(spaspm_discrete_mapped), "list")
   expect_length(spm_coords_col(spaspm_discrete_mapped), 2)
+
+  expect_class(spm_time_col(spaspm_discrete_mapped), "list")
+  expect_length(spm_time_col(spaspm_discrete_mapped), 2)
 
   expect_class(spm_boundaries(spaspm_discrete_mapped), "sf")
 
