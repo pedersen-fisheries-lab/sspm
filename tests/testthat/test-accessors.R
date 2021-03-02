@@ -9,40 +9,53 @@
 # })
 
 test_that("Accessors work as expected on `spaspm_data`", {
-  TRUE
+
+  expect_class(spm_name(spaspm_data), "character")
+
+  expect_data_frame(spm_data(spaspm_data))
+
+  expect_class(spm_rep(spaspm_data), "character")
+  expect_length(spm_rep(spaspm_data), 1)
+
+  expect_class(spm_unique_ID(spaspm_data), "character")
+  expect_length(spm_unique_ID(spaspm_data), 1)
+
+  expect_class(spm_coords_col(spaspm_data), "character")
+  expect_length(spm_coords_col(spaspm_data), 2)
+
+  expect_class(spm_time_col(spaspm_data), "character")
+  expect_length(spm_time_col(spaspm_data), 1)
+
 })
 
 test_that("Accessors work as expected on `spaspm`", {
 
   # Valid
-  new_name <- "Model test - changed"
-  expect_match({
-    spm_name(spaspm_base) <- "Model test - changed"
-    spm_name(spaspm_base)}, new_name)
+  expect_class(spm_name(spaspm_base), "character")
 
-  expect_class({spm_unique_ID(spaspm_base)}, "character")
-  expect_length({spm_unique_ID(spaspm_base)}, 1)
+  expect_class(spm_unique_ID(spaspm_base), "character")
+  expect_length(spm_unique_ID(spaspm_base), 1)
 
-  expect_class({spm_coords_col(spaspm_base)}, "character")
-  expect_length({spm_coords_col(spaspm_base)}, 2)
+  expect_class(spm_coords_col(spaspm_base), "character")
+  expect_length(spm_coords_col(spaspm_base), 2)
 
-  expect_class({spm_boundaries(spaspm_base)}, "sf")
+  expect_class(spm_boundaries(spaspm_base), "sf")
 
-  expect_class({spm_base_dataset(spaspm_base)}, "spaspm_data")
+  expect_class(spm_base_dataset(spaspm_base), "spaspm_data")
 
-  expect_class({spm_datasets(spaspm_base)}, "spaspm_data")
-  expect_length({spm_datasets(spaspm_discrete)}, 1)
+  expect_class(spm_datasets(spaspm_base), "spaspm_data")
+  expect_length(spm_datasets(spaspm_discrete), 1)
 
   # Not valid
-  expect_message({spm_data(spaspm_base)},
+  expect_message(spm_data(spaspm_base),
                  "Use `spm_datasets` or `spm_base_dataset` to access the datasets of a spaspm object")
-  expect_message({spm_discret_method(spaspm_base)},
+  expect_message(spm_discret_method(spaspm_base),
                  "Model object 'Model test' is not a discrete model",)
-  expect_message({spm_patches(spaspm_base)},
+  expect_message(spm_patches(spaspm_base),
                  "Model object 'Model test' is not a discrete model")
-  expect_message({spm_points(spaspm_base)},
+  expect_message(spm_points(spaspm_base),
                  "Model object 'Model test' is not a discrete model")
-  expect_message({spm_mapped_datasets(spaspm_base)},
+  expect_message(spm_mapped_datasets(spaspm_base),
                  "Model object 'Model test' is not a discrete model")
 
 })
@@ -50,62 +63,62 @@ test_that("Accessors work as expected on `spaspm`", {
 test_that("accessors work on `spaspm_discrete`", {
 
   # Valid
-  expect_class({spm_name(spaspm_discrete)}, "character")
+  expect_class(spm_name(spaspm_discrete), "character")
 
-  expect_class({spm_unique_ID(spaspm_discrete)}, "character")
-  expect_length({spm_unique_ID(spaspm_discrete)}, 1)
+  expect_class(spm_unique_ID(spaspm_discrete), "character")
+  expect_length(spm_unique_ID(spaspm_discrete), 1)
 
-  expect_class({spm_coords_col(spaspm_discrete)}, "character")
-  expect_length({spm_coords_col(spaspm_discrete)}, 2)
+  expect_class(spm_coords_col(spaspm_discrete), "character")
+  expect_length(spm_coords_col(spaspm_discrete), 2)
 
-  expect_class({spm_boundaries(spaspm_discrete)}, "sf")
+  expect_class(spm_boundaries(spaspm_discrete), "sf")
 
-  expect_class({spm_base_dataset(spaspm_discrete)}, "spaspm_data")
+  expect_class(spm_base_dataset(spaspm_discrete), "spaspm_data")
 
-  expect_class({spm_datasets(spaspm_discrete)}, "list")
-  expect_length({spm_datasets(spaspm_discrete)}, 1)
+  expect_class(spm_datasets(spaspm_discrete), "list")
+  expect_length(spm_datasets(spaspm_discrete), 1)
 
-  expect_class({spm_discret_method(spaspm_discrete)}, "discretization_method")
+  expect_class(spm_discret_method(spaspm_discrete), "discretization_method")
 
-  expect_class({spm_patches(spaspm_discrete)},"sf")
-  expect_class({spm_points(spaspm_discrete)}, "sf")
+  expect_class(spm_patches(spaspm_discrete),"sf")
+  expect_class(spm_points(spaspm_discrete), "sf")
 
-  expect_class({spm_mapped_datasets(spaspm_discrete)}, "list")
-  expect_length({spm_mapped_datasets(spaspm_discrete)}, 0)
+  expect_class(spm_mapped_datasets(spaspm_discrete), "list")
+  expect_length(spm_mapped_datasets(spaspm_discrete), 0)
 
   # Not valid
-  expect_message({spm_data(spaspm_discrete)},
+  expect_message(spm_data(spaspm_discrete),
                  "Use `spm_datasets` or `spm_base_dataset` to access the datasets of a spaspm object")
 })
 
 test_that("Accessors work as expected on `spaspm_discrete (MAPPED)`", {
 
   # Valid
-  expect_class({spm_name(spaspm_discrete_mapped)}, "character")
+  expect_class(spm_name(spaspm_discrete_mapped), "character")
 
-  expect_class({spm_unique_ID(spaspm_discrete_mapped)}, "list")
-  expect_length({spm_unique_ID(spaspm_discrete_mapped)}, 2)
+  expect_class(spm_unique_ID(spaspm_discrete_mapped), "list")
+  expect_length(spm_unique_ID(spaspm_discrete_mapped), 2)
 
-  expect_class({spm_coords_col(spaspm_discrete_mapped)}, "list")
-  expect_length({spm_coords_col(spaspm_discrete_mapped)}, 2)
+  expect_class(spm_coords_col(spaspm_discrete_mapped), "list")
+  expect_length(spm_coords_col(spaspm_discrete_mapped), 2)
 
-  expect_class({spm_boundaries(spaspm_discrete_mapped)}, "sf")
+  expect_class(spm_boundaries(spaspm_discrete_mapped), "sf")
 
-  expect_class({spm_base_dataset(spaspm_discrete_mapped)}, "spaspm_data")
+  expect_class(spm_base_dataset(spaspm_discrete_mapped), "spaspm_data")
 
-  expect_class({spm_datasets(spaspm_discrete_mapped)}, "list")
-  expect_length({spm_datasets(spaspm_discrete_mapped)}, 2)
+  expect_class(spm_datasets(spaspm_discrete_mapped), "list")
+  expect_length(spm_datasets(spaspm_discrete_mapped), 2)
 
-  expect_class({spm_discret_method(spaspm_discrete_mapped)}, "discretization_method")
+  expect_class(spm_discret_method(spaspm_discrete_mapped), "discretization_method")
 
-  expect_class({spm_patches(spaspm_discrete_mapped)},"sf")
-  expect_class({spm_points(spaspm_discrete_mapped)}, "sf")
+  expect_class(spm_patches(spaspm_discrete_mapped),"sf")
+  expect_class(spm_points(spaspm_discrete_mapped), "sf")
 
-  expect_class({spm_mapped_datasets(spaspm_discrete_mapped)}, "list")
-  expect_length({spm_mapped_datasets(spaspm_discrete_mapped)}, 1)
+  expect_class(spm_mapped_datasets(spaspm_discrete_mapped), "list")
+  expect_length(spm_mapped_datasets(spaspm_discrete_mapped), 1)
 
   # Not valid
-  expect_message({spm_data(spaspm_discrete_mapped)},
+  expect_message(spm_data(spaspm_discrete_mapped),
                  "Use `spm_datasets` or `spm_base_dataset` to access the datasets of a spaspm object")
 
 })
