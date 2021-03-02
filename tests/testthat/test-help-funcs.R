@@ -4,6 +4,8 @@
 #
 # })
 
+# TODO add tests for check_model_family, rqresiduals
+
 test_that("Methods choices are retrieved", {
 
   choices <- spm_methods()
@@ -25,5 +27,30 @@ test_that("Methods are dispatched correctly", {
   expect_function(dispatch_smooth("ICAR"))
   expect_message(dispatch_smooth("method_not_supported"),
                  "Smoothing method 'method_not_supported' is not part of the supported methods.")
+
+})
+
+test_that("Function length_to_weigth works correctly", {
+
+  expect_equal(length_to_weigth(10, "male"), 0.6331151)
+  expect_equal(length_to_weigth(10, "female"), 0.8882952)
+
+})
+
+test_that("Warnings/messages can be suppressed", {
+
+  expect_failure(expect_warning(suppressAll(warning("This is a warning"))))
+  expect_failure(expect_message(suppressAll(message("This is a message"))))
+
+})
+
+test_that("Calls are modified correctly", {
+
+  base_col <- str2lang("s()")
+  modified_call <- modify_call(base_col, list(k=1, bs="mrf"))
+  modified_call_str <- deparse(modified_call)
+
+  expect_class(modified_call, "call")
+  expect_match(modified_call_str, "s(k = 1, bs = \"mrf\")", fixed = TRUE)
 
 })
