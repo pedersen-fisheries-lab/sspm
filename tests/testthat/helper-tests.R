@@ -71,3 +71,5 @@ spaspm_formula <- new("spaspm_formula",
                       vars = list(pen_mat_time = matrix(),
                                   pen_mat_space = matrix()))
 
+spaspm_discrete_mapped_forms <- spaspm_discrete_mapped
+spaspm_discrete_mapped_forms@mapped_formulas <- list(spaspm_formula)

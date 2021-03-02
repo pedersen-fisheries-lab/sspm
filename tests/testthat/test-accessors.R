@@ -1,9 +1,5 @@
 # Test accessors
 #
-# For mosts: name, base_dataset, datasets, data, coords_col, discret_method,
-# mapped_datasets, unique_ID, patches, points
-# For method: method_func
-#
 # test_that("Accessors work as expected on ``", {
 #
 # })
@@ -65,6 +61,8 @@ test_that("Accessors work as expected on `spaspm`", {
                  "Model object 'Model test' is not a discrete model")
   expect_message(spm_mapped_datasets(spaspm_base),
                  "Model object 'Model test' is not a discrete model")
+  expect_message(spm_mapped_formulas(spaspm_base),
+                 "Model object 'Model test' is not a discrete model")
 
 })
 
@@ -97,6 +95,9 @@ test_that("accessors work on `spaspm_discrete`", {
   expect_class(spm_mapped_datasets(spaspm_discrete), "list")
   expect_length(spm_mapped_datasets(spaspm_discrete), 0)
 
+  expect_class(spm_mapped_formulas(spaspm_discrete), "list")
+  expect_length(spm_mapped_formulas(spaspm_discrete), 0)
+
   # Not valid
   expect_message(spm_data(spaspm_discrete),
                  "Use `spm_datasets` or `spm_base_dataset` to access the datasets of a spaspm object")
@@ -123,7 +124,8 @@ test_that("Accessors work as expected on `spaspm_discrete (MAPPED)`", {
   expect_class(spm_datasets(spaspm_discrete_mapped), "list")
   expect_length(spm_datasets(spaspm_discrete_mapped), 2)
 
-  expect_class(spm_discret_method(spaspm_discrete_mapped), "discretization_method")
+  expect_class(spm_discret_method(spaspm_discrete_mapped),
+               "discretization_method")
 
   expect_class(spm_patches(spaspm_discrete_mapped),"sf")
   expect_class(spm_points(spaspm_discrete_mapped), "sf")
@@ -131,8 +133,27 @@ test_that("Accessors work as expected on `spaspm_discrete (MAPPED)`", {
   expect_class(spm_mapped_datasets(spaspm_discrete_mapped), "list")
   expect_length(spm_mapped_datasets(spaspm_discrete_mapped), 1)
 
+  expect_class(spm_mapped_formulas(spaspm_discrete_mapped), "list")
+  expect_length(spm_mapped_formulas(spaspm_discrete_mapped), 0)
+
   # Not valid
   expect_message(spm_data(spaspm_discrete_mapped),
                  "Use `spm_datasets` or `spm_base_dataset` to access the datasets of a spaspm object")
+
+})
+
+test_that("Accessors work as expected on `spaspm_discrete (MAPPED + FORMULAS)`", {
+
+  expect_class(spm_mapped_formulas(spaspm_discrete_mapped_forms), "list")
+  expect_length(spm_mapped_formulas(spaspm_discrete_mapped_forms), 1)
+  expect_class(spm_mapped_formulas(spaspm_discrete_mapped_forms)[[1]],
+               "spaspm_formula")
+
+})
+
+test_that("Accesors work as expected on `discretization_method`"{
+
+  expect_class(spm_name(discret_method), "character")
+  expect_class(method_func(discret_method), "function")
 
 })
