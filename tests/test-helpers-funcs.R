@@ -22,4 +22,8 @@ test_that("Methods are dispatched correctly", {
   expect_message(dispatch_method("method_not_supported"),
                  "Method 'method_not_supported' is not part of the supported methods.")
 
+  expect_function(dispatch_smooth("ICAR"))
+  expect_message(dispatch_smooth("method_not_supported"),
+                 "Smoothing method 'method_not_supported' is not part of the supported methods.")
+
 })
