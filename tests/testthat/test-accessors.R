@@ -11,16 +11,16 @@ test_that("Accessors work as expected on `spaspm_data`", {
 
   expect_data_frame(spm_data(spaspm_data))
 
-  expect_class(spm_rep(spaspm_data), "character")
+  expect_character(spm_rep(spaspm_data))
   expect_length(spm_rep(spaspm_data), 1)
 
-  expect_class(spm_unique_ID(spaspm_data), "character")
+  expect_character(spm_unique_ID(spaspm_data))
   expect_length(spm_unique_ID(spaspm_data), 1)
 
-  expect_class(spm_coords_col(spaspm_data), "character")
+  expect_character(spm_coords_col(spaspm_data))
   expect_length(spm_coords_col(spaspm_data), 2)
 
-  expect_class(spm_time_col(spaspm_data), "character")
+  expect_character(spm_time_col(spaspm_data))
   expect_length(spm_time_col(spaspm_data), 1)
 
   # Invalid
@@ -32,15 +32,15 @@ test_that("Accessors work as expected on `spaspm_data`", {
 test_that("Accessors work as expected on `spaspm`", {
 
   # Valid
-  expect_class(spm_name(spaspm_base), "character")
+  expect_character(spm_name(spaspm_base))
 
-  expect_class(spm_unique_ID(spaspm_base), "character")
+  expect_character(spm_unique_ID(spaspm_base))
   expect_length(spm_unique_ID(spaspm_base), 1)
 
-  expect_class(spm_coords_col(spaspm_base), "character")
+  expect_character(spm_coords_col(spaspm_base))
   expect_length(spm_coords_col(spaspm_base), 2)
 
-  expect_class(spm_time_col(spaspm_base), "character")
+  expect_character(spm_time_col(spaspm_base))
   expect_length(spm_time_col(spaspm_base), 1)
 
   expect_class(spm_boundaries(spaspm_base), "sf")
@@ -69,22 +69,22 @@ test_that("Accessors work as expected on `spaspm`", {
 test_that("accessors work on `spaspm_discrete`", {
 
   # Valid
-  expect_class(spm_name(spaspm_discrete), "character")
+  expect_character(spm_name(spaspm_discrete))
 
-  expect_class(spm_unique_ID(spaspm_discrete), "character")
+  expect_character(spm_unique_ID(spaspm_discrete))
   expect_length(spm_unique_ID(spaspm_discrete), 1)
 
-  expect_class(spm_coords_col(spaspm_discrete), "character")
+  expect_character(spm_coords_col(spaspm_discrete))
   expect_length(spm_coords_col(spaspm_discrete), 2)
 
-  expect_class(spm_time_col(spaspm_discrete), "character")
+  expect_character(spm_time_col(spaspm_discrete))
   expect_length(spm_time_col(spaspm_discrete), 1)
 
   expect_class(spm_boundaries(spaspm_discrete), "sf")
 
   expect_class(spm_base_dataset(spaspm_discrete), "spaspm_data")
 
-  expect_class(spm_datasets(spaspm_discrete), "list")
+  expect_list(spm_datasets(spaspm_discrete))
   expect_length(spm_datasets(spaspm_discrete), 1)
 
   expect_class(spm_discret_method(spaspm_discrete), "discretization_method")
@@ -92,10 +92,10 @@ test_that("accessors work on `spaspm_discrete`", {
   expect_class(spm_patches(spaspm_discrete),"sf")
   expect_class(spm_points(spaspm_discrete), "sf")
 
-  expect_class(spm_mapped_datasets(spaspm_discrete), "list")
+  expect_list(spm_mapped_datasets(spaspm_discrete))
   expect_length(spm_mapped_datasets(spaspm_discrete), 0)
 
-  expect_class(spm_mapped_formulas(spaspm_discrete), "list")
+  expect_list(spm_mapped_formulas(spaspm_discrete))
   expect_length(spm_mapped_formulas(spaspm_discrete), 0)
 
   # Not valid
@@ -106,22 +106,22 @@ test_that("accessors work on `spaspm_discrete`", {
 test_that("Accessors work as expected on `spaspm_discrete (MAPPED)`", {
 
   # Valid
-  expect_class(spm_name(spaspm_discrete_mapped), "character")
+  expect_character(spm_name(spaspm_discrete_mapped))
 
   expect_class(spm_unique_ID(spaspm_discrete_mapped), "list")
   expect_length(spm_unique_ID(spaspm_discrete_mapped), 2)
 
-  expect_class(spm_coords_col(spaspm_discrete_mapped), "list")
+  expect_list(spm_coords_col(spaspm_discrete_mapped))
   expect_length(spm_coords_col(spaspm_discrete_mapped), 2)
 
-  expect_class(spm_time_col(spaspm_discrete_mapped), "list")
+  expect_list(spm_time_col(spaspm_discrete_mapped))
   expect_length(spm_time_col(spaspm_discrete_mapped), 2)
 
   expect_class(spm_boundaries(spaspm_discrete_mapped), "sf")
 
   expect_class(spm_base_dataset(spaspm_discrete_mapped), "spaspm_data")
 
-  expect_class(spm_datasets(spaspm_discrete_mapped), "list")
+  expect_list(spm_datasets(spaspm_discrete_mapped))
   expect_length(spm_datasets(spaspm_discrete_mapped), 2)
 
   expect_class(spm_discret_method(spaspm_discrete_mapped),
@@ -130,10 +130,10 @@ test_that("Accessors work as expected on `spaspm_discrete (MAPPED)`", {
   expect_class(spm_patches(spaspm_discrete_mapped),"sf")
   expect_class(spm_points(spaspm_discrete_mapped), "sf")
 
-  expect_class(spm_mapped_datasets(spaspm_discrete_mapped), "list")
+  expect_list(spm_mapped_datasets(spaspm_discrete_mapped))
   expect_length(spm_mapped_datasets(spaspm_discrete_mapped), 1)
 
-  expect_class(spm_mapped_formulas(spaspm_discrete_mapped), "list")
+  expect_list(spm_mapped_formulas(spaspm_discrete_mapped))
   expect_length(spm_mapped_formulas(spaspm_discrete_mapped), 0)
 
   # Not valid
@@ -144,7 +144,7 @@ test_that("Accessors work as expected on `spaspm_discrete (MAPPED)`", {
 
 test_that("Accessors work as expected on `spaspm_discrete (MAPPED + FORMULAS)`", {
 
-  expect_class(spm_mapped_formulas(spaspm_discrete_mapped_forms), "list")
+  expect_list(spm_mapped_formulas(spaspm_discrete_mapped_forms))
   expect_length(spm_mapped_formulas(spaspm_discrete_mapped_forms), 1)
   expect_class(spm_mapped_formulas(spaspm_discrete_mapped_forms)[[1]],
                "spaspm_formula")
@@ -153,7 +153,16 @@ test_that("Accessors work as expected on `spaspm_discrete (MAPPED + FORMULAS)`",
 
 test_that("Accesors work as expected on `discretization_method`"{
 
-  expect_class(spm_name(discret_method), "character")
+  expect_character(spm_name(discret_method))
   expect_class(method_func(discret_method), "function")
+
+})
+
+test_that("Accesors work as expected on `spaspm_formula`"{
+
+  expect_class(raw_formula(spaspm_formula), "formula")
+  expect_class(translated_formula(spaspm_formula), "formula")
+  expect_character(dataset(spaspm_formula))
+  expect_list(formula_vars(spaspm_formula))
 
 })
