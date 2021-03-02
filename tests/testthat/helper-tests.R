@@ -58,3 +58,16 @@ spaspm_discrete_mapped <- new("spaspm_discrete",
                               points = borealis_points,
                               mapped_datasets = list(Predator = spaspm_data_pred))
 
+spaspm_formula <- new("spaspm_formula",
+                      raw_formula = as.formula("weight_per_km2 ~ smooth_time() +
+                                               smooth_space() + smooth_space_time()"),
+                      translated_formula = as.formula("weight_per_km2 ~ s(year_f,
+                      k = 24L, bs = 're', xt = list(penalty = pen_mat_time)) +
+                      s(patch_id, k = 30, bs = 'mrf', xt = list(penalty = pen_mat_space)) +
+                      ti(year_f, patch_id, k = c(24, 30), bs = c('re', 'mrf'),
+                      xt = list(year_f = list(penalty = pen_mat_time),
+                      patch_id = list(penalty = pen_mat_space)))"),
+                      dataset = "Biomass",
+                      vars = list(pen_mat_time = matrix(),
+                                  pen_mat_space = matrix()))
+
