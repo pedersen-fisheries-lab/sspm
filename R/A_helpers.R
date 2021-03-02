@@ -78,8 +78,8 @@ check_model_family <- function(family){
 
   checkmate::check_class(family, "family")
 
-  if (!grepl("^Tweedie|^Negative Binomial|^poisson|^binomial|^gaussian|^Gamma|^inverse.gaussian",
-             family)){
+  if (!any(grepl("^Tweedie|^Negative Binomial|^poisson|^binomial|^gaussian|^Gamma|^inverse.gaussian",
+                 family))){
     stop(paste0("family " , family,
                 " is not currently supported by the statmod library,
                and any randomized quantile residuals would be inaccurate."),
