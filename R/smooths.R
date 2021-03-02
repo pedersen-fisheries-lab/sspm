@@ -172,8 +172,6 @@ ICAR <- function(spaspm_object, dataset, dimension,
   checkmate::assert_character(dataset)
   checkmate::assert_character(dimension)
 
-  # browser()
-
   # Recapture the ellipsis again
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
@@ -222,8 +220,6 @@ ICAR <- function(spaspm_object, dataset, dimension,
     xt_list <- list(xt = list(penalty = pen_expression))
 
   } else if (dimension == "space"){
-
-    browser()
 
     out_column <- list(str2lang(space_column))
 
@@ -287,8 +283,6 @@ ICAR <- function(spaspm_object, dataset, dimension,
     names(xt_list$xt) <- c(time_column, space_column)
 
   }
-
-  browser()
 
   return(list(args = do.call(c,
                              args = list(out_column,
