@@ -21,6 +21,7 @@ setGeneric(name = "smooth_time",
                           spaspm_object,
                           k = NULL,
                           bs = "re",
+                          xt = NULL,
                           ...){
              standardGeneric("smooth_time")
            }
@@ -34,6 +35,7 @@ setGeneric(name = "smooth_space",
                           spaspm_object,
                           k = 30,
                           bs = "mrf",
+                          xt = NULL,
                           ...){
              standardGeneric("smooth_space")
            }
@@ -47,6 +49,7 @@ setGeneric(name = "smooth_space_time",
                           spaspm_object,
                           k = NULL,
                           bs = c("re","mrf"),
+                          xt = NULL,
                           ...){
              standardGeneric("smooth_space_time")
            }
@@ -65,7 +68,7 @@ setMethod(f = "smooth_time",
           signature(type = "ANY",
                     dataset = "character",
                     spaspm_object = "spaspm_discrete"),
-          function(type, dataset, spaspm_object, k, bs, ...){
+          function(type, dataset, spaspm_object, k, bs, xt, ...){
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -76,7 +79,7 @@ setMethod(f = "smooth_time",
                                      append(list(spaspm_object = spaspm_object,
                                                  dataset = dataset,
                                                  dimension = "time",
-                                                 k = k, bs = bs),
+                                                 k = k, bs = bs, xt = xt),
                                             args_list))
 
             # Assemble the smooths
@@ -94,7 +97,7 @@ setMethod(f = "smooth_space",
           signature(type = "ANY",
                     dataset = "character",
                     spaspm_object = "spaspm_discrete"),
-          function(type, dataset, spaspm_object, k, bs, ...){
+          function(type, dataset, spaspm_object, k, bs, xt, ...){
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -105,7 +108,7 @@ setMethod(f = "smooth_space",
                                      append(list(spaspm_object = spaspm_object,
                                                  dataset = dataset,
                                                  dimension = "space",
-                                                 k = k, bs = bs),
+                                                 k = k, bs = bs, xt = xt),
                                             args_list))
 
             # Assemble the smooths
@@ -123,7 +126,7 @@ setMethod(f = "smooth_space_time",
           signature(type = "ANY",
                     dataset = "character",
                     spaspm_object = "spaspm_discrete"),
-          function(type, dataset, spaspm_object, k, bs, ...){
+          function(type, dataset, spaspm_object, k, bs, xt, ...){
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -134,7 +137,7 @@ setMethod(f = "smooth_space_time",
                                      append(list(spaspm_object = spaspm_object,
                                                  dataset = dataset,
                                                  dimension = "space_time",
-                                                 k = k, bs = bs),
+                                                 k = k, bs = bs, xt = xt),
                                             args_list))
 
             # Assemble the smooths
@@ -163,10 +166,13 @@ assemble_smooth <- function(s_type, args){
 # double list args_and_vars that have the args to build a new call to s() and the
 # vars necessary for the evaluation of that s() smooth
 ICAR <- function(spaspm_object, dataset, dimension,
-                 k, bs, ...){
+                 k, bs, xt, ...){
 
-  # TODO add assert statements
-  # TODO if xt is provided, do not make a new one
+  checkmate::assert_class(spaspm_object, "spaspm")
+  checkmate::assert_character(dataset)
+  checkmate::assert_character(dimension)
+
+  # browser()
 
   # Recapture the ellipsis again
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
@@ -196,7 +202,19 @@ ICAR <- function(spaspm_object, dataset, dimension,
       k <- n_time_levels
     }
 
-    pen_mat_time <- ICAR_time(time_levels, n_time_levels)
+    if(is.null(xt)){
+      pen_mat_time <- ICAR_time(time_levels, n_time_levels)
+    } else {
+
+      checkmate::assert_list(xt)
+
+      if (is.null(xt$penalty)){
+        pen_mat_time <- ICAR_time(time_levels, n_time_levels)
+      } else {
+        checkmate::assert_matrix(xt$penalty)
+        pen_mat_time <- xt
+      }
+    }
 
     # Create symbol and assign to list
     pen_expression <- rlang::expr(pen_mat_time)
@@ -205,9 +223,23 @@ ICAR <- function(spaspm_object, dataset, dimension,
 
   } else if (dimension == "space"){
 
+    browser()
+
     out_column <- list(str2lang(space_column))
 
-    pen_mat_space <- ICAR_space(patches, space_column)
+    if(is.null(xt)){
+      pen_mat_space <- ICAR_space(patches, space_column)
+    } else {
+
+      checkmate::assert_list(xt)
+
+      if (is.null(xt$penalty)){
+        pen_mat_space <- ICAR_space(patches, space_column)
+      } else {
+        checkmate::assert_matrix(xt$penalty)
+        pen_mat_space <- xt
+      }
+    }
 
     # Create symbol and assign to list
     pen_expression <- rlang::expr(pen_mat_space)
@@ -222,16 +254,41 @@ ICAR <- function(spaspm_object, dataset, dimension,
       k <- c(n_time_levels, 30)
     }
 
-    pen_mat_time <- ICAR_time(time_levels, n_time_levels)
-    vars$pen_mat_time <- pen_mat_time
+    if(is.null(xt)){
 
-    pen_mat_space <- ICAR_space(patches, space_column)
-    vars$pen_mat_space <- pen_mat_space
+      pen_mat_time <- ICAR_time(time_levels, n_time_levels)
+      pen_mat_space <- ICAR_space(patches, space_column)
 
-    xt_list <- list(xt = list(rlang::expr(pen_mat_time), rlang::expr(pen_mat_space)))
+      vars$pen_mat_time <- pen_mat_time
+      vars$pen_mat_space <- pen_mat_space
+
+    } else {
+
+      checkmate::assert_list(xt)
+      checkmate::assert_names(names(xt),
+                              must.include = c(time_column, space_column))
+
+      if (is.null(xt[[time_column]]$penalty)){
+        vars$pen_mat_time <- ICAR_time(time_levels, n_time_levels)
+      } else {
+        vars$pen_mat_time <- xt[[time_column]]$penalty
+      }
+
+      if (is.null(xt[[space_column]]$penalty)){
+        vars$pen_mat_space <- ICAR_space(patches, space_column)
+      } else{
+        vars$pen_mat_space <- xt[[space_column]]$penalty
+      }
+
+    }
+
+    xt_list <- list(xt = list(list(penalty = rlang::expr(pen_mat_time)),
+                              list(penalty = rlang::expr(pen_mat_space))))
     names(xt_list$xt) <- c(time_column, space_column)
 
   }
+
+  browser()
 
   return(list(args = do.call(c,
                              args = list(out_column,

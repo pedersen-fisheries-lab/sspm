@@ -9,9 +9,25 @@
 \alias{smooth_space_time,ANY,character,spaspm_discrete-method}
 \title{SPASPM Smoothing functions}
 \usage{
-smooth_time(type = "ICAR", dataset, spaspm_object, k = NULL, bs = "re", ...)
+smooth_time(
+  type = "ICAR",
+  dataset,
+  spaspm_object,
+  k = NULL,
+  bs = "re",
+  xt = NULL,
+  ...
+)
 
-smooth_space(type = "ICAR", dataset, spaspm_object, k = 30, bs = "mrf", ...)
+smooth_space(
+  type = "ICAR",
+  dataset,
+  spaspm_object,
+  k = 30,
+  bs = "mrf",
+  xt = NULL,
+  ...
+)
 
 smooth_space_time(
   type = "ICAR",
@@ -19,12 +35,29 @@ smooth_space_time(
   spaspm_object,
   k = NULL,
   bs = c("re", "mrf"),
+  xt = NULL,
   ...
 )
 
-\S4method{smooth_time}{ANY,character,spaspm_discrete}(type = "ICAR", dataset, spaspm_object, k = NULL, bs = "re", ...)
+\S4method{smooth_time}{ANY,character,spaspm_discrete}(
+  type = "ICAR",
+  dataset,
+  spaspm_object,
+  k = NULL,
+  bs = "re",
+  xt = NULL,
+  ...
+)
 
-\S4method{smooth_space}{ANY,character,spaspm_discrete}(type = "ICAR", dataset, spaspm_object, k = 30, bs = "mrf", ...)
+\S4method{smooth_space}{ANY,character,spaspm_discrete}(
+  type = "ICAR",
+  dataset,
+  spaspm_object,
+  k = 30,
+  bs = "mrf",
+  xt = NULL,
+  ...
+)
 
 \S4method{smooth_space_time}{ANY,character,spaspm_discrete}(
   type = "ICAR",
@@ -32,6 +65,7 @@ smooth_space_time(
   spaspm_object,
   k = NULL,
   bs = c("re", "mrf"),
+  xt = NULL,
   ...
 )
 }
@@ -56,6 +90,9 @@ mapped datasets for which to specify the formula}
 (eg \code{"tp"} for thin plate regression spline, \code{"cr"} for cubic regression spline).
 see \code{\link[mgcv]{smooth.terms}} for an over view of what is available.
 }
+
+\item{xt}{Any extra information required to set up a particular basis. Used
+  e.g. to set large data set handling behaviour for \code{"tp"} basis.}
 
 \item{...}{Further arguments passed down, none used for now.}
 }
