@@ -2,6 +2,7 @@ library(testthat)
 library(checkmate)
 library(dplyr)
 library(sf)
+library(mgcv)
 library(spaspm)
 
 # Objects used for tests

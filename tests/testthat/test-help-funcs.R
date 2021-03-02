@@ -54,3 +54,14 @@ test_that("Calls are modified correctly", {
   expect_match(modified_call_str, "s(k = 1, bs = \"mrf\")", fixed = TRUE)
 
 })
+
+test_that("Families are checked correctly", {
+
+  gam_obj <- mgcv::gam(mpg ~ s(drat), data = mtcars, family = mgcv::tw)
+  fam <- gam_obj$family$family
+  spaspm:::check_model_family(fam)
+
+  fam <- "crazy_family"
+  expect_error(spaspm:::check_model_family(fam))
+
+})
