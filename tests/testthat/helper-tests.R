@@ -45,6 +45,7 @@ discret_method <- new("discretization_method",
 
 spaspm_discrete <- new("spaspm_discrete",
                        name = spm_name(spaspm_base),
+                       # NOTE: patch_id absent
                        data = spm_base_dataset(spaspm_base),
                        boundaries = spm_boundaries(spaspm_base),
                        method = discret_method,
