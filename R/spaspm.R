@@ -19,6 +19,7 @@ spaspm <- function(model_name = "My SPASPM model",
                    uniqueID,
                    boundaries,
                    coords = NULL,
+                   crs = NULL,
                    ...){
 
   # TODO better CRS checks

@@ -12,6 +12,7 @@ spaspm(
   uniqueID,
   boundaries,
   coords = NULL,
+  crs = NULL,
   ...
 )
 }
@@ -32,6 +33,8 @@ rows of the data matrix.}
 
 \item{coords}{\strong{[character]} The column of \code{data} for longitude and
 latitude of the observations.}
+
+\item{crs}{Coordinate reference system, passed onto \link[=sf]{st_as_sf}.}
 
 \item{...}{TBD}
 }
