@@ -8,7 +8,7 @@
 \usage{
 fit_smooths(
   spaspm_object,
-  family = tw,
+  family = mgcv::tw,
   drop.unused.levels = F,
   method = "REML",
   ...
@@ -16,7 +16,7 @@ fit_smooths(
 
 \S4method{fit_smooths}{spaspm}(
   spaspm_object,
-  family = tw,
+  family = mgcv::tw,
   drop.unused.levels = F,
   method = "REML",
   ...
@@ -24,7 +24,7 @@ fit_smooths(
 
 \S4method{fit_smooths}{spaspm_discrete}(
   spaspm_object,
-  family = tw,
+  family = mgcv::tw,
   drop.unused.levels = F,
   method = "REML",
   ...

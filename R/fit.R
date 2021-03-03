@@ -12,7 +12,7 @@
 #' @export
 setGeneric(name = "fit_smooths",
            def = function(spaspm_object,
-                          family = tw,
+                          family = mgcv::tw,
                           drop.unused.levels = F,
                           method = "REML",
                           ...){
