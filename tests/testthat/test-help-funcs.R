@@ -79,11 +79,11 @@ test_that("Residuals are correctly retrieved", {
 
   # Neg bin case
   gam_obj <- mgcv::gam(mpg ~ s(drat), data = mtcars, family = mgcv::nb)
-  res <- spaspm:::rqresiduals(gam_obj)
+  set.seed(77);res <- spaspm:::rqresiduals(gam_obj)
 
   expect_length(res, 32)
-  expect_equal(min(res), -1.991021, tolerance=1e-07)
-  expect_equal(max(res), 2.013536, tolerance=1e-07)
-  expect_equal(median(res), -4.4136e-05, tolerance=1e-06)
+  expect_equal(min(res), -1.870483, tolerance=1e-07)
+  expect_equal(max(res), 1.899658, tolerance=1e-07)
+  expect_equal(median(res), -0.1017879, tolerance=1e-06)
 
 })
