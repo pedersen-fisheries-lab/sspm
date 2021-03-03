@@ -91,6 +91,17 @@ setMethod(f = "spm_discretize",
           }
 )
 
+# If invalid method, throw error
+#' @describeIn spm_discretize TODO
+#' @export
+setMethod(f = "spm_discretize",
+          signature(spaspm_object = "spaspm",
+                    discretization_method = "NULL"),
+          function(spaspm_object, discretization_method, ...){
+            stop("Invalid discretization method.")
+          }
+)
+
 # If `spaspm_discrete` confirm that we want to re-discretize and then jump to
 # the next appropriate signature
 
@@ -138,7 +149,7 @@ setMethod(f = "spm_discretize",
                                                    names(the_data)]
 
               the_data <- the_data %>%
-                dplyr::select(-c(dplyr::all_of(names_to_remove), "patch_id"))
+                dplyr::select(-c(dplyr::all_of(names_to_remove), "patch_id", "area_km2"))
 
               new_object <- spaspm(model_name = spm_name(spaspm_object),
                                    name = spm_name(spm_base_dataset(spaspm_object)),
