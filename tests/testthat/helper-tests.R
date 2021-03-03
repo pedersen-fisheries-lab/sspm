@@ -13,9 +13,9 @@ borealis_patches <- spaspm:::borealis_patches
 borealis_points <- spaspm:::borealis_points
 
 borealis_spatial <- st_as_sf(borealis_simulated, coords = c('lon_dec','lat_dec'),
-                             crs = st_crs(sfa_boundaries))
+                             crs = st_crs(sfa_boundaries), remove = FALSE)
 predator_spatial <- st_as_sf(predator_simulated, coords = c('lon_dec','lat_dec'),
-                             crs = st_crs(sfa_boundaries))
+                             crs = st_crs(sfa_boundaries), remove = FALSE)
 
 # Base objects
 spaspm_data <- new("spaspm_data",
