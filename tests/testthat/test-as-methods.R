@@ -66,4 +66,12 @@ test_that("Spaspm data is casted correctly", {
                    uniqueID = "uniqueID")
   }, "spaspm_data")
 
+  expect_class({
+    as_spaspm_data(data = borealis_spatial,
+                   time_col = "year_f",
+                   coords = c('lon_dec','lat_dec'),
+                   name = "Biomass",
+                   uniqueID = "uniqueID")
+  }, "spaspm_data")
+
 })
