@@ -19,7 +19,7 @@ borealis_points <- spaspm:::borealis_points
 # Base objects
 spaspm_data <- new("spaspm_data",
                    name = "Biomass",
-                   data = borealis_simulated,
+                   data = borealis_spatial,
                    time_col = "year_f",
                    uniqueID = "uniqueID",
                    coords = c('lon_dec','lat_dec'),
@@ -27,7 +27,7 @@ spaspm_data <- new("spaspm_data",
 
 spaspm_data_pred <- new("spaspm_data",
                         name = "Predator",
-                        data = predator_simulated,
+                        data = predator_spatial,
                         time_col = "year",
                         uniqueID = "uniqueID",
                         coords = c('lon_dec','lat_dec'),
