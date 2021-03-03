@@ -35,5 +35,6 @@ Imports:
     tweedie
 Suggests: 
     testthat (>= 3.0.0),
-    covr
+    covr,
+    lwgeom
 Config/testthat/edition: 3
