@@ -2,15 +2,12 @@
 % Please edit documentation in R/as_spaspm_data.R
 \name{as_spaspm_data}
 \alias{as_spaspm_data}
-\alias{as_spaspm_data,spaspm_data,ANY,ANY-method}
 \alias{as_spaspm_data,data.frame,ANY,NULL-method}
 \alias{as_spaspm_data,data.frame,ANY,character-method}
 \alias{as_spaspm_data,sf,ANY,ANY-method}
 \title{Create a \code{spaspm_data} dataset structure}
 \usage{
 as_spaspm_data(data, time_col, coords, name, uniqueID, crs)
-
-\S4method{as_spaspm_data}{spaspm_data,ANY,ANY}(data)
 
 \S4method{as_spaspm_data}{data.frame,ANY,`NULL`}(data, time_col, coords, name, uniqueID, crs)
 
@@ -43,8 +40,6 @@ This casts a \code{data.frame} or \code{sf} object into  an object of class
 }
 \section{Functions}{
 \itemize{
-\item \code{as_spaspm_data,spaspm_data,ANY,ANY-method}: TODO
-
 \item \code{as_spaspm_data,data.frame,ANY,NULL-method}: TODO
 
 \item \code{as_spaspm_data,data.frame,ANY,character-method}: TODO

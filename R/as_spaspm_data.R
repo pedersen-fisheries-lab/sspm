@@ -40,15 +40,6 @@ setGeneric(name = "as_spaspm_data",
 #' @describeIn as_spaspm_data TODO
 #' @export
 setMethod(f = "as_spaspm_data",
-          signature(data = "spaspm_data"),
-          function(data){
-            return(data)
-          }
-)
-
-#' @describeIn as_spaspm_data TODO
-#' @export
-setMethod(f = "as_spaspm_data",
           signature(data = "data.frame", coords = "NULL"),
           function(data, time_col, coords, name, uniqueID, crs){
 
