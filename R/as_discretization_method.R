@@ -25,17 +25,16 @@ setMethod(f = "as_discretization_method",
           signature(method = "character"),
           function(method){
 
+            method_f <- dispatch_method(method)
 
-            # TODO review validity of this
-            if(!checkmate::test_choice(method, spm_methods())){
-              paste0("Method must be one of: ", paste0(spm_methods(),
-                                                       collapse =  ", " ))
+            if (!is.character(method_f)){
+
+              method_object <- new("discretization_method",
+                                   name = method,
+                                   method = method_f)
+
+              return(method_object)
             }
 
-            method_object <- new("discretization_method",
-                                 name = method,
-                                 method = dispatch_method(method))
-
-            return(method_object)
           }
 )
