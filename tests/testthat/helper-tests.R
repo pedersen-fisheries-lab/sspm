@@ -8,13 +8,14 @@ library(spaspm)
 # Objects used for tests
 borealis_simulated <- spaspm:::borealis_simulated
 predator_simulated <- spaspm:::predator_simulated
-
-borealis_spatial <- st_as_sf(borealis_simulated, coords = c('lon_dec','lat_dec'))
-predator_spatial <- st_as_sf(predator_simulated, coords = c('lon_dec','lat_dec'))
-
 sfa_boundaries <- spaspm:::sfa_boundaries
 borealis_patches <- spaspm:::borealis_patches
 borealis_points <- spaspm:::borealis_points
+
+borealis_spatial <- st_as_sf(borealis_simulated, coords = c('lon_dec','lat_dec'),
+                             crs = st_crs(sfa_boundaries))
+predator_spatial <- st_as_sf(predator_simulated, coords = c('lon_dec','lat_dec'),
+                             crs = st_crs(sfa_boundaries))
 
 # Base objects
 spaspm_data <- new("spaspm_data",
