@@ -40,7 +40,7 @@ setGeneric(name = "as_spaspm_data",
 #' @describeIn as_spaspm_data TODO
 #' @export
 setMethod(f = "as_spaspm_data",
-          signature(data = "data.frame", coords = "missing"),
+          signature(data = "data.frame", coords = "missingOrNULL"),
           function(data, time_col, coords, name, uniqueID, crs){
 
             stop("Argument `coords` must be provided when data matrix is a dataframe",

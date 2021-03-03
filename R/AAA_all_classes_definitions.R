@@ -15,6 +15,7 @@ setOldClass("sf")
 # ClassUnions -------------------------------------------------------------
 
 setClassUnion("characterOrNULL", c("character", "NULL"))
+setClassUnion("missingOrNULL", c("missing", "NULL"))
 
 # -------------------------------------------------------------------------
 
