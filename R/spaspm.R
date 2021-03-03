@@ -21,7 +21,14 @@ spaspm <- function(model_name = "My SPASPM model",
                    coords = NULL,
                    ...){
 
-  # TODO CRS checks
+  # TODO better CRS checks
+  if (is.null(crs)){
+    info_message <-
+      paste0(" Warning: spaspm is assuming that the CRS of boundaries is to be ",
+             "used for casting")
+    cli::cli_alert_warning(info_message)
+    crs <- sf::st_crs(boundaries)
+  }
 
   # 1. Ingest data and perform the correct checks
   the_spapspm_data <- as_spaspm_data(data = data,
@@ -29,7 +36,7 @@ spaspm <- function(model_name = "My SPASPM model",
                                      coords = coords,
                                      name = name,
                                      uniqueID = uniqueID,
-                                     crs = sf::st_crs(boundaries),
+                                     crs = crs,
                                      ...)
 
   # 2. Create basis spaspm object
