@@ -42,6 +42,13 @@ test_that("Spaspm data is casted correctly", {
 
   # If data matrix is df, coords must be provided
 
+  expect_error({
+    as_spaspm_data(data = borealis_simulated,
+                   time_col = "year_f",
+                   name = "Biomass",
+                   uniqueID = "uniqueID")
+  }, "Argument `coords` must be provided when data matrix is a dataframe")
+
   # Coords must be columns of data
 
   # When works fine
