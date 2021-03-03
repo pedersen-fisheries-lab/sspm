@@ -4,8 +4,6 @@
 #
 # })
 
-# TODO add tests for check_model_family, rqresiduals
-
 test_that("Methods choices are retrieved", {
 
   choices <- spm_methods()
