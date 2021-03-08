@@ -19,10 +19,10 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 
 # -------------------------------------------------------------------------
 
-#' SPASPM dataset structure
+#' sspm dataset structure
 #'
-#' The first step in the `spaspm` workflow is to register the base dataset
-#' (usually biomass) using the [spaspm] function.
+#' The first step in the `sspm` workflow is to register the base dataset
+#' (usually biomass) using the [sspm] function.
 #'
 #' @slot name **\[character\]** The name of the dataset, default to "Biomass".
 #' @slot data **\[data.frame OR sf\]** The dataset.
@@ -36,10 +36,10 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #' @slot representation **\[character\]** Used internally and for print methods,
 #'     encodes the type of dataset.
 #'
-#' @name spaspm_data-class
-#' @rdname spaspm_data-class
+#' @name sspm_data-class
+#' @rdname sspm_data-class
 #'
-setClass("spaspm_data",
+setClass("sspm_data",
          slots = list(name = "character",
                       data = "ANY",
                       time_col = "character",
@@ -50,12 +50,12 @@ setClass("spaspm_data",
          contains = c("sf", "data.frame"))
 
 # TODO reconsider using the stack approach
-# setClass("spaspm_data_stack",
+# setClass("sspm_data_stack",
 #          slots = list(stack = "list"))
 
 # -------------------------------------------------------------------------
 
-#' SPASPM discretization method class
+#' sspm discretization method class
 #'
 #' This class encapsulates a name and a method (function) used for
 #' discretization.
@@ -73,16 +73,16 @@ setClass("discretization_method",
 
 # -------------------------------------------------------------------------
 
-#' SPASPM model classes
+#' sspm model classes
 #'
-#' The different model classes follow the typical workflow of `spaspm`:
-#'  * **`spaspm`** Basic model object.
-#'  * **`spaspm_discrete`** Discretized model object. Contains a
+#' The different model classes follow the typical workflow of `sspm`:
+#'  * **`sspm`** Basic model object.
+#'  * **`sspm_discrete`** Discretized model object. Contains a
 #'  [discretization_method][discretization_method-class] object. It can also
 #'  containes "mapped datasets" (for example, predator or observator data).
 #'
 #' @slot name **\[character\]** Name of the model.
-#' @slot data **\[[spaspm_data][spaspm_data-class]\]** Observationnal data.
+#' @slot data **\[[sspm_data][sspm_data-class]\]** Observationnal data.
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
 #'
 #' @slot method **\[[discretization_method][discretization_method-class]\]**
@@ -92,23 +92,23 @@ setClass("discretization_method",
 #' @slot points **\[sf\]** *(if discrete)* Sample points used for
 #'     discretization.
 #' @slot mapped_datasets **\[list\]** *(if discrete)* List of
-#'     [spaspm_data][spaspm_data-class] objects that are mapped ontp the
+#'     [sspm_data][sspm_data-class] objects that are mapped ontp the
 #'     base dataset.
 #' @slot mapped_formulas **\[list\]** *(if discrete)* List of mapped formulas
 #'     used to specify a model.
 #'
-#' @name spaspm-class
-#' @rdname spaspm-class
+#' @name sspm-class
+#' @rdname sspm-class
 #'
-setClass("spaspm",
+setClass("sspm",
          slots = list(name = "character",
-                      data = "spaspm_data",
+                      data = "sspm_data",
                       boundaries = "sf"),
          prototype = prototype(name = "Default Model Name")
 )
 
-#' @describeIn spaspm-class spaspm_discrete
-setClass("spaspm_discrete",
+#' @describeIn sspm-class sspm_discrete
+setClass("sspm_discrete",
          slots = list(method = "discretization_method",
                       patches = "sf",
                       points = "sf",
@@ -117,11 +117,11 @@ setClass("spaspm_discrete",
          prototype = prototype(name = "Default Model Name",
                                mapped_datasets = list(),
                                mapped_formulas = list()),
-         contains = c("spaspm"))
+         contains = c("sspm"))
 
 # -------------------------------------------------------------------------
 
-#' SPASPM formula object
+#' sspm formula object
 #'
 #' This class is a wrapper around the `formula` class. It is not intended for
 #' users to directly manipulate and create new objects.
@@ -136,7 +136,7 @@ setClass("spaspm_discrete",
 #'
 #' @seealso See the `mgcv` function for defining smooths: [s()][mgcv::s].
 #'
-setClass("spaspm_formula",
+setClass("sspm_formula",
          slots = list(raw_formula = "formula",
                       translated_formula = "formula",
                       dataset = "character",
@@ -145,17 +145,17 @@ setClass("spaspm_formula",
 
 # -------------------------------------------------------------------------
 
-# Fitted model => spaspm + discretization_method + has been fitted
+# Fitted model => sspm + discretization_method + has been fitted
 # TODO finish specifying these objects
-setClass("spaspm_gam_fit",
+setClass("sspm_gam_fit",
          slots = list(gam_fit = "data.frame",
                       gam_call = "formula"),
-         contains = c("spaspm_discrete", "spaspm")
+         contains = c("sspm_discrete", "sspm")
 )
 
 # Modelled SPM ~ end of workflow
-setClass("spaspm_spm_fit",
+setClass("sspm_spm_fit",
          slots = list(spm_fit = "data.frame",
                       spm_call = "formula"),
-         contains = "spaspm_gam_fit"
+         contains = "sspm_gam_fit"
 )

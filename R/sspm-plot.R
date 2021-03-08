@@ -1,31 +1,31 @@
-#' Plot a discrete `spaspm` model object
+#' Plot a discrete `sspm` model object
 #'
-#' This will plot the patches and points of a `spaspm_discrete` object.
+#' This will plot the patches and points of a `sspm_discrete` object.
 #'
-#' @param x **\[spaspm_discrete\]** An object of class
-#'     [spaspm_discrete][spaspm_discrete-class].
+#' @param x **\[sspm_discrete\]** An object of class
+#'     [sspm_discrete][sspm_discrete-class].
 #'
 #' @return
 #' N/A
 #'
-#' @name plot.spaspm
-#' @rdname plot-spaspm
+#' @name plot.sspm
+#' @rdname plot-sspm
 
 NULL
 
-#' @describeIn plot-spaspm TODO
+#' @describeIn plot-sspm TODO
 #' @export
 setMethod("plot",
-          signature(x = "spaspm"),
+          signature(x = "sspm"),
           definition = function(x) {
             cli::cli_alert_danger(" This model is not discretized and cannot be plotted")
           }
 )
 
-#' @describeIn plot-spaspm TODO
+#' @describeIn plot-sspm TODO
 #' @export
 setMethod("plot",
-          signature(x = "spaspm_discrete"),
+          signature(x = "sspm_discrete"),
           definition = function(x) {
 
             old_par <- par(no.readonly = TRUE)

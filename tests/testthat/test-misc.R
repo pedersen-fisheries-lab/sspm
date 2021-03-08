@@ -6,5 +6,5 @@ test_that("Methods are correctly returned", {
 })
 
 test_that("Functons for methods are correctly dispatched", {
-  expect_class({spaspm:::dispatch_method("tesselate_voronoi")}, "function")
+  expect_class({sspm:::dispatch_method("tesselate_voronoi")}, "function")
 })

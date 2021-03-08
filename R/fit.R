@@ -1,17 +1,17 @@
-#' Fit the GAM part of a SPASPM model
+#' Fit the GAM part of a sspm model
 #'
-#' Once formulas have been mapped onto a SPASPM discrete object, the GAMs can
+#' Once formulas have been mapped onto a sspm discrete object, the GAMs can
 #' be fitted with this function. Arguments can be passed onto `bam`.
 #'
-#' @param spaspm_object **\[spaspm_discrete\]** An object of class
-#'     [spaspm_discrete][spaspm_discrete-class].
+#' @param sspm_object **\[sspm_discrete\]** An object of class
+#'     [sspm_discrete][sspm_discrete-class].
 #' @inheritParams mgcv::bam
 #' @inheritDotParams mgcv::bam
 #'
 #' @rdname fit
 #' @export
 setGeneric(name = "fit_smooths",
-           def = function(spaspm_object,
+           def = function(sspm_object,
                           family = mgcv::tw,
                           drop.unused.levels = F,
                           method = "REML",
@@ -25,20 +25,20 @@ setGeneric(name = "fit_smooths",
 #' @export
 #' @describeIn fit TODO
 setMethod(f = "fit_smooths",
-          signature(spaspm_object = "spaspm"),
-          function(spaspm_object, ...){
-            message_not_discrete(spaspm_object)
+          signature(sspm_object = "sspm"),
+          function(sspm_object, ...){
+            message_not_discrete(sspm_object)
           }
 )
 
 #' @export
 #' @describeIn fit TODO
 setMethod(f = "fit_smooths",
-          signature(spaspm_object = "spaspm_discrete"),
-          function(spaspm_object, family, drop.unused.levels, method, ...){
+          signature(sspm_object = "sspm_discrete"),
+          function(sspm_object, family, drop.unused.levels, method, ...){
 
             # Get the mapped formulas
-            mapped_formulas <- spm_mapped_formulas(spaspm_object)
+            mapped_formulas <- spm_mapped_formulas(sspm_object)
 
             # Loop through all of them
             all_fit <- vector(mode = "list", length = length(mapped_formulas))
@@ -56,7 +56,7 @@ setMethod(f = "fit_smooths",
                        " for dataset ", cli::col_cyan(paste0("'", dataset(form),"'"))))
 
               # Get data
-              the_data <- spm_data(spm_datasets(spaspm_object)[[dataset(form)]])
+              the_data <- spm_data(spm_datasets(sspm_object)[[dataset(form)]])
               form_vars <- formula_vars(form)
 
               # Modify formula env, best solution for now

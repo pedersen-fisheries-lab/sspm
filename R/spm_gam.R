@@ -2,8 +2,8 @@
 #'
 #' TBD.
 #'
-#' @param spaspm_object **\[spaspm_discrete\]** An object of class
-#'    [spaspm_discrete][spaspm_discrete-class].
+#' @param sspm_object **\[sspm_discrete\]** An object of class
+#'    [sspm_discrete][sspm_discrete-class].
 #' @inheritParams spm_discretize
 #' @param ... TBD
 #'
@@ -12,7 +12,7 @@
 #'
 #' @export
 setGeneric(name = "spm_gam",
-           def = function(spaspm_object,
+           def = function(sspm_object,
                           ...){
              standardGeneric("spm_gam")
            }
@@ -21,8 +21,8 @@ setGeneric(name = "spm_gam",
 #' @describeIn spm_gam TODO
 #' @export
 setMethod(f = "spm_gam",
-          signature(spaspm_object = "spaspm_discrete"),
-          function(spaspm_object, ...){
+          signature(sspm_object = "sspm_discrete"),
+          function(sspm_object, ...){
 
             # Step 1: do spatial join
 
@@ -34,10 +34,10 @@ setMethod(f = "spm_gam",
 #' @describeIn spm_gam TODO
 #' @export
 setMethod(f = "spm_gam",
-          signature(spaspm_object = "spaspm"),
-          function(spaspm_object, ...){
+          signature(sspm_object = "sspm"),
+          function(sspm_object, ...){
 
-            message_not_discrete(spaspm_object)
+            message_not_discrete(sspm_object)
 
           }
 )
@@ -45,28 +45,28 @@ setMethod(f = "spm_gam",
 #' @describeIn spm_gam TODO
 #' @export
 setMethod(f = "spm_gam",
-          signature(spaspm_object = "spaspm_gam_fit"),
-          function(spaspm_object, force = FALSE, ...){
+          signature(sspm_object = "sspm_gam_fit"),
+          function(sspm_object, force = FALSE, ...){
 
             checkmate::assert_logical(force)
 
             if (!force){
-              message(paste0("Model '", spm_name(spaspm_object),
+              message(paste0("Model '", spm_name(sspm_object),
                              "' is already fitted with gams"))
               message("Use 'force = TRUE' to fit again")
             } else{
 
               message(paste0("Re-fitting gams for model '",
-                             spm_name(spaspm_object), "'"))
+                             spm_name(sspm_object), "'"))
 
-              new_object <- new("spaspm_discrete",
-                                name = spm_name(spaspm_object),
-                                data = spm_data(spaspm_object)$data,
-                                data_spatial = spm_data(spaspm_object)$data_spatial,
-                                boundaries = spm_boundaries(spaspm_object),
-                                method = spm_discret_method(spaspm_object),
-                                patches = spm_patches(spaspm_object),
-                                points = spm_points(spaspm_object))
+              new_object <- new("sspm_discrete",
+                                name = spm_name(sspm_object),
+                                data = spm_data(sspm_object)$data,
+                                data_spatial = spm_data(sspm_object)$data_spatial,
+                                boundaries = spm_boundaries(sspm_object),
+                                method = spm_discret_method(sspm_object),
+                                patches = spm_patches(sspm_object),
+                                points = spm_points(sspm_object))
               spm_gam(new_object,
                       ...)
             }

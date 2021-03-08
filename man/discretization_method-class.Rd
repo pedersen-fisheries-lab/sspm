@@ -3,7 +3,7 @@
 \docType{class}
 \name{discretization_method-class}
 \alias{discretization_method-class}
-\title{SPASPM discretization method class}
+\title{sspm discretization method class}
 \description{
 This class encapsulates a name and a method (function) used for
 discretization.

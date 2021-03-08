@@ -1,9 +1,9 @@
 # Methods -----------------------------------------------------------------
 
 setMethod("show",
-          "spaspm",
+          "sspm",
           function(object) {
-            cli::cli_h2(cli::col_blue(cli::style_bold("SPASPM object '",
+            cli::cli_h2(cli::col_blue(cli::style_bold("sspm object '",
                                                       object@name, "'")))
             show(object@data)
             cat_boundaries(object)
@@ -12,9 +12,9 @@ setMethod("show",
 )
 
 setMethod("show",
-          "spaspm_discrete",
+          "sspm_discrete",
           function(object) {
-            cli::cli_h2(cli::col_blue(cli::style_bold("SPASPM object '",
+            cli::cli_h2(cli::col_blue(cli::style_bold("sspm object '",
                                                       object@name, "' ",
                                                       cli::col_green("(DISCRETIZED)"))))
             show(object@data)
@@ -41,7 +41,7 @@ setMethod("show",
 )
 
 setMethod("show",
-          "spaspm_data",
+          "sspm_data",
           function(object) {
             cli::cli_h3(cli::col_cyan("Base dataset '", object@name, "' "))
             cli::cat_bullet(" Data matrix        : ", object@representation, " with ",
@@ -57,9 +57,9 @@ setMethod("show",
 )
 
 setMethod("show",
-          "spaspm_formula",
+          "sspm_formula",
           function(object) {
-            cli::cli_h3(cli::col_cyan("SPASPM Formula for dataset ", cli::col_magenta(object@dataset) ))
+            cli::cli_h3(cli::col_cyan("sspm Formula for dataset ", cli::col_magenta(object@dataset) ))
             cli::cat_bullet(" Raw formula        : ", format_formula(object@raw_formula))
             cli::cat_bullet(" Translated formula : ", format_formula(object@translated_formula))
             cli::cat_bullet(" Variables          : ", paste0(names(object@vars), collapse = ", "))

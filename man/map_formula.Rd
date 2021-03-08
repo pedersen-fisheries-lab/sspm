@@ -2,25 +2,25 @@
 % Please edit documentation in R/map_formula.R
 \name{map_formula}
 \alias{map_formula}
-\alias{map_formula,spaspm,ANY,ANY-method}
-\alias{map_formula,spaspm_discrete,missing,ANY-method}
-\alias{map_formula,spaspm_discrete,ANY,missing-method}
-\alias{map_formula,spaspm_discrete,character,formula-method}
-\title{Map model formula onto a discretized SPASPM object}
+\alias{map_formula,sspm,ANY,ANY-method}
+\alias{map_formula,sspm_discrete,missing,ANY-method}
+\alias{map_formula,sspm_discrete,ANY,missing-method}
+\alias{map_formula,sspm_discrete,character,formula-method}
+\title{Map model formula onto a discretized sspm object}
 \usage{
-map_formula(spaspm_object, dataset, formula, ...)
+map_formula(sspm_object, dataset, formula, ...)
 
-\S4method{map_formula}{spaspm,ANY,ANY}(spaspm_object, dataset, formula, ...)
+\S4method{map_formula}{sspm,ANY,ANY}(sspm_object, dataset, formula, ...)
 
-\S4method{map_formula}{spaspm_discrete,missing,ANY}(spaspm_object, dataset, formula, ...)
+\S4method{map_formula}{sspm_discrete,missing,ANY}(sspm_object, dataset, formula, ...)
 
-\S4method{map_formula}{spaspm_discrete,ANY,missing}(spaspm_object, dataset, formula, ...)
+\S4method{map_formula}{sspm_discrete,ANY,missing}(sspm_object, dataset, formula, ...)
 
-\S4method{map_formula}{spaspm_discrete,character,formula}(spaspm_object, dataset, formula, ...)
+\S4method{map_formula}{sspm_discrete,character,formula}(sspm_object, dataset, formula, ...)
 }
 \arguments{
-\item{spaspm_object}{\strong{[spaspm_discrete]} An object of class
-\link[=spaspm_discrete-class]{spaspm_discrete}.}
+\item{sspm_object}{\strong{[sspm_discrete]} An object of class
+\link[=sspm_discrete-class]{sspm_discrete}.}
 
 \item{dataset}{\strong{[character]} The name of the dataset among base and/or
 mapped datasets for which to specify the formula}
@@ -31,10 +31,10 @@ response ~ smoothing_terms + ...}
 \item{...}{Further arguments passed down, none used for now.}
 }
 \value{
-The updated object, of class \link[=spaspm_discrete-class]{spaspm_discrete}.
+The updated object, of class \link[=sspm_discrete-class]{sspm_discrete}.
 }
 \description{
-This functions allows to specify a model formula for a given discrete SPASPM
+This functions allows to specify a model formula for a given discrete sspm
 object. This formula makes use of specific smoothing terms \code{smooth_time()},
 \code{smooth_space()}, \code{smooth_space_time()}. This formula can also contain fixed
 effects and custom smooths, and can make use of specific smoothing terms
@@ -43,12 +43,12 @@ more explanations.
 }
 \section{Functions}{
 \itemize{
-\item \code{map_formula,spaspm,ANY,ANY-method}: TODO
+\item \code{map_formula,sspm,ANY,ANY-method}: TODO
 
-\item \code{map_formula,spaspm_discrete,missing,ANY-method}: TODO
+\item \code{map_formula,sspm_discrete,missing,ANY-method}: TODO
 
-\item \code{map_formula,spaspm_discrete,ANY,missing-method}: TODO
+\item \code{map_formula,sspm_discrete,ANY,missing-method}: TODO
 
-\item \code{map_formula,spaspm_discrete,character,formula-method}: TODO
+\item \code{map_formula,sspm_discrete,character,formula-method}: TODO
 }}
 

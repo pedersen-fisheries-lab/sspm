@@ -3,62 +3,62 @@ library(checkmate)
 library(dplyr)
 library(sf)
 library(mgcv)
-library(spaspm)
+library(sspm)
 
 # Objects used for tests
-borealis_simulated <- spaspm:::borealis_simulated
-predator_simulated <- spaspm:::predator_simulated
-sfa_boundaries <- spaspm:::sfa_boundaries
-borealis_patches <- spaspm:::borealis_patches
-borealis_points <- spaspm:::borealis_points
-borealis_spatial <- spaspm:::borealis_simulated_spatial
-predator_spatial <- spaspm:::predator_simulated_spatial
+borealis_simulated <- sspm:::borealis_simulated
+predator_simulated <- sspm:::predator_simulated
+sfa_boundaries <- sspm:::sfa_boundaries
+borealis_patches <- sspm:::borealis_patches
+borealis_points <- sspm:::borealis_points
+borealis_spatial <- sspm:::borealis_simulated_spatial
+predator_spatial <- sspm:::predator_simulated_spatial
 
 # Base objects
-spaspm_data <- new("spaspm_data",
-                   name = "Biomass",
-                   data = borealis_spatial,
-                   time_col = "year_f",
-                   uniqueID = "uniqueID",
-                   coords = c('lon_dec','lat_dec'),
-                   representation = "Simple feature collection")
+sspm_data <- new("sspm_data",
+                 name = "Biomass",
+                 data = borealis_spatial,
+                 time_col = "year_f",
+                 uniqueID = "uniqueID",
+                 coords = c('lon_dec','lat_dec'),
+                 representation = "Simple feature collection")
 
-spaspm_data_pred <- new("spaspm_data",
-                        name = "Predator",
-                        data = predator_spatial,
-                        time_col = "year",
-                        uniqueID = "uniqueID",
-                        coords = c('lon_dec','lat_dec'),
-                        representation = "Simple feature collection")
+sspm_data_pred <- new("sspm_data",
+                      name = "Predator",
+                      data = predator_spatial,
+                      time_col = "year",
+                      uniqueID = "uniqueID",
+                      coords = c('lon_dec','lat_dec'),
+                      representation = "Simple feature collection")
 
-spaspm_base <- new("spaspm",
-                   name="Model test",
-                   data=spaspm_data,
-                   boundaries=sfa_boundaries)
+sspm_base <- new("sspm",
+                 name="Model test",
+                 data=sspm_data,
+                 boundaries=sfa_boundaries)
 
 discret_method <- new("discretization_method",
                       name ="voronoi_method",
                       method = tesselate_voronoi)
 
-spaspm_discrete <- new("spaspm_discrete",
-                       name = spm_name(spaspm_base),
-                       # NOTE: patch_id absent
-                       data = spm_base_dataset(spaspm_base),
-                       boundaries = spm_boundaries(spaspm_base),
-                       method = discret_method,
-                       patches = borealis_patches,
-                       points = borealis_points)
+sspm_discrete <- new("sspm_discrete",
+                     name = spm_name(sspm_base),
+                     # NOTE: patch_id absent
+                     data = spm_base_dataset(sspm_base),
+                     boundaries = spm_boundaries(sspm_base),
+                     method = discret_method,
+                     patches = borealis_patches,
+                     points = borealis_points)
 
-spaspm_discrete_mapped <- new("spaspm_discrete",
-                              name = spm_name(spaspm_base),
-                              data = spm_base_dataset(spaspm_base),
-                              boundaries = spm_boundaries(spaspm_base),
-                              method = discret_method,
-                              patches = borealis_patches,
-                              points = borealis_points,
-                              mapped_datasets = list(Predator = spaspm_data_pred))
+sspm_discrete_mapped <- new("sspm_discrete",
+                            name = spm_name(sspm_base),
+                            data = spm_base_dataset(sspm_base),
+                            boundaries = spm_boundaries(sspm_base),
+                            method = discret_method,
+                            patches = borealis_patches,
+                            points = borealis_points,
+                            mapped_datasets = list(Predator = sspm_data_pred))
 
-spaspm_formula <- new("spaspm_formula",
+sspm_formula <- new("sspm_formula",
                       raw_formula = as.formula("weight_per_km2 ~ smooth_time() +
                                                smooth_space() + smooth_space_time()"),
                       translated_formula = as.formula("weight_per_km2 ~ s(year_f,
@@ -71,5 +71,5 @@ spaspm_formula <- new("spaspm_formula",
                       vars = list(pen_mat_time = matrix(),
                                   pen_mat_space = matrix()))
 
-spaspm_discrete_mapped_forms <- spaspm_discrete_mapped
-spaspm_discrete_mapped_forms@mapped_formulas <- list(spaspm_formula)
+sspm_discrete_mapped_forms <- sspm_discrete_mapped
+sspm_discrete_mapped_forms@mapped_formulas <- list(sspm_formula)

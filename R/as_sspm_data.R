@@ -1,7 +1,7 @@
-#' Create a `spaspm_data` dataset structure
+#' Create a `sspm_data` dataset structure
 #'
 #' This casts a `data.frame` or `sf` object into  an object of class
-#' [`spaspm_data`][spaspm_data-class].
+#' [`sspm_data`][sspm_data-class].
 #'
 #' @param data **\[data.frame OR sf\]** The dataset.
 #' @param time_col **\[character\]** The column of `data` for the temporal
@@ -14,10 +14,10 @@
 #' @param crs Coordinate reference system, passed onto [st_as_sf][sf].
 #'
 #' @return
-#' An object of class [`spaspm_data`][spaspm_data-class].
+#' An object of class [`sspm_data`][sspm_data-class].
 #'
 #' @export
-setGeneric(name = "as_spaspm_data",
+setGeneric(name = "as_sspm_data",
            def = function(data, time_col, coords, name, uniqueID, crs){
 
              if(!checkmate::test_subset(uniqueID, names(data))){
@@ -31,15 +31,15 @@ setGeneric(name = "as_spaspm_data",
                stop("`time_col` must be a column of `data`", call. = FALSE)
              }
 
-             standardGeneric("as_spaspm_data")
+             standardGeneric("as_sspm_data")
            }
 )
 
 # Methods -----------------------------------------------------------------
 
-#' @describeIn as_spaspm_data TODO
+#' @describeIn as_sspm_data TODO
 #' @export
-setMethod(f = "as_spaspm_data",
+setMethod(f = "as_sspm_data",
           signature(data = "data.frame", coords = "missingOrNULL"),
           function(data, time_col, coords, name, uniqueID, crs){
 
@@ -49,9 +49,9 @@ setMethod(f = "as_spaspm_data",
 )
 
 # If data.frame with coords, make it sf
-#' @describeIn as_spaspm_data TODO
+#' @describeIn as_sspm_data TODO
 #' @export
-setMethod(f = "as_spaspm_data",
+setMethod(f = "as_sspm_data",
           signature(data = "data.frame", coords = "character"),
           function(data, time_col, coords, name, uniqueID, crs){
 
@@ -71,35 +71,35 @@ setMethod(f = "as_spaspm_data",
             new_data <- sf::st_as_sf(x = data, coords = coords, crs = crs,
                                      remove = FALSE)
 
-            the_spaspm_data <- new("spaspm_data",
-                                   name = name,
-                                   data = new_data,
-                                   time_col = time_col,
-                                   uniqueID = uniqueID,
-                                   coords = coords,
-                                   representation = "Simple feature collection")
+            the_sspm_data <- new("sspm_data",
+                                 name = name,
+                                 data = new_data,
+                                 time_col = time_col,
+                                 uniqueID = uniqueID,
+                                 coords = coords,
+                                 representation = "Simple feature collection")
 
-            return(the_spaspm_data)
+            return(the_sspm_data)
           }
 )
 
 # If sf, ingest as is
-#' @describeIn as_spaspm_data TODO
+#' @describeIn as_sspm_data TODO
 #' @export
-setMethod(f = "as_spaspm_data",
+setMethod(f = "as_sspm_data",
           signature(data = "sf", coords = "ANY"),
           function(data, time_col, coords, name, uniqueID, crs){
 
             # TODO CRS checks
 
-            the_spaspm_data <- new("spaspm_data",
-                                   name = name,
-                                   data = data,
-                                   time_col = time_col,
-                                   uniqueID = uniqueID,
-                                   coords = coords,
-                                   representation = "Simple feature collection")
+            the_sspm_data <- new("sspm_data",
+                                 name = name,
+                                 data = data,
+                                 time_col = time_col,
+                                 uniqueID = uniqueID,
+                                 coords = coords,
+                                 representation = "Simple feature collection")
 
-            return(the_spaspm_data)
+            return(the_sspm_data)
           }
 )

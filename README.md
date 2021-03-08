@@ -1,18 +1,18 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# spaspm <img src='man/figures/logo.png' align="right" height="139" />
+# sspm <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
 
-[![R-CMD-check](https://github.com/pedersen-fisheries-lab/spaspm/workflows/R-CMD-check/badge.svg)](https://github.com/pedersen-fisheries-lab/spaspm/actions)
+[![R-CMD-check](https://github.com/pedersen-fisheries-lab/sspm/workflows/R-CMD-check/badge.svg)](https://github.com/pedersen-fisheries-lab/sspm/actions)
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Codecov test
-coverage](https://codecov.io/gh/pedersen-fisheries-lab/spaspm/branch/main/graph/badge.svg)](https://codecov.io/gh/pedersen-fisheries-lab/spaspm?branch=main)
+coverage](https://codecov.io/gh/pedersen-fisheries-lab/sspm/branch/main/graph/badge.svg)](https://codecov.io/gh/pedersen-fisheries-lab/sspm?branch=main)
 <!-- badges: end -->
 
-The goal of `spaspm` is to implement a gam-based spatial surplus
+The goal of `sspm` is to implement a gam-based spatial surplus
 production model, aimed at modeling northern shrimp population in Canada
 but potentially to any stock in any location. The package is opinionated
 in its implementation of SPMs as it internally makes the choice to use
@@ -22,12 +22,9 @@ model.
 
 ## Installation
 
-<!-- You can install the released version of spaspm from [CRAN](https://CRAN.R-project.org) with: -->
-
+<!-- You can install the released version of sspm from [CRAN](https://CRAN.R-project.org) with: -->
 <!-- ``` r -->
-
-<!-- install.packages("spaspm") -->
-
+<!-- install.packages("sspm") -->
 <!-- ``` -->
 
 You can install the development version from
@@ -35,47 +32,45 @@ You can install the development version from
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("pedersen-fisheries-lab/spaspm")
+devtools::install_github("pedersen-fisheries-lab/sspm")
 ```
 
 ## Example
 
-The following example shows the typical `spaspm` workflow. The API is
+The following example shows the typical `sspm` workflow. The API is
 subject to changes as the package is still in development.
 
 Let’s first load the test data.
 
 ``` r
-library(spaspm)
+library(sspm)
 #> Loading required package: sf
 #> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1
 library(mgcv)
 #> Loading required package: nlme
 #> This is mgcv 1.8-33. For overview type 'help("mgcv-package")'.
 
-borealis <- spaspm:::borealis_simulated
-predator <- spaspm:::predator_simulated
-sfa_boundaries <- spaspm:::sfa_boundaries
+borealis <- sspm:::borealis_simulated
+predator <- sspm:::predator_simulated
+sfa_boundaries <- sspm:::sfa_boundaries
 ```
 
 1.  Start by creating a base `sapspm` object with a base dataset called
     “Biomass”.
 
-<!-- end list -->
-
 ``` r
-spaspm_base <- spaspm(model_name = "My Model",
-                      data = borealis,
-                      name = "Biomass",
-                      time_col = "year_f",
-                      coords = c('lon_dec','lat_dec'),
-                      uniqueID = "uniqueID",
-                      boundaries = sfa_boundaries)
-#> !  Warning: spaspm is assuming that the CRS of boundaries is to be used for casting
+sspm_base <- sspm(model_name = "My Model",
+                  data = borealis,
+                  name = "Biomass",
+                  time_col = "year_f",
+                  coords = c('lon_dec','lat_dec'),
+                  uniqueID = "uniqueID",
+                  boundaries = sfa_boundaries)
+#> !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
-spaspm_base
+sspm_base
 #> 
-#> ── SPASPM object 'My Model' ──
+#> ── sspm object 'My Model' ──
 #> 
 #> ── Base dataset 'Biomass'
 #> ●  Data matrix        : Simple feature collection with 1541 feature(s) and 18 variable(s)
@@ -91,15 +86,13 @@ spaspm_base
     default behind voronoi tesselation. See `?spm_methods()` for the
     list of methods available.
 
-<!-- end list -->
-
 ``` r
-spaspm_discrete <- spaspm_base %>%
+sspm_discrete <- sspm_base %>%
   spm_discretize(discretization_method = "tesselate_voronoi")
 #> ℹ  Discretizing using method 'tesselate_voronoi'
-spaspm_discrete
+sspm_discrete
 #> 
-#> ── SPASPM object 'My Model' (DISCRETIZED) ──
+#> ── sspm object 'My Model' (DISCRETIZED) ──
 #> 
 #> ── Base dataset 'Biomass'
 #> ●  Data matrix        : Simple feature collection with 1541 feature(s) and 21 variable(s)
@@ -120,7 +113,7 @@ The results of the discretization can be explored with `spm_patches()`
 and `spm_points()`.
 
 ``` r
-spm_patches(spaspm_discrete)
+spm_patches(sspm_discrete)
 #> Simple feature collection with 69 features and 3 fields
 #> geometry type:  POLYGON
 #> dimension:      XY
@@ -140,7 +133,7 @@ spm_patches(spaspm_discrete)
 #>  9 4     V9       ((-61.36857 58.4628, -61.66155 59.11637, -60.6936 58…    2702.
 #> 10 4     V10      ((-60.25027 59.52148, -60.18251 59.45455, -60.16864 …    2445.
 #> # … with 59 more rows
-spm_points(spaspm_discrete)
+spm_points(sspm_discrete)
 #> Simple feature collection with 75 features and 18 fields
 #> geometry type:  POINT
 #> dimension:      XY
@@ -169,19 +162,17 @@ spm_points(spaspm_discrete)
 3.  Then, other datasets may be mapped onto the base dataset, for
     example, predator data.
 
-<!-- end list -->
-
 ``` r
-spaspm_discrete_mapped <- spaspm_discrete %>%
+sspm_discrete_mapped <- sspm_discrete %>%
   map_dataset(predator,
               name = "pred_data",
               time_col = "year",
               uniqueID = "uniqueID",
               coords = c("lon_dec", "lat_dec"))
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
-spaspm_discrete_mapped
+sspm_discrete_mapped
 #> 
-#> ── SPASPM object 'My Model' (DISCRETIZED) ──
+#> ── sspm object 'My Model' (DISCRETIZED) ──
 #> 
 #> ── Base dataset 'Biomass'
 #> ●  Data matrix        : Simple feature collection with 1541 feature(s) and 21 variable(s)
@@ -207,14 +198,12 @@ spaspm_discrete_mapped
     wont converge if `smooth_time()` or `smooth_space_time` is used (to
     be fixed soon).
 
-<!-- end list -->
-
 ``` r
-spaspm_discrete_mapped_with_forms <- spaspm_discrete_mapped %>%
+sspm_discrete_mapped_with_forms <- sspm_discrete_mapped %>%
   map_formula("Biomass", weight_per_km2~smooth_space())
-spaspm_discrete_mapped_with_forms
+sspm_discrete_mapped_with_forms
 #> 
-#> ── SPASPM object 'My Model' (DISCRETIZED) ──
+#> ── sspm object 'My Model' (DISCRETIZED) ──
 #> 
 #> ── Base dataset 'Biomass'
 #> ●  Data matrix        : Simple feature collection with 1541 feature(s) and 21 variable(s)
@@ -239,14 +228,12 @@ spaspm_discrete_mapped_with_forms
 
 5.  Finally, formulas can be fitted with `fit_smooths()`
 
-<!-- end list -->
-
 ``` r
-spaspm_discrete_mapped_fitted <- spaspm_discrete_mapped_with_forms %>%
+sspm_discrete_mapped_fitted <- sspm_discrete_mapped_with_forms %>%
   fit_smooths()
 #> ℹ Fitting formula: 1 out of 1
 #> ℹ Fitting formula: weight_per_km2 ~ smooth_space() for dataset 'Biomass'
-spaspm_discrete_mapped_fitted
+sspm_discrete_mapped_fitted
 #> [[1]]
 #> 
 #> Family: Tweedie(p=1.701) 
@@ -271,9 +258,7 @@ spaspm_discrete_mapped_fitted
 
 6.  Last step: full SPM implementation (TBA).
 
-<!-- end list -->
-
 ``` r
-spaspm_discrete_mapped_fitted_SPM <- spaspm_discrete_mapped_fitted %>% 
+sspm_discrete_mapped_fitted_SPM <- sspm_discrete_mapped_fitted %>% 
   fit_spm()
 ```

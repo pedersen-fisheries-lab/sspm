@@ -13,97 +13,97 @@ knitr::opts_chunk$set(
 )
 ```
 
-# spaspm <img src='man/figures/logo.png' align="right" height="139" />
+# sspm <img src='man/figures/logo.png' align="right" height="139" />
 
 <!-- badges: start -->
-[![R-CMD-check](https://github.com/pedersen-fisheries-lab/spaspm/workflows/R-CMD-check/badge.svg)](https://github.com/pedersen-fisheries-lab/spaspm/actions)
+[![R-CMD-check](https://github.com/pedersen-fisheries-lab/sspm/workflows/R-CMD-check/badge.svg)](https://github.com/pedersen-fisheries-lab/sspm/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Codecov test coverage](https://codecov.io/gh/pedersen-fisheries-lab/spaspm/branch/main/graph/badge.svg)](https://codecov.io/gh/pedersen-fisheries-lab/spaspm?branch=main)
+[![Codecov test coverage](https://codecov.io/gh/pedersen-fisheries-lab/sspm/branch/main/graph/badge.svg)](https://codecov.io/gh/pedersen-fisheries-lab/sspm?branch=main)
 <!-- badges: end -->
 
-The goal of `spaspm` is to implement a gam-based spatial surplus production model, aimed at modeling northern shrimp population in Canada but potentially to any stock in any location. The package is opinionated in its implementation of SPMs as it internally makes the choice to use penalized spatial gams with time lags  based on Pedersen et al. (2020). However, it also aims to provide options for the user to customize their model.
+The goal of `sspm` is to implement a gam-based spatial surplus production model, aimed at modeling northern shrimp population in Canada but potentially to any stock in any location. The package is opinionated in its implementation of SPMs as it internally makes the choice to use penalized spatial gams with time lags  based on Pedersen et al. (2020). However, it also aims to provide options for the user to customize their model.
 
 ## Installation
 
-<!-- You can install the released version of spaspm from [CRAN](https://CRAN.R-project.org) with: -->
+<!-- You can install the released version of sspm from [CRAN](https://CRAN.R-project.org) with: -->
 <!-- ``` r -->
-<!-- install.packages("spaspm") -->
+<!-- install.packages("sspm") -->
 <!-- ``` -->
 
 You can install the development version from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("pedersen-fisheries-lab/spaspm")
+devtools::install_github("pedersen-fisheries-lab/sspm")
 ```
 ## Example
 
-The following example shows the typical `spaspm` workflow. The API is subject to changes as the package is still in development.
+The following example shows the typical `sspm` workflow. The API is subject to changes as the package is still in development.
 
 Let's first load the test data.
 
 ```{r}
-library(spaspm)
+library(sspm)
 library(mgcv)
 
-borealis <- spaspm:::borealis_simulated
-predator <- spaspm:::predator_simulated
-sfa_boundaries <- spaspm:::sfa_boundaries
+borealis <- sspm:::borealis_simulated
+predator <- sspm:::predator_simulated
+sfa_boundaries <- sspm:::sfa_boundaries
 ```
 
 1. Start by creating a base `sapspm` object with a base dataset called "Biomass".
 ```{r}
-spaspm_base <- spaspm(model_name = "My Model",
-                      data = borealis,
-                      name = "Biomass",
-                      time_col = "year_f",
-                      coords = c('lon_dec','lat_dec'),
-                      uniqueID = "uniqueID",
-                      boundaries = sfa_boundaries)
-spaspm_base
+sspm_base <- sspm(model_name = "My Model",
+                  data = borealis,
+                  name = "Biomass",
+                  time_col = "year_f",
+                  coords = c('lon_dec','lat_dec'),
+                  uniqueID = "uniqueID",
+                  boundaries = sfa_boundaries)
+sspm_base
 ```
 
 2. Then, discretize the object using a method for discretization, the default behind voronoi tesselation. See `?spm_methods()` for the list of methods available.
 ```{r}
-spaspm_discrete <- spaspm_base %>%
+sspm_discrete <- sspm_base %>%
   spm_discretize(discretization_method = "tesselate_voronoi")
-spaspm_discrete
+sspm_discrete
 ```
 The results of the discretization can be explored with `spm_patches()` and `spm_points()`.
 ```{r}
-spm_patches(spaspm_discrete)
-spm_points(spaspm_discrete)
+spm_patches(sspm_discrete)
+spm_points(sspm_discrete)
 ```
 
 
 3. Then, other datasets may be mapped onto the base dataset, for example, predator data.
 ```{r}
-spaspm_discrete_mapped <- spaspm_discrete %>%
+sspm_discrete_mapped <- sspm_discrete %>%
   map_dataset(predator,
               name = "pred_data",
               time_col = "year",
               uniqueID = "uniqueID",
               coords = c("lon_dec", "lat_dec"))
-spaspm_discrete_mapped
+sspm_discrete_mapped
 ```
 
 4. Smoothing formulas for any of the datasets may be specified, using special terms `smooth_time()`, `smooth_space` and `smooth_space_time`. NOTE: the testing dataset is dummy data and wont converge if `smooth_time()` or `smooth_space_time` is used (to be fixed soon).
 ```{r}
-spaspm_discrete_mapped_with_forms <- spaspm_discrete_mapped %>%
+sspm_discrete_mapped_with_forms <- sspm_discrete_mapped %>%
   map_formula("Biomass", weight_per_km2~smooth_space())
-spaspm_discrete_mapped_with_forms
+sspm_discrete_mapped_with_forms
 ```
 
 5. Finally, formulas can be fitted with `fit_smooths()`
 ```{r}
-spaspm_discrete_mapped_fitted <- spaspm_discrete_mapped_with_forms %>%
+sspm_discrete_mapped_fitted <- sspm_discrete_mapped_with_forms %>%
   fit_smooths()
-spaspm_discrete_mapped_fitted
+sspm_discrete_mapped_fitted
 ```
 
 6. Last step: full SPM implementation (TBA).
 ```{r, eval = FALSE}
-spaspm_discrete_mapped_fitted_SPM <- spaspm_discrete_mapped_fitted %>% 
+sspm_discrete_mapped_fitted_SPM <- sspm_discrete_mapped_fitted %>% 
   fit_spm()
 ```
 

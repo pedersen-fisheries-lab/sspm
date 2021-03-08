@@ -4,15 +4,15 @@
 \alias{smooth_time}
 \alias{smooth_space}
 \alias{smooth_space_time}
-\alias{smooth_time,ANY,character,spaspm_discrete-method}
-\alias{smooth_space,ANY,character,spaspm_discrete-method}
-\alias{smooth_space_time,ANY,character,spaspm_discrete-method}
-\title{SPASPM Smoothing functions}
+\alias{smooth_time,ANY,character,sspm_discrete-method}
+\alias{smooth_space,ANY,character,sspm_discrete-method}
+\alias{smooth_space_time,ANY,character,sspm_discrete-method}
+\title{sspm Smoothing functions}
 \usage{
 smooth_time(
   type = "ICAR",
   dataset,
-  spaspm_object,
+  sspm_object,
   k = NULL,
   bs = "re",
   xt = NULL,
@@ -22,7 +22,7 @@ smooth_time(
 smooth_space(
   type = "ICAR",
   dataset,
-  spaspm_object,
+  sspm_object,
   k = 30,
   bs = "mrf",
   xt = NULL,
@@ -32,37 +32,37 @@ smooth_space(
 smooth_space_time(
   type = "ICAR",
   dataset,
-  spaspm_object,
+  sspm_object,
   k = NULL,
   bs = c("re", "mrf"),
   xt = NULL,
   ...
 )
 
-\S4method{smooth_time}{ANY,character,spaspm_discrete}(
+\S4method{smooth_time}{ANY,character,sspm_discrete}(
   type = "ICAR",
   dataset,
-  spaspm_object,
+  sspm_object,
   k = NULL,
   bs = "re",
   xt = NULL,
   ...
 )
 
-\S4method{smooth_space}{ANY,character,spaspm_discrete}(
+\S4method{smooth_space}{ANY,character,sspm_discrete}(
   type = "ICAR",
   dataset,
-  spaspm_object,
+  sspm_object,
   k = 30,
   bs = "mrf",
   xt = NULL,
   ...
 )
 
-\S4method{smooth_space_time}{ANY,character,spaspm_discrete}(
+\S4method{smooth_space_time}{ANY,character,sspm_discrete}(
   type = "ICAR",
   dataset,
-  spaspm_object,
+  sspm_object,
   k = NULL,
   bs = c("re", "mrf"),
   xt = NULL,
@@ -76,8 +76,8 @@ supported.}
 \item{dataset}{\strong{[character]} The name of the dataset among base and/or
 mapped datasets for which to specify the formula}
 
-\item{spaspm_object}{\strong{[spaspm_discrete]} An object of class
-\link[=spaspm_discrete-class]{spaspm_discrete}.}
+\item{sspm_object}{\strong{[sspm_discrete]} An object of class
+\link[=sspm_discrete-class]{sspm_discrete}.}
 
 \item{k}{ the dimension of the basis used to represent the smooth term.
     The default depends on the number of variables that the smooth is a
@@ -104,7 +104,7 @@ A list of 2 lists:
 }
 }
 \description{
-A full spaspm formula contains calls to the smoothing terms \code{smooth_time()},
+A full sspm formula contains calls to the smoothing terms \code{smooth_time()},
 \code{smooth_space()}, \code{smooth_space_time()}.
 }
 \section{Functions}{
@@ -113,10 +113,10 @@ A full spaspm formula contains calls to the smoothing terms \code{smooth_time()}
 
 \item \code{smooth_space_time}: TODO
 
-\item \code{smooth_time,ANY,character,spaspm_discrete-method}: TODO
+\item \code{smooth_time,ANY,character,sspm_discrete-method}: TODO
 
-\item \code{smooth_space,ANY,character,spaspm_discrete-method}: TODO
+\item \code{smooth_space,ANY,character,sspm_discrete-method}: TODO
 
-\item \code{smooth_space_time,ANY,character,spaspm_discrete-method}: TODO
+\item \code{smooth_space_time,ANY,character,sspm_discrete-method}: TODO
 }}
 

@@ -1,6 +1,6 @@
 #' @keywords internal
-#' @name spaspm-package
-#' @aliases spaspm-package
+#' @name sspm-package
+#' @aliases sspm-package
 "_PACKAGE"
 
 # The following block is used by usethis to automatically manage

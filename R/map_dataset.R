@@ -1,18 +1,18 @@
-#' Map dataset onto a discretized SPASPM object
+#' Map dataset onto a discretized sspm object
 #'
 #' After discretizing, the next step is to map coavriate datasets.
 #'
-#' @param spaspm_object **\[spaspm_discrete\]** An object of class
-#'    [spaspm_discrete][spaspm_discrete-class].
-#' @inheritParams as_spaspm_data
-#' @inheritDotParams as_spaspm_data
+#' @param sspm_object **\[sspm_discrete\]** An object of class
+#'    [sspm_discrete][sspm_discrete-class].
+#' @inheritParams as_sspm_data
+#' @inheritDotParams as_sspm_data
 #'
 #' @return
-#' The updated object, of class [spaspm_discrete][spaspm_discrete-class].
+#' The updated object, of class [sspm_discrete][sspm_discrete-class].
 #'
 #' @export
 setGeneric(name = "map_dataset",
-           def = function(spaspm_object, data, ...){
+           def = function(sspm_object, data, ...){
              standardGeneric("map_dataset")
            }
 )
@@ -25,11 +25,11 @@ setGeneric(name = "map_dataset",
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
-          signature(spaspm_object = "spaspm_discrete",
+          signature(sspm_object = "sspm_discrete",
                     data = "data.frame"),
-          function(spaspm_object, data, ...){
+          function(sspm_object, data, ...){
 
-            updated_object <- cast_and_return(spaspm_object, data, ...)
+            updated_object <- cast_and_return(sspm_object, data, ...)
             return(updated_object)
 
           }
@@ -38,24 +38,24 @@ setMethod(f = "map_dataset",
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
-          signature(spaspm_object = "spaspm_discrete",
+          signature(sspm_object = "sspm_discrete",
                     data = "sf"),
-          function(spaspm_object, data, ...){
+          function(sspm_object, data, ...){
 
-            updated_object <- cast_and_return(spaspm_object, data, ...)
+            updated_object <- cast_and_return(sspm_object, data, ...)
             return(updated_object)
 
           }
 )
 
 # Helper for the two methods above
-cast_and_return <- function(spaspm_object, data, ...){
-  # Cast data.frame as spaspm_data
-  spaspm_data <- as_spaspm_data(data = data, ...)
+cast_and_return <- function(sspm_object, data, ...){
+  # Cast data.frame as sspm_data
+  sspm_data <- as_sspm_data(data = data, ...)
 
   # Call next method
-  mapped_objects <- map_dataset(spaspm_object = spaspm_object,
-                                data = spaspm_data, ...)
+  mapped_objects <- map_dataset(sspm_object = sspm_object,
+                                data = sspm_data, ...)
   return(mapped_objects)
 }
 
@@ -63,50 +63,50 @@ cast_and_return <- function(spaspm_object, data, ...){
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
-          signature(spaspm_object = "spaspm_discrete",
-                    data = "spaspm_data"),
-          function(spaspm_object, data, ...){
+          signature(sspm_object = "sspm_discrete",
+                    data = "sspm_data"),
+          function(sspm_object, data, ...){
 
             # Append to list of mapped_datasets
-            mapped_tmp <- spm_mapped_datasets(spaspm_object)
+            mapped_tmp <- spm_mapped_datasets(sspm_object)
             all_names <- unlist(c(lapply(mapped_tmp, spm_name), spm_name(data)))
 
             mapped_tmp <- append(mapped_tmp, list(data))
             names(mapped_tmp) <- all_names
 
-            spm_mapped_datasets(spaspm_object) <- mapped_tmp
+            spm_mapped_datasets(sspm_object) <- mapped_tmp
 
-            # Return updated spaspm_discretized
-            return(spaspm_object)
+            # Return updated sspm_discretized
+            return(sspm_object)
           }
 )
 
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
-          signature(spaspm_object = "spaspm_discrete",
+          signature(sspm_object = "sspm_discrete",
                     data = "list"),
-          function(spaspm_object, data, ...){
+          function(sspm_object, data, ...){
 
             # TODO:
             # Note that all datasets need to have the same ... arguments
             # including names
-            tmp_spaspm_discrete <- spaspm_object
+            tmp_sspm_discrete <- sspm_object
             for (dataset in data){
-              tmp_spaspm_discrete <- map_dataset(spaspm_object = tmp_spaspm_discrete,
-                                                 data = dataset,
-                                                 ...)
+              tmp_sspm_discrete <- map_dataset(sspm_object = tmp_sspm_discrete,
+                                               data = dataset,
+                                               ...)
             }
 
-            return(tmp_spaspm_discrete)
+            return(tmp_sspm_discrete)
           }
 )
 
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
-          signature(spaspm_object = "spaspm"),
-          function(spaspm_object, ...){
-            message_not_discrete(spaspm_object)
+          signature(sspm_object = "sspm"),
+          function(sspm_object, ...){
+            message_not_discrete(sspm_object)
           }
 )

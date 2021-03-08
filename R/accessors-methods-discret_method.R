@@ -3,7 +3,7 @@
 #' All methods described here allow to access the elements of contained in
 #' objects of class [discretization_method][discretization_method-class].
 #'
-#' @param spaspm_object **\[discretization_method\]** An object of class
+#' @param sspm_object **\[discretization_method\]** An object of class
 #'     [discretization_method][discretization_method-class].
 #'
 #' @inheritParams base::Extract
@@ -15,14 +15,14 @@
 
 #' @export
 setGeneric(name = "method_func",
-           def = function(spaspm_object) standardGeneric("method_func")
+           def = function(sspm_object) standardGeneric("method_func")
 )
 
 #' @describeIn accessors-methods-discret_method TODO
 #' @export
 setMethod("method_func",
-          signature("spaspm_object" = "discretization_method"),
-          function(spaspm_object) spaspm_object@method
+          signature("sspm_object" = "discretization_method"),
+          function(sspm_object) sspm_object@method
 )
 
 # Replacers ---------------------------------------------------------------
@@ -49,8 +49,8 @@ setMethod("method_func<-",
 
 #' @describeIn accessors-methods-discret_method TODO
 #' @export
-setMethod("spm_name", signature("spaspm_object" = "discretization_method"),
-          function(spaspm_object) spaspm_object@name
+setMethod("spm_name", signature("sspm_object" = "discretization_method"),
+          function(sspm_object) sspm_object@name
 )
 
 # Replacers ---------------------------------------------------------------

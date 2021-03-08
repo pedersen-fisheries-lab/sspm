@@ -11,67 +11,67 @@ test_that("Discret method is casted correctly", {
 
 })
 
-test_that("Spaspm data is casted correctly", {
+test_that("sspm data is casted correctly", {
 
   # Test the 3 generic cases
   expect_error({
-    as_spaspm_data(data = borealis_simulated,
-                   time_col = "year_f",
-                   coords = c('lon_dec','lat_dec'),
-                   name = "Biomass",
-                   uniqueID = "Bad column")
+    as_sspm_data(data = borealis_simulated,
+                 time_col = "year_f",
+                 coords = c('lon_dec','lat_dec'),
+                 name = "Biomass",
+                 uniqueID = "Bad column")
   }, "`uniqueID` must be a column of `data`")
 
   borealis_simulated_NU <- borealis_simulated
   borealis_simulated_NU$new_col <- "Non_unique"
   expect_error({
-    as_spaspm_data(data = borealis_simulated_NU,
-                   time_col = "year_f",
-                   coords = c('lon_dec','lat_dec'),
-                   name = "Biomass",
-                   uniqueID = "new_col")
+    as_sspm_data(data = borealis_simulated_NU,
+                 time_col = "year_f",
+                 coords = c('lon_dec','lat_dec'),
+                 name = "Biomass",
+                 uniqueID = "new_col")
   }, "`uniqueID` must be unique for each row of `data`")
 
   expect_error({
-    as_spaspm_data(data = borealis_simulated,
-                   time_col = "Bad column",
-                   coords = c('lon_dec','lat_dec'),
-                   name = "Biomass",
-                   uniqueID = "uniqueID")
+    as_sspm_data(data = borealis_simulated,
+                 time_col = "Bad column",
+                 coords = c('lon_dec','lat_dec'),
+                 name = "Biomass",
+                 uniqueID = "uniqueID")
   }, "`time_col` must be a column of `data`")
 
   # If data matrix is df, coords must be provided
   expect_error({
-    as_spaspm_data(data = borealis_simulated,
-                   time_col = "year_f",
-                   name = "Biomass",
-                   uniqueID = "uniqueID")
+    as_sspm_data(data = borealis_simulated,
+                 time_col = "year_f",
+                 name = "Biomass",
+                 uniqueID = "uniqueID")
   }, "Argument `coords` must be provided when data matrix is a dataframe")
 
   # Coords must be columns of data
   expect_error({
-    as_spaspm_data(data = borealis_simulated,
-                   time_col = "year_f",
-                   coords = c('Bad column 1','Bad column 2'),
-                   name = "Biomass",
-                   uniqueID = "uniqueID")
+    as_sspm_data(data = borealis_simulated,
+                 time_col = "year_f",
+                 coords = c('Bad column 1','Bad column 2'),
+                 name = "Biomass",
+                 uniqueID = "uniqueID")
   }, "`coords` must be columns of `data`")
 
   # When works fine
   expect_class({
-    as_spaspm_data(data = borealis_simulated,
-                   time_col = "year_f",
-                   coords = c('lon_dec','lat_dec'),
-                   name = "Biomass",
-                   uniqueID = "uniqueID")
-  }, "spaspm_data")
+    as_sspm_data(data = borealis_simulated,
+                 time_col = "year_f",
+                 coords = c('lon_dec','lat_dec'),
+                 name = "Biomass",
+                 uniqueID = "uniqueID")
+  }, "sspm_data")
 
   expect_class({
-    as_spaspm_data(data = borealis_spatial,
-                   time_col = "year_f",
-                   coords = c('lon_dec','lat_dec'),
-                   name = "Biomass",
-                   uniqueID = "uniqueID")
-  }, "spaspm_data")
+    as_sspm_data(data = borealis_spatial,
+                 time_col = "year_f",
+                 coords = c('lon_dec','lat_dec'),
+                 name = "Biomass",
+                 uniqueID = "uniqueID")
+  }, "sspm_data")
 
 })
