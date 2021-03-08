@@ -123,7 +123,7 @@ setMethod("spm_unique_ID",
 setMethod("spm_unique_ID<-",
           signature("object" = "sspm_data"),
           function(object, value){
-            object@unique_ID <- value
+            object@uniqueID <- value
             validObject(object)
             return(object)
           }

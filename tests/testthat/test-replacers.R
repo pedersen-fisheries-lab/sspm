@@ -104,6 +104,7 @@ test_that("Replacers work as expected", {
   })
 
   # Formula
+
   expect_match({
     sspm:::format_formula(raw_formula(sspm_formula) <- as.formula(a ~ b))
   }, "a ~ b")
@@ -120,5 +121,42 @@ test_that("Replacers work as expected", {
     formula_vars(sspm_formula) <- list(a=1, b=2)
     names(formula_vars(sspm_formula))
   }, identical.to = c("a", "b"))
+
+  # Data
+
+  expect_data_frame({
+    spm_data(sspm_data) <- mtcars
+    spm_data(sspm_data)
+  })
+
+  expect_match({
+    spm_name(sspm_data) <- "NewDatasetName_2"
+    spm_name(sspm_data)
+  }, "NewDatasetName_2")
+
+  expect_match({
+    spm_coords_col(sspm_data) <- c("one_2", "two_2")
+    spm_coords_col(sspm_data)[1]
+  }, c("one_2"))
+
+  expect_match({
+    spm_coords_col(sspm_data) <- c("one_2", "two_2")
+    spm_coords_col(sspm_data)[2]
+  }, c("two_2"))
+
+  expect_match({
+    spm_unique_ID(sspm_data) <- "New_ID_2"
+    spm_unique_ID(sspm_data)
+  }, "New_ID_2")
+
+  expect_match({
+    spm_time_col(sspm_data) <- "new_time_col_2"
+    spm_time_col(sspm_data)
+  }, "new_time_col_2")
+
+  expect_match({
+    spm_rep(sspm_data) <- "New_rep"
+    spm_rep(sspm_data)
+  }, "New_rep")
 
 })
