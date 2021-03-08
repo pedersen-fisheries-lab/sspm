@@ -88,7 +88,7 @@ setMethod(f = "map_formula",
             terms_labels <- attr(formula_terms, "term.labels")
 
             # Check response
-            the_data <- spm_datasets(sspm_object)[[dataset]]
+            the_data <- spm_data(spm_datasets(sspm_object)[[dataset]])
             if(!checkmate::test_subset(response, names(the_data))){
               stop("The response in the formula is not a column of the dataset.",
                    call. = FALSE)
