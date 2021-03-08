@@ -9,3 +9,6 @@ man/figures/make_hex
 ^data$
 ^LICENSE\.md$
 ^codecov\.yml$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$
