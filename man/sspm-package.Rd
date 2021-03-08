@@ -18,6 +18,7 @@ The goal of `sspm` is to implement a gam-based spatial surplus
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://pedersen-fisheries-lab.github.io/sspm/}
   \item Report bugs at \url{https://github.com/pedersen-fisheries-lab/sspm/issues}
 }
 
