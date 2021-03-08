@@ -7,3 +7,4 @@ renv.lock
 renv/
 man/figures/make_hex
 data/
+docs/
