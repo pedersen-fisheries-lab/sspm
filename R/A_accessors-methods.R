@@ -278,8 +278,6 @@ setMethod("spm_time_col<-",
           }
 )
 
-# DISCRETE BEYOND THIS POINT ----------------------------------------------
-
 # Boundaries --------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
@@ -319,10 +317,13 @@ setMethod("spm_boundaries<-",
 setMethod("spm_boundaries<-",
           signature("object" = "sspm"),
           function(object, value){
-            message_not_discrete(object)
+            object@boundaries <- value
+            validObject(object)
             return(object)
           }
 )
+
+# DISCRETE BEYOND THIS POINT ----------------------------------------------
 
 # Discretization method ---------------------------------------------------
 # Accessors ---------------------------------------------------------------
@@ -370,7 +371,7 @@ setMethod("spm_discret_method<-",
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setMethod("spm_boundaries<-",
+setMethod("spm_discret_method<-",
           signature("object" = "sspm"),
           function(object, value){
             message_not_discrete(object)
