@@ -88,14 +88,59 @@ setMethod(f = "map_dataset",
                     data = "list"),
           function(sspm_object, data, ...){
 
-            # TODO:
-            # Note that all datasets need to have the same ... arguments
-            # including names
+            browser()
+
+            # Capture args
+            args <- list(...)
+
+            # Make checks on length of the name argument
+            # must of the same length than data, and unique values
+            if(length(args$name) != length(data) | length(unique(args$name)) != length(data)){
+              stop(paste0("Argument 'name' is of length ", length(args$name),
+                          ", but should be a unique set of the same length than data."),
+                   call. = FALSE)
+            }
+
+            # Make checks on coords, either a character vector or a list
+            if(test_class(args$coords, "character")){
+              if(length(args$coords) == 2){
+                args$coords <- list(args$coords)
+              } else{
+                stop("Argument 'coords' shoulb be of a vector of length 2.",
+                     call. = FALSE)
+              }
+            } else if (test_class(args$coords, "list")){
+              if(length(args$coords) != 1) {
+                if(length(args$coords) != length(data)){
+                  stop("Argument 'coords' should be a list of the same length than data.",
+                       call. = FALSE)
+                }
+              }
+              if(any(sapply(args$coords, length) != 2)){
+                stop("Argument 'coords' should be a list of elements of length 2.",
+                     call. = FALSE)
+              }
+            }
+
+            # Verify correct length of args
+            for (arg_id in seq_len(length.out = length(args))){
+              if(length(args[[arg_id]]) == length(data)){
+                next
+              } else if (length(args[[arg_id]]) == 1){
+                args[[arg_id]] <- rep(args[[arg_id]], length(data))
+              } else{
+                stop(paste0("Argument '", names(args[arg_id]), "' is of length ",
+                            length(args[[arg_id]]), ". Must be of length 1 or of the same length than data."),
+                     call. = FALSE)
+              }
+            }
+
             tmp_sspm_discrete <- sspm_object
-            for (dataset in data){
-              tmp_sspm_discrete <- map_dataset(sspm_object = tmp_sspm_discrete,
-                                               data = dataset,
-                                               ...)
+            for (dat_id in seq_len(length.out = length(data))){
+              args_to_pass <- lapply(args, dplyr::nth, dat_id)
+              args_to_pass$data <- data[[dat_id]]
+              args_to_pass$sspm_object <- tmp_sspm_discrete
+              tmp_sspm_discrete <- do.call(map_dataset, args = args_to_pass)
             }
 
             return(tmp_sspm_discrete)
