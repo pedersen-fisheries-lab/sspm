@@ -18,6 +18,10 @@ test_that("Map formula works as expected", {
 
   # Error cases
   expect_message({
+    sspm_base %>% map_formula("Biomass", weight_per_km2~smooth_time())
+  }, "Model object 'Model test' is not a discrete model")
+
+  expect_message({
     sspm_discrete_mapped %>% map_formula("Biomass")
   }, "Argument 'formula' missing with no default")
 
@@ -25,8 +29,8 @@ test_that("Map formula works as expected", {
     sspm_discrete_mapped %>% map_formula("NotADataset", weight_per_km2~smooth_time())
   }, "Argument 'dataset' must be one of: Biomass, Predator")
 
-  # expect_error({
-  #   sspm_discrete_mapped %>% map_formula("Biomass", NotAColumn~smooth_time())
-  # }, "...")
+  expect_error({
+    sspm_discrete_mapped %>% map_formula("Biomass", NotAColumn~smooth_time())
+  }, "The response in the formula is not a column of the dataset.")
 
 })

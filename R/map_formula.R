@@ -24,14 +24,6 @@ setGeneric(name = "map_formula",
                           dataset,
                           formula,
                           ...){
-
-             all_dataset_names <- names(spm_datasets(sspm_object))
-             if(!checkmate::test_choice(dataset, all_dataset_names)){
-               stop(paste0("Argument 'dataset' must be one of: ",
-                           paste0(all_dataset_names,
-                                  collapse =  ", " )), call. = FALSE)
-             }
-
              standardGeneric("map_formula")
            }
 )
@@ -82,10 +74,25 @@ setMethod(f = "map_formula",
                     formula = "formula"),
           function(sspm_object, dataset, formula, ...){
 
+            # Check names
+            all_dataset_names <- names(spm_datasets(sspm_object))
+            if(!checkmate::test_choice(dataset, all_dataset_names)){
+              stop(paste0("Argument 'dataset' must be one of: ",
+                          paste0(all_dataset_names,
+                                 collapse =  ", " )), call. = FALSE)
+            }
+
             # Retrieve terms, response, and term labels
             formula_terms <- terms(formula)
             response <- all.vars(formula)[1]
             terms_labels <- attr(formula_terms, "term.labels")
+
+            # Check response
+            the_data <- spm_datasets(sspm_object)[[dataset]]
+            if(!checkmate::test_subset(response, names(the_data))){
+              stop("The response in the formula is not a column of the dataset.",
+                   call. = FALSE)
+            }
 
             # Find the special calls to edit and evaluate
             is_special <- sapply(terms_labels, grepl, pattern="smooth_", fixed=TRUE)
