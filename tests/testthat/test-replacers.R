@@ -10,6 +10,11 @@ test_that("Replacers work as expected", {
   }, "New_Name")
 
   expect_match({
+    spm_name(discret_method) <- "New_Name"
+    spm_name(discret_method)
+  }, "New_Name")
+
+  expect_match({
     spm_coords_col(sspm_base) <- c("one", "two")
     spm_coords_col(sspm_base)[1]
   }, c("one"))
@@ -90,5 +95,30 @@ test_that("Replacers work as expected", {
     spm_mapped_formulas(sspm_discrete) <- list()
     spm_mapped_formulas(sspm_discrete)
   }, "list")
+
+  # Method
+
+  expect_function({
+    method_func(discret_method) <- rnorm
+    method_func(discret_method)
+  })
+
+  # Formula
+  expect_match({
+    sspm:::format_formula(raw_formula(sspm_formula) <- as.formula(a ~ b))
+  }, "a ~ b")
+
+  expect_match({
+    sspm:::format_formula(translated_formula(sspm_formula) <- as.formula(c ~ d))
+  }, "c ~ d")
+
+  expect_match({
+    dataset(sspm_formula) <- "NewDatasetName"
+  }, "NewDatasetName")
+
+  expect_names({
+    formula_vars(sspm_formula) <- list(a=1, b=2)
+    names(formula_vars(sspm_formula))
+  }, identical.to = c("a", "b"))
 
 })
