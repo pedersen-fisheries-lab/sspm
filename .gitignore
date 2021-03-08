@@ -8,3 +8,4 @@ renv/
 man/figures/make_hex
 data/
 docs/
+pkgdown/
