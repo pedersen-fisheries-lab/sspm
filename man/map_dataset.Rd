@@ -2,33 +2,33 @@
 % Please edit documentation in R/map_dataset.R
 \name{map_dataset}
 \alias{map_dataset}
-\alias{map_dataset,spaspm_discrete,data.frame-method}
-\alias{map_dataset,spaspm_discrete,sf-method}
-\alias{map_dataset,spaspm_discrete,spaspm_data-method}
-\alias{map_dataset,spaspm_discrete,list-method}
-\alias{map_dataset,spaspm,ANY-method}
-\title{Map dataset onto a discretized SPASPM object}
+\alias{map_dataset,sspm_discrete,data.frame-method}
+\alias{map_dataset,sspm_discrete,sf-method}
+\alias{map_dataset,sspm_discrete,sspm_data-method}
+\alias{map_dataset,sspm_discrete,list-method}
+\alias{map_dataset,sspm,ANY-method}
+\title{Map dataset onto a discretized sspm object}
 \usage{
-map_dataset(spaspm_object, data, ...)
+map_dataset(sspm_object, data, ...)
 
-\S4method{map_dataset}{spaspm_discrete,data.frame}(spaspm_object, data, ...)
+\S4method{map_dataset}{sspm_discrete,data.frame}(sspm_object, data, ...)
 
-\S4method{map_dataset}{spaspm_discrete,sf}(spaspm_object, data, ...)
+\S4method{map_dataset}{sspm_discrete,sf}(sspm_object, data, ...)
 
-\S4method{map_dataset}{spaspm_discrete,spaspm_data}(spaspm_object, data, ...)
+\S4method{map_dataset}{sspm_discrete,sspm_data}(sspm_object, data, ...)
 
-\S4method{map_dataset}{spaspm_discrete,list}(spaspm_object, data, ...)
+\S4method{map_dataset}{sspm_discrete,list}(sspm_object, data, ...)
 
-\S4method{map_dataset}{spaspm,ANY}(spaspm_object, data, ...)
+\S4method{map_dataset}{sspm,ANY}(sspm_object, data, ...)
 }
 \arguments{
-\item{spaspm_object}{\strong{[spaspm_discrete]} An object of class
-\link[=spaspm_discrete-class]{spaspm_discrete}.}
+\item{sspm_object}{\strong{[sspm_discrete]} An object of class
+\link[=sspm_discrete-class]{sspm_discrete}.}
 
 \item{data}{\strong{[data.frame OR sf]} The dataset.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=as_spaspm_data]{as_spaspm_data}}
+  Arguments passed on to \code{\link[=as_sspm_data]{as_sspm_data}}
   \describe{
     \item{\code{time_col}}{\strong{[character]} The column of \code{data} for the temporal
 dimensions (i.e. year).}
@@ -41,21 +41,21 @@ rows of the data matrix.}
   }}
 }
 \value{
-The updated object, of class \link[=spaspm_discrete-class]{spaspm_discrete}.
+The updated object, of class \link[=sspm_discrete-class]{sspm_discrete}.
 }
 \description{
 After discretizing, the next step is to map coavriate datasets.
 }
 \section{Functions}{
 \itemize{
-\item \code{map_dataset,spaspm_discrete,data.frame-method}: TODO
+\item \code{map_dataset,sspm_discrete,data.frame-method}: TODO
 
-\item \code{map_dataset,spaspm_discrete,sf-method}: TODO
+\item \code{map_dataset,sspm_discrete,sf-method}: TODO
 
-\item \code{map_dataset,spaspm_discrete,spaspm_data-method}: TODO
+\item \code{map_dataset,sspm_discrete,sspm_data-method}: TODO
 
-\item \code{map_dataset,spaspm_discrete,list-method}: TODO
+\item \code{map_dataset,sspm_discrete,list-method}: TODO
 
-\item \code{map_dataset,spaspm,ANY-method}: TODO
+\item \code{map_dataset,sspm,ANY-method}: TODO
 }}
 

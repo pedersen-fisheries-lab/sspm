@@ -2,28 +2,28 @@
 % Please edit documentation in R/spm_discretize.R
 \name{spm_discretize}
 \alias{spm_discretize}
-\alias{spm_discretize,spaspm,discretization_method-method}
-\alias{spm_discretize,spaspm,character-method}
-\alias{spm_discretize,spaspm,NULL-method}
-\alias{spm_discretize,spaspm_discrete,character-method}
-\alias{spm_discretize,spaspm_discrete,discretization_method-method}
-\title{Discretize a \code{spaspm} model object}
+\alias{spm_discretize,sspm,discretization_method-method}
+\alias{spm_discretize,sspm,character-method}
+\alias{spm_discretize,sspm,NULL-method}
+\alias{spm_discretize,sspm_discrete,character-method}
+\alias{spm_discretize,sspm_discrete,discretization_method-method}
+\title{Discretize a \code{sspm} model object}
 \usage{
-spm_discretize(spaspm_object, discretization_method = "tesselate_voronoi", ...)
+spm_discretize(sspm_object, discretization_method = "tesselate_voronoi", ...)
 
-\S4method{spm_discretize}{spaspm,discretization_method}(spaspm_object, discretization_method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm,discretization_method}(sspm_object, discretization_method = "tesselate_voronoi", ...)
 
-\S4method{spm_discretize}{spaspm,character}(spaspm_object, discretization_method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm,character}(sspm_object, discretization_method = "tesselate_voronoi", ...)
 
-\S4method{spm_discretize}{spaspm,`NULL`}(spaspm_object, discretization_method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm,`NULL`}(sspm_object, discretization_method = "tesselate_voronoi", ...)
 
-\S4method{spm_discretize}{spaspm_discrete,character}(spaspm_object, discretization_method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm_discrete,character}(sspm_object, discretization_method = "tesselate_voronoi", ...)
 
-\S4method{spm_discretize}{spaspm_discrete,discretization_method}(spaspm_object, discretization_method, force = FALSE, ...)
+\S4method{spm_discretize}{sspm_discrete,discretization_method}(sspm_object, discretization_method, force = FALSE, ...)
 }
 \arguments{
-\item{spaspm_object}{\strong{[spaspm]} An object of class
-\link[=spaspm-class]{spaspm}.}
+\item{sspm_object}{\strong{[sspm]} An object of class
+\link[=sspm-class]{sspm}.}
 
 \item{discretization_method}{\strong{[character OR discretization_method]}
 Either a \code{character} from the list of available methods
@@ -34,27 +34,27 @@ Either a \code{character} from the list of available methods
 used in the \code{discretization_method}.}
 
 \item{force}{\strong{[boolean]} Only used when calling \code{spm_discretize} onto
-an object of class \link[=spaspm-class]{spaspm_discrete}: whether you wish
+an object of class \link[=sspm-class]{sspm_discrete}: whether you wish
 to force the re-discretization of that model.}
 }
 \value{
-An object of class \link[=spaspm-class]{spaspm_discrete} (the updated
-and discretized \code{spaspm} object given as input).
+An object of class \link[=sspm-class]{sspm_discrete} (the updated
+and discretized \code{sspm} object given as input).
 }
 \description{
-Discretize a \link[=spaspm-class]{spaspm} model object with a function from a
+Discretize a \link[=sspm-class]{sspm} model object with a function from a
 \link[=discretization_method-class]{discretization_method} object class.
 }
 \section{Functions}{
 \itemize{
-\item \code{spm_discretize,spaspm,discretization_method-method}: TODO
+\item \code{spm_discretize,sspm,discretization_method-method}: TODO
 
-\item \code{spm_discretize,spaspm,character-method}: TODO
+\item \code{spm_discretize,sspm,character-method}: TODO
 
-\item \code{spm_discretize,spaspm,NULL-method}: TODO
+\item \code{spm_discretize,sspm,NULL-method}: TODO
 
-\item \code{spm_discretize,spaspm_discrete,character-method}: TODO
+\item \code{spm_discretize,sspm_discrete,character-method}: TODO
 
-\item \code{spm_discretize,spaspm_discrete,discretization_method-method}: TODO
+\item \code{spm_discretize,sspm_discrete,discretization_method-method}: TODO
 }}
 

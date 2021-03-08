@@ -3,14 +3,14 @@
 test_that("Discretization work as expected", {
 
   # If error
-  expect_error({spaspm_base %>%
+  expect_error({sspm_base %>%
       spm_discretize(discretization_method = "invalid method")},
       "Invalid discretization method.")
 
   # If success
-  discretized <- spaspm_base %>%
+  discretized <- sspm_base %>%
     spm_discretize(discretization_method = "tesselate_voronoi")
-  expect_class({discretized},"spaspm_discrete")
+  expect_class({discretized},"sspm_discrete")
 
   expect_names(names(spm_data(spm_base_dataset(discretized))),
                must.include = c("patch_id", "area_km2"))
@@ -31,7 +31,7 @@ test_that("Discretization work as expected", {
   # SAME TESTS for when discretized over again
   discretized_twice <- discretized %>%
     spm_discretize(discretization_method = "tesselate_voronoi", force = TRUE)
-  expect_class({discretized},"spaspm_discrete")
+  expect_class({discretized},"sspm_discrete")
 
   expect_names(names(spm_data(spm_base_dataset(discretized_twice))),
                must.include = c("patch_id", "area_km2"))

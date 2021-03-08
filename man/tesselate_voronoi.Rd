@@ -5,7 +5,7 @@
 \title{Perform voronoi tesselation}
 \usage{
 tesselate_voronoi(
-  spaspm_object,
+  sspm_object,
   data = NULL,
   boundaries = NULL,
   boundary_col = "sfa",
@@ -17,11 +17,11 @@ tesselate_voronoi(
 )
 }
 \arguments{
-\item{spaspm_object}{\strong{[spaspm]} \code{spaspm} object to be discretized.}
+\item{sspm_object}{\strong{[sspm]} \code{sspm} object to be discretized.}
 
-\item{data}{\strong{[data.frame]} Overwrites the data slot of \code{spaspm_object}.}
+\item{data}{\strong{[data.frame]} Overwrites the data slot of \code{sspm_object}.}
 
-\item{boundaries}{\strong{[sf]} Overwrites the boundaries slot of \code{spaspm_object}.}
+\item{boundaries}{\strong{[sf]} Overwrites the boundaries slot of \code{sspm_object}.}
 
 \item{boundary_col}{\strong{[character]} The column in \code{boundaries} that is to
 be used for the stratified sampling.}
@@ -33,7 +33,7 @@ by boundary polygons (must bear the levels of \code{boundary_col} as names).}
 will be merged (in km2).}
 
 \item{coords}{\strong{[character vector]} The columns in \code{data} (or the \code{data}
-slot of \code{spaspm_object}) that contains the coordinates (lat, long) of the
+slot of \code{sspm_object}) that contains the coordinates (lat, long) of the
 individual observations.}
 
 \item{sample_points}{\strong{[sf]} A set of points to use for voronoisation,

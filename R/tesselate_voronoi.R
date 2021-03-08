@@ -5,9 +5,9 @@
 #' [st_voronoi()][sf::st_voronoi()]. The sampling can be bypassed by providing
 #' points via `sample_points`.
 #'
-#' @param spaspm_object **\[spaspm\]** `spaspm` object to be discretized.
-#' @param data **\[data.frame\]** Overwrites the data slot of `spaspm_object`.
-#' @param boundaries **\[sf\]** Overwrites the boundaries slot of `spaspm_object`.
+#' @param sspm_object **\[sspm\]** `sspm` object to be discretized.
+#' @param data **\[data.frame\]** Overwrites the data slot of `sspm_object`.
+#' @param boundaries **\[sf\]** Overwrites the boundaries slot of `sspm_object`.
 #' @param boundary_col **\[character\]** The column in `boundaries` that is to
 #'     be used for the stratified sampling.
 #' @param nb_samples **\[named character vector\]** The number of samples to draw
@@ -15,7 +15,7 @@
 #' @param min_size **\[numeric\]** The minimum size for a polygon above which it
 #'     will be merged (in km2).
 #' @param coords **\[character vector\]** The columns in `data` (or the `data`
-#'     slot of `spaspm_object`) that contains the coordinates (lat, long) of the
+#'     slot of `sspm_object`) that contains the coordinates (lat, long) of the
 #'     individual observations.
 #' @param sample_points **\[sf\]** A set of points to use for voronoisation,
 #'     all parameters used for sampling are ignored.
@@ -29,7 +29,7 @@
 #'     * `points`, the points used for the tessellation.
 #'
 #' @export
-tesselate_voronoi <- function(spaspm_object,
+tesselate_voronoi <- function(sspm_object,
                               data = NULL,
                               boundaries = NULL,
                               boundary_col = "sfa",
@@ -48,7 +48,7 @@ tesselate_voronoi <- function(spaspm_object,
   # Prep --------------------------------------------------------------------
 
   # Check main params
-  checkmate::assert_class(spaspm_object, "spaspm")
+  checkmate::assert_class(sspm_object, "sspm")
   checkmate::assert_numeric(nb_samples)
 
   if (!checkmate::test_null(coords)) {
@@ -59,13 +59,13 @@ tesselate_voronoi <- function(spaspm_object,
   }
 
   # Get params from model object if necessary
-  name <- spm_name(spaspm_object)
-  data <- if (is.null(data)) spm_base_dataset(spaspm_object) else data
-  boundaries <- if (is.null(boundaries)) spm_boundaries(spaspm_object) else boundaries
-  coords <- if(is.null(coords)) spm_coords_col(spaspm_object) else coords
+  name <- spm_name(sspm_object)
+  data <- if (is.null(data)) spm_base_dataset(sspm_object) else data
+  boundaries <- if (is.null(boundaries)) spm_boundaries(sspm_object) else boundaries
+  coords <- if(is.null(coords)) spm_coords_col(sspm_object) else coords
 
   # Check these params as well
-  checkmate::assert_class(data, "spaspm_data")
+  checkmate::assert_class(data, "sspm_data")
   checkmate::assert_class(boundaries, "sf")
 
   # Body --------------------------------------------------------------------

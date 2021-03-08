@@ -1,14 +1,14 @@
-#' Map model formula onto a discretized SPASPM object
+#' Map model formula onto a discretized sspm object
 #'
-#' This functions allows to specify a model formula for a given discrete SPASPM
+#' This functions allows to specify a model formula for a given discrete sspm
 #' object. This formula makes use of specific smoothing terms `smooth_time()`,
 #' `smooth_space()`, `smooth_space_time()`. This formula can also contain fixed
 #' effects and custom smooths, and can make use of specific smoothing terms
 #' `smooth_time()`, `smooth_space()`, `smooth_space_time()`. See Details for
 #' more explanations.
 #'
-#' @param spaspm_object **\[spaspm_discrete\]** An object of class
-#'     [spaspm_discrete][spaspm_discrete-class].
+#' @param sspm_object **\[sspm_discrete\]** An object of class
+#'     [sspm_discrete][sspm_discrete-class].
 #' @param dataset **\[character\]** The name of the dataset among base and/or
 #'     mapped datasets for which to specify the formula
 #' @param formula **\[formula\]** A formula definition of the form
@@ -16,16 +16,16 @@
 #' @param ... Further arguments passed down, none used for now.
 #'
 #' @return
-#' The updated object, of class [spaspm_discrete][spaspm_discrete-class].
+#' The updated object, of class [sspm_discrete][sspm_discrete-class].
 #'
 #' @export
 setGeneric(name = "map_formula",
-           def = function(spaspm_object,
+           def = function(sspm_object,
                           dataset,
                           formula,
                           ...){
 
-             all_dataset_names <- names(spm_datasets(spaspm_object))
+             all_dataset_names <- names(spm_datasets(sspm_object))
              if(!checkmate::test_choice(dataset, all_dataset_names)){
                stop(paste0("Argument 'dataset' must be one of: ",
                            paste0(all_dataset_names,
@@ -48,18 +48,18 @@ setGeneric(name = "map_formula",
 #' @export
 #' @describeIn map_formula TODO
 setMethod(f = "map_formula",
-          signature(spaspm_object = "spaspm"),
-          function(spaspm_object, ...){
-            message_not_discrete(spaspm_object)
+          signature(sspm_object = "sspm"),
+          function(sspm_object, ...){
+            message_not_discrete(sspm_object)
           }
 )
 
 #' @export
 #' @describeIn map_formula TODO
 setMethod(f = "map_formula",
-          signature(spaspm_object = "spaspm_discrete",
+          signature(sspm_object = "sspm_discrete",
                     dataset = "missing"),
-          function(spaspm_object, dataset, formula, ... ){
+          function(sspm_object, dataset, formula, ... ){
             cli::cli_alert_danger(" Argument 'dataset' missing with no default")
           }
 )
@@ -67,9 +67,9 @@ setMethod(f = "map_formula",
 #' @export
 #' @describeIn map_formula TODO
 setMethod(f = "map_formula",
-          signature(spaspm_object = "spaspm_discrete",
+          signature(sspm_object = "sspm_discrete",
                     formula = "missing"),
-          function(spaspm_object, dataset, formula, ... ){
+          function(sspm_object, dataset, formula, ... ){
             cli::cli_alert_danger(" Argument 'formula' missing with no default")
           }
 )
@@ -77,10 +77,10 @@ setMethod(f = "map_formula",
 #' @export
 #' @describeIn map_formula TODO
 setMethod(f = "map_formula",
-          signature(spaspm_object = "spaspm_discrete",
+          signature(sspm_object = "sspm_discrete",
                     dataset = "character",
                     formula = "formula"),
-          function(spaspm_object, dataset, formula, ...){
+          function(sspm_object, dataset, formula, ...){
 
             # Retrieve terms, response, and term labels
             formula_terms <- terms(formula)
@@ -105,12 +105,12 @@ setMethod(f = "map_formula",
 
             smooth_calls_modified <-
               lapply(smooth_calls, modify_call,
-                     args = list(spaspm_object = substitute(spaspm_object),
+                     args = list(sspm_object = substitute(sspm_object),
                                  dataset = substitute(dataset)))
 
             # Evaluate the calls to get the args to make a smooth
             smooth_and_vars <-lapply(smooth_calls_modified, eval,
-                                   envir = list(. = spaspm_object))
+                                     envir = list(. = sspm_object))
 
             smooth_list <- sapply(smooth_and_vars, `[[`, "smooth")
 
@@ -128,18 +128,18 @@ setMethod(f = "map_formula",
             # form_env <- list2env()
             final_formula_casted <- as.formula(final_formula)
 
-            # Create new spaspm_formula object
-            spaspm_formula <- new("spaspm_formula",
-                                  raw_formula = formula,
-                                  translated_formula = final_formula_casted,
-                                  dataset = dataset,
-                                  vars = vars_list)
+            # Create new sspm_formula object
+            sspm_formula <- new("sspm_formula",
+                                raw_formula = formula,
+                                translated_formula = final_formula_casted,
+                                dataset = dataset,
+                                vars = vars_list)
 
-            spm_mapped_formulas(spaspm_object) <-
-              append(spm_mapped_formulas(spaspm_object),
-                     list(spaspm_formula))
+            spm_mapped_formulas(sspm_object) <-
+              append(spm_mapped_formulas(sspm_object),
+                     list(sspm_formula))
 
-            return(spaspm_object)
+            return(sspm_object)
           }
 )
 

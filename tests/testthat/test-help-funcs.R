@@ -57,10 +57,10 @@ test_that("Families are checked correctly", {
 
   gam_obj <- mgcv::gam(mpg ~ s(drat), data = mtcars, family = mgcv::tw)
   fam <- gam_obj$family$family
-  spaspm:::check_model_family(fam)
+  sspm:::check_model_family(fam)
 
   fam <- "crazy_family"
-  expect_error(spaspm:::check_model_family(fam))
+  expect_error(sspm:::check_model_family(fam))
 
 })
 
@@ -68,7 +68,7 @@ test_that("Residuals are correctly retrieved", {
 
   # Tweedie case
   gam_obj <- mgcv::gam(mpg ~ s(drat), data = mtcars, family = mgcv::tw)
-  res <- spaspm:::rqresiduals(gam_obj)
+  res <- sspm:::rqresiduals(gam_obj)
 
   expect_length(res, 32)
   expect_equal(min(res), -1.860841, tolerance=1e-07)
@@ -77,7 +77,7 @@ test_that("Residuals are correctly retrieved", {
 
   # Neg bin case
   gam_obj <- mgcv::gam(mpg ~ s(drat), data = mtcars, family = mgcv::nb)
-  set.seed(77);res <- spaspm:::rqresiduals(gam_obj)
+  set.seed(77);res <- sspm:::rqresiduals(gam_obj)
 
   expect_length(res, 32)
   expect_equal(min(res), -1.870483, tolerance=1e-07)

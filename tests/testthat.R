@@ -1,4 +1,4 @@
 library(testthat)
-library(spaspm)
+library(sspm)
 
-test_check("spaspm")
+test_check("sspm")

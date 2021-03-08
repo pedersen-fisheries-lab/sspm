@@ -1,6 +1,6 @@
-#' SPASPM Smoothing functions
+#' sspm Smoothing functions
 #'
-#' A full spaspm formula contains calls to the smoothing terms `smooth_time()`,
+#' A full sspm formula contains calls to the smoothing terms `smooth_time()`,
 #' `smooth_space()`, `smooth_space_time()`.
 #'
 #' @param type **\[character\]** Type of smooth, currently only "ICAR" is
@@ -18,7 +18,7 @@
 setGeneric(name = "smooth_time",
            def = function(type = "ICAR",
                           dataset,
-                          spaspm_object,
+                          sspm_object,
                           k = NULL,
                           bs = "re",
                           xt = NULL,
@@ -32,7 +32,7 @@ setGeneric(name = "smooth_time",
 setGeneric(name = "smooth_space",
            def = function(type = "ICAR",
                           dataset,
-                          spaspm_object,
+                          sspm_object,
                           k = 30,
                           bs = "mrf",
                           xt = NULL,
@@ -46,7 +46,7 @@ setGeneric(name = "smooth_space",
 setGeneric(name = "smooth_space_time",
            def = function(type = "ICAR",
                           dataset,
-                          spaspm_object,
+                          sspm_object,
                           k = NULL,
                           bs = c("re","mrf"),
                           xt = NULL,
@@ -67,8 +67,8 @@ setGeneric(name = "smooth_space_time",
 setMethod(f = "smooth_time",
           signature(type = "ANY",
                     dataset = "character",
-                    spaspm_object = "spaspm_discrete"),
-          function(type, dataset, spaspm_object, k, bs, xt, ...){
+                    sspm_object = "sspm_discrete"),
+          function(type, dataset, sspm_object, k, bs, xt, ...){
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -76,7 +76,7 @@ setMethod(f = "smooth_time",
 
             # Get the default arguments for the smooth type used
             args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(spaspm_object = spaspm_object,
+                                     append(list(sspm_object = sspm_object,
                                                  dataset = dataset,
                                                  dimension = "time",
                                                  k = k, bs = bs, xt = xt),
@@ -96,8 +96,8 @@ setMethod(f = "smooth_time",
 setMethod(f = "smooth_space",
           signature(type = "ANY",
                     dataset = "character",
-                    spaspm_object = "spaspm_discrete"),
-          function(type, dataset, spaspm_object, k, bs, xt, ...){
+                    sspm_object = "sspm_discrete"),
+          function(type, dataset, sspm_object, k, bs, xt, ...){
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -105,7 +105,7 @@ setMethod(f = "smooth_space",
 
             # Get the default arguments for the smooth type used
             args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(spaspm_object = spaspm_object,
+                                     append(list(sspm_object = sspm_object,
                                                  dataset = dataset,
                                                  dimension = "space",
                                                  k = k, bs = bs, xt = xt),
@@ -125,8 +125,8 @@ setMethod(f = "smooth_space",
 setMethod(f = "smooth_space_time",
           signature(type = "ANY",
                     dataset = "character",
-                    spaspm_object = "spaspm_discrete"),
-          function(type, dataset, spaspm_object, k, bs, xt, ...){
+                    sspm_object = "sspm_discrete"),
+          function(type, dataset, sspm_object, k, bs, xt, ...){
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -134,7 +134,7 @@ setMethod(f = "smooth_space_time",
 
             # Get the default arguments for the smooth type used
             args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(spaspm_object = spaspm_object,
+                                     append(list(sspm_object = sspm_object,
                                                  dataset = dataset,
                                                  dimension = "space_time",
                                                  k = k, bs = bs, xt = xt),
@@ -165,10 +165,10 @@ assemble_smooth <- function(s_type, args){
 # Construct an ICAR penalization matrix for a given "dimension" and returns the
 # double list args_and_vars that have the args to build a new call to s() and the
 # vars necessary for the evaluation of that s() smooth
-ICAR <- function(spaspm_object, dataset, dimension,
+ICAR <- function(sspm_object, dataset, dimension,
                  k, bs, xt, ...){
 
-  checkmate::assert_class(spaspm_object, "spaspm")
+  checkmate::assert_class(sspm_object, "sspm")
   checkmate::assert_character(dataset)
   checkmate::assert_character(dimension)
 
@@ -176,7 +176,7 @@ ICAR <- function(spaspm_object, dataset, dimension,
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
   # Get data/dataset and relevant columns
-  the_dataset <- spm_datasets(spaspm_object)[[dataset]]
+  the_dataset <- spm_datasets(sspm_object)[[dataset]]
   the_data <- spm_data(the_dataset)
 
   # ---- TIME ----
@@ -188,7 +188,7 @@ ICAR <- function(spaspm_object, dataset, dimension,
   # Here we assume the hardcoded convention that the patch column is patch_id
   # (from the discretization)
   space_column <- "patch_id"
-  patches <- spm_patches(spaspm_object)
+  patches <- spm_patches(sspm_object)
 
   vars <- list()
 

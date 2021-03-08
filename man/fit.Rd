@@ -2,28 +2,28 @@
 % Please edit documentation in R/fit.R
 \name{fit_smooths}
 \alias{fit_smooths}
-\alias{fit_smooths,spaspm-method}
-\alias{fit_smooths,spaspm_discrete-method}
-\title{Fit the GAM part of a SPASPM model}
+\alias{fit_smooths,sspm-method}
+\alias{fit_smooths,sspm_discrete-method}
+\title{Fit the GAM part of a sspm model}
 \usage{
 fit_smooths(
-  spaspm_object,
+  sspm_object,
   family = mgcv::tw,
   drop.unused.levels = F,
   method = "REML",
   ...
 )
 
-\S4method{fit_smooths}{spaspm}(
-  spaspm_object,
+\S4method{fit_smooths}{sspm}(
+  sspm_object,
   family = mgcv::tw,
   drop.unused.levels = F,
   method = "REML",
   ...
 )
 
-\S4method{fit_smooths}{spaspm_discrete}(
-  spaspm_object,
+\S4method{fit_smooths}{sspm_discrete}(
+  sspm_object,
   family = mgcv::tw,
   drop.unused.levels = F,
   method = "REML",
@@ -31,8 +31,8 @@ fit_smooths(
 )
 }
 \arguments{
-\item{spaspm_object}{\strong{[spaspm_discrete]} An object of class
-\link[=spaspm_discrete-class]{spaspm_discrete}.}
+\item{sspm_object}{\strong{[sspm_discrete]} An object of class
+\link[=sspm_discrete-class]{sspm_discrete}.}
 
 \item{family}{
 This is a family object specifying the distribution and link to use in
@@ -138,13 +138,13 @@ even with factor variables present.}
   }}
 }
 \description{
-Once formulas have been mapped onto a SPASPM discrete object, the GAMs can
+Once formulas have been mapped onto a sspm discrete object, the GAMs can
 be fitted with this function. Arguments can be passed onto \code{bam}.
 }
 \section{Functions}{
 \itemize{
-\item \code{fit_smooths,spaspm-method}: TODO
+\item \code{fit_smooths,sspm-method}: TODO
 
-\item \code{fit_smooths,spaspm_discrete-method}: TODO
+\item \code{fit_smooths,sspm_discrete-method}: TODO
 }}
 

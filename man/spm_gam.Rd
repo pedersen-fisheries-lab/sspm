@@ -2,27 +2,27 @@
 % Please edit documentation in R/spm_gam.R
 \name{spm_gam}
 \alias{spm_gam}
-\alias{spm_gam,spaspm_discrete-method}
-\alias{spm_gam,spaspm-method}
-\alias{spm_gam,spaspm_gam_fit-method}
+\alias{spm_gam,sspm_discrete-method}
+\alias{spm_gam,sspm-method}
+\alias{spm_gam,sspm_gam_fit-method}
 \title{Fit spatial gams}
 \usage{
-spm_gam(spaspm_object, ...)
+spm_gam(sspm_object, ...)
 
-\S4method{spm_gam}{spaspm_discrete}(spaspm_object, ...)
+\S4method{spm_gam}{sspm_discrete}(sspm_object, ...)
 
-\S4method{spm_gam}{spaspm}(spaspm_object, ...)
+\S4method{spm_gam}{sspm}(sspm_object, ...)
 
-\S4method{spm_gam}{spaspm_gam_fit}(spaspm_object, force = FALSE, ...)
+\S4method{spm_gam}{sspm_gam_fit}(sspm_object, force = FALSE, ...)
 }
 \arguments{
-\item{spaspm_object}{\strong{[spaspm_discrete]} An object of class
-\link[=spaspm_discrete-class]{spaspm_discrete}.}
+\item{sspm_object}{\strong{[sspm_discrete]} An object of class
+\link[=sspm_discrete-class]{sspm_discrete}.}
 
 \item{...}{TBD}
 
 \item{force}{\strong{[boolean]} Only used when calling \code{spm_discretize} onto
-an object of class \link[=spaspm-class]{spaspm_discrete}: whether you wish
+an object of class \link[=sspm-class]{sspm_discrete}: whether you wish
 to force the re-discretization of that model.}
 }
 \value{
@@ -33,10 +33,10 @@ TBD.
 }
 \section{Functions}{
 \itemize{
-\item \code{spm_gam,spaspm_discrete-method}: TODO
+\item \code{spm_gam,sspm_discrete-method}: TODO
 
-\item \code{spm_gam,spaspm-method}: TODO
+\item \code{spm_gam,sspm-method}: TODO
 
-\item \code{spm_gam,spaspm_gam_fit-method}: TODO
+\item \code{spm_gam,sspm_gam_fit-method}: TODO
 }}
 
