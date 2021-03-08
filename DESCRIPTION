@@ -1,7 +1,7 @@
 Package: sspm
 Type: Package
 Title: Spatial Surplus Production Model Framework for Northern Shrimp Populations
-Version: 0.1.0
+Version: 0.2.0
 Authors@R: c(
     person("Valentin", "Lucet", email = "valentin.lucet@gmail.com", role = c("aut", "cre")),
     person("Eric", "Pedersen", email = "eric.pedersen@concordia.ca", role = c("aut")))
@@ -13,6 +13,7 @@ Description: The goal of `sspm` is to implement a gam-based spatial surplus
     also aims to provide options for the user to customize their model.
 License: MIT + file LICENSE
 BugReports: https://github.com/pedersen-fisheries-lab/sspm/issues
+URL: https://pedersen-fisheries-lab.github.io/sspm/
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
