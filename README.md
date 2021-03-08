@@ -60,12 +60,12 @@ sfa_boundaries <- sspm:::sfa_boundaries
 
 ``` r
 sspm_base <- sspm(model_name = "My Model",
-                      data = borealis,
-                      name = "Biomass",
-                      time_col = "year_f",
-                      coords = c('lon_dec','lat_dec'),
-                      uniqueID = "uniqueID",
-                      boundaries = sfa_boundaries)
+                  data = borealis,
+                  name = "Biomass",
+                  time_col = "year_f",
+                  coords = c('lon_dec','lat_dec'),
+                  uniqueID = "uniqueID",
+                  boundaries = sfa_boundaries)
 #> !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
 sspm_base

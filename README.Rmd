@@ -54,12 +54,12 @@ sfa_boundaries <- sspm:::sfa_boundaries
 1. Start by creating a base `sapspm` object with a base dataset called "Biomass".
 ```{r}
 sspm_base <- sspm(model_name = "My Model",
-                      data = borealis,
-                      name = "Biomass",
-                      time_col = "year_f",
-                      coords = c('lon_dec','lat_dec'),
-                      uniqueID = "uniqueID",
-                      boundaries = sfa_boundaries)
+                  data = borealis,
+                  name = "Biomass",
+                  time_col = "year_f",
+                  coords = c('lon_dec','lat_dec'),
+                  uniqueID = "uniqueID",
+                  boundaries = sfa_boundaries)
 sspm_base
 ```
 
