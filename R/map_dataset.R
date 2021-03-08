@@ -88,8 +88,6 @@ setMethod(f = "map_dataset",
                     data = "list"),
           function(sspm_object, data, ...){
 
-            browser()
-
             # Capture args
             args <- list(...)
 
@@ -106,7 +104,7 @@ setMethod(f = "map_dataset",
               if(length(args$coords) == 2){
                 args$coords <- list(args$coords)
               } else{
-                stop("Argument 'coords' shoulb be of a vector of length 2.",
+                stop("Argument 'coords' should be of a vector of length 2.",
                      call. = FALSE)
               }
             } else if (test_class(args$coords, "list")){

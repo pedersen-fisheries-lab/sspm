@@ -52,6 +52,18 @@ setMethod(f = "as_sspm_data",
 #' @describeIn as_sspm_data TODO
 #' @export
 setMethod(f = "as_sspm_data",
+          signature(data = "data.frame", coords = "list"),
+          function(data, time_col, coords, name, uniqueID, crs){
+            coords <- unlist(coords)
+            as_sspm_data(data, time_col, coords, name, uniqueID, crs)
+          }
+)
+
+
+# If data.frame with coords, make it sf
+#' @describeIn as_sspm_data TODO
+#' @export
+setMethod(f = "as_sspm_data",
           signature(data = "data.frame", coords = "character"),
           function(data, time_col, coords, name, uniqueID, crs){
 
@@ -60,6 +72,9 @@ setMethod(f = "as_sspm_data",
             # Check coords
             if(!checkmate::test_subset(coords, names(data))){
               stop("`coords` must be columns of `data`", call. = FALSE)
+            }
+            if(length(coords) != 2){
+              stop("`coords` must be of length 2", call. = FALSE)
             }
 
             # From a data.frame and coords, cast as sf (keep columns)

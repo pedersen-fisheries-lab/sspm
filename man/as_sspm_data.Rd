@@ -3,6 +3,7 @@
 \name{as_sspm_data}
 \alias{as_sspm_data}
 \alias{as_sspm_data,data.frame,ANY,missingOrNULL-method}
+\alias{as_sspm_data,data.frame,ANY,list-method}
 \alias{as_sspm_data,data.frame,ANY,character-method}
 \alias{as_sspm_data,sf,ANY,ANY-method}
 \title{Create a \code{sspm_data} dataset structure}
@@ -10,6 +11,8 @@
 as_sspm_data(data, time_col, coords, name, uniqueID, crs)
 
 \S4method{as_sspm_data}{data.frame,ANY,missingOrNULL}(data, time_col, coords, name, uniqueID, crs)
+
+\S4method{as_sspm_data}{data.frame,ANY,list}(data, time_col, coords, name, uniqueID, crs)
 
 \S4method{as_sspm_data}{data.frame,ANY,character}(data, time_col, coords, name, uniqueID, crs)
 
@@ -41,6 +44,8 @@ This casts a \code{data.frame} or \code{sf} object into  an object of class
 \section{Functions}{
 \itemize{
 \item \code{as_sspm_data,data.frame,ANY,missingOrNULL-method}: TODO
+
+\item \code{as_sspm_data,data.frame,ANY,list-method}: TODO
 
 \item \code{as_sspm_data,data.frame,ANY,character-method}: TODO
 
