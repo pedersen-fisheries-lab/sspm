@@ -1,10 +1,10 @@
 #' Fit the GAM part of a sspm model
 #'
-#' Once formulas have been mapped onto a sspm discrete object, the GAMs can
-#' be fitted with this function. Arguments can be passed onto `bam`.
+#' Once formulas have been mapped onto a sspm discrete object, the GAMs can be
+#' fitted with this function. Arguments can be passed onto `bam`.
 #'
 #' @param sspm_object **\[sspm_discrete\]** An object of class
-#'     [sspm_discrete][sspm_discrete-class].
+#'   [sspm_discrete][sspm_discrete-class].
 #' @inheritParams mgcv::bam
 #' @inheritDotParams mgcv::bam
 #'

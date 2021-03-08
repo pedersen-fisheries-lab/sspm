@@ -138,8 +138,8 @@ even with factor variables present.}
   }}
 }
 \description{
-Once formulas have been mapped onto a sspm discrete object, the GAMs can
-be fitted with this function. Arguments can be passed onto \code{bam}.
+Once formulas have been mapped onto a sspm discrete object, the GAMs can be
+fitted with this function. Arguments can be passed onto \code{bam}.
 }
 \section{Functions}{
 \itemize{

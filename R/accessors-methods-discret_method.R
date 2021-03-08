@@ -4,7 +4,7 @@
 #' objects of class [discretization_method][discretization_method-class].
 #'
 #' @param sspm_object **\[discretization_method\]** An object of class
-#'     [discretization_method][discretization_method-class].
+#'   [discretization_method][discretization_method-class].
 #'
 #' @inheritParams base::Extract
 #'
