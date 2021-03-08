@@ -40,6 +40,7 @@
 \alias{spm_discret_method,sspm_discrete-method}
 \alias{spm_discret_method<-}
 \alias{spm_discret_method<-,sspm_discrete-method}
+\alias{spm_discret_method<-,sspm-method}
 \alias{spm_patches}
 \alias{spm_patches,sspm-method}
 \alias{spm_patches,sspm_discrete-method}
@@ -142,7 +143,7 @@ spm_discret_method(object) <- value
 
 \S4method{spm_discret_method}{sspm_discrete}(object) <- value
 
-\S4method{spm_boundaries}{sspm}(object) <- value
+\S4method{spm_discret_method}{sspm}(object) <- value
 
 spm_patches(sspm_object)
 
@@ -284,7 +285,7 @@ objects of class \link[=sspm-class]{sspm} and others derivative classes
 
 \item \code{spm_discret_method<-,sspm_discrete-method}: TODO
 
-\item \code{spm_boundaries<-,sspm-method}: TODO
+\item \code{spm_discret_method<-,sspm-method}: TODO
 
 \item \code{spm_patches}: TODO
 
