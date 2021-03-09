@@ -209,6 +209,10 @@ ICAR <- function(sspm_object, dataset, dimension,
       k <- n_time_levels
     }
 
+    if(is.null(bs)){
+      bs <- "re"
+    }
+
     if(is.null(xt)){
       pen_mat_time <- ICAR_time(time_levels, n_time_levels)
     } else {
@@ -231,6 +235,10 @@ ICAR <- function(sspm_object, dataset, dimension,
   } else if (dimension == "space"){
 
     out_column <- list(str2lang(space_column))
+
+    if(is.null(bs)){
+      bs <- "mrt"
+    }
 
     if(is.null(xt)){
       pen_mat_space <- ICAR_space(patches, space_column)
@@ -257,6 +265,10 @@ ICAR <- function(sspm_object, dataset, dimension,
 
     if(is.null(k)){
       k <- c(n_time_levels, 30)
+    }
+
+    if(is.null(bs)){
+      bs <- c("re","mrf")
     }
 
     if(is.null(xt)){
