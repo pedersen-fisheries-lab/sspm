@@ -340,7 +340,7 @@ ICAR_time <- function(time_levels){
 
 ICAR_space <- function(patches, space_column){
 
-  assert_choice(space_column, names(patches))
+  checkmate::assert_choice(space_column, names(patches))
 
   patches_adj_mat = suppressAll(sf::st_intersects(patches, sparse = FALSE))
   rownames(patches_adj_mat) = colnames(patches_adj_mat) = patches[[space_column]]
