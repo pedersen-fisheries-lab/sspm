@@ -36,3 +36,36 @@ test_that("Smooths are assembles correctly", {
                    "s(a = \"ns\", b = 3, c = list(d = \"hn\", e = 4))")
 
 })
+
+test_that("Main smooth functions work as expected", {
+
+  # Failures => This avctually test ICAR
+  expect_error(smooth_time(dataset = "NotValid", sspm_object = sspm_discrete_mapped),
+               "Argument 'dataset' must be one of: Biomass, Predator")
+
+  # Successes
+  res_time <- smooth_time(dataset = "Biomass", sspm_object = sspm_discrete_mapped)
+  expect_equal(res_time$smooth, "s(year_f, k = 24L, bs = \"re\", xt = list(penalty = pen_mat_time))")
+  expect_names(names(res_time$vars), identical.to = c("pen_mat_time"))
+  expect_equal(dim(res_time$vars$pen_mat_time), c(24, 24))
+
+  res_space <- smooth_space(dataset = "Biomass", sspm_object = sspm_discrete_mapped)
+  expect_equal(res_space$smooth, "s(patch_id, k = 30, bs = \"mrf\", xt = list(penalty = pen_mat_space))")
+  expect_names(names(res_space$vars), identical.to = c("pen_mat_space"))
+  expect_equal(dim(res_space$vars$pen_mat_space), c(69, 69))
+
+  res_space_time <- smooth_space_time(dataset = "Biomass", sspm_object = sspm_discrete_mapped)
+  expect_equal(res_space_time$smooth,
+               paste0("ti(year_f, patch_id, k = c(24, 30), ",
+                      "bs = c(\"re\", \"mrf\"), xt = list(year_f = list(penalty = pen_mat_time), ",
+                      "patch_id = list(penalty = pen_mat_space)))"))
+  expect_names(names(res_space_time$vars), identical.to = c("pen_mat_time", "pen_mat_space"))
+  expect_equal(dim(res_space_time$vars$pen_mat_time), c(24, 24))
+  expect_equal(dim(res_space_time$vars$pen_mat_space), c(69, 69))
+
+})
+
+test_that("ICAR function works as expected", {
+  res_ICAR  <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "time",
+                           k = NULL, xt = NULL, bs = NULL)
+})
