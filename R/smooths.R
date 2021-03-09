@@ -176,6 +176,14 @@ ICAR <- function(sspm_object, dataset, dimension,
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
   # Get data/dataset and relevant columns
+  # Same test than in map_formula
+  all_dataset_names <- names(spm_datasets(sspm_object))
+  if(!checkmate::test_choice(dataset, all_dataset_names)){
+    stop(paste0("Argument 'dataset' must be one of: ",
+                paste0(all_dataset_names,
+                       collapse =  ", " )), call. = FALSE)
+  }
+
   the_dataset <- spm_datasets(sspm_object)[[dataset]]
   the_data <- spm_data(the_dataset)
 
