@@ -241,7 +241,7 @@ ICAR <- function(sspm_object, dataset, dimension,
     }
 
     if(is.null(bs)){
-      bs <- "mrt"
+      bs <- "mrf"
     }
 
     if(is.null(xt)){
