@@ -4,7 +4,7 @@ test_that("Low - level matrix functions work as expected", {
 
   # Time
   time_levels <- c(1991, 1992, 1993, 1994)
-  pen_mat_time <- sspm:::ICAR_time(c(1991, 1992, 1993, 1994), 4)
+  pen_mat_time <- sspm:::ICAR_time(c(1991, 1992, 1993, 1994))
 
   pen_mat_time_compare <-   matrix(c(1, -1,  0,  0,
                                      -1,  2, -1,  0,
@@ -28,6 +28,7 @@ test_that("Low - level matrix functions work as expected", {
   expect_identical(pen_mat_space, pen_mat_space_compare)
   expect_true(sum(rowSums(pen_mat_space) != 0) == 0)
   expect_true(sum(colSums(pen_mat_space) != 0) == 0)
+
 })
 
 test_that("Smooths are assembles correctly", {
@@ -76,7 +77,7 @@ test_that("ICAR function works as expected", {
 
   res_ICAR  <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space",
                            k = NULL, xt = NULL, bs = NULL)
-  expect_equal(res_ICAR$args[[1]], substitute(patchID))
+  expect_equal(res_ICAR$args[[1]], substitute(patch_id))
   expect_equal(res_ICAR$args$k, 24)
   expect_equal(res_ICAR$args$bs, "re")
   expect_equal(res_ICAR$args$xt, alist(penalty=pen_mat_time))
