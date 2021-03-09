@@ -214,13 +214,13 @@ ICAR <- function(sspm_object, dataset, dimension,
     }
 
     if(is.null(xt)){
-      pen_mat_time <- ICAR_time(time_levels, n_time_levels)
+      pen_mat_time <- ICAR_time(time_levels)
     } else {
 
       checkmate::assert_list(xt)
 
       if (is.null(xt$penalty)){
-        pen_mat_time <- ICAR_time(time_levels, n_time_levels)
+        pen_mat_time <- ICAR_time(time_levels)
       } else {
         checkmate::assert_matrix(xt$penalty)
         pen_mat_time <- xt
@@ -273,7 +273,7 @@ ICAR <- function(sspm_object, dataset, dimension,
 
     if(is.null(xt)){
 
-      pen_mat_time <- ICAR_time(time_levels, n_time_levels)
+      pen_mat_time <- ICAR_time(time_levels)
       pen_mat_space <- ICAR_space(patches, space_column)
 
       vars$pen_mat_time <- pen_mat_time
@@ -286,7 +286,7 @@ ICAR <- function(sspm_object, dataset, dimension,
                               must.include = c(time_column, space_column))
 
       if (is.null(xt[[time_column]]$penalty)){
-        vars$pen_mat_time <- ICAR_time(time_levels, n_time_levels)
+        vars$pen_mat_time <- ICAR_time(time_levels)
       } else {
         vars$pen_mat_time <- xt[[time_column]]$penalty
       }
@@ -313,11 +313,13 @@ ICAR <- function(sspm_object, dataset, dimension,
               vars = vars))
 }
 
-ICAR_time <- function(time_levels, n_time_levels){
+ICAR_time <- function(time_levels){
 
   # Creating an auto-regressive year penalty; this matrix means that the
   # estimate for each year is penalized to be close to the years before and
   # after it
+
+  n_time_levels <- length(unique(time_levels))
 
   pen_mat = matrix(0, nrow=n_time_levels, ncol = n_time_levels)
   dimnames(pen_mat) = list(time_levels, time_levels)
