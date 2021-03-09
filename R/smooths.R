@@ -236,6 +236,10 @@ ICAR <- function(sspm_object, dataset, dimension,
 
     out_column <- list(str2lang(space_column))
 
+    if(is.null(k)){
+      k <- 30
+    }
+
     if(is.null(bs)){
       bs <- "mrt"
     }
