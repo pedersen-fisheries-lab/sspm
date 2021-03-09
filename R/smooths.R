@@ -60,7 +60,7 @@ setGeneric(name = "smooth_space_time",
 # Beware: the following code is repeated three time for the sake of user
 # friendliness, although much has been done to limit repetition. If you are
 # about to edit some of this code, check whether this edit should not be also
-# done to the other occurence of that code.
+# done to the other two occurrences of that code.
 
 #' @export
 #' @describeIn smooths TODO
