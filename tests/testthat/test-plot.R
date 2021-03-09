@@ -5,4 +5,6 @@ test_that("Plotting works as expected", {
   expect_message(plot(sspm_base),
                  "This model is not discretized and cannot be plotted")
 
+  expect_list(plot(sspm_discrete))
+
 })
