@@ -285,19 +285,23 @@ ICAR <- function(sspm_object, dataset, dimension,
 
     } else {
 
+      # Must be a list of list with correct names
       checkmate::assert_list(xt)
+      lapply(xt, checkmate::assert_list)
       checkmate::assert_names(names(xt),
-                              must.include = c(time_column, space_column))
+                              subset.of = c(time_column, space_column))
 
       if (is.null(xt[[time_column]]$penalty)){
         vars$pen_mat_time <- ICAR_time(time_levels)
       } else {
+        checkmate::assert_matrix(xt[[time_column]]$penalty)
         vars$pen_mat_time <- xt[[time_column]]$penalty
       }
 
       if (is.null(xt[[space_column]]$penalty)){
         vars$pen_mat_space <- ICAR_space(patches, space_column)
       } else{
+        checkmate::assert_matrix(xt[[space_column]]$penalty)
         vars$pen_mat_space <- xt[[space_column]]$penalty
       }
 
