@@ -17,7 +17,7 @@ test_that("Low - level matrix functions work as expected", {
   expect_true(sum(colSums(pen_mat_time) != 0) == 0)
 
   # Space
-  pen_mat_space <- sspm:::ICAR_space(borealis_patches[1:5,], "patchID")
+  pen_mat_space <- sspm:::ICAR_space(borealis_patches[1:5,], "patch_id")
 
   pen_mat_space_compare <- matrix(c(1, -1, 0, 0, 0,
                                     -1, 2, 0, 0, -1,
@@ -66,6 +66,26 @@ test_that("Main smooth functions work as expected", {
 })
 
 test_that("ICAR function works as expected", {
+
   res_ICAR  <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "time",
                            k = NULL, xt = NULL, bs = NULL)
+  expect_equal(res_ICAR$args[[1]], substitute(year_f))
+  expect_equal(res_ICAR$args$k, 24)
+  expect_equal(res_ICAR$args$bs, "re")
+  expect_equal(res_ICAR$args$xt, alist(penalty=pen_mat_time))
+
+  res_ICAR  <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space",
+                           k = NULL, xt = NULL, bs = NULL)
+  expect_equal(res_ICAR$args[[1]], substitute(patchID))
+  expect_equal(res_ICAR$args$k, 24)
+  expect_equal(res_ICAR$args$bs, "re")
+  expect_equal(res_ICAR$args$xt, alist(penalty=pen_mat_time))
+
+  res_ICAR  <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space_time",
+                           k = NULL, xt = NULL, bs = NULL)
+  expect_equal(res_ICAR$args[[1]], substitute(year_f))
+  expect_equal(res_ICAR$args$k, 24)
+  expect_equal(res_ICAR$args$bs, "re")
+  expect_equal(res_ICAR$args$xt, alist(penalty=pen_mat_time))
+
 })
