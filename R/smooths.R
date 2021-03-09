@@ -171,7 +171,7 @@ ICAR <- function(sspm_object, dataset, dimension,
   checkmate::assert_class(sspm_object, "sspm")
   checkmate::assert_character(dataset)
   checkmate::assert_character(dimension)
-  checkmate::assert_choice(dimension, choices = c("time", "space"))
+  checkmate::assert_choice(dimension, choices = c("time", "space", "space_time"))
 
   # Recapture the ellipsis again
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
