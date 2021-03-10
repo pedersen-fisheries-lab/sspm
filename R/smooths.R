@@ -343,7 +343,8 @@ ICAR_space <- function(patches, space_column){
   checkmate::assert_choice(space_column, names(patches))
 
   patches_adj_mat = suppressAll(sf::st_intersects(patches, sparse = FALSE))
-  rownames(patches_adj_mat) = colnames(patches_adj_mat) = patches[[space_column]]
+  dimnames(patches_adj_mat) = list(unique(patches[[space_column]]),
+                                   unique(patches[[space_column]]))
   patches_adj_mat = patches_adj_mat + 0
   diag(patches_adj_mat) = 0
   pen_mat = diag(rowSums(patches_adj_mat)) - patches_adj_mat
