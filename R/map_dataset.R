@@ -71,7 +71,10 @@ setMethod(f = "map_dataset",
             mapped_tmp <- spm_mapped_datasets(sspm_object)
             all_names <- unlist(c(lapply(mapped_tmp, spm_name), spm_name(data)))
 
-            mapped_tmp <- append(mapped_tmp, list(data))
+            data_joined <- join_datasets(sspm_data = data,
+                                         sspm_object = sspm_object)
+
+            mapped_tmp <- append(mapped_tmp, list(data_joined))
             names(mapped_tmp) <- all_names
 
             spm_mapped_datasets(sspm_object) <- mapped_tmp
@@ -153,3 +156,21 @@ setMethod(f = "map_dataset",
             message_not_discrete(sspm_object)
           }
 )
+
+# Join helper
+join_datasets <- function(sspm_data, sspm_object){
+
+  checkmate::assert_class(sspm_data, "sspm_data")
+  checkmate::assert_class(sspm_object, "sspm_discrete")
+
+  the_data <- spm_data(sspm_data)
+  the_patches <- spm_patches(sspm_object)
+
+  joined <- suppressMessages(sf::st_transform(the_data, crs = sf::st_crs(the_patches)))
+  joined <- suppressMessages(sf::st_join(the_data, the_patches)) %>%
+    dplyr::filter(!duplicated(.data[[spm_unique_ID(sspm_data)]]))
+
+  spm_data(sspm_data) <- joined
+
+  return(sspm_data)
+}
