@@ -18,7 +18,7 @@
 #'
 #' @export
 setGeneric(name = "as_sspm_data",
-           def = function(data, time_col, coords, name, uniqueID, crs){
+           def = function(data, time_col, coords, name, uniqueID, crs = NULL){
 
              if(!checkmate::test_subset(uniqueID, names(data))){
                stop("`uniqueID` must be a column of `data`", call. = FALSE)
@@ -67,8 +67,6 @@ setMethod(f = "as_sspm_data",
           signature(data = "data.frame", coords = "character"),
           function(data, time_col, coords, name, uniqueID, crs){
 
-            # TODO CRS checks
-
             # Check coords
             if(!checkmate::test_subset(coords, names(data))){
               stop("`coords` must be columns of `data`", call. = FALSE)
@@ -82,6 +80,15 @@ setMethod(f = "as_sspm_data",
               paste0(" Casting data matrix into simple feature collection using columns: ",
                      paste(cli::col_green(coords), collapse = ", "))
             cli::cli_alert_info(info_message)
+
+            # TODO better CRS checks
+            if (is.null(crs)){
+              info_message <-
+                paste0(" Warning: sspm is assuming WGS 84 CRS is to be ",
+                       "used for casting")
+              cli::cli_alert_warning(info_message)
+              crs <- sf::st_crs(4326)
+            }
 
             new_data <- sf::st_as_sf(x = data, coords = coords, crs = crs,
                                      remove = FALSE)
