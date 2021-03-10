@@ -73,13 +73,12 @@ tesselate_voronoi <- function(sspm_object,
   # 1. Make data a sf object
   data_spatial <- spm_data(data)
 
-  # Make sure seed is set just before called sample
+  # Make sure seed options are set correctly
   if(getRversion()>=3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))
-  set.seed(seed)
 
   # 2. Create (sample) the points
   if(is.null(sample_points)){
-    voronoi_points <- suppressMessages(sf::st_join(data_spatial, boundaries)) %>%
+    set.seed(seed) ; voronoi_points <- suppressMessages(sf::st_join(data_spatial, boundaries)) %>%
       dplyr::filter(!is.na(eval(dplyr::sym(boundary_col)))) %>%
       dplyr::group_by(.data[[boundary_col]]) %>%
       # TODO revise here: allows stratified sampling, but doesn't allow a given
@@ -145,6 +144,6 @@ tesselate_voronoi <- function(sspm_object,
 
   # Core function must return a list of "patches" and "points"
   return(list(data_spatial = data_spatial,
-              patches=voronoi,
+              patches = voronoi,
               points = voronoi_points))
 }
