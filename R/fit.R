@@ -14,7 +14,7 @@ setGeneric(name = "fit_smooths",
            def = function(sspm_object,
                           family = mgcv::tw,
                           drop.unused.levels = F,
-                          method = "REML",
+                          method = "fREML",
                           ...){
              standardGeneric("fit_smooths")
            }
