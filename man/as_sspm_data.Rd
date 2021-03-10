@@ -8,15 +8,15 @@
 \alias{as_sspm_data,sf,ANY,ANY-method}
 \title{Create a \code{sspm_data} dataset structure}
 \usage{
-as_sspm_data(data, time_col, coords, name, uniqueID, crs)
+as_sspm_data(data, time_col, coords, name, uniqueID, crs = NULL)
 
-\S4method{as_sspm_data}{data.frame,ANY,missingOrNULL}(data, time_col, coords, name, uniqueID, crs)
+\S4method{as_sspm_data}{data.frame,ANY,missingOrNULL}(data, time_col, coords, name, uniqueID, crs = NULL)
 
-\S4method{as_sspm_data}{data.frame,ANY,list}(data, time_col, coords, name, uniqueID, crs)
+\S4method{as_sspm_data}{data.frame,ANY,list}(data, time_col, coords, name, uniqueID, crs = NULL)
 
-\S4method{as_sspm_data}{data.frame,ANY,character}(data, time_col, coords, name, uniqueID, crs)
+\S4method{as_sspm_data}{data.frame,ANY,character}(data, time_col, coords, name, uniqueID, crs = NULL)
 
-\S4method{as_sspm_data}{sf,ANY,ANY}(data, time_col, coords, name, uniqueID, crs)
+\S4method{as_sspm_data}{sf,ANY,ANY}(data, time_col, coords, name, uniqueID, crs = NULL)
 }
 \arguments{
 \item{data}{\strong{[data.frame OR sf]} The dataset.}
