@@ -10,7 +10,7 @@ fit_smooths(
   sspm_object,
   family = mgcv::tw,
   drop.unused.levels = F,
-  method = "REML",
+  method = "fREML",
   ...
 )
 
@@ -18,7 +18,7 @@ fit_smooths(
   sspm_object,
   family = mgcv::tw,
   drop.unused.levels = F,
-  method = "REML",
+  method = "fREML",
   ...
 )
 
@@ -26,7 +26,7 @@ fit_smooths(
   sspm_object,
   family = mgcv::tw,
   drop.unused.levels = F,
-  method = "REML",
+  method = "fREML",
   ...
 )
 }
