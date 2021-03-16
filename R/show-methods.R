@@ -27,8 +27,8 @@ setMethod("show",
             cat_boundaries(object)
             cat_discretization_info(object)
             cat_datasets(object)
-            if (length(object@mapped_formulas) >= 1){
-              cat_mapped_formulas(object)
+            if (length(object@formulas) >= 1){
+              cat_formulas(object)
             }
             cli::cat_line()
           }
@@ -98,7 +98,7 @@ cat_datasets <- function(object){
     for(i in seq_len(length.out = length(datasets))){
 
       the_dataset <- datasets[[i]]
-      the_dataset_formulas <- the_dataset@mapped_formulas
+      the_dataset_formulas <- the_dataset@formulas
 
       dim_1 <- dim(spm_data(the_dataset))[1]
       dim_2 <- dim(spm_data(the_dataset))[2]
@@ -147,17 +147,17 @@ cat_discretization_info <- function(object){
 
 ########
 
-cat_mapped_datasets <- function(object){
-  datasets <- object@mapped_datasets
-  cli::cli_h3(cli::col_cyan("Mapped Datasets"))
-  cli::cat_bullet(" ", cli::col_cyan(length(datasets)),
-                  " mapped dataset(s): ", paste(cli::col_cyan(sapply(datasets ,
-                                                                     spm_name)),
-                                                collapse = ", "))
-}
+# cat_mapped_datasets <- function(object){
+#   datasets <- object@mapped_datasets
+#   cli::cli_h3(cli::col_cyan("Mapped Datasets"))
+#   cli::cat_bullet(" ", cli::col_cyan(length(datasets)),
+#                   " mapped dataset(s): ", paste(cli::col_cyan(sapply(datasets ,
+#                                                                      spm_name)),
+#                                                 collapse = ", "))
+# }
 
-cat_mapped_formulas <- function(object){
-  formulas <- object@mapped_formulas
+cat_formulas <- function(object){
+  formulas <- object@formulas
   cli::cli_h3(cli::col_cyan("Mapped formulas"))
   for(form_id in seq_len(length.out = length(formulas))){
     the_formula <- formulas[[form_id]]
