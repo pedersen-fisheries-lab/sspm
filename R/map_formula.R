@@ -74,8 +74,11 @@ setMethod(f = "map_formula",
                     formula = "formula"),
           function(sspm_object, dataset, formula, ...){
 
+            # Get datasets
+            all_datasets <- spm_datasets(sspm_object)
+
             # Check names
-            all_dataset_names <- names(spm_datasets(sspm_object))
+            all_dataset_names <- names(all_datasets)
             if(!checkmate::test_choice(dataset, all_dataset_names)){
               stop(paste0("Argument 'dataset' must be one of: ",
                           paste0(all_dataset_names,
@@ -88,7 +91,8 @@ setMethod(f = "map_formula",
             terms_labels <- attr(formula_terms, "term.labels")
 
             # Check response
-            the_data <- spm_data(spm_datasets(sspm_object)[[dataset]])
+            the_dataset <- all_datasets[[dataset]]
+            the_data <- spm_data(the_dataset)
             if(!checkmate::test_subset(response, names(the_data))){
               stop("The response in the formula is not a column of the dataset.",
                    call. = FALSE)
@@ -122,9 +126,6 @@ setMethod(f = "map_formula",
             smooth_list <- sapply(smooth_and_vars, `[[`, "smooth")
 
             vars_list <- purrr::flatten(lapply(smooth_and_vars, `[[`, "vars"))
-            # if(purrr::vec_depth(vars_list)>2){
-            #   vars_list <- purrr::flatten(vars_list)
-            # }
             vars_list <- vars_list[unique(names(vars_list))]
 
             # Paste them into formula
@@ -142,9 +143,17 @@ setMethod(f = "map_formula",
                                 dataset = dataset,
                                 vars = vars_list)
 
-            spm_mapped_formulas(sspm_object) <-
-              append(spm_mapped_formulas(sspm_object),
+            spm_mapped_formulas(the_dataset) <-
+              append(spm_mapped_formulas(spm_datasets(sspm_object)[[dataset]]),
                      list(sspm_formula))
+
+            if(spm_name(the_dataset) == spm_name(spm_base_dataset(sspm_object))){
+              spm_base_dataset(sspm_object) <- the_dataset
+            } else {
+              all_mapped_datasets <- spm_mapped_datasets(sspm_object)
+              all_mapped_datasets[[dataset]] <- the_dataset
+              spm_mapped_datasets(sspm_object) <- all_mapped_datasets
+            }
 
             return(sspm_object)
           }
