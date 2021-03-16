@@ -34,6 +34,9 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #'     rows of the data matrix.
 #' @slot representation **\[character\]** Used internally and for print methods,
 #'     encodes the type of dataset.
+#' @slot mapped_formulas **\[list\]** *(if discrete)* List of
+#'     [sspm_formula][sspm_formula-class] objects that are mapped onto the
+#'     base dataset.
 #'
 #' @name sspm_data-class
 #' @rdname sspm_data-class
@@ -44,7 +47,8 @@ setClass("sspm_data",
                       time_col = "character",
                       coords = "characterOrNULL",
                       uniqueID = "character",
-                      representation = "character"),
+                      representation = "character",
+                      mapped_formulas = "list"),
          prototype = prototype(name = "Biomass"),
          contains = c("sf", "data.frame"))
 
@@ -91,10 +95,11 @@ setClass("discretization_method",
 #' @slot points **\[sf\]** *(if discrete)* Sample points used for
 #'     discretization.
 #' @slot mapped_datasets **\[list\]** *(if discrete)* List of
-#'     [sspm_data][sspm_data-class] objects that are mapped ontp the
+#'     [sspm_data][sspm_data-class] objects that are mapped onto the
 #'     base dataset.
-#' @slot mapped_formulas **\[list\]** *(if discrete)* List of mapped formulas
-#'     used to specify a model.
+#' @slot mapped_formulas **\[list\]** *(if discrete)* List of
+#'     [sspm_formula][sspm_formula-class] objects that are mapped onto the
+#'     base dataset.
 #'
 #' @name sspm-class
 #' @rdname sspm-class

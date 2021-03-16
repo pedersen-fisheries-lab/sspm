@@ -38,10 +38,11 @@ discretization.}
 discretization.}
 
 \item{\code{mapped_datasets}}{\strong{[list]} \emph{(if discrete)} List of
-\link[=sspm_data-class]{sspm_data} objects that are mapped ontp the
+\link[=sspm_data-class]{sspm_data} objects that are mapped onto the
 base dataset.}
 
-\item{\code{mapped_formulas}}{\strong{[list]} \emph{(if discrete)} List of mapped formulas
-used to specify a model.}
+\item{\code{mapped_formulas}}{\strong{[list]} \emph{(if discrete)} List of
+\link[=sspm_formula-class]{sspm_formula} objects that are mapped onto the
+base dataset.}
 }}
 
