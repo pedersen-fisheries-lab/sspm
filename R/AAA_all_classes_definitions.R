@@ -52,7 +52,7 @@ setClass("sspm_data",
                       formulas = "list",
                       is_smoothed = "logical"),
          prototype = prototype(name = "Biomass",
-                               smoothed = FALSE),
+                               is_smoothed = FALSE),
          contains = c("sf", "data.frame"))
 
 # TODO reconsider using the stack approach
