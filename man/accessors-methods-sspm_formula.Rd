@@ -17,6 +17,10 @@
 \alias{formula_vars,sspm_formula-method}
 \alias{formula_vars<-}
 \alias{formula_vars<-,sspm_formula-method}
+\alias{formula_type}
+\alias{formula_type,sspm_formula-method}
+\alias{formula_type<-}
+\alias{formula_type<-,sspm_formula-method}
 \title{Accessing OR replacing \code{sspm_formula} model elements}
 \usage{
 raw_formula(sspm_object)
@@ -50,6 +54,14 @@ formula_vars(sspm_object)
 formula_vars(object) <- value
 
 \S4method{formula_vars}{sspm_formula}(object) <- value
+
+formula_type(sspm_object)
+
+\S4method{formula_type}{sspm_formula}(sspm_object)
+
+formula_type(object) <- value
+
+\S4method{formula_type}{sspm_formula}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_formula]} An object of class
@@ -97,5 +109,13 @@ objects of class \link[=sspm_formula-class]{sspm_formula}.
 \item \code{formula_vars<-}: TODO
 
 \item \code{formula_vars<-,sspm_formula-method}: TODO
+
+\item \code{formula_type}: TODO
+
+\item \code{formula_type,sspm_formula-method}: TODO
+
+\item \code{formula_type<-}: TODO
+
+\item \code{formula_type<-,sspm_formula-method}: TODO
 }}
 

@@ -174,3 +174,27 @@ setMethod("spm_time_col<-",
             return(object)
           }
 )
+
+
+# Formulas ----------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @describeIn accessors-methods-sspm_data TODO
+#' @export
+setMethod("spm_mapped_formulas",
+          signature("sspm_object" = "sspm_data"),
+          function(sspm_object) sspm_object@mapped_formulas
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods-sspm_data TODO
+#' @export
+setMethod("spm_mapped_formulas<-",
+          signature("object" = "sspm_data"),
+          function(object, value){
+            object@mapped_formulas <- value
+            validObject(object)
+            return(object)
+          }
+)
