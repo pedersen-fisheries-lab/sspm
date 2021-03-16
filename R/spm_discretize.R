@@ -5,6 +5,8 @@
 #'
 #' @param sspm_object **\[sspm\]** An object of class
 #'    [sspm][sspm-class].
+#' @param with_dataset **\[character\]** The name of the dataset to use for the
+#'    discretization.
 #' @param discretization_method **\[character OR discretization_method\]**
 #'    Either a `character` from the list of available methods
 #'    (see [spm_methods][spm_methods] for the list) **OR** an object of class
@@ -22,6 +24,7 @@
 #' @export
 setGeneric(name = "spm_discretize",
            def = function(sspm_object,
+                          with_dataset,
                           discretization_method = "tesselate_voronoi",
                           ...){
              standardGeneric("spm_discretize")
@@ -36,8 +39,9 @@ setGeneric(name = "spm_discretize",
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "sspm",
+                    with_dataset = "character",
                     discretization_method = "discretization_method"),
-          function(sspm_object, discretization_method, ...){
+          function(sspm_object, with_dataset, discretization_method, ...){
 
             checkmate::assert_class(discretization_method,
                                     "discretization_method")
@@ -82,8 +86,9 @@ setMethod(f = "spm_discretize",
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "sspm",
+                    with_dataset = "character",
                     discretization_method = "character"),
-          function(sspm_object, discretization_method, ...){
+          function(sspm_object, with_dataset, discretization_method, ...){
 
             the_method <- as_discretization_method(discretization_method)
 
@@ -96,8 +101,9 @@ setMethod(f = "spm_discretize",
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "sspm",
+                    with_dataset = "ANY",
                     discretization_method = "NULL"),
-          function(sspm_object, discretization_method, ...){
+          function(sspm_object, with_dataset, discretization_method, ...){
             stop("Invalid discretization method.")
           }
 )
@@ -110,8 +116,9 @@ setMethod(f = "spm_discretize",
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "sspm_discrete",
+                    with_dataset = "character",
                     discretization_method = "character"),
-          function(sspm_object, discretization_method, ...){
+          function(sspm_object, with_dataset, discretization_method, ...){
 
             the_method <- as_discretization_method(discretization_method)
 
@@ -123,8 +130,9 @@ setMethod(f = "spm_discretize",
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "sspm_discrete",
+                    with_dataset = "character",
                     discretization_method = "discretization_method"),
-          function(sspm_object, discretization_method, force = FALSE, ...){
+          function(sspm_object, with_dataset, discretization_method, force = FALSE, ...){
 
             checkmate::assert_logical(force)
 

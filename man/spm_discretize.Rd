@@ -2,28 +2,62 @@
 % Please edit documentation in R/spm_discretize.R
 \name{spm_discretize}
 \alias{spm_discretize}
-\alias{spm_discretize,sspm,discretization_method-method}
-\alias{spm_discretize,sspm,character-method}
-\alias{spm_discretize,sspm,NULL-method}
-\alias{spm_discretize,sspm_discrete,character-method}
-\alias{spm_discretize,sspm_discrete,discretization_method-method}
+\alias{spm_discretize,sspm,character,discretization_method-method}
+\alias{spm_discretize,sspm,character,character-method}
+\alias{spm_discretize,sspm,ANY,NULL-method}
+\alias{spm_discretize,sspm_discrete,character,character-method}
+\alias{spm_discretize,sspm_discrete,character,discretization_method-method}
 \title{Discretize a \code{sspm} model object}
 \usage{
-spm_discretize(sspm_object, discretization_method = "tesselate_voronoi", ...)
+spm_discretize(
+  sspm_object,
+  with_dataset,
+  discretization_method = "tesselate_voronoi",
+  ...
+)
 
-\S4method{spm_discretize}{sspm,discretization_method}(sspm_object, discretization_method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm,character,discretization_method}(
+  sspm_object,
+  with_dataset,
+  discretization_method = "tesselate_voronoi",
+  ...
+)
 
-\S4method{spm_discretize}{sspm,character}(sspm_object, discretization_method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm,character,character}(
+  sspm_object,
+  with_dataset,
+  discretization_method = "tesselate_voronoi",
+  ...
+)
 
-\S4method{spm_discretize}{sspm,`NULL`}(sspm_object, discretization_method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm,ANY,`NULL`}(
+  sspm_object,
+  with_dataset,
+  discretization_method = "tesselate_voronoi",
+  ...
+)
 
-\S4method{spm_discretize}{sspm_discrete,character}(sspm_object, discretization_method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm_discrete,character,character}(
+  sspm_object,
+  with_dataset,
+  discretization_method = "tesselate_voronoi",
+  ...
+)
 
-\S4method{spm_discretize}{sspm_discrete,discretization_method}(sspm_object, discretization_method, force = FALSE, ...)
+\S4method{spm_discretize}{sspm_discrete,character,discretization_method}(
+  sspm_object,
+  with_dataset,
+  discretization_method,
+  force = FALSE,
+  ...
+)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm]} An object of class
 \link[=sspm-class]{sspm}.}
+
+\item{with_dataset}{\strong{[character]} The name of the dataset to use for the
+discretization.}
 
 \item{discretization_method}{\strong{[character OR discretization_method]}
 Either a \code{character} from the list of available methods
@@ -47,14 +81,14 @@ Discretize a \link[=sspm-class]{sspm} model object with a function from a
 }
 \section{Functions}{
 \itemize{
-\item \code{spm_discretize,sspm,discretization_method-method}: TODO
+\item \code{spm_discretize,sspm,character,discretization_method-method}: TODO
 
-\item \code{spm_discretize,sspm,character-method}: TODO
+\item \code{spm_discretize,sspm,character,character-method}: TODO
 
-\item \code{spm_discretize,sspm,NULL-method}: TODO
+\item \code{spm_discretize,sspm,ANY,NULL-method}: TODO
 
-\item \code{spm_discretize,sspm_discrete,character-method}: TODO
+\item \code{spm_discretize,sspm_discrete,character,character-method}: TODO
 
-\item \code{spm_discretize,sspm_discrete,discretization_method-method}: TODO
+\item \code{spm_discretize,sspm_discrete,character,discretization_method-method}: TODO
 }}
 
