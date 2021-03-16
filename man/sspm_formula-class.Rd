@@ -21,6 +21,9 @@ to be mapped onto.}
 
 \item{\code{vars}}{\strong{[list]} List of relevant variables for the evaluation of the
 different smooths.}
+
+\item{\code{type}}{\strong{[charatcer]} One of "smooth" and "surplus", the type of
+formula, either for smoothing datasets or for fitting a surplus model}
 }}
 
 \seealso{

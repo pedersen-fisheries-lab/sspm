@@ -137,6 +137,8 @@ setClass("sspm_discrete",
 #'     to be mapped onto.
 #' @slot vars **\[list\]** List of relevant variables for the evaluation of the
 #'     different smooths.
+#' @slot type **\[charatcer\]** One of "smooth" and "surplus", the type of
+#'     formula, either for smoothing datasets or for fitting a surplus model
 #'
 #' @seealso See the `mgcv` function for defining smooths: [s()][mgcv::s].
 #'
@@ -144,7 +146,8 @@ setClass("sspm_formula",
          slots = list(raw_formula = "formula",
                       translated_formula = "formula",
                       dataset = "character",
-                      vars = "list")
+                      vars = "list",
+                      type = "character")
 )
 
 # -------------------------------------------------------------------------
