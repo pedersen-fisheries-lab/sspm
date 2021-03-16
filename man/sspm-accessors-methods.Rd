@@ -6,15 +6,11 @@
 \alias{spm_name,sspm-method}
 \alias{spm_name<-}
 \alias{spm_name<-,sspm-method}
-\alias{spm_base_dataset}
-\alias{spm_base_dataset,sspm-method}
-\alias{spm_base_dataset,sspm_discrete-method}
-\alias{spm_base_dataset<-}
-\alias{spm_base_dataset<-,sspm-method}
 \alias{spm_datasets}
 \alias{spm_datasets,sspm-method}
-\alias{spm_datasets,sspm_discrete-method}
 \alias{spm_datasets,sspm_data-method}
+\alias{spm_datasets<-}
+\alias{spm_datasets<-,sspm-method}
 \alias{spm_unique_ID}
 \alias{spm_unique_ID,sspm-method}
 \alias{spm_unique_ID,sspm_discrete-method}
@@ -75,23 +71,15 @@ spm_name(object) <- value
 
 \S4method{spm_name}{sspm}(object) <- value
 
-spm_base_dataset(sspm_object)
-
-\S4method{spm_base_dataset}{sspm}(sspm_object)
-
-\S4method{spm_base_dataset}{sspm_discrete}(sspm_object)
-
-spm_base_dataset(object) <- value
-
-\S4method{spm_base_dataset}{sspm}(object) <- value
-
 spm_datasets(sspm_object)
 
 \S4method{spm_datasets}{sspm}(sspm_object)
 
-\S4method{spm_datasets}{sspm_discrete}(sspm_object)
-
 \S4method{spm_datasets}{sspm_data}(sspm_object)
+
+spm_datasets(object) <- value
+
+\S4method{spm_datasets}{sspm}(object) <- value
 
 spm_unique_ID(sspm_object)
 
@@ -217,23 +205,15 @@ objects of class \link[=sspm-class]{sspm} and others derivative classes
 
 \item \code{spm_name<-,sspm-method}: TODO
 
-\item \code{spm_base_dataset}: TODO
-
-\item \code{spm_base_dataset,sspm-method}: TODO
-
-\item \code{spm_base_dataset,sspm_discrete-method}: TODO
-
-\item \code{spm_base_dataset<-}: TODO
-
-\item \code{spm_base_dataset<-,sspm-method}: TODO
-
 \item \code{spm_datasets}: TODO
 
 \item \code{spm_datasets,sspm-method}: TODO
 
-\item \code{spm_datasets,sspm_discrete-method}: TODO
-
 \item \code{spm_datasets,sspm_data-method}: TODO
+
+\item \code{spm_datasets<-}: TODO
+
+\item \code{spm_datasets<-,sspm-method}: TODO
 
 \item \code{spm_unique_ID}: TODO
 
