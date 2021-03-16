@@ -13,7 +13,14 @@
 #'
 #' @export
 setGeneric(name = "map_dataset",
-           def = function(sspm_object, data, ...){
+           def = function(sspm_object,
+                          data,
+                          name,
+                          time_column,
+                          uniqueID,
+                          coords = NULL,
+                          crs = NULL,
+                          ...){
              standardGeneric("map_dataset")
            }
 )
@@ -26,11 +33,14 @@ setGeneric(name = "map_dataset",
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
-          signature(sspm_object = "sspm_discrete",
+          signature(sspm_object = "sspm",
                     data = "data.frame"),
-          function(sspm_object, data, ...){
+          function(sspm_object, data, name, time_column, uniqueID, coords, crs, ...){
 
-            updated_object <- cast_and_return(sspm_object, data, ...)
+            updated_object <-
+              cast_and_return(sspm_object, data, name,
+                              time_column, uniqueID, coords, crs, ...)
+
             return(updated_object)
 
           }
@@ -39,56 +49,66 @@ setMethod(f = "map_dataset",
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
-          signature(sspm_object = "sspm_discrete",
+          signature(sspm_object = "sspm",
                     data = "sf"),
-          function(sspm_object, data, ...){
+          function(sspm_object, data, name,
+                   time_column, uniqueID, coords, crs, ...){
 
             updated_object <- cast_and_return(sspm_object, data, ...)
+
             return(updated_object)
 
           }
 )
 
 # Helper for the two methods above
-cast_and_return <- function(sspm_object, data, ...){
+cast_and_return <- function(sspm_object, data, name,
+                            time_column, uniqueID, coords, crs, ...){
+
   # Cast data.frame as sspm_data
-  sspm_data <- as_sspm_data(data = data, ...)
+  sspm_data <- as_sspm_data(data = data, name,
+                            time_column, uniqueID, coords, crs, ...)
 
   # Call next method
-  mapped_objects <- map_dataset(sspm_object = sspm_object,
-                                data = sspm_data, ...)
-  return(mapped_objects)
+  updated_object <- map_dataset(sspm_object = sspm_object,
+                                data = sspm_data)
+  return(updated_object)
 }
-
 
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
-          signature(sspm_object = "sspm_discrete",
+          signature(sspm_object = "sspm",
                     data = "sspm_data"),
           function(sspm_object, data, ...){
 
             # Append to list of mapped_datasets
-            mapped_tmp <- spm_mapped_datasets(sspm_object)
-            all_names <- unlist(c(lapply(mapped_tmp, spm_name), spm_name(data)))
+            datasets <- spm_datasets(sspm_object)
+            datasets_names <- names(datasets)
 
-            data_joined <- join_datasets(sspm_data = data,
-                                         sspm_object = sspm_object)
+            if (checkmate::test_class(sspm_object, "sspm_discrete")){
 
-            mapped_tmp <- append(mapped_tmp, list(data_joined))
-            names(mapped_tmp) <- all_names
+              data <- join_datasets(sspm_data = data,
+                                    sspm_object = sspm_object)
 
-            spm_mapped_datasets(sspm_object) <- mapped_tmp
+            }
+
+            datasets_tmp <- append(datasets, list(data))
+            names(datasets_tmp) <- c(datasets_names, spm_name(data))
+
+            spm_datasets(sspm_object) <- datasets_tmp
 
             # Return updated sspm_discretized
             return(sspm_object)
           }
 )
 
+# LIST METHOD, TO COME BACK TO THIS
+
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
-          signature(sspm_object = "sspm_discrete",
+          signature(sspm_object = "sspm",
                     data = "list"),
           function(sspm_object, data, ...){
 
@@ -146,15 +166,6 @@ setMethod(f = "map_dataset",
             }
 
             return(tmp_sspm_discrete)
-          }
-)
-
-#' @export
-#' @describeIn map_dataset TODO
-setMethod(f = "map_dataset",
-          signature(sspm_object = "sspm"),
-          function(sspm_object, ...){
-            message_not_discrete(sspm_object)
           }
 )
 

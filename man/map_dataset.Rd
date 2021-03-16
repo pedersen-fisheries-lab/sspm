@@ -2,24 +2,66 @@
 % Please edit documentation in R/map_dataset.R
 \name{map_dataset}
 \alias{map_dataset}
-\alias{map_dataset,sspm_discrete,data.frame-method}
-\alias{map_dataset,sspm_discrete,sf-method}
-\alias{map_dataset,sspm_discrete,sspm_data-method}
-\alias{map_dataset,sspm_discrete,list-method}
-\alias{map_dataset,sspm,ANY-method}
+\alias{map_dataset,sspm,data.frame-method}
+\alias{map_dataset,sspm,sf-method}
+\alias{map_dataset,sspm,sspm_data-method}
+\alias{map_dataset,sspm,list-method}
 \title{Map dataset onto a discretized sspm object}
 \usage{
-map_dataset(sspm_object, data, ...)
+map_dataset(
+  sspm_object,
+  data,
+  name,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL,
+  ...
+)
 
-\S4method{map_dataset}{sspm_discrete,data.frame}(sspm_object, data, ...)
+\S4method{map_dataset}{sspm,data.frame}(
+  sspm_object,
+  data,
+  name,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL,
+  ...
+)
 
-\S4method{map_dataset}{sspm_discrete,sf}(sspm_object, data, ...)
+\S4method{map_dataset}{sspm,sf}(
+  sspm_object,
+  data,
+  name,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL,
+  ...
+)
 
-\S4method{map_dataset}{sspm_discrete,sspm_data}(sspm_object, data, ...)
+\S4method{map_dataset}{sspm,sspm_data}(
+  sspm_object,
+  data,
+  name,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL,
+  ...
+)
 
-\S4method{map_dataset}{sspm_discrete,list}(sspm_object, data, ...)
-
-\S4method{map_dataset}{sspm,ANY}(sspm_object, data, ...)
+\S4method{map_dataset}{sspm,list}(
+  sspm_object,
+  data,
+  name,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL,
+  ...
+)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_discrete]} An object of class
@@ -27,17 +69,23 @@ map_dataset(sspm_object, data, ...)
 
 \item{data}{\strong{[data.frame OR sf]} The dataset.}
 
+\item{name}{\strong{[character]} The name of the dataset, default to "Biomass".}
+
+\item{time_column}{\strong{[character]} The column of \code{data} for the temporal
+dimensions (i.e. year).}
+
+\item{uniqueID}{\strong{[character]} The column of \code{data} that is unique for all
+rows of the data matrix.}
+
+\item{coords}{\strong{[character]} The column of \code{data} for longitude and
+latitude of the observations.}
+
+\item{crs}{Coordinate reference system, passed onto \link[=sf]{st_as_sf}.}
+
 \item{...}{
   Arguments passed on to \code{\link[=as_sspm_data]{as_sspm_data}}
   \describe{
-    \item{\code{time_column}}{\strong{[character]} The column of \code{data} for the temporal
-dimensions (i.e. year).}
-    \item{\code{coords}}{\strong{[character]} The column of \code{data} for longitude and
-latitude of the observations.}
-    \item{\code{name}}{\strong{[character]} The name of the dataset, default to "Biomass".}
-    \item{\code{uniqueID}}{\strong{[character]} The column of \code{data} that is unique for all
-rows of the data matrix.}
-    \item{\code{crs}}{Coordinate reference system, passed onto \link[=sf]{st_as_sf}.}
+    \item{\code{}}{}
   }}
 }
 \value{
@@ -49,14 +97,12 @@ After discretizing, the next step is to map coavriate datasets.
 }
 \section{Functions}{
 \itemize{
-\item \code{map_dataset,sspm_discrete,data.frame-method}: TODO
+\item \code{map_dataset,sspm,data.frame-method}: TODO
 
-\item \code{map_dataset,sspm_discrete,sf-method}: TODO
+\item \code{map_dataset,sspm,sf-method}: TODO
 
-\item \code{map_dataset,sspm_discrete,sspm_data-method}: TODO
+\item \code{map_dataset,sspm,sspm_data-method}: TODO
 
-\item \code{map_dataset,sspm_discrete,list-method}: TODO
-
-\item \code{map_dataset,sspm,ANY-method}: TODO
+\item \code{map_dataset,sspm,list-method}: TODO
 }}
 
