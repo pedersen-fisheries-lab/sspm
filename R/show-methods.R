@@ -108,7 +108,7 @@ cat_datasets <- function(object){
               cli::symbol$em_dash,
               cli::pluralize("[ {dim_1} observation{?s} ; {dim_2} variable{?s} ]"))
 
-      if(the_dataset@smoothed == TRUE){
+      if(the_dataset@is_smoothed == TRUE){
         the_line <-
           paste(the_line, cli::col_green(cli::style_bold("(SMOOTHED)")))
       }

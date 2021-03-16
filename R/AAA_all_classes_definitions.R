@@ -50,7 +50,7 @@ setClass("sspm_data",
                       uniqueID = "character",
                       representation = "character",
                       formulas = "list",
-                      smoothed = "logical"),
+                      is_smoothed = "logical"),
          prototype = prototype(name = "Biomass",
                                smoothed = FALSE),
          contains = c("sf", "data.frame"))
@@ -109,7 +109,7 @@ setClass("sspm",
                       datasets = "list",
                       boundaries = "sf"),
          prototype = prototype(name = "My Model",
-                               dataset = list())
+                               datasets = list())
 )
 
 #' @describeIn sspm-class sspm_discrete
