@@ -97,8 +97,8 @@ setGeneric(name = "spm_datasets",
 #' @export
 setMethod("spm_datasets", signature("sspm_object" = "sspm"),
           function(sspm_object) {
-            datasets <- list(spm_base_dataset(sspm_object))
-            names(datasets) <- spm_name(spm_base_dataset(sspm_object))
+            datasets <- sspm_object@datasets
+            names(datasets) <- sapply(datasets, spm_name)
             return(datasets)
           }
 )
