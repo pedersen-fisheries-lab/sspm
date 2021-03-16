@@ -37,6 +37,7 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #' @slot mapped_formulas **\[list\]** *(if discrete)* List of
 #'     [sspm_formula][sspm_formula-class] objects that are mapped onto the
 #'     base dataset.
+#' @slot smoothed **\[Logical\]** Whether or not this dataset has been smoothed.
 #'
 #' @name sspm_data-class
 #' @rdname sspm_data-class
@@ -44,12 +45,14 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 setClass("sspm_data",
          slots = list(name = "character",
                       data = "ANY",
-                      time_col = "character",
+                      time_column = "character",
                       coords = "characterOrNULL",
                       uniqueID = "character",
                       representation = "character",
-                      mapped_formulas = "list"),
-         prototype = prototype(name = "Biomass"),
+                      mapped_formulas = "list",
+                      smoothed = "logical"),
+         prototype = prototype(name = "Biomass",
+                               smoothed = FALSE),
          contains = c("sf", "data.frame"))
 
 # TODO reconsider using the stack approach
@@ -85,8 +88,9 @@ setClass("discretization_method",
 #'  containes "mapped datasets" (for example, predator or observator data).
 #'
 #' @slot name **\[character\]** Name of the model.
-#' @slot data **\[[sspm_data][sspm_data-class]\]** Observationnal data.
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
+#' @slot datasets **\[list\]** *(if discrete)* List of
+#'     [sspm_data][sspm_data-class] that define variables in the SPM model.
 #'
 #' @slot method **\[[discretization_method][discretization_method-class]\]**
 #'     *(if discrete)* discretization method used.
@@ -94,10 +98,7 @@ setClass("discretization_method",
 #'     discretization.
 #' @slot points **\[sf\]** *(if discrete)* Sample points used for
 #'     discretization.
-#' @slot mapped_datasets **\[list\]** *(if discrete)* List of
-#'     [sspm_data][sspm_data-class] objects that are mapped onto the
-#'     base dataset.
-#' @slot mapped_formulas **\[list\]** *(if discrete)* List of
+#' @slot formulas **\[list\]** *(if discrete)* List of
 #'     [sspm_formula][sspm_formula-class] objects that are mapped onto the
 #'     base dataset.
 #'
@@ -116,7 +117,7 @@ setClass("sspm_discrete",
          slots = list(method = "discretization_method",
                       patches = "sf",
                       points = "sf",
-                      mapped_datasets = "list",
+                      datasets = "list",
                       mapped_formulas = "list"),
          prototype = prototype(name = "Default Model Name",
                                mapped_datasets = list(),
