@@ -88,35 +88,39 @@ cat_datasets <- function(object){
   datasets <- spm_datasets(object)
   len_dat <- length(datasets)
 
+
   cli::cat_bullet(paste0(cli::col_cyan(" Datasets         : "),
-                         cli::pluralize("{len_dat} dataset{?s}")),
+                         cli::pluralize("{no(len_dat)} dataset{?s}")),
                   bullet = "arrow_right")
 
-  for(i in seq_len(length.out = length(datasets))){
+  if(len_dat > 0){
 
-    the_dataset <- datasets[[i]]
-    the_dataset_formulas <- the_dataset@mapped_formulas
+    for(i in seq_len(length.out = length(datasets))){
 
-    dim_1 <- dim(spm_data(the_dataset))[1]
-    dim_2 <- dim(spm_data(the_dataset))[2]
+      the_dataset <- datasets[[i]]
+      the_dataset_formulas <- the_dataset@mapped_formulas
 
-    the_line <-
-      paste(cli::symbol$star, cli::col_green(spm_name(the_dataset)),
-            cli::symbol$em_dash,
-            cli::pluralize("[ {dim_1} observation{?s} ; {dim_2} variable{?s} ]"))
+      dim_1 <- dim(spm_data(the_dataset))[1]
+      dim_2 <- dim(spm_data(the_dataset))[2]
 
-    if(the_dataset@smoothed == TRUE){
       the_line <-
-        paste(the_line, cli::col_green(cli::style_bold("(SMOOTHED)")))
-    }
+        paste(cli::symbol$star, cli::col_green(spm_name(the_dataset)),
+              cli::symbol$em_dash,
+              cli::pluralize("[ {dim_1} observation{?s} ; {dim_2} variable{?s} ]"))
 
-    cli::cat_line("   ", the_line)
+      if(the_dataset@smoothed == TRUE){
+        the_line <-
+          paste(the_line, cli::col_green(cli::style_bold("(SMOOTHED)")))
+      }
 
-    if(length(the_dataset_formulas)>0){
-      for (form in the_dataset_formulas){
-        formatted <- format_formula(form@raw_formula)
-        cli::cat_line("      ", cli::symbol$en_dash, " ",
-                      cli::col_yellow(paste0(strtrim(formatted, 70), "...")))
+      cli::cat_line("   ", the_line)
+
+      if(length(the_dataset_formulas)>0){
+        for (form in the_dataset_formulas){
+          formatted <- format_formula(form@raw_formula)
+          cli::cat_line("      ", cli::symbol$en_dash, " ",
+                        cli::col_yellow(paste0(strtrim(formatted, 70), "...")))
+        }
       }
     }
   }
