@@ -25,7 +25,7 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #'
 #' @slot name **\[character\]** The name of the dataset, default to "Biomass".
 #' @slot data **\[data.frame OR sf\]** The dataset.
-#' @slot time_col **\[character\]** The column of `data` that represents the
+#' @slot time_column **\[character\]** The column of `data` that represents the
 #'     temporal dimension of the dataset.
 #' @slot coords **\[character\]** The columns of `data` that represent the
 #'     spatial dimension of the dataset: the two columns for longitude and

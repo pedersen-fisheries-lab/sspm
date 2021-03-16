@@ -157,19 +157,19 @@ setMethod("spm_coords_col<-",
 
 #' @describeIn accessors-methods-sspm_data TODO
 #' @export
-setMethod("spm_time_col",
+setMethod("spm_time_column",
           signature("sspm_object" = "sspm_data"),
-          function(sspm_object) sspm_object@time_col
+          function(sspm_object) sspm_object@time_column
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @describeIn accessors-methods-sspm_data TODO
 #' @export
-setMethod("spm_time_col<-",
+setMethod("spm_time_column<-",
           signature("object" = "sspm_data"),
           function(object, value){
-            object@time_col <- value
+            object@time_column <- value
             validObject(object)
             return(object)
           }
