@@ -30,9 +30,9 @@ test_that("Replacers work as expected", {
   }, "New_ID")
 
   expect_match({
-    spm_time_col(sspm_base) <- "new_time_col"
-    spm_time_col(sspm_base)
-  }, "new_time_col")
+    spm_time_column(sspm_base) <- "new_time_column"
+    spm_time_column(sspm_base)
+  }, "new_time_column")
 
   expect_class({
     spm_base_dataset(sspm_base) <- sspm_data
@@ -150,9 +150,9 @@ test_that("Replacers work as expected", {
   }, "New_ID_2")
 
   expect_match({
-    spm_time_col(sspm_data) <- "new_time_col_2"
-    spm_time_col(sspm_data)
-  }, "new_time_col_2")
+    spm_time_column(sspm_data) <- "new_time_column_2"
+    spm_time_column(sspm_data)
+  }, "new_time_column_2")
 
   expect_match({
     spm_rep(sspm_data) <- "New_rep"

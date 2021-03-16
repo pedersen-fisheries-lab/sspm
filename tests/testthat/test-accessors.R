@@ -20,8 +20,8 @@ test_that("Accessors work as expected on `sspm_data`", {
   expect_character(spm_coords_col(sspm_data))
   expect_length(spm_coords_col(sspm_data), 2)
 
-  expect_character(spm_time_col(sspm_data))
-  expect_length(spm_time_col(sspm_data), 1)
+  expect_character(spm_time_column(sspm_data))
+  expect_length(spm_time_column(sspm_data), 1)
 
   # Invalid
   expect_message(spm_datasets(sspm_data),
@@ -40,8 +40,8 @@ test_that("Accessors work as expected on `sspm`", {
   expect_character(spm_coords_col(sspm_base))
   expect_length(spm_coords_col(sspm_base), 2)
 
-  expect_character(spm_time_col(sspm_base))
-  expect_length(spm_time_col(sspm_base), 1)
+  expect_character(spm_time_column(sspm_base))
+  expect_length(spm_time_column(sspm_base), 1)
 
   expect_class(spm_boundaries(sspm_base), "sf")
 
@@ -77,8 +77,8 @@ test_that("accessors work on `sspm_discrete`", {
   expect_character(spm_coords_col(sspm_discrete))
   expect_length(spm_coords_col(sspm_discrete), 2)
 
-  expect_character(spm_time_col(sspm_discrete))
-  expect_length(spm_time_col(sspm_discrete), 1)
+  expect_character(spm_time_column(sspm_discrete))
+  expect_length(spm_time_column(sspm_discrete), 1)
 
   expect_class(spm_boundaries(sspm_discrete), "sf")
 
@@ -114,8 +114,8 @@ test_that("Accessors work as expected on `sspm_discrete (MAPPED)`", {
   expect_list(spm_coords_col(sspm_discrete_mapped))
   expect_length(spm_coords_col(sspm_discrete_mapped), 2)
 
-  expect_list(spm_time_col(sspm_discrete_mapped))
-  expect_length(spm_time_col(sspm_discrete_mapped), 2)
+  expect_list(spm_time_column(sspm_discrete_mapped))
+  expect_length(spm_time_column(sspm_discrete_mapped), 2)
 
   expect_class(spm_boundaries(sspm_discrete_mapped), "sf")
 

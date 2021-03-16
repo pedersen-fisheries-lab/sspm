@@ -18,7 +18,7 @@ predator_spatial <- sspm:::predator_simulated_spatial
 sspm_data <- new("sspm_data",
                  name = "Biomass",
                  data = borealis_spatial,
-                 time_col = "year_f",
+                 time_column = "year_f",
                  uniqueID = "uniqueID",
                  coords = c('lon_dec','lat_dec'),
                  representation = "Simple feature collection")
@@ -26,7 +26,7 @@ sspm_data <- new("sspm_data",
 sspm_data_pred <- new("sspm_data",
                       name = "Predator",
                       data = predator_spatial,
-                      time_col = "year",
+                      time_column = "year",
                       uniqueID = "uniqueID",
                       coords = c('lon_dec','lat_dec'),
                       representation = "Simple feature collection")
@@ -72,4 +72,4 @@ sspm_formula <- new("sspm_formula",
                                   pen_mat_space = matrix()))
 
 sspm_discrete_mapped_forms <- sspm_discrete_mapped
-sspm_discrete_mapped_forms@mapped_formulas <- list(sspm_formula)
+# sspm_discrete_mapped_forms@mapped_formulas <- list(sspm_formula)
