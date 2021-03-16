@@ -34,7 +34,7 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #'     rows of the data matrix.
 #' @slot representation **\[character\]** Used internally and for print methods,
 #'     encodes the type of dataset.
-#' @slot mapped_formulas **\[list\]** *(if discrete)* List of
+#' @slot formulas **\[list\]** *(if discrete)* List of
 #'     [sspm_formula][sspm_formula-class] objects that are mapped onto the
 #'     base dataset.
 #' @slot smoothed **\[Logical\]** Whether or not this dataset has been smoothed.
@@ -49,7 +49,7 @@ setClass("sspm_data",
                       coords = "characterOrNULL",
                       uniqueID = "character",
                       representation = "character",
-                      mapped_formulas = "list",
+                      formulas = "list",
                       smoothed = "logical"),
          prototype = prototype(name = "Biomass",
                                smoothed = FALSE),
@@ -104,10 +104,9 @@ setClass("discretization_method",
 #'
 #' @name sspm-class
 #' @rdname sspm-class
-#'
 setClass("sspm",
          slots = list(name = "character",
-                      data = "sspm_data",
+                      datasets = "list",
                       boundaries = "sf"),
          prototype = prototype(name = "Default Model Name")
 )
@@ -117,8 +116,7 @@ setClass("sspm_discrete",
          slots = list(method = "discretization_method",
                       patches = "sf",
                       points = "sf",
-                      datasets = "list",
-                      mapped_formulas = "list"),
+                      formulas = "list"),
          prototype = prototype(name = "Default Model Name",
                                mapped_datasets = list(),
                                mapped_formulas = list()),
@@ -134,8 +132,6 @@ setClass("sspm_discrete",
 #' @slot raw_formula **\[formula\]** The raw formula call
 #' @slot translated_formula **\[formula\]** The translated formula call ready
 #'     to be evaluated.
-#' @slot dataset **\[character\]** The name of the dataset the formula object is
-#'     to be mapped onto.
 #' @slot vars **\[list\]** List of relevant variables for the evaluation of the
 #'     different smooths.
 #' @slot type **\[charatcer\]** One of "smooth" and "surplus", the type of
@@ -146,24 +142,23 @@ setClass("sspm_discrete",
 setClass("sspm_formula",
          slots = list(raw_formula = "formula",
                       translated_formula = "formula",
-                      dataset = "character",
                       vars = "list",
                       type = "character")
 )
 
 # -------------------------------------------------------------------------
 
-# Fitted model => sspm + discretization_method + has been fitted
-# TODO finish specifying these objects
-setClass("sspm_gam_fit",
-         slots = list(gam_fit = "data.frame",
-                      gam_call = "formula"),
-         contains = c("sspm_discrete", "sspm")
-)
-
-# Modelled SPM ~ end of workflow
-setClass("sspm_spm_fit",
-         slots = list(spm_fit = "data.frame",
-                      spm_call = "formula"),
-         contains = "sspm_gam_fit"
-)
+# # Fitted model => sspm + discretization_method + has been fitted
+# # TODO finish specifying these objects
+# setClass("sspm_gam_fit",
+#          slots = list(gam_fit = "data.frame",
+#                       gam_call = "formula"),
+#          contains = c("sspm_discrete", "sspm")
+# )
+#
+# # Modelled SPM ~ end of workflow
+# setClass("sspm_spm_fit",
+#          slots = list(spm_fit = "data.frame",
+#                       spm_call = "formula"),
+#          contains = "sspm_gam_fit"
+# )
