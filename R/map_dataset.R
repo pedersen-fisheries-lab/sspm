@@ -37,6 +37,15 @@ setMethod(f = "map_dataset",
                     data = "data.frame"),
           function(sspm_object, data, name, time_column, uniqueID, coords, crs, ...){
 
+            # TODO better CRS checks
+            if (is.null(crs)){
+              info_message <-
+                paste0(" Warning: sspm is assuming that the CRS of boundaries is to be ",
+                       "used for casting")
+              cli::cli_alert_warning(info_message)
+              crs <- sf::st_crs(spm_boundaries(sspm_object))
+            }
+
             updated_object <-
               cast_and_return(sspm_object, data, name,
                               time_column, uniqueID, coords, crs, ...)
