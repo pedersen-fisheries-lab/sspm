@@ -4,37 +4,12 @@
 \alias{sspm}
 \title{Create a \code{sspm} model object}
 \usage{
-sspm(
-  model_name = "My sspm model",
-  name = "Biomass",
-  data,
-  time_column,
-  uniqueID,
-  boundaries,
-  coords = NULL,
-  crs = NULL,
-  ...
-)
+sspm(model_name = "My sspm model", boundaries)
 }
 \arguments{
 \item{model_name}{\strong{[character]} The name to be given to the model}
 
-\item{name}{\strong{[character]} The name of the dataset, default to "Biomass".}
-
-\item{data}{\strong{[data.frame OR sf]} The dataset.}
-
-\item{time_column}{\strong{[character]} The column of \code{data} for the temporal
-dimensions (i.e. year).}
-
-\item{uniqueID}{\strong{[character]} The column of \code{data} that is unique for all
-rows of the data matrix.}
-
 \item{boundaries}{\strong{[sf]} The spatial boundaries (polygons) for the model.}
-
-\item{coords}{\strong{[character]} The column of \code{data} for longitude and
-latitude of the observations.}
-
-\item{crs}{Coordinate reference system, passed onto \link[=sf]{st_as_sf}.}
 
 \item{...}{TBD}
 }
