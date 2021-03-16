@@ -44,48 +44,8 @@ setMethod("spm_name<-",
           }
 )
 
-# Base dataset ------------------------------------------------------------
-# Accesors ----------------------------------------------------------------
-
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setGeneric(name = "spm_base_dataset",
-           def = function(sspm_object) standardGeneric("spm_base_dataset")
-)
-
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setMethod("spm_base_dataset", signature("sspm_object" = "sspm"),
-          function(sspm_object) sspm_object@data
-)
-
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setMethod("spm_base_dataset", signature("sspm_object" = "sspm_discrete"),
-          function(sspm_object) sspm_object@data
-)
-
-# Replacers ---------------------------------------------------------------
-
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setGeneric(name = "spm_base_dataset<-",
-           def = function(object, value) standardGeneric("spm_base_dataset<-")
-)
-
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setMethod("spm_base_dataset<-",
-          signature("object" = "sspm"),
-          function(object, value){
-            object@data <- value
-            validObject(object)
-            return(object)
-          }
-)
-
 # Datasets ----------------------------------------------------------------
-# No replacers here as we aggregate different datasets 'types'
+# Accesors ----------------------------------------------------------------
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
@@ -105,30 +65,28 @@ setMethod("spm_datasets", signature("sspm_object" = "sspm"),
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setMethod("spm_datasets", signature("sspm_object" = "sspm_discrete"),
-          function(sspm_object){
-            if(length(spm_mapped_datasets(sspm_object)) > 0){
-              # A bit ugly but required to format list of different length
-              # without using purrr
-              datasets <- unlist(list(list(Main_dataset = spm_base_dataset(sspm_object)),
-                                      Mapped_datasets = spm_mapped_datasets(sspm_object)),
-                                 recursive = FALSE)
-              # Add names
-              names(datasets) <- c(spm_name(spm_base_dataset(sspm_object)),
-                                   sapply(spm_mapped_datasets(sspm_object), spm_name))
-            } else {
-              datasets <- list(spm_base_dataset(sspm_object))
-              names(datasets) <- spm_name(spm_base_dataset(sspm_object))
-            }
-            return(datasets)
+setMethod("spm_datasets", signature("sspm_object" = "sspm_data"),
+          function(sspm_object) {
+            cli::cli_alert_danger("Use `spm_data` to access the data of a dataset object")
           }
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn sspm-accessors-methods TODO
+#' @export
+setGeneric(name = "spm_datasets<-",
+           def = function(object, value) standardGeneric("spm_datasets<-")
 )
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setMethod("spm_datasets", signature("sspm_object" = "sspm_data"),
-          function(sspm_object) {
-            cli::cli_alert_danger("Use `spm_data` to access the data of a dataset object")
+setMethod("spm_datasets<-",
+          signature("object" = "sspm"),
+          function(object, value){
+            object@datasets <- value
+            validObject(object)
+            return(object)
           }
 )
 
