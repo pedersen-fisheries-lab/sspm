@@ -23,7 +23,7 @@ map_dataset(sspm_object, data, ...)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_discrete]} An object of class
-\link[=sspm_discrete-class]{sspm_discrete}.}
+\link[=sspm-class]{sspm} or \link[=sspm_discrete-class]{sspm_discrete}}
 
 \item{data}{\strong{[data.frame OR sf]} The dataset.}
 
@@ -41,7 +41,8 @@ rows of the data matrix.}
   }}
 }
 \value{
-The updated object, of class \link[=sspm_discrete-class]{sspm_discrete}.
+The updated object, of class \link[=sspm-class]{sspm} or
+\link[=sspm_discrete-class]{sspm_discrete}.
 }
 \description{
 After discretizing, the next step is to map coavriate datasets.
