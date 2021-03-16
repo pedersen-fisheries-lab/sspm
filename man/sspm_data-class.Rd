@@ -28,7 +28,7 @@ rows of the data matrix.}
 \item{\code{representation}}{\strong{[character]} Used internally and for print methods,
 encodes the type of dataset.}
 
-\item{\code{mapped_formulas}}{\strong{[list]} \emph{(if discrete)} List of
+\item{\code{formulas}}{\strong{[list]} \emph{(if discrete)} List of
 \link[=sspm_formula-class]{sspm_formula} objects that are mapped onto the
 base dataset.}
 

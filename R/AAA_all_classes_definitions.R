@@ -108,7 +108,8 @@ setClass("sspm",
          slots = list(name = "character",
                       datasets = "list",
                       boundaries = "sf"),
-         prototype = prototype(name = "Default Model Name")
+         prototype = prototype(name = "My Model",
+                               dataset = list())
 )
 
 #' @describeIn sspm-class sspm_discrete
@@ -118,8 +119,7 @@ setClass("sspm_discrete",
                       points = "sf",
                       formulas = "list"),
          prototype = prototype(name = "Default Model Name",
-                               mapped_datasets = list(),
-                               mapped_formulas = list()),
+                               formulas = list()),
          contains = c("sspm"))
 
 # -------------------------------------------------------------------------
