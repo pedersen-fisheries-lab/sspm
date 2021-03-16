@@ -96,7 +96,11 @@ setGeneric(name = "spm_datasets",
 #' @describeIn sspm-accessors-methods TODO
 #' @export
 setMethod("spm_datasets", signature("sspm_object" = "sspm"),
-          function(sspm_object) sspm_object@data
+          function(sspm_object) {
+            datasets <- list(spm_base_dataset(sspm_object))
+            names(datasets) <- spm_name(spm_base_dataset(sspm_object))
+            return(datasets)
+          }
 )
 
 #' @describeIn sspm-accessors-methods TODO
