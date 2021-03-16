@@ -233,27 +233,27 @@ setMethod("spm_coords_col<-",
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setGeneric(name = "spm_time_col",
-           def = function(sspm_object) standardGeneric("spm_time_col")
+setGeneric(name = "spm_time_column",
+           def = function(sspm_object) standardGeneric("spm_time_column")
 )
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setMethod("spm_time_col",
+setMethod("spm_time_column",
           signature("sspm_object" = "sspm"),
-          function(sspm_object) sspm_object@data@time_col
+          function(sspm_object) sspm_object@data@time_column
 )
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setMethod("spm_time_col",
+setMethod("spm_time_column",
           signature("sspm_object" = "sspm_discrete"),
           function(sspm_object) {
             if(length(spm_mapped_datasets(sspm_object)) > 0){
               cols <- lapply(spm_datasets(sspm_object),
-                             spm_time_col)
+                             spm_time_column)
             } else {
-              cols <- sspm_object@data@time_col
+              cols <- sspm_object@data@time_column
             }
             return(cols)
           }
@@ -263,16 +263,16 @@ setMethod("spm_time_col",
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setGeneric(name = "spm_time_col<-",
-           def = function(object, value) standardGeneric("spm_time_col<-")
+setGeneric(name = "spm_time_column<-",
+           def = function(object, value) standardGeneric("spm_time_column<-")
 )
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setMethod("spm_time_col<-",
+setMethod("spm_time_column<-",
           signature("object" = "sspm"),
           function(object, value){
-            object@data@time_col <- value
+            object@data@time_column <- value
             validObject(object)
             return(object)
           }
