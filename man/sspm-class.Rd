@@ -24,9 +24,10 @@ containes "mapped datasets" (for example, predator or observator data).
 \describe{
 \item{\code{name}}{\strong{[character]} Name of the model.}
 
-\item{\code{data}}{\strong{[\link[=sspm_data-class]{sspm_data}]} Observationnal data.}
-
 \item{\code{boundaries}}{\strong{[sf]} Spatial boundaries (polygons).}
+
+\item{\code{datasets}}{\strong{[list]} \emph{(if discrete)} List of
+\link[=sspm_data-class]{sspm_data} that define variables in the SPM model.}
 
 \item{\code{method}}{\strong{[\link[=discretization_method-class]{discretization_method}]}
 \emph{(if discrete)} discretization method used.}
@@ -37,11 +38,7 @@ discretization.}
 \item{\code{points}}{\strong{[sf]} \emph{(if discrete)} Sample points used for
 discretization.}
 
-\item{\code{mapped_datasets}}{\strong{[list]} \emph{(if discrete)} List of
-\link[=sspm_data-class]{sspm_data} objects that are mapped onto the
-base dataset.}
-
-\item{\code{mapped_formulas}}{\strong{[list]} \emph{(if discrete)} List of
+\item{\code{formulas}}{\strong{[list]} \emph{(if discrete)} List of
 \link[=sspm_formula-class]{sspm_formula} objects that are mapped onto the
 base dataset.}
 }}

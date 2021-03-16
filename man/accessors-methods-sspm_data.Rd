@@ -16,8 +16,8 @@
 \alias{spm_unique_ID<-,sspm_data-method}
 \alias{spm_coords_col,sspm_data-method}
 \alias{spm_coords_col<-,sspm_data-method}
-\alias{spm_time_col,sspm_data-method}
-\alias{spm_time_col<-,sspm_data-method}
+\alias{spm_time_column,sspm_data-method}
+\alias{spm_time_column<-,sspm_data-method}
 \alias{spm_mapped_formulas,sspm_data-method}
 \alias{spm_mapped_formulas<-,sspm_data-method}
 \title{Accessing OR replacing \code{sspm_data} model elements}
@@ -52,9 +52,9 @@ spm_rep(object) <- value
 
 \S4method{spm_coords_col}{sspm_data}(object) <- value
 
-\S4method{spm_time_col}{sspm_data}(sspm_object)
+\S4method{spm_time_column}{sspm_data}(sspm_object)
 
-\S4method{spm_time_col}{sspm_data}(object) <- value
+\S4method{spm_time_column}{sspm_data}(object) <- value
 
 \S4method{spm_mapped_formulas}{sspm_data}(sspm_object)
 
@@ -105,9 +105,9 @@ objects of class \link[=sspm_data-class]{sspm_data}.
 
 \item \code{spm_coords_col<-,sspm_data-method}: TODO
 
-\item \code{spm_time_col,sspm_data-method}: TODO
+\item \code{spm_time_column,sspm_data-method}: TODO
 
-\item \code{spm_time_col<-,sspm_data-method}: TODO
+\item \code{spm_time_column<-,sspm_data-method}: TODO
 
 \item \code{spm_mapped_formulas,sspm_data-method}: TODO
 

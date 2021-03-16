@@ -30,7 +30,7 @@ map_dataset(sspm_object, data, ...)
 \item{...}{
   Arguments passed on to \code{\link[=as_sspm_data]{as_sspm_data}}
   \describe{
-    \item{\code{time_col}}{\strong{[character]} The column of \code{data} for the temporal
+    \item{\code{time_column}}{\strong{[character]} The column of \code{data} for the temporal
 dimensions (i.e. year).}
     \item{\code{coords}}{\strong{[character]} The column of \code{data} for longitude and
 latitude of the observations.}

@@ -25,11 +25,11 @@
 \alias{spm_coords_col,sspm_discrete-method}
 \alias{spm_coords_col<-}
 \alias{spm_coords_col<-,sspm-method}
-\alias{spm_time_col}
-\alias{spm_time_col,sspm-method}
-\alias{spm_time_col,sspm_discrete-method}
-\alias{spm_time_col<-}
-\alias{spm_time_col<-,sspm-method}
+\alias{spm_time_column}
+\alias{spm_time_column,sspm-method}
+\alias{spm_time_column,sspm_discrete-method}
+\alias{spm_time_column<-}
+\alias{spm_time_column<-,sspm-method}
 \alias{spm_boundaries}
 \alias{spm_boundaries,sspm-method}
 \alias{spm_boundaries<-}
@@ -113,15 +113,15 @@ spm_coords_col(object) <- value
 
 \S4method{spm_coords_col}{sspm}(object) <- value
 
-spm_time_col(sspm_object)
+spm_time_column(sspm_object)
 
-\S4method{spm_time_col}{sspm}(sspm_object)
+\S4method{spm_time_column}{sspm}(sspm_object)
 
-\S4method{spm_time_col}{sspm_discrete}(sspm_object)
+\S4method{spm_time_column}{sspm_discrete}(sspm_object)
 
-spm_time_col(object) <- value
+spm_time_column(object) <- value
 
-\S4method{spm_time_col}{sspm}(object) <- value
+\S4method{spm_time_column}{sspm}(object) <- value
 
 spm_boundaries(sspm_object)
 
@@ -255,15 +255,15 @@ objects of class \link[=sspm-class]{sspm} and others derivative classes
 
 \item \code{spm_coords_col<-,sspm-method}: TODO
 
-\item \code{spm_time_col}: TODO
+\item \code{spm_time_column}: TODO
 
-\item \code{spm_time_col,sspm-method}: TODO
+\item \code{spm_time_column,sspm-method}: TODO
 
-\item \code{spm_time_col,sspm_discrete-method}: TODO
+\item \code{spm_time_column,sspm_discrete-method}: TODO
 
-\item \code{spm_time_col<-}: TODO
+\item \code{spm_time_column<-}: TODO
 
-\item \code{spm_time_col<-,sspm-method}: TODO
+\item \code{spm_time_column<-,sspm-method}: TODO
 
 \item \code{spm_boundaries}: TODO
 

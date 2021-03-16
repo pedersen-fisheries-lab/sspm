@@ -8,7 +8,7 @@ sspm(
   model_name = "My sspm model",
   name = "Biomass",
   data,
-  time_col,
+  time_column,
   uniqueID,
   boundaries,
   coords = NULL,
@@ -23,7 +23,7 @@ sspm(
 
 \item{data}{\strong{[data.frame OR sf]} The dataset.}
 
-\item{time_col}{\strong{[character]} The column of \code{data} for the temporal
+\item{time_column}{\strong{[character]} The column of \code{data} for the temporal
 dimensions (i.e. year).}
 
 \item{uniqueID}{\strong{[character]} The column of \code{data} that is unique for all
