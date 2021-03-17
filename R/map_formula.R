@@ -140,20 +140,14 @@ setMethod(f = "map_formula",
             sspm_formula <- new("sspm_formula",
                                 raw_formula = formula,
                                 translated_formula = final_formula_casted,
-                                dataset = dataset,
-                                vars = vars_list)
+                                vars = vars_list,
+                                type = "smooth")
 
-            spm_mapped_formulas(the_dataset) <-
-              append(spm_mapped_formulas(spm_datasets(sspm_object)[[dataset]]),
-                     list(sspm_formula))
+            spm_formulas(the_dataset) <- append(spm_formulas(the_dataset),
+                                                list(sspm_formula))
 
-            if(spm_name(the_dataset) == spm_name(spm_base_dataset(sspm_object))){
-              spm_base_dataset(sspm_object) <- the_dataset
-            } else {
-              all_mapped_datasets <- spm_mapped_datasets(sspm_object)
-              all_mapped_datasets[[dataset]] <- the_dataset
-              spm_mapped_datasets(sspm_object) <- all_mapped_datasets
-            }
+            all_datasets[[dataset]] <- the_dataset
+            spm_datasets(sspm_object) <- all_datasets
 
             return(sspm_object)
           }
