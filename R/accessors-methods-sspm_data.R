@@ -180,19 +180,19 @@ setMethod("spm_time_column<-",
 
 #' @describeIn accessors-methods-sspm_data TODO
 #' @export
-setMethod("spm_mapped_formulas",
+setMethod("spm_formulas",
           signature("sspm_object" = "sspm_data"),
-          function(sspm_object) sspm_object@mapped_formulas
+          function(sspm_object) sspm_object@formulas
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @describeIn accessors-methods-sspm_data TODO
 #' @export
-setMethod("spm_mapped_formulas<-",
+setMethod("spm_formulas<-",
           signature("object" = "sspm_data"),
           function(object, value){
-            object@mapped_formulas <- value
+            object@formulas <- value
             validObject(object)
             return(object)
           }

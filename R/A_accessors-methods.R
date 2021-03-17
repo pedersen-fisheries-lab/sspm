@@ -423,13 +423,13 @@ setMethod("spm_points<-",
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setGeneric(name = "spm_mapped_formulas",
-           def = function(sspm_object) standardGeneric("spm_mapped_formulas")
+setGeneric(name = "spm_formulas",
+           def = function(sspm_object) standardGeneric("spm_formulas")
 )
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setMethod("spm_mapped_formulas",
+setMethod("spm_formulas",
           signature("sspm_object" = "sspm"),
           function(sspm_object){
             message_not_discrete(sspm_object)
@@ -438,25 +438,25 @@ setMethod("spm_mapped_formulas",
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setMethod("spm_mapped_formulas",
+setMethod("spm_formulas",
           signature("sspm_object" = "sspm_discrete"),
-          function(sspm_object) sspm_object@mapped_formulas
+          function(sspm_object) sspm_object@formulas
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setGeneric(name = "spm_mapped_formulas<-",
-           def = function(object, value) standardGeneric("spm_mapped_formulas<-")
+setGeneric(name = "spm_formulas<-",
+           def = function(object, value) standardGeneric("spm_formulas<-")
 )
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setMethod("spm_mapped_formulas<-",
+setMethod("spm_formulas<-",
           signature("object" = "sspm_discrete"),
           function(object, value){
-            object@mapped_formulas <- value
+            object@formulas <- value
             validObject(object)
             return(object)
           }
@@ -464,7 +464,7 @@ setMethod("spm_mapped_formulas<-",
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
-setMethod("spm_mapped_formulas<-",
+setMethod("spm_formulas<-",
           signature("object" = "sspm"),
           function(object, value){
             message_not_discrete(object)

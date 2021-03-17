@@ -46,18 +46,12 @@
 \alias{spm_points<-}
 \alias{spm_points<-,sspm_discrete-method}
 \alias{spm_points<-,sspm-method}
-\alias{spm_mapped_datasets}
-\alias{spm_mapped_datasets,sspm-method}
-\alias{spm_mapped_datasets,sspm_discrete-method}
-\alias{spm_mapped_datasets<-}
-\alias{spm_mapped_datasets<-,sspm_discrete-method}
-\alias{spm_mapped_datasets<-,sspm-method}
-\alias{spm_mapped_formulas}
-\alias{spm_mapped_formulas,sspm-method}
-\alias{spm_mapped_formulas,sspm_discrete-method}
-\alias{spm_mapped_formulas<-}
-\alias{spm_mapped_formulas<-,sspm_discrete-method}
-\alias{spm_mapped_formulas<-,sspm-method}
+\alias{spm_formulas}
+\alias{spm_formulas,sspm-method}
+\alias{spm_formulas,sspm_discrete-method}
+\alias{spm_formulas<-}
+\alias{spm_formulas<-,sspm_discrete-method}
+\alias{spm_formulas<-,sspm-method}
 \title{Accessing OR replacing \code{sspm} model elements}
 \usage{
 spm_name(sspm_object)
@@ -148,29 +142,17 @@ spm_points(object) <- value
 
 \S4method{spm_points}{sspm}(object) <- value
 
-spm_mapped_datasets(sspm_object)
+spm_formulas(sspm_object)
 
-\S4method{spm_mapped_datasets}{sspm}(sspm_object)
+\S4method{spm_formulas}{sspm}(sspm_object)
 
-\S4method{spm_mapped_datasets}{sspm_discrete}(sspm_object)
+\S4method{spm_formulas}{sspm_discrete}(sspm_object)
 
-spm_mapped_datasets(object) <- value
+spm_formulas(object) <- value
 
-\S4method{spm_mapped_datasets}{sspm_discrete}(object) <- value
+\S4method{spm_formulas}{sspm_discrete}(object) <- value
 
-\S4method{spm_mapped_datasets}{sspm}(object) <- value
-
-spm_mapped_formulas(sspm_object)
-
-\S4method{spm_mapped_formulas}{sspm}(sspm_object)
-
-\S4method{spm_mapped_formulas}{sspm_discrete}(sspm_object)
-
-spm_mapped_formulas(object) <- value
-
-\S4method{spm_mapped_formulas}{sspm_discrete}(object) <- value
-
-\S4method{spm_mapped_formulas}{sspm}(object) <- value
+\S4method{spm_formulas}{sspm}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm OR adjacent]} An object of class
@@ -276,28 +258,16 @@ objects of class \link[=sspm-class]{sspm} and others derivative classes
 
 \item \code{spm_points<-,sspm-method}: TODO
 
-\item \code{spm_mapped_datasets}: TODO
+\item \code{spm_formulas}: TODO
 
-\item \code{spm_mapped_datasets,sspm-method}: TODO
+\item \code{spm_formulas,sspm-method}: TODO
 
-\item \code{spm_mapped_datasets,sspm_discrete-method}: TODO
+\item \code{spm_formulas,sspm_discrete-method}: TODO
 
-\item \code{spm_mapped_datasets<-}: TODO
+\item \code{spm_formulas<-}: TODO
 
-\item \code{spm_mapped_datasets<-,sspm_discrete-method}: TODO
+\item \code{spm_formulas<-,sspm_discrete-method}: TODO
 
-\item \code{spm_mapped_datasets<-,sspm-method}: TODO
-
-\item \code{spm_mapped_formulas}: TODO
-
-\item \code{spm_mapped_formulas,sspm-method}: TODO
-
-\item \code{spm_mapped_formulas,sspm_discrete-method}: TODO
-
-\item \code{spm_mapped_formulas<-}: TODO
-
-\item \code{spm_mapped_formulas<-,sspm_discrete-method}: TODO
-
-\item \code{spm_mapped_formulas<-,sspm-method}: TODO
+\item \code{spm_formulas<-,sspm-method}: TODO
 }}
 
