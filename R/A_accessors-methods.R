@@ -416,60 +416,6 @@ setMethod("spm_points<-",
           }
 )
 
-# Mapped datasets ---------------------------------------------------------
-# Accesors ----------------------------------------------------------------
-
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setGeneric(name = "spm_mapped_datasets",
-           def = function(sspm_object) standardGeneric("spm_mapped_datasets")
-)
-
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setMethod("spm_mapped_datasets",
-          signature("sspm_object" = "sspm"),
-          function(sspm_object){
-            message_not_discrete(sspm_object)
-          }
-)
-
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setMethod("spm_mapped_datasets",
-          signature("sspm_object" = "sspm_discrete"),
-          function(sspm_object) sspm_object@mapped_datasets
-)
-
-# Replacers ---------------------------------------------------------------
-
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setGeneric(name = "spm_mapped_datasets<-",
-           def = function(object, value) standardGeneric("spm_mapped_datasets<-")
-)
-
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setMethod("spm_mapped_datasets<-",
-          signature("object" = "sspm_discrete"),
-          function(object, value){
-            object@mapped_datasets <- value
-            validObject(object)
-            return(object)
-          }
-)
-
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setMethod("spm_mapped_datasets<-",
-          signature("object" = "sspm"),
-          function(object, value){
-            message_not_discrete(object)
-            return(object)
-          }
-)
-
 # -------------------------------------------------------------------------
 # Mapped formulas ---------------------------------------------------------
 
