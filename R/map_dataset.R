@@ -177,21 +177,3 @@ setMethod(f = "map_dataset",
             return(tmp_sspm_discrete)
           }
 )
-
-# Join helper
-join_datasets <- function(sspm_data, sspm_object){
-
-  checkmate::assert_class(sspm_data, "sspm_data")
-  checkmate::assert_class(sspm_object, "sspm_discrete")
-
-  the_data <- spm_data(sspm_data)
-  the_patches <- spm_patches(sspm_object)
-
-  joined <- suppressMessages(sf::st_transform(the_data, crs = sf::st_crs(the_patches)))
-  joined <- suppressMessages(sf::st_join(the_data, the_patches)) %>%
-    dplyr::filter(!duplicated(.data[[spm_unique_ID(sspm_data)]]))
-
-  spm_data(sspm_data) <- joined
-
-  return(sspm_data)
-}

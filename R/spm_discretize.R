@@ -25,7 +25,7 @@
 setGeneric(name = "spm_discretize",
            def = function(sspm_object,
                           with_dataset,
-                          discretization_method = "tesselate_voronoi",
+                          discretization_method,
                           ...){
              standardGeneric("spm_discretize")
            }
@@ -33,6 +33,30 @@ setGeneric(name = "spm_discretize",
 
 # Methods -----------------------------------------------------------------
 # TODO finish the describeIn description
+
+# If invalid method, throw error
+#' @describeIn spm_discretize TODO
+#' @export
+setMethod(f = "spm_discretize",
+          signature(sspm_object = "ANY",
+                    with_dataset = "ANY",
+                    discretization_method = "missingOrNULL"),
+          function(sspm_object, with_dataset, discretization_method, ...){
+            stop("Invalid discretization method.")
+          }
+)
+
+# If missing arg, throw error
+#' @describeIn spm_discretize TODO
+#' @export
+setMethod(f = "spm_discretize",
+          signature(sspm_object = "ANY",
+                    with_dataset = "missing",
+                    discretization_method = "ANY"),
+          function(sspm_object, with_dataset, discretization_method, ...){
+            stop("with_dataset argument missing.")
+          }
+)
 
 # All signatures point to this one
 #' @describeIn spm_discretize TODO
@@ -43,34 +67,64 @@ setMethod(f = "spm_discretize",
                     discretization_method = "discretization_method"),
           function(sspm_object, with_dataset, discretization_method, ...){
 
-            checkmate::assert_class(discretization_method,
-                                    "discretization_method")
+            # Get datasets
+            datasets <- spm_datasets(sspm_object)
 
-            cli::cli_alert_info(paste0(" Discretizing using method '",
-                                       discretization_method@name,"'"))
+            # Check types
+            checkmate::assert_class(discretization_method,"discretization_method")
+            checkmate::assert_choice(with_dataset, names(datasets))
 
+            # Get the dataset to use for discretization
+            sspm_data <- datasets[[with_dataset]]
+
+            # Info message
+            cli::cli_alert_info(paste0(" Discretizing using method ",
+                                       cli::col_yellow(spm_name(discretization_method)),
+                                       " with dataset ",
+                                       cli::col_green(with_dataset)))
+
+            # Send to discretization routine
             other_args <- list(...)
 
+            # If boundaries are not overwritten, use th boundaries of sspm_object
+            if(length(other_args) > 0){
+              if (!is.element(other_args, "boundaries")){
+                other_args$boundaries <- spm_boundaries(sspm_object)
+              }
+            } else if (length(other_args) == 0){
+              other_args$boundaries <- spm_boundaries(sspm_object)
+            }
+
             discrete <- do.call(method_func(discretization_method),
-                                args = append(list(sspm_object = sspm_object),
+                                args = append(list(sspm_data = sspm_data),
                                               other_args))
 
             # Check names of results
             checkmate::assert_names(x = names(discrete),
-                                    subset.of = c("data_spatial", "patches",
+                                    subset.of = c("data_spatial",
+                                                  "patches",
                                                   "points"))
 
-            # Join data_spatial and patches
-            discrete$data_spatial <-
-              suppressMessages(sf::st_join(discrete$data_spatial,
-                                           discrete$patches)) %>%
-              dplyr::filter(!duplicated(.data[[spm_unique_ID(sspm_object)]]))
+            # Replace datasets
+            spm_data(sspm_data) <- discrete$data_spatial
+            datasets[[with_dataset]] <- sspm_data
 
-            sspm_object@data@data <- discrete$data_spatial
+            # JOIN otehr datasetssspm_object
+            other_names <- names(datasets)[!(names(datasets) %in% "b")]
+
+            if (length(other_names) >1 ){
+              for (dataset_name in other_names){
+                sspm_data_tmp <- datasets[[dataset_name]]
+                datasets[[dataset_name]] <- join_datasets(sspm_data_tmp, sspm_object)
+              }
+            }
+
+            # Replace the objects
+            spm_datasets(sspm_object) <- datasets
 
             new_sspm_discrete <- new("sspm_discrete",
                                      name = spm_name(sspm_object),
-                                     data = spm_base_dataset(sspm_object),
+                                     datasets = spm_datasets(sspm_object),
                                      boundaries = spm_boundaries(sspm_object),
                                      method = discretization_method,
                                      patches = discrete[["patches"]],
@@ -92,19 +146,7 @@ setMethod(f = "spm_discretize",
 
             the_method <- as_discretization_method(discretization_method)
 
-            discrete <- spm_discretize(sspm_object, the_method, ...)
-          }
-)
-
-# If invalid method, throw error
-#' @describeIn spm_discretize TODO
-#' @export
-setMethod(f = "spm_discretize",
-          signature(sspm_object = "sspm",
-                    with_dataset = "ANY",
-                    discretization_method = "NULL"),
-          function(sspm_object, with_dataset, discretization_method, ...){
-            stop("Invalid discretization method.")
+            discrete <- spm_discretize(sspm_object, with_dataset, the_method, ...)
           }
 )
 
@@ -122,9 +164,11 @@ setMethod(f = "spm_discretize",
 
             the_method <- as_discretization_method(discretization_method)
 
-            discrete <- spm_discretize(sspm_object, the_method, ...)
+            discrete <- spm_discretize(sspm_object, with_dataset, the_method, ...)
           }
 )
+
+# RE-discretization, to review!
 
 #' @describeIn spm_discretize TODO
 #' @export
@@ -173,3 +217,23 @@ setMethod(f = "spm_discretize",
             }
           }
 )
+
+
+# Join helper
+join_datasets <- function(sspm_data, sspm_object){
+
+  checkmate::assert_class(sspm_data, "sspm_data")
+  checkmate::assert_class(sspm_object, "sspm_discrete")
+
+  the_data <- spm_data(sspm_data)
+  the_patches <- spm_patches(sspm_object)
+
+  # TODO REVIEW THE COHERENCE OF ST_TRANSFORM
+  joined <- suppressMessages(sf::st_transform(the_data, crs = sf::st_crs(the_patches)))
+  joined <- suppressMessages(sf::st_join(the_data, the_patches)) %>%
+    dplyr::filter(!duplicated(.data[[spm_unique_ID(sspm_data)]]))
+
+  spm_data(sspm_data) <- joined
+
+  return(sspm_data)
+}
