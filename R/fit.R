@@ -37,43 +37,50 @@ setMethod(f = "fit_smooths",
           signature(sspm_object = "sspm_discrete"),
           function(sspm_object, family, drop.unused.levels, method, ...){
 
-            # Get the mapped formulas
-            mapped_formulas <- spm_mapped_formulas(sspm_object)
+            # Get all datasets
+            datasets <- spm_datasets(sspm_object)
 
-            # Loop through all of them
-            all_fit <- vector(mode = "list", length = length(mapped_formulas))
-            for (form_id in seq_len(length.out = length(mapped_formulas))){
+            for(dataset in datasets){
 
-              # Index formula
-              form <- mapped_formulas[[form_id]]
+              formulas <- spm_formulas(dataset)
 
-              # Print info
-              cli::cli_alert_info(
-                paste0("Fitting formula: ", form_id, " out of ", length(mapped_formulas)))
-              cli::cli_alert_info(
-                paste0("Fitting formula: ",
-                       cli::col_yellow(format_formula(raw_formula(form))),
-                       " for dataset ", cli::col_cyan(paste0("'", dataset(form),"'"))))
-
-              # Get data
-              the_data <- spm_data(spm_datasets(sspm_object)[[dataset(form)]])
-              form_vars <- formula_vars(form)
-
-              # Modify formula env, best solution for now
-              form_env <- attr(translated_formula(form), ".Environment")
-              for(var in names(form_vars)){
-                assign(x = var, value = form_vars[[var]], envir = form_env)
+              if(length(formulas) == 0){
+                next
               }
 
-              # Fit the formula, important to attach the vars
-              all_fit[[form_id]] <-
-                mgcv::bam(formula = translated_formula(form),
-                          data = the_data,
-                          family = family,
-                          drop.unused.levels = drop.unused.levels,
-                          method = method,
-                          ...)
+              all_fit <- vector(mode = "list", length = length(formulas))
 
+              for (form_id in seq_len(length.out = length(formulas))){
+
+                # Index formula
+                form <- formulas[[form_id]]
+
+                # Print info
+                cli::cli_alert_info(
+                  paste0("Fitting formula: ",
+                         cli::col_yellow(format_formula(raw_formula(form))),
+                         " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset),"'"))))
+
+                # Get data
+                the_data <- spm_data(dataset)
+                form_vars <- formula_vars(form)
+
+                # Modify formula env, best solution for now
+                form_env <- attr(translated_formula(form), ".Environment")
+                for(var in names(form_vars)){
+                  assign(x = var, value = form_vars[[var]], envir = form_env)
+                }
+
+                # Fit the formula, important to attach the vars
+                all_fit[[form_id]] <-
+                  mgcv::bam(formula = translated_formula(form),
+                            data = the_data,
+                            family = family,
+                            drop.unused.levels = drop.unused.levels,
+                            method = method,
+                            ...)
+
+              }
             }
 
             # For now return a summary of the fit
