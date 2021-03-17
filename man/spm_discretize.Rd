@@ -7,7 +7,7 @@
 \alias{spm_discretize,sspm,character,discretization_method-method}
 \alias{spm_discretize,sspm,character,character-method}
 \alias{spm_discretize,sspm_discrete,character,character-method}
-\alias{spm_discretize,sspm_discrete,character,discretization_method-method}
+\alias{spm_discretize,sspm_discrete,ANY,ANY-method}
 \title{Discretize a \code{sspm} model object}
 \usage{
 spm_discretize(sspm_object, with_dataset, discretization_method, ...)
@@ -22,13 +22,7 @@ spm_discretize(sspm_object, with_dataset, discretization_method, ...)
 
 \S4method{spm_discretize}{sspm_discrete,character,character}(sspm_object, with_dataset, discretization_method, ...)
 
-\S4method{spm_discretize}{sspm_discrete,character,discretization_method}(
-  sspm_object,
-  with_dataset,
-  discretization_method,
-  force = FALSE,
-  ...
-)
+\S4method{spm_discretize}{sspm_discrete,ANY,ANY}(sspm_object, with_dataset, discretization_method, ...)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm]} An object of class
@@ -44,10 +38,6 @@ Either a \code{character} from the list of available methods
 
 \item{...}{\strong{[named list]} Further arguments to be passed onto the function
 used in the \code{discretization_method}.}
-
-\item{force}{\strong{[boolean]} Only used when calling \code{spm_discretize} onto
-an object of class \link[=sspm-class]{sspm_discrete}: whether you wish
-to force the re-discretization of that model.}
 }
 \value{
 An object of class \link[=sspm-class]{sspm_discrete} (the updated
@@ -69,6 +59,6 @@ Discretize a \link[=sspm-class]{sspm} model object with a function from a
 
 \item \code{spm_discretize,sspm_discrete,character,character-method}: TODO
 
-\item \code{spm_discretize,sspm_discrete,character,discretization_method-method}: TODO
+\item \code{spm_discretize,sspm_discrete,ANY,ANY-method}: TODO
 }}
 
