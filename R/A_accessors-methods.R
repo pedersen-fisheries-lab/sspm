@@ -149,45 +149,12 @@ setGeneric(name = "spm_coords_col",
            def = function(sspm_object) standardGeneric("spm_coords_col")
 )
 
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setMethod("spm_coords_col",
-          signature("sspm_object" = "sspm"),
-          function(sspm_object) sspm_object@data@coords
-)
-
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setMethod("spm_coords_col",
-          signature("sspm_object" = "sspm_discrete"),
-          function(sspm_object) {
-            if(length(spm_mapped_datasets(sspm_object)) > 0){
-              coords <- lapply(spm_datasets(sspm_object),
-                               spm_coords_col)
-            } else {
-              coords <- sspm_object@data@coords
-            }
-            return(coords)
-          }
-)
-
 # Replacers ---------------------------------------------------------------
 
 #' @describeIn sspm-accessors-methods TODO
 #' @export
 setGeneric(name = "spm_coords_col<-",
            def = function(object, value) standardGeneric("spm_coords_col<-")
-)
-
-#' @describeIn sspm-accessors-methods TODO
-#' @export
-setMethod("spm_coords_col<-",
-          signature("object" = "sspm"),
-          function(object, value){
-            object@data@coords <- value
-            validObject(object)
-            return(object)
-          }
 )
 
 # Time col ----------------------------------------------------------------
