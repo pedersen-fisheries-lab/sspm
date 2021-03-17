@@ -106,26 +106,24 @@ setMethod(f = "spm_discretize",
             spm_data(sspm_data) <- discrete$data_spatial
             datasets[[with_dataset]] <- sspm_data
 
-            # JOIN otehr datasetssspm_object
-            other_names <- names(datasets)[!(names(datasets) %in% "b")]
-
-            if (length(other_names) >1 ){
-              for (dataset_name in other_names){
-                sspm_data_tmp <- datasets[[dataset_name]]
-                datasets[[dataset_name]] <- join_datasets(sspm_data_tmp, sspm_object)
-              }
-            }
-
-            # Replace the objects
-            spm_datasets(sspm_object) <- datasets
-
             new_sspm_discrete <- new("sspm_discrete",
                                      name = spm_name(sspm_object),
-                                     datasets = spm_datasets(sspm_object),
+                                     datasets = datasets,
                                      boundaries = spm_boundaries(sspm_object),
                                      method = discretization_method,
                                      patches = discrete[["patches"]],
                                      points = discrete[["points"]])
+
+            # JOIN all datasets
+            datasets <- spm_datasets(new_sspm_discrete)
+
+            for (dataset_name in names(datasets)){
+              sspm_data_tmp <- datasets[[dataset_name]]
+              datasets[[dataset_name]] <- join_datasets(sspm_data_tmp, new_sspm_discrete)
+            }
+
+            # Replace the objects
+            spm_datasets(new_sspm_discrete) <- datasets
 
             return(new_sspm_discrete)
           }
@@ -174,27 +172,7 @@ setMethod(f = "spm_discretize",
                     discretization_method = "ANY"),
           function(sspm_object, with_dataset, discretization_method, ...){
 
-              cli::cli_alert_danger(paste0(" Model '", spm_name(sspm_object),
-                                           "' is already discretized"))
+            cli::cli_alert_danger(paste0(" Model '", spm_name(sspm_object),
+                                         "' is already discretized"))
           }
 )
-
-
-## IMPORTANT Join helper
-join_datasets <- function(sspm_data, sspm_object){
-
-  checkmate::assert_class(sspm_data, "sspm_data")
-  checkmate::assert_class(sspm_object, "sspm_discrete")
-
-  the_data <- spm_data(sspm_data)
-  the_patches <- spm_patches(sspm_object)
-
-  # TODO REVIEW THE COHERENCE OF ST_TRANSFORM
-  joined <- suppressMessages(sf::st_transform(the_data, crs = sf::st_crs(the_patches)))
-  joined <- suppressMessages(sf::st_join(the_data, the_patches)) %>%
-    dplyr::filter(!duplicated(.data[[spm_unique_ID(sspm_data)]]))
-
-  spm_data(sspm_data) <- joined
-
-  return(sspm_data)
-}
