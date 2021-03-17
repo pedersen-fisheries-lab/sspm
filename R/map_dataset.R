@@ -95,6 +95,12 @@ setMethod(f = "map_dataset",
             datasets <- spm_datasets(sspm_object)
             datasets_names <- names(datasets)
 
+            if(sum(spm_name(data) %in% datasets_names)){
+
+              cli::cli_alert_danger(" Name provided is already used, all dataset names must be unique.")
+
+            }
+
             if (checkmate::test_class(sspm_object, "sspm_discrete")){
 
               data <- join_datasets(sspm_data = data,
@@ -112,17 +118,26 @@ setMethod(f = "map_dataset",
           }
 )
 
-# LIST METHOD, TO COME BACK TO THIS
-
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
           signature(sspm_object = "sspm",
                     data = "list"),
-          function(sspm_object, data, ...){
+          function(sspm_object, data,
+                   name,
+                   time_column,
+                   uniqueID,
+                   coords = NULL,
+                   crs = NULL, ...){
 
             # Capture args
-            args <- list(...)
+            args <- list(name = name,
+                         time_colu = time_column,
+                         uniqueID = uniqueID,
+                         coords = coords)
+
+            other_args <- list(...)
+            args <- append(args, other_args)
 
             # Make checks on length of the name argument
             # must of the same length than data, and unique values
@@ -166,14 +181,14 @@ setMethod(f = "map_dataset",
               }
             }
 
-            tmp_sspm_discrete <- sspm_object
+            tmp_sspm <- sspm_object
             for (dat_id in seq_len(length.out = length(data))){
               args_to_pass <- lapply(args, dplyr::nth, dat_id)
               args_to_pass$data <- data[[dat_id]]
-              args_to_pass$sspm_object <- tmp_sspm_discrete
-              tmp_sspm_discrete <- do.call(map_dataset, args = args_to_pass)
+              args_to_pass$sspm_object <- tmp_sspm
+              tmp_sspm <- do.call(map_dataset, args = args_to_pass)
             }
 
-            return(tmp_sspm_discrete)
+            return(tmp_sspm)
           }
 )
