@@ -58,19 +58,19 @@ sfa_boundaries <- sspm:::sfa_boundaries
 1. Start by creating a base `sapspm` object with a base dataset called "Biomass".
 ```{r}
 sspm_base <- sspm(model_name = "My Model",
-                  data = borealis,
-                  name = "Biomass",
-                  time_col = "year_f",
-                  coords = c('lon_dec','lat_dec'),
-                  uniqueID = "uniqueID",
-                  boundaries = sfa_boundaries)
+                  boundaries = sfa_boundaries) %>% 
+  map_dataset(borealis, "Biomass",
+              time_column = "year_f",
+              coords = c('lon_dec','lat_dec'),
+              uniqueID = "uniqueID",)
 sspm_base
 ```
 
 2. Then, discretize the object using a method for discretization, the default behind voronoi tesselation. See `?spm_methods()` for the list of methods available.
 ```{r}
 sspm_discrete <- sspm_base %>%
-  spm_discretize(discretization_method = "tesselate_voronoi")
+  spm_discretize(with_dataset = "Biomass", 
+                 discretization_method = "tesselate_voronoi")
 sspm_discrete
 ```
 The results of the discretization can be explored with `spm_patches()` and `spm_points()`.
@@ -85,7 +85,7 @@ spm_points(sspm_discrete)
 sspm_discrete_mapped <- sspm_discrete %>%
   map_dataset(predator,
               name = "pred_data",
-              time_col = "year",
+              time_column = "year",
               uniqueID = "uniqueID",
               coords = c("lon_dec", "lat_dec"))
 sspm_discrete_mapped

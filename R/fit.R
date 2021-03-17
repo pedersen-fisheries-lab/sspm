@@ -37,8 +37,19 @@ setMethod(f = "fit_smooths",
           signature(sspm_object = "sspm_discrete"),
           function(sspm_object, family, drop.unused.levels, method, ...){
 
+            browser()
+
             # Get all datasets
             datasets <- spm_datasets(sspm_object)
+
+            has_formulas <- sapply(datasets, function(x){
+              length(spm_formulas(x)) > 0
+            })
+
+            all_fit <-
+              vector(mode = "list", length = sum(has_formulas))
+
+            names(all_fit) <- names(datasets)[has_formulas]
 
             for(dataset in datasets){
 
@@ -48,7 +59,8 @@ setMethod(f = "fit_smooths",
                 next
               }
 
-              all_fit <- vector(mode = "list", length = length(formulas))
+              all_fit[[spm_name(dataset)]] <-
+                vector(mode = "list", length = length(formulas))
 
               for (form_id in seq_len(length.out = length(formulas))){
 
@@ -72,7 +84,7 @@ setMethod(f = "fit_smooths",
                 }
 
                 # Fit the formula, important to attach the vars
-                all_fit[[form_id]] <-
+                all_fit[[spm_name(dataset)]][[form_id]] <-
                   mgcv::bam(formula = translated_formula(form),
                             data = the_data,
                             family = family,

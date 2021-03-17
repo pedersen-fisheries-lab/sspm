@@ -50,9 +50,10 @@ Let’s first load the test data.
 library(sspm)
 #> Loading required package: sf
 #> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1
-library(mgcv)
+#> Loading required package: mgcv
 #> Loading required package: nlme
 #> This is mgcv 1.8-33. For overview type 'help("mgcv-package")'.
+library(mgcv)
 
 borealis <- sspm:::borealis_simulated
 predator <- sspm:::predator_simulated
@@ -64,26 +65,19 @@ sfa_boundaries <- sspm:::sfa_boundaries
 
 ``` r
 sspm_base <- sspm(model_name = "My Model",
-                  data = borealis,
-                  name = "Biomass",
-                  time_col = "year_f",
-                  coords = c('lon_dec','lat_dec'),
-                  uniqueID = "uniqueID",
-                  boundaries = sfa_boundaries)
+                  boundaries = sfa_boundaries) %>% 
+  map_dataset(borealis, "Biomass",
+              time_column = "year_f",
+              coords = c('lon_dec','lat_dec'),
+              uniqueID = "uniqueID",)
 #> !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
 sspm_base
 #> 
-#> ── sspm object 'My Model' ──
-#> 
-#> ── Base dataset 'Biomass'
-#> ●  Data matrix        : Simple feature collection with 1541 feature(s) and 18 variable(s)
-#> ●  Data unique ID     : uniqueID
-#> ●  Time column        : year_f
-#> ●  Coordinates cols   : lon_dec, lat_dec
-#> 
-#> ── Boundaries
-#> ●  Boundary data      : Simple feature collection with 4 feature(s) and 2 variable(s)
+#> ‒‒ SSPM object 'My Model' ‒‒
+#> →  Boundaries       : [ 4 features ; 2 variables ]
+#> →  Datasets         : 1 dataset
+#>    ٭ Biomass — [ 1541 observations ; 18 variables ]
 ```
 
 2.  Then, discretize the object using a method for discretization, the
@@ -92,25 +86,18 @@ sspm_base
 
 ``` r
 sspm_discrete <- sspm_base %>%
-  spm_discretize(discretization_method = "tesselate_voronoi")
-#> ℹ  Discretizing using method 'tesselate_voronoi'
+  spm_discretize(with_dataset = "Biomass", 
+                 discretization_method = "tesselate_voronoi")
+#> ℹ  Discretizing using method tesselate_voronoi with dataset Biomass
 sspm_discrete
 #> 
-#> ── sspm object 'My Model' (DISCRETIZED) ──
-#> 
-#> ── Base dataset 'Biomass'
-#> ●  Data matrix        : Simple feature collection with 1541 feature(s) and 21 variable(s)
-#> ●  Data unique ID     : uniqueID
-#> ●  Time column        : year_f
-#> ●  Coordinates cols   : lon_dec, lat_dec
-#> 
-#> ── Boundaries
-#> ●  Boundary data      : Simple feature collection with 4 feature(s) and 2 variable(s)
-#> 
-#> ── Discretization info
-#> ●  Method name        : 'tesselate_voronoi'
-#> ●  Patches            : Simple feature collection with 69 patches (and 4 field(s))
-#> ●  Points             : Simple feature collection with 75 points (and 19 field(s))
+#> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
+#> →  Boundaries       : [ 4 features ; 2 variables ]
+#> →  Discretized with : 
+#>    ٭ Points — [ 75 features ; 19 variables ]
+#>    ٭ Patches — [ 69 features ; 4 variables ]
+#> →  Datasets         : 1 dataset
+#>    ٭ Biomass — [ 1541 observations ; 21 variables ]
 ```
 
 The results of the discretization can be explored with `spm_patches()`
@@ -170,30 +157,21 @@ spm_points(sspm_discrete)
 sspm_discrete_mapped <- sspm_discrete %>%
   map_dataset(predator,
               name = "pred_data",
-              time_col = "year",
+              time_column = "year",
               uniqueID = "uniqueID",
               coords = c("lon_dec", "lat_dec"))
+#> !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
 sspm_discrete_mapped
 #> 
-#> ── sspm object 'My Model' (DISCRETIZED) ──
-#> 
-#> ── Base dataset 'Biomass'
-#> ●  Data matrix        : Simple feature collection with 1541 feature(s) and 21 variable(s)
-#> ●  Data unique ID     : uniqueID
-#> ●  Time column        : year_f
-#> ●  Coordinates cols   : lon_dec, lat_dec
-#> 
-#> ── Boundaries
-#> ●  Boundary data      : Simple feature collection with 4 feature(s) and 2 variable(s)
-#> 
-#> ── Discretization info
-#> ●  Method name        : 'tesselate_voronoi'
-#> ●  Patches            : Simple feature collection with 69 patches (and 4 field(s))
-#> ●  Points             : Simple feature collection with 75 points (and 19 field(s))
-#> 
-#> ── Mapped Datasets
-#> ●  1 mapped dataset(s): pred_data
+#> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
+#> →  Boundaries       : [ 4 features ; 2 variables ]
+#> →  Discretized with : 
+#>    ٭ Points — [ 75 features ; 19 variables ]
+#>    ٭ Patches — [ 69 features ; 4 variables ]
+#> →  Datasets         : 2 datasets
+#>    ٭ Biomass — [ 1541 observations ; 21 variables ]
+#>    ٭ pred_data — [ 4833 observations ; 18 variables ]
 ```
 
 4.  Smoothing formulas for any of the datasets may be specified, using
@@ -207,27 +185,15 @@ sspm_discrete_mapped_with_forms <- sspm_discrete_mapped %>%
   map_formula("Biomass", weight_per_km2~smooth_space())
 sspm_discrete_mapped_with_forms
 #> 
-#> ── sspm object 'My Model' (DISCRETIZED) ──
-#> 
-#> ── Base dataset 'Biomass'
-#> ●  Data matrix        : Simple feature collection with 1541 feature(s) and 21 variable(s)
-#> ●  Data unique ID     : uniqueID
-#> ●  Time column        : year_f
-#> ●  Coordinates cols   : lon_dec, lat_dec
-#> 
-#> ── Boundaries
-#> ●  Boundary data      : Simple feature collection with 4 feature(s) and 2 variable(s)
-#> 
-#> ── Discretization info
-#> ●  Method name        : 'tesselate_voronoi'
-#> ●  Patches            : Simple feature collection with 69 patches (and 4 field(s))
-#> ●  Points             : Simple feature collection with 75 points (and 19 field(s))
-#> 
-#> ── Mapped Datasets
-#> ●  1 mapped dataset(s): pred_data
-#> 
-#> ── Mapped formulas
-#> 1) weight_per_km2 ~ smooth_space()... for dataset 'Biomass'
+#> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
+#> →  Boundaries       : [ 4 features ; 2 variables ]
+#> →  Discretized with : 
+#>    ٭ Points — [ 75 features ; 19 variables ]
+#>    ٭ Patches — [ 69 features ; 4 variables ]
+#> →  Datasets         : 2 datasets
+#>    ٭ Biomass — [ 1541 observations ; 21 variables ]
+#>       – weight_per_km2 ~ smooth_space()...
+#>    ٭ pred_data — [ 4833 observations ; 18 variables ]
 ```
 
 5.  Finally, formulas can be fitted with `fit_smooths()`
@@ -235,29 +201,80 @@ sspm_discrete_mapped_with_forms
 ``` r
 sspm_discrete_mapped_fitted <- sspm_discrete_mapped_with_forms %>%
   fit_smooths()
-#> ℹ Fitting formula: 1 out of 1
+#> Called from: fit_smooths(.)
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#43: datasets <- spm_datasets(sspm_object)
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#45: has_formulas <- sapply(datasets, function(x) {
+#>     length(spm_formulas(x)) > 0
+#> })
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#49: all_fit <- vector(mode = "list", length = sum(has_formulas))
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#52: names(all_fit) <- names(datasets)[has_formulas]
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#54: for (dataset in datasets) {
+#>     formulas <- spm_formulas(dataset)
+#>     if (length(formulas) == 0) {
+#>         next
+#>     }
+#>     all_fit[[spm_name(dataset)]] <- vector(mode = "list", length = length(formulas))
+#>     for (form_id in seq_len(length.out = length(formulas))) {
+#>         form <- formulas[[form_id]]
+#>         cli::cli_alert_info(paste0("Fitting formula: ", cli::col_yellow(format_formula(raw_formula(form))), 
+#>             " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset), 
+#>                 "'"))))
+#>         the_data <- spm_data(dataset)
+#>         form_vars <- formula_vars(form)
+#>         form_env <- attr(translated_formula(form), ".Environment")
+#>         for (var in names(form_vars)) {
+#>             assign(x = var, value = form_vars[[var]], envir = form_env)
+#>         }
+#>         all_fit[[spm_name(dataset)]][[form_id]] <- mgcv::bam(formula = translated_formula(form), 
+#>             data = the_data, family = family, drop.unused.levels = drop.unused.levels, 
+#>             method = method, ...)
+#>     }
+#> }
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#56: formulas <- spm_formulas(dataset)
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#58: if (length(formulas) == 0) {
+#>     next
+#> }
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#62: all_fit[[spm_name(dataset)]] <- vector(mode = "list", length = length(formulas))
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#65: for (form_id in seq_len(length.out = length(formulas))) {
+#>     form <- formulas[[form_id]]
+#>     cli::cli_alert_info(paste0("Fitting formula: ", cli::col_yellow(format_formula(raw_formula(form))), 
+#>         " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset), 
+#>             "'"))))
+#>     the_data <- spm_data(dataset)
+#>     form_vars <- formula_vars(form)
+#>     form_env <- attr(translated_formula(form), ".Environment")
+#>     for (var in names(form_vars)) {
+#>         assign(x = var, value = form_vars[[var]], envir = form_env)
+#>     }
+#>     all_fit[[spm_name(dataset)]][[form_id]] <- mgcv::bam(formula = translated_formula(form), 
+#>         data = the_data, family = family, drop.unused.levels = drop.unused.levels, 
+#>         method = method, ...)
+#> }
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#68: form <- formulas[[form_id]]
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#71: cli::cli_alert_info(paste0("Fitting formula: ", cli::col_yellow(format_formula(raw_formula(form))), 
+#>     " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset), 
+#>         "'"))))
 #> ℹ Fitting formula: weight_per_km2 ~ smooth_space() for dataset 'Biomass'
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#77: the_data <- spm_data(dataset)
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#78: form_vars <- formula_vars(form)
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#81: form_env <- attr(translated_formula(form), ".Environment")
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#82: for (var in names(form_vars)) {
+#>     assign(x = var, value = form_vars[[var]], envir = form_env)
+#> }
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#83: assign(x = var, value = form_vars[[var]], envir = form_env)
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#87: all_fit[[spm_name(dataset)]][[form_id]] <- mgcv::bam(formula = translated_formula(form), 
+#>     data = the_data, family = family, drop.unused.levels = drop.unused.levels, 
+#>     method = method, ...)
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#56: formulas <- spm_formulas(dataset)
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#58: if (length(formulas) == 0) {
+#>     next
+#> }
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#59: next
+#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#99: return(lapply(all_fit, summary))
 sspm_discrete_mapped_fitted
-#> [[1]]
-#> 
-#> Family: Tweedie(p=1.701) 
-#> Link function: log 
-#> 
-#> Formula:
-#> weight_per_km2 ~ s(patch_id, k = 30, bs = "mrf", xt = list(penalty = pen_mat_space))
-#> 
-#> Parametric coefficients:
-#>             Estimate Std. Error t value Pr(>|t|)    
-#> (Intercept)  8.50419    0.02162   393.3   <2e-16 ***
-#> ---
-#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-#> 
-#> Approximate significance of smooth terms:
-#>                 edf Ref.df F p-value
-#> s(patch_id) 0.00818     29 0   0.627
-#> 
-#> R-sq.(adj) =  3.43e-06   Deviance explained = 0.000952%
-#> -REML = 2350.2  Scale est. = 6.1013    n = 1026
+#> $Biomass
+#>      Length Class Mode
+#> [1,] 54     bam   list
 ```
 
 6.  Last step: full SPM implementation (TBA).
