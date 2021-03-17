@@ -17,10 +17,7 @@
 \alias{spm_unique_ID<-}
 \alias{spm_unique_ID<-,sspm-method}
 \alias{spm_coords_col}
-\alias{spm_coords_col,sspm-method}
-\alias{spm_coords_col,sspm_discrete-method}
 \alias{spm_coords_col<-}
-\alias{spm_coords_col<-,sspm-method}
 \alias{spm_time_column}
 \alias{spm_time_column,sspm-method}
 \alias{spm_time_column,sspm_discrete-method}
@@ -93,13 +90,7 @@ spm_unique_ID(object) <- value
 
 spm_coords_col(sspm_object)
 
-\S4method{spm_coords_col}{sspm}(sspm_object)
-
-\S4method{spm_coords_col}{sspm_discrete}(sspm_object)
-
 spm_coords_col(object) <- value
-
-\S4method{spm_coords_col}{sspm}(object) <- value
 
 spm_time_column(sspm_object)
 
@@ -227,13 +218,7 @@ objects of class \link[=sspm-class]{sspm} and others derivative classes
 
 \item \code{spm_coords_col}: TODO
 
-\item \code{spm_coords_col,sspm-method}: TODO
-
-\item \code{spm_coords_col,sspm_discrete-method}: TODO
-
 \item \code{spm_coords_col<-}: TODO
-
-\item \code{spm_coords_col<-,sspm-method}: TODO
 
 \item \code{spm_time_column}: TODO
 
