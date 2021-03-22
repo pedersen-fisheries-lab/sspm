@@ -148,14 +148,13 @@ setClass("sspm_formula",
 
 # -------------------------------------------------------------------------
 
-# # Fitted model => sspm + discretization_method + has been fitted
-# # TODO finish specifying these objects
-# setClass("sspm_gam_fit",
-#          slots = list(gam_fit = "data.frame",
-#                       gam_call = "formula"),
-#          contains = c("sspm_discrete", "sspm")
-# )
-#
+# Fitted model => sspm + discretization_method + has been smoothed
+setClass("sspm_discrete_smoothed",
+         slots = list(discrete = "sspm_discrete",
+                      smoothed_data = "list",
+                      gam_fit = "list")
+)
+
 # # Modelled SPM ~ end of workflow
 # setClass("sspm_spm_fit",
 #          slots = list(spm_fit = "data.frame",

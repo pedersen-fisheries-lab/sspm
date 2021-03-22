@@ -46,8 +46,11 @@ setMethod(f = "fit_smooths",
 
             all_fit <-
               vector(mode = "list", length = sum(has_formulas))
+            all_smoothed <-
+              vector(mode = "list", length = sum(has_formulas))
 
             names(all_fit) <- names(datasets)[has_formulas]
+            names(all_smoothed) <- names(datasets)[has_formulas]
 
             for(dataset in datasets){
 
@@ -57,13 +60,14 @@ setMethod(f = "fit_smooths",
                 next
               }
 
-              all_fit[[spm_name(dataset)]] <-
-                vector(mode = "list", length = length(formulas))
+              # all_fit[[spm_name(dataset)]] <-
+              #   vector(mode = "list", length = length(formulas))
 
               for (form_id in seq_len(length.out = length(formulas))){
 
                 # Index formula
                 form <- formulas[[form_id]]
+                form_name <- paste0(spm_name(dataset), "_f", form_id)
 
                 # Print info
                 cli::cli_alert_info(
@@ -82,7 +86,7 @@ setMethod(f = "fit_smooths",
                 }
 
                 # Fit the formula, important to attach the vars
-                all_fit[[spm_name(dataset)]][[form_id]] <-
+                all_fit[[spm_name(dataset)]][[form_name]] <-
                   mgcv::bam(formula = translated_formula(form),
                             data = the_data,
                             family = family,
@@ -90,11 +94,22 @@ setMethod(f = "fit_smooths",
                             method = method,
                             ...)
 
+                tmp_df <-
+                  data.frame(all_fit[[spm_name(dataset)]][[form_name]]$fitted)
+                names(tmp_df) <- form_name
+                all_smoothed[[spm_name(dataset)]][[form_name]] <-
+                  tmp_df
               }
             }
 
+            sspm_discrete_smoothed <-
+              new("sspm_discrete_smoothed",
+                  discrete = sspm_object,
+                  smoothed_data = all_smoothed,
+                  gam_fit = all_fit)
+
             # For now return a summary of the fit
-            return(lapply(all_fit, summary))
+            return(sspm_discrete_smoothed)
 
           }
 )
