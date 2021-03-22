@@ -38,6 +38,19 @@ setMethod("show",
 )
 
 setMethod("show",
+          "sspm_discrete_smoothed",
+          function(object) {
+            cli::cat_line()
+            custom_h1(paste0("SSPM object '", object@name, "' ",
+                             cli::col_green("(DISCRETIZED)")))
+            cat_boundaries(object)
+            cat_discretization_info(object)
+            cat_datasets(object)
+            cli::cat_line()
+          }
+)
+
+setMethod("show",
           "discretization_method",
           function(object) {
             custom_h3(cli::col_cyan("Discretization method"))
@@ -95,12 +108,8 @@ setMethod("show",
 
 cat_boundaries <- function(object){
 
-  dim_1 <- dim(object@boundaries)[1]
-  dim_2 <- dim(object@boundaries)[2]
-
-  cli::cat_bullet(cli::col_cyan(" Boundaries       : "),
-                  cli::pluralize("[ ", cli::col_blue("{dim_1}")," observation{?s} ; ",
-                                 cli::col_blue("{dim_2}"), " variable{?s} ]"),
+  cli::cat_bullet(cli::col_cyan(" Boundaries  : "),
+                  pluralize_data_info(object@boundaries),
                   bullet = "arrow_right")
 
 }
@@ -110,9 +119,8 @@ cat_datasets <- function(object){
   datasets <- spm_datasets(object)
   len_dat <- length(datasets)
 
-
-  cli::cat_bullet(paste0(cli::col_cyan(" Datasets         : "),
-                         cli::pluralize(cli::col_cyan("{no(len_dat)}")," dataset{?s}")),
+  cli::cat_bullet(cli::col_cyan(" Datasets    : "),
+                  cli::pluralize(cli::col_cyan("{no(len_dat)}")," dataset{?s}"),
                   bullet = "arrow_right")
 
   if(len_dat > 0){
@@ -149,7 +157,7 @@ cat_datasets <- function(object){
 
 cat_discretization_info <- function(object){
 
-  cli::cat_bullet(cli::col_cyan(" Discretized with : "),
+  cli::cat_bullet(cli::col_cyan(" Discretized : "),
                   bullet = "arrow_right")
 
   cli::cat_line("   ", paste(cli::symbol$star, cli::col_green("Points"),

@@ -71,7 +71,7 @@ setMethod(f = "fit_smooths",
 
                 # Print info
                 cli::cli_alert_info(
-                  paste0("Fitting formula: ",
+                  paste0(" Fitting formula: ",
                          cli::col_yellow(format_formula(raw_formula(form))),
                          " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset),"'"))))
 
@@ -100,11 +100,18 @@ setMethod(f = "fit_smooths",
                 all_smoothed[[spm_name(dataset)]][[form_name]] <-
                   tmp_df
               }
+
+              datasets[[spm_name(dataset)]]@is_smoothed <- TRUE
             }
 
             sspm_discrete_smoothed <-
               new("sspm_discrete_smoothed",
-                  discrete = sspm_object,
+                  name = spm_name(sspm_object),
+                  datasets = datasets,
+                  boundaries = spm_boundaries(sspm_object),
+                  method = spm_discret_method(sspm_object),
+                  patches = spm_patches(sspm_object),
+                  points = spm_points(sspm_object),
                   smoothed_data = all_smoothed,
                   gam_fit = all_fit)
 
