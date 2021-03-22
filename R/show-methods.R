@@ -7,6 +7,12 @@ custom_h1 <- function(text){
     cli::symbol$figure_dash, cli::symbol$figure_dash)
 }
 
+custom_h3 <- function(text){
+  cli::cat_line(
+    cli::symbol$figure_dash,
+    " ", cli::style_bold(text), " ")
+}
+
 setMethod("show",
           "sspm",
           function(object) {
@@ -27,9 +33,6 @@ setMethod("show",
             cat_boundaries(object)
             cat_discretization_info(object)
             cat_datasets(object)
-            if (length(object@formulas) >= 1){
-              cat_formulas(object)
-            }
             cli::cat_line()
           }
 )
@@ -37,25 +40,37 @@ setMethod("show",
 setMethod("show",
           "discretization_method",
           function(object) {
-            cli::cli_h3(cli::col_cyan("Discretization method"))
-            cli::cat_bullet(" Name               : '", object@name, "'")
-            # TODO manage to print function name
-            # cli::cat_bullet(" Function         :", object@method)
+            custom_h3(cli::col_cyan("Discretization method"))
+            cli::cat_bullet(" Name : '", object@name, "'",
+                            bullet = "em_dash")
+            # cli::cat_bullet(" Function         :", substitute(object@method),
+            #                 bullet = "em_dash")
           }
 )
 
 setMethod("show",
           "sspm_data",
           function(object) {
-            cli::cli_h3(cli::col_cyan("Base dataset '", object@name, "' "))
-            cli::cat_bullet(" Data matrix        : ", object@representation, " with ",
-                            dim(object@data)[1], " feature(s) and ",
-                            dim(object@data)[2], " variable(s)")
-            cli::cat_bullet(" Data unique ID     : ", cli::col_cyan(object@uniqueID))
-            cli::cat_bullet(" Time column        : ", cli::col_cyan(object@time_column))
+            custom_h3(cli::col_cyan("Dataset '", object@name, "' "))
+
+            dim_1 <- dim(spm_data(object))[1]
+            dim_2 <- dim(spm_data(object))[2]
+            cli::cat_bullet(" Data             : ",
+                            cli::pluralize("[ ", cli::col_blue("{dim_1}")," observation{?s} ; ",
+                                           cli::col_blue("{dim_2}"), " variable{?s} ]"),
+                            bullet = "em_dash")
+
+            cli::cat_bullet(" Data unique ID   : ",
+                            cli::col_cyan(object@uniqueID),
+                            bullet = "em_dash")
+            cli::cat_bullet(" Time column      : ",
+                            cli::col_cyan(object@time_column),
+                            bullet = "em_dash")
             if(!is.null(object@coords)){
-              cli::cat_bullet(" Coordinates cols   : ",
-                              paste(cli::col_green(object@coords), collapse = ", "))
+              cli::cat_bullet(" Coordinates cols : ",
+                              paste(cli::col_green(object@coords),
+                                    collapse = ", "),
+                              bullet = "em_dash")
             }
           }
 )
@@ -63,10 +78,16 @@ setMethod("show",
 setMethod("show",
           "sspm_formula",
           function(object) {
-            cli::cli_h3(cli::col_cyan("SSPM Formula for dataset ", cli::col_magenta(object@dataset) ))
-            cli::cat_bullet(" Raw formula        : ", format_formula(object@raw_formula))
-            cli::cat_bullet(" Translated formula : ", format_formula(object@translated_formula))
-            cli::cat_bullet(" Variables          : ", paste0(names(object@vars), collapse = ", "))
+            custom_h3(cli::col_cyan("SSPM Formula"))
+            cli::cat_bullet(" Raw formula        : ",
+                            format_formula(object@raw_formula),
+                            bullet = "em_dash")
+            cli::cat_bullet(" Translated formula : ",
+                            format_formula(object@translated_formula),
+                            bullet = "em_dash")
+            cli::cat_bullet(" Variables          : ",
+                            paste0(names(object@vars), collapse = ", "),
+                            bullet = "em_dash")
           }
 )
 
@@ -78,7 +99,8 @@ cat_boundaries <- function(object){
   dim_2 <- dim(object@boundaries)[2]
 
   cli::cat_bullet(cli::col_cyan(" Boundaries       : "),
-                  cli::pluralize("[ {dim_1} feature{?s} ; {dim_2} variable{?s} ]"),
+                  cli::pluralize("[ ", cli::col_blue("{dim_1}")," observation{?s} ; ",
+                                 cli::col_blue("{dim_2}"), " variable{?s} ]"),
                   bullet = "arrow_right")
 
 }
@@ -90,7 +112,7 @@ cat_datasets <- function(object){
 
 
   cli::cat_bullet(paste0(cli::col_cyan(" Datasets         : "),
-                         cli::pluralize("{no(len_dat)} dataset{?s}")),
+                         cli::pluralize(cli::col_cyan("{no(len_dat)}")," dataset{?s}")),
                   bullet = "arrow_right")
 
   if(len_dat > 0){
@@ -100,13 +122,10 @@ cat_datasets <- function(object){
       the_dataset <- datasets[[i]]
       the_dataset_formulas <- the_dataset@formulas
 
-      dim_1 <- dim(spm_data(the_dataset))[1]
-      dim_2 <- dim(spm_data(the_dataset))[2]
-
       the_line <-
         paste(cli::symbol$star, cli::col_green(spm_name(the_dataset)),
               cli::symbol$em_dash,
-              cli::pluralize("[ {dim_1} observation{?s} ; {dim_2} variable{?s} ]"))
+              pluralize_data_info(spm_data(the_dataset)))
 
       if(the_dataset@is_smoothed == TRUE){
         the_line <-
@@ -117,9 +136,11 @@ cat_datasets <- function(object){
 
       if(length(the_dataset_formulas)>0){
         for (form in the_dataset_formulas){
-          formatted <- format_formula(form@raw_formula)
+
+          formatted <- cat_formula(form@raw_formula)
+
           cli::cat_line("      ", cli::symbol$en_dash, " ",
-                        cli::col_yellow(paste0(strtrim(formatted, 70), "...")))
+                        cli::col_yellow(formatted))
         }
       }
     }
@@ -131,18 +152,42 @@ cat_discretization_info <- function(object){
   cli::cat_bullet(cli::col_cyan(" Discretized with : "),
                   bullet = "arrow_right")
 
-  points_dim_1 <- dim(object@points)[1]
-  points_dim_2 <- dim(object@points)[2]
   cli::cat_line("   ", paste(cli::symbol$star, cli::col_green("Points"),
                              cli::symbol$em_dash,
-                             cli::pluralize("[ {points_dim_1} feature{?s} ; {points_dim_2} variable{?s} ]")))
-
-  patches_dim_1 <- dim(object@patches)[1]
-  patches_dim_2 <- dim(object@patches)[2]
+                             pluralize_data_info(object@points, dim_1_name = "feature")))
   cli::cat_line("   ", paste(cli::symbol$star, cli::col_green("Patches"),
                              cli::symbol$em_dash,
-                             cli::pluralize("[ {patches_dim_1} feature{?s} ; {patches_dim_2} variable{?s} ]")))
+                             pluralize_data_info(object@patches, dim_1_name = "feature")))
 
+}
+
+pluralize_data_info <- function(object,
+                                dim_1_name = "observation",
+                                dim_2_name = "variable"){
+
+  dim_1 <- dim(object)[1]
+  dim_2 <- dim(object)[2]
+
+  info <-
+    cli::pluralize("[ ", cli::col_blue("{dim_1}")," ", dim_1_name, "{?s} ; ",
+                   cli::col_blue("{dim_2}"), " ", dim_2_name, "{?s} ]")
+
+  return(info)
+
+}
+
+format_formula <- function(form){
+  gsub(format(
+    paste0(trimws(format(form)), collapse = " ")
+  ), pattern = "\\\"", replacement="'")
+}
+
+cat_formula <- function(formula, max_length=40){
+  formatted <- format_formula(formula)
+  if(nchar(formatted)>max_length){
+    formatted <- paste0(strtrim(formatted, max_length), "...")
+  }
+  return(formatted)
 }
 
 ########
@@ -156,23 +201,20 @@ cat_discretization_info <- function(object){
 #                                                 collapse = ", "))
 # }
 
-cat_formulas <- function(object){
-  formulas <- object@formulas
-  cli::cli_h3(cli::col_cyan("Mapped formulas"))
-  for(form_id in seq_len(length.out = length(formulas))){
-    the_formula <- formulas[[form_id]]
-    formatted <- format_formula(the_formula@raw_formula)
-    cli::cat_line(cli::col_cyan(paste0(form_id, ") ")),
-                  cli::col_yellow(paste0(strtrim(formatted, 70), "...")),
-                  " for dataset ", cli::col_cyan(paste0("'", the_formula@dataset, "'")))
-  }
-}
+# cat_formulas <- function(object, max_length=70){
+#   formulas <- object@formulas
+#   cli::cli_h3(cli::col_cyan("Mapped formulas"))
+#   for(form_id in seq_len(length.out = length(formulas))){
+#
+#     the_formula <- formulas[[form_id]]
+#     formatted <- format_formula(the_formula@raw_formula)
+#     if(nchar(formatted)>max_length){
+#       formatted <- paste0(strtrim(formatted, max_length), "...")
+#     }
+#     cli::cat_line(cli::col_cyan(paste0(form_id, ") ")),
+#                   cli::col_yellow(formatted),
+#                   " for dataset ", cli::col_cyan(paste0("'", the_formula@dataset, "'")))
+#   }
+# }
 
 ########
-
-format_formula <- function(form){
-  gsub(format(
-    paste0(trimws(format(form)), collapse = " ")
-  ), pattern = "\\\"", replacement="'")
-}
-
