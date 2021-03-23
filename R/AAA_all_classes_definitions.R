@@ -32,12 +32,12 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #'     latitude of the observations.
 #' @slot uniqueID **\[character\]** The column of `data` that is unique for all
 #'     rows of the data matrix.
-#' @slot representation **\[character\]** Used internally and for print methods,
-#'     encodes the type of dataset.
 #' @slot formulas **\[list\]** *(if discrete)* List of
 #'     [sspm_formula][sspm_formula-class] objects that are mapped onto the
 #'     base dataset.
 #' @slot smoothed **\[Logical\]** Whether or not this dataset has been smoothed.
+#' @slot smoothed_data **\[list\]** The smoothed data.
+#' @slot smoothed_fit **\[list\]** The fit from smoothing the data
 #'
 #' @name sspm_data-class
 #' @rdname sspm_data-class
@@ -48,7 +48,6 @@ setClass("sspm_data",
                       time_column = "character",
                       coords = "characterOrNULL",
                       uniqueID = "character",
-                      representation = "character",
                       formulas = "list",
                       is_smoothed = "logical"),
          prototype = prototype(name = "Biomass",
@@ -149,11 +148,11 @@ setClass("sspm_formula",
 # -------------------------------------------------------------------------
 
 # Fitted model => sspm + discretization_method + has been smoothed
-setClass("sspm_discrete_smoothed",
-         slots = list(smoothed_data = "list",
-                      gam_fit = "list"),
-         contains = c("sspm_discrete", "sspm")
-)
+# setClass("sspm_discrete_smoothed",
+#          slots = list(smoothed_data = "list",
+#                       gam_fit = "list"),
+#          contains = c("sspm_discrete", "sspm")
+# )
 
 # # Modelled SPM ~ end of workflow
 # setClass("sspm_spm_fit",

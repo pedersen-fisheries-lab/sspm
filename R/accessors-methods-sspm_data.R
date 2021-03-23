@@ -72,40 +72,6 @@ setMethod("spm_name<-",
           }
 )
 
-# Rep ---------------------------------------------------------------------
-# Accessors ---------------------------------------------------------------
-
-#' @describeIn accessors-methods-sspm_data TODO
-#' @export
-setGeneric(name = "spm_rep",
-           def = function(sspm_object) standardGeneric("spm_rep")
-)
-
-#' @export
-#' @describeIn accessors-methods-sspm_data TODO
-setMethod("spm_rep", signature("sspm_object" = "sspm_data"),
-          function(sspm_object) sspm_object@representation
-)
-
-# Replacers ---------------------------------------------------------------
-
-#' @describeIn accessors-methods-sspm_data TODO
-#' @export
-setGeneric(name = "spm_rep<-",
-           def = function(object, value) standardGeneric("spm_rep<-")
-)
-
-#' @describeIn accessors-methods-sspm_data TODO
-#' @export
-setMethod("spm_rep<-",
-          signature("object" = "sspm_data"),
-          function(object, value){
-            object@representation <- value
-            validObject(object)
-            return(object)
-          }
-)
-
 # Unique ID ---------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 

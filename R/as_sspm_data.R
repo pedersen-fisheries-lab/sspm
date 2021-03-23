@@ -98,8 +98,7 @@ setMethod(f = "as_sspm_data",
                                  data = new_data,
                                  time_column = time_column,
                                  uniqueID = uniqueID,
-                                 coords = coords,
-                                 representation = "Simple feature collection")
+                                 coords = coords)
 
             return(the_sspm_data)
           }
@@ -119,8 +118,7 @@ setMethod(f = "as_sspm_data",
                                  data = data,
                                  time_column = time_column,
                                  uniqueID = uniqueID,
-                                 coords = coords,
-                                 representation = "Simple feature collection")
+                                 coords = coords)
 
             return(the_sspm_data)
           }

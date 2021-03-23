@@ -8,10 +8,6 @@
 \alias{spm_data<-,sspm_data-method}
 \alias{spm_name,sspm_data-method}
 \alias{spm_name<-,sspm_data-method}
-\alias{spm_rep}
-\alias{spm_rep,sspm_data-method}
-\alias{spm_rep<-}
-\alias{spm_rep<-,sspm_data-method}
 \alias{spm_unique_ID,sspm_data-method}
 \alias{spm_unique_ID<-,sspm_data-method}
 \alias{spm_coords_col,sspm_data-method}
@@ -35,14 +31,6 @@ spm_data(object) <- value
 \S4method{spm_name}{sspm_data}(sspm_object)
 
 \S4method{spm_name}{sspm_data}(object) <- value
-
-spm_rep(sspm_object)
-
-\S4method{spm_rep}{sspm_data}(sspm_object)
-
-spm_rep(object) <- value
-
-\S4method{spm_rep}{sspm_data}(object) <- value
 
 \S4method{spm_unique_ID}{sspm_data}(sspm_object)
 
@@ -88,14 +76,6 @@ objects of class \link[=sspm_data-class]{sspm_data}.
 \item \code{spm_name,sspm_data-method}: TODO
 
 \item \code{spm_name<-,sspm_data-method}: TODO
-
-\item \code{spm_rep}: TODO
-
-\item \code{spm_rep,sspm_data-method}: TODO
-
-\item \code{spm_rep<-}: TODO
-
-\item \code{spm_rep<-,sspm_data-method}: TODO
 
 \item \code{spm_unique_ID,sspm_data-method}: TODO
 

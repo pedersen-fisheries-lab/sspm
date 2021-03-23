@@ -20,20 +20,18 @@ sspm_data <- new("sspm_data",
                  data = borealis_spatial,
                  time_column = "year_f",
                  uniqueID = "uniqueID",
-                 coords = c('lon_dec','lat_dec'),
-                 representation = "Simple feature collection")
+                 coords = c('lon_dec','lat_dec'))
 
 sspm_data_pred <- new("sspm_data",
                       name = "Predator",
                       data = predator_spatial,
                       time_column = "year",
                       uniqueID = "uniqueID",
-                      coords = c('lon_dec','lat_dec'),
-                      representation = "Simple feature collection")
+                      coords = c('lon_dec','lat_dec'))
 
 sspm_base <- new("sspm",
                  name="Model test",
-                 data=sspm_data,
+                 datasets=list(),
                  boundaries=sfa_boundaries)
 
 discret_method <- new("discretization_method",
@@ -43,33 +41,34 @@ discret_method <- new("discretization_method",
 sspm_discrete <- new("sspm_discrete",
                      name = spm_name(sspm_base),
                      # NOTE: patch_id absent
-                     data = spm_base_dataset(sspm_base),
+                     datasets = spm_datasets(sspm_base),
                      boundaries = spm_boundaries(sspm_base),
                      method = discret_method,
                      patches = borealis_patches,
                      points = borealis_points)
 
+dataset_list <- list(sspm_data, sspm_data_pred)
+names(dataset_list) <- sapply(dataset_list, spm_name)
 sspm_discrete_mapped <- new("sspm_discrete",
                             name = spm_name(sspm_base),
-                            data = spm_base_dataset(sspm_base),
+                            # NOTE: patch_id absent
+                            datasets = dataset_list,
                             boundaries = spm_boundaries(sspm_base),
                             method = discret_method,
                             patches = borealis_patches,
-                            points = borealis_points,
-                            mapped_datasets = list(Predator = sspm_data_pred))
+                            points = borealis_points)
 
 sspm_formula <- new("sspm_formula",
-                      raw_formula = as.formula("weight_per_km2 ~ smooth_time() +
+                    raw_formula = as.formula("weight_per_km2 ~ smooth_time() +
                                                smooth_space() + smooth_space_time()"),
-                      translated_formula = as.formula("weight_per_km2 ~ s(year_f,
+                    translated_formula = as.formula("weight_per_km2 ~ s(year_f,
                       k = 24L, bs = 're', xt = list(penalty = pen_mat_time)) +
                       s(patch_id, k = 30, bs = 'mrf', xt = list(penalty = pen_mat_space)) +
                       ti(year_f, patch_id, k = c(24, 30), bs = c('re', 'mrf'),
                       xt = list(year_f = list(penalty = pen_mat_time),
                       patch_id = list(penalty = pen_mat_space)))"),
-                      dataset = "Biomass",
-                      vars = list(pen_mat_time = matrix(),
-                                  pen_mat_space = matrix()))
+                    vars = list(pen_mat_time = matrix(),
+                                pen_mat_space = matrix()))
 
 sspm_discrete_mapped_forms <- sspm_discrete_mapped
-# sspm_discrete_mapped_forms@mapped_formulas <- list(sspm_formula)
+sspm_discrete_mapped_forms@datasets$Biomass@formulas <- list(sspm_formula)

@@ -25,13 +25,14 @@ latitude of the observations.}
 \item{\code{uniqueID}}{\strong{[character]} The column of \code{data} that is unique for all
 rows of the data matrix.}
 
-\item{\code{representation}}{\strong{[character]} Used internally and for print methods,
-encodes the type of dataset.}
-
 \item{\code{formulas}}{\strong{[list]} \emph{(if discrete)} List of
 \link[=sspm_formula-class]{sspm_formula} objects that are mapped onto the
 base dataset.}
 
 \item{\code{smoothed}}{\strong{[Logical]} Whether or not this dataset has been smoothed.}
+
+\item{\code{smoothed_data}}{\strong{[list]} The smoothed data.}
+
+\item{\code{smoothed_fit}}{\strong{[list]} The fit from smoothing the data}
 }}
 
