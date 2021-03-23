@@ -40,69 +40,68 @@ setMethod(f = "fit_smooths",
             # Get all datasets
             datasets <- spm_datasets(sspm_object)
 
-            has_formulas <- sapply(datasets, function(x){
-              length(spm_formulas(x)) > 0
-            })
-
-            all_fit <-
-              vector(mode = "list", length = sum(has_formulas))
-            all_smoothed <-
-              vector(mode = "list", length = sum(has_formulas))
-
-            names(all_fit) <- names(datasets)[has_formulas]
-            names(all_smoothed) <- names(datasets)[has_formulas]
+            # has_formulas <- sapply(datasets, function(x){
+            #   length(spm_formulas(x)) > 0
+            # })
 
             for(dataset in datasets){
 
               if(!dataset@is_smoothed){
 
                 formulas <- spm_formulas(dataset)
+                formula_length <- length(formulas)
 
-                if(length(formulas) == 0){
+                if(formula_length == 0){
                   next
-                }
+                } else{
 
-                # all_fit[[spm_name(dataset)]] <-
-                #   vector(mode = "list", length = length(formulas))
+                  tmp_fit <-
+                    vector(mode = "list", length = sum(formula_length))
+                  tmp_smoothed <-
+                    vector(mode = "list", length = sum(formula_length))
 
-                for (form_id in seq_len(length.out = length(formulas))){
+                  for (form_id in seq_len(length.out = length(formulas))){
 
-                  # Index formula
-                  form <- formulas[[form_id]]
-                  form_name <- paste0(spm_name(dataset), "_f", form_id)
+                    # Index formula
+                    form <- formulas[[form_id]]
+                    form_name <- paste0(spm_name(dataset), "_f", form_id)
 
-                  # Print info
-                  cli::cli_alert_info(
-                    paste0(" Fitting formula: ",
-                           cli::col_yellow(format_formula(raw_formula(form))),
-                           " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset),"'"))))
+                    # Inject name
+                    names(tmp_fit)[form_id] <- form_name
+                    names(tmp_smoothed)[form_id] <- form_name
 
-                  # Get data
-                  the_data <- spm_data(dataset)
-                  form_vars <- formula_vars(form)
+                    # Print info
+                    cli::cli_alert_info(
+                      paste0(" Fitting formula: ",
+                             cli::col_yellow(format_formula(raw_formula(form))),
+                             " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset),"'"))))
 
-                  # Modify formula env, best solution for now
-                  form_env <- attr(translated_formula(form), ".Environment")
-                  for(var in names(form_vars)){
-                    assign(x = var, value = form_vars[[var]], envir = form_env)
+                    # Get data
+                    the_data <- spm_data(dataset)
+                    form_vars <- formula_vars(form)
+
+                    # Modify formula env, best solution for now
+                    form_env <- attr(translated_formula(form), ".Environment")
+                    for(var in names(form_vars)){
+                      assign(x = var, value = form_vars[[var]], envir = form_env)
+                    }
+
+                    # Fit the formula, important to attach the vars
+                    tmp_fit[[form_name]] <-
+                      mgcv::bam(formula = translated_formula(form),
+                                data = the_data,
+                                family = family,
+                                drop.unused.levels = drop.unused.levels,
+                                method = method,
+                                ...)
+
+                    tmp_df <- data.frame(tmp_fit[[form_name]]$fitted)
+                    names(tmp_df) <- form_name
+                    tmp_smoothed[[form_name]] <- tmp_df
                   }
-
-                  # Fit the formula, important to attach the vars
-                  all_fit[[spm_name(dataset)]][[form_name]] <-
-                    mgcv::bam(formula = translated_formula(form),
-                              data = the_data,
-                              family = family,
-                              drop.unused.levels = drop.unused.levels,
-                              method = method,
-                              ...)
-
-                  tmp_df <-
-                    data.frame(all_fit[[spm_name(dataset)]][[form_name]]$fitted)
-                  names(tmp_df) <- form_name
-                  all_smoothed[[spm_name(dataset)]][[form_name]] <-
-                    tmp_df
+                  datasets[[spm_name(dataset)]]@smoothed_data <- tmp_df
+                  datasets[[spm_name(dataset)]]@smoothed_fit <- tmp_df
                 }
-
                 datasets[[spm_name(dataset)]]@is_smoothed <- TRUE
               }
             }
