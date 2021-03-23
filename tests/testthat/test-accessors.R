@@ -38,7 +38,7 @@ test_that("Accessors work as expected on `sspm`", {
   expect_class(spm_boundaries(sspm_base), "sf")
 
   expect_list(spm_datasets(sspm_base))
-  expect_length(spm_datasets(sspm_discrete), 0)
+  expect_length(spm_datasets(sspm_discrete), 1)
 
   # Not valid
   expect_message(spm_data(sspm_base),
@@ -61,7 +61,7 @@ test_that("accessors work on `sspm_discrete`", {
   expect_class(spm_boundaries(sspm_discrete), "sf")
 
   expect_list(spm_datasets(sspm_discrete))
-  expect_length(spm_datasets(sspm_discrete), 0)
+  expect_length(spm_datasets(sspm_discrete), 1)
 
   expect_class(spm_discret_method(sspm_discrete), "discretization_method")
 

@@ -29,9 +29,11 @@ sspm_data_pred <- new("sspm_data",
                       uniqueID = "uniqueID",
                       coords = c('lon_dec','lat_dec'))
 
+dataset_list <- list(sspm_data)
+names(dataset_list) <- sapply(dataset_list, spm_name)
 sspm_base <- new("sspm",
                  name="Model test",
-                 datasets=list(),
+                 datasets=dataset_list,
                  boundaries=sfa_boundaries)
 
 discret_method <- new("discretization_method",
