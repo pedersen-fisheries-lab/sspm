@@ -1,6 +1,6 @@
 # Imports -----------------------------------------------------------------
 
-#' @import sf cli
+#' @import sf cli mgcv
 #' @importFrom rlang .data
 #' @importFrom methods new show validObject
 #' @importFrom stats terms as.formula

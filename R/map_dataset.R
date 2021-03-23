@@ -148,14 +148,14 @@ setMethod(f = "map_dataset",
             }
 
             # Make checks on coords, either a character vector or a list
-            if(test_class(args$coords, "character")){
+            if(checkmate::test_class(args$coords, "character")){
               if(length(args$coords) == 2){
                 args$coords <- list(args$coords)
               } else{
                 stop("Argument 'coords' should be of a vector of length 2.",
                      call. = FALSE)
               }
-            } else if (test_class(args$coords, "list")){
+            } else if (checkmate::test_class(args$coords, "list")){
               if(length(args$coords) != 1) {
                 if(length(args$coords) != length(data)){
                   stop("Argument 'coords' should be a list of the same length than data.",
