@@ -95,14 +95,3 @@ The updated object, of class \link[=sspm-class]{sspm} or
 \description{
 After discretizing, the next step is to map coavriate datasets.
 }
-\section{Functions}{
-\itemize{
-\item \code{map_dataset,sspm,data.frame-method}: TODO
-
-\item \code{map_dataset,sspm,sf-method}: TODO
-
-\item \code{map_dataset,sspm,sspm_data-method}: TODO
-
-\item \code{map_dataset,sspm,list-method}: TODO
-}}
-

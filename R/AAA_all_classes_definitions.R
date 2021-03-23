@@ -113,7 +113,7 @@ setClass("sspm",
                                datasets = list())
 )
 
-#' @describeIn sspm-class sspm_discrete
+#' @rdname sspm-class sspm_discrete
 setClass("sspm_discrete",
          slots = list(method = "discretization_method",
                       patches = "sf",

@@ -141,10 +141,3 @@ even with factor variables present.}
 Once formulas have been mapped onto a sspm discrete object, the GAMs can be
 fitted with this function. Arguments can be passed onto \code{bam}.
 }
-\section{Functions}{
-\itemize{
-\item \code{fit_smooths,sspm-method}: TODO
-
-\item \code{fit_smooths,sspm_discrete-method}: TODO
-}}
-

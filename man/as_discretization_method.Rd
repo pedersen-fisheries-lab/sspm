@@ -19,11 +19,6 @@ An objectof class \code{\link[=discretization_method-class]{discretization_metho
 Cast a character value into \code{\link[=discretization_method-class]{discretization_method}}
 object, using the list of possible methods in \code{\link{spm_methods}}.
 }
-\section{Functions}{
-\itemize{
-\item \code{as_discretization_method,character-method}: TODO
-}}
-
 \seealso{
 \link{spm_methods}.
 }

@@ -107,16 +107,3 @@ A list of 2 lists:
 A full sspm formula contains calls to the smoothing terms \code{smooth_time()},
 \code{smooth_space()}, \code{smooth_space_time()}.
 }
-\section{Functions}{
-\itemize{
-\item \code{smooth_space}: TODO
-
-\item \code{smooth_space_time}: TODO
-
-\item \code{smooth_time,ANY,character,sspm_discrete-method}: TODO
-
-\item \code{smooth_space,ANY,character,sspm_discrete-method}: TODO
-
-\item \code{smooth_space_time,ANY,character,sspm_discrete-method}: TODO
-}}
-

@@ -29,10 +29,10 @@ setGeneric(name = "spm_discretize",
 )
 
 # Methods -----------------------------------------------------------------
-# TODO finish the describeIn description
+# TODO finish the rdname description
 
 # If invalid method, throw error
-#' @describeIn spm_discretize TODO
+#' @rdname spm_discretize 
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "ANY",
@@ -44,7 +44,7 @@ setMethod(f = "spm_discretize",
 )
 
 # If missing arg, throw error
-#' @describeIn spm_discretize TODO
+#' @rdname spm_discretize 
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "ANY",
@@ -56,7 +56,7 @@ setMethod(f = "spm_discretize",
 )
 
 # All signatures point to this one
-#' @describeIn spm_discretize TODO
+#' @rdname spm_discretize 
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "sspm",
@@ -131,7 +131,7 @@ setMethod(f = "spm_discretize",
 
 # If `sspm` + character, check against list, create `discretization_method`
 # and call next signature.
-#' @describeIn spm_discretize TODO
+#' @rdname spm_discretize 
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "sspm",
@@ -149,7 +149,7 @@ setMethod(f = "spm_discretize",
 # the next appropriate signature
 
 # SAME CODE than `sspm` + character
-#' @describeIn spm_discretize TODO
+#' @rdname spm_discretize 
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "sspm_discrete",
@@ -164,7 +164,7 @@ setMethod(f = "spm_discretize",
 )
 
 # RE-discretization not allowed for now
-#' @describeIn spm_discretize TODO
+#' @rdname spm_discretize 
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "sspm_discrete",

@@ -13,7 +13,7 @@
 
 NULL
 
-#' @describeIn plot-sspm TODO
+#' @rdname plot-sspm 
 #' @export
 setMethod("plot",
           signature(x = "sspm"),
@@ -22,7 +22,7 @@ setMethod("plot",
           }
 )
 
-#' @describeIn plot-sspm TODO
+#' @rdname plot-sspm 
 #' @export
 setMethod("plot",
           signature(x = "sspm_discrete"),

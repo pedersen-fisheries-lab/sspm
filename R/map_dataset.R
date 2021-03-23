@@ -31,7 +31,7 @@ setGeneric(name = "map_dataset",
 # and sf is not possible as `sf` is not exported.
 
 #' @export
-#' @describeIn map_dataset TODO
+#' @rdname map_dataset 
 setMethod(f = "map_dataset",
           signature(sspm_object = "sspm",
                     data = "data.frame"),
@@ -56,7 +56,7 @@ setMethod(f = "map_dataset",
 )
 
 #' @export
-#' @describeIn map_dataset TODO
+#' @rdname map_dataset 
 setMethod(f = "map_dataset",
           signature(sspm_object = "sspm",
                     data = "sf"),
@@ -85,7 +85,7 @@ cast_and_return <- function(sspm_object, data, name,
 }
 
 #' @export
-#' @describeIn map_dataset TODO
+#' @rdname map_dataset 
 setMethod(f = "map_dataset",
           signature(sspm_object = "sspm",
                     data = "sspm_data"),
@@ -119,7 +119,7 @@ setMethod(f = "map_dataset",
 )
 
 #' @export
-#' @describeIn map_dataset TODO
+#' @rdname map_dataset 
 setMethod(f = "map_dataset",
           signature(sspm_object = "sspm",
                     data = "list"),

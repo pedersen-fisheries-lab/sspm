@@ -36,16 +36,3 @@ method_func(object) <- value
 All methods described here allow to access the elements of contained in
 objects of class \link[=discretization_method-class]{discretization_method}.
 }
-\section{Functions}{
-\itemize{
-\item \code{method_func,discretization_method-method}: TODO
-
-\item \code{method_func<-}: TODO
-
-\item \code{method_func<-,discretization_method-method}: TODO
-
-\item \code{spm_name,discretization_method-method}: TODO
-
-\item \code{spm_name<-,discretization_method-method}: TODO
-}}
-

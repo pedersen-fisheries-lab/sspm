@@ -28,7 +28,7 @@ setGeneric(name = "smooth_time",
 )
 
 #' @export
-#' @describeIn smooths TODO
+#' @rdname smooths 
 setGeneric(name = "smooth_space",
            def = function(type = "ICAR",
                           dataset,
@@ -42,7 +42,7 @@ setGeneric(name = "smooth_space",
 )
 
 #' @export
-#' @describeIn smooths TODO
+#' @rdname smooths 
 setGeneric(name = "smooth_space_time",
            def = function(type = "ICAR",
                           dataset,
@@ -63,7 +63,7 @@ setGeneric(name = "smooth_space_time",
 # done to the other two occurrences of that code.
 
 #' @export
-#' @describeIn smooths TODO
+#' @rdname smooths 
 setMethod(f = "smooth_time",
           signature(type = "ANY",
                     dataset = "character",
@@ -92,7 +92,7 @@ setMethod(f = "smooth_time",
 )
 
 #' @export
-#' @describeIn smooths TODO
+#' @rdname smooths 
 setMethod(f = "smooth_space",
           signature(type = "ANY",
                     dataset = "character",
@@ -121,7 +121,7 @@ setMethod(f = "smooth_space",
 )
 
 #' @export
-#' @describeIn smooths TODO
+#' @rdname smooths 
 setMethod(f = "smooth_space_time",
           signature(type = "ANY",
                     dataset = "character",

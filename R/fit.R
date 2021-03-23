@@ -23,7 +23,7 @@ setGeneric(name = "fit_smooths",
 # Methods -----------------------------------------------------------------
 
 #' @export
-#' @describeIn fit TODO
+#' @rdname fit 
 setMethod(f = "fit_smooths",
           signature(sspm_object = "sspm"),
           function(sspm_object, ...){
@@ -32,7 +32,7 @@ setMethod(f = "fit_smooths",
 )
 
 #' @export
-#' @describeIn fit TODO
+#' @rdname fit 
 setMethod(f = "fit_smooths",
           signature(sspm_object = "sspm_discrete"),
           function(sspm_object, family, drop.unused.levels, method, ...){

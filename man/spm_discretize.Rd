@@ -47,18 +47,3 @@ and discretized \code{sspm} object given as input).
 Discretize a \link[=sspm-class]{sspm} model object with a function from a
 \link[=discretization_method-class]{discretization_method} object class.
 }
-\section{Functions}{
-\itemize{
-\item \code{spm_discretize,ANY,ANY,missingOrNULL-method}: TODO
-
-\item \code{spm_discretize,ANY,missing,ANY-method}: TODO
-
-\item \code{spm_discretize,sspm,character,discretization_method-method}: TODO
-
-\item \code{spm_discretize,sspm,character,character-method}: TODO
-
-\item \code{spm_discretize,sspm_discrete,character,character-method}: TODO
-
-\item \code{spm_discretize,sspm_discrete,ANY,ANY-method}: TODO
-}}
-

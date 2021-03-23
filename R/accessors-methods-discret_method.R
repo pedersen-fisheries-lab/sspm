@@ -18,7 +18,7 @@ setGeneric(name = "method_func",
            def = function(sspm_object) standardGeneric("method_func")
 )
 
-#' @describeIn accessors-methods-discret_method TODO
+#' @rdname accessors-methods-discret_method
 #' @export
 setMethod("method_func",
           signature("sspm_object" = "discretization_method"),
@@ -27,13 +27,13 @@ setMethod("method_func",
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn accessors-methods-discret_method TODO
+#' @rdname accessors-methods-discret_method
 #' @export
 setGeneric(name = "method_func<-",
            def = function(object, value) standardGeneric("method_func<-")
 )
 
-#' @describeIn accessors-methods-discret_method TODO
+#' @rdname accessors-methods-discret_method
 #' @export
 setMethod("method_func<-",
           signature("object" = "discretization_method"),
@@ -47,7 +47,7 @@ setMethod("method_func<-",
 # Name --------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @describeIn accessors-methods-discret_method TODO
+#' @rdname accessors-methods-discret_method
 #' @export
 setMethod("spm_name", signature("sspm_object" = "discretization_method"),
           function(sspm_object) sspm_object@name
@@ -55,7 +55,7 @@ setMethod("spm_name", signature("sspm_object" = "discretization_method"),
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn accessors-methods-discret_method TODO
+#' @rdname accessors-methods-discret_method
 #' @export
 setMethod("spm_name<-",
           signature("object" = "discretization_method"),

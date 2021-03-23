@@ -19,7 +19,7 @@ setGeneric(name = "spm_name",
            def = function(sspm_object) standardGeneric("spm_name")
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_name", signature("sspm_object" = "sspm"),
           function(sspm_object) sspm_object@name
@@ -27,13 +27,13 @@ setMethod("spm_name", signature("sspm_object" = "sspm"),
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setGeneric(name = "spm_name<-",
            def = function(object, value) standardGeneric("spm_name<-")
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_name<-",
           signature("object" = "sspm"),
@@ -47,13 +47,13 @@ setMethod("spm_name<-",
 # Datasets ----------------------------------------------------------------
 # Accesors ----------------------------------------------------------------
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setGeneric(name = "spm_datasets",
            def = function(sspm_object) standardGeneric("spm_datasets")
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_datasets", signature("sspm_object" = "sspm"),
           function(sspm_object) {
@@ -63,7 +63,7 @@ setMethod("spm_datasets", signature("sspm_object" = "sspm"),
           }
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_datasets", signature("sspm_object" = "sspm_data"),
           function(sspm_object) {
@@ -73,13 +73,13 @@ setMethod("spm_datasets", signature("sspm_object" = "sspm_data"),
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setGeneric(name = "spm_datasets<-",
            def = function(object, value) standardGeneric("spm_datasets<-")
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_datasets<-",
           signature("object" = "sspm"),
@@ -93,13 +93,13 @@ setMethod("spm_datasets<-",
 # Boundaries --------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setGeneric(name = "spm_boundaries",
            def = function(sspm_object) standardGeneric("spm_boundaries")
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_boundaries", signature("sspm_object" = "sspm"),
           function(sspm_object) sspm_object@boundaries
@@ -107,13 +107,13 @@ setMethod("spm_boundaries", signature("sspm_object" = "sspm"),
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setGeneric(name = "spm_boundaries<-",
            def = function(object, value) standardGeneric("spm_boundaries<-")
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_boundaries<-",
           signature("object" = "sspm_discrete"),
@@ -124,7 +124,7 @@ setMethod("spm_boundaries<-",
           }
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_boundaries<-",
           signature("object" = "sspm"),
@@ -140,13 +140,13 @@ setMethod("spm_boundaries<-",
 # Discretization method ---------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setGeneric(name = "spm_discret_method",
            def = function(sspm_object) standardGeneric("spm_discret_method")
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_discret_method",
           signature("sspm_object" = "sspm"),
@@ -155,7 +155,7 @@ setMethod("spm_discret_method",
           }
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_discret_method",
           signature("sspm_object" = "sspm_discrete"),
@@ -164,13 +164,13 @@ setMethod("spm_discret_method",
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setGeneric(name = "spm_discret_method<-",
            def = function(object, value) standardGeneric("spm_discret_method<-")
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_discret_method<-",
           signature("object" = "sspm_discrete"),
@@ -181,7 +181,7 @@ setMethod("spm_discret_method<-",
           }
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_discret_method<-",
           signature("object" = "sspm"),
@@ -194,13 +194,13 @@ setMethod("spm_discret_method<-",
 # Patches -----------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setGeneric(name = "spm_patches",
            def = function(sspm_object) standardGeneric("spm_patches")
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_patches",
           signature("sspm_object" = "sspm"),
@@ -209,7 +209,7 @@ setMethod("spm_patches",
           }
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_patches",
           signature("sspm_object" = "sspm_discrete"),
@@ -218,13 +218,13 @@ setMethod("spm_patches",
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setGeneric(name = "spm_patches<-",
            def = function(object, value) standardGeneric("spm_patches<-")
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_patches<-",
           signature("object" = "sspm_discrete"),
@@ -235,7 +235,7 @@ setMethod("spm_patches<-",
           }
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_patches<-",
           signature("object" = "sspm"),
@@ -248,13 +248,13 @@ setMethod("spm_patches<-",
 # Points ------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setGeneric(name = "spm_points",
            def = function(sspm_object) standardGeneric("spm_points")
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_points",
           signature("sspm_object" = "sspm"),
@@ -263,7 +263,7 @@ setMethod("spm_points",
           }
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_points",
           signature("sspm_object" = "sspm_discrete"),
@@ -272,13 +272,13 @@ setMethod("spm_points",
 
 # Replacers ---------------------------------------------------------------
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setGeneric(name = "spm_points<-",
            def = function(object, value) standardGeneric("spm_points<-")
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_points<-",
           signature("object" = "sspm_discrete"),
@@ -289,7 +289,7 @@ setMethod("spm_points<-",
           }
 )
 
-#' @describeIn sspm-accessors-methods TODO
+#' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_points<-",
           signature("object" = "sspm"),

@@ -41,14 +41,3 @@ effects and custom smooths, and can make use of specific smoothing terms
 \code{smooth_time()}, \code{smooth_space()}, \code{smooth_space_time()}. See Details for
 more explanations.
 }
-\section{Functions}{
-\itemize{
-\item \code{map_formula,sspm,ANY,ANY-method}: TODO
-
-\item \code{map_formula,sspm_discrete,missing,ANY-method}: TODO
-
-\item \code{map_formula,sspm_discrete,ANY,missing-method}: TODO
-
-\item \code{map_formula,sspm_discrete,character,formula-method}: TODO
-}}
-

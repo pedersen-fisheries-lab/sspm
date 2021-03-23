@@ -37,7 +37,7 @@ setGeneric(name = "as_sspm_data",
 
 # Methods -----------------------------------------------------------------
 
-#' @describeIn as_sspm_data TODO
+#' @rdname as_sspm_data 
 #' @export
 setMethod(f = "as_sspm_data",
           signature(data = "data.frame", coords = "missingOrNULL"),
@@ -49,7 +49,7 @@ setMethod(f = "as_sspm_data",
 )
 
 # If data.frame with coords, make it sf
-#' @describeIn as_sspm_data TODO
+#' @rdname as_sspm_data 
 #' @export
 setMethod(f = "as_sspm_data",
           signature(data = "data.frame", coords = "list"),
@@ -61,7 +61,7 @@ setMethod(f = "as_sspm_data",
 
 
 # If data.frame with coords, make it sf
-#' @describeIn as_sspm_data TODO
+#' @rdname as_sspm_data 
 #' @export
 setMethod(f = "as_sspm_data",
           signature(data = "data.frame", coords = "character"),
@@ -105,7 +105,7 @@ setMethod(f = "as_sspm_data",
 )
 
 # If sf, ingest as is
-#' @describeIn as_sspm_data TODO
+#' @rdname as_sspm_data 
 #' @export
 setMethod(f = "as_sspm_data",
           signature(data = "sf", coords = "ANY"),

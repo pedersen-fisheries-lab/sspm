@@ -18,6 +18,7 @@
 \alias{spm_coords_col<-,sspm_data-method}
 \alias{spm_time_column}
 \alias{spm_time_column,sspm_data-method}
+\alias{spm_time_column<-}
 \alias{spm_time_column<-,sspm_data-method}
 \alias{spm_formulas}
 \alias{spm_formulas,sspm_data-method}
@@ -59,6 +60,8 @@ spm_time_column(sspm_object)
 
 \S4method{spm_time_column}{sspm_data}(sspm_object)
 
+spm_time_column(object) <- value
+
 \S4method{spm_time_column}{sspm_data}(object) <- value
 
 spm_formulas(sspm_object)
@@ -84,48 +87,3 @@ spm_formulas(object) <- value
 All methods described here allow to access the elements of contained in
 objects of class \link[=sspm_data-class]{sspm_data}.
 }
-\section{Functions}{
-\itemize{
-\item \code{spm_data,sspm-method}: TODO
-
-\item \code{spm_data,sspm_data-method}: TODO
-
-\item \code{spm_data<-}: TODO
-
-\item \code{spm_data<-,sspm_data-method}: TODO
-
-\item \code{spm_name,sspm_data-method}: TODO
-
-\item \code{spm_name<-,sspm_data-method}: TODO
-
-\item \code{spm_unique_ID}: TODO
-
-\item \code{spm_unique_ID,sspm_data-method}: TODO
-
-\item \code{spm_unique_ID<-}: TODO
-
-\item \code{spm_unique_ID<-,sspm_data-method}: TODO
-
-\item \code{spm_coords_col}: TODO
-
-\item \code{spm_coords_col,sspm_data-method}: TODO
-
-\item \code{spm_coords_col<-}: TODO
-
-\item \code{spm_coords_col<-,sspm_data-method}: TODO
-
-\item \code{spm_time_column}: TODO
-
-\item \code{spm_time_column,sspm_data-method}: TODO
-
-\item \code{spm_time_column<-,sspm_data-method}: TODO
-
-\item \code{spm_formulas}: TODO
-
-\item \code{spm_formulas,sspm_data-method}: TODO
-
-\item \code{spm_formulas<-}: TODO
-
-\item \code{spm_formulas<-,sspm_data-method}: TODO
-}}
-

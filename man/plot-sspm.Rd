@@ -20,10 +20,3 @@ N/A
 \description{
 This will plot the patches and points of a \code{sspm_discrete} object.
 }
-\section{Functions}{
-\itemize{
-\item \code{plot,sspm-method}: TODO
-
-\item \code{plot,sspm_discrete-method}: TODO
-}}
-

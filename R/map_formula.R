@@ -38,7 +38,7 @@ setGeneric(name = "map_formula",
 # Methods -----------------------------------------------------------------
 
 #' @export
-#' @describeIn map_formula TODO
+#' @rdname map_formula 
 setMethod(f = "map_formula",
           signature(sspm_object = "sspm"),
           function(sspm_object, ...){
@@ -47,7 +47,7 @@ setMethod(f = "map_formula",
 )
 
 #' @export
-#' @describeIn map_formula TODO
+#' @rdname map_formula 
 setMethod(f = "map_formula",
           signature(sspm_object = "sspm_discrete",
                     dataset = "missing"),
@@ -57,7 +57,7 @@ setMethod(f = "map_formula",
 )
 
 #' @export
-#' @describeIn map_formula TODO
+#' @rdname map_formula 
 setMethod(f = "map_formula",
           signature(sspm_object = "sspm_discrete",
                     formula = "missing"),
@@ -67,7 +67,7 @@ setMethod(f = "map_formula",
 )
 
 #' @export
-#' @describeIn map_formula TODO
+#' @rdname map_formula 
 setMethod(f = "map_formula",
           signature(sspm_object = "sspm_discrete",
                     dataset = "character",

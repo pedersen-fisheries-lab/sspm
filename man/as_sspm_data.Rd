@@ -41,14 +41,3 @@ An object of class \code{\link[=sspm_data-class]{sspm_data}}.
 This casts a \code{data.frame} or \code{sf} object into  an object of class
 \code{\link[=sspm_data-class]{sspm_data}}.
 }
-\section{Functions}{
-\itemize{
-\item \code{as_sspm_data,data.frame,ANY,ANY,ANY,missingOrNULL-method}: TODO
-
-\item \code{as_sspm_data,data.frame,ANY,ANY,ANY,list-method}: TODO
-
-\item \code{as_sspm_data,data.frame,ANY,ANY,ANY,character-method}: TODO
-
-\item \code{as_sspm_data,sf,ANY,ANY,ANY,ANY-method}: TODO
-}}
-
