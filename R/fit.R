@@ -99,26 +99,17 @@ setMethod(f = "fit_smooths",
                     names(tmp_df) <- form_name
                     tmp_smoothed[[form_name]] <- tmp_df
                   }
-                  datasets[[spm_name(dataset)]]@smoothed_data <- tmp_df
-                  datasets[[spm_name(dataset)]]@smoothed_fit <- tmp_df
+                  datasets[[spm_name(dataset)]]@smoothed_data <- tmp_smoothed
+                  datasets[[spm_name(dataset)]]@smoothed_fit <- tmp_fit
                 }
                 datasets[[spm_name(dataset)]]@is_smoothed <- TRUE
               }
             }
 
-            sspm_discrete_smoothed <-
-              new("sspm_discrete_smoothed",
-                  name = spm_name(sspm_object),
-                  datasets = datasets,
-                  boundaries = spm_boundaries(sspm_object),
-                  method = spm_discret_method(sspm_object),
-                  patches = spm_patches(sspm_object),
-                  points = spm_points(sspm_object),
-                  smoothed_data = all_smoothed,
-                  gam_fit = all_fit)
+            spm_datasets(sspm_object) <- datasets
 
             # For now return a summary of the fit
-            return(sspm_discrete_smoothed)
+            return(sspm_object)
 
           }
 )

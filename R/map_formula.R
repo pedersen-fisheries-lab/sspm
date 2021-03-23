@@ -92,6 +92,12 @@ setMethod(f = "map_formula",
 
             # Check response
             the_dataset <- all_datasets[[dataset]]
+
+            if(the_dataset@smoothed){
+              cli::cli_alert_danger("Dataset is already smoothed.")
+              stop(call. = FALSE)
+            }
+
             the_data <- spm_data(the_dataset)
             if(!checkmate::test_subset(response, names(the_data))){
               stop("The response in the formula is not a column of the dataset.",
