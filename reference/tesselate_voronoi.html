@@ -83,7 +83,7 @@ points via sample_points." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sspm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -132,13 +132,12 @@ points via <code>sample_points</code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>tesselate_voronoi</span><span class='op'>(</span>
-  <span class='va'>sspm_object</span>,
+  <span class='va'>sspm_data</span>,
   data <span class='op'>=</span> <span class='cn'>NULL</span>,
   boundaries <span class='op'>=</span> <span class='cn'>NULL</span>,
   boundary_col <span class='op'>=</span> <span class='st'>"sfa"</span>,
   nb_samples <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>`4` <span class='op'>=</span> <span class='fl'>10</span>, `5` <span class='op'>=</span> <span class='fl'>30</span>, `6` <span class='op'>=</span> <span class='fl'>30</span>, `7` <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>,
   min_size <span class='op'>=</span> <span class='fl'>1500</span>,
-  coords <span class='op'>=</span> <span class='cn'>NULL</span>,
   sample_points <span class='op'>=</span> <span class='cn'>NULL</span>,
   seed <span class='op'>=</span> <span class='fl'>1</span>
 <span class='op'>)</span></pre>
@@ -147,16 +146,17 @@ points via <code>sample_points</code>.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>sspm_object</th>
-      <td><p><strong>[sspm]</strong> <code>sspm</code> object to be discretized.</p></td>
+      <th>sspm_data</th>
+      <td><p><strong>[sspm]</strong> <code>sspm_data</code> object to used for discretization.</p></td>
     </tr>
     <tr>
       <th>data</th>
-      <td><p><strong>[data.frame]</strong> Overwrites the data slot of <code>sspm_object</code>.</p></td>
+      <td><p><strong>[data.frame]</strong> Overwrites the data slot of <code>sspm_data</code>.</p></td>
     </tr>
     <tr>
       <th>boundaries</th>
-      <td><p><strong>[sf]</strong> Overwrites the boundaries slot of <code>sspm_object</code>.</p></td>
+      <td><p><strong>[sf]</strong> The boundaries to be used, usually the
+boundaries of the parent <code>sspm_object</code>.</p></td>
     </tr>
     <tr>
       <th>boundary_col</th>
@@ -172,12 +172,6 @@ by boundary polygons (must bear the levels of <code>boundary_col</code> as names
       <th>min_size</th>
       <td><p><strong>[numeric]</strong> The minimum size for a polygon above which it
 will be merged (in km2).</p></td>
-    </tr>
-    <tr>
-      <th>coords</th>
-      <td><p><strong>[character vector]</strong> The columns in <code>data</code> (or the <code>data</code>
-slot of <code>sspm_object</code>) that contains the coordinates (lat, long) of the
-individual observations.</p></td>
     </tr>
     <tr>
       <th>sample_points</th>

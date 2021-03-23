@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sspm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -125,22 +125,64 @@
     <p>After discretizing, the next step is to map coavriate datasets.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>map_dataset</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>map_dataset</span><span class='op'>(</span>
+  <span class='va'>sspm_object</span>,
+  <span class='va'>data</span>,
+  <span class='va'>name</span>,
+  <span class='va'>time_column</span>,
+  <span class='va'>uniqueID</span>,
+  coords <span class='op'>=</span> <span class='cn'>NULL</span>,
+  crs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete,data.frame</span>
-<span class='fu'>map_dataset</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for sspm,data.frame</span>
+<span class='fu'>map_dataset</span><span class='op'>(</span>
+  <span class='va'>sspm_object</span>,
+  <span class='va'>data</span>,
+  <span class='va'>name</span>,
+  <span class='va'>time_column</span>,
+  <span class='va'>uniqueID</span>,
+  coords <span class='op'>=</span> <span class='cn'>NULL</span>,
+  crs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete,sf</span>
-<span class='fu'>map_dataset</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for sspm,sf</span>
+<span class='fu'>map_dataset</span><span class='op'>(</span>
+  <span class='va'>sspm_object</span>,
+  <span class='va'>data</span>,
+  <span class='va'>name</span>,
+  <span class='va'>time_column</span>,
+  <span class='va'>uniqueID</span>,
+  coords <span class='op'>=</span> <span class='cn'>NULL</span>,
+  crs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete,sspm_data</span>
-<span class='fu'>map_dataset</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for sspm,sspm_data</span>
+<span class='fu'>map_dataset</span><span class='op'>(</span>
+  <span class='va'>sspm_object</span>,
+  <span class='va'>data</span>,
+  <span class='va'>name</span>,
+  <span class='va'>time_column</span>,
+  <span class='va'>uniqueID</span>,
+  coords <span class='op'>=</span> <span class='cn'>NULL</span>,
+  crs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete,list</span>
-<span class='fu'>map_dataset</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm,ANY</span>
-<span class='fu'>map_dataset</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>data</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='co'># S4 method for sspm,list</span>
+<span class='fu'>map_dataset</span><span class='op'>(</span>
+  <span class='va'>sspm_object</span>,
+  <span class='va'>data</span>,
+  <span class='va'>name</span>,
+  <span class='va'>time_column</span>,
+  <span class='va'>uniqueID</span>,
+  coords <span class='op'>=</span> <span class='cn'>NULL</span>,
+  crs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,23 +190,39 @@
     <tr>
       <th>sspm_object</th>
       <td><p><strong>[sspm_discrete]</strong> An object of class
-<a href='sspm-class.html'>sspm_discrete</a>.</p></td>
+<a href='sspm-class.html'>sspm</a> or <a href='sspm-class.html'>sspm_discrete</a></p></td>
     </tr>
     <tr>
       <th>data</th>
       <td><p><strong>[data.frame OR sf]</strong> The dataset.</p></td>
     </tr>
     <tr>
+      <th>name</th>
+      <td><p><strong>[character]</strong> The name of the dataset, default to "Biomass".</p></td>
+    </tr>
+    <tr>
+      <th>time_column</th>
+      <td><p><strong>[character]</strong> The column of <code>data</code> for the temporal
+dimensions (i.e. year).</p></td>
+    </tr>
+    <tr>
+      <th>uniqueID</th>
+      <td><p><strong>[character]</strong> The column of <code>data</code> that is unique for all
+rows of the data matrix.</p></td>
+    </tr>
+    <tr>
+      <th>coords</th>
+      <td><p><strong>[character]</strong> The column of <code>data</code> for longitude and
+latitude of the observations.</p></td>
+    </tr>
+    <tr>
+      <th>crs</th>
+      <td><p>Coordinate reference system, passed onto st_as_sf.</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>Arguments passed on to <code><a href='as_sspm_data.html'>as_sspm_data</a></code></p><dl>
-    <dt><code>time_col</code></dt><dd><p><strong>[character]</strong> The column of <code>data</code> for the temporal
-dimensions (i.e. year).</p></dd>
-    <dt><code>coords</code></dt><dd><p><strong>[character]</strong> The column of <code>data</code> for longitude and
-latitude of the observations.</p></dd>
-    <dt><code>name</code></dt><dd><p><strong>[character]</strong> The name of the dataset, default to "Biomass".</p></dd>
-    <dt><code>uniqueID</code></dt><dd><p><strong>[character]</strong> The column of <code>data</code> that is unique for all
-rows of the data matrix.</p></dd>
-    <dt><code>crs</code></dt><dd><p>Coordinate reference system, passed onto st_as_sf.</p></dd>
+    <dt><code></code></dt><dd><p></p></dd>
   
 </dl></td>
     </tr>
@@ -172,16 +230,16 @@ rows of the data matrix.</p></dd>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>The updated object, of class <a href='sspm-class.html'>sspm_discrete</a>.</p>
+    <p>The updated object, of class <a href='sspm-class.html'>sspm</a> or
+<a href='sspm-class.html'>sspm_discrete</a>.</p>
     <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
 
     
 <ul>
-<li><p><code>map_dataset,sspm_discrete,data.frame-method</code>: TODO</p></li>
-<li><p><code>map_dataset,sspm_discrete,sf-method</code>: TODO</p></li>
-<li><p><code>map_dataset,sspm_discrete,sspm_data-method</code>: TODO</p></li>
-<li><p><code>map_dataset,sspm_discrete,list-method</code>: TODO</p></li>
-<li><p><code>map_dataset,sspm,ANY-method</code>: TODO</p></li>
+<li><p><code>map_dataset,sspm,data.frame-method</code>: TODO</p></li>
+<li><p><code>map_dataset,sspm,sf-method</code>: TODO</p></li>
+<li><p><code>map_dataset,sspm,sspm_data-method</code>: TODO</p></li>
+<li><p><code>map_dataset,sspm,list-method</code>: TODO</p></li>
 </ul>
 
   </div>

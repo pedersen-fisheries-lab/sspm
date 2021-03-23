@@ -81,7 +81,7 @@ discretization_method object class." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sspm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -127,22 +127,25 @@ discretization_method object class." />
 <a href='discretization_method-class.html'>discretization_method</a> object class.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>sspm_object</span>, discretization_method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>with_dataset</span>, <span class='va'>discretization_method</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm,discretization_method</span>
-<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>sspm_object</span>, discretization_method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for ANY,ANY,missingOrNULL</span>
+<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>with_dataset</span>, <span class='va'>discretization_method</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm,character</span>
-<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>sspm_object</span>, discretization_method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for ANY,missing,ANY</span>
+<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>with_dataset</span>, <span class='va'>discretization_method</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm,`NULL`</span>
-<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>sspm_object</span>, discretization_method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for sspm,character,discretization_method</span>
+<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>with_dataset</span>, <span class='va'>discretization_method</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete,character</span>
-<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>sspm_object</span>, discretization_method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for sspm,character,character</span>
+<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>with_dataset</span>, <span class='va'>discretization_method</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete,discretization_method</span>
-<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>discretization_method</span>, force <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='co'># S4 method for sspm_discrete,character,character</span>
+<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>with_dataset</span>, <span class='va'>discretization_method</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S4 method for sspm_discrete,ANY,ANY</span>
+<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>with_dataset</span>, <span class='va'>discretization_method</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,6 +154,11 @@ discretization_method object class." />
       <th>sspm_object</th>
       <td><p><strong>[sspm]</strong> An object of class
 <a href='sspm-class.html'>sspm</a>.</p></td>
+    </tr>
+    <tr>
+      <th>with_dataset</th>
+      <td><p><strong>[character]</strong> The name of the dataset to use for the
+discretization.</p></td>
     </tr>
     <tr>
       <th>discretization_method</th>
@@ -164,12 +172,6 @@ Either a <code>character</code> from the list of available methods
       <td><p><strong>[named list]</strong> Further arguments to be passed onto the function
 used in the <code>discretization_method</code>.</p></td>
     </tr>
-    <tr>
-      <th>force</th>
-      <td><p><strong>[boolean]</strong> Only used when calling <code>spm_discretize</code> onto
-an object of class <a href='sspm-class.html'>sspm_discrete</a>: whether you wish
-to force the re-discretization of that model.</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -180,11 +182,12 @@ and discretized <code>sspm</code> object given as input).</p>
 
     
 <ul>
-<li><p><code>spm_discretize,sspm,discretization_method-method</code>: TODO</p></li>
-<li><p><code>spm_discretize,sspm,character-method</code>: TODO</p></li>
-<li><p><code>spm_discretize,sspm,NULL-method</code>: TODO</p></li>
-<li><p><code>spm_discretize,sspm_discrete,character-method</code>: TODO</p></li>
-<li><p><code>spm_discretize,sspm_discrete,discretization_method-method</code>: TODO</p></li>
+<li><p><code>spm_discretize,ANY,ANY,missingOrNULL-method</code>: TODO</p></li>
+<li><p><code>spm_discretize,ANY,missing,ANY-method</code>: TODO</p></li>
+<li><p><code>spm_discretize,sspm,character,discretization_method-method</code>: TODO</p></li>
+<li><p><code>spm_discretize,sspm,character,character-method</code>: TODO</p></li>
+<li><p><code>spm_discretize,sspm_discrete,character,character-method</code>: TODO</p></li>
+<li><p><code>spm_discretize,sspm_discrete,ANY,ANY-method</code>: TODO</p></li>
 </ul>
 
   </div>

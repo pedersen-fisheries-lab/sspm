@@ -81,7 +81,7 @@ objects of class sspm_data." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sspm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -146,33 +146,43 @@ objects of class <a href='sspm_data-class.html'>sspm_data</a>.</p>
 <span class='co'># S4 method for sspm_data</span>
 <span class='fu'><a href='spm_name.html'>spm_name</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='fu'>spm_rep</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+<span class='fu'>spm_unique_ID</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sspm_data</span>
-<span class='fu'>spm_rep</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+<span class='fu'>spm_unique_ID</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
-<span class='fu'>spm_rep</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm_data</span>
-<span class='fu'>spm_rep</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
+<span class='fu'>spm_unique_ID</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
 <span class='co'># S4 method for sspm_data</span>
-<span class='fu'><a href='spm_name.html'>spm_unique_ID</a></span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+<span class='fu'>spm_unique_ID</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
+
+<span class='fu'>spm_coords_col</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sspm_data</span>
-<span class='fu'><a href='spm_name.html'>spm_unique_ID</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
+<span class='fu'>spm_coords_col</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+
+<span class='fu'>spm_coords_col</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
 <span class='co'># S4 method for sspm_data</span>
-<span class='fu'><a href='spm_name.html'>spm_coords_col</a></span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+<span class='fu'>spm_coords_col</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
+
+<span class='fu'>spm_time_column</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sspm_data</span>
-<span class='fu'><a href='spm_name.html'>spm_coords_col</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
+<span class='fu'>spm_time_column</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sspm_data</span>
-<span class='fu'><a href='spm_name.html'>spm_time_col</a></span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+<span class='fu'>spm_time_column</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
+
+<span class='fu'>spm_formulas</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sspm_data</span>
-<span class='fu'><a href='spm_name.html'>spm_time_col</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span></pre>
+<span class='fu'>spm_formulas</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+
+<span class='fu'>spm_formulas</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
+
+<span class='co'># S4 method for sspm_data</span>
+<span class='fu'>spm_formulas</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -203,16 +213,21 @@ objects of class <a href='sspm_data-class.html'>sspm_data</a>.</p>
 <li><p><code>spm_data&lt;-,sspm_data-method</code>: TODO</p></li>
 <li><p><code>spm_name,sspm_data-method</code>: TODO</p></li>
 <li><p><code>spm_name&lt;-,sspm_data-method</code>: TODO</p></li>
-<li><p><code>spm_rep</code>: TODO</p></li>
-<li><p><code>spm_rep,sspm_data-method</code>: TODO</p></li>
-<li><p><code>spm_rep&lt;-</code>: TODO</p></li>
-<li><p><code>spm_rep&lt;-,sspm_data-method</code>: TODO</p></li>
+<li><p><code>spm_unique_ID</code>: TODO</p></li>
 <li><p><code>spm_unique_ID,sspm_data-method</code>: TODO</p></li>
+<li><p><code>spm_unique_ID&lt;-</code>: TODO</p></li>
 <li><p><code>spm_unique_ID&lt;-,sspm_data-method</code>: TODO</p></li>
+<li><p><code>spm_coords_col</code>: TODO</p></li>
 <li><p><code>spm_coords_col,sspm_data-method</code>: TODO</p></li>
+<li><p><code>spm_coords_col&lt;-</code>: TODO</p></li>
 <li><p><code>spm_coords_col&lt;-,sspm_data-method</code>: TODO</p></li>
-<li><p><code>spm_time_col,sspm_data-method</code>: TODO</p></li>
-<li><p><code>spm_time_col&lt;-,sspm_data-method</code>: TODO</p></li>
+<li><p><code>spm_time_column</code>: TODO</p></li>
+<li><p><code>spm_time_column,sspm_data-method</code>: TODO</p></li>
+<li><p><code>spm_time_column&lt;-,sspm_data-method</code>: TODO</p></li>
+<li><p><code>spm_formulas</code>: TODO</p></li>
+<li><p><code>spm_formulas,sspm_data-method</code>: TODO</p></li>
+<li><p><code>spm_formulas&lt;-</code>: TODO</p></li>
+<li><p><code>spm_formulas&lt;-,sspm_data-method</code>: TODO</p></li>
 </ul>
 
   </div>

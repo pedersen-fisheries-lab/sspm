@@ -81,7 +81,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sspm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -138,7 +138,7 @@
 
 <dt><code>data</code></dt><dd><p><strong>[data.frame OR sf]</strong> The dataset.</p></dd>
 
-<dt><code>time_col</code></dt><dd><p><strong>[character]</strong> The column of <code>data</code> that represents the
+<dt><code>time_column</code></dt><dd><p><strong>[character]</strong> The column of <code>data</code> that represents the
 temporal dimension of the dataset.</p></dd>
 
 <dt><code>coords</code></dt><dd><p><strong>[character]</strong> The columns of <code>data</code> that represent the
@@ -148,8 +148,15 @@ latitude of the observations.</p></dd>
 <dt><code>uniqueID</code></dt><dd><p><strong>[character]</strong> The column of <code>data</code> that is unique for all
 rows of the data matrix.</p></dd>
 
-<dt><code>representation</code></dt><dd><p><strong>[character]</strong> Used internally and for print methods,
-encodes the type of dataset.</p></dd>
+<dt><code>formulas</code></dt><dd><p><strong>[list]</strong> <em>(if discrete)</em> List of
+<a href='sspm_formula-class.html'>sspm_formula</a> objects that are mapped onto the
+base dataset.</p></dd>
+
+<dt><code>smoothed</code></dt><dd><p><strong>[Logical]</strong> Whether or not this dataset has been smoothed.</p></dd>
+
+<dt><code>smoothed_data</code></dt><dd><p><strong>[list]</strong> The smoothed data.</p></dd>
+
+<dt><code>smoothed_fit</code></dt><dd><p><strong>[list]</strong> The fit from smoothing the data</p></dd>
 
 </dl>
 

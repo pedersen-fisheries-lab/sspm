@@ -86,7 +86,7 @@ containes &quot;mapped datasets&quot; (for example, predator or observator data)
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sspm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -152,9 +152,10 @@ containes "mapped datasets" (for example, predator or observator data).</p></li>
 <dl>
 <dt><code>name</code></dt><dd><p><strong>[character]</strong> Name of the model.</p></dd>
 
-<dt><code>data</code></dt><dd><p><strong>[<a href='sspm_data-class.html'>sspm_data</a>]</strong> Observationnal data.</p></dd>
-
 <dt><code>boundaries</code></dt><dd><p><strong>[sf]</strong> Spatial boundaries (polygons).</p></dd>
+
+<dt><code>datasets</code></dt><dd><p><strong>[list]</strong> <em>(if discrete)</em> List of
+<a href='sspm_data-class.html'>sspm_data</a> that define variables in the SPM model.</p></dd>
 
 <dt><code>method</code></dt><dd><p><strong>[<a href='discretization_method-class.html'>discretization_method</a>]</strong>
 <em>(if discrete)</em> discretization method used.</p></dd>
@@ -165,12 +166,9 @@ discretization.</p></dd>
 <dt><code>points</code></dt><dd><p><strong>[sf]</strong> <em>(if discrete)</em> Sample points used for
 discretization.</p></dd>
 
-<dt><code>mapped_datasets</code></dt><dd><p><strong>[list]</strong> <em>(if discrete)</em> List of
-<a href='sspm_data-class.html'>sspm_data</a> objects that are mapped ontp the
+<dt><code>formulas</code></dt><dd><p><strong>[list]</strong> <em>(if discrete)</em> List of
+<a href='sspm_formula-class.html'>sspm_formula</a> objects that are mapped onto the
 base dataset.</p></dd>
-
-<dt><code>mapped_formulas</code></dt><dd><p><strong>[list]</strong> <em>(if discrete)</em> List of mapped formulas
-used to specify a model.</p></dd>
 
 </dl>
 

@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">sspm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -106,9 +106,10 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pedersen-fisheries-lab.github.io/sspm/">sspm</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: sf</span>
 <span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span>
+<span class="co">#&gt; Loading required package: mgcv</span>
 <span class="co">#&gt; Loading required package: nlme</span>
 <span class="co">#&gt; This is mgcv 1.8-33. For overview type 'help("mgcv-package")'.</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span>
 
 <span class="va">borealis</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">borealis_simulated</span>
 <span class="va">predator</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">predator_simulated</span>
@@ -118,50 +119,36 @@
 </ol>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sspm.html">sspm</a></span><span class="op">(</span>model_name <span class="op">=</span> <span class="st">"My Model"</span>,
-                  data <span class="op">=</span> <span class="va">borealis</span>,
-                  name <span class="op">=</span> <span class="st">"Biomass"</span>,
-                  time_col <span class="op">=</span> <span class="st">"year_f"</span>,
-                  coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'lon_dec'</span>,<span class="st">'lat_dec'</span><span class="op">)</span>,
-                  uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span>,
-                  boundaries <span class="op">=</span> <span class="va">sfa_boundaries</span><span class="op">)</span>
+                  boundaries <span class="op">=</span> <span class="va">sfa_boundaries</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/map_dataset.html">map_dataset</a></span><span class="op">(</span><span class="va">borealis</span>, <span class="st">"Biomass"</span>,
+              time_column <span class="op">=</span> <span class="st">"year_f"</span>,
+              coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'lon_dec'</span>,<span class="st">'lat_dec'</span><span class="op">)</span>,
+              uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span>,<span class="op">)</span>
 <span class="co">#&gt; !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting</span>
 <span class="co">#&gt; ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec</span>
 <span class="va">sspm_base</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── sspm object 'My Model' ──</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Base dataset 'Biomass'</span>
-<span class="co">#&gt; ●  Data matrix        : Simple feature collection with 1541 feature(s) and 18 variable(s)</span>
-<span class="co">#&gt; ●  Data unique ID     : uniqueID</span>
-<span class="co">#&gt; ●  Time column        : year_f</span>
-<span class="co">#&gt; ●  Coordinates cols   : lon_dec, lat_dec</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Boundaries</span>
-<span class="co">#&gt; ●  Boundary data      : Simple feature collection with 4 feature(s) and 2 variable(s)</span></code></pre></div>
+<span class="co">#&gt; ‒‒ SSPM object 'My Model' ‒‒</span>
+<span class="co">#&gt; →  Boundaries       : [ 4 features ; 2 variables ]</span>
+<span class="co">#&gt; →  Datasets         : 1 dataset</span>
+<span class="co">#&gt;    ٭ Biomass — [ 1541 observations ; 18 variables ]</span></code></pre></div>
 <ol>
 <li>Then, discretize the object using a method for discretization, the default behind voronoi tesselation. See <code>?spm_methods()</code> for the list of methods available.</li>
 </ol>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_discrete</span> <span class="op">&lt;-</span> <span class="va">sspm_base</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="reference/spm_discretize.html">spm_discretize</a></span><span class="op">(</span>discretization_method <span class="op">=</span> <span class="st">"tesselate_voronoi"</span><span class="op">)</span>
-<span class="co">#&gt; ℹ  Discretizing using method 'tesselate_voronoi'</span>
+  <span class="fu"><a href="reference/spm_discretize.html">spm_discretize</a></span><span class="op">(</span>with_dataset <span class="op">=</span> <span class="st">"Biomass"</span>, 
+                 discretization_method <span class="op">=</span> <span class="st">"tesselate_voronoi"</span><span class="op">)</span>
+<span class="co">#&gt; ℹ  Discretizing using method tesselate_voronoi with dataset Biomass</span>
 <span class="va">sspm_discrete</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── sspm object 'My Model' (DISCRETIZED) ──</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Base dataset 'Biomass'</span>
-<span class="co">#&gt; ●  Data matrix        : Simple feature collection with 1541 feature(s) and 21 variable(s)</span>
-<span class="co">#&gt; ●  Data unique ID     : uniqueID</span>
-<span class="co">#&gt; ●  Time column        : year_f</span>
-<span class="co">#&gt; ●  Coordinates cols   : lon_dec, lat_dec</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Boundaries</span>
-<span class="co">#&gt; ●  Boundary data      : Simple feature collection with 4 feature(s) and 2 variable(s)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Discretization info</span>
-<span class="co">#&gt; ●  Method name        : 'tesselate_voronoi'</span>
-<span class="co">#&gt; ●  Patches            : Simple feature collection with 69 patches (and 4 field(s))</span>
-<span class="co">#&gt; ●  Points             : Simple feature collection with 75 points (and 19 field(s))</span></code></pre></div>
+<span class="co">#&gt; ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒</span>
+<span class="co">#&gt; →  Boundaries       : [ 4 features ; 2 variables ]</span>
+<span class="co">#&gt; →  Discretized with : </span>
+<span class="co">#&gt;    ٭ Points — [ 75 features ; 19 variables ]</span>
+<span class="co">#&gt;    ٭ Patches — [ 69 features ; 4 variables ]</span>
+<span class="co">#&gt; →  Datasets         : 1 dataset</span>
+<span class="co">#&gt;    ٭ Biomass — [ 1541 observations ; 21 variables ]</span></code></pre></div>
 <p>The results of the discretization can be explored with <code><a href="reference/spm_name.html">spm_patches()</a></code> and <code><a href="reference/spm_name.html">spm_points()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/spm_name.html">spm_patches</a></span><span class="op">(</span><span class="va">sspm_discrete</span><span class="op">)</span>
@@ -215,30 +202,21 @@
 <code class="sourceCode R"><span class="va">sspm_discrete_mapped</span> <span class="op">&lt;-</span> <span class="va">sspm_discrete</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/map_dataset.html">map_dataset</a></span><span class="op">(</span><span class="va">predator</span>,
               name <span class="op">=</span> <span class="st">"pred_data"</span>,
-              time_col <span class="op">=</span> <span class="st">"year"</span>,
+              time_column <span class="op">=</span> <span class="st">"year"</span>,
               uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span>,
               coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon_dec"</span>, <span class="st">"lat_dec"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting</span>
 <span class="co">#&gt; ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec</span>
 <span class="va">sspm_discrete_mapped</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── sspm object 'My Model' (DISCRETIZED) ──</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Base dataset 'Biomass'</span>
-<span class="co">#&gt; ●  Data matrix        : Simple feature collection with 1541 feature(s) and 21 variable(s)</span>
-<span class="co">#&gt; ●  Data unique ID     : uniqueID</span>
-<span class="co">#&gt; ●  Time column        : year_f</span>
-<span class="co">#&gt; ●  Coordinates cols   : lon_dec, lat_dec</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Boundaries</span>
-<span class="co">#&gt; ●  Boundary data      : Simple feature collection with 4 feature(s) and 2 variable(s)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Discretization info</span>
-<span class="co">#&gt; ●  Method name        : 'tesselate_voronoi'</span>
-<span class="co">#&gt; ●  Patches            : Simple feature collection with 69 patches (and 4 field(s))</span>
-<span class="co">#&gt; ●  Points             : Simple feature collection with 75 points (and 19 field(s))</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Mapped Datasets</span>
-<span class="co">#&gt; ●  1 mapped dataset(s): pred_data</span></code></pre></div>
+<span class="co">#&gt; ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒</span>
+<span class="co">#&gt; →  Boundaries       : [ 4 features ; 2 variables ]</span>
+<span class="co">#&gt; →  Discretized with : </span>
+<span class="co">#&gt;    ٭ Points — [ 75 features ; 19 variables ]</span>
+<span class="co">#&gt;    ٭ Patches — [ 69 features ; 4 variables ]</span>
+<span class="co">#&gt; →  Datasets         : 2 datasets</span>
+<span class="co">#&gt;    ٭ Biomass — [ 1541 observations ; 21 variables ]</span>
+<span class="co">#&gt;    ٭ pred_data — [ 4833 observations ; 18 variables ]</span></code></pre></div>
 <ol>
 <li>Smoothing formulas for any of the datasets may be specified, using special terms <code><a href="reference/smooth_time.html">smooth_time()</a></code>, <code>smooth_space</code> and <code>smooth_space_time</code>. NOTE: the testing dataset is dummy data and wont converge if <code><a href="reference/smooth_time.html">smooth_time()</a></code> or <code>smooth_space_time</code> is used (to be fixed soon).</li>
 </ol>
@@ -247,27 +225,15 @@
   <span class="fu"><a href="reference/map_formula.html">map_formula</a></span><span class="op">(</span><span class="st">"Biomass"</span>, <span class="va">weight_per_km2</span><span class="op">~</span><span class="fu"><a href="reference/smooth_time.html">smooth_space</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
 <span class="va">sspm_discrete_mapped_with_forms</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ── sspm object 'My Model' (DISCRETIZED) ──</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Base dataset 'Biomass'</span>
-<span class="co">#&gt; ●  Data matrix        : Simple feature collection with 1541 feature(s) and 21 variable(s)</span>
-<span class="co">#&gt; ●  Data unique ID     : uniqueID</span>
-<span class="co">#&gt; ●  Time column        : year_f</span>
-<span class="co">#&gt; ●  Coordinates cols   : lon_dec, lat_dec</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Boundaries</span>
-<span class="co">#&gt; ●  Boundary data      : Simple feature collection with 4 feature(s) and 2 variable(s)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Discretization info</span>
-<span class="co">#&gt; ●  Method name        : 'tesselate_voronoi'</span>
-<span class="co">#&gt; ●  Patches            : Simple feature collection with 69 patches (and 4 field(s))</span>
-<span class="co">#&gt; ●  Points             : Simple feature collection with 75 points (and 19 field(s))</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Mapped Datasets</span>
-<span class="co">#&gt; ●  1 mapped dataset(s): pred_data</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ── Mapped formulas</span>
-<span class="co">#&gt; 1) weight_per_km2 ~ smooth_space()... for dataset 'Biomass'</span></code></pre></div>
+<span class="co">#&gt; ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒</span>
+<span class="co">#&gt; →  Boundaries       : [ 4 features ; 2 variables ]</span>
+<span class="co">#&gt; →  Discretized with : </span>
+<span class="co">#&gt;    ٭ Points — [ 75 features ; 19 variables ]</span>
+<span class="co">#&gt;    ٭ Patches — [ 69 features ; 4 variables ]</span>
+<span class="co">#&gt; →  Datasets         : 2 datasets</span>
+<span class="co">#&gt;    ٭ Biomass — [ 1541 observations ; 21 variables ]</span>
+<span class="co">#&gt;       – weight_per_km2 ~ smooth_space()...</span>
+<span class="co">#&gt;    ٭ pred_data — [ 4833 observations ; 18 variables ]</span></code></pre></div>
 <ol>
 <li>Finally, formulas can be fitted with <code><a href="reference/fit_smooths.html">fit_smooths()</a></code>
 </li>
@@ -275,29 +241,80 @@
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_discrete_mapped_fitted</span> <span class="op">&lt;-</span> <span class="va">sspm_discrete_mapped_with_forms</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/fit_smooths.html">fit_smooths</a></span><span class="op">(</span><span class="op">)</span>
-<span class="co">#&gt; ℹ Fitting formula: 1 out of 1</span>
+<span class="co">#&gt; Called from: fit_smooths(.)</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#43: datasets &lt;- spm_datasets(sspm_object)</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#45: has_formulas &lt;- sapply(datasets, function(x) {</span>
+<span class="co">#&gt;     length(spm_formulas(x)) &gt; 0</span>
+<span class="co">#&gt; })</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#49: all_fit &lt;- vector(mode = "list", length = sum(has_formulas))</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#52: names(all_fit) &lt;- names(datasets)[has_formulas]</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#54: for (dataset in datasets) {</span>
+<span class="co">#&gt;     formulas &lt;- spm_formulas(dataset)</span>
+<span class="co">#&gt;     if (length(formulas) == 0) {</span>
+<span class="co">#&gt;         next</span>
+<span class="co">#&gt;     }</span>
+<span class="co">#&gt;     all_fit[[spm_name(dataset)]] &lt;- vector(mode = "list", length = length(formulas))</span>
+<span class="co">#&gt;     for (form_id in seq_len(length.out = length(formulas))) {</span>
+<span class="co">#&gt;         form &lt;- formulas[[form_id]]</span>
+<span class="co">#&gt;         cli::cli_alert_info(paste0("Fitting formula: ", cli::col_yellow(format_formula(raw_formula(form))), </span>
+<span class="co">#&gt;             " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset), </span>
+<span class="co">#&gt;                 "'"))))</span>
+<span class="co">#&gt;         the_data &lt;- spm_data(dataset)</span>
+<span class="co">#&gt;         form_vars &lt;- formula_vars(form)</span>
+<span class="co">#&gt;         form_env &lt;- attr(translated_formula(form), ".Environment")</span>
+<span class="co">#&gt;         for (var in names(form_vars)) {</span>
+<span class="co">#&gt;             assign(x = var, value = form_vars[[var]], envir = form_env)</span>
+<span class="co">#&gt;         }</span>
+<span class="co">#&gt;         all_fit[[spm_name(dataset)]][[form_id]] &lt;- mgcv::bam(formula = translated_formula(form), </span>
+<span class="co">#&gt;             data = the_data, family = family, drop.unused.levels = drop.unused.levels, </span>
+<span class="co">#&gt;             method = method, ...)</span>
+<span class="co">#&gt;     }</span>
+<span class="co">#&gt; }</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#56: formulas &lt;- spm_formulas(dataset)</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#58: if (length(formulas) == 0) {</span>
+<span class="co">#&gt;     next</span>
+<span class="co">#&gt; }</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#62: all_fit[[spm_name(dataset)]] &lt;- vector(mode = "list", length = length(formulas))</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#65: for (form_id in seq_len(length.out = length(formulas))) {</span>
+<span class="co">#&gt;     form &lt;- formulas[[form_id]]</span>
+<span class="co">#&gt;     cli::cli_alert_info(paste0("Fitting formula: ", cli::col_yellow(format_formula(raw_formula(form))), </span>
+<span class="co">#&gt;         " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset), </span>
+<span class="co">#&gt;             "'"))))</span>
+<span class="co">#&gt;     the_data &lt;- spm_data(dataset)</span>
+<span class="co">#&gt;     form_vars &lt;- formula_vars(form)</span>
+<span class="co">#&gt;     form_env &lt;- attr(translated_formula(form), ".Environment")</span>
+<span class="co">#&gt;     for (var in names(form_vars)) {</span>
+<span class="co">#&gt;         assign(x = var, value = form_vars[[var]], envir = form_env)</span>
+<span class="co">#&gt;     }</span>
+<span class="co">#&gt;     all_fit[[spm_name(dataset)]][[form_id]] &lt;- mgcv::bam(formula = translated_formula(form), </span>
+<span class="co">#&gt;         data = the_data, family = family, drop.unused.levels = drop.unused.levels, </span>
+<span class="co">#&gt;         method = method, ...)</span>
+<span class="co">#&gt; }</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#68: form &lt;- formulas[[form_id]]</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#71: cli::cli_alert_info(paste0("Fitting formula: ", cli::col_yellow(format_formula(raw_formula(form))), </span>
+<span class="co">#&gt;     " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset), </span>
+<span class="co">#&gt;         "'"))))</span>
 <span class="co">#&gt; ℹ Fitting formula: weight_per_km2 ~ smooth_space() for dataset 'Biomass'</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#77: the_data &lt;- spm_data(dataset)</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#78: form_vars &lt;- formula_vars(form)</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#81: form_env &lt;- attr(translated_formula(form), ".Environment")</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#82: for (var in names(form_vars)) {</span>
+<span class="co">#&gt;     assign(x = var, value = form_vars[[var]], envir = form_env)</span>
+<span class="co">#&gt; }</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#83: assign(x = var, value = form_vars[[var]], envir = form_env)</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#87: all_fit[[spm_name(dataset)]][[form_id]] &lt;- mgcv::bam(formula = translated_formula(form), </span>
+<span class="co">#&gt;     data = the_data, family = family, drop.unused.levels = drop.unused.levels, </span>
+<span class="co">#&gt;     method = method, ...)</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#56: formulas &lt;- spm_formulas(dataset)</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#58: if (length(formulas) == 0) {</span>
+<span class="co">#&gt;     next</span>
+<span class="co">#&gt; }</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#59: next</span>
+<span class="co">#&gt; debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#99: return(lapply(all_fit, summary))</span>
 <span class="va">sspm_discrete_mapped_fitted</span>
-<span class="co">#&gt; [[1]]</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Family: Tweedie(p=1.701) </span>
-<span class="co">#&gt; Link function: log </span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Formula:</span>
-<span class="co">#&gt; weight_per_km2 ~ s(patch_id, k = 30, bs = "mrf", xt = list(penalty = pen_mat_space))</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Parametric coefficients:</span>
-<span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="co">#&gt; (Intercept)  8.50419    0.02162   393.3   &lt;2e-16 ***</span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Approximate significance of smooth terms:</span>
-<span class="co">#&gt;                 edf Ref.df F p-value</span>
-<span class="co">#&gt; s(patch_id) 0.00818     29 0   0.627</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; R-sq.(adj) =  3.43e-06   Deviance explained = 0.000952%</span>
-<span class="co">#&gt; -REML = 2350.2  Scale est. = 6.1013    n = 1026</span></code></pre></div>
+<span class="co">#&gt; $Biomass</span>
+<span class="co">#&gt;      Length Class Mode</span>
+<span class="co">#&gt; [1,] 54     bam   list</span></code></pre></div>
 <ol>
 <li>Last step: full SPM implementation (TBA).</li>
 </ol>

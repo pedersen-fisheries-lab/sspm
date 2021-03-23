@@ -82,7 +82,7 @@ objects of class sspm and others derivative classes
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sspm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -119,7 +119,7 @@ objects of class sspm and others derivative classes
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Accessing OR replacing <code>sspm</code> model elements</h1>
-    <small class="dont-index">Source: <a href='https://github.com/pedersen-fisheries-lab/sspm/blob/master/R/A_accessors-methods.R'><code>R/A_accessors-methods.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/pedersen-fisheries-lab/sspm/blob/master/R/A_accessors-methods.R'><code>R/A_accessors-methods.R</code></a>, <a href='https://github.com/pedersen-fisheries-lab/sspm/blob/master/R/accessors-methods-sspm_data.R'><code>R/accessors-methods-sspm_data.R</code></a></small>
     <div class="hidden name"><code>sspm-accessors-methods.Rd</code></div>
     </div>
 
@@ -139,68 +139,18 @@ objects of class <a href='sspm-class.html'>sspm</a> and others derivative classe
 <span class='co'># S4 method for sspm</span>
 <span class='fu'>spm_name</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='fu'>spm_base_dataset</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_base_dataset</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_base_dataset</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='fu'>spm_base_dataset</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_base_dataset</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
 <span class='fu'>spm_datasets</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_datasets</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
 <span class='fu'>spm_datasets</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sspm_data</span>
 <span class='fu'>spm_datasets</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
-<span class='fu'>spm_unique_ID</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+<span class='fu'>spm_datasets</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
 <span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_unique_ID</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_unique_ID</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='fu'>spm_unique_ID</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_unique_ID</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='fu'>spm_coords_col</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_coords_col</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_coords_col</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='fu'>spm_coords_col</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_coords_col</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='fu'>spm_time_col</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_time_col</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_time_col</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='fu'>spm_time_col</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_time_col</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
+<span class='fu'>spm_datasets</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
 <span class='fu'>spm_boundaries</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
@@ -263,37 +213,7 @@ objects of class <a href='sspm-class.html'>sspm</a> and others derivative classe
 <span class='co'># S4 method for sspm</span>
 <span class='fu'>spm_points</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='fu'>spm_mapped_datasets</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_mapped_datasets</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_mapped_datasets</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='fu'>spm_mapped_datasets</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_mapped_datasets</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_mapped_datasets</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='fu'>spm_mapped_formulas</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_mapped_formulas</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_mapped_formulas</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='fu'>spm_mapped_formulas</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_mapped_formulas</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_mapped_formulas</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span></pre>
+<span class='fu'><a href='spm_data.html'>spm_time_column</a></span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -321,30 +241,11 @@ objects of class <a href='sspm-class.html'>sspm</a> and others derivative classe
 <li><p><code>spm_name,sspm-method</code>: TODO</p></li>
 <li><p><code>spm_name&lt;-</code>: TODO</p></li>
 <li><p><code>spm_name&lt;-,sspm-method</code>: TODO</p></li>
-<li><p><code>spm_base_dataset</code>: TODO</p></li>
-<li><p><code>spm_base_dataset,sspm-method</code>: TODO</p></li>
-<li><p><code>spm_base_dataset,sspm_discrete-method</code>: TODO</p></li>
-<li><p><code>spm_base_dataset&lt;-</code>: TODO</p></li>
-<li><p><code>spm_base_dataset&lt;-,sspm-method</code>: TODO</p></li>
 <li><p><code>spm_datasets</code>: TODO</p></li>
 <li><p><code>spm_datasets,sspm-method</code>: TODO</p></li>
-<li><p><code>spm_datasets,sspm_discrete-method</code>: TODO</p></li>
 <li><p><code>spm_datasets,sspm_data-method</code>: TODO</p></li>
-<li><p><code>spm_unique_ID</code>: TODO</p></li>
-<li><p><code>spm_unique_ID,sspm-method</code>: TODO</p></li>
-<li><p><code>spm_unique_ID,sspm_discrete-method</code>: TODO</p></li>
-<li><p><code>spm_unique_ID&lt;-</code>: TODO</p></li>
-<li><p><code>spm_unique_ID&lt;-,sspm-method</code>: TODO</p></li>
-<li><p><code>spm_coords_col</code>: TODO</p></li>
-<li><p><code>spm_coords_col,sspm-method</code>: TODO</p></li>
-<li><p><code>spm_coords_col,sspm_discrete-method</code>: TODO</p></li>
-<li><p><code>spm_coords_col&lt;-</code>: TODO</p></li>
-<li><p><code>spm_coords_col&lt;-,sspm-method</code>: TODO</p></li>
-<li><p><code>spm_time_col</code>: TODO</p></li>
-<li><p><code>spm_time_col,sspm-method</code>: TODO</p></li>
-<li><p><code>spm_time_col,sspm_discrete-method</code>: TODO</p></li>
-<li><p><code>spm_time_col&lt;-</code>: TODO</p></li>
-<li><p><code>spm_time_col&lt;-,sspm-method</code>: TODO</p></li>
+<li><p><code>spm_datasets&lt;-</code>: TODO</p></li>
+<li><p><code>spm_datasets&lt;-,sspm-method</code>: TODO</p></li>
 <li><p><code>spm_boundaries</code>: TODO</p></li>
 <li><p><code>spm_boundaries,sspm-method</code>: TODO</p></li>
 <li><p><code>spm_boundaries&lt;-</code>: TODO</p></li>
@@ -368,18 +269,7 @@ objects of class <a href='sspm-class.html'>sspm</a> and others derivative classe
 <li><p><code>spm_points&lt;-</code>: TODO</p></li>
 <li><p><code>spm_points&lt;-,sspm_discrete-method</code>: TODO</p></li>
 <li><p><code>spm_points&lt;-,sspm-method</code>: TODO</p></li>
-<li><p><code>spm_mapped_datasets</code>: TODO</p></li>
-<li><p><code>spm_mapped_datasets,sspm-method</code>: TODO</p></li>
-<li><p><code>spm_mapped_datasets,sspm_discrete-method</code>: TODO</p></li>
-<li><p><code>spm_mapped_datasets&lt;-</code>: TODO</p></li>
-<li><p><code>spm_mapped_datasets&lt;-,sspm_discrete-method</code>: TODO</p></li>
-<li><p><code>spm_mapped_datasets&lt;-,sspm-method</code>: TODO</p></li>
-<li><p><code>spm_mapped_formulas</code>: TODO</p></li>
-<li><p><code>spm_mapped_formulas,sspm-method</code>: TODO</p></li>
-<li><p><code>spm_mapped_formulas,sspm_discrete-method</code>: TODO</p></li>
-<li><p><code>spm_mapped_formulas&lt;-</code>: TODO</p></li>
-<li><p><code>spm_mapped_formulas&lt;-,sspm_discrete-method</code>: TODO</p></li>
-<li><p><code>spm_mapped_formulas&lt;-,sspm-method</code>: TODO</p></li>
+<li><p><code>spm_time_column&lt;-</code>: TODO</p></li>
 </ul>
 
   </div>
