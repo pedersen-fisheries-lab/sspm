@@ -38,19 +38,6 @@ setMethod("show",
 )
 
 setMethod("show",
-          "sspm_discrete_smoothed",
-          function(object) {
-            cli::cat_line()
-            custom_h1(paste0("SSPM object '", object@name, "' ",
-                             cli::col_green("(DISCRETIZED)")))
-            cat_boundaries(object)
-            cat_discretization_info(object)
-            cat_datasets(object)
-            cli::cat_line()
-          }
-)
-
-setMethod("show",
           "discretization_method",
           function(object) {
             custom_h3(cli::col_cyan("Discretization method"))
@@ -69,7 +56,7 @@ setMethod("show",
             dim_1 <- dim(spm_data(object))[1]
             dim_2 <- dim(spm_data(object))[2]
             cli::cat_bullet(" Data             : ",
-                            cli::pluralize("[ ", cli::col_blue("{dim_1}")," observation{?s} ; ",
+                            cli::pluralize("[ ", cli::col_blue("{dim_1}")," observation{?s} , ",
                                            cli::col_blue("{dim_2}"), " variable{?s} ]"),
                             bullet = "em_dash")
 
@@ -177,7 +164,7 @@ pluralize_data_info <- function(object,
   dim_2 <- dim(object)[2]
 
   info <-
-    cli::pluralize("[ ", cli::col_blue("{dim_1}")," ", dim_1_name, "{?s} ; ",
+    cli::pluralize("[ ", cli::col_blue("{dim_1}")," ", dim_1_name, "{?s} , ",
                    cli::col_blue("{dim_2}"), " ", dim_2_name, "{?s} ]")
 
   return(info)
