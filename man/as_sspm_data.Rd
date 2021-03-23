@@ -2,35 +2,35 @@
 % Please edit documentation in R/as_sspm_data.R
 \name{as_sspm_data}
 \alias{as_sspm_data}
-\alias{as_sspm_data,data.frame,ANY,missingOrNULL-method}
-\alias{as_sspm_data,data.frame,ANY,list-method}
-\alias{as_sspm_data,data.frame,ANY,character-method}
-\alias{as_sspm_data,sf,ANY,ANY-method}
+\alias{as_sspm_data,data.frame,ANY,ANY,ANY,missingOrNULL-method}
+\alias{as_sspm_data,data.frame,ANY,ANY,ANY,list-method}
+\alias{as_sspm_data,data.frame,ANY,ANY,ANY,character-method}
+\alias{as_sspm_data,sf,ANY,ANY,ANY,ANY-method}
 \title{Create a \code{sspm_data} dataset structure}
 \usage{
-as_sspm_data(data, time_col, coords, name, uniqueID, crs = NULL)
+as_sspm_data(data, name, time_column, uniqueID, coords, crs = NULL)
 
-\S4method{as_sspm_data}{data.frame,ANY,missingOrNULL}(data, time_col, coords, name, uniqueID, crs = NULL)
+\S4method{as_sspm_data}{data.frame,ANY,ANY,ANY,missingOrNULL}(data, name, time_column, uniqueID, coords, crs = NULL)
 
-\S4method{as_sspm_data}{data.frame,ANY,list}(data, time_col, coords, name, uniqueID, crs = NULL)
+\S4method{as_sspm_data}{data.frame,ANY,ANY,ANY,list}(data, name, time_column, uniqueID, coords, crs = NULL)
 
-\S4method{as_sspm_data}{data.frame,ANY,character}(data, time_col, coords, name, uniqueID, crs = NULL)
+\S4method{as_sspm_data}{data.frame,ANY,ANY,ANY,character}(data, name, time_column, uniqueID, coords, crs = NULL)
 
-\S4method{as_sspm_data}{sf,ANY,ANY}(data, time_col, coords, name, uniqueID, crs = NULL)
+\S4method{as_sspm_data}{sf,ANY,ANY,ANY,ANY}(data, name, time_column, uniqueID, coords, crs = NULL)
 }
 \arguments{
 \item{data}{\strong{[data.frame OR sf]} The dataset.}
 
-\item{time_col}{\strong{[character]} The column of \code{data} for the temporal
-dimensions (i.e. year).}
-
-\item{coords}{\strong{[character]} The column of \code{data} for longitude and
-latitude of the observations.}
-
 \item{name}{\strong{[character]} The name of the dataset, default to "Biomass".}
+
+\item{time_column}{\strong{[character]} The column of \code{data} for the temporal
+dimensions (i.e. year).}
 
 \item{uniqueID}{\strong{[character]} The column of \code{data} that is unique for all
 rows of the data matrix.}
+
+\item{coords}{\strong{[character]} The column of \code{data} for longitude and
+latitude of the observations.}
 
 \item{crs}{Coordinate reference system, passed onto \link[=sf]{st_as_sf}.}
 }
@@ -43,12 +43,12 @@ This casts a \code{data.frame} or \code{sf} object into  an object of class
 }
 \section{Functions}{
 \itemize{
-\item \code{as_sspm_data,data.frame,ANY,missingOrNULL-method}: TODO
+\item \code{as_sspm_data,data.frame,ANY,ANY,ANY,missingOrNULL-method}: TODO
 
-\item \code{as_sspm_data,data.frame,ANY,list-method}: TODO
+\item \code{as_sspm_data,data.frame,ANY,ANY,ANY,list-method}: TODO
 
-\item \code{as_sspm_data,data.frame,ANY,character-method}: TODO
+\item \code{as_sspm_data,data.frame,ANY,ANY,ANY,character-method}: TODO
 
-\item \code{as_sspm_data,sf,ANY,ANY-method}: TODO
+\item \code{as_sspm_data,sf,ANY,ANY,ANY,ANY-method}: TODO
 }}
 

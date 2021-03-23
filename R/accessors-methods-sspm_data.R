@@ -72,42 +72,14 @@ setMethod("spm_name<-",
           }
 )
 
-# Rep ---------------------------------------------------------------------
-# Accessors ---------------------------------------------------------------
-
-#' @describeIn accessors-methods-sspm_data TODO
-#' @export
-setGeneric(name = "spm_rep",
-           def = function(sspm_object) standardGeneric("spm_rep")
-)
-
-#' @export
-#' @describeIn accessors-methods-sspm_data TODO
-setMethod("spm_rep", signature("sspm_object" = "sspm_data"),
-          function(sspm_object) sspm_object@representation
-)
-
-# Replacers ---------------------------------------------------------------
-
-#' @describeIn accessors-methods-sspm_data TODO
-#' @export
-setGeneric(name = "spm_rep<-",
-           def = function(object, value) standardGeneric("spm_rep<-")
-)
-
-#' @describeIn accessors-methods-sspm_data TODO
-#' @export
-setMethod("spm_rep<-",
-          signature("object" = "sspm_data"),
-          function(object, value){
-            object@representation <- value
-            validObject(object)
-            return(object)
-          }
-)
-
 # Unique ID ---------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
+
+#' @describeIn accessors-methods-sspm_data TODO
+#' @export
+setGeneric(name = "spm_unique_ID",
+           def = function(sspm_object) standardGeneric("spm_unique_ID")
+)
 
 #' @describeIn accessors-methods-sspm_data TODO
 #' @export
@@ -117,6 +89,12 @@ setMethod("spm_unique_ID",
 )
 
 # Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods-sspm_data TODO
+#' @export
+setGeneric(name = "spm_unique_ID<-",
+           def = function(object, value) standardGeneric("spm_unique_ID<-")
+)
 
 #' @describeIn accessors-methods-sspm_data TODO
 #' @export
@@ -134,12 +112,24 @@ setMethod("spm_unique_ID<-",
 
 #' @describeIn accessors-methods-sspm_data TODO
 #' @export
+setGeneric(name = "spm_coords_col",
+           def = function(sspm_object) standardGeneric("spm_coords_col")
+)
+
+#' @describeIn accessors-methods-sspm_data TODO
+#' @export
 setMethod("spm_coords_col",
           signature("sspm_object" = "sspm_data"),
           function(sspm_object) sspm_object@coords
 )
 
 # Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods-sspm_data TODO
+#' @export
+setGeneric(name = "spm_coords_col<-",
+           def = function(object, value) standardGeneric("spm_coords_col<-")
+)
 
 #' @describeIn accessors-methods-sspm_data TODO
 #' @export
@@ -157,19 +147,66 @@ setMethod("spm_coords_col<-",
 
 #' @describeIn accessors-methods-sspm_data TODO
 #' @export
-setMethod("spm_time_col",
+setGeneric(name = "spm_time_column",
+           def = function(sspm_object) standardGeneric("spm_time_column")
+)
+
+#' @describeIn accessors-methods-sspm_data TODO
+#' @export
+setMethod("spm_time_column",
           signature("sspm_object" = "sspm_data"),
-          function(sspm_object) sspm_object@time_col
+          function(sspm_object) sspm_object@time_column
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn sspm-accessors-methods TODO
+#' @export
+setGeneric(name = "spm_time_column<-",
+           def = function(object, value) standardGeneric("spm_time_column<-")
+)
+
+#' @describeIn accessors-methods-sspm_data TODO
+#' @export
+setMethod("spm_time_column<-",
+          signature("object" = "sspm_data"),
+          function(object, value){
+            object@time_column <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+# Formulas ----------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @describeIn accessors-methods-sspm_data TODO
+#' @export
+setGeneric(name = "spm_formulas",
+           def = function(sspm_object) standardGeneric("spm_formulas")
+)
+
+#' @describeIn accessors-methods-sspm_data TODO
+#' @export
+setMethod("spm_formulas",
+          signature("sspm_object" = "sspm_data"),
+          function(sspm_object) sspm_object@formulas
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @describeIn accessors-methods-sspm_data TODO
 #' @export
-setMethod("spm_time_col<-",
+setGeneric(name = "spm_formulas<-",
+           def = function(object, value) standardGeneric("spm_formulas<-")
+)
+
+#' @describeIn accessors-methods-sspm_data TODO
+#' @export
+setMethod("spm_formulas<-",
           signature("object" = "sspm_data"),
           function(object, value){
-            object@time_col <- value
+            object@formulas <- value
             validObject(object)
             return(object)
           }

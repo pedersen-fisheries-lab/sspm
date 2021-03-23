@@ -148,3 +148,39 @@ setMethod("formula_vars<-",
             return(object)
           }
 )
+
+# Type --------------------------------------------------------------------
+
+# Accessors ---------------------------------------------------------------
+
+#' @describeIn accessors-methods-sspm_formula TODO
+#' @export
+setGeneric(name = "formula_type",
+           def = function(sspm_object) standardGeneric("formula_type")
+)
+
+#' @describeIn accessors-methods-sspm_formula TODO
+#' @export
+setMethod("formula_type",
+          signature("sspm_object" = "sspm_formula"),
+          function(sspm_object) sspm_object@type
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @describeIn accessors-methods-sspm_formula TODO
+#' @export
+setGeneric(name = "formula_type<-",
+           def = function(object, value) standardGeneric("formula_type<-")
+)
+
+#' @describeIn accessors-methods-sspm_formula TODO
+#' @export
+setMethod("formula_type<-",
+          signature("object" = "sspm_formula"),
+          function(object, value){
+            object@type <- value
+            validObject(object)
+            return(object)
+          }
+)

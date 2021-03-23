@@ -3,16 +3,24 @@
 #' After discretizing, the next step is to map coavriate datasets.
 #'
 #' @param sspm_object **\[sspm_discrete\]** An object of class
-#'    [sspm_discrete][sspm_discrete-class].
+#'     [sspm][sspm-class] or [sspm_discrete][sspm_discrete-class]
 #' @inheritParams as_sspm_data
 #' @inheritDotParams as_sspm_data
 #'
 #' @return
-#' The updated object, of class [sspm_discrete][sspm_discrete-class].
+#' The updated object, of class [sspm][sspm-class] or
+#' [sspm_discrete][sspm_discrete-class].
 #'
 #' @export
 setGeneric(name = "map_dataset",
-           def = function(sspm_object, data, ...){
+           def = function(sspm_object,
+                          data,
+                          name,
+                          time_column,
+                          uniqueID,
+                          coords = NULL,
+                          crs = NULL,
+                          ...){
              standardGeneric("map_dataset")
            }
 )
@@ -25,11 +33,23 @@ setGeneric(name = "map_dataset",
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
-          signature(sspm_object = "sspm_discrete",
+          signature(sspm_object = "sspm",
                     data = "data.frame"),
-          function(sspm_object, data, ...){
+          function(sspm_object, data, name, time_column, uniqueID, coords, crs, ...){
 
-            updated_object <- cast_and_return(sspm_object, data, ...)
+            # TODO better CRS checks
+            if (is.null(crs)){
+              info_message <-
+                paste0(" Warning: sspm is assuming that the CRS of boundaries is to be ",
+                       "used for casting")
+              cli::cli_alert_warning(info_message)
+              crs <- sf::st_crs(spm_boundaries(sspm_object))
+            }
+
+            updated_object <-
+              cast_and_return(sspm_object, data, name,
+                              time_column, uniqueID, coords, crs, ...)
+
             return(updated_object)
 
           }
@@ -38,46 +58,60 @@ setMethod(f = "map_dataset",
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
-          signature(sspm_object = "sspm_discrete",
+          signature(sspm_object = "sspm",
                     data = "sf"),
-          function(sspm_object, data, ...){
+          function(sspm_object, data, name,
+                   time_column, uniqueID, coords, crs, ...){
 
             updated_object <- cast_and_return(sspm_object, data, ...)
+
             return(updated_object)
 
           }
 )
 
 # Helper for the two methods above
-cast_and_return <- function(sspm_object, data, ...){
+cast_and_return <- function(sspm_object, data, name,
+                            time_column, uniqueID, coords, crs, ...){
+
   # Cast data.frame as sspm_data
-  sspm_data <- as_sspm_data(data = data, ...)
+  sspm_data <- as_sspm_data(data = data, name,
+                            time_column, uniqueID, coords, crs, ...)
 
   # Call next method
-  mapped_objects <- map_dataset(sspm_object = sspm_object,
-                                data = sspm_data, ...)
-  return(mapped_objects)
+  updated_object <- map_dataset(sspm_object = sspm_object,
+                                data = sspm_data)
+  return(updated_object)
 }
-
 
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
-          signature(sspm_object = "sspm_discrete",
+          signature(sspm_object = "sspm",
                     data = "sspm_data"),
           function(sspm_object, data, ...){
 
             # Append to list of mapped_datasets
-            mapped_tmp <- spm_mapped_datasets(sspm_object)
-            all_names <- unlist(c(lapply(mapped_tmp, spm_name), spm_name(data)))
+            datasets <- spm_datasets(sspm_object)
+            datasets_names <- names(datasets)
 
-            data_joined <- join_datasets(sspm_data = data,
-                                         sspm_object = sspm_object)
+            if(sum(spm_name(data) %in% datasets_names)){
 
-            mapped_tmp <- append(mapped_tmp, list(data_joined))
-            names(mapped_tmp) <- all_names
+              cli::cli_alert_danger(" Name provided is already used, all dataset names must be unique.")
 
-            spm_mapped_datasets(sspm_object) <- mapped_tmp
+            }
+
+            if (checkmate::test_class(sspm_object, "sspm_discrete")){
+
+              data <- join_datasets(sspm_data = data,
+                                    sspm_object = sspm_object)
+
+            }
+
+            datasets_tmp <- append(datasets, list(data))
+            names(datasets_tmp) <- c(datasets_names, spm_name(data))
+
+            spm_datasets(sspm_object) <- datasets_tmp
 
             # Return updated sspm_discretized
             return(sspm_object)
@@ -87,12 +121,23 @@ setMethod(f = "map_dataset",
 #' @export
 #' @describeIn map_dataset TODO
 setMethod(f = "map_dataset",
-          signature(sspm_object = "sspm_discrete",
+          signature(sspm_object = "sspm",
                     data = "list"),
-          function(sspm_object, data, ...){
+          function(sspm_object, data,
+                   name,
+                   time_column,
+                   uniqueID,
+                   coords = NULL,
+                   crs = NULL, ...){
 
             # Capture args
-            args <- list(...)
+            args <- list(name = name,
+                         time_colu = time_column,
+                         uniqueID = uniqueID,
+                         coords = coords)
+
+            other_args <- list(...)
+            args <- append(args, other_args)
 
             # Make checks on length of the name argument
             # must of the same length than data, and unique values
@@ -103,14 +148,14 @@ setMethod(f = "map_dataset",
             }
 
             # Make checks on coords, either a character vector or a list
-            if(test_class(args$coords, "character")){
+            if(checkmate::test_class(args$coords, "character")){
               if(length(args$coords) == 2){
                 args$coords <- list(args$coords)
               } else{
                 stop("Argument 'coords' should be of a vector of length 2.",
                      call. = FALSE)
               }
-            } else if (test_class(args$coords, "list")){
+            } else if (checkmate::test_class(args$coords, "list")){
               if(length(args$coords) != 1) {
                 if(length(args$coords) != length(data)){
                   stop("Argument 'coords' should be a list of the same length than data.",
@@ -136,41 +181,14 @@ setMethod(f = "map_dataset",
               }
             }
 
-            tmp_sspm_discrete <- sspm_object
+            tmp_sspm <- sspm_object
             for (dat_id in seq_len(length.out = length(data))){
               args_to_pass <- lapply(args, dplyr::nth, dat_id)
               args_to_pass$data <- data[[dat_id]]
-              args_to_pass$sspm_object <- tmp_sspm_discrete
-              tmp_sspm_discrete <- do.call(map_dataset, args = args_to_pass)
+              args_to_pass$sspm_object <- tmp_sspm
+              tmp_sspm <- do.call(map_dataset, args = args_to_pass)
             }
 
-            return(tmp_sspm_discrete)
+            return(tmp_sspm)
           }
 )
-
-#' @export
-#' @describeIn map_dataset TODO
-setMethod(f = "map_dataset",
-          signature(sspm_object = "sspm"),
-          function(sspm_object, ...){
-            message_not_discrete(sspm_object)
-          }
-)
-
-# Join helper
-join_datasets <- function(sspm_data, sspm_object){
-
-  checkmate::assert_class(sspm_data, "sspm_data")
-  checkmate::assert_class(sspm_object, "sspm_discrete")
-
-  the_data <- spm_data(sspm_data)
-  the_patches <- spm_patches(sspm_object)
-
-  joined <- suppressMessages(sf::st_transform(the_data, crs = sf::st_crs(the_patches)))
-  joined <- suppressMessages(sf::st_join(the_data, the_patches)) %>%
-    dplyr::filter(!duplicated(.data[[spm_unique_ID(sspm_data)]]))
-
-  spm_data(sspm_data) <- joined
-
-  return(sspm_data)
-}

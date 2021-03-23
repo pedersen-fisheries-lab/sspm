@@ -74,8 +74,11 @@ setMethod(f = "map_formula",
                     formula = "formula"),
           function(sspm_object, dataset, formula, ...){
 
+            # Get datasets
+            all_datasets <- spm_datasets(sspm_object)
+
             # Check names
-            all_dataset_names <- names(spm_datasets(sspm_object))
+            all_dataset_names <- names(all_datasets)
             if(!checkmate::test_choice(dataset, all_dataset_names)){
               stop(paste0("Argument 'dataset' must be one of: ",
                           paste0(all_dataset_names,
@@ -88,7 +91,14 @@ setMethod(f = "map_formula",
             terms_labels <- attr(formula_terms, "term.labels")
 
             # Check response
-            the_data <- spm_data(spm_datasets(sspm_object)[[dataset]])
+            the_dataset <- all_datasets[[dataset]]
+
+            if(the_dataset@is_smoothed){
+              cli::cli_alert_danger("Dataset is already smoothed.")
+              stop(call. = FALSE)
+            }
+
+            the_data <- spm_data(the_dataset)
             if(!checkmate::test_subset(response, names(the_data))){
               stop("The response in the formula is not a column of the dataset.",
                    call. = FALSE)
@@ -122,9 +132,6 @@ setMethod(f = "map_formula",
             smooth_list <- sapply(smooth_and_vars, `[[`, "smooth")
 
             vars_list <- purrr::flatten(lapply(smooth_and_vars, `[[`, "vars"))
-            # if(purrr::vec_depth(vars_list)>2){
-            #   vars_list <- purrr::flatten(vars_list)
-            # }
             vars_list <- vars_list[unique(names(vars_list))]
 
             # Paste them into formula
@@ -139,12 +146,14 @@ setMethod(f = "map_formula",
             sspm_formula <- new("sspm_formula",
                                 raw_formula = formula,
                                 translated_formula = final_formula_casted,
-                                dataset = dataset,
-                                vars = vars_list)
+                                vars = vars_list,
+                                type = "smooth")
 
-            spm_mapped_formulas(sspm_object) <-
-              append(spm_mapped_formulas(sspm_object),
-                     list(sspm_formula))
+            spm_formulas(the_dataset) <- append(spm_formulas(the_dataset),
+                                                list(sspm_formula))
+
+            all_datasets[[dataset]] <- the_dataset
+            spm_datasets(sspm_object) <- all_datasets
 
             return(sspm_object)
           }

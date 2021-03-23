@@ -16,7 +16,7 @@ test_that("sspm data is casted correctly", {
   # Test the 3 generic cases
   expect_error({
     as_sspm_data(data = borealis_simulated,
-                 time_col = "year_f",
+                 time_column = "year_f",
                  coords = c('lon_dec','lat_dec'),
                  name = "Biomass",
                  uniqueID = "Bad column")
@@ -26,7 +26,7 @@ test_that("sspm data is casted correctly", {
   borealis_simulated_NU$new_col <- "Non_unique"
   expect_error({
     as_sspm_data(data = borealis_simulated_NU,
-                 time_col = "year_f",
+                 time_column = "year_f",
                  coords = c('lon_dec','lat_dec'),
                  name = "Biomass",
                  uniqueID = "new_col")
@@ -34,16 +34,16 @@ test_that("sspm data is casted correctly", {
 
   expect_error({
     as_sspm_data(data = borealis_simulated,
-                 time_col = "Bad column",
+                 time_column = "Bad column",
                  coords = c('lon_dec','lat_dec'),
                  name = "Biomass",
                  uniqueID = "uniqueID")
-  }, "`time_col` must be a column of `data`")
+  }, "`time_column` must be a column of `data`")
 
   # If data matrix is df, coords must be provided
   expect_error({
     as_sspm_data(data = borealis_simulated,
-                 time_col = "year_f",
+                 time_column = "year_f",
                  name = "Biomass",
                  uniqueID = "uniqueID")
   }, "Argument `coords` must be provided when data matrix is a dataframe")
@@ -51,7 +51,7 @@ test_that("sspm data is casted correctly", {
   # Coords must be columns of data
   expect_error({
     as_sspm_data(data = borealis_simulated,
-                 time_col = "year_f",
+                 time_column = "year_f",
                  coords = c('Bad column 1','Bad column 2'),
                  name = "Biomass",
                  uniqueID = "uniqueID")
@@ -60,7 +60,7 @@ test_that("sspm data is casted correctly", {
   # When works fine
   expect_class({
     as_sspm_data(data = borealis_simulated,
-                 time_col = "year_f",
+                 time_column = "year_f",
                  coords = c('lon_dec','lat_dec'),
                  name = "Biomass",
                  uniqueID = "uniqueID")
@@ -68,7 +68,7 @@ test_that("sspm data is casted correctly", {
 
   expect_class({
     as_sspm_data(data = borealis_simulated,
-                 time_col = "year_f",
+                 time_column = "year_f",
                  coords = list('lon_dec','lat_dec'),
                  name = "Biomass",
                  uniqueID = "uniqueID")
@@ -76,7 +76,7 @@ test_that("sspm data is casted correctly", {
 
   expect_class({
     as_sspm_data(data = borealis_spatial,
-                 time_col = "year_f",
+                 time_column = "year_f",
                  coords = c('lon_dec','lat_dec'),
                  name = "Biomass",
                  uniqueID = "uniqueID")

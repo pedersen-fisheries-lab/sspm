@@ -16,11 +16,11 @@ users to directly manipulate and create new objects.
 \item{\code{translated_formula}}{\strong{[formula]} The translated formula call ready
 to be evaluated.}
 
-\item{\code{dataset}}{\strong{[character]} The name of the dataset the formula object is
-to be mapped onto.}
-
 \item{\code{vars}}{\strong{[list]} List of relevant variables for the evaluation of the
 different smooths.}
+
+\item{\code{type}}{\strong{[charatcer]} One of "smooth" and "surplus", the type of
+formula, either for smoothing datasets or for fitting a surplus model}
 }}
 
 \seealso{

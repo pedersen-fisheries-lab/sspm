@@ -8,16 +8,21 @@
 \alias{spm_data<-,sspm_data-method}
 \alias{spm_name,sspm_data-method}
 \alias{spm_name<-,sspm_data-method}
-\alias{spm_rep}
-\alias{spm_rep,sspm_data-method}
-\alias{spm_rep<-}
-\alias{spm_rep<-,sspm_data-method}
+\alias{spm_unique_ID}
 \alias{spm_unique_ID,sspm_data-method}
+\alias{spm_unique_ID<-}
 \alias{spm_unique_ID<-,sspm_data-method}
+\alias{spm_coords_col}
 \alias{spm_coords_col,sspm_data-method}
+\alias{spm_coords_col<-}
 \alias{spm_coords_col<-,sspm_data-method}
-\alias{spm_time_col,sspm_data-method}
-\alias{spm_time_col<-,sspm_data-method}
+\alias{spm_time_column}
+\alias{spm_time_column,sspm_data-method}
+\alias{spm_time_column<-,sspm_data-method}
+\alias{spm_formulas}
+\alias{spm_formulas,sspm_data-method}
+\alias{spm_formulas<-}
+\alias{spm_formulas<-,sspm_data-method}
 \title{Accessing OR replacing \code{sspm_data} model elements}
 \usage{
 spm_data(sspm_object)
@@ -34,25 +39,35 @@ spm_data(object) <- value
 
 \S4method{spm_name}{sspm_data}(object) <- value
 
-spm_rep(sspm_object)
-
-\S4method{spm_rep}{sspm_data}(sspm_object)
-
-spm_rep(object) <- value
-
-\S4method{spm_rep}{sspm_data}(object) <- value
+spm_unique_ID(sspm_object)
 
 \S4method{spm_unique_ID}{sspm_data}(sspm_object)
 
+spm_unique_ID(object) <- value
+
 \S4method{spm_unique_ID}{sspm_data}(object) <- value
+
+spm_coords_col(sspm_object)
 
 \S4method{spm_coords_col}{sspm_data}(sspm_object)
 
+spm_coords_col(object) <- value
+
 \S4method{spm_coords_col}{sspm_data}(object) <- value
 
-\S4method{spm_time_col}{sspm_data}(sspm_object)
+spm_time_column(sspm_object)
 
-\S4method{spm_time_col}{sspm_data}(object) <- value
+\S4method{spm_time_column}{sspm_data}(sspm_object)
+
+\S4method{spm_time_column}{sspm_data}(object) <- value
+
+spm_formulas(sspm_object)
+
+\S4method{spm_formulas}{sspm_data}(sspm_object)
+
+spm_formulas(object) <- value
+
+\S4method{spm_formulas}{sspm_data}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class
@@ -83,24 +98,34 @@ objects of class \link[=sspm_data-class]{sspm_data}.
 
 \item \code{spm_name<-,sspm_data-method}: TODO
 
-\item \code{spm_rep}: TODO
-
-\item \code{spm_rep,sspm_data-method}: TODO
-
-\item \code{spm_rep<-}: TODO
-
-\item \code{spm_rep<-,sspm_data-method}: TODO
+\item \code{spm_unique_ID}: TODO
 
 \item \code{spm_unique_ID,sspm_data-method}: TODO
 
+\item \code{spm_unique_ID<-}: TODO
+
 \item \code{spm_unique_ID<-,sspm_data-method}: TODO
+
+\item \code{spm_coords_col}: TODO
 
 \item \code{spm_coords_col,sspm_data-method}: TODO
 
+\item \code{spm_coords_col<-}: TODO
+
 \item \code{spm_coords_col<-,sspm_data-method}: TODO
 
-\item \code{spm_time_col,sspm_data-method}: TODO
+\item \code{spm_time_column}: TODO
 
-\item \code{spm_time_col<-,sspm_data-method}: TODO
+\item \code{spm_time_column,sspm_data-method}: TODO
+
+\item \code{spm_time_column<-,sspm_data-method}: TODO
+
+\item \code{spm_formulas}: TODO
+
+\item \code{spm_formulas,sspm_data-method}: TODO
+
+\item \code{spm_formulas<-}: TODO
+
+\item \code{spm_formulas<-,sspm_data-method}: TODO
 }}
 

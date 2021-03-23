@@ -189,8 +189,8 @@ ICAR <- function(sspm_object, dataset, dimension,
   the_data <- spm_data(the_dataset)
 
   # ---- TIME ----
-  time_column <- spm_time_col(the_dataset)
-  time_levels <- unique(the_data[[time_column]])
+  time_columnumn <- spm_time_column(the_dataset)
+  time_levels <- unique(the_data[[time_columnumn]])
   n_time_levels = length(time_levels)
 
   # ---- SPACE ----
@@ -203,7 +203,7 @@ ICAR <- function(sspm_object, dataset, dimension,
 
   if (dimension == "time") {
 
-    out_column <- list(str2lang(time_column))
+    out_column <- list(str2lang(time_columnumn))
 
     if(is.null(k)){
       k <- n_time_levels
@@ -265,7 +265,7 @@ ICAR <- function(sspm_object, dataset, dimension,
 
   } else if (dimension == "space_time"){
 
-    out_column <- list(str2lang(time_column), str2lang(space_column))
+    out_column <- list(str2lang(time_columnumn), str2lang(space_column))
 
     if(is.null(k)){
       k <- c(n_time_levels, 30)
@@ -289,13 +289,13 @@ ICAR <- function(sspm_object, dataset, dimension,
       checkmate::assert_list(xt)
       lapply(xt, checkmate::assert_list)
       checkmate::assert_names(names(xt),
-                              subset.of = c(time_column, space_column))
+                              subset.of = c(time_columnumn, space_column))
 
-      if (is.null(xt[[time_column]]$penalty)){
+      if (is.null(xt[[time_columnumn]]$penalty)){
         vars$pen_mat_time <- ICAR_time(time_levels)
       } else {
-        checkmate::assert_matrix(xt[[time_column]]$penalty)
-        vars$pen_mat_time <- xt[[time_column]]$penalty
+        checkmate::assert_matrix(xt[[time_columnumn]]$penalty)
+        vars$pen_mat_time <- xt[[time_columnumn]]$penalty
       }
 
       if (is.null(xt[[space_column]]$penalty)){
@@ -309,7 +309,7 @@ ICAR <- function(sspm_object, dataset, dimension,
 
     xt_list <- list(xt = list(list(penalty = rlang::expr(pen_mat_time)),
                               list(penalty = rlang::expr(pen_mat_space))))
-    names(xt_list$xt) <- c(time_column, space_column)
+    names(xt_list$xt) <- c(time_columnumn, space_column)
 
   }
 

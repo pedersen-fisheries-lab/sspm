@@ -4,7 +4,7 @@
 #' [`sspm_data`][sspm_data-class].
 #'
 #' @param data **\[data.frame OR sf\]** The dataset.
-#' @param time_col **\[character\]** The column of `data` for the temporal
+#' @param time_column **\[character\]** The column of `data` for the temporal
 #'     dimensions (i.e. year).
 #' @param coords **\[character\]** The column of `data` for longitude and
 #'     latitude of the observations.
@@ -18,7 +18,7 @@
 #'
 #' @export
 setGeneric(name = "as_sspm_data",
-           def = function(data, time_col, coords, name, uniqueID, crs = NULL){
+           def = function(data, name, time_column, uniqueID, coords, crs = NULL){
 
              if(!checkmate::test_subset(uniqueID, names(data))){
                stop("`uniqueID` must be a column of `data`", call. = FALSE)
@@ -27,8 +27,8 @@ setGeneric(name = "as_sspm_data",
                stop("`uniqueID` must be unique for each row of `data`", call. = FALSE)
              }
 
-             if(!checkmate::test_subset(time_col, names(data))){
-               stop("`time_col` must be a column of `data`", call. = FALSE)
+             if(!checkmate::test_subset(time_column, names(data))){
+               stop("`time_column` must be a column of `data`", call. = FALSE)
              }
 
              standardGeneric("as_sspm_data")
@@ -41,7 +41,7 @@ setGeneric(name = "as_sspm_data",
 #' @export
 setMethod(f = "as_sspm_data",
           signature(data = "data.frame", coords = "missingOrNULL"),
-          function(data, time_col, coords, name, uniqueID, crs){
+          function(data, name, time_column, uniqueID, coords, crs){
 
             stop("Argument `coords` must be provided when data matrix is a dataframe",
                  call. = FALSE)
@@ -53,9 +53,9 @@ setMethod(f = "as_sspm_data",
 #' @export
 setMethod(f = "as_sspm_data",
           signature(data = "data.frame", coords = "list"),
-          function(data, time_col, coords, name, uniqueID, crs){
+          function(data, name, time_column, uniqueID, coords, crs){
             coords <- unlist(coords)
-            as_sspm_data(data, time_col, coords, name, uniqueID, crs)
+            as_sspm_data(data, name, time_column, uniqueID, coords, crs)
           }
 )
 
@@ -65,7 +65,7 @@ setMethod(f = "as_sspm_data",
 #' @export
 setMethod(f = "as_sspm_data",
           signature(data = "data.frame", coords = "character"),
-          function(data, time_col, coords, name, uniqueID, crs){
+          function(data, name, time_column, uniqueID, coords, crs){
 
             # Check coords
             if(!checkmate::test_subset(coords, names(data))){
@@ -96,10 +96,9 @@ setMethod(f = "as_sspm_data",
             the_sspm_data <- new("sspm_data",
                                  name = name,
                                  data = new_data,
-                                 time_col = time_col,
+                                 time_column = time_column,
                                  uniqueID = uniqueID,
-                                 coords = coords,
-                                 representation = "Simple feature collection")
+                                 coords = coords)
 
             return(the_sspm_data)
           }
@@ -110,17 +109,16 @@ setMethod(f = "as_sspm_data",
 #' @export
 setMethod(f = "as_sspm_data",
           signature(data = "sf", coords = "ANY"),
-          function(data, time_col, coords, name, uniqueID, crs){
+          function(data, name, time_column, uniqueID, coords, crs){
 
             # TODO CRS checks
 
             the_sspm_data <- new("sspm_data",
                                  name = name,
                                  data = data,
-                                 time_col = time_col,
+                                 time_column = time_column,
                                  uniqueID = uniqueID,
-                                 coords = coords,
-                                 representation = "Simple feature collection")
+                                 coords = coords)
 
             return(the_sspm_data)
           }
