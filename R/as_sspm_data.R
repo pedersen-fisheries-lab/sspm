@@ -55,7 +55,7 @@ setMethod(f = "as_sspm_data",
           signature(data = "data.frame", coords = "list"),
           function(data, name, time_column, uniqueID, coords, crs){
             coords <- unlist(coords)
-            as_sspm_data(data, time_column, coords, name, uniqueID, crs)
+            as_sspm_data(data, name, time_column, uniqueID, coords, crs)
           }
 )
 
