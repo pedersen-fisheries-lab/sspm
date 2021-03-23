@@ -54,54 +54,57 @@ setMethod(f = "fit_smooths",
 
             for(dataset in datasets){
 
-              formulas <- spm_formulas(dataset)
+              if(!dataset@is_smoothed){
 
-              if(length(formulas) == 0){
-                next
-              }
+                formulas <- spm_formulas(dataset)
 
-              # all_fit[[spm_name(dataset)]] <-
-              #   vector(mode = "list", length = length(formulas))
-
-              for (form_id in seq_len(length.out = length(formulas))){
-
-                # Index formula
-                form <- formulas[[form_id]]
-                form_name <- paste0(spm_name(dataset), "_f", form_id)
-
-                # Print info
-                cli::cli_alert_info(
-                  paste0(" Fitting formula: ",
-                         cli::col_yellow(format_formula(raw_formula(form))),
-                         " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset),"'"))))
-
-                # Get data
-                the_data <- spm_data(dataset)
-                form_vars <- formula_vars(form)
-
-                # Modify formula env, best solution for now
-                form_env <- attr(translated_formula(form), ".Environment")
-                for(var in names(form_vars)){
-                  assign(x = var, value = form_vars[[var]], envir = form_env)
+                if(length(formulas) == 0){
+                  next
                 }
 
-                # Fit the formula, important to attach the vars
-                all_fit[[spm_name(dataset)]][[form_name]] <-
-                  mgcv::bam(formula = translated_formula(form),
-                            data = the_data,
-                            family = family,
-                            drop.unused.levels = drop.unused.levels,
-                            method = method,
-                            ...)
+                # all_fit[[spm_name(dataset)]] <-
+                #   vector(mode = "list", length = length(formulas))
 
-                tmp_df <-
-                  data.frame(all_fit[[spm_name(dataset)]][[form_name]]$fitted)
-                names(tmp_df) <- form_name
-                all_smoothed[[spm_name(dataset)]][[form_name]] <-
-                  tmp_df
+                for (form_id in seq_len(length.out = length(formulas))){
+
+                  # Index formula
+                  form <- formulas[[form_id]]
+                  form_name <- paste0(spm_name(dataset), "_f", form_id)
+
+                  # Print info
+                  cli::cli_alert_info(
+                    paste0(" Fitting formula: ",
+                           cli::col_yellow(format_formula(raw_formula(form))),
+                           " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset),"'"))))
+
+                  # Get data
+                  the_data <- spm_data(dataset)
+                  form_vars <- formula_vars(form)
+
+                  # Modify formula env, best solution for now
+                  form_env <- attr(translated_formula(form), ".Environment")
+                  for(var in names(form_vars)){
+                    assign(x = var, value = form_vars[[var]], envir = form_env)
+                  }
+
+                  # Fit the formula, important to attach the vars
+                  all_fit[[spm_name(dataset)]][[form_name]] <-
+                    mgcv::bam(formula = translated_formula(form),
+                              data = the_data,
+                              family = family,
+                              drop.unused.levels = drop.unused.levels,
+                              method = method,
+                              ...)
+
+                  tmp_df <-
+                    data.frame(all_fit[[spm_name(dataset)]][[form_name]]$fitted)
+                  names(tmp_df) <- form_name
+                  all_smoothed[[spm_name(dataset)]][[form_name]] <-
+                    tmp_df
+                }
+
+                datasets[[spm_name(dataset)]]@is_smoothed <- TRUE
               }
-
-              datasets[[spm_name(dataset)]]@is_smoothed <- TRUE
             }
 
             sspm_discrete_smoothed <-
