@@ -4,7 +4,6 @@
 #'
 #' @param model_name **\[character\]** The name to be given to the model
 #' @param boundaries **\[sf\]** The spatial boundaries (polygons) for the model.
-#' @param ... TBD
 #'
 #' @return
 #' An object of class  [sspm][sspm-class].

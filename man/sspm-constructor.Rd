@@ -10,8 +10,6 @@ sspm(model_name = "My sspm model", boundaries)
 \item{model_name}{\strong{[character]} The name to be given to the model}
 
 \item{boundaries}{\strong{[sf]} The spatial boundaries (polygons) for the model.}
-
-\item{...}{TBD}
 }
 \value{
 An object of class  \link[=sspm-class]{sspm}.
