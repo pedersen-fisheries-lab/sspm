@@ -14,31 +14,6 @@ test_that("Replacers work as expected", {
     spm_name(discret_method)
   }, "New_Name")
 
-  expect_match({
-    spm_coords_col(sspm_base) <- c("one", "two")
-    spm_coords_col(sspm_base)[1]
-  }, c("one"))
-
-  expect_match({
-    spm_coords_col(sspm_base) <- c("one", "two")
-    spm_coords_col(sspm_base)[2]
-  }, c("two"))
-
-  expect_match({
-    spm_unique_ID(sspm_base) <- "New_ID"
-    spm_unique_ID(sspm_base)
-  }, "New_ID")
-
-  expect_match({
-    spm_time_column(sspm_base) <- "new_time_column"
-    spm_time_column(sspm_base)
-  }, "new_time_column")
-
-  expect_class({
-    spm_base_dataset(sspm_base) <- sspm_data
-    spm_base_dataset(sspm_base)
-  }, "sspm_data")
-
   expect_class({
     spm_boundaries(sspm_base) <- sfa_boundaries
     spm_boundaries(sspm_base)
@@ -78,22 +53,9 @@ test_that("Replacers work as expected", {
     spm_points(sspm_discrete)
   }, "sf")
 
-  expect_message({
-    spm_mapped_datasets(sspm_base) <- borealis_points
-  }, "Model object 'New_Name' is not a discrete model")
-
   expect_class({
-    spm_mapped_datasets(sspm_discrete) <- list()
-    spm_mapped_datasets(sspm_discrete)
-  }, "list")
-
-  expect_message({
-    spm_mapped_formulas(sspm_base) <- borealis_points
-  }, "Model object 'New_Name' is not a discrete model")
-
-  expect_class({
-    spm_mapped_formulas(sspm_discrete) <- list()
-    spm_mapped_formulas(sspm_discrete)
+    spm_datasets(sspm_discrete) <- list()
+    spm_datasets(sspm_discrete)
   }, "list")
 
   # Method
@@ -112,10 +74,6 @@ test_that("Replacers work as expected", {
   expect_match({
     sspm:::format_formula(translated_formula(sspm_formula) <- as.formula(c ~ d))
   }, "c ~ d")
-
-  expect_match({
-    dataset(sspm_formula) <- "NewDatasetName"
-  }, "NewDatasetName")
 
   expect_names({
     formula_vars(sspm_formula) <- list(a=1, b=2)
@@ -153,10 +111,5 @@ test_that("Replacers work as expected", {
     spm_time_column(sspm_data) <- "new_time_column_2"
     spm_time_column(sspm_data)
   }, "new_time_column_2")
-
-  expect_match({
-    spm_rep(sspm_data) <- "New_rep"
-    spm_rep(sspm_data)
-  }, "New_rep")
 
 })

@@ -4,7 +4,7 @@ test_that("Map formula works as expected", {
 
   form_mapped <- sspm_discrete_mapped %>%
     map_formula("Biomass", weight_per_km2~smooth_time()+smooth_space()+smooth_space_time())
-  the_form <- translated_formula(spm_mapped_formulas(form_mapped)[[1]])
+  the_form <- translated_formula(spm_formulas(spm_datasets(form_mapped)$Biomass)[[1]])
 
   expect_formula(the_form)
   expect_match(sspm:::format_formula(the_form), fixed = TRUE,
