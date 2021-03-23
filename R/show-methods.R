@@ -56,8 +56,8 @@ setMethod("show",
             dim_1 <- dim(spm_data(object))[1]
             dim_2 <- dim(spm_data(object))[2]
             cli::cat_bullet(" Data             : ",
-                            cli::pluralize("[ ", cli::col_blue("{dim_1}")," observation{?s} , ",
-                                           cli::col_blue("{dim_2}"), " variable{?s} ]"),
+                            cli::pluralize("[", cli::col_blue("{dim_1}")," observation{?s}, ",
+                                           cli::col_blue("{dim_2}"), " variable{?s}]"),
                             bullet = "em_dash")
 
             cli::cat_bullet(" Data unique ID   : ",
@@ -164,8 +164,8 @@ pluralize_data_info <- function(object,
   dim_2 <- dim(object)[2]
 
   info <-
-    cli::pluralize("[ ", cli::col_blue("{dim_1}")," ", dim_1_name, "{?s} , ",
-                   cli::col_blue("{dim_2}"), " ", dim_2_name, "{?s} ]")
+    cli::pluralize("[", cli::col_blue("{dim_1}")," ", dim_1_name, "{?s}, ",
+                   cli::col_blue("{dim_2}"), " ", dim_2_name, "{?s}]")
 
   return(info)
 
