@@ -52,10 +52,20 @@ setMethod(f = "spm_split",
               stop("Dataset not smooth")
             }
 
+            # Verify of already splitted
+
             the_data <- spm_data(all_datasets[[dataset]])
+            # the_data_smoothed <-
 
-            browser()
+            selection <- rlang::eval_tidy(rlang::enexpr(predicate),
+                                          data = the_data)
+            the_data$train_test <- selection
 
+            spm_data(all_datasets[[dataset]]) <- the_data
+            all_datasets[[dataset]]@is_splitted <- TRUE
+
+            spm_datasets(sspm_object) <- all_datasets
+
+            return(sspm_object)
           }
 )
-
