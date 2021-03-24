@@ -108,7 +108,8 @@ sspm_discrete_mapped_fitted
 
 6. Split data into test/train (WIP)
 ```{r}
-sspm_discrete_mapped_fitted_splitted <- spm_split(sspm_discrete_mapped_fitted, "Biomass", year %in% c(1996, 1997))
+sspm_discrete_mapped_fitted_splitted <- 
+  spm_split(sspm_discrete_mapped_fitted, "Biomass", year %in% c(1996, 1997))
 sspm_discrete_mapped_fitted_splitted
 ```
 
