@@ -55,13 +55,20 @@ setMethod(f = "spm_split",
             # Verify of already splitted
 
             the_data <- spm_data(all_datasets[[dataset]])
-            # the_data_smoothed <-
+            the_data_smoothed <- (all_datasets[[dataset]])@smoothed_data
 
             selection <- rlang::eval_tidy(rlang::enexpr(predicate),
                                           data = the_data)
             the_data$train_test <- selection
+            for (smooth_id in seq_len(length.out = length(the_data_smoothed))){
+              df <- the_data_smoothed[[smooth_id]]
+              df$train_test <- selection
+              the_data_smoothed[[smooth_id]] <- df
+            }
 
             spm_data(all_datasets[[dataset]]) <- the_data
+            all_datasets[[dataset]]@smoothed_data <- the_data_smoothed
+
             all_datasets[[dataset]]@is_splitted <- TRUE
 
             spm_datasets(sspm_object) <- all_datasets
