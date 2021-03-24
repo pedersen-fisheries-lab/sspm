@@ -45,7 +45,8 @@ join_datasets <- function(sspm_data, sspm_object){
   # TODO REVIEW THE COHERENCE OF ST_TRANSFORM
   joined <- suppressMessages(sf::st_transform(the_data, crs = sf::st_crs(the_patches)))
   joined <- suppressMessages(sf::st_join(the_data, the_patches)) %>%
-    dplyr::filter(!duplicated(.data[[spm_unique_ID(sspm_data)]]))
+    dplyr::filter(!duplicated(.data[[spm_unique_ID(sspm_data)]])) %>%
+    dplyr::filter(!is.na(.$patch_id))
 
   spm_data(sspm_data) <- joined
 
