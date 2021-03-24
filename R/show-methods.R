@@ -154,9 +154,8 @@ cat_datasets <- function(object){
                                               cli::col_blue(n_test), " test]")
 
               the_line <- paste0(base_line, cli::col_green(cli::style_bold(the_tag)), smoothed_and_splitted)
-
-              cli::cat_line(the_line)
             }
+            cli::cat_line(the_line)
           }
         }
       }
