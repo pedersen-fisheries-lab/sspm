@@ -123,8 +123,12 @@ cat_datasets <- function(object){
               pluralize_data_info(spm_data(the_dataset)))
 
       if(the_dataset@is_smoothed == TRUE){
+        the_tag <- "(SMOOTHED)"
+        if(the_dataset@is_splitted == TRUE){
+          the_tag <- "(SMOOTHED, SPLITTED)"
+        }
         the_line <-
-          paste(the_line, cli::col_green(cli::style_bold("(SMOOTHED)")))
+          paste(the_line, cli::col_green(cli::style_bold(the_tag)))
       }
 
       cli::cat_line("   ", the_line)
