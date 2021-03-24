@@ -15,6 +15,17 @@ spm_split(sspm_object, dataset, predicate)
 
 \S4method{spm_split}{sspm_discrete,character}(sspm_object, dataset, predicate)
 }
+\arguments{
+\item{sspm_object}{\strong{[sspm_discrete]} An object of class
+\link[=sspm-class]{sspm} or \link[=sspm_discrete-class]{sspm_discrete}}
+
+\item{dataset}{\strong{[expression]} The dataset to split.}
+
+\item{predicate}{\strong{[expression]} Expression to evaluate to split data.}
+}
+\value{
+The updated sspm object.
+}
 \description{
-Split data before fitting spm.
+Split data before fitting spm (WIP).
 }

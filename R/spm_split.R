@@ -1,6 +1,14 @@
 #' Split data in test and train sets
 #'
-#' Split data before fitting spm.
+#' Split data before fitting spm (WIP).
+#'
+#' @param sspm_object **\[sspm_discrete\]** An object of class
+#'     [sspm][sspm-class] or [sspm_discrete][sspm_discrete-class]
+#' @param dataset **\[expression\]** The dataset to split.
+#' @param predicate **\[expression\]** Expression to evaluate to split data.
+#'
+#' @return
+#' The updated sspm object.
 #'
 #' @export
 setGeneric(name = "spm_split",
