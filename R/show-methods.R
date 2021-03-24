@@ -122,24 +122,42 @@ cat_datasets <- function(object){
               cli::symbol$em_dash,
               pluralize_data_info(spm_data(the_dataset)))
 
-      if(the_dataset@is_smoothed == TRUE){
-        the_tag <- "(SMOOTHED)"
-        if(the_dataset@is_splitted == TRUE){
-          the_tag <- "(SMOOTHED, SPLITTED)"
-        }
-        the_line <-
-          paste(the_line, cli::col_green(cli::style_bold(the_tag)))
-      }
-
       cli::cat_line("   ", the_line)
 
       if(length(the_dataset_formulas)>0){
-        for (form in the_dataset_formulas){
 
+        for (f_id in seq_len(length.out = length(the_dataset_formulas))){
+
+          form <- the_dataset_formulas[[f_id]]
           formatted <- cat_formula(form@raw_formula)
 
           cli::cat_line("      ", cli::symbol$en_dash, " ",
                         cli::col_yellow(formatted))
+
+          if(the_dataset@is_smoothed == TRUE){
+
+            the_smoothed_data <- the_dataset@smoothed_data[[f_id]]
+
+            base_line <- paste0("      ", cli::symbol$en_dash, " ")
+            the_tag <- "(SMOOTHED)"
+            smoothed <- paste0(" [", cli::col_blue(nrow(the_smoothed_data)), " observations]")
+            the_line <- paste0(base_line, cli::col_green(cli::style_bold(the_tag)), smoothed)
+
+            if(the_dataset@is_splitted == TRUE){
+
+              the_tag <- "(SMOOTHED, SPLITTED)"
+
+              n_train <- sum(the_smoothed_data$train_test == TRUE)
+              n_test <- sum(the_smoothed_data$train_test == FALSE)
+
+              smoothed_and_splitted <- paste0(" [", cli::col_blue(n_train), " train, ",
+                                              cli::col_blue(n_test), " test]")
+
+              the_line <- paste0(base_line, cli::col_green(cli::style_bold(the_tag)), smoothed_and_splitted)
+
+              cli::cat_line(the_line)
+            }
+          }
         }
       }
     }
