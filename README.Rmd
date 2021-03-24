@@ -40,6 +40,7 @@ You can install the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("pedersen-fisheries-lab/sspm")
 ```
+
 ## Example
 
 The following example shows the typical `sspm` workflow. The API is subject to changes as the package is still in development.

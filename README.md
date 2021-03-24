@@ -75,9 +75,9 @@ sspm_base <- sspm(model_name = "My Model",
 sspm_base
 #> 
 #> ‒‒ SSPM object 'My Model' ‒‒
-#> →  Boundaries       : [ 4 features ; 2 variables ]
-#> →  Datasets         : 1 dataset
-#>    ٭ Biomass — [ 1541 observations ; 18 variables ]
+#> →  Boundaries  : [4 observations, 2 variables]
+#> →  Datasets    : 1 dataset
+#>    ٭ Biomass — [1541 observations, 18 variables]
 ```
 
 2.  Then, discretize the object using a method for discretization, the
@@ -92,12 +92,12 @@ sspm_discrete <- sspm_base %>%
 sspm_discrete
 #> 
 #> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
-#> →  Boundaries       : [ 4 features ; 2 variables ]
-#> →  Discretized with : 
-#>    ٭ Points — [ 75 features ; 19 variables ]
-#>    ٭ Patches — [ 69 features ; 4 variables ]
-#> →  Datasets         : 1 dataset
-#>    ٭ Biomass — [ 1541 observations ; 21 variables ]
+#> →  Boundaries  : [4 observations, 2 variables]
+#> →  Discretized : 
+#>    ٭ Points — [75 features, 19 variables]
+#>    ٭ Patches — [69 features, 4 variables]
+#> →  Datasets    : 1 dataset
+#>    ٭ Biomass — [1541 observations, 21 variables]
 ```
 
 The results of the discretization can be explored with `spm_patches()`
@@ -165,13 +165,13 @@ sspm_discrete_mapped <- sspm_discrete %>%
 sspm_discrete_mapped
 #> 
 #> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
-#> →  Boundaries       : [ 4 features ; 2 variables ]
-#> →  Discretized with : 
-#>    ٭ Points — [ 75 features ; 19 variables ]
-#>    ٭ Patches — [ 69 features ; 4 variables ]
-#> →  Datasets         : 2 datasets
-#>    ٭ Biomass — [ 1541 observations ; 21 variables ]
-#>    ٭ pred_data — [ 4833 observations ; 18 variables ]
+#> →  Boundaries  : [4 observations, 2 variables]
+#> →  Discretized : 
+#>    ٭ Points — [75 features, 19 variables]
+#>    ٭ Patches — [69 features, 4 variables]
+#> →  Datasets    : 2 datasets
+#>    ٭ Biomass — [1541 observations, 21 variables]
+#>    ٭ pred_data — [4833 observations, 18 variables]
 ```
 
 4.  Smoothing formulas for any of the datasets may be specified, using
@@ -186,14 +186,14 @@ sspm_discrete_mapped_with_forms <- sspm_discrete_mapped %>%
 sspm_discrete_mapped_with_forms
 #> 
 #> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
-#> →  Boundaries       : [ 4 features ; 2 variables ]
-#> →  Discretized with : 
-#>    ٭ Points — [ 75 features ; 19 variables ]
-#>    ٭ Patches — [ 69 features ; 4 variables ]
-#> →  Datasets         : 2 datasets
-#>    ٭ Biomass — [ 1541 observations ; 21 variables ]
-#>       – weight_per_km2 ~ smooth_space()...
-#>    ٭ pred_data — [ 4833 observations ; 18 variables ]
+#> →  Boundaries  : [4 observations, 2 variables]
+#> →  Discretized : 
+#>    ٭ Points — [75 features, 19 variables]
+#>    ٭ Patches — [69 features, 4 variables]
+#> →  Datasets    : 2 datasets
+#>    ٭ Biomass — [1541 observations, 21 variables]
+#>       – weight_per_km2 ~ smooth_space()
+#>    ٭ pred_data — [4833 observations, 18 variables]
 ```
 
 5.  Finally, formulas can be fitted with `fit_smooths()`
@@ -201,80 +201,18 @@ sspm_discrete_mapped_with_forms
 ``` r
 sspm_discrete_mapped_fitted <- sspm_discrete_mapped_with_forms %>%
   fit_smooths()
-#> Called from: fit_smooths(.)
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#43: datasets <- spm_datasets(sspm_object)
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#45: has_formulas <- sapply(datasets, function(x) {
-#>     length(spm_formulas(x)) > 0
-#> })
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#49: all_fit <- vector(mode = "list", length = sum(has_formulas))
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#52: names(all_fit) <- names(datasets)[has_formulas]
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#54: for (dataset in datasets) {
-#>     formulas <- spm_formulas(dataset)
-#>     if (length(formulas) == 0) {
-#>         next
-#>     }
-#>     all_fit[[spm_name(dataset)]] <- vector(mode = "list", length = length(formulas))
-#>     for (form_id in seq_len(length.out = length(formulas))) {
-#>         form <- formulas[[form_id]]
-#>         cli::cli_alert_info(paste0("Fitting formula: ", cli::col_yellow(format_formula(raw_formula(form))), 
-#>             " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset), 
-#>                 "'"))))
-#>         the_data <- spm_data(dataset)
-#>         form_vars <- formula_vars(form)
-#>         form_env <- attr(translated_formula(form), ".Environment")
-#>         for (var in names(form_vars)) {
-#>             assign(x = var, value = form_vars[[var]], envir = form_env)
-#>         }
-#>         all_fit[[spm_name(dataset)]][[form_id]] <- mgcv::bam(formula = translated_formula(form), 
-#>             data = the_data, family = family, drop.unused.levels = drop.unused.levels, 
-#>             method = method, ...)
-#>     }
-#> }
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#56: formulas <- spm_formulas(dataset)
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#58: if (length(formulas) == 0) {
-#>     next
-#> }
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#62: all_fit[[spm_name(dataset)]] <- vector(mode = "list", length = length(formulas))
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#65: for (form_id in seq_len(length.out = length(formulas))) {
-#>     form <- formulas[[form_id]]
-#>     cli::cli_alert_info(paste0("Fitting formula: ", cli::col_yellow(format_formula(raw_formula(form))), 
-#>         " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset), 
-#>             "'"))))
-#>     the_data <- spm_data(dataset)
-#>     form_vars <- formula_vars(form)
-#>     form_env <- attr(translated_formula(form), ".Environment")
-#>     for (var in names(form_vars)) {
-#>         assign(x = var, value = form_vars[[var]], envir = form_env)
-#>     }
-#>     all_fit[[spm_name(dataset)]][[form_id]] <- mgcv::bam(formula = translated_formula(form), 
-#>         data = the_data, family = family, drop.unused.levels = drop.unused.levels, 
-#>         method = method, ...)
-#> }
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#68: form <- formulas[[form_id]]
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#71: cli::cli_alert_info(paste0("Fitting formula: ", cli::col_yellow(format_formula(raw_formula(form))), 
-#>     " for dataset ", cli::col_cyan(paste0("'", spm_name(dataset), 
-#>         "'"))))
-#> ℹ Fitting formula: weight_per_km2 ~ smooth_space() for dataset 'Biomass'
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#77: the_data <- spm_data(dataset)
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#78: form_vars <- formula_vars(form)
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#81: form_env <- attr(translated_formula(form), ".Environment")
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#82: for (var in names(form_vars)) {
-#>     assign(x = var, value = form_vars[[var]], envir = form_env)
-#> }
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#83: assign(x = var, value = form_vars[[var]], envir = form_env)
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#87: all_fit[[spm_name(dataset)]][[form_id]] <- mgcv::bam(formula = translated_formula(form), 
-#>     data = the_data, family = family, drop.unused.levels = drop.unused.levels, 
-#>     method = method, ...)
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#56: formulas <- spm_formulas(dataset)
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#58: if (length(formulas) == 0) {
-#>     next
-#> }
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#59: next
-#> debug at /home/vlucet/Documents/PedersenLab/Task_1_shrimp_model/repos/sspm/R/fit.R#99: return(lapply(all_fit, summary))
+#> ℹ  Fitting formula: weight_per_km2 ~ smooth_space() for dataset 'Biomass'
 sspm_discrete_mapped_fitted
-#> $Biomass
-#>      Length Class Mode
-#> [1,] 54     bam   list
+#> 
+#> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
+#> →  Boundaries  : [4 observations, 2 variables]
+#> →  Discretized : 
+#>    ٭ Points — [75 features, 19 variables]
+#>    ٭ Patches — [69 features, 4 variables]
+#> →  Datasets    : 2 datasets
+#>    ٭ Biomass — [1541 observations, 21 variables] (SMOOTHED)
+#>       – weight_per_km2 ~ smooth_space()
+#>    ٭ pred_data — [4833 observations, 18 variables]
 ```
 
 6.  Last step: full SPM implementation (TBA).
