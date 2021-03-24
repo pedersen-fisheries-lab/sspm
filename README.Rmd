@@ -95,7 +95,7 @@ sspm_discrete_mapped
 4. Smoothing formulas for any of the datasets may be specified, using special terms `smooth_time()`, `smooth_space` and `smooth_space_time`. NOTE: the testing dataset is dummy data and wont converge if `smooth_time()` or `smooth_space_time` is used (to be fixed soon).
 ```{r}
 sspm_discrete_mapped_with_forms <- sspm_discrete_mapped %>%
-  map_formula("Biomass", weight_per_km2~smooth_space())
+  map_formula("Biomass", weight_per_km2~smooth_time())
 sspm_discrete_mapped_with_forms
 ```
 
@@ -106,7 +106,13 @@ sspm_discrete_mapped_fitted <- sspm_discrete_mapped_with_forms %>%
 sspm_discrete_mapped_fitted
 ```
 
-6. Last step: full SPM implementation (TBA).
+6. Split data into test/train (WIP)
+```{r}
+sspm_discrete_mapped_fitted_splitted <- spm_split(sspm_discrete_mapped_fitted, "Biomass", year %in% c(1996, 1997))
+sspm_discrete_mapped_fitted_splitted
+```
+
+7. Last step: full SPM implementation (TBA).
 ```{r, eval = FALSE}
 sspm_discrete_mapped_fitted_SPM <- sspm_discrete_mapped_fitted %>% 
   fit_spm()

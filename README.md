@@ -97,7 +97,7 @@ sspm_discrete
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 1 dataset
-#>    ٭ Biomass — [1541 observations, 21 variables]
+#>    ٭ Biomass — [1026 observations, 21 variables]
 ```
 
 The results of the discretization can be explored with `spm_patches()`
@@ -170,8 +170,8 @@ sspm_discrete_mapped
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 2 datasets
-#>    ٭ Biomass — [1541 observations, 21 variables]
-#>    ٭ pred_data — [4833 observations, 18 variables]
+#>    ٭ Biomass — [1026 observations, 21 variables]
+#>    ٭ pred_data — [1979 observations, 18 variables]
 ```
 
 4.  Smoothing formulas for any of the datasets may be specified, using
@@ -182,7 +182,7 @@ sspm_discrete_mapped
 
 ``` r
 sspm_discrete_mapped_with_forms <- sspm_discrete_mapped %>%
-  map_formula("Biomass", weight_per_km2~smooth_space())
+  map_formula("Biomass", weight_per_km2~smooth_time())
 sspm_discrete_mapped_with_forms
 #> 
 #> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
@@ -191,9 +191,9 @@ sspm_discrete_mapped_with_forms
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 2 datasets
-#>    ٭ Biomass — [1541 observations, 21 variables]
-#>       – weight_per_km2 ~ smooth_space()
-#>    ٭ pred_data — [4833 observations, 18 variables]
+#>    ٭ Biomass — [1026 observations, 21 variables]
+#>       – weight_per_km2 ~ smooth_time()
+#>    ٭ pred_data — [1979 observations, 18 variables]
 ```
 
 5.  Finally, formulas can be fitted with `fit_smooths()`
@@ -201,7 +201,7 @@ sspm_discrete_mapped_with_forms
 ``` r
 sspm_discrete_mapped_fitted <- sspm_discrete_mapped_with_forms %>%
   fit_smooths()
-#> ℹ  Fitting formula: weight_per_km2 ~ smooth_space() for dataset 'Biomass'
+#> ℹ  Fitting formula: weight_per_km2 ~ smooth_time() for dataset 'Biomass'
 sspm_discrete_mapped_fitted
 #> 
 #> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
@@ -210,12 +210,31 @@ sspm_discrete_mapped_fitted
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 2 datasets
-#>    ٭ Biomass — [1541 observations, 21 variables] (SMOOTHED)
-#>       – weight_per_km2 ~ smooth_space()
-#>    ٭ pred_data — [4833 observations, 18 variables]
+#>    ٭ Biomass — [1026 observations, 21 variables]
+#>       – weight_per_km2 ~ smooth_time()
+#>       – (SMOOTHED) [1026 observations]
+#>    ٭ pred_data — [1979 observations, 18 variables]
 ```
 
-6.  Last step: full SPM implementation (TBA).
+6.  Split data into test/train (WIP)
+
+``` r
+sspm_discrete_mapped_fitted_splitted <- spm_split(sspm_discrete_mapped_fitted, "Biomass", year %in% c(1996, 1997))
+sspm_discrete_mapped_fitted_splitted
+#> 
+#> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
+#> →  Boundaries  : [4 observations, 2 variables]
+#> →  Discretized : 
+#>    ٭ Points — [75 features, 19 variables]
+#>    ٭ Patches — [69 features, 4 variables]
+#> →  Datasets    : 2 datasets
+#>    ٭ Biomass — [1026 observations, 22 variables]
+#>       – weight_per_km2 ~ smooth_time()
+#>       – (SMOOTHED, SPLITTED) [68 train, 958 test]
+#>    ٭ pred_data — [1979 observations, 18 variables]
+```
+
+7.  Last step: full SPM implementation (TBA).
 
 ``` r
 sspm_discrete_mapped_fitted_SPM <- sspm_discrete_mapped_fitted %>% 
