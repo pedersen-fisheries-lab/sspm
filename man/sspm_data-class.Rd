@@ -34,5 +34,7 @@ base dataset.}
 \item{\code{smoothed_data}}{\strong{[list]} The smoothed data.}
 
 \item{\code{smoothed_fit}}{\strong{[list]} The fit from smoothing the data}
+
+\item{\code{splitted}}{\strong{[Logical]} Whether or not this dataset has been splitted.}
 }}
 

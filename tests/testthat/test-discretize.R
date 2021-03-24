@@ -17,7 +17,7 @@ test_that("Discretization work as expected", {
   expect_names(names(spm_data(spm_datasets(discretized)$Biomass)),
                must.include = c("patch_id", "area_km2"))
 
-  expect_equal(dim(spm_data(spm_datasets(discretized)$Biomass))[1], 1541)
+  expect_equal(dim(spm_data(spm_datasets(discretized)$Biomass))[1], 1026)
   expect_equal(dim(spm_data(spm_datasets(discretized)$Biomass))[2], 21)
 
   expect_equal(dim(spm_patches(discretized))[1], 69)

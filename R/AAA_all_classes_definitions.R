@@ -38,6 +38,7 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #' @slot smoothed **\[Logical\]** Whether or not this dataset has been smoothed.
 #' @slot smoothed_data **\[list\]** The smoothed data.
 #' @slot smoothed_fit **\[list\]** The fit from smoothing the data
+#' @slot splitted **\[Logical\]** Whether or not this dataset has been splitted.
 #'
 #' @name sspm_data-class
 #' @rdname sspm_data-class
@@ -51,9 +52,11 @@ setClass("sspm_data",
                       formulas = "list",
                       is_smoothed = "logical",
                       smoothed_data = "list",
-                      smoothed_fit = "list"),
+                      smoothed_fit = "list",
+                      is_splitted = "logical"),
          prototype = prototype(name = "Biomass",
-                               is_smoothed = FALSE),
+                               is_smoothed = FALSE,
+                               is_splitted = FALSE),
          contains = c("sf", "data.frame"))
 
 # TODO reconsider using the stack approach
@@ -113,7 +116,7 @@ setClass("sspm",
                                datasets = list())
 )
 
-#' @rdname sspm-class sspm_discrete
+#' @describeIn sspm-class sspm_discrete
 setClass("sspm_discrete",
          slots = list(method = "discretization_method",
                       patches = "sf",
