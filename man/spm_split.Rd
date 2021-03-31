@@ -19,7 +19,7 @@ spm_split(sspm_object, dataset, predicate)
 \item{sspm_object}{\strong{[sspm_discrete]} An object of class
 \link[=sspm-class]{sspm} or \link[=sspm_discrete-class]{sspm_discrete}}
 
-\item{dataset}{\strong{[expression]} The dataset to split.}
+\item{dataset}{\strong{[chacacter]} The dataset to split.}
 
 \item{predicate}{\strong{[expression]} Expression to evaluate to split data.}
 }

@@ -4,7 +4,7 @@
 #'
 #' @param sspm_object **\[sspm_discrete\]** An object of class
 #'     [sspm][sspm-class] or [sspm_discrete][sspm_discrete-class]
-#' @param dataset **\[expression\]** The dataset to split.
+#' @param dataset **\[chacacter\]** The dataset to split.
 #' @param predicate **\[expression\]** Expression to evaluate to split data.
 #'
 #' @return
