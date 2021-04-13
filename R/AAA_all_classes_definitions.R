@@ -46,6 +46,7 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 setClass("sspm_data",
          slots = list(name = "character",
                       data = "ANY",
+                      type = "character",
                       time_column = "character",
                       coords = "characterOrNULL",
                       uniqueID = "character",
