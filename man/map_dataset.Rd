@@ -12,6 +12,7 @@ map_dataset(
   sspm_object,
   data,
   name,
+  type,
   time_column,
   uniqueID,
   coords = NULL,
@@ -23,6 +24,7 @@ map_dataset(
   sspm_object,
   data,
   name,
+  type,
   time_column,
   uniqueID,
   coords = NULL,
@@ -34,6 +36,7 @@ map_dataset(
   sspm_object,
   data,
   name,
+  type,
   time_column,
   uniqueID,
   coords = NULL,
@@ -45,6 +48,7 @@ map_dataset(
   sspm_object,
   data,
   name,
+  type,
   time_column,
   uniqueID,
   coords = NULL,
@@ -56,6 +60,7 @@ map_dataset(
   sspm_object,
   data,
   name,
+  type,
   time_column,
   uniqueID,
   coords = NULL,
@@ -71,6 +76,9 @@ map_dataset(
 
 \item{name}{\strong{[character]} The name of the dataset, default to "Biomass".}
 
+\item{type}{\strong{[character]} The type of dataset in the context of the sspm
+workflow, one of "biomass", "predictor", or "catch".}
+
 \item{time_column}{\strong{[character]} The column of \code{data} for the temporal
 dimensions (i.e. year).}
 
@@ -85,8 +93,7 @@ latitude of the observations.}
 \item{...}{
   Arguments passed on to \code{\link[=as_sspm_data]{as_sspm_data}}
   \describe{
-    \item{\code{type}}{\strong{[character]} The type of dataset in the context of the sspm
-workflow, one of "biomass", "predictor", or "catch".}
+    \item{\code{}}{}
   }}
 }
 \value{

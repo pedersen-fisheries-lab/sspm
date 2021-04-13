@@ -16,6 +16,7 @@ setGeneric(name = "map_dataset",
            def = function(sspm_object,
                           data,
                           name,
+                          type,
                           time_column,
                           uniqueID,
                           coords = NULL,
@@ -31,11 +32,11 @@ setGeneric(name = "map_dataset",
 # and sf is not possible as `sf` is not exported.
 
 #' @export
-#' @rdname map_dataset 
+#' @rdname map_dataset
 setMethod(f = "map_dataset",
           signature(sspm_object = "sspm",
                     data = "data.frame"),
-          function(sspm_object, data, name, time_column, uniqueID, coords, crs, ...){
+          function(sspm_object, data, name, type, time_column, uniqueID, coords, crs, ...){
 
             # TODO better CRS checks
             if (is.null(crs)){
@@ -47,7 +48,7 @@ setMethod(f = "map_dataset",
             }
 
             updated_object <-
-              cast_and_return(sspm_object, data, name,
+              cast_and_return(sspm_object, data, name, type,
                               time_column, uniqueID, coords, crs, ...)
 
             return(updated_object)
@@ -56,11 +57,11 @@ setMethod(f = "map_dataset",
 )
 
 #' @export
-#' @rdname map_dataset 
+#' @rdname map_dataset
 setMethod(f = "map_dataset",
           signature(sspm_object = "sspm",
                     data = "sf"),
-          function(sspm_object, data, name,
+          function(sspm_object, data, name, type,
                    time_column, uniqueID, coords, crs, ...){
 
             updated_object <- cast_and_return(sspm_object, data, ...)
@@ -71,11 +72,11 @@ setMethod(f = "map_dataset",
 )
 
 # Helper for the two methods above
-cast_and_return <- function(sspm_object, data, name,
+cast_and_return <- function(sspm_object, data, name, type,
                             time_column, uniqueID, coords, crs, ...){
 
   # Cast data.frame as sspm_data
-  sspm_data <- as_sspm_data(data = data, name,
+  sspm_data <- as_sspm_data(data = data, name, type,
                             time_column, uniqueID, coords, crs, ...)
 
   # Call next method
@@ -85,7 +86,7 @@ cast_and_return <- function(sspm_object, data, name,
 }
 
 #' @export
-#' @rdname map_dataset 
+#' @rdname map_dataset
 setMethod(f = "map_dataset",
           signature(sspm_object = "sspm",
                     data = "sspm_data"),
@@ -119,12 +120,14 @@ setMethod(f = "map_dataset",
 )
 
 #' @export
-#' @rdname map_dataset 
+#' @rdname map_dataset
 setMethod(f = "map_dataset",
           signature(sspm_object = "sspm",
                     data = "list"),
-          function(sspm_object, data,
+          function(sspm_object,
+                   data,
                    name,
+                   type,
                    time_column,
                    uniqueID,
                    coords = NULL,
@@ -132,7 +135,8 @@ setMethod(f = "map_dataset",
 
             # Capture args
             args <- list(name = name,
-                         time_colu = time_column,
+                         type = type,
+                         time_column = time_column,
                          uniqueID = uniqueID,
                          coords = coords)
 
