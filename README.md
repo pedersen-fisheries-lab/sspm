@@ -66,7 +66,7 @@ sfa_boundaries <- sspm:::sfa_boundaries
 ``` r
 sspm_base <- sspm(model_name = "My Model",
                   boundaries = sfa_boundaries) %>% 
-  map_dataset(borealis, "Biomass",
+  map_dataset(borealis, "Borealis", "biomass",
               time_column = "year_f",
               coords = c('lon_dec','lat_dec'),
               uniqueID = "uniqueID",)
@@ -77,7 +77,7 @@ sspm_base
 #> ‒‒ SSPM object 'My Model' ‒‒
 #> →  Boundaries  : [4 observations, 2 variables]
 #> →  Datasets    : 1 dataset
-#>    ٭ Biomass — [1541 observations, 18 variables]
+#>    ٭ Borealis — [1541 observations, 18 variables]
 ```
 
 2.  Then, discretize the object using a method for discretization, the
@@ -86,9 +86,9 @@ sspm_base
 
 ``` r
 sspm_discrete <- sspm_base %>%
-  spm_discretize(with_dataset = "Biomass", 
+  spm_discretize(with_dataset = "Borealis", 
                  discretization_method = "tesselate_voronoi")
-#> ℹ  Discretizing using method tesselate_voronoi with dataset Biomass
+#> ℹ  Discretizing using method tesselate_voronoi with dataset Borealis
 sspm_discrete
 #> 
 #> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
@@ -97,7 +97,7 @@ sspm_discrete
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 1 dataset
-#>    ٭ Biomass — [1026 observations, 21 variables]
+#>    ٭ Borealis — [1026 observations, 21 variables]
 ```
 
 The results of the discretization can be explored with `spm_patches()`
@@ -157,6 +157,7 @@ spm_points(sspm_discrete)
 sspm_discrete_mapped <- sspm_discrete %>%
   map_dataset(predator,
               name = "pred_data",
+              type = "predictor",
               time_column = "year",
               uniqueID = "uniqueID",
               coords = c("lon_dec", "lat_dec"))
@@ -170,7 +171,7 @@ sspm_discrete_mapped
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 2 datasets
-#>    ٭ Biomass — [1026 observations, 21 variables]
+#>    ٭ Borealis — [1026 observations, 21 variables]
 #>    ٭ pred_data — [1979 observations, 18 variables]
 ```
 
@@ -182,7 +183,7 @@ sspm_discrete_mapped
 
 ``` r
 sspm_discrete_mapped_with_forms <- sspm_discrete_mapped %>%
-  map_formula("Biomass", weight_per_km2~smooth_time())
+  map_formula("Borealis", weight_per_km2~smooth_time())
 sspm_discrete_mapped_with_forms
 #> 
 #> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
@@ -191,7 +192,7 @@ sspm_discrete_mapped_with_forms
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 2 datasets
-#>    ٭ Biomass — [1026 observations, 21 variables]
+#>    ٭ Borealis — [1026 observations, 21 variables]
 #>       – weight_per_km2 ~ smooth_time()
 #>    ٭ pred_data — [1979 observations, 18 variables]
 ```
@@ -201,7 +202,7 @@ sspm_discrete_mapped_with_forms
 ``` r
 sspm_discrete_mapped_fitted <- sspm_discrete_mapped_with_forms %>%
   fit_smooths()
-#> ℹ  Fitting formula: weight_per_km2 ~ smooth_time() for dataset 'Biomass'
+#> ℹ  Fitting formula: weight_per_km2 ~ smooth_time() for dataset 'Borealis'
 sspm_discrete_mapped_fitted
 #> 
 #> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
@@ -210,7 +211,7 @@ sspm_discrete_mapped_fitted
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 2 datasets
-#>    ٭ Biomass — [1026 observations, 21 variables]
+#>    ٭ Borealis — [1026 observations, 21 variables]
 #>       – weight_per_km2 ~ smooth_time()
 #>       – (SMOOTHED) [1026 observations]
 #>    ٭ pred_data — [1979 observations, 18 variables]
@@ -220,7 +221,7 @@ sspm_discrete_mapped_fitted
 
 ``` r
 sspm_discrete_mapped_fitted_splitted <- 
-  spm_split(sspm_discrete_mapped_fitted, "Biomass", year %in% c(1996, 1997))
+  spm_split(sspm_discrete_mapped_fitted, "Borealis", year %in% c(1996, 1997))
 sspm_discrete_mapped_fitted_splitted
 #> 
 #> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
@@ -229,7 +230,7 @@ sspm_discrete_mapped_fitted_splitted
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 2 datasets
-#>    ٭ Biomass — [1026 observations, 22 variables]
+#>    ٭ Borealis — [1026 observations, 22 variables]
 #>       – weight_per_km2 ~ smooth_time()
 #>       – (SMOOTHED, SPLITTED) [68 train, 958 test]
 #>    ٭ pred_data — [1979 observations, 18 variables]
