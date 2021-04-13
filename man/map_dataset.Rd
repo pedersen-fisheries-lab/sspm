@@ -85,7 +85,8 @@ latitude of the observations.}
 \item{...}{
   Arguments passed on to \code{\link[=as_sspm_data]{as_sspm_data}}
   \describe{
-    \item{\code{}}{}
+    \item{\code{type}}{\strong{[character]} The type of dataset in the context of the sspm
+workflow, one of "biomass", "predictor", or "catch".}
   }}
 }
 \value{

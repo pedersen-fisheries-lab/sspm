@@ -2,26 +2,29 @@
 % Please edit documentation in R/as_sspm_data.R
 \name{as_sspm_data}
 \alias{as_sspm_data}
-\alias{as_sspm_data,data.frame,ANY,ANY,ANY,missingOrNULL-method}
-\alias{as_sspm_data,data.frame,ANY,ANY,ANY,list-method}
-\alias{as_sspm_data,data.frame,ANY,ANY,ANY,character-method}
-\alias{as_sspm_data,sf,ANY,ANY,ANY,ANY-method}
+\alias{as_sspm_data,data.frame,ANY,ANY,ANY,ANY,missingOrNULL-method}
+\alias{as_sspm_data,data.frame,ANY,ANY,ANY,ANY,list-method}
+\alias{as_sspm_data,data.frame,ANY,ANY,ANY,ANY,character-method}
+\alias{as_sspm_data,sf,ANY,ANY,ANY,ANY,ANY-method}
 \title{Create a \code{sspm_data} dataset structure}
 \usage{
-as_sspm_data(data, name, time_column, uniqueID, coords, crs = NULL)
+as_sspm_data(data, name, type, time_column, uniqueID, coords, crs = NULL)
 
-\S4method{as_sspm_data}{data.frame,ANY,ANY,ANY,missingOrNULL}(data, name, time_column, uniqueID, coords, crs = NULL)
+\S4method{as_sspm_data}{data.frame,ANY,ANY,ANY,ANY,missingOrNULL}(data, name, type, time_column, uniqueID, coords, crs = NULL)
 
-\S4method{as_sspm_data}{data.frame,ANY,ANY,ANY,list}(data, name, time_column, uniqueID, coords, crs = NULL)
+\S4method{as_sspm_data}{data.frame,ANY,ANY,ANY,ANY,list}(data, name, type, time_column, uniqueID, coords, crs = NULL)
 
-\S4method{as_sspm_data}{data.frame,ANY,ANY,ANY,character}(data, name, time_column, uniqueID, coords, crs = NULL)
+\S4method{as_sspm_data}{data.frame,ANY,ANY,ANY,ANY,character}(data, name, type, time_column, uniqueID, coords, crs = NULL)
 
-\S4method{as_sspm_data}{sf,ANY,ANY,ANY,ANY}(data, name, time_column, uniqueID, coords, crs = NULL)
+\S4method{as_sspm_data}{sf,ANY,ANY,ANY,ANY,ANY}(data, name, type, time_column, uniqueID, coords, crs = NULL)
 }
 \arguments{
 \item{data}{\strong{[data.frame OR sf]} The dataset.}
 
 \item{name}{\strong{[character]} The name of the dataset, default to "Biomass".}
+
+\item{type}{\strong{[character]} The type of dataset in the context of the sspm
+workflow, one of "biomass", "predictor", or "catch".}
 
 \item{time_column}{\strong{[character]} The column of \code{data} for the temporal
 dimensions (i.e. year).}
