@@ -161,3 +161,10 @@ modify_call <- function(the_call, args){
   }
   return(the_call)
 }
+
+# This function generates multilag values for a given vector
+multilag <-  function(variable, n_lags, default = NA){
+  out_mat <- sapply(1:n_lags, FUN = lag, x=variable, default = default)
+  colnames(out) <- paste0("lag", 1:n_lags)
+  as.data.frame(out)
+}
