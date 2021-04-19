@@ -25,9 +25,9 @@ test_that("Map formula works as expected", {
     sspm_discrete_mapped %>% map_formula("Biomass")
   }, "Argument 'formula' missing with no default")
 
-  expect_message({
-    sspm_discrete_mapped %>% map_formula(formula = weight_per_km2~smooth_time())
-  }, "Argument 'dataset' missing with no default")
+  # expect_message({
+  #   sspm_discrete_mapped %>% map_formula(formula = weight_per_km2~smooth_time())
+  # }, "Argument 'dataset' missing with no default")
 
   expect_error({
     sspm_discrete_mapped %>% map_formula("NotADataset", weight_per_km2~smooth_time())
