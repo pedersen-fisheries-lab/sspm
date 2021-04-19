@@ -38,7 +38,7 @@ setGeneric(name = "map_formula",
 # Methods -----------------------------------------------------------------
 
 #' @export
-#' @rdname map_formula 
+#' @rdname map_formula
 setMethod(f = "map_formula",
           signature(sspm_object = "sspm"),
           function(sspm_object, ...){
@@ -47,17 +47,39 @@ setMethod(f = "map_formula",
 )
 
 #' @export
-#' @rdname map_formula 
+#' @rdname map_formula
 setMethod(f = "map_formula",
           signature(sspm_object = "sspm_discrete",
                     dataset = "missing"),
           function(sspm_object, dataset, formula, ... ){
-            cli::cli_alert_danger(" Argument 'dataset' missing with no default")
+
+            # If dataset name is not provided, assume we want to map an actual
+            # SPM and not smooth the data (previous step in workflow)
+
+            # So first determine whether all datasets have been smoothed and
+            # whether a splitting scheme has been provided
+
+            # 1. Are all datsets smoothed?
+            # TODO replace by correct accessor
+            are_smoothed <- sapply(spm_datasets(sspm_object), slot, "is_smoothed")
+            if(!(any(are_smoothed))){
+              cli::cli_alert_danger(" Not all datasets are smoothed - SPM formula cannot be mapped")
+              cli::cli_alert_info(" To fit a smoothing formula to a specific dataset, use dataset = ...")
+
+            } else{
+
+              # 2. Is there a splitting scheme?
+              # TODO come back to this later
+
+              # 3. Map the fomula
+
+            }
+
           }
 )
 
 #' @export
-#' @rdname map_formula 
+#' @rdname map_formula
 setMethod(f = "map_formula",
           signature(sspm_object = "sspm_discrete",
                     formula = "missing"),
@@ -67,7 +89,7 @@ setMethod(f = "map_formula",
 )
 
 #' @export
-#' @rdname map_formula 
+#' @rdname map_formula
 setMethod(f = "map_formula",
           signature(sspm_object = "sspm_discrete",
                     dataset = "character",
