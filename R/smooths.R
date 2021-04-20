@@ -28,7 +28,7 @@ setGeneric(name = "smooth_time",
 )
 
 #' @export
-#' @rdname smooths 
+#' @rdname smooths
 setGeneric(name = "smooth_space",
            def = function(type = "ICAR",
                           dataset,
@@ -42,7 +42,7 @@ setGeneric(name = "smooth_space",
 )
 
 #' @export
-#' @rdname smooths 
+#' @rdname smooths
 setGeneric(name = "smooth_space_time",
            def = function(type = "ICAR",
                           dataset,
@@ -55,6 +55,18 @@ setGeneric(name = "smooth_space_time",
            }
 )
 
+#' @export
+#' @rdname smooths
+setGeneric(name = "smooth_lag",
+           def = function(sspm_object,
+                          n = 1,
+                          k = NULL,
+                          m = 1,
+                          ...){
+             standardGeneric("smooth_lag")
+           }
+)
+
 # Methods -----------------------------------------------------------------
 
 # Beware: the following code is repeated three time for the sake of user
@@ -63,7 +75,7 @@ setGeneric(name = "smooth_space_time",
 # done to the other two occurrences of that code.
 
 #' @export
-#' @rdname smooths 
+#' @rdname smooths
 setMethod(f = "smooth_time",
           signature(type = "ANY",
                     dataset = "character",
@@ -92,7 +104,7 @@ setMethod(f = "smooth_time",
 )
 
 #' @export
-#' @rdname smooths 
+#' @rdname smooths
 setMethod(f = "smooth_space",
           signature(type = "ANY",
                     dataset = "character",
@@ -121,7 +133,7 @@ setMethod(f = "smooth_space",
 )
 
 #' @export
-#' @rdname smooths 
+#' @rdname smooths
 setMethod(f = "smooth_space_time",
           signature(type = "ANY",
                     dataset = "character",
@@ -145,6 +157,33 @@ setMethod(f = "smooth_space_time",
 
             return(list(smooth = string_smooth,
                         vars = args_and_vars$vars))
+
+          }
+)
+
+#' @export
+#' @rdname smooths
+setMethod(f = "smooth_lag",
+          signature(sspm_object = "sspm_discrete"),
+          function(sspm_object, n, k, m, ...){
+
+            # # Get args from ellipsis for extra args: this form is necessary for
+            # # capturing symbols as well
+            # args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
+            #
+            # # Get the default arguments for the smooth type used
+            # args_and_vars <- do.call(dispatch_smooth(type),
+            #                          append(list(sspm_object = sspm_object,
+            #                                      dataset = dataset,
+            #                                      dimension = "space_time",
+            #                                      k = k, bs = bs, xt = xt),
+            #                                 args_list))
+            #
+            # # Assemble the smooths
+            # string_smooth <- assemble_smooth("ti", args_and_vars$args)
+            #
+            # return(list(smooth = string_smooth,
+            #             vars = args_and_vars$vars))
 
           }
 )
