@@ -24,6 +24,10 @@
 \alias{spm_formulas,sspm_data-method}
 \alias{spm_formulas<-}
 \alias{spm_formulas<-,sspm_data-method}
+\alias{spm_type}
+\alias{spm_type,sspm_data-method}
+\alias{spm_type<-}
+\alias{spm_type<-,sspm_data-method}
 \title{Accessing OR replacing \code{sspm_data} model elements}
 \usage{
 spm_data(sspm_object)
@@ -71,6 +75,14 @@ spm_formulas(sspm_object)
 spm_formulas(object) <- value
 
 \S4method{spm_formulas}{sspm_data}(object) <- value
+
+spm_type(sspm_object)
+
+\S4method{spm_type}{sspm_data}(sspm_object)
+
+spm_type(object) <- value
+
+\S4method{spm_type}{sspm_data}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class

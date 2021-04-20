@@ -66,7 +66,8 @@ sfa_boundaries <- sspm:::sfa_boundaries
 ``` r
 sspm_base <- sspm(model_name = "My Model",
                   boundaries = sfa_boundaries) %>% 
-  map_dataset(borealis, "Borealis", "biomass",
+  map_dataset(borealis, "Borealis", 
+              type = "biomass",
               time_column = "year_f",
               coords = c('lon_dec','lat_dec'),
               uniqueID = "uniqueID",)
