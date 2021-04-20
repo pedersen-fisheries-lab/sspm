@@ -157,6 +157,8 @@ smooth_space(), smooth_space_time()." />
   <span class='va'>...</span>
 <span class='op'>)</span>
 
+<span class='fu'>smooth_lag</span><span class='op'>(</span><span class='va'>sspm_object</span>, n <span class='op'>=</span> <span class='fl'>1</span>, k <span class='op'>=</span> <span class='cn'>NULL</span>, m <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span>
+
 <span class='co'># S4 method for ANY,character,sspm_discrete</span>
 <span class='fu'>smooth_time</span><span class='op'>(</span>
   type <span class='op'>=</span> <span class='st'>"ICAR"</span>,
@@ -188,7 +190,10 @@ smooth_space(), smooth_space_time()." />
   bs <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"re"</span>, <span class='st'>"mrf"</span><span class='op'>)</span>,
   xt <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span>
+
+<span class='co'># S4 method for sspm_discrete</span>
+<span class='fu'>smooth_lag</span><span class='op'>(</span><span class='va'>sspm_object</span>, n <span class='op'>=</span> <span class='fl'>1</span>, k <span class='op'>=</span> <span class='cn'>NULL</span>, m <span class='op'>=</span> <span class='fl'>1</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -231,6 +236,14 @@ see <code><a href='https://rdrr.io/pkg/mgcv/man/smooth.terms.html'>smooth.terms<
     <tr>
       <th>...</th>
       <td><p>Further arguments passed down, none used for now.</p></td>
+    </tr>
+    <tr>
+      <th>m</th>
+      <td><p>The order of the penalty for this term (e.g. 2 for
+    normal cubic spline penalty with 2nd derivatives when using 
+   default t.p.r.s basis). <code>NA</code> signals
+    autoinitialization. Only some smooth classes use this. The <code>"ps"</code> 
+    class can use a 2 item array giving the basis and penalty order separately.</p></td>
     </tr>
     </table>
 
