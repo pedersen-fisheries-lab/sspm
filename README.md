@@ -78,7 +78,7 @@ sspm_base
 #> ‒‒ SSPM object 'My Model' ‒‒
 #> →  Boundaries  : [4 observations, 2 variables]
 #> →  Datasets    : 1 dataset
-#>    ٭ Borealis — [1541 observations, 18 variables]
+#>    ٭ Borealis (biomass) — [1541 observations, 18 variables]
 ```
 
 2.  Then, discretize the object using a method for discretization, the
@@ -98,7 +98,7 @@ sspm_discrete
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 1 dataset
-#>    ٭ Borealis — [1026 observations, 21 variables]
+#>    ٭ Borealis (biomass) — [1026 observations, 21 variables]
 ```
 
 The results of the discretization can be explored with `spm_patches()`
@@ -172,8 +172,8 @@ sspm_discrete_mapped
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 2 datasets
-#>    ٭ Borealis — [1026 observations, 21 variables]
-#>    ٭ pred_data — [1979 observations, 18 variables]
+#>    ٭ Borealis (biomass) — [1026 observations, 21 variables]
+#>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
 ```
 
 4.  Smoothing formulas for any of the datasets may be specified, using
@@ -193,9 +193,9 @@ sspm_discrete_mapped_with_forms
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 2 datasets
-#>    ٭ Borealis — [1026 observations, 21 variables]
+#>    ٭ Borealis (biomass) — [1026 observations, 21 variables]
 #>       – weight_per_km2 ~ smooth_time()
-#>    ٭ pred_data — [1979 observations, 18 variables]
+#>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
 ```
 
 5.  Finally, formulas can be fitted with `fit_smooths()`
@@ -212,10 +212,10 @@ sspm_discrete_mapped_fitted
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 2 datasets
-#>    ٭ Borealis — [1026 observations, 21 variables]
+#>    ٭ Borealis (biomass) — [1026 observations, 21 variables]
 #>       – weight_per_km2 ~ smooth_time()
 #>       – (SMOOTHED) [1026 observations]
-#>    ٭ pred_data — [1979 observations, 18 variables]
+#>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
 ```
 
 6.  Split data into test/train (WIP)
@@ -231,10 +231,10 @@ sspm_discrete_mapped_fitted_splitted
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets    : 2 datasets
-#>    ٭ Borealis — [1026 observations, 22 variables]
+#>    ٭ Borealis (biomass) — [1026 observations, 22 variables]
 #>       – weight_per_km2 ~ smooth_time()
 #>       – (SMOOTHED, SPLITTED) [68 train, 958 test]
-#>    ٭ pred_data — [1979 observations, 18 variables]
+#>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
 ```
 
 7.  Last step: full SPM implementation (TBA).
