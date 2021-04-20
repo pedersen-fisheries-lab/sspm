@@ -119,6 +119,7 @@ cat_datasets <- function(object){
 
       the_line <-
         paste(cli::symbol$star, cli::col_green(spm_name(the_dataset)),
+              cli::col_magenta(paste0("(", spm_type(the_dataset), ")")),
               cli::symbol$em_dash,
               pluralize_data_info(spm_data(the_dataset)))
 
