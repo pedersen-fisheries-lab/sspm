@@ -96,6 +96,18 @@ setMethod(f = "map_dataset",
             datasets <- spm_datasets(sspm_object)
             datasets_names <- names(datasets)
 
+            # Verity the number of types is respectec
+            all_types <- sapply(datasets, spm_type)
+            this_type <- spm_type(data)
+
+            if(this_type %in% c("biomass", "catch")){
+              if(this_type %in% all_types){
+                cli_alert_danger(paste0("A dataset of type ", this_type,
+                                        " is already mapped, but only one dataset of this type is allowed."))
+                stop("Only one dataset of this type is allowed", call. = FALSE)
+              }
+            }
+
             if(sum(spm_name(data) %in% datasets_names)){
 
               cli::cli_alert_danger(" Name provided is already used, all dataset names must be unique.")
