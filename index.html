@@ -132,7 +132,7 @@
 <span class="co">#&gt; ‒‒ SSPM object 'My Model' ‒‒</span>
 <span class="co">#&gt; →  Boundaries  : [4 observations, 2 variables]</span>
 <span class="co">#&gt; →  Datasets    : 1 dataset</span>
-<span class="co">#&gt;    ٭ Borealis — [1541 observations, 18 variables]</span></code></pre></div>
+<span class="co">#&gt;    ٭ Borealis (biomass) — [1541 observations, 18 variables]</span></code></pre></div>
 <ol>
 <li>Then, discretize the object using a method for discretization, the default behind voronoi tesselation. See <code>?spm_methods()</code> for the list of methods available.</li>
 </ol>
@@ -149,7 +149,7 @@
 <span class="co">#&gt;    ٭ Points — [75 features, 19 variables]</span>
 <span class="co">#&gt;    ٭ Patches — [69 features, 4 variables]</span>
 <span class="co">#&gt; →  Datasets    : 1 dataset</span>
-<span class="co">#&gt;    ٭ Borealis — [1026 observations, 21 variables]</span></code></pre></div>
+<span class="co">#&gt;    ٭ Borealis (biomass) — [1026 observations, 21 variables]</span></code></pre></div>
 <p>The results of the discretization can be explored with <code><a href="reference/spm_name.html">spm_patches()</a></code> and <code><a href="reference/spm_name.html">spm_points()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/spm_name.html">spm_patches</a></span><span class="op">(</span><span class="va">sspm_discrete</span><span class="op">)</span>
@@ -217,8 +217,8 @@
 <span class="co">#&gt;    ٭ Points — [75 features, 19 variables]</span>
 <span class="co">#&gt;    ٭ Patches — [69 features, 4 variables]</span>
 <span class="co">#&gt; →  Datasets    : 2 datasets</span>
-<span class="co">#&gt;    ٭ Borealis — [1026 observations, 21 variables]</span>
-<span class="co">#&gt;    ٭ pred_data — [1979 observations, 18 variables]</span></code></pre></div>
+<span class="co">#&gt;    ٭ Borealis (biomass) — [1026 observations, 21 variables]</span>
+<span class="co">#&gt;    ٭ pred_data (predictor) — [1979 observations, 18 variables]</span></code></pre></div>
 <ol>
 <li>Smoothing formulas for any of the datasets may be specified, using special terms <code><a href="reference/smooth_time.html">smooth_time()</a></code>, <code>smooth_space</code> and <code>smooth_space_time</code>. NOTE: the testing dataset is dummy data and wont converge if <code><a href="reference/smooth_time.html">smooth_time()</a></code> or <code>smooth_space_time</code> is used (to be fixed soon).</li>
 </ol>
@@ -233,9 +233,9 @@
 <span class="co">#&gt;    ٭ Points — [75 features, 19 variables]</span>
 <span class="co">#&gt;    ٭ Patches — [69 features, 4 variables]</span>
 <span class="co">#&gt; →  Datasets    : 2 datasets</span>
-<span class="co">#&gt;    ٭ Borealis — [1026 observations, 21 variables]</span>
+<span class="co">#&gt;    ٭ Borealis (biomass) — [1026 observations, 21 variables]</span>
 <span class="co">#&gt;       – weight_per_km2 ~ smooth_time()</span>
-<span class="co">#&gt;    ٭ pred_data — [1979 observations, 18 variables]</span></code></pre></div>
+<span class="co">#&gt;    ٭ pred_data (predictor) — [1979 observations, 18 variables]</span></code></pre></div>
 <ol>
 <li>Finally, formulas can be fitted with <code><a href="reference/fit_smooths.html">fit_smooths()</a></code>
 </li>
@@ -252,10 +252,10 @@
 <span class="co">#&gt;    ٭ Points — [75 features, 19 variables]</span>
 <span class="co">#&gt;    ٭ Patches — [69 features, 4 variables]</span>
 <span class="co">#&gt; →  Datasets    : 2 datasets</span>
-<span class="co">#&gt;    ٭ Borealis — [1026 observations, 21 variables]</span>
+<span class="co">#&gt;    ٭ Borealis (biomass) — [1026 observations, 21 variables]</span>
 <span class="co">#&gt;       – weight_per_km2 ~ smooth_time()</span>
 <span class="co">#&gt;       – (SMOOTHED) [1026 observations]</span>
-<span class="co">#&gt;    ٭ pred_data — [1979 observations, 18 variables]</span></code></pre></div>
+<span class="co">#&gt;    ٭ pred_data (predictor) — [1979 observations, 18 variables]</span></code></pre></div>
 <ol>
 <li>Split data into test/train (WIP)</li>
 </ol>
@@ -270,10 +270,10 @@
 <span class="co">#&gt;    ٭ Points — [75 features, 19 variables]</span>
 <span class="co">#&gt;    ٭ Patches — [69 features, 4 variables]</span>
 <span class="co">#&gt; →  Datasets    : 2 datasets</span>
-<span class="co">#&gt;    ٭ Borealis — [1026 observations, 22 variables]</span>
+<span class="co">#&gt;    ٭ Borealis (biomass) — [1026 observations, 22 variables]</span>
 <span class="co">#&gt;       – weight_per_km2 ~ smooth_time()</span>
 <span class="co">#&gt;       – (SMOOTHED, SPLITTED) [68 train, 958 test]</span>
-<span class="co">#&gt;    ٭ pred_data — [1979 observations, 18 variables]</span></code></pre></div>
+<span class="co">#&gt;    ٭ pred_data (predictor) — [1979 observations, 18 variables]</span></code></pre></div>
 <ol>
 <li>Last step: full SPM implementation (TBA).</li>
 </ol>
