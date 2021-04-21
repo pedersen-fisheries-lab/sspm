@@ -56,14 +56,14 @@ setMethod(f = "spm_split",
             }
 
             # Check dataset is smoothed
-            if(!all_datasets[[dataset]]@is_smoothed){
+            if(!is_smoothed(all_datasets[[dataset]])){
               stop("Dataset not smooth")
             }
 
             # Verify of already splitted
 
             the_data <- spm_data(all_datasets[[dataset]])
-            the_data_smoothed <- (all_datasets[[dataset]])@smoothed_data
+            the_data_smoothed <- spm_smoothed_data(all_datasets[[dataset]])
 
             selection <- rlang::eval_tidy(rlang::enexpr(predicate),
                                           data = the_data)
@@ -75,7 +75,7 @@ setMethod(f = "spm_split",
             }
 
             spm_data(all_datasets[[dataset]]) <- the_data
-            all_datasets[[dataset]]@smoothed_data <- the_data_smoothed
+            spm_smoothed_data(all_datasets[[dataset]]) <- the_data_smoothed
 
             all_datasets[[dataset]]@is_splitted <- TRUE
 

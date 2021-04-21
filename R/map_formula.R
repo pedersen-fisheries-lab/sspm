@@ -151,7 +151,7 @@ setMethod(f = "map_formula",
             # Check response
             the_dataset <- all_datasets[[dataset]]
 
-            if(the_dataset@is_smoothed){
+            if(is_smoothed(the_dataset)){
               cli::cli_alert_danger("Dataset is already smoothed.")
               stop(call. = FALSE)
             }

@@ -46,7 +46,7 @@ setMethod(f = "fit_smooths",
 
             for(dataset in datasets){
 
-              if(!dataset@is_smoothed){
+              if(!is_smoothed(dataset)){
 
                 formulas <- spm_formulas(dataset)
                 formula_length <- length(formulas)
@@ -102,7 +102,7 @@ setMethod(f = "fit_smooths",
                   spm_smoothed_data(datasets[[spm_name(dataset)]]) <- tmp_smoothed
                   spm_smoothed_fit(datasets[[spm_name(dataset)]]) <- tmp_fit
                 }
-                datasets[[spm_name(dataset)]]@is_smoothed <- TRUE
+                is_smoothed(datasets[[spm_name(dataset)]]) <- TRUE
               }
             }
 
