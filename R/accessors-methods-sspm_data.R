@@ -305,7 +305,6 @@ setMethod("spm_smoothed_fit<-",
           }
 )
 
-
 # Is smoothed -------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
@@ -319,7 +318,7 @@ setGeneric(name = "is_smoothed",
 #' @export
 setMethod("is_smoothed",
           signature("sspm_object" = "sspm_data"),
-          function(sspm_object) sspm_object@smoothed
+          function(sspm_object) sspm_object@is_smoothed
 )
 
 # Replacers ---------------------------------------------------------------
@@ -335,7 +334,7 @@ setGeneric(name = "is_smoothed<-",
 setMethod("is_smoothed<-",
           signature("object" = "sspm_data"),
           function(object, value){
-            object@smoothed <- value
+            object@is_smoothed <- value
             validObject(object)
             return(object)
           }
