@@ -3,7 +3,7 @@
 \name{map_formula}
 \alias{map_formula}
 \alias{map_formula,sspm,ANY,ANY-method}
-\alias{map_formula,sspm_discrete,missing,ANY-method}
+\alias{map_formula,sspm_discrete,ANY,formula-method}
 \alias{map_formula,sspm_discrete,ANY,missing-method}
 \alias{map_formula,sspm_discrete,character,formula-method}
 \title{Map model formula onto a discretized sspm object}
@@ -12,7 +12,7 @@ map_formula(sspm_object, dataset, formula, ...)
 
 \S4method{map_formula}{sspm,ANY,ANY}(sspm_object, dataset, formula, ...)
 
-\S4method{map_formula}{sspm_discrete,missing,ANY}(sspm_object, dataset, formula, ...)
+\S4method{map_formula}{sspm_discrete,ANY,formula}(sspm_object, dataset, formula, ...)
 
 \S4method{map_formula}{sspm_discrete,ANY,missing}(sspm_object, dataset, formula, ...)
 
