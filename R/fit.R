@@ -131,26 +131,38 @@ setMethod(f = "fit_smooths",
                     # spm_smoothed_data(datasets[[spm_name(dataset)]]) <- tmp_smoothed
                     spm_smoothed_fit(datasets[[spm_name(dataset)]]) <- tmp_fit
                   }
-                  browser()
 
                   # Predict and store smoothed data to sspm level
                   if(predict){
+
                     preds <- predict(tmp_fit[[form_name]], predict_mat,type = "response")
                     preds_df <- predict_mat %>%
                       dplyr::mutate(!!spm_name(dataset) := as.vector(preds)) %>%
-                      dplyr::group_by(patch_id) %>%
-                      dplyr::mutate(!!paste0(spm_name(dataset), "_diff") :=
-                               log(!!spm_name(dataset)) - log(lag(!!spm_name(dataset)))) %>%
-                      ungroup()
-                  }
-                  # full_smoothed_data <- full_smoothed_data
+                      dplyr::arrange(!!time_col_name) %>%
+                      dplyr::group_by(patch_id) # %>%
 
+                    # TODO finish calculating the
+                    # dplyr::mutate(!!paste0(spm_name(dataset), "_diff") :=
+                    #                 log(.[[spm_name(dataset)]]) -
+                    #                 log(lag(.[[spm_name(dataset)]])))
+
+                    if (nrow(full_smoothed_data) == 0){
+                      full_smoothed_data <- preds_df
+                    } else {
+                      full_smoothed_data <- full_smoothed_data %>%
+                        dplyr::left_join(preds_df)
+                    }
+
+                  }
                 }
+
                 is_smoothed(datasets[[spm_name(dataset)]]) <- TRUE
+
               }
             }
 
             spm_datasets(sspm_object) <- datasets
+            spm_smoothed_data(sspm_object) <- full_smoothed_data
 
             # For now return a summary of the fit
             return(sspm_object)
