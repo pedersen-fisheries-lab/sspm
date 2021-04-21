@@ -33,6 +33,7 @@ setMethod("show",
             cat_boundaries(object)
             cat_discretization_info(object)
             cat_datasets(object)
+            cat_smoothed_data(object)
             cli::cat_line()
           }
 )
@@ -95,7 +96,7 @@ setMethod("show",
 
 cat_boundaries <- function(object){
 
-  cli::cat_bullet(cli::col_cyan(" Boundaries  : "),
+  cli::cat_bullet(cli::col_cyan(" Boundaries    : "),
                   pluralize_data_info(object@boundaries),
                   bullet = "arrow_right")
 
@@ -106,7 +107,7 @@ cat_datasets <- function(object){
   datasets <- spm_datasets(object)
   len_dat <- length(datasets)
 
-  cli::cat_bullet(cli::col_cyan(" Datasets    : "),
+  cli::cat_bullet(cli::col_cyan(" Datasets      : "),
                   cli::pluralize(cli::col_cyan("{no(len_dat)}")," dataset{?s}"),
                   bullet = "arrow_right")
 
@@ -136,7 +137,9 @@ cat_datasets <- function(object){
 
             # the_smoothed_data <- the_dataset@smoothed_data[[f_id]]
             # base_line <- paste0("      ", cli::symbol$en_dash, " ")
+
             the_tag <- "(SMOOTHED)"
+
             # smoothed <- paste0(" [", cli::col_blue(nrow(the_smoothed_data)), " observations]")
             # the_line <- paste0(base_line, cli::col_green(cli::style_bold(the_tag)), smoothed)
             # the_line <- paste0(base_line, cli::col_green(cli::style_bold(the_tag)))
@@ -171,9 +174,19 @@ cat_datasets <- function(object){
   }
 }
 
+cat_smoothed_data <- function(object){
+
+  if(!is.null(object@smoothed_data)){
+    cli::cat_bullet(cli::col_cyan(" Smoothed data : "),
+                    pluralize_data_info(object@smoothed_data),
+                    bullet = "arrow_right")
+  }
+
+}
+
 cat_discretization_info <- function(object){
 
-  cli::cat_bullet(cli::col_cyan(" Discretized : "),
+  cli::cat_bullet(cli::col_cyan(" Discretized   : "),
                   bullet = "arrow_right")
 
   cli::cat_line("   ", paste(cli::symbol$star, cli::col_green("Points"),
