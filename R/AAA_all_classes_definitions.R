@@ -35,10 +35,10 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 #' @slot formulas **\[list\]** *(if discrete)* List of
 #'     [sspm_formula][sspm_formula-class] objects that are mapped onto the
 #'     base dataset.
-#' @slot smoothed **\[Logical\]** Whether or not this dataset has been smoothed.
+#' @slot is_smoothed **\[Logical\]** Whether or not this dataset has been smoothed.
 #' @slot smoothed_data **\[list\]** The smoothed data.
 #' @slot smoothed_fit **\[list\]** The fit from smoothing the data
-#' @slot splitted **\[Logical\]** Whether or not this dataset has been splitted.
+#' @slot is_splitted **\[Logical\]** Whether or not this dataset has been splitted.
 #'
 #' @name sspm_data-class
 #' @rdname sspm_data-class
