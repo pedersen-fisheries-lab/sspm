@@ -30,6 +30,10 @@
 \alias{spm_type<-,sspm_data-method}
 \alias{spm_smoothed_data,sspm_data-method}
 \alias{spm_smoothed_data<-,sspm_data-method}
+\alias{spm_smoothed_fit}
+\alias{spm_smoothed_fit,sspm_data-method}
+\alias{spm_smoothed_fit<-}
+\alias{spm_smoothed_fit<-,sspm_data-method}
 \title{Accessing OR replacing \code{sspm_data} model elements}
 \usage{
 spm_data(sspm_object)
@@ -89,6 +93,14 @@ spm_type(object) <- value
 \S4method{spm_smoothed_data}{sspm_data}(sspm_object)
 
 \S4method{spm_smoothed_data}{sspm_data}(object) <- value
+
+spm_smoothed_fit(sspm_object)
+
+\S4method{spm_smoothed_fit}{sspm_data}(sspm_object)
+
+spm_smoothed_fit(object) <- value
+
+\S4method{spm_smoothed_fit}{sspm_data}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class

@@ -269,3 +269,38 @@ setMethod("spm_smoothed_data<-",
             return(object)
           }
 )
+
+# Smoothed fit ------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_data
+#' @export
+setGeneric(name = "spm_smoothed_fit",
+           def = function(sspm_object) standardGeneric("spm_smoothed_fit")
+)
+
+#' @rdname accessors-methods-sspm_data
+#' @export
+setMethod("spm_smoothed_fit",
+          signature("sspm_object" = "sspm_data"),
+          function(sspm_object) sspm_object@smoothed_fit
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_data
+#' @export
+setGeneric(name = "spm_smoothed_fit<-",
+           def = function(object, value) standardGeneric("spm_smoothed_fit<-")
+)
+
+#' @rdname accessors-methods-sspm_data
+#' @export
+setMethod("spm_smoothed_fit<-",
+          signature("object" = "sspm_data"),
+          function(object, value){
+            object@smoothed_fit <- value
+            validObject(object)
+            return(object)
+          }
+)
