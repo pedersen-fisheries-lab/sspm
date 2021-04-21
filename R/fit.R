@@ -23,7 +23,7 @@ setGeneric(name = "fit_smooths",
 # Methods -----------------------------------------------------------------
 
 #' @export
-#' @rdname fit 
+#' @rdname fit
 setMethod(f = "fit_smooths",
           signature(sspm_object = "sspm"),
           function(sspm_object, ...){
@@ -32,7 +32,7 @@ setMethod(f = "fit_smooths",
 )
 
 #' @export
-#' @rdname fit 
+#' @rdname fit
 setMethod(f = "fit_smooths",
           signature(sspm_object = "sspm_discrete"),
           function(sspm_object, family, drop.unused.levels, method, ...){
@@ -99,8 +99,8 @@ setMethod(f = "fit_smooths",
                     names(tmp_df) <- form_name
                     tmp_smoothed[[form_name]] <- tmp_df
                   }
-                  datasets[[spm_name(dataset)]]@smoothed_data <- tmp_smoothed
-                  datasets[[spm_name(dataset)]]@smoothed_fit <- tmp_fit
+                  spm_smoothed_data(datasets[[spm_name(dataset)]]) <- tmp_smoothed
+                  spm_smoothed_fit(datasets[[spm_name(dataset)]]) <- tmp_fit
                 }
                 datasets[[spm_name(dataset)]]@is_smoothed <- TRUE
               }
