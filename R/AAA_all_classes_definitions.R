@@ -1,7 +1,7 @@
 # Imports -----------------------------------------------------------------
 
 #' @import sf cli mgcv
-#' @importFrom rlang .data
+#' @importFrom rlang .data :=
 #' @importFrom methods new show validObject slot
 #' @importFrom stats terms as.formula
 #' @importFrom graphics par
