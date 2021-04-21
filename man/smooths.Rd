@@ -102,6 +102,8 @@ see \code{\link[mgcv]{smooth.terms}} for an over view of what is available.
 
 \item{...}{Further arguments passed down, none used for now.}
 
+\item{n}{TODO (size of lag)}
+
 \item{m}{The order of the penalty for this term (e.g. 2 for
     normal cubic spline penalty with 2nd derivatives when using 
    default t.p.r.s basis). \code{NA} signals

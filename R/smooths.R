@@ -7,6 +7,7 @@
 #'     supported.
 #' @inheritParams map_formula
 #' @inheritParams mgcv::s
+#' @param n TODO (size of lag)
 #'
 #' @return
 #' A list of 2 lists:
