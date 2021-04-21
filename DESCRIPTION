@@ -28,6 +28,7 @@ Imports:
     checkmate,
     cli,
     magrittr,
+    tidyr,
     dplyr,
     purrr,
     units,
