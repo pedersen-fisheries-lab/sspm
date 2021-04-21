@@ -46,31 +46,40 @@ setMethod(f = "fit_smooths",
             # Get all datasets
             datasets <- spm_datasets(sspm_object)
 
-            # has_formulas <- sapply(datasets, function(x){
-            #   length(spm_formulas(x)) > 0
-            # })
-
             # Initialize/collect smoothed_data
             full_smoothed_data <- spm_smoothed_data(sspm_object)
             if (is.null(full_smoothed_data)){
               full_smoothed_data <- data.frame()
             }
 
+            # If predict, make the predict matrix from biomass dataset
+            if(predict){
+
+              biomass_dataset <- datasets[[which(sapply(datasets, spm_type) == "biomass")]]
+              biomass_data <- spm_data(biomass_dataset)
+
+              min_year <-
+                min(as.numeric(as.character(biomass_data[[spm_time_column(biomass_dataset)]])),
+                    na.rm = TRUE)
+              max_year <-
+                max(as.numeric(as.character(biomass_data[[spm_time_column(biomass_dataset)]])),
+                    na.rm = TRUE)
+
+              predict_mat <- tidyr::expand_grid(time_col = min_year:max_year,
+                                                patch_id = unique(biomass_data$patch_id))
+
+              time_col_biomass <- spm_time_column(biomass_dataset)
+
+            }
+
             for(dataset in datasets){
+
+              time_col_name <- spm_time_column(dataset)
+              predict_mat_tmp <- predict_mat %>%
+                dplyr::rename(!!time_col_name := time_col)
 
               # Get data
               the_data <- spm_data(dataset)
-
-              # Initialize the prediction matrix
-              min_year <- min(as.numeric(as.character(the_data[[spm_time_column(dataset)]])),
-                              na.rm = TRUE)
-              max_year <- max(as.numeric(as.character(the_data[[spm_time_column(dataset)]])),
-                              na.rm = TRUE)
-              time_col_name <- (spm_time_column(dataset))
-
-              predict_mat <- tidyr::expand_grid(time_col = min_year:max_year,
-                                                patch_id = unique(the_data$patch_id)) %>%
-                dplyr::rename(!!time_col_name := time_col)
 
               if(!is_smoothed(dataset)){
 
@@ -135,8 +144,8 @@ setMethod(f = "fit_smooths",
                   # Predict and store smoothed data to sspm level
                   if(predict){
 
-                    preds <- predict(tmp_fit[[form_name]], predict_mat,type = "response")
-                    preds_df <- predict_mat %>%
+                    preds <- predict(tmp_fit[[form_name]], predict_mat_tmp, type = "response")
+                    preds_df <- predict_mat_tmp %>%
                       dplyr::mutate(!!spm_name(dataset) := as.vector(preds)) %>%
                       dplyr::arrange(!!time_col_name) %>%
                       dplyr::group_by(patch_id) # %>%
@@ -147,10 +156,17 @@ setMethod(f = "fit_smooths",
                     #                 log(lag(.[[spm_name(dataset)]])))
 
                     if (nrow(full_smoothed_data) == 0){
-                      full_smoothed_data <- preds_df
+
+                      full_smoothed_data <- preds_df %>%
+                        dplyr::left_join(spm_patches(sspm_object), by = c("patch_id"))
+
                     } else {
+
+                      preds_df <- preds_df %>%
+                        dplyr::rename(!!time_col_biomass := !!time_col_name)
                       full_smoothed_data <- full_smoothed_data %>%
-                        dplyr::left_join(preds_df)
+                        dplyr::left_join(preds_df, by = c("patch_id", time_col_biomass))
+
                     }
 
                   }
