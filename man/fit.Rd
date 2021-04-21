@@ -11,6 +11,8 @@ fit_smooths(
   family = mgcv::tw,
   drop.unused.levels = F,
   method = "fREML",
+  predict = TRUE,
+  keep_fit = TRUE,
   ...
 )
 
@@ -19,6 +21,8 @@ fit_smooths(
   family = mgcv::tw,
   drop.unused.levels = F,
   method = "fREML",
+  predict = TRUE,
+  keep_fit = TRUE,
   ...
 )
 
@@ -27,6 +31,8 @@ fit_smooths(
   family = mgcv::tw,
   drop.unused.levels = F,
   method = "fREML",
+  predict = TRUE,
+  keep_fit = TRUE,
   ...
 )
 }
@@ -48,6 +54,12 @@ Mallows' Cp/UBRE/AIC for known scale. \code{"GACV.Cp"} is equivalent, but using 
 for REML estimation, including of unknown scale, \code{"P-REML"} for REML estimation, but using a Pearson estimate 
 of the scale. \code{"ML"} and \code{"P-ML"} are similar, but using maximum likelihood in place of REML. Default 
 \code{"fREML"} uses fast REML computation.}
+
+\item{predict}{\strong{[logical]} Whether or not to generate the smoothed
+predictions (necessary to fit the final SPM model, default to TRUE).}
+
+\item{keep_fit}{\strong{[logical]} Whether or not to keep the fitted values and
+model (default to TRUE, set to FALSE to reduce memory footprint).}
 
 \item{...}{
   Arguments passed on to \code{\link[mgcv:bam]{mgcv::bam}}
