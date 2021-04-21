@@ -41,5 +41,9 @@ discretization.}
 \item{\code{formulas}}{\strong{[list]} \emph{(if discrete)} List of
 \link[=sspm_formula-class]{sspm_formula} objects that are mapped onto the
 base dataset.}
+
+\item{\code{smoothed_data}}{\strong{[data.frame or sf]} \emph{(if discrete)} The smoothed
+data. Each column corresponds to a fitted (smoothed) datasets and is
+used for SPM formula and model definition.}
 }}
 
