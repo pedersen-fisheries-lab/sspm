@@ -132,6 +132,8 @@ fitted with this function. Arguments can be passed onto <code>bam</code>.</p>
   family <span class='op'>=</span> <span class='fu'>mgcv</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/mgcv/man/Tweedie.html'>tw</a></span>,
   drop.unused.levels <span class='op'>=</span> <span class='cn'>F</span>,
   method <span class='op'>=</span> <span class='st'>"fREML"</span>,
+  predict <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  keep_fit <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
@@ -141,6 +143,8 @@ fitted with this function. Arguments can be passed onto <code>bam</code>.</p>
   family <span class='op'>=</span> <span class='fu'>mgcv</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/mgcv/man/Tweedie.html'>tw</a></span>,
   drop.unused.levels <span class='op'>=</span> <span class='cn'>F</span>,
   method <span class='op'>=</span> <span class='st'>"fREML"</span>,
+  predict <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  keep_fit <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
@@ -150,6 +154,8 @@ fitted with this function. Arguments can be passed onto <code>bam</code>.</p>
   family <span class='op'>=</span> <span class='fu'>mgcv</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/mgcv/man/Tweedie.html'>tw</a></span>,
   drop.unused.levels <span class='op'>=</span> <span class='cn'>F</span>,
   method <span class='op'>=</span> <span class='st'>"fREML"</span>,
+  predict <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  keep_fit <span class='op'>=</span> <span class='cn'>TRUE</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -179,6 +185,16 @@ Mallows' Cp/UBRE/AIC for known scale. <code>"GACV.Cp"</code> is equivalent, but 
 for REML estimation, including of unknown scale, <code>"P-REML"</code> for REML estimation, but using a Pearson estimate 
 of the scale. <code>"ML"</code> and <code>"P-ML"</code> are similar, but using maximum likelihood in place of REML. Default 
 <code>"fREML"</code> uses fast REML computation.</p></td>
+    </tr>
+    <tr>
+      <th>predict</th>
+      <td><p><strong>[logical]</strong> Whether or not to generate the smoothed
+predictions (necessary to fit the final SPM model, default to TRUE).</p></td>
+    </tr>
+    <tr>
+      <th>keep_fit</th>
+      <td><p><strong>[logical]</strong> Whether or not to keep the fitted values and
+model (default to TRUE, set to FALSE to reduce memory footprint).</p></td>
     </tr>
     <tr>
       <th>...</th>
