@@ -302,3 +302,58 @@ setMethod("spm_points<-",
 # TODO dim should get dims of data and sf if discrete
 # setMethod("dim",
 #           "sspm", function(x) length(x@snpid))
+
+# Smoothed data -----------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname sspm-accessors-methods
+#' @export
+setGeneric(name = "spm_smoothed_data",
+           def = function(sspm_object) standardGeneric("spm_smoothed_data")
+)
+
+#' @rdname sspm-accessors-methods
+#' @export
+setMethod("spm_smoothed_data",
+          signature("sspm_object" = "sspm"),
+          function(sspm_object){
+            message_not_discrete(sspm_object)
+          }
+)
+
+#' @rdname sspm-accessors-methods
+#' @export
+setMethod("spm_smoothed_data",
+          signature("sspm_object" = "sspm_discrete"),
+          function(sspm_object) sspm_object@smoothed_data
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname sspm-accessors-methods
+#' @export
+setGeneric(name = "spm_smoothed_data<-",
+           def = function(object, value) standardGeneric("spm_smoothed_data<-")
+)
+
+#' @rdname sspm-accessors-methods
+#' @export
+setMethod("spm_smoothed_data<-",
+          signature("object" = "sspm_discrete"),
+          function(object, value){
+            object@smoothed_data <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+#' @rdname sspm-accessors-methods
+#' @export
+setMethod("spm_smoothed_data<-",
+          signature("object" = "sspm"),
+          function(object, value){
+            message_not_discrete(object)
+            return(object)
+          }
+)
+

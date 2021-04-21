@@ -246,3 +246,26 @@ setMethod("spm_type<-",
             return(object)
           }
 )
+
+# Smoothed data -----------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_data
+#' @export
+setMethod("spm_smoothed_data",
+          signature("sspm_object" = "sspm_data"),
+          function(sspm_object) sspm_object@smoothed_data
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_data
+#' @export
+setMethod("spm_smoothed_data<-",
+          signature("object" = "sspm_data"),
+          function(object, value){
+            object@smoothed_data <- value
+            validObject(object)
+            return(object)
+          }
+)

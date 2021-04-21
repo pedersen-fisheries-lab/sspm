@@ -34,6 +34,12 @@
 \alias{spm_points<-}
 \alias{spm_points<-,sspm_discrete-method}
 \alias{spm_points<-,sspm-method}
+\alias{spm_smoothed_data}
+\alias{spm_smoothed_data,sspm-method}
+\alias{spm_smoothed_data,sspm_discrete-method}
+\alias{spm_smoothed_data<-}
+\alias{spm_smoothed_data<-,sspm_discrete-method}
+\alias{spm_smoothed_data<-,sspm-method}
 \title{Accessing OR replacing \code{sspm} model elements}
 \usage{
 spm_name(sspm_object)
@@ -99,6 +105,18 @@ spm_points(object) <- value
 \S4method{spm_points}{sspm_discrete}(object) <- value
 
 \S4method{spm_points}{sspm}(object) <- value
+
+spm_smoothed_data(sspm_object)
+
+\S4method{spm_smoothed_data}{sspm}(sspm_object)
+
+\S4method{spm_smoothed_data}{sspm_discrete}(sspm_object)
+
+spm_smoothed_data(object) <- value
+
+\S4method{spm_smoothed_data}{sspm_discrete}(object) <- value
+
+\S4method{spm_smoothed_data}{sspm}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm OR adjacent]} An object of class

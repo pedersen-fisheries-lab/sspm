@@ -106,6 +106,9 @@ setClass("discretization_method",
 #' @slot formulas **\[list\]** *(if discrete)* List of
 #'     [sspm_formula][sspm_formula-class] objects that are mapped onto the
 #'     base dataset.
+#' @slot smoothed_data **\[data.frame or sf\]** *(if discrete)* The smoothed
+#'     data. Each column corresponds to a fitted (smoothed) datasets and is
+#'     used for SPM formula and model definition.
 #'
 #' @name sspm-class
 #' @rdname sspm-class
@@ -122,7 +125,8 @@ setClass("sspm_discrete",
          slots = list(method = "discretization_method",
                       patches = "sf",
                       points = "sf",
-                      formulas = "list"),
+                      formulas = "list",
+                      smoothed_data = "ANY"),
          prototype = prototype(name = "Default Model Name",
                                formulas = list()),
          contains = c("sspm"))
