@@ -43,6 +43,8 @@ setMethod(f = "fit_smooths",
           signature(sspm_object = "sspm_discrete"),
           function(sspm_object, family, drop.unused.levels, method, predict, keep_fit, ...){
 
+            browser()
+
             # Get all datasets
             datasets <- spm_datasets(sspm_object)
 
@@ -55,7 +57,8 @@ setMethod(f = "fit_smooths",
             # If predict, make the predict matrix from biomass dataset
             if(predict){
 
-              biomass_dataset <- datasets[[which(sapply(datasets, spm_type) == "biomass")]]
+              biomass_pos <- which(sapply(datasets, spm_type) == "biomass")
+              biomass_dataset <- datasets[[biomass_pos]]
               biomass_data <- spm_data(biomass_dataset)
 
               min_year <-
