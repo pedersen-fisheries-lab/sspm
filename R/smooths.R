@@ -167,12 +167,13 @@ setMethod(f = "smooth_lag",
           signature(sspm_object = "sspm_discrete"),
           function(sspm_object, n, k, m, ...){
 
+            # TODO
             # # Get args from ellipsis for extra args: this form is necessary for
             # # capturing symbols as well
             # args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
             #
             # # Get the default arguments for the smooth type used
-            # args_and_vars <- do.call(dispatch_smooth(type),
+            # args_and_vars <- do.call(spm_lag,
             #                          append(list(sspm_object = sspm_object,
             #                                      dataset = dataset,
             #                                      dimension = "space_time",
