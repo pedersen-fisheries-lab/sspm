@@ -18,12 +18,14 @@ predator_spatial <- sspm:::predator_simulated_spatial
 sspm_data <- new("sspm_data",
                  name = "Biomass",
                  data = borealis_spatial,
+                 type = "biomass",
                  time_column = "year_f",
                  uniqueID = "uniqueID",
                  coords = c('lon_dec','lat_dec'))
 
 sspm_data_pred <- new("sspm_data",
                       name = "Predator",
+                      type = "predictor",
                       data = predator_spatial,
                       time_column = "year",
                       uniqueID = "uniqueID",
