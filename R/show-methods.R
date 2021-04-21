@@ -28,8 +28,8 @@ setMethod("show",
           "sspm_discrete",
           function(object) {
             cli::cat_line()
-            custom_h1(paste0("SSPM object '", object@name, "' ",
-                             cli::col_green("(DISCRETIZED)")))
+            custom_h1(paste0(" SSPM object '", object@name, "' ",
+                             cli::style_italic("[DISCRETIZED] ")))
             cat_boundaries(object)
             cat_discretization_info(object)
             cat_datasets(object)
@@ -132,31 +132,38 @@ cat_datasets <- function(object){
           form <- the_dataset_formulas[[f_id]]
           formatted <- cat_formula(form@raw_formula)
 
-          cli::cat_line("      ", cli::symbol$en_dash, " ",
-                        cli::col_yellow(formatted))
-
           if(the_dataset@is_smoothed == TRUE){
 
-            the_smoothed_data <- the_dataset@smoothed_data[[f_id]]
-
-            base_line <- paste0("      ", cli::symbol$en_dash, " ")
+            # the_smoothed_data <- the_dataset@smoothed_data[[f_id]]
+            # base_line <- paste0("      ", cli::symbol$en_dash, " ")
             the_tag <- "(SMOOTHED)"
-            smoothed <- paste0(" [", cli::col_blue(nrow(the_smoothed_data)), " observations]")
-            the_line <- paste0(base_line, cli::col_green(cli::style_bold(the_tag)), smoothed)
+            # smoothed <- paste0(" [", cli::col_blue(nrow(the_smoothed_data)), " observations]")
+            # the_line <- paste0(base_line, cli::col_green(cli::style_bold(the_tag)), smoothed)
+            # the_line <- paste0(base_line, cli::col_green(cli::style_bold(the_tag)))
 
-            if(the_dataset@is_splitted == TRUE){
+            # if(the_dataset@is_splitted == TRUE){
+            #
+            #   the_tag <- "(SMOOTHED, SPLITTED)"
+            #
+            #   n_train <- sum(the_smoothed_data$train_test == TRUE)
+            #   n_test <- sum(the_smoothed_data$train_test == FALSE)
+            #
+            #   smoothed_and_splitted <- paste0(" [", cli::col_blue(n_train), " train, ",
+            #                                   cli::col_blue(n_test), " test]")
+            #
+            #   the_line <- paste0(base_line, cli::col_green(cli::style_bold(the_tag)), smoothed_and_splitted)
+            # }
+            # cli::cat_line(the_line)
 
-              the_tag <- "(SMOOTHED, SPLITTED)"
+            cli::cat_line("      ", cli::symbol$en_dash, " ",
+                          cli::col_green(the_tag), " ",
+                          cli::col_yellow(formatted))
 
-              n_train <- sum(the_smoothed_data$train_test == TRUE)
-              n_test <- sum(the_smoothed_data$train_test == FALSE)
+          } else {
 
-              smoothed_and_splitted <- paste0(" [", cli::col_blue(n_train), " train, ",
-                                              cli::col_blue(n_test), " test]")
+            cli::cat_line("      ", cli::symbol$en_dash, " ",
+                          cli::col_yellow(formatted))
 
-              the_line <- paste0(base_line, cli::col_green(cli::style_bold(the_tag)), smoothed_and_splitted)
-            }
-            cli::cat_line(the_line)
           }
         }
       }
