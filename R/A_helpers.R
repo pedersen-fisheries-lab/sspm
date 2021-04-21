@@ -171,7 +171,7 @@ multilag <-  function(variable, n_lags, default = NA){
 
 # This function performs fuzzy matching for the type of dataset
 match_type <- function(type, vect_type = c("biomass", "predictor", "catch")){
-  pos <- agrep(type, vect_type, fixed = TRUE, max = list(sub=0, ins=0, cost=0))
+  pos <- agrep(type, vect_type, fixed = TRUE, max.distance = list(sub=0, ins=0, cost=0))
   if(length(pos == 1)){
     return(vect_type[pos])
   } else {
