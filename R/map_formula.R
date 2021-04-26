@@ -54,7 +54,7 @@ setMethod(f = "map_formula",
           function(sspm_object, dataset, formula, ... ){
 
             # If dataset name is not provided, assume we want to map an actual
-            # SPM and not smooth the data (previous step in workflow)
+            # SPM formula and not smooth the data (previous step in workflow)
 
             # So first determine whether all datasets have been smoothed and
             # whether a splitting scheme has been provided
@@ -70,8 +70,7 @@ setMethod(f = "map_formula",
             all_datasets <- spm_datasets(sspm_object)
 
             # 1. Are all datasets smoothed?
-            # TODO replace by correct accessor
-            are_smoothed <- sapply(all_datasets, slot, "is_smoothed")
+            are_smoothed <- sapply(all_datasets, is_smoothed)
 
             if(!(any(are_smoothed))){
               cli::cli_alert_danger(" Not all datasets are smoothed - SPM formula cannot be mapped")
@@ -107,7 +106,7 @@ setMethod(f = "map_formula",
                    call. = FALSE)
             }
 
-            browser()
+            # sbrowser()
 
           }
 
