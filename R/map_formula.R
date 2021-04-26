@@ -78,7 +78,7 @@ setMethod(f = "map_formula",
               stop("Not all datasets are smoothed", call. = FALSE)
             }
 
-            # 2. Is there a dataset of type "biomass"
+            # 2. Is there a dataset of type "biomass" and one of type "catch"
             all_types <- sapply(all_datasets, spm_type)
 
             # TODO Uncomment this before next release
@@ -147,8 +147,7 @@ setMethod(f = "map_formula",
             response <- all.vars(formula)[1]
             terms_labels <- attr(formula_terms, "term.labels")
 
-            # Check response
-
+            # process each dataset
             for (dataset_name in dataset){
 
               the_dataset <- all_datasets[[dataset_name]]
@@ -158,6 +157,7 @@ setMethod(f = "map_formula",
                 stop(call. = FALSE)
               }
 
+              # Check response
               the_data <- spm_data(the_dataset)
               if(!checkmate::test_subset(response, names(the_data))){
                 stop("The response in the formula is not a column of the dataset.",
