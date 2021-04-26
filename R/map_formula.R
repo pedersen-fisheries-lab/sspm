@@ -142,11 +142,6 @@ setMethod(f = "map_formula",
                                  collapse =  ", " )), call. = FALSE)
             }
 
-            # Retrieve terms, response, and term labels
-            formula_terms <- terms(formula)
-            response <- all.vars(formula)[1]
-            terms_labels <- attr(formula_terms, "term.labels")
-
             # process each dataset
             for (dataset_name in dataset){
 
@@ -156,6 +151,11 @@ setMethod(f = "map_formula",
                 cli::cli_alert_danger("Dataset is already smoothed.")
                 stop(call. = FALSE)
               }
+
+              # Retrieve terms, response, and term labels
+              formula_terms <- terms(formula)
+              response <- all.vars(formula)[1]
+              terms_labels <- attr(formula_terms, "term.labels")
 
               # Check response
               the_data <- spm_data(the_dataset)
