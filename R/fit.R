@@ -43,8 +43,6 @@ setMethod(f = "fit_smooths",
           signature(sspm_object = "sspm_discrete"),
           function(sspm_object, family, drop.unused.levels, method, predict, keep_fit, ...){
 
-            browser()
-
             # Get all datasets
             datasets <- spm_datasets(sspm_object)
 
