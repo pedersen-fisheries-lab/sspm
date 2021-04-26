@@ -22,8 +22,8 @@ map_formula(sspm_object, dataset, formula, ...)
 \item{sspm_object}{\strong{[sspm_discrete]} An object of class
 \link[=sspm_discrete-class]{sspm_discrete}.}
 
-\item{dataset}{\strong{[character]} The name of the dataset among base and/or
-mapped datasets for which to specify the formula}
+\item{dataset}{\strong{[character]} The name(s) of the dataset(s) for which to
+specify the formula.}
 
 \item{formula}{\strong{[formula]} A formula definition of the form
 response ~ smoothing_terms + ...}
