@@ -219,6 +219,7 @@ ICAR <- function(sspm_object, dataset, dimension,
 
   # Get data/dataset and relevant columns
   # Same test than in map_formula
+  all_datasets <- spm_datasets(sspm_object)
   all_dataset_names <- names(all_datasets)
   if(any(!sapply(dataset, checkmate::test_choice, all_dataset_names))){
     stop(paste0("Argument 'dataset' must be of: ",
