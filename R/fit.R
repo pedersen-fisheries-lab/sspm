@@ -46,6 +46,13 @@ setMethod(f = "fit_smooths",
             # Get all datasets
             datasets <- spm_datasets(sspm_object)
 
+            # Check if all datasets have a mapped formula
+            has_no_formulas <- sapply(datasets, function(x){length(spm_formulas(x))<1})
+            if(any(has_no_formulas)){
+              cli::cli_alert_danger("Not all datasets have mapped formulas.")
+              stop("Not all datasets have mapped formulas.", call. = FALSE)
+            }
+
             # Initialize/collect smoothed_data
             full_smoothed_data <- spm_smoothed_data(sspm_object)
             if (is.null(full_smoothed_data)){
