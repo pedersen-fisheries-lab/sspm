@@ -190,18 +190,7 @@ setMethod(f = "smooth_lag",
           }
 )
 
-# Accessory functions -----------------------------------------------------
-
-# This functions turns the args_and_vars returned by ICAR (and potentially any
-# any other functions like ICAR) into a call to a smooth (s, ti, etc...)
-assemble_smooth <- function(s_type, args){
-
-  checkmate::assert_character(s_type)
-  checkmate::assert_list(args)
-
-  deparse(rlang::call2(s_type, !!!args),
-          width.cutoff = 500, nlines = 1)
-}
+# ICAR --------------------------------------------------------------------
 
 # Construct an ICAR penalization matrix for a given "dimension" and returns the
 # double list args_and_vars that have the args to build a new call to s() and the
@@ -394,3 +383,15 @@ ICAR_space <- function(patches, space_column){
   return(pen_mat)
 
 }
+
+# Accessory functions -----------------------------------------------------
+
+# This functions turns the args_and_vars returned by ICAR (and potentially any
+# any other functions like ICAR) into a call to a smooth (s, ti, etc...)
+assemble_smooth <- function(s_type, args){
+
+  checkmate::assert_character(s_type)
+  checkmate::assert_list(args)
+
+  deparse(rlang::call2(s_type, !!!args),
+          width.cutoff = 500, nlines = 1)
