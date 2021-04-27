@@ -180,6 +180,17 @@ cat_smoothed_data <- function(object){
     cli::cat_bullet(cli::col_cyan(" Smoothed data : "),
                     pluralize_data_info(object@smoothed_data),
                     bullet = "arrow_right")
+
+    columns_with_smooth <-
+      names(which(sapply(colnames(sspm_discrete_mapped_fitted@smoothed_data),
+                         grepl, pattern="_smooth", fixed=TRUE)))
+
+    the_line <-
+      paste(cli::symbol$star, "smoothed vars:",
+            paste(cli::col_green(columns_with_smooth),
+                  collapse = paste0(" ", cli::symbol$em_dash, " ")))
+
+    cli::cat_line("   ", the_line)
   }
 
 }
