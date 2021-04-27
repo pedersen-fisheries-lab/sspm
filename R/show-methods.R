@@ -182,8 +182,10 @@ cat_smoothed_data <- function(object){
                     bullet = "arrow_right")
 
     columns_with_smooth <-
-      names(which(sapply(colnames(sspm_discrete_mapped_fitted@smoothed_data),
-                         grepl, pattern="_smooth", fixed=TRUE)))
+      names(which(sapply(colnames(object@smoothed_data),
+                         grepl, pattern="_smooth", fixed=TRUE) |
+                    sapply(colnames(object@smoothed_data),
+                           grepl, pattern="_lag", fixed=TRUE)))
 
     the_line <-
       paste(cli::symbol$star, "smoothed vars:",
