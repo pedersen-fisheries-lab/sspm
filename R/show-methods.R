@@ -189,7 +189,7 @@ cat_smoothed_data <- function(object){
 
     the_line <-
       paste(cli::symbol$star, "smoothed vars:",
-            paste(cli::col_green(columns_with_smooth),
+            paste(cli::col_green(sort(columns_with_smooth)),
                   collapse = paste0(" ", cli::symbol$em_dash, " ")))
 
     cli::cat_line("   ", the_line)
