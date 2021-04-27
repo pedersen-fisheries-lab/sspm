@@ -153,12 +153,13 @@ setMethod(f = "fit_smooths",
                   if(predict){
 
                     preds <- predict(tmp_fit[[form_name]], predict_mat_tmp, type = "response")
+                    column_name <- paste0(spm_name(dataset), "_smooth")
                     preds_df <- predict_mat_tmp %>%
-                      dplyr::mutate(!!spm_name(dataset) := as.vector(preds)) %>%
+                      dplyr::mutate(!!column_name := as.vector(preds)) %>%
                       dplyr::arrange(!!time_col_name) %>%
                       dplyr::group_by(patch_id) # %>%
 
-                    # TODO finish calculating the
+                    # TODO finish calculating the change
                     # dplyr::mutate(!!paste0(spm_name(dataset), "_diff") :=
                     #                 log(.[[spm_name(dataset)]]) -
                     #                 log(lag(.[[spm_name(dataset)]])))
