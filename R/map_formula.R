@@ -105,8 +105,6 @@ setMethod(f = "map_formula",
                    call. = FALSE)
             }
 
-            browser()
-
             # Find the special calls to edit and evaluate
             is_special <- sapply(terms_labels, grepl, pattern="smooth_lag(", fixed=TRUE) |
               sapply(terms_labels, grepl, pattern="smooth_time(", fixed=TRUE) |
@@ -127,7 +125,8 @@ setMethod(f = "map_formula",
 
             smooth_calls_modified <-
               lapply(smooth_calls, modify_call,
-                     args = list(sspm_object = substitute(sspm_object)))
+                     args = list(sspm_object = substitute(sspm_object),
+                                 dataset = "smoothed_data"))
 
             # Evaluate the calls to get the args to make a smooth
             smooth_and_vars <-lapply(smooth_calls_modified, eval,

@@ -8,7 +8,7 @@
 \alias{smooth_time,ANY,character,sspm_discrete-method}
 \alias{smooth_space,ANY,character,sspm_discrete-method}
 \alias{smooth_space_time,ANY,character,sspm_discrete-method}
-\alias{smooth_lag,ANY,ANY,sspm_discrete-method}
+\alias{smooth_lag,ANY,ANY,ANY,sspm_discrete-method}
 \title{sspm Smoothing functions}
 \usage{
 smooth_time(
@@ -41,7 +41,15 @@ smooth_space_time(
   ...
 )
 
-smooth_lag(var, type = "LINPRED", sspm_object, k = 5, m = 1, ...)
+smooth_lag(
+  var,
+  type = "LINPRED",
+  dataset = NULL,
+  sspm_object,
+  k = 5,
+  m = 1,
+  ...
+)
 
 \S4method{smooth_time}{ANY,character,sspm_discrete}(
   type = "ICAR",
@@ -73,7 +81,15 @@ smooth_lag(var, type = "LINPRED", sspm_object, k = 5, m = 1, ...)
   ...
 )
 
-\S4method{smooth_lag}{ANY,ANY,sspm_discrete}(var, type = "LINPRED", sspm_object, k = 5, m = 1, ...)
+\S4method{smooth_lag}{ANY,ANY,ANY,sspm_discrete}(
+  var,
+  type = "LINPRED",
+  dataset = NULL,
+  sspm_object,
+  k = 5,
+  m = 1,
+  ...
+)
 }
 \arguments{
 \item{type}{\strong{[character]} Type of smooth, currently only "ICAR" is

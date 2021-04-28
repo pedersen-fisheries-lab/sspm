@@ -62,6 +62,7 @@ setGeneric(name = "smooth_space_time",
 setGeneric(name = "smooth_lag",
            def = function(var,
                           type = "LINPRED",
+                          dataset = NULL,
                           sspm_object,
                           k = 5,
                           m = 1,
@@ -168,7 +169,8 @@ setMethod(f = "smooth_space_time",
 #' @rdname smooths
 setMethod(f = "smooth_lag",
           signature(sspm_object = "sspm_discrete"),
-          function(var, type, sspm_object, k, m, ...){
+          function(var, type, dataset, sspm_object, k, m, ...){
+            # Note that dataset argument in unused in this case
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -208,27 +210,44 @@ ICAR <- function(sspm_object, dataset, dimension,
 
   # Get data/dataset and relevant columns
   # Same test than in map_formula
-  all_datasets <- spm_datasets(sspm_object)
-  all_dataset_names <- names(all_datasets)
-  if(any(!sapply(dataset, checkmate::test_choice, all_dataset_names))){
-    stop(paste0("Argument 'dataset' must be of: ",
-                paste0(all_dataset_names,
-                       collapse =  ", " )), call. = FALSE)
+
+  if(dataset != "smoothed_data") {
+
+    all_datasets <- spm_datasets(sspm_object)
+    all_dataset_names <- names(all_datasets)
+    if(any(!sapply(dataset, checkmate::test_choice, all_dataset_names))){
+      stop(paste0("Argument 'dataset' must be of: ",
+                  paste0(all_dataset_names,
+                         collapse =  ", " )), call. = FALSE)
+    }
+
+    the_dataset <- spm_datasets(sspm_object)[[dataset]]
+    the_data <- spm_data(the_dataset)
+
+    # ---- TIME ----
+    time_column <- spm_time_column(the_dataset)
+    time_levels <- unique(the_data[[time_column]])
+    n_time_levels = length(time_levels)
+
+  } else {
+
+    the_data <- spm_smoothed_data(sspm_object)
+
+    # ---- TIME ----
+    time_column <- spm_time_column(spm_datasets(sspm_object, "biomass"))
+    time_levels <- unique(the_data[[time_column]])
+    n_time_levels = length(time_levels)
+
   }
-
-  the_dataset <- spm_datasets(sspm_object)[[dataset]]
-  the_data <- spm_data(the_dataset)
-
-  # ---- TIME ----
-  time_column <- spm_time_column(the_dataset)
-  time_levels <- unique(the_data[[time_column]])
-  n_time_levels = length(time_levels)
 
   # ---- SPACE ----
   # Here we assume the hardcoded convention that the patch column is patch_id
   # (from the discretization)
   space_column <- "patch_id"
   patches <- spm_patches(sspm_object)
+
+
+  # Setup done ----
 
   vars <- list()
 
