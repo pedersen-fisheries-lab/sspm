@@ -40,6 +40,10 @@
 \alias{spm_smoothed_data<-}
 \alias{spm_smoothed_data<-,sspm_discrete-method}
 \alias{spm_smoothed_data<-,sspm-method}
+\alias{spm_formulas}
+\alias{spm_formulas,sspm-method}
+\alias{spm_formulas<-}
+\alias{spm_formulas<-,sspm-method}
 \title{Accessing OR replacing \code{sspm} model elements}
 \usage{
 spm_name(sspm_object)
@@ -50,9 +54,9 @@ spm_name(object) <- value
 
 \S4method{spm_name}{sspm}(object) <- value
 
-spm_datasets(sspm_object)
+spm_datasets(sspm_object, type = NULL)
 
-\S4method{spm_datasets}{sspm}(sspm_object)
+\S4method{spm_datasets}{sspm}(sspm_object, type = NULL)
 
 \S4method{spm_datasets}{sspm_data}(sspm_object)
 
@@ -117,6 +121,14 @@ spm_smoothed_data(object) <- value
 \S4method{spm_smoothed_data}{sspm_discrete}(object) <- value
 
 \S4method{spm_smoothed_data}{sspm}(object) <- value
+
+spm_formulas(sspm_object)
+
+\S4method{spm_formulas}{sspm}(sspm_object)
+
+spm_formulas(object) <- value
+
+\S4method{spm_formulas}{sspm}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm OR adjacent]} An object of class

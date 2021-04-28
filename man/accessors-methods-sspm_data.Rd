@@ -20,9 +20,7 @@
 \alias{spm_time_column,sspm_data-method}
 \alias{spm_time_column<-}
 \alias{spm_time_column<-,sspm_data-method}
-\alias{spm_formulas}
 \alias{spm_formulas,sspm_data-method}
-\alias{spm_formulas<-}
 \alias{spm_formulas<-,sspm_data-method}
 \alias{spm_type}
 \alias{spm_type,sspm_data-method}
@@ -78,11 +76,7 @@ spm_time_column(object) <- value
 
 \S4method{spm_time_column}{sspm_data}(object) <- value
 
-spm_formulas(sspm_object)
-
 \S4method{spm_formulas}{sspm_data}(sspm_object)
-
-spm_formulas(object) <- value
 
 \S4method{spm_formulas}{sspm_data}(object) <- value
 

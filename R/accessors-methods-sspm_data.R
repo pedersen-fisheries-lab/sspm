@@ -182,24 +182,12 @@ setMethod("spm_time_column<-",
 
 #' @rdname accessors-methods-sspm_data
 #' @export
-setGeneric(name = "spm_formulas",
-           def = function(sspm_object) standardGeneric("spm_formulas")
-)
-
-#' @rdname accessors-methods-sspm_data
-#' @export
 setMethod("spm_formulas",
           signature("sspm_object" = "sspm_data"),
           function(sspm_object) sspm_object@formulas
 )
 
 # Replacers ---------------------------------------------------------------
-
-#' @rdname accessors-methods-sspm_data
-#' @export
-setGeneric(name = "spm_formulas<-",
-           def = function(object, value) standardGeneric("spm_formulas<-")
-)
 
 #' @rdname accessors-methods-sspm_data
 #' @export
