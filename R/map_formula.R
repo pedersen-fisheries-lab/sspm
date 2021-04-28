@@ -105,8 +105,12 @@ setMethod(f = "map_formula",
                    call. = FALSE)
             }
 
+            browser()
+
             # Find the special calls to edit and evaluate
-            is_special <- sapply(terms_labels, grepl, pattern="smooth_lag(", fixed=TRUE)
+            is_special <- sapply(terms_labels, grepl, pattern="smooth_lag(", fixed=TRUE) |
+              sapply(terms_labels, grepl, pattern="smooth_time(", fixed=TRUE) |
+              sapply(terms_labels, grepl, pattern="smooth_space(", fixed=TRUE)
             smooth_terms_labels <- terms_labels[is_special]
             other_terms <- terms_labels[!is_special]
 
@@ -151,6 +155,9 @@ setMethod(f = "map_formula",
 
             spm_formulas(sspm_object) <- append(spm_formulas(sspm_object),
                                                 list(sspm_formula))
+
+            return(sspm_object)
+
           }
 
 )
