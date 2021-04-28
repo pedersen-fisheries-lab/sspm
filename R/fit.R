@@ -190,7 +190,8 @@ setMethod(f = "fit_smooths",
             spm_smoothed_data(sspm_object) <- full_smoothed_data %>%
               dplyr::relocate(names(spm_boundaries(sspm_object)),
                               .after = dplyr::last_col()) %>%
-              dplyr::relocate(dplyr::contains("smooth"))
+              dplyr::relocate(dplyr::contains("smooth")) %>%
+              dplyr::ungroup()
 
             # For now return a summary of the fit
             return(sspm_object)
