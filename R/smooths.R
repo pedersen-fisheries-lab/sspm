@@ -3,6 +3,7 @@
 #' A full sspm formula contains calls to the smoothing terms `smooth_time()`,
 #' `smooth_space()`, `smooth_space_time()`.
 #'
+#' @param var **\[symbol\]** Variable (only for smooth_lag).
 #' @param type **\[character\]** Type of smooth, currently only "ICAR" is
 #'     supported.
 #' @inheritParams map_formula
@@ -59,9 +60,10 @@ setGeneric(name = "smooth_space_time",
 #' @export
 #' @rdname smooths
 setGeneric(name = "smooth_lag",
-           def = function(sspm_object,
-                          n = 1,
-                          k = NULL,
+           def = function(var,
+                          type = "LINPRED",
+                          sspm_object,
+                          k = 5,
                           m = 1,
                           ...){
              standardGeneric("smooth_lag")
@@ -166,26 +168,24 @@ setMethod(f = "smooth_space_time",
 #' @rdname smooths
 setMethod(f = "smooth_lag",
           signature(sspm_object = "sspm_discrete"),
-          function(sspm_object, n, k, m, ...){
+          function(var, type, sspm_object, k, m, ...){
 
-            # TODO
-            # # Get args from ellipsis for extra args: this form is necessary for
-            # # capturing symbols as well
-            # args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
-            #
-            # # Get the default arguments for the smooth type used
-            # args_and_vars <- do.call(spm_lag,
-            #                          append(list(sspm_object = sspm_object,
-            #                                      dataset = dataset,
-            #                                      dimension = "space_time",
-            #                                      k = k, bs = bs, xt = xt),
-            #                                 args_list))
-            #
-            # # Assemble the smooths
-            # string_smooth <- assemble_smooth("ti", args_and_vars$args)
-            #
-            # return(list(smooth = string_smooth,
-            #             vars = args_and_vars$vars))
+            # Get args from ellipsis for extra args: this form is necessary for
+            # capturing symbols as well
+            args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
+
+            # Get the default arguments for the smooth type used
+            args_and_vars <- do.call(dispatch_smooth(type),
+                                     append(list(sspm_object = sspm_object,
+                                                 var = var,
+                                                 k = k, m = m),
+                                            args_list))
+
+            # Assemble the smooths
+            string_smooth <- assemble_smooth("s", args_and_vars$args)
+
+            return(list(smooth = string_smooth,
+                        vars = args_and_vars$vars))
 
           }
 )
@@ -220,8 +220,8 @@ ICAR <- function(sspm_object, dataset, dimension,
   the_data <- spm_data(the_dataset)
 
   # ---- TIME ----
-  time_columnumn <- spm_time_column(the_dataset)
-  time_levels <- unique(the_data[[time_columnumn]])
+  time_column <- spm_time_column(the_dataset)
+  time_levels <- unique(the_data[[time_column]])
   n_time_levels = length(time_levels)
 
   # ---- SPACE ----
@@ -234,7 +234,7 @@ ICAR <- function(sspm_object, dataset, dimension,
 
   if (dimension == "time") {
 
-    out_column <- list(str2lang(time_columnumn))
+    out_column <- list(str2lang(time_column))
 
     if(is.null(k)){
       k <- n_time_levels
@@ -296,7 +296,7 @@ ICAR <- function(sspm_object, dataset, dimension,
 
   } else if (dimension == "space_time"){
 
-    out_column <- list(str2lang(time_columnumn), str2lang(space_column))
+    out_column <- list(str2lang(time_column), str2lang(space_column))
 
     if(is.null(k)){
       k <- c(n_time_levels, 30)
@@ -320,13 +320,13 @@ ICAR <- function(sspm_object, dataset, dimension,
       checkmate::assert_list(xt)
       lapply(xt, checkmate::assert_list)
       checkmate::assert_names(names(xt),
-                              subset.of = c(time_columnumn, space_column))
+                              subset.of = c(time_column, space_column))
 
-      if (is.null(xt[[time_columnumn]]$penalty)){
+      if (is.null(xt[[time_column]]$penalty)){
         vars$pen_mat_time <- ICAR_time(time_levels)
       } else {
-        checkmate::assert_matrix(xt[[time_columnumn]]$penalty)
-        vars$pen_mat_time <- xt[[time_columnumn]]$penalty
+        checkmate::assert_matrix(xt[[time_column]]$penalty)
+        vars$pen_mat_time <- xt[[time_column]]$penalty
       }
 
       if (is.null(xt[[space_column]]$penalty)){
@@ -340,7 +340,7 @@ ICAR <- function(sspm_object, dataset, dimension,
 
     xt_list <- list(xt = list(list(penalty = rlang::expr(pen_mat_time)),
                               list(penalty = rlang::expr(pen_mat_space))))
-    names(xt_list$xt) <- c(time_columnumn, space_column)
+    names(xt_list$xt) <- c(time_column, space_column)
 
   }
 
@@ -384,6 +384,56 @@ ICAR_space <- function(patches, space_column){
 
 }
 
+
+# LINPRED -----------------------------------------------------------------
+
+# Construct the lag matrix and associated lag columns for the linear predictor
+# method of fitting the smooth
+
+LINPRED <- function(sspm_object, var,
+                    k, m, ...){
+
+  checkmate::assert_class(sspm_object, "sspm_discrete")
+
+  # Recapture the ellipsis again
+  args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
+
+  # Make the lag matrix
+  biomass_time_col <- spm_time_column(spm_datasets(sspm_discrete_mapped, "biomass"))
+  boundary_col <- names(spm_boundaries(sspm_discrete_mapped))[which(names(spm_boundaries(sspm_discrete_mapped)) != "geometry")]
+
+  lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(spm_smoothed_data(sspm_object)), ncol = k, byrow = TRUE)) %>%
+    dplyr::rename_all(.funs = gsub, pattern = "V", replacement = "lag") %>%
+    dplyr::mutate(!!biomass_time_col :=
+                    spm_smoothed_data(sspm_object)[[biomass_time_col]],
+                  patch_id = spm_smoothed_data(sspm_object)[["patch_id"]],
+                  !!boundary_col := spm_smoothed_data(sspm_object)[[boundary_col]])
+
+  by_matrix <- spm_smoothed_data(sspm_object) %>%
+    dplyr::select(patch_id, !!boundary_col, !!biomass_time_col, !!var) %>%
+    dplyr::nest_by(patch_id, !!boundary_col := .[[boundary_col]]) %>%
+    dplyr::mutate(lags = list(multilag(variable = data[[var]],
+                                       n_lags = k,
+                                       # TODO: assuming in-group mean as default
+                                       default = mean(data[[var]],
+                                                      na.rm = T)))) %>%
+    tidyr::unnest(cols = c(lags, data)) %>%
+    dplyr::ungroup()
+
+  out_column <- list(str2lang("lag_matrix"))
+  vars <- list()
+  vars$lag_matrix <- lag_matrix
+  vars$by_matrix <- by_matrix
+
+  return(list(args = do.call(c,
+                             args = list(out_column,
+                                         list(k=k, m=m,
+                                              by=str2lang("by_matrix")),
+                                         args_list)),
+              vars = vars))
+
+}
+
 # Accessory functions -----------------------------------------------------
 
 # This functions turns the args_and_vars returned by ICAR (and potentially any
@@ -395,3 +445,4 @@ assemble_smooth <- function(s_type, args){
 
   deparse(rlang::call2(s_type, !!!args),
           width.cutoff = 500, nlines = 1)
+}
