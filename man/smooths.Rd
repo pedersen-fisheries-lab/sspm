@@ -8,7 +8,7 @@
 \alias{smooth_time,ANY,character,sspm_discrete-method}
 \alias{smooth_space,ANY,character,sspm_discrete-method}
 \alias{smooth_space_time,ANY,character,sspm_discrete-method}
-\alias{smooth_lag,sspm_discrete-method}
+\alias{smooth_lag,ANY,ANY,sspm_discrete-method}
 \title{sspm Smoothing functions}
 \usage{
 smooth_time(
@@ -41,7 +41,7 @@ smooth_space_time(
   ...
 )
 
-smooth_lag(sspm_object, n = 1, k = NULL, m = 1, ...)
+smooth_lag(var, type = "LINPRED", sspm_object, k = 5, m = 1, ...)
 
 \S4method{smooth_time}{ANY,character,sspm_discrete}(
   type = "ICAR",
@@ -73,7 +73,7 @@ smooth_lag(sspm_object, n = 1, k = NULL, m = 1, ...)
   ...
 )
 
-\S4method{smooth_lag}{sspm_discrete}(sspm_object, n = 1, k = NULL, m = 1, ...)
+\S4method{smooth_lag}{ANY,ANY,sspm_discrete}(var, type = "LINPRED", sspm_object, k = 5, m = 1, ...)
 }
 \arguments{
 \item{type}{\strong{[character]} Type of smooth, currently only "ICAR" is
@@ -102,13 +102,15 @@ see \code{\link[mgcv]{smooth.terms}} for an over view of what is available.
 
 \item{...}{Further arguments passed down, none used for now.}
 
-\item{n}{TODO (size of lag)}
+\item{var}{\strong{[symbol]} Variable (only for smooth_lag).}
 
 \item{m}{The order of the penalty for this term (e.g. 2 for
     normal cubic spline penalty with 2nd derivatives when using 
    default t.p.r.s basis). \code{NA} signals
     autoinitialization. Only some smooth classes use this. The \code{"ps"} 
     class can use a 2 item array giving the basis and penalty order separately.}
+
+\item{n}{TODO (size of lag)}
 }
 \value{
 A list of 2 lists:
