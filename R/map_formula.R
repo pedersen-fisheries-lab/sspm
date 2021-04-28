@@ -186,7 +186,7 @@ setMethod(f = "map_formula",
             # Check names
             all_dataset_names <- names(all_datasets)
             if(any(!sapply(dataset, checkmate::test_choice, all_dataset_names))){
-              stop(paste0("Argument 'dataset' must be of: ",
+              stop(paste0("Argument 'dataset' must be one of: ",
                           paste0(all_dataset_names,
                                  collapse =  ", " )), call. = FALSE)
             }

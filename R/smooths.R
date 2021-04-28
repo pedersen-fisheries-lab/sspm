@@ -211,12 +211,21 @@ ICAR <- function(sspm_object, dataset, dimension,
   # Get data/dataset and relevant columns
   # Same test than in map_formula
 
-  if(dataset != "smoothed_data") {
+  if(dataset == "smoothed_data") {
+
+    the_data <- spm_smoothed_data(sspm_object)
+
+    # ---- TIME ----
+    time_column <- spm_time_column(spm_datasets(sspm_object, "biomass"))
+    time_levels <- unique(the_data[[time_column]])
+    n_time_levels = length(time_levels)
+
+  } else {
 
     all_datasets <- spm_datasets(sspm_object)
     all_dataset_names <- names(all_datasets)
     if(any(!sapply(dataset, checkmate::test_choice, all_dataset_names))){
-      stop(paste0("Argument 'dataset' must be of: ",
+      stop(paste0("Argument 'dataset' must be one of: ",
                   paste0(all_dataset_names,
                          collapse =  ", " )), call. = FALSE)
     }
@@ -226,15 +235,6 @@ ICAR <- function(sspm_object, dataset, dimension,
 
     # ---- TIME ----
     time_column <- spm_time_column(the_dataset)
-    time_levels <- unique(the_data[[time_column]])
-    n_time_levels = length(time_levels)
-
-  } else {
-
-    the_data <- spm_smoothed_data(sspm_object)
-
-    # ---- TIME ----
-    time_column <- spm_time_column(spm_datasets(sspm_object, "biomass"))
     time_levels <- unique(the_data[[time_column]])
     n_time_levels = length(time_levels)
 
