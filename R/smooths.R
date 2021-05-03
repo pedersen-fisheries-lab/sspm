@@ -209,19 +209,6 @@ ICAR <- function(sspm_object, dataset, dimension,
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
   # Get data/dataset and relevant columns
-  # Same test than in map_formula
-
-
-  #
-  #   the_data <- spm_smoothed_data(sspm_object)
-  #
-  #   # ---- TIME ----
-  #   time_column <- spm_time_column(spm_datasets(sspm_object, "biomass"))
-  #   time_levels <- unique(the_data[[time_column]])
-  #   n_time_levels = length(time_levels)
-  #
-  # } else {
-
   all_datasets <- spm_datasets(sspm_object)
   all_dataset_names <- names(all_datasets)
   choices <- c(all_dataset_names, "smoothed_data")
@@ -245,14 +232,11 @@ ICAR <- function(sspm_object, dataset, dimension,
   time_levels <- unique(the_data[[time_column]])
   n_time_levels = length(time_levels)
 
-  # }
-
   # ---- SPACE ----
   # Here we assume the hardcoded convention that the patch column is patch_id
   # (from the discretization)
   space_column <- "patch_id"
   patches <- spm_patches(sspm_object)
-
 
   # Setup done ----
 
