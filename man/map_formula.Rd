@@ -2,7 +2,6 @@
 % Please edit documentation in R/map_formula.R
 \name{map_formula}
 \alias{map_formula}
-\alias{map_formula,sspm,ANY,ANY-method}
 \alias{map_formula,sspm_discrete,missing,ANY-method}
 \alias{map_formula,sspm_discrete,formula,missing-method}
 \alias{map_formula,sspm_discrete,formula,character-method}
@@ -10,8 +9,6 @@
 \title{Map model formula onto a discretized sspm object}
 \usage{
 map_formula(sspm_object, formula, dataset, ...)
-
-\S4method{map_formula}{sspm,ANY,ANY}(sspm_object, formula, dataset, ...)
 
 \S4method{map_formula}{sspm_discrete,missing,ANY}(sspm_object, formula, dataset, ...)
 
