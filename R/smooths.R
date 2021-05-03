@@ -62,7 +62,7 @@ setGeneric(name = "smooth_space_time",
 setGeneric(name = "smooth_lag",
            def = function(var,
                           type = "LINPRED",
-                          dataset = NULL,
+                          dataset,
                           sspm_object,
                           k = 5,
                           m = 1,
@@ -211,34 +211,41 @@ ICAR <- function(sspm_object, dataset, dimension,
   # Get data/dataset and relevant columns
   # Same test than in map_formula
 
-  if(dataset == "smoothed_data") {
 
-    the_data <- spm_smoothed_data(sspm_object)
+  #
+  #   the_data <- spm_smoothed_data(sspm_object)
+  #
+  #   # ---- TIME ----
+  #   time_column <- spm_time_column(spm_datasets(sspm_object, "biomass"))
+  #   time_levels <- unique(the_data[[time_column]])
+  #   n_time_levels = length(time_levels)
+  #
+  # } else {
 
-    # ---- TIME ----
-    time_column <- spm_time_column(spm_datasets(sspm_object, "biomass"))
-    time_levels <- unique(the_data[[time_column]])
-    n_time_levels = length(time_levels)
+  all_datasets <- spm_datasets(sspm_object)
+  all_dataset_names <- names(all_datasets)
+  choices <- c(all_dataset_names, "smoothed_data")
 
-  } else {
-
-    all_datasets <- spm_datasets(sspm_object)
-    all_dataset_names <- names(all_datasets)
-    if(any(!sapply(dataset, checkmate::test_choice, all_dataset_names))){
-      stop(paste0("Argument 'dataset' must be one of: ",
-                  paste0(all_dataset_names,
-                         collapse =  ", " )), call. = FALSE)
-    }
-
-    the_dataset <- spm_datasets(sspm_object)[[dataset]]
-    the_data <- spm_data(the_dataset)
-
-    # ---- TIME ----
-    time_column <- spm_time_column(the_dataset)
-    time_levels <- unique(the_data[[time_column]])
-    n_time_levels = length(time_levels)
-
+  if(any(!sapply(dataset, checkmate::test_choice, choices))){
+    stop(paste0("Argument 'dataset' must be one of: ",
+                paste0(all_dataset_names,
+                       collapse =  ", " )), call. = FALSE)
   }
+
+  if(dataset == "smoothed_data") {
+    the_dataset <- spm_smoothed_data(sspm_object)
+  } else {
+    the_dataset <- spm_datasets(sspm_object)[[dataset]]
+  }
+
+  the_data <- spm_data(the_dataset)
+
+  # ---- TIME ----
+  time_column <- spm_time_column(the_dataset)
+  time_levels <- unique(the_data[[time_column]])
+  n_time_levels = length(time_levels)
+
+  # }
 
   # ---- SPACE ----
   # Here we assume the hardcoded convention that the patch column is patch_id
@@ -403,7 +410,6 @@ ICAR_space <- function(patches, space_column){
 
 }
 
-
 # LINPRED -----------------------------------------------------------------
 
 # Construct the lag matrix and associated lag columns for the linear predictor
@@ -421,14 +427,16 @@ LINPRED <- function(sspm_object, var,
   biomass_time_col <- spm_time_column(spm_datasets(sspm_object, "biomass"))
   boundary_col <- names(spm_boundaries(sspm_object))[which(names(spm_boundaries(sspm_object)) != "geometry")]
 
-  lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(spm_smoothed_data(sspm_object)), ncol = k, byrow = TRUE)) %>%
+  smoothed_data <- spm_data(spm_smoothed_data(sspm_object))
+
+  lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(smoothed_data), ncol = k, byrow = TRUE)) %>%
     dplyr::rename_all(.funs = gsub, pattern = "V", replacement = "lag") %>%
     dplyr::mutate(!!biomass_time_col :=
-                    spm_smoothed_data(sspm_object)[[biomass_time_col]],
-                  patch_id = spm_smoothed_data(sspm_object)[["patch_id"]],
-                  !!boundary_col := spm_smoothed_data(sspm_object)[[boundary_col]])
+                    smoothed_data[[biomass_time_col]],
+                  patch_id = smoothed_data[["patch_id"]],
+                  !!boundary_col := smoothed_data[[boundary_col]])
 
-  by_matrix <- spm_smoothed_data(sspm_object) %>%
+  by_matrix <- smoothed_data %>%
     dplyr::select(patch_id, !!boundary_col, !!biomass_time_col, !!var) %>%
     dplyr::nest_by(patch_id, !!boundary_col := .[[boundary_col]]) %>%
     dplyr::mutate(lags = list(multilag(variable = data[[var]],
