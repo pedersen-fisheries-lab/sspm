@@ -135,19 +135,22 @@ effects and custom smooths, and can make use of specific smoothing terms
 more explanations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>map_formula</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>dataset</span>, <span class='va'>formula</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>map_formula</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>formula</span>, <span class='va'>dataset</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sspm,ANY,ANY</span>
-<span class='fu'>map_formula</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>dataset</span>, <span class='va'>formula</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>map_formula</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>formula</span>, <span class='va'>dataset</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete,ANY,formula</span>
-<span class='fu'>map_formula</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>dataset</span>, <span class='va'>formula</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for sspm_discrete,missing,ANY</span>
+<span class='fu'>map_formula</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>formula</span>, <span class='va'>dataset</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete,ANY,missing</span>
-<span class='fu'>map_formula</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>dataset</span>, <span class='va'>formula</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for sspm_discrete,formula,missing</span>
+<span class='fu'>map_formula</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>formula</span>, <span class='va'>dataset</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete,character,formula</span>
-<span class='fu'>map_formula</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>dataset</span>, <span class='va'>formula</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='co'># S4 method for sspm_discrete,formula,character</span>
+<span class='fu'>map_formula</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>formula</span>, <span class='va'>dataset</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S4 method for sspm_discrete,formula,sspm_data</span>
+<span class='fu'>map_formula</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>formula</span>, <span class='va'>dataset</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -158,14 +161,14 @@ more explanations.</p>
 <a href='sspm-class.html'>sspm_discrete</a>.</p></td>
     </tr>
     <tr>
-      <th>dataset</th>
-      <td><p><strong>[character]</strong> The name(s) of the dataset(s) for which to
-specify the formula.</p></td>
-    </tr>
-    <tr>
       <th>formula</th>
       <td><p><strong>[formula]</strong> A formula definition of the form
 response ~ smoothing_terms + ...</p></td>
+    </tr>
+    <tr>
+      <th>dataset</th>
+      <td><p><strong>[character]</strong> The name(s) of the dataset(s) for which to
+specify the formula.</p></td>
     </tr>
     <tr>
       <th>...</th>
