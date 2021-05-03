@@ -128,50 +128,36 @@ cat_datasets <- function(object){
 
       if(length(the_dataset_formulas)>0){
 
-        for (f_id in seq_len(length.out = length(the_dataset_formulas))){
+        cat_formula_lines(the_dataset, the_dataset_formulas)
 
-          form <- the_dataset_formulas[[f_id]]
-          formatted <- cat_formula(form@raw_formula)
-
-          if(the_dataset@is_smoothed == TRUE){
-
-            # the_smoothed_data <- the_dataset@smoothed_data[[f_id]]
-            # base_line <- paste0("      ", cli::symbol$en_dash, " ")
-
-            the_tag <- "(SMOOTHED)"
-
-            # smoothed <- paste0(" [", cli::col_blue(nrow(the_smoothed_data)), " observations]")
-            # the_line <- paste0(base_line, cli::col_green(cli::style_bold(the_tag)), smoothed)
-            # the_line <- paste0(base_line, cli::col_green(cli::style_bold(the_tag)))
-
-            # if(the_dataset@is_splitted == TRUE){
-            #
-            #   the_tag <- "(SMOOTHED, SPLITTED)"
-            #
-            #   n_train <- sum(the_smoothed_data$train_test == TRUE)
-            #   n_test <- sum(the_smoothed_data$train_test == FALSE)
-            #
-            #   smoothed_and_splitted <- paste0(" [", cli::col_blue(n_train), " train, ",
-            #                                   cli::col_blue(n_test), " test]")
-            #
-            #   the_line <- paste0(base_line, cli::col_green(cli::style_bold(the_tag)), smoothed_and_splitted)
-            # }
-            # cli::cat_line(the_line)
-
-            cli::cat_line("      ", cli::symbol$en_dash, " ",
-                          cli::col_green(the_tag), " ",
-                          cli::col_yellow(formatted))
-
-          } else {
-
-            cli::cat_line("      ", cli::symbol$en_dash, " ",
-                          cli::col_yellow(formatted))
-
-          }
-        }
       }
     }
   }
+}
+
+cat_formula_lines <- function(the_dataset, the_dataset_formulas){
+
+  for (f_id in seq_len(length.out = length(the_dataset_formulas))){
+
+    form <- the_dataset_formulas[[f_id]]
+    formatted <- cat_formula(form@raw_formula)
+
+    if(the_dataset@is_smoothed == TRUE){
+
+      the_tag <- "(SMOOTHED)"
+
+      cli::cat_line("      ", cli::symbol$en_dash, " ",
+                    cli::col_green(the_tag), " ",
+                    cli::col_yellow(formatted))
+
+    } else {
+
+      cli::cat_line("      ", cli::symbol$en_dash, " ",
+                    cli::col_yellow(formatted))
+
+    }
+  }
+
 }
 
 cat_smoothed_data <- function(object){
@@ -207,6 +193,9 @@ cat_smoothed_data <- function(object){
 
       cli::cat_line("   ", the_line)
     }
+
+    cat_formula_lines(object@smoothed_data, object@smoothed_data@formulas)
+
   }
 
 }
