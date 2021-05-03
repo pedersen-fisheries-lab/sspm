@@ -187,11 +187,25 @@ setMethod(f = "fit_smooths",
             }
 
             spm_datasets(sspm_object) <- datasets
-            spm_smoothed_data(sspm_object) <- full_smoothed_data %>%
+
+            full_smoothed_data_clean <- full_smoothed_data %>%
               dplyr::relocate(names(spm_boundaries(sspm_object)),
                               .after = dplyr::last_col()) %>%
               dplyr::relocate(dplyr::contains("smooth")) %>%
-              dplyr::ungroup()
+              dplyr::ungroup() %>%
+              dplyr::mutate(row_ID = 1:nrow(.)) %>%
+              dplyr::relocate(row_ID)
+
+            spm_smoothed_data(sspm_object) <-
+              new("sspm_data",
+                  data = st_as_sf(full_smoothed_data_clean),
+                  name = "smoothed_data",
+                  type = "smoothed_data",
+                  time_column = spm_time_column(spm_datasets(sspm_object,
+                                                             "biomass")),
+                  uniqueID = "row_ID",
+                  coords = NULL,
+                  is_smoothed = TRUE)
 
             # For now return a summary of the fit
             return(sspm_object)
