@@ -39,15 +39,6 @@ setGeneric(name = "map_formula",
 #' @export
 #' @rdname map_formula
 setMethod(f = "map_formula",
-          signature(sspm_object = "sspm"),
-          function(sspm_object, ...){
-            message_not_discrete(sspm_object)
-          }
-)
-
-#' @export
-#' @rdname map_formula
-setMethod(f = "map_formula",
           signature(sspm_object = "sspm_discrete",
                     formula = "missing"),
           function(sspm_object, formula, dataset, ... ){
@@ -195,7 +186,9 @@ setMethod(f = "map_formula",
             # Find the special calls to edit and evaluate
             is_special <- sapply(terms_labels, grepl, pattern="smooth_lag(", fixed=TRUE) |
               sapply(terms_labels, grepl, pattern="smooth_time(", fixed=TRUE) |
-              sapply(terms_labels, grepl, pattern="smooth_space(", fixed=TRUE)
+              sapply(terms_labels, grepl, pattern="smooth_space(", fixed=TRUE) |
+              sapply(terms_labels, grepl, pattern="smooth_space_time(", fixed=TRUE)
+
             smooth_terms_labels <- terms_labels[is_special]
             other_terms <- terms_labels[!is_special]
 
