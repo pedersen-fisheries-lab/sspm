@@ -205,7 +205,7 @@ setMethod(f = "fit_smooths",
                                                              "biomass")),
                   uniqueID = "row_ID",
                   coords = NULL,
-                  is_smoothed = TRUE)
+                  is_smoothed = FALSE)
 
             # For now return a summary of the fit
             return(sspm_object)
