@@ -5,7 +5,7 @@ test_that("Fitting works fas expected", {
     spm_discretize(with_dataset = "Biomass",
                    discretization_method = "tesselate_voronoi")
   sspm_discrete_mapped_forms <- sspm_discrete %>%
-    map_formula("Biomass", weight_per_km2~smooth_space())
+    map_formula(weight_per_km2~smooth_space(), "Biomass")
   sspm_discrete_mapped_fitted <- sspm_discrete_mapped_forms %>%
     fit_smooths()
   intercept <-
