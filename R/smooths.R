@@ -418,8 +418,8 @@ LINPRED <- function(sspm_object, var,
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
   # Make the lag matrix
-  biomass_time_col <- spm_time_column(spm_datasets(sspm_discrete_mapped, "biomass"))
-  boundary_col <- names(spm_boundaries(sspm_discrete_mapped))[which(names(spm_boundaries(sspm_discrete_mapped)) != "geometry")]
+  biomass_time_col <- spm_time_column(spm_datasets(sspm_object, "biomass"))
+  boundary_col <- names(spm_boundaries(sspm_object))[which(names(spm_boundaries(sspm_object)) != "geometry")]
 
   lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(spm_smoothed_data(sspm_object)), ncol = k, byrow = TRUE)) %>%
     dplyr::rename_all(.funs = gsub, pattern = "V", replacement = "lag") %>%
