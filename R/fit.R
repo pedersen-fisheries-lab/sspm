@@ -26,6 +26,19 @@ setGeneric(name = "fit_smooths",
            }
 )
 
+#' @rdname fit
+#' @export
+setGeneric(name = "fit_spm",
+           def = function(sspm_object,
+                          family = mgcv::tw,
+                          drop.unused.levels = F,
+                          method = "fREML",
+                          keep_fit = TRUE,
+                          ...){
+             standardGeneric("fit_spm")
+           }
+)
+
 # Methods -----------------------------------------------------------------
 
 #' @export
@@ -136,11 +149,6 @@ setMethod(f = "fit_smooths",
                                 drop.unused.levels = drop.unused.levels,
                                 method = method,
                                 ...)
-
-                    # tmp_df <- data.frame(tmp_fit[[form_name]]$fitted) %>%
-                    #   dplyr::bind_cols(ID = the_data[[spm_unique_ID(dataset)]])
-                    # names(tmp_df) <- c(form_name, spm_unique_ID(dataset))
-                    # tmp_smoothed[[form_name]] <- tmp_df
                   }
 
                   # Store results at dataset level
@@ -207,8 +215,88 @@ setMethod(f = "fit_smooths",
                   coords = NULL,
                   is_smoothed = FALSE)
 
-            # For now return a summary of the fit
             return(sspm_object)
 
           }
 )
+
+#' @export
+#' @rdname fit
+setMethod(f = "fit_spm",
+          signature(sspm_object = "sspm_discrete"),
+          function(sspm_object, family, drop.unused.levels, method, predict, keep_fit, ...){
+
+            # Here we fit the full spm
+            # Get dataset
+            smoothed_data <- spm_smoothed_data(sspm_object)
+
+            # Check if all datasets have a mapped formula
+            formulas <- spm_formulas(smoothed_data)
+            formula_length <- length(formulas)
+            has_no_formulas <- formula_length < 1
+
+            if(has_no_formulas){
+              cli::cli_alert_danger("No mapped formulas for smoothed data")
+              stop("No mapped formulas.", call. = FALSE)
+            }
+
+            # Initialize/collect smoothed_data
+            the_fit <- NULL
+            time_col_name <- spm_time_column(smoothed_data)
+
+            # Get data
+            the_data <- spm_data(smoothed_data)
+
+            tmp_fit <-
+              vector(mode = "list", length = sum(formula_length))
+            tmp_smoothed <-
+              vector(mode = "list", length = sum(formula_length))
+
+            for (form_id in seq_len(length.out = length(formulas))){
+
+              # Index formula
+              form <- formulas[[form_id]]
+              form_name <- paste0(spm_name(smoothed_data), "_f", form_id)
+              form_vars <- formula_vars(form)
+
+              # Inject name
+              names(tmp_fit)[form_id] <- form_name
+              names(tmp_smoothed)[form_id] <- form_name
+
+              # Print info
+              cli::cli_alert_info(
+                paste0(" Fitting SPM formula: ",
+                       cli::col_yellow(format_formula(raw_formula(form)))))
+
+              # Modify formula env, best solution for now
+              form_env <- attr(translated_formula(form), ".Environment")
+              for(var in names(form_vars)){
+                assign(x = var, value = form_vars[[var]], envir = form_env)
+              }
+
+              browser()
+
+              # Fit the formula, important to attach the vars
+              tmp_fit[[form_name]] <-
+                mgcv::bam(formula = translated_formula(form),
+                          data = the_data,
+                          family = family,
+                          drop.unused.levels = drop.unused.levels,
+                          method = method,
+                          ...)
+            }
+
+            # Store results at smoothed_data level
+            if(keep_fit){
+              spm_smoothed_fit(smoothed_data) <- tmp_fit
+            }
+
+            is_smoothed(smoothed_data) <- TRUE
+
+            # For now return a summary of the fit
+            return(smoothed_data)
+
+          }
+)
+
+

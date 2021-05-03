@@ -2,8 +2,10 @@
 % Please edit documentation in R/fit.R
 \name{fit_smooths}
 \alias{fit_smooths}
+\alias{fit_spm}
 \alias{fit_smooths,sspm-method}
 \alias{fit_smooths,sspm_discrete-method}
+\alias{fit_spm,sspm_discrete-method}
 \title{Fit the GAM part of a sspm model}
 \usage{
 fit_smooths(
@@ -12,6 +14,15 @@ fit_smooths(
   drop.unused.levels = F,
   method = "fREML",
   predict = TRUE,
+  keep_fit = TRUE,
+  ...
+)
+
+fit_spm(
+  sspm_object,
+  family = mgcv::tw,
+  drop.unused.levels = F,
+  method = "fREML",
   keep_fit = TRUE,
   ...
 )
@@ -33,6 +44,16 @@ fit_smooths(
   method = "fREML",
   predict = TRUE,
   keep_fit = TRUE,
+  ...
+)
+
+\S4method{fit_spm}{sspm_discrete}(
+  sspm_object,
+  family,
+  drop.unused.levels,
+  method,
+  predict,
+  keep_fit,
   ...
 )
 }
