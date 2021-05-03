@@ -27,7 +27,7 @@ setMethod(f = "spm_lag",
           signature(sspm_object = "sspm_discrete"),
           function(sspm_object, vars, n, default, ...){
 
-            smoothed_data <- spm_smoothed_data(sspm_object)
+            smoothed_data <- spm_data(spm_smoothed_data(sspm_object))
 
             for (var in vars) {
 
@@ -61,7 +61,7 @@ setMethod(f = "spm_lag",
               }
             }
 
-            spm_smoothed_data(sspm_object) <- smoothed_data
+            spm_data(spm_smoothed_data(sspm_object)) <- smoothed_data
             return(sspm_object)
           }
 )
