@@ -3,30 +3,33 @@
 \name{map_formula}
 \alias{map_formula}
 \alias{map_formula,sspm,ANY,ANY-method}
-\alias{map_formula,sspm_discrete,ANY,formula-method}
-\alias{map_formula,sspm_discrete,ANY,missing-method}
-\alias{map_formula,sspm_discrete,character,formula-method}
+\alias{map_formula,sspm_discrete,missing,ANY-method}
+\alias{map_formula,sspm_discrete,formula,missing-method}
+\alias{map_formula,sspm_discrete,formula,character-method}
+\alias{map_formula,sspm_discrete,formula,sspm_data-method}
 \title{Map model formula onto a discretized sspm object}
 \usage{
-map_formula(sspm_object, dataset, formula, ...)
+map_formula(sspm_object, formula, dataset, ...)
 
-\S4method{map_formula}{sspm,ANY,ANY}(sspm_object, dataset, formula, ...)
+\S4method{map_formula}{sspm,ANY,ANY}(sspm_object, formula, dataset, ...)
 
-\S4method{map_formula}{sspm_discrete,ANY,formula}(sspm_object, dataset, formula, ...)
+\S4method{map_formula}{sspm_discrete,missing,ANY}(sspm_object, formula, dataset, ...)
 
-\S4method{map_formula}{sspm_discrete,ANY,missing}(sspm_object, dataset, formula, ...)
+\S4method{map_formula}{sspm_discrete,formula,missing}(sspm_object, formula, dataset, ...)
 
-\S4method{map_formula}{sspm_discrete,character,formula}(sspm_object, dataset, formula, ...)
+\S4method{map_formula}{sspm_discrete,formula,character}(sspm_object, formula, dataset, ...)
+
+\S4method{map_formula}{sspm_discrete,formula,sspm_data}(sspm_object, formula, dataset, ...)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_discrete]} An object of class
 \link[=sspm_discrete-class]{sspm_discrete}.}
 
-\item{dataset}{\strong{[character]} The name(s) of the dataset(s) for which to
-specify the formula.}
-
 \item{formula}{\strong{[formula]} A formula definition of the form
 response ~ smoothing_terms + ...}
+
+\item{dataset}{\strong{[character]} The name(s) of the dataset(s) for which to
+specify the formula.}
 
 \item{...}{Further arguments passed down, none used for now.}
 }
