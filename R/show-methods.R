@@ -176,7 +176,7 @@ cat_datasets <- function(object){
 
 cat_smoothed_data <- function(object){
 
-  if(!is.null(object@smoothed_data)){
+  if(!is.null(object@smoothed_data@data)){
     cli::cat_bullet(cli::col_cyan(" Smoothed data : "),
                     pluralize_data_info(object@smoothed_data@data),
                     bullet = "arrow_right")
