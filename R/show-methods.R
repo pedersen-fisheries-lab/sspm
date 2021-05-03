@@ -178,11 +178,11 @@ cat_smoothed_data <- function(object){
 
   if(!is.null(object@smoothed_data)){
     cli::cat_bullet(cli::col_cyan(" Smoothed data : "),
-                    pluralize_data_info(object@smoothed_data),
+                    pluralize_data_info(object@smoothed_data@data),
                     bullet = "arrow_right")
 
     columns_with_smooth <-
-      names(which(sapply(colnames(object@smoothed_data),
+      names(which(sapply(colnames(object@smoothed_data@data),
                          grepl, pattern = "_smooth", fixed=TRUE)))
     columns_with_smooth <-
       names(which(!sapply(columns_with_smooth,
@@ -196,7 +196,7 @@ cat_smoothed_data <- function(object){
     cli::cat_line("   ", the_line)
 
     columns_with_lag <-
-      names(which(sapply(colnames(object@smoothed_data),
+      names(which(sapply(colnames(object@smoothed_data@data),
                          grepl, pattern="_lag", fixed=TRUE)))
 
     if (length(columns_with_lag) > 0){
