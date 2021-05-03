@@ -1,6 +1,6 @@
 # Test fit function
 
-test_that("Fitting works fas expected", {
+test_that("Fitting works as expected", {
   sspm_discrete <- sspm_base %>%
     spm_discretize(with_dataset = "Biomass",
                    discretization_method = "tesselate_voronoi")
