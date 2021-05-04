@@ -54,8 +54,6 @@ setMethod(f = "map_formula",
                     dataset = "missing"),
           function(sspm_object, formula, dataset, ...){
 
-            # browser()
-
             # If dataset name is not provided, assume we want to map an actual
             # SPM formula and not smooth the data (previous step in workflow)
 
@@ -64,6 +62,7 @@ setMethod(f = "map_formula",
 
             # Get all datasets
             all_datasets <- spm_datasets(sspm_object)
+            smoothed_data <- spm_smoothed_data(sspm_object)
 
             # 1. Are all datasets smoothed?
             are_smoothed <- sapply(all_datasets, is_smoothed)
@@ -83,10 +82,16 @@ setMethod(f = "map_formula",
             # }
 
             # 3. Is there a splitting scheme?
-            # TODO come back to this later
+            if(!is_splitted(smoothed_data)){
+              stop("Data must be splitted.")
+            } else {
+              old_sspm_data <- spm_data(spm_smoothed_data(sspm_object))
+              new_sspm_data <- old_sspm_data %>%
+                dplyr::filter(train_test == TRUE)
+              spm_data(spm_smoothed_data(sspm_object)) <- new_sspm_data
+            }
 
             # 4. Map the formula
-            # browser()
 
             # Retrieve terms, response, and term labels
             formula_terms <- terms(formula)
@@ -94,8 +99,8 @@ setMethod(f = "map_formula",
             terms_labels <- attr(formula_terms, "term.labels")
 
             # Check response
-            the_dataset <- spm_smoothed_data(sspm_object)
-            response_data <- spm_data(the_dataset)
+
+            response_data <- spm_data(smoothed_data)
 
             if(!checkmate::test_subset(response, names(response_data))){
               stop("The response in the formula is not a column of the smoothed_data.",
@@ -103,12 +108,13 @@ setMethod(f = "map_formula",
             }
 
             # Pass onto the sspm_data method
-            the_dataset <- sspm_object %>%
+            smoothed_data <- sspm_object %>%
               map_formula(formula = formula,
-                          dataset = the_dataset,
+                          dataset = smoothed_data,
                           ...)
 
-            spm_smoothed_data(sspm_object) <- the_dataset
+            spm_smoothed_data(sspm_object) <- smoothed_data
+            spm_data(spm_smoothed_data(sspm_object)) <- old_sspm_data
 
             return(sspm_object)
 
