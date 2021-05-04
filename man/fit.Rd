@@ -10,56 +10,61 @@
 \usage{
 fit_smooths(
   sspm_object,
+  keep_fit = TRUE,
+  predict = TRUE,
   family = mgcv::tw,
   drop.unused.levels = F,
   method = "fREML",
-  predict = TRUE,
-  keep_fit = TRUE,
   ...
 )
 
 fit_spm(
   sspm_object,
-  family = mgcv::tw,
-  drop.unused.levels = F,
-  method = "fREML",
   keep_fit = TRUE,
+  family = mgcv::scat,
+  select = TRUE,
+  method = "REML",
   ...
 )
 
 \S4method{fit_smooths}{sspm}(
   sspm_object,
+  keep_fit = TRUE,
+  predict = TRUE,
   family = mgcv::tw,
   drop.unused.levels = F,
   method = "fREML",
-  predict = TRUE,
-  keep_fit = TRUE,
   ...
 )
 
 \S4method{fit_smooths}{sspm_discrete}(
   sspm_object,
+  keep_fit = TRUE,
+  predict = TRUE,
   family = mgcv::tw,
   drop.unused.levels = F,
   method = "fREML",
-  predict = TRUE,
-  keep_fit = TRUE,
   ...
 )
 
 \S4method{fit_spm}{sspm_discrete}(
   sspm_object,
-  family,
-  drop.unused.levels,
-  method,
-  predict,
-  keep_fit,
+  keep_fit = TRUE,
+  family = mgcv::scat,
+  select = TRUE,
+  method = "REML",
   ...
 )
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_discrete]} An object of class
-\link[=sspm_discrete-class]{sspm_discrete}.}
+\link[=sspm_discrete-class]{sspm_discrete}}
+
+\item{keep_fit}{\strong{[logical]} Whether or not to keep the fitted values and
+model (default to TRUE, set to FALSE to reduce memory footprint).}
+
+\item{predict}{\strong{[logical]} Whether or not to generate the smoothed
+predictions (necessary to fit the final SPM model, default to TRUE).}
 
 \item{family}{
 This is a family object specifying the distribution and link to use in
@@ -75,12 +80,6 @@ Mallows' Cp/UBRE/AIC for known scale. \code{"GACV.Cp"} is equivalent, but using 
 for REML estimation, including of unknown scale, \code{"P-REML"} for REML estimation, but using a Pearson estimate 
 of the scale. \code{"ML"} and \code{"P-ML"} are similar, but using maximum likelihood in place of REML. Default 
 \code{"fREML"} uses fast REML computation.}
-
-\item{predict}{\strong{[logical]} Whether or not to generate the smoothed
-predictions (necessary to fit the final SPM model, default to TRUE).}
-
-\item{keep_fit}{\strong{[logical]} Whether or not to keep the fitted values and
-model (default to TRUE, set to FALSE to reduce memory footprint).}
 
 \item{...}{
   Arguments passed on to \code{\link[mgcv:bam]{mgcv::bam}}
@@ -110,9 +109,6 @@ included in \code{formula} (this used to conform to the behaviour of
 \code{lm} and \code{glm}).}
     \item{\code{control}}{A list of fit control parameters to replace defaults returned by 
 \code{\link[mgcv]{gam.control}}. Any control parameters not supplied stay at their default values.}
-    \item{\code{select}}{Should selection penalties be added to the smooth effects, so that they can in principle be 
-penalized out of the model? See \code{gamma} to increase penalization.  Has the side effect that smooths no longer have a fixed effect component (improper prior from a Bayesian perspective) allowing REML comparison of models with the same fixed effect structure. 
-}
     \item{\code{scale}}{ If this is positive then it is taken as the known scale parameter. Negative signals that the 
 scale paraemter is unknown. 0 signals that the scale parameter is 1  for Poisson and binomial and unknown otherwise. 
 Note that (RE)ML methods can only work with scale parameter 1 for the Poisson and binomial cases.    
@@ -169,6 +165,10 @@ be reduced by first fitting a model to a random sample of the data, and using th
     \item{\code{drop.intercept}}{Set to \code{TRUE} to force the model to really not have the a constant in the parametric model part,
 even with factor variables present.}
   }}
+
+\item{select}{Should selection penalties be added to the smooth effects, so that they can in principle be 
+penalized out of the model? See \code{gamma} to increase penalization.  Has the side effect that smooths no longer have a fixed effect component (improper prior from a Bayesian perspective) allowing REML comparison of models with the same fixed effect structure. 
+}
 }
 \description{
 Once formulas have been mapped onto a sspm discrete object, the GAMs can be

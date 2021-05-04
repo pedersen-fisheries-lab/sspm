@@ -4,11 +4,11 @@
 #' fitted with this function. Arguments can be passed onto `bam`.
 #'
 #' @param sspm_object **\[sspm_discrete\]** An object of class
-#'   [sspm_discrete][sspm_discrete-class].
-#' @param predict **\[logical\]** Whether or not to generate the smoothed
-#'   predictions (necessary to fit the final SPM model, default to TRUE).
+#'   [sspm_discrete][sspm_discrete-class]
 #' @param keep_fit **\[logical\]** Whether or not to keep the fitted values and
 #'   model (default to TRUE, set to FALSE to reduce memory footprint).
+#' @param predict **\[logical\]** Whether or not to generate the smoothed
+#'   predictions (necessary to fit the final SPM model, default to TRUE).
 #' @inheritParams mgcv::bam
 #' @inheritDotParams mgcv::bam
 #'
@@ -16,11 +16,11 @@
 #' @export
 setGeneric(name = "fit_smooths",
            def = function(sspm_object,
+                          keep_fit = TRUE,
+                          predict = TRUE,
                           family = mgcv::tw,
                           drop.unused.levels = F,
                           method = "fREML",
-                          predict = TRUE,
-                          keep_fit = TRUE,
                           ...){
              standardGeneric("fit_smooths")
            }
@@ -30,10 +30,10 @@ setGeneric(name = "fit_smooths",
 #' @export
 setGeneric(name = "fit_spm",
            def = function(sspm_object,
-                          family = mgcv::tw,
-                          drop.unused.levels = F,
-                          method = "fREML",
                           keep_fit = TRUE,
+                          family = mgcv::scat,
+                          select = TRUE,
+                          method="REML",
                           ...){
              standardGeneric("fit_spm")
            }
@@ -54,7 +54,7 @@ setMethod(f = "fit_smooths",
 #' @rdname fit
 setMethod(f = "fit_smooths",
           signature(sspm_object = "sspm_discrete"),
-          function(sspm_object, family, drop.unused.levels, method, predict, keep_fit, ...){
+          function(sspm_object, keep_fit, predict, family, drop.unused.levels, method,  ...){
 
             # Get all datasets
             datasets <- spm_datasets(sspm_object)
@@ -144,7 +144,7 @@ setMethod(f = "fit_smooths",
                     # Fit the formula, important to attach the vars
                     tmp_fit[[form_name]] <-
                       mgcv::bam(formula = translated_formula(form),
-                                data = the_data,
+                                data = c(as.list(the_data), form_vars),
                                 family = family,
                                 drop.unused.levels = drop.unused.levels,
                                 method = method,
@@ -224,7 +224,7 @@ setMethod(f = "fit_smooths",
 #' @rdname fit
 setMethod(f = "fit_spm",
           signature(sspm_object = "sspm_discrete"),
-          function(sspm_object, family, drop.unused.levels, method, predict, keep_fit, ...){
+          function(sspm_object, keep_fit, family, select, method, ...){
 
             # Here we fit the full spm
             # Get dataset
@@ -245,7 +245,8 @@ setMethod(f = "fit_spm",
             time_col_name <- spm_time_column(smoothed_data)
 
             # Get data
-            the_data <- spm_data(smoothed_data)
+            the_data <- spm_data(smoothed_data) %>%
+              dplyr::filter(train_test == TRUE)
 
             tmp_fit <-
               vector(mode = "list", length = sum(formula_length))
@@ -274,14 +275,13 @@ setMethod(f = "fit_spm",
                 assign(x = var, value = form_vars[[var]], envir = form_env)
               }
 
-              browser()
-
               # Fit the formula, important to attach the vars
               tmp_fit[[form_name]] <-
                 mgcv::bam(formula = translated_formula(form),
-                          data = the_data,
+                          data = c(as.list(the_data),
+                                   form_vars),
                           family = family,
-                          drop.unused.levels = drop.unused.levels,
+                          select = select,
                           method = method,
                           ...)
             }
@@ -293,8 +293,8 @@ setMethod(f = "fit_spm",
 
             is_smoothed(smoothed_data) <- TRUE
 
-            # For now return a summary of the fit
-            return(smoothed_data)
+            # For now return fit
+            return(tmp_fit)
 
           }
 )
