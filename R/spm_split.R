@@ -60,9 +60,10 @@ setMethod(f = "spm_split",
             selection <- rlang::eval_tidy(str2lang(predicate),
                                           data = the_data)
             the_data$train_test <- selection
-            smoothed_data@is_splitted <- TRUE
+            is_splitted(smoothed_data) <- TRUE
 
-            spm_data(smoothed_data) <- the_data
+            spm_data(smoothed_data) <- the_data %>%
+              splyr::relocate(train_test, .after = row_ID)
             spm_smoothed_data(sspm_object) <- smoothed_data
 
             return(sspm_object)
