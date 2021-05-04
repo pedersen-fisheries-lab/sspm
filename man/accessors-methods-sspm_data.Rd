@@ -36,6 +36,10 @@
 \alias{is_smoothed,sspm_data-method}
 \alias{is_smoothed<-}
 \alias{is_smoothed<-,sspm_data-method}
+\alias{is_splitted}
+\alias{is_splitted,sspm_data-method}
+\alias{is_splitted<-}
+\alias{is_splitted<-,sspm_data-method}
 \title{Accessing OR replacing \code{sspm_data} model elements}
 \usage{
 spm_data(sspm_object)
@@ -107,6 +111,14 @@ is_smoothed(sspm_object)
 is_smoothed(object) <- value
 
 \S4method{is_smoothed}{sspm_data}(object) <- value
+
+is_splitted(sspm_object)
+
+\S4method{is_splitted}{sspm_data}(sspm_object)
+
+is_splitted(object) <- value
+
+\S4method{is_splitted}{sspm_data}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class

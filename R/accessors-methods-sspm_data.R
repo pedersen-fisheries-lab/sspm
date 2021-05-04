@@ -327,3 +327,38 @@ setMethod("is_smoothed<-",
             return(object)
           }
 )
+
+# Is splitted -------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_data
+#' @export
+setGeneric(name = "is_splitted",
+           def = function(sspm_object) standardGeneric("is_splitted")
+)
+
+#' @rdname accessors-methods-sspm_data
+#' @export
+setMethod("is_splitted",
+          signature("sspm_object" = "sspm_data"),
+          function(sspm_object) sspm_object@is_splitted
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_data
+#' @export
+setGeneric(name = "is_splitted<-",
+           def = function(object, value) standardGeneric("is_splitted<-")
+)
+
+#' @rdname accessors-methods-sspm_data
+#' @export
+setMethod("is_splitted<-",
+          signature("object" = "sspm_data"),
+          function(object, value){
+            object@is_splitted <- value
+            validObject(object)
+            return(object)
+          }
+)
