@@ -4,22 +4,20 @@
 \alias{spm_split}
 \alias{spm_split,sspm,ANY-method}
 \alias{spm_split,sspm_discrete,missing-method}
-\alias{spm_split,sspm_discrete,character-method}
+\alias{spm_split,sspm_discrete,ANY-method}
 \title{Split data in test and train sets}
 \usage{
-spm_split(sspm_object, dataset, predicate)
+spm_split(sspm_object, predicate)
 
 \S4method{spm_split}{sspm,ANY}(sspm_object)
 
-\S4method{spm_split}{sspm_discrete,missing}(sspm_object, dataset, predicate)
+\S4method{spm_split}{sspm_discrete,missing}(sspm_object, predicate)
 
-\S4method{spm_split}{sspm_discrete,character}(sspm_object, dataset, predicate)
+\S4method{spm_split}{sspm_discrete,ANY}(sspm_object, predicate)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_discrete]} An object of class
 \link[=sspm-class]{sspm} or \link[=sspm_discrete-class]{sspm_discrete}}
-
-\item{dataset}{\strong{[chacacter]} The dataset to split.}
 
 \item{predicate}{\strong{[expression]} Expression to evaluate to split data.}
 }
