@@ -419,7 +419,8 @@ LINPRED <- function(sspm_object, var,
                     smoothed_data[[biomass_time_col]],
                   patch_id = smoothed_data[["patch_id"]],
                   !!boundary_col := smoothed_data[[boundary_col]]) %>%
-    as.data.frame()
+    dplyr:: select(contains('lag')) %>%
+    as.matrix(.)
 
   by_matrix <- smoothed_data %>%
     dplyr::select(patch_id, !!boundary_col, !!biomass_time_col, !!var) %>%
@@ -432,7 +433,8 @@ LINPRED <- function(sspm_object, var,
     tidyr::unnest(cols = c(lags, data)) %>%
     dplyr::ungroup() %>%
     dplyr::select(-geometry) %>%
-    as.data.frame()
+    dplyr:: select(contains('lag')) %>%
+    as.matrix(.)
 
   out_column <- list(str2lang("lag_matrix"))
   vars <- list()
