@@ -125,16 +125,16 @@
     <p>Split data before fitting spm (WIP).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>spm_split</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>dataset</span>, <span class='va'>predicate</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>spm_split</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>predicate</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sspm,ANY</span>
 <span class='fu'>spm_split</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sspm_discrete,missing</span>
-<span class='fu'>spm_split</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>dataset</span>, <span class='va'>predicate</span><span class='op'>)</span>
+<span class='fu'>spm_split</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>predicate</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete,character</span>
-<span class='fu'>spm_split</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>dataset</span>, <span class='va'>predicate</span><span class='op'>)</span></pre>
+<span class='co'># S4 method for sspm_discrete,ANY</span>
+<span class='fu'>spm_split</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>predicate</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -143,10 +143,6 @@
       <th>sspm_object</th>
       <td><p><strong>[sspm_discrete]</strong> An object of class
 <a href='sspm-class.html'>sspm</a> or <a href='sspm-class.html'>sspm_discrete</a></p></td>
-    </tr>
-    <tr>
-      <th>dataset</th>
-      <td><p><strong>[chacacter]</strong> The dataset to split.</p></td>
     </tr>
     <tr>
       <th>predicate</th>
