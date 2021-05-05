@@ -4,7 +4,7 @@
 #'
 #' @param sspm_object **\[sspm_discrete\]** An object of class
 #'     [sspm][sspm-class] or [sspm_discrete][sspm_discrete-class]
-#' @param predicate **\[expression\]** Expression to evaluate to split data.
+#' @param ... **\[expression\]** Expression to evaluate to split data.
 #'
 #' @return
 #' The updated sspm object.
@@ -12,7 +12,7 @@
 #' @export
 setGeneric(name = "spm_split",
            def = function(sspm_object,
-                          predicate){
+                          ...){
              standardGeneric("spm_split")
            }
 )
@@ -31,18 +31,8 @@ setMethod(f = "spm_split",
 #' @export
 #' @rdname spm_split
 setMethod(f = "spm_split",
-          signature(sspm_object = "sspm_discrete",
-                    predicate = "missing"),
-          function(sspm_object, predicate){
-            stop("Predicate missing.")
-          }
-)
-
-#' @export
-#' @rdname spm_split
-setMethod(f = "spm_split",
           signature(sspm_object = "sspm_discrete"),
-          function(sspm_object, predicate){
+          function(sspm_object, ...){
 
             # Check correct dataset name
             smoothed_data <- spm_smoothed_data(sspm_object)
@@ -55,10 +45,10 @@ setMethod(f = "spm_split",
             # TODO add check if splitted
 
             the_data <- spm_data(smoothed_data)
-            # selection <- rlang::eval_tidy(rlang::enexpr(str2lang(predicate)),
-            #                               data = the_data)
-            selection <- rlang::eval_tidy(str2lang(predicate),
+            selection <- rlang::eval_tidy((match.call(expand.dots = FALSE)$`...`)[[1]],
                                           data = the_data)
+            # selection <- rlang::eval_tidy(str2lang(predicate),
+            #                               data = the_data)
             the_data$train_test <- selection
             is_splitted(smoothed_data) <- TRUE
 
