@@ -144,7 +144,7 @@ setMethod(f = "fit_smooths",
                     # Fit the formula, important to attach the vars
                     tmp_fit[[form_name]] <-
                       mgcv::bam(formula = translated_formula(form),
-                                data = c(as.list(the_data), form_vars),
+                                data = the_data,
                                 family = family,
                                 drop.unused.levels = drop.unused.levels,
                                 method = method,
