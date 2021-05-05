@@ -6,9 +6,9 @@
 #' @param var **\[symbol\]** Variable (only for smooth_lag).
 #' @param type **\[character\]** Type of smooth, currently only "ICAR" is
 #'     supported.
+#' @param k **\[numeric\]** Size of the smooths and/or size of the lag.
 #' @inheritParams map_formula
 #' @inheritParams mgcv::s
-#' @param n TODO (size of lag)
 #'
 #' @return
 #' A list of 2 lists:

@@ -85,12 +85,7 @@ specify the formula.}
 \item{sspm_object}{\strong{[sspm_discrete]} An object of class
 \link[=sspm_discrete-class]{sspm_discrete}.}
 
-\item{k}{ the dimension of the basis used to represent the smooth term.
-    The default depends on the number of variables that the smooth is a
-    function of. \code{k} should not be less than the dimension of the
-    null space of the penalty for the term (see
-    \code{\link[mgcv]{null.space.dimension}}), but will be reset if
-  it is. See \code{\link[mgcv]{choose.k}} for further information.}
+\item{k}{\strong{[numeric]} Size of the smooths and/or size of the lag.}
 
 \item{bs}{a two letter character string indicating the (penalized) smoothing basis to use.
 (eg \code{"tp"} for thin plate regression spline, \code{"cr"} for cubic regression spline).
@@ -109,8 +104,6 @@ see \code{\link[mgcv]{smooth.terms}} for an over view of what is available.
    default t.p.r.s basis). \code{NA} signals
     autoinitialization. Only some smooth classes use this. The \code{"ps"} 
     class can use a 2 item array giving the basis and penalty order separately.}
-
-\item{n}{TODO (size of lag)}
 }
 \value{
 A list of 2 lists:
