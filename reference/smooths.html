@@ -215,12 +215,7 @@ specify the formula.</p></td>
     </tr>
     <tr>
       <th>k</th>
-      <td><p>the dimension of the basis used to represent the smooth term.
-    The default depends on the number of variables that the smooth is a
-    function of. <code>k</code> should not be less than the dimension of the
-    null space of the penalty for the term (see
-    <code><a href='https://rdrr.io/pkg/mgcv/man/null.space.dimension.html'>null.space.dimension</a></code>), but will be reset if
-  it is. See <code><a href='https://rdrr.io/pkg/mgcv/man/choose.k.html'>choose.k</a></code> for further information.</p></td>
+      <td><p><strong>[numeric]</strong> Size of the smooths and/or size of the lag.</p></td>
     </tr>
     <tr>
       <th>bs</th>
@@ -248,10 +243,6 @@ see <code><a href='https://rdrr.io/pkg/mgcv/man/smooth.terms.html'>smooth.terms<
    default t.p.r.s basis). <code>NA</code> signals
     autoinitialization. Only some smooth classes use this. The <code>"ps"</code> 
     class can use a 2 item array giving the basis and penalty order separately.</p></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p>TODO (size of lag)</p></td>
     </tr>
     </table>
 
