@@ -66,19 +66,19 @@ sfa_boundaries <- sspm:::sfa_boundaries
 ``` r
 sspm_base <- sspm(model_name = "My Model",
                   boundaries = sfa_boundaries) %>% 
-  map_dataset(borealis, "Borealis", 
+  map_dataset(borealis, "borealis", 
               type = "biomass",
               time_column = "year_f",
               coords = c('lon_dec','lat_dec'),
-              uniqueID = "uniqueID",)
+              uniqueID = "uniqueID")
 #> !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
 sspm_base
 #> 
 #> ‒‒ SSPM object 'My Model' ‒‒
-#> →  Boundaries  : [4 observations, 2 variables]
-#> →  Datasets    : 1 dataset
-#>    ٭ Borealis (biomass) — [1541 observations, 18 variables]
+#> →  Boundaries    : [4 observations, 2 variables]
+#> →  Datasets      : 1 dataset
+#>    ٭ borealis (biomass) — [1541 observations, 18 variables]
 ```
 
 2.  Then, discretize the object using a method for discretization, the
@@ -87,18 +87,18 @@ sspm_base
 
 ``` r
 sspm_discrete <- sspm_base %>%
-  spm_discretize(with_dataset = "Borealis", 
+  spm_discretize(with_dataset = "borealis", 
                  discretization_method = "tesselate_voronoi")
-#> ℹ  Discretizing using method tesselate_voronoi with dataset Borealis
+#> ℹ  Discretizing using method tesselate_voronoi with dataset borealis
 sspm_discrete
 #> 
-#> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
-#> →  Boundaries  : [4 observations, 2 variables]
-#> →  Discretized : 
+#> ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒
+#> →  Boundaries    : [4 observations, 2 variables]
+#> →  Discretized   : 
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
-#> →  Datasets    : 1 dataset
-#>    ٭ Borealis (biomass) — [1026 observations, 21 variables]
+#> →  Datasets      : 1 dataset
+#>    ٭ borealis (biomass) — [1026 observations, 21 variables]
 ```
 
 The results of the discretization can be explored with `spm_patches()`
@@ -166,13 +166,13 @@ sspm_discrete_mapped <- sspm_discrete %>%
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
 sspm_discrete_mapped
 #> 
-#> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
-#> →  Boundaries  : [4 observations, 2 variables]
-#> →  Discretized : 
+#> ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒
+#> →  Boundaries    : [4 observations, 2 variables]
+#> →  Discretized   : 
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
-#> →  Datasets    : 2 datasets
-#>    ٭ Borealis (biomass) — [1026 observations, 21 variables]
+#> →  Datasets      : 2 datasets
+#>    ٭ borealis (biomass) — [1026 observations, 21 variables]
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
 ```
 
@@ -184,18 +184,20 @@ sspm_discrete_mapped
 
 ``` r
 sspm_discrete_mapped_with_forms <- sspm_discrete_mapped %>%
-  map_formula("Borealis", weight_per_km2~smooth_time())
+  map_formula(weight_per_km2~smooth_time(), "borealis", ) %>% 
+  map_formula(weight_per_km2~smooth_space(), "pred_data")
 sspm_discrete_mapped_with_forms
 #> 
-#> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
-#> →  Boundaries  : [4 observations, 2 variables]
-#> →  Discretized : 
+#> ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒
+#> →  Boundaries    : [4 observations, 2 variables]
+#> →  Discretized   : 
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
-#> →  Datasets    : 2 datasets
-#>    ٭ Borealis (biomass) — [1026 observations, 21 variables]
+#> →  Datasets      : 2 datasets
+#>    ٭ borealis (biomass) — [1026 observations, 21 variables]
 #>       – weight_per_km2 ~ smooth_time()
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
+#>       – weight_per_km2 ~ smooth_space()
 ```
 
 5.  Finally, formulas can be fitted with `fit_smooths()`
@@ -203,43 +205,110 @@ sspm_discrete_mapped_with_forms
 ``` r
 sspm_discrete_mapped_fitted <- sspm_discrete_mapped_with_forms %>%
   fit_smooths()
-#> ℹ  Fitting formula: weight_per_km2 ~ smooth_time() for dataset 'Borealis'
+#> ℹ  Fitting formula: weight_per_km2 ~ smooth_time() for dataset 'borealis'
+#> ℹ  Fitting formula: weight_per_km2 ~ smooth_space() for dataset 'pred_data'
 sspm_discrete_mapped_fitted
 #> 
-#> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
-#> →  Boundaries  : [4 observations, 2 variables]
-#> →  Discretized : 
+#> ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒
+#> →  Boundaries    : [4 observations, 2 variables]
+#> →  Discretized   : 
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
-#> →  Datasets    : 2 datasets
-#>    ٭ Borealis (biomass) — [1026 observations, 21 variables]
-#>       – weight_per_km2 ~ smooth_time()
-#>       – (SMOOTHED) [1026 observations]
+#> →  Datasets      : 2 datasets
+#>    ٭ borealis (biomass) — [1026 observations, 21 variables]
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
+#> →  Smoothed data : [1656 observations, 8 variables]
+#>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
 ```
 
-6.  Split data into test/train (WIP)
+6.  To fit the final SPM, we might need to add lagged values. This is
+    easily done with spm\_lag.
 
 ``` r
-sspm_discrete_mapped_fitted_splitted <- 
-  spm_split(sspm_discrete_mapped_fitted, "Borealis", year %in% c(1996, 1997))
-sspm_discrete_mapped_fitted_splitted
+sspm_fitted_lagged <- sspm_discrete_mapped_fitted %>% 
+  spm_lag(c("borealis_smooth", "pred_data_smooth"), 1)
+sspm_fitted_lagged
 #> 
-#> ‒‒ SSPM object 'My Model' (DISCRETIZED) ‒‒
-#> →  Boundaries  : [4 observations, 2 variables]
-#> →  Discretized : 
+#> ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒
+#> →  Boundaries    : [4 observations, 2 variables]
+#> →  Discretized   : 
 #>    ٭ Points — [75 features, 19 variables]
 #>    ٭ Patches — [69 features, 4 variables]
-#> →  Datasets    : 2 datasets
-#>    ٭ Borealis (biomass) — [1026 observations, 22 variables]
-#>       – weight_per_km2 ~ smooth_time()
-#>       – (SMOOTHED, SPLITTED) [68 train, 958 test]
+#> →  Datasets      : 2 datasets
+#>    ٭ borealis (biomass) — [1026 observations, 21 variables]
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
+#> →  Smoothed data : [1656 observations, 10 variables]
+#>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
+#>    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1
 ```
 
-7.  Last step: full SPM implementation (TBA).
+7.  Before fitting the model, we split data into test/train.
 
 ``` r
-sspm_discrete_mapped_fitted_SPM <- sspm_discrete_mapped_fitted %>% 
-  fit_spm()
+sspm_fitted_lagged <-
+  spm_split(sspm_fitted_lagged, year_f %in% c(1996:2000))
+sspm_fitted_lagged
+#> 
+#> ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒
+#> →  Boundaries    : [4 observations, 2 variables]
+#> →  Discretized   : 
+#>    ٭ Points — [75 features, 19 variables]
+#>    ٭ Patches — [69 features, 4 variables]
+#> →  Datasets      : 2 datasets
+#>    ٭ borealis (biomass) — [1026 observations, 21 variables]
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
+#>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
+#> →  Smoothed data : [1656 observations, 11 variables]
+#>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
+#>    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1
+#>       – [345 train, 1311 test]
+```
+
+8.  We can bow map a final spm formula onto the smoothed data
+
+``` r
+sspm_fitted_lagged_mapped <- sspm_fitted_lagged %>% 
+  map_formula(borealis_smooth ~ pred_data_smooth_lag_1 + smooth_lag("borealis_smooth") + smooth_space())
+sspm_fitted_lagged_mapped
+#> 
+#> ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒
+#> →  Boundaries    : [4 observations, 2 variables]
+#> →  Discretized   : 
+#>    ٭ Points — [75 features, 19 variables]
+#>    ٭ Patches — [69 features, 4 variables]
+#> →  Datasets      : 2 datasets
+#>    ٭ borealis (biomass) — [1026 observations, 21 variables]
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
+#>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
+#> →  Smoothed data : [1656 observations, 11 variables]
+#>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
+#>    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1
+#>       – borealis_smooth ~ pred_data_smooth_lag_1...
+#>       – [345 train, 1311 test]
+```
+
+9.  We also need to register catch data.
+
+``` r
+# TODO
+```
+
+8.  We can now fit the SPM.
+
+``` r
+sspm_fit <- 
+  sspm_fitted_lagged_mapped %>% fit_spm()
+sspm_fit
+```
+
+9.  We can also extract predictions.
+
+``` r
+# TODO
 ```
