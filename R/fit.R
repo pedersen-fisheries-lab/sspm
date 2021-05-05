@@ -86,8 +86,8 @@ setMethod(f = "fit_smooths",
                 max(as.numeric(as.character(biomass_data[[spm_time_column(biomass_dataset)]])),
                     na.rm = TRUE)
 
-              predict_mat <- tidyr::expand_grid(time_col = min_year:max_year,
-                                                patch_id = unique(biomass_data$patch_id))
+              predict_mat <- tidyr::expand_grid("time_col" = min_year:max_year,
+                                                "patch_id" = unique(biomass_data$patch_id))
 
               time_col_biomass <- spm_time_column(biomass_dataset)
 
@@ -97,7 +97,7 @@ setMethod(f = "fit_smooths",
 
               time_col_name <- spm_time_column(dataset)
               predict_mat_tmp <- predict_mat %>%
-                dplyr::rename(!!time_col_name := time_col)
+                dplyr::rename(!!time_col_name := .data$time_col)
 
               # Get data
               the_data <- spm_data(dataset)
@@ -165,7 +165,7 @@ setMethod(f = "fit_smooths",
                     preds_df <- predict_mat_tmp %>%
                       dplyr::mutate(!!column_name := as.vector(preds)) %>%
                       dplyr::arrange(!!time_col_name) %>%
-                      dplyr::group_by(patch_id) # %>%
+                      dplyr::group_by(.data$patch_id) # %>%
 
                     # TODO finish calculating the change
                     # dplyr::mutate(!!paste0(spm_name(dataset), "_diff") :=
@@ -196,13 +196,14 @@ setMethod(f = "fit_smooths",
 
             spm_datasets(sspm_object) <- datasets
 
+            nrow_smoothed_data <- nrow(full_smoothed_data)
             full_smoothed_data_clean <- full_smoothed_data %>%
               dplyr::relocate(names(spm_boundaries(sspm_object)),
                               .after = dplyr::last_col()) %>%
               dplyr::relocate(dplyr::contains("smooth")) %>%
               dplyr::ungroup() %>%
-              dplyr::mutate(row_ID = 1:nrow(.)) %>%
-              dplyr::relocate(row_ID)
+              dplyr::mutate("row_ID" = 1:nrow_smoothed_data) %>%
+              dplyr::relocate(.data$row_ID)
 
             spm_smoothed_data(sspm_object) <-
               new("sspm_data",
@@ -246,7 +247,7 @@ setMethod(f = "fit_spm",
 
             # Get data
             the_data <- spm_data(smoothed_data) %>%
-              dplyr::filter(train_test == TRUE)
+              dplyr::filter(.data$train_test == TRUE)
 
             tmp_fit <-
               vector(mode = "list", length = sum(formula_length))

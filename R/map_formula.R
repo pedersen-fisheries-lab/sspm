@@ -87,7 +87,7 @@ setMethod(f = "map_formula",
             } else {
               old_sspm_data <- spm_data(spm_smoothed_data(sspm_object))
               new_sspm_data <- old_sspm_data %>%
-                dplyr::filter(train_test == TRUE)
+                dplyr::filter(.data$train_test == TRUE)
               spm_data(spm_smoothed_data(sspm_object)) <- new_sspm_data
             }
 

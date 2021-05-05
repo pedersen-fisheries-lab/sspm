@@ -414,28 +414,28 @@ LINPRED <- function(sspm_object, var,
 
   smoothed_data <- spm_data(spm_smoothed_data(sspm_object))
 
-  lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(smoothed_data), ncol = k, byrow = TRUE)) %>%
+  lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(smoothed_data),
+                                     ncol = k, byrow = TRUE)) %>%
     dplyr::rename_all(.funs = gsub, pattern = "V", replacement = "lag") %>%
-    dplyr::mutate(!!biomass_time_col :=
-                    smoothed_data[[biomass_time_col]],
-                  patch_id = smoothed_data[["patch_id"]],
-                  !!boundary_col := smoothed_data[[boundary_col]]) %>%
-    dplyr:: select(contains('lag')) %>%
-    as.matrix(.)
+    dplyr::mutate(!!biomass_time_col := smoothed_data[[biomass_time_col]],
+                  !!boundary_col := smoothed_data[[boundary_col]],
+                  "patch_id" = smoothed_data[["patch_id"]]) %>%
+    dplyr:: select(dplyr::contains('lag')) %>%
+    as.matrix()
 
   by_matrix <- smoothed_data %>%
-    dplyr::select(patch_id, !!boundary_col, !!biomass_time_col, !!var) %>%
-    dplyr::nest_by(patch_id, !!boundary_col := .[[boundary_col]]) %>%
-    dplyr::mutate(lags = list(multilag(variable = data[[var]],
+    dplyr::select(.data$patch_id, !!boundary_col, !!biomass_time_col, !!var) %>%
+    dplyr::nest_by(.data$patch_id, !!boundary_col := .data[[boundary_col]]) %>%
+    dplyr::mutate(lags = list(multilag(variable = .data$data[[var]],
                                        n_lags = k,
                                        # TODO: assuming in-group mean as default
-                                       default = mean(data[[var]],
+                                       default = mean(.data$data[[var]],
                                                       na.rm = T)))) %>%
-    tidyr::unnest(cols = c(lags, data)) %>%
+    tidyr::unnest(cols = c(.data$lags, .data$data)) %>%
     dplyr::ungroup() %>%
-    dplyr::select(-geometry) %>%
-    dplyr:: select(contains('lag')) %>%
-    as.matrix(.)
+    dplyr::select(-c("geometry")) %>%
+    dplyr:: select(dplyr::contains('lag')) %>%
+    as.matrix()
 
   out_column <- list(str2lang("lag_matrix"))
   vars <- list()

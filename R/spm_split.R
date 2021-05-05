@@ -54,7 +54,7 @@ setMethod(f = "spm_split",
             is_splitted(smoothed_data) <- TRUE
 
             spm_data(smoothed_data) <- the_data %>%
-              dplyr::relocate(train_test, .after = row_ID)
+              dplyr::relocate(.data$train_test, .after = .data$row_ID)
             spm_smoothed_data(sspm_object) <- smoothed_data
 
             return(sspm_object)
