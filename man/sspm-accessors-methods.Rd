@@ -140,6 +140,9 @@ spm_formulas(object) <- value
 
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
+
+\item{type}{\strong{[character]} The type of dataset in the context of the sspm
+workflow, one of "biomass", "predictor", or "catch".}
 }
 \description{
 All methods described here allow to access the elements of contained in
