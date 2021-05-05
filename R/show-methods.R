@@ -196,6 +196,20 @@ cat_smoothed_data <- function(object){
 
     cat_formula_lines(object@smoothed_data, object@smoothed_data@formulas)
 
+    if(is_splitted(object@smoothed_data)){
+
+      n_train <- sum(object@smoothed_data@data$train_test)
+      n_test <- sum(!object@smoothed_data@data$train_test)
+
+      split_info <- paste0("[", cli::col_blue(n_train),
+                           cli::col_yellow(" train, "),
+                           cli::col_blue(n_test),
+                           cli::col_yellow(" test"), "]")
+      cli::cat_line("      ", cli::symbol$en_dash, " ",
+                    split_info)
+
+    }
+
   }
 
 }
