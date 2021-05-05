@@ -368,6 +368,7 @@ ICAR_time <- function(time_levels){
   # estimate for each year is penalized to be close to the years before and
   # after it
 
+  time_levels <- sort(time_levels)
   n_time_levels <- length(unique(time_levels))
 
   pen_mat = matrix(0, nrow=n_time_levels, ncol = n_time_levels)
