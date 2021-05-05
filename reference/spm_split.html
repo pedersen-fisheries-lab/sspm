@@ -125,16 +125,13 @@
     <p>Split data before fitting spm (WIP).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>spm_split</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>predicate</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>spm_split</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm,ANY</span>
+<span class='co'># S4 method for sspm</span>
 <span class='fu'>spm_split</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete,missing</span>
-<span class='fu'>spm_split</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>predicate</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm_discrete,ANY</span>
-<span class='fu'>spm_split</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>predicate</span><span class='op'>)</span></pre>
+<span class='co'># S4 method for sspm_discrete</span>
+<span class='fu'>spm_split</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,7 +142,7 @@
 <a href='sspm-class.html'>sspm</a> or <a href='sspm-class.html'>sspm_discrete</a></p></td>
     </tr>
     <tr>
-      <th>predicate</th>
+      <th>...</th>
       <td><p><strong>[expression]</strong> Expression to evaluate to split data.</p></td>
     </tr>
     </table>
