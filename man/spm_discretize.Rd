@@ -6,7 +6,6 @@
 \alias{spm_discretize,ANY,missing,ANY-method}
 \alias{spm_discretize,sspm,character,discretization_method-method}
 \alias{spm_discretize,sspm,character,character-method}
-\alias{spm_discretize,sspm_discrete,character,character-method}
 \alias{spm_discretize,sspm_discrete,ANY,ANY-method}
 \title{Discretize a \code{sspm} model object}
 \usage{
@@ -19,8 +18,6 @@ spm_discretize(sspm_object, with_dataset, discretization_method, ...)
 \S4method{spm_discretize}{sspm,character,discretization_method}(sspm_object, with_dataset, discretization_method, ...)
 
 \S4method{spm_discretize}{sspm,character,character}(sspm_object, with_dataset, discretization_method, ...)
-
-\S4method{spm_discretize}{sspm_discrete,character,character}(sspm_object, with_dataset, discretization_method, ...)
 
 \S4method{spm_discretize}{sspm_discrete,ANY,ANY}(sspm_object, with_dataset, discretization_method, ...)
 }

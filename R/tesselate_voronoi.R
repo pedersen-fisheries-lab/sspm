@@ -45,19 +45,21 @@ tesselate_voronoi <- function(sspm_data,
   # Prep --------------------------------------------------------------------
 
   # Check main params
-  checkmate::assert_class(sspm_data, "sspm_data")
+  checkmate::assert_class(sspm_data, "sspm_data", null.ok = TRUE)
   checkmate::assert_numeric(nb_samples)
   if (!checkmate::test_null(sample_points)) {
     checkmate::assert_class(sample_points, "sf")
   }
 
   # Get params from model object if necessary
-  name <- spm_name(sspm_data)
-  if (is.null(data)) {
-    data_spatial <- spm_data(sspm_data)
-  } else {
-    checkmate::assert_class(data, "sf")
-    data_spatial <- data
+  if(!is.null(sspm_data)){
+    name <- spm_name(sspm_data)
+    if (is.null(data)) {
+      data_spatial <- spm_data(sspm_data)
+    } else {
+      checkmate::assert_class(data, "sf")
+      data_spatial <- data
+    }
   }
   if (is.null(boundaries)) {
     stop("boundaries argument is missing")
@@ -137,7 +139,6 @@ tesselate_voronoi <- function(sspm_data,
                   patch_id = factor(paste("V", 1:dplyr::n(),sep = "")))
 
   # Core function must return a list of "patches" and "points"
-  return(list(data_spatial = data_spatial,
-              patches = voronoi,
+  return(list(patches = voronoi,
               points = voronoi_points))
 }

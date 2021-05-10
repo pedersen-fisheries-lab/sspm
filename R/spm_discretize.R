@@ -32,7 +32,7 @@ setGeneric(name = "spm_discretize",
 # TODO finish the rdname description
 
 # If invalid method, throw error
-#' @rdname spm_discretize 
+#' @rdname spm_discretize
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "ANY",
@@ -44,7 +44,7 @@ setMethod(f = "spm_discretize",
 )
 
 # If missing arg, throw error
-#' @rdname spm_discretize 
+#' @rdname spm_discretize
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "ANY",
@@ -56,7 +56,7 @@ setMethod(f = "spm_discretize",
 )
 
 # All signatures point to this one
-#' @rdname spm_discretize 
+#' @rdname spm_discretize
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "sspm",
@@ -69,16 +69,29 @@ setMethod(f = "spm_discretize",
 
             # Check types
             checkmate::assert_class(discretization_method,"discretization_method")
-            checkmate::assert_choice(with_dataset, names(datasets))
+            checkmate::assert_choice(with_dataset, c(names(datasets), "none"))
 
             # Get the dataset to use for discretization
             sspm_data <- datasets[[with_dataset]]
 
-            # Info message
-            cli::cli_alert_info(paste0(" Discretizing using method ",
-                                       cli::col_yellow(spm_name(discretization_method)),
-                                       " with dataset ",
-                                       cli::col_green(with_dataset)))
+            if(with_dataset == "none"){
+
+              # Message about mull with_dataset
+              cli::cli_alert_info(paste0(" Argument with_dataset is set to none, assuming",
+                                         " sample points have been passed on."))
+
+            } else {
+
+              # Get the dataset to use for discretization
+              sspm_data <- datasets[[with_dataset]]
+
+              # Info message
+              cli::cli_alert_info(paste0(" Discretizing using method ",
+                                         cli::col_yellow(spm_name(discretization_method)),
+                                         " with dataset ",
+                                         cli::col_green(with_dataset)))
+
+            }
 
             # Send to discretization routine
             other_args <- list(...)
@@ -98,12 +111,10 @@ setMethod(f = "spm_discretize",
 
             # Check names of results
             checkmate::assert_names(x = names(discrete),
-                                    subset.of = c("data_spatial",
-                                                  "patches",
+                                    subset.of = c("patches",
                                                   "points"))
 
             # Replace datasets
-            spm_data(sspm_data) <- discrete$data_spatial
             datasets[[with_dataset]] <- sspm_data
 
             new_sspm_discrete <- new("sspm_discrete",
@@ -131,7 +142,7 @@ setMethod(f = "spm_discretize",
 
 # If `sspm` + character, check against list, create `discretization_method`
 # and call next signature.
-#' @rdname spm_discretize 
+#' @rdname spm_discretize
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "sspm",
@@ -145,26 +156,8 @@ setMethod(f = "spm_discretize",
           }
 )
 
-# If `sspm_discrete` confirm that we want to re-discretize and then jump to
-# the next appropriate signature
-
-# SAME CODE than `sspm` + character
-#' @rdname spm_discretize 
-#' @export
-setMethod(f = "spm_discretize",
-          signature(sspm_object = "sspm_discrete",
-                    with_dataset = "character",
-                    discretization_method = "character"),
-          function(sspm_object, with_dataset, discretization_method, ...){
-
-            the_method <- as_discretization_method(discretization_method)
-
-            discrete <- spm_discretize(sspm_object, with_dataset, the_method, ...)
-          }
-)
-
 # RE-discretization not allowed for now
-#' @rdname spm_discretize 
+#' @rdname spm_discretize
 #' @export
 setMethod(f = "spm_discretize",
           signature(sspm_object = "sspm_discrete",
