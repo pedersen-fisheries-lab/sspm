@@ -86,18 +86,15 @@ setMethod(f = "fit_smooths",
                 max(as.numeric(as.character(biomass_data[[spm_time_column(biomass_dataset)]])),
                     na.rm = TRUE)
 
-              predict_mat <- tidyr::expand_grid("time_col" = min_year:max_year,
-                                                "patch_id" = unique(biomass_data$patch_id))
-
               time_col_biomass <- spm_time_column(biomass_dataset)
+              predict_mat <- spm_patches(sspm_object) %>%
+                as.data.frame() %>%
+                select(-c(geometry)) %>%
+                tidyr::expand_grid("time_col" = min_year:max_year)
 
             }
 
             for(dataset in datasets){
-
-              time_col_name <- spm_time_column(dataset)
-              predict_mat_tmp <- predict_mat %>%
-                dplyr::rename(!!time_col_name := .data$time_col)
 
               # Get data
               the_data <- spm_data(dataset)
@@ -159,6 +156,10 @@ setMethod(f = "fit_smooths",
 
                   # Predict and store smoothed data to sspm level
                   if(predict){
+
+                    time_col_name <- spm_time_column(dataset)
+                    predict_mat_tmp <- predict_mat %>%
+                      dplyr::rename(!!time_col_name := .data$time_col)
 
                     preds <- predict(tmp_fit[[form_name]], predict_mat_tmp, type = "response")
                     column_name <- paste0(spm_name(dataset), "_smooth")
