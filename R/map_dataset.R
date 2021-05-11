@@ -3,7 +3,7 @@
 #' After discretizing, the next step is to map coavriate datasets.
 #'
 #' @param sspm_object **\[sspm_discrete\]** An object of class
-#'     [sspm][sspm-class] or [sspm_discrete][sspm_discrete-class]
+#'     [sspm][sspm-class] or [sspm_discrete][sspm_discrete-class].
 #' @inheritParams as_sspm_data
 #' @inheritDotParams as_sspm_data
 #'
