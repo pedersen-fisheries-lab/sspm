@@ -17,6 +17,11 @@ spm_methods <- function(){
   return(choices)
 }
 
+spm_type_choices <- function(){
+  choices <- c('biomass', 'predictor', 'catch')
+  return(choices)
+}
+
 #' Get the list of available smoothing methods
 #'
 #' Currently, only one smoothing method is supported:
