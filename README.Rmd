@@ -60,8 +60,7 @@ sfa_boundaries <- sspm:::sfa_boundaries
 ```{r}
 sspm_base <- sspm(model_name = "My Model",
                   boundaries = sfa_boundaries) %>% 
-  map_dataset(borealis, "borealis", 
-              type = "biomass",
+  map_biomass(borealis, "borealis", 
               time_column = "year_f",
               coords = c('lon_dec','lat_dec'),
               uniqueID = "uniqueID")
@@ -85,12 +84,11 @@ spm_points(sspm_discrete)
 3. Then, other datasets may be mapped onto the base dataset, for example, predator data.
 ```{r}
 sspm_discrete_mapped <- sspm_discrete %>%
-  map_dataset(predator,
-              name = "pred_data",
-              type = "predictor",
-              time_column = "year",
-              uniqueID = "uniqueID",
-              coords = c("lon_dec", "lat_dec"))
+  map_predictor(predator,
+                name = "pred_data",
+                time_column = "year",
+                uniqueID = "uniqueID",
+                coords = c("lon_dec", "lat_dec"))
 sspm_discrete_mapped
 ```
 

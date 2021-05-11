@@ -208,3 +208,80 @@ setMethod(f = "map_dataset",
             return(tmp_sspm)
           }
 )
+
+# Topical methods ---------------------------------------------------------
+
+#' @export
+setGeneric(name = "map_biomass",
+           def = function(sspm_object,
+                          data,
+                          name,
+                          type = "biomass",
+                          time_column,
+                          uniqueID,
+                          coords = NULL,
+                          crs = NULL,
+                          ...){
+             standardGeneric("map_biomass")
+           }
+)
+
+#' @export
+#' @rdname map_dataset
+setMethod(f = "map_biomass",
+          signature(sspm_object = "sspm",
+                    data = "data.frame"),
+          function(sspm_object, data, name, type, time_column, uniqueID, coords, crs, ...){
+            map_dataset(sspm_object, data, name, type, time_column, uniqueID, coords, crs, ...)
+          }
+)
+
+#' @export
+setGeneric(name = "map_predictor",
+           def = function(sspm_object,
+                          data,
+                          name,
+                          type = "predictor",
+                          time_column,
+                          uniqueID,
+                          coords = NULL,
+                          crs = NULL,
+                          ...){
+             standardGeneric("map_predictor")
+           }
+)
+
+#' @export
+#' @rdname map_dataset
+setMethod(f = "map_predictor",
+          signature(sspm_object = "sspm",
+                    data = "data.frame"),
+          function(sspm_object, data, name, type, time_column, uniqueID, coords, crs, ...){
+            map_dataset(sspm_object, data, name, type, time_column, uniqueID, coords, crs, ...)
+          }
+)
+
+#' @export
+setGeneric(name = "map_catch",
+           def = function(sspm_object,
+                          data,
+                          name,
+                          type = "catch",
+                          time_column,
+                          uniqueID,
+                          coords = NULL,
+                          crs = NULL,
+                          ...){
+             standardGeneric("map_catch")
+           }
+)
+
+#' @export
+#' @rdname map_dataset
+setMethod(f = "map_catch",
+          signature(sspm_object = "sspm",
+                    data = "data.frame"),
+          function(sspm_object, data, name, type, time_column, uniqueID, coords, crs, ...){
+            map_dataset(sspm_object, data, name, type, time_column, uniqueID, coords, crs, ...)
+          }
+)

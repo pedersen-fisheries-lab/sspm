@@ -66,8 +66,7 @@ sfa_boundaries <- sspm:::sfa_boundaries
 ``` r
 sspm_base <- sspm(model_name = "My Model",
                   boundaries = sfa_boundaries) %>% 
-  map_dataset(borealis, "borealis", 
-              type = "biomass",
+  map_biomass(borealis, "borealis", 
               time_column = "year_f",
               coords = c('lon_dec','lat_dec'),
               uniqueID = "uniqueID")
@@ -156,12 +155,11 @@ spm_points(sspm_discrete)
 
 ``` r
 sspm_discrete_mapped <- sspm_discrete %>%
-  map_dataset(predator,
-              name = "pred_data",
-              type = "predictor",
-              time_column = "year",
-              uniqueID = "uniqueID",
-              coords = c("lon_dec", "lat_dec"))
+  map_predictor(predator,
+                name = "pred_data",
+                time_column = "year",
+                uniqueID = "uniqueID",
+                coords = c("lon_dec", "lat_dec"))
 #> !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
 sspm_discrete_mapped
@@ -219,7 +217,7 @@ sspm_discrete_mapped_fitted
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
-#> →  Smoothed data : [1656 observations, 8 variables]
+#> →  Smoothed data : [1656 observations, 12 variables]
 #>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
 ```
 
@@ -241,7 +239,7 @@ sspm_fitted_lagged
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
-#> →  Smoothed data : [1656 observations, 10 variables]
+#> →  Smoothed data : [1656 observations, 14 variables]
 #>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
 #>    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1
 ```
@@ -263,7 +261,7 @@ sspm_fitted_lagged
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
-#> →  Smoothed data : [1656 observations, 11 variables]
+#> →  Smoothed data : [1656 observations, 15 variables]
 #>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
 #>    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1
 #>       – [345 train, 1311 test]
@@ -286,7 +284,7 @@ sspm_fitted_lagged_mapped
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
-#> →  Smoothed data : [1656 observations, 11 variables]
+#> →  Smoothed data : [1656 observations, 15 variables]
 #>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
 #>    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1
 #>       – borealis_smooth ~ pred_data_smooth_lag_1...
