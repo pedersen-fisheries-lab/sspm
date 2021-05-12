@@ -46,5 +46,8 @@ base dataset.}
 data, under the form of a \link[=sspm_data-class]{sspm_data} object. Each
 column corresponds to a fitted (smoothed) datasets and is used for SPM
 formula and model definition.}
+
+\item{\code{fit}}{\strong{[LIST]} \emph{(if discrete)} The list of fitted spm model, each
+corresponding to a different formula from the formulas slot.}
 }}
 

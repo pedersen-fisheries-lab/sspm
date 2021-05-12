@@ -94,9 +94,9 @@ setClass("discretization_method",
 #'
 #' @slot name **\[character\]** Name of the model.
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
+#'
 #' @slot datasets **\[list\]** *(if discrete)* List of
 #'     [sspm_data][sspm_data-class] that define variables in the SPM model.
-#'
 #' @slot method **\[[discretization_method][discretization_method-class]\]**
 #'     *(if discrete)* discretization method used.
 #' @slot patches **\[sf\]** *(if discrete)* Patches resulting from
@@ -110,6 +110,8 @@ setClass("discretization_method",
 #'     data, under the form of a [sspm_data][sspm_data-class] object. Each
 #'     column corresponds to a fitted (smoothed) datasets and is used for SPM
 #'     formula and model definition.
+#' @slot fit **\[LIST]** *(if discrete)* The list of fitted spm model, each
+#'     corresponding to a different formula from the formulas slot.
 #'
 #' @name sspm-class
 #' @rdname sspm-class
@@ -127,10 +129,19 @@ setClass("sspm_discrete",
                       patches = "sf",
                       points = "sf",
                       formulas = "list",
-                      smoothed_data = "sspm_data"),
+                      smoothed_data = "sspm_data",
+                      fit = "list"),
          prototype = prototype(name = "Default Model Name",
-                               formulas = list()),
+                               formulas = list(),
+                               fit = list()),
          contains = c("sspm"))
+
+# #' @describeIn sspm-class sspm_spm_fit
+# # Modelled SPM ~ end of workflow
+# setClass("sspm_spm_fit",
+#          slots = list(spm_fit = "list"),
+#          contains = "sspm_discrete"
+# )
 
 # -------------------------------------------------------------------------
 
@@ -157,17 +168,3 @@ setClass("sspm_formula",
 )
 
 # -------------------------------------------------------------------------
-
-# Fitted model => sspm + discretization_method + has been smoothed
-# setClass("sspm_discrete_smoothed",
-#          slots = list(smoothed_data = "list",
-#                       gam_fit = "list"),
-#          contains = c("sspm_discrete", "sspm")
-# )
-
-# # Modelled SPM ~ end of workflow
-# setClass("sspm_spm_fit",
-#          slots = list(spm_fit = "data.frame",
-#                       spm_call = "formula"),
-#          contains = "sspm_gam_fit"
-# )
