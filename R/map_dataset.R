@@ -212,6 +212,7 @@ setMethod(f = "map_dataset",
 # Topical methods ---------------------------------------------------------
 
 #' @export
+#' @rdname map_dataset
 setGeneric(name = "map_biomass",
            def = function(sspm_object,
                           data,
@@ -237,6 +238,7 @@ setMethod(f = "map_biomass",
 )
 
 #' @export
+#' @rdname map_dataset
 setGeneric(name = "map_predictor",
            def = function(sspm_object,
                           data,
@@ -262,6 +264,7 @@ setMethod(f = "map_predictor",
 )
 
 #' @export
+#' @rdname map_dataset
 setGeneric(name = "map_catch",
            def = function(sspm_object,
                           data,

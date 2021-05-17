@@ -6,8 +6,11 @@
 \alias{map_dataset,sspm,sf-method}
 \alias{map_dataset,sspm,sspm_data-method}
 \alias{map_dataset,sspm,list-method}
+\alias{map_biomass}
 \alias{map_biomass,sspm,data.frame-method}
+\alias{map_predictor}
 \alias{map_predictor,sspm,data.frame-method}
+\alias{map_catch}
 \alias{map_catch,sspm,data.frame-method}
 \title{Map dataset onto a discretized sspm object}
 \usage{
@@ -71,6 +74,18 @@ map_dataset(
   ...
 )
 
+map_biomass(
+  sspm_object,
+  data,
+  name,
+  type = "biomass",
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL,
+  ...
+)
+
 \S4method{map_biomass}{sspm,data.frame}(
   sspm_object,
   data,
@@ -83,11 +98,35 @@ map_dataset(
   ...
 )
 
+map_predictor(
+  sspm_object,
+  data,
+  name,
+  type = "predictor",
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL,
+  ...
+)
+
 \S4method{map_predictor}{sspm,data.frame}(
   sspm_object,
   data,
   name,
   type = "predictor",
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL,
+  ...
+)
+
+map_catch(
+  sspm_object,
+  data,
+  name,
+  type = "catch",
   time_column,
   uniqueID,
   coords = NULL,
