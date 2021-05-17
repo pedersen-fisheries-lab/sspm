@@ -126,6 +126,7 @@
               uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span><span class="op">)</span>
 <span class="co">#&gt; !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting</span>
 <span class="co">#&gt; ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec</span>
+<span class="co">#&gt; !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting</span>
 <span class="va">sspm_base</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM object 'My Model' ‒‒</span>
@@ -207,6 +208,7 @@
                 coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon_dec"</span>, <span class="st">"lat_dec"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting</span>
 <span class="co">#&gt; ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec</span>
+<span class="co">#&gt; !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting</span>
 <span class="va">sspm_discrete_mapped</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒</span>
@@ -307,7 +309,7 @@
 </ol>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_fitted_lagged_mapped</span> <span class="op">&lt;-</span> <span class="va">sspm_fitted_lagged</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="reference/map_formula.html">map_formula</a></span><span class="op">(</span><span class="va">borealis_smooth</span> <span class="op">~</span> <span class="va">pred_data_smooth_lag_1</span> <span class="op">+</span> <span class="fu"><a href="reference/smooth_time.html">smooth_lag</a></span><span class="op">(</span><span class="st">"borealis_smooth"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/smooth_time.html">smooth_space</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="reference/map_formula.html">map_formula</a></span><span class="op">(</span><span class="va">borealis_smooth</span> <span class="op">~</span> <span class="va">pred_data_smooth_lag_1</span> <span class="op">+</span> <span class="fu"><a href="reference/smooth_time.html">smooth_lag</a></span><span class="op">(</span><span class="st">"borealis_smooth"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">sspm_fitted_lagged_mapped</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒</span>
