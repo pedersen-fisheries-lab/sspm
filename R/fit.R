@@ -255,7 +255,7 @@ setMethod(f = "fit_spm",
             tmp_smoothed <-
               vector(mode = "list", length = sum(formula_length))
 
-            for (form_id in seq_len(length.out = length(formulas))){
+            for (form_id in seq_len(length.out = formula_length)){
 
               # Index formula
               form <- formulas[[form_id]]
@@ -295,8 +295,10 @@ setMethod(f = "fit_spm",
 
             is_smoothed(smoothed_data) <- TRUE
 
+            spm_smoothed_data(sspm_object) <- smoothed_data
+
             # For now return fit
-            return(tmp_fit)
+            return(sspm_object)
 
           }
 )
