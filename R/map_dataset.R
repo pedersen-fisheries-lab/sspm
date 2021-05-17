@@ -211,6 +211,8 @@ setMethod(f = "map_dataset",
 
 # Topical methods ---------------------------------------------------------
 
+# Map_biomass and predictor -----------------------------------------------
+
 #' @export
 #' @rdname map_dataset
 setGeneric(name = "map_biomass",
@@ -279,12 +281,28 @@ setGeneric(name = "map_catch",
            }
 )
 
+
+# Map_catch ---------------------------------------------------------------
+
 #' @export
 #' @rdname map_dataset
 setMethod(f = "map_catch",
           signature(sspm_object = "sspm",
                     data = "data.frame"),
           function(sspm_object, data, name, type, time_column, uniqueID, coords, crs, ...){
+
+            # Map catch only maps onto smoothed data at the sspm level and lead to
+            # the calculation of balanced catch for the biomass data.
+
+            # Need to aggregate to the polygon
+
+            # => need to look up the response column in the smoothed data to know
+            #    which column to apply the change
+
+            # 2 possible things:
+            # 1. mapped first will be simply added as a dataset and calculate with_catch later
+            # 2. mapped second will do both right away
+
             map_dataset(sspm_object, data, name, type, time_column, uniqueID, coords, crs, ...)
           }
 )
