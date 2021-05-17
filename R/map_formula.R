@@ -68,9 +68,9 @@ setMethod(f = "map_formula",
             are_smoothed <- sapply(all_datasets, is_smoothed)
 
             if(!(any(are_smoothed))){
-              cli::cli_alert_danger(" Not all datasets are smoothed - SPM formula cannot be mapped")
+              cli::cli_alert_warning(" Warning: Not all datasets are smoothed")
               cli::cli_alert_info(" To fit a smoothing formula to a specific dataset, use dataset = ...")
-              stop("Not all datasets are smoothed", call. = FALSE)
+              # stop("Not all datasets are smoothed", call. = FALSE)
             }
 
             # 2. Is there a dataset of type "biomass" and one of type "catch"
