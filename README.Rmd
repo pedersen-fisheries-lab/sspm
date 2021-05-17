@@ -123,7 +123,7 @@ sspm_fitted_lagged
 8. We can bow map a final spm formula onto the smoothed data
 ```{r}
 sspm_fitted_lagged_mapped <- sspm_fitted_lagged %>% 
-  map_formula(borealis_smooth ~ pred_data_smooth_lag_1 + smooth_lag("borealis_smooth") + smooth_space())
+  map_formula(borealis_smooth ~ pred_data_smooth_lag_1 + smooth_lag("borealis_smooth"))
 sspm_fitted_lagged_mapped
 ```
 

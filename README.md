@@ -72,6 +72,7 @@ sspm_base <- sspm(model_name = "My Model",
               uniqueID = "uniqueID")
 #> !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
+#> !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting
 sspm_base
 #> 
 #> ‒‒ SSPM object 'My Model' ‒‒
@@ -162,6 +163,7 @@ sspm_discrete_mapped <- sspm_discrete %>%
                 coords = c("lon_dec", "lat_dec"))
 #> !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
+#> !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting
 sspm_discrete_mapped
 #> 
 #> ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒
@@ -271,7 +273,7 @@ sspm_fitted_lagged
 
 ``` r
 sspm_fitted_lagged_mapped <- sspm_fitted_lagged %>% 
-  map_formula(borealis_smooth ~ pred_data_smooth_lag_1 + smooth_lag("borealis_smooth") + smooth_space())
+  map_formula(borealis_smooth ~ pred_data_smooth_lag_1 + smooth_lag("borealis_smooth"))
 sspm_fitted_lagged_mapped
 #> 
 #> ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒
