@@ -120,7 +120,7 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_base</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sspm.html">sspm</a></span><span class="op">(</span>model_name <span class="op">=</span> <span class="st">"My Model"</span>,
                   boundaries <span class="op">=</span> <span class="va">sfa_boundaries</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">map_biomass</span><span class="op">(</span><span class="va">borealis</span>, <span class="st">"borealis"</span>, 
+  <span class="fu"><a href="reference/map_dataset.html">map_biomass</a></span><span class="op">(</span><span class="va">borealis</span>, <span class="st">"borealis"</span>, 
               time_column <span class="op">=</span> <span class="st">"year_f"</span>,
               coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'lon_dec'</span>,<span class="st">'lat_dec'</span><span class="op">)</span>,
               uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span><span class="op">)</span>
@@ -200,7 +200,7 @@
 </ol>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_discrete_mapped</span> <span class="op">&lt;-</span> <span class="va">sspm_discrete</span> <span class="op">%&gt;%</span>
-  <span class="fu">map_predictor</span><span class="op">(</span><span class="va">predator</span>,
+  <span class="fu"><a href="reference/map_dataset.html">map_predictor</a></span><span class="op">(</span><span class="va">predator</span>,
                 name <span class="op">=</span> <span class="st">"pred_data"</span>,
                 time_column <span class="op">=</span> <span class="st">"year"</span>,
                 uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span>,
