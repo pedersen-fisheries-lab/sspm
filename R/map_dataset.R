@@ -6,6 +6,8 @@
 #'     [sspm][sspm-class] or [sspm_discrete][sspm_discrete-class].
 #' @inheritParams as_sspm_data
 #' @inheritDotParams as_sspm_data
+#' @param catch_column **\[character\]** For catch data only: the name of the
+#'     column containing catch data in the catch dataset.
 #'
 #' @return
 #' The updated object, of class [sspm][sspm-class] or
@@ -265,6 +267,8 @@ setMethod(f = "map_predictor",
           }
 )
 
+# Map_catch ---------------------------------------------------------------
+
 #' @export
 #' @rdname map_dataset
 setGeneric(name = "map_catch",
@@ -276,13 +280,11 @@ setGeneric(name = "map_catch",
                           uniqueID,
                           coords = NULL,
                           crs = NULL,
+                          catch_column,
                           ...){
              standardGeneric("map_catch")
            }
 )
-
-
-# Map_catch ---------------------------------------------------------------
 
 #' @export
 #' @rdname map_dataset
