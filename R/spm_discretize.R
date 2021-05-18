@@ -64,8 +64,6 @@ setMethod(f = "spm_discretize",
                     discretization_method = "discretization_method"),
           function(sspm_object, with_dataset, discretization_method, ...){
 
-            browser()
-
             # Get datasets
             datasets <- spm_datasets(sspm_object)
 
