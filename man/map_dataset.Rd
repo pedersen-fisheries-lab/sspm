@@ -131,6 +131,8 @@ map_catch(
   uniqueID,
   coords = NULL,
   crs = NULL,
+  catch_column,
+  biomass_column,
   ...
 )
 
@@ -143,6 +145,8 @@ map_catch(
   uniqueID,
   coords = NULL,
   crs = NULL,
+  catch_column,
+  biomass_column,
   ...
 )
 }
@@ -173,6 +177,12 @@ latitude of the observations.}
   \describe{
     \item{\code{}}{}
   }}
+
+\item{catch_column}{\strong{[character]} For mapping catch data only: the name
+of the column containing catch data in the catch dataset.}
+
+\item{biomass_column}{\strong{[character]} For mapping catch data only: the name
+of the column for which the catch has to be pondered with.}
 }
 \value{
 The updated object, of class \link[=sspm-class]{sspm} or

@@ -6,8 +6,10 @@
 #'     [sspm][sspm-class] or [sspm_discrete][sspm_discrete-class].
 #' @inheritParams as_sspm_data
 #' @inheritDotParams as_sspm_data
-#' @param catch_column **\[character\]** For catch data only: the name of the
-#'     column containing catch data in the catch dataset.
+#' @param catch_column **\[character\]** For mapping catch data only: the name
+#'     of the column containing catch data in the catch dataset.
+#' @param biomass_column **\[character\]** For mapping catch data only: the name
+#'     of the column for which the catch has to be pondered with.
 #'
 #' @return
 #' The updated object, of class [sspm][sspm-class] or
@@ -102,6 +104,12 @@ setMethod(f = "map_dataset",
             all_types <- sapply(datasets, spm_type)
             this_type <- spm_type(data)
 
+            # TODO consider not exporting map_dataset on use only current shortcuts
+            # to avoid replicated code
+            if(this_type == "catch"){
+              check_sspm_for_catch(sspm_object)
+            }
+
             if(this_type %in% c("biomass", "catch")){
               if(this_type %in% all_types){
                 cli_alert_danger(paste0("A dataset of type ", this_type,
@@ -111,9 +119,7 @@ setMethod(f = "map_dataset",
             }
 
             if(sum(spm_name(data) %in% datasets_names)){
-
               cli::cli_alert_danger(" Name provided is already used, all dataset names must be unique.")
-
             }
 
             if (checkmate::test_class(sspm_object, "sspm_discrete")){
@@ -281,6 +287,7 @@ setGeneric(name = "map_catch",
                           coords = NULL,
                           crs = NULL,
                           catch_column,
+                          biomass_column,
                           ...){
              standardGeneric("map_catch")
            }
@@ -291,10 +298,10 @@ setGeneric(name = "map_catch",
 setMethod(f = "map_catch",
           signature(sspm_object = "sspm",
                     data = "data.frame"),
-          function(sspm_object, data, name, type, time_column, uniqueID, coords, crs, ...){
+          function(sspm_object, data, name, type, time_column, uniqueID, coords,
+                   crs, catch_column, biomass_column, ...){
 
-            # Map catch only maps onto smoothed data at the sspm level and lead to
-            # the calculation of balanced catch for the biomass data.
+            check_sspm_for_catch(sspm_object)
 
             # Need to aggregate to the polygon
 
@@ -305,6 +312,35 @@ setMethod(f = "map_catch",
             # 1. mapped first will be simply added as a dataset and calculate with_catch later
             # 2. mapped second will do both right away
 
-            map_dataset(sspm_object, data, name, type, time_column, uniqueID, coords, crs, ...)
+            sspm_object <-
+              map_dataset(sspm_object, data, name, type, time_column, uniqueID, coords, crs, ...)
+
+            browser()
+
+            return(sspm_object)
+
           }
 )
+
+
+# Helpers -----------------------------------------------------------------
+
+check_sspm_for_catch <- function(sspm_object){
+
+  # Map only if discrete already
+
+  if(!checkmate::test_class(sspm_discrete, "sspm_discrete")){
+    cli::cli_alert_danger(" Catch data can only be mapped once the model has been discretized")
+    stop("sspm object is not discrete", call. = FALSE)
+  }
+
+  # Map catch only maps onto smoothed data at the sspm level and lead to
+  # the calculation of balanced catch for the biomass data.
+
+  if(is.null(spm_data(spm_smoothed_data(sspm_object)))){
+    cli::cli_alert_danger(" Catch data can only be mapped once the model has been smoothed")
+    stop("sspm object must be smoothed", call. = FALSE)
+  }
+
+}
+
