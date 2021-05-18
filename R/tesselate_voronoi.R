@@ -37,6 +37,8 @@ tesselate_voronoi <- function(sspm_data,
                               sample_points = NULL,
                               seed = 1) {
 
+  browser()
+
   # TODO some steps in original code not supported as these are not general:
   # To be discussed
   # 1. breaking of big polygons
