@@ -176,7 +176,9 @@ setMethod(f = "fit_smooths",
                     if (nrow(full_smoothed_data) == 0){
 
                       full_smoothed_data <- preds_df %>%
-                        dplyr::left_join(spm_patches(sspm_object), by = c("patch_id"))
+                        dplyr::left_join(spm_patches(sspm_object), by = c("patch_id"),
+                                         suffix = c("", "_duplicate")) %>%
+                        dplyr::select(-c(dplyr::ends_with("_duplicate")))
 
                     } else {
 
