@@ -248,6 +248,8 @@
   <span class='va'>uniqueID</span>,
   coords <span class='op'>=</span> <span class='cn'>NULL</span>,
   crs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>catch_column</span>,
+  <span class='va'>biomass_column</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
@@ -261,6 +263,8 @@
   <span class='va'>uniqueID</span>,
   coords <span class='op'>=</span> <span class='cn'>NULL</span>,
   crs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>catch_column</span>,
+  <span class='va'>biomass_column</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -310,6 +314,16 @@ latitude of the observations.</p></td>
     <dt><code></code></dt><dd><p></p></dd>
   
 </dl></td>
+    </tr>
+    <tr>
+      <th>catch_column</th>
+      <td><p><strong>[character]</strong> For mapping catch data only: the name
+of the column containing catch data in the catch dataset.</p></td>
+    </tr>
+    <tr>
+      <th>biomass_column</th>
+      <td><p><strong>[character]</strong> For mapping catch data only: the name
+of the column for which the catch has to be pondered with.</p></td>
     </tr>
     </table>
 
