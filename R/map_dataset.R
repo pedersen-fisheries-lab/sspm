@@ -345,6 +345,8 @@ setMethod(f = "map_catch",
               ) %>%
               dplyr::relocate(dplyr::starts_with(biomass_column), .after = row_ID)
 
+            spm_data(spm_smoothed_data(sspm_object)) <- smooth_data_with_new_cols
+
             return(sspm_object)
 
           }
