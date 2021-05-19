@@ -329,9 +329,31 @@ sspm_smooth_with_formulas
 8.  We can now fit the SPM.
 
 ``` r
-sspm_fit <- 
+sspm_with_fit <- 
   sspm_smooth_with_formulas %>% fit_spm()
-sspm_fit
+#> ℹ  Fitting SPM formula: borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + smooth_lag('borealis_smooth')
+#> Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :
+#> step failure in theta estimation
+
+#> Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :
+#> step failure in theta estimation
+
+#> Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :
+#> step failure in theta estimation
+spm_smoothed_fit(spm_smoothed_data(sspm_with_fit))
+#> $smoothed_data_f1
+#> 
+#> Family: Scaled t(Inf,71.803) 
+#> Link function: identity 
+#> 
+#> Formula:
+#> borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + s(lag_matrix, 
+#>     k = 5, m = 1, by = by_matrix)
+#> 
+#> Estimated degrees of freedom:
+#> 2.92  total = 4.92 
+#> 
+#> REML score: 496.6813
 ```
 
 9.  We can also extract predictions.

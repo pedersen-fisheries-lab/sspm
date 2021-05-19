@@ -141,10 +141,10 @@ sspm_smooth_with_formulas
 ```
 
 8. We can now fit the SPM. 
-```{r, eval = FALSE}
-sspm_fit <- 
+```{r, eval = TRUE}
+sspm_with_fit <- 
   sspm_smooth_with_formulas %>% fit_spm()
-sspm_fit
+spm_smoothed_fit(spm_smoothed_data(sspm_with_fit))
 ```
 
 9. We can also extract predictions.
