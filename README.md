@@ -57,7 +57,7 @@ library(mgcv)
 
 borealis <- sspm:::borealis_simulated
 predator <- sspm:::predator_simulated
-catch <- sspm:::catch
+catch <- sspm:::catch_simulated
 sfa_boundaries <- sspm:::sfa_boundaries
 ```
 
@@ -230,7 +230,7 @@ sspm_smooth_fitted
 sspm_smooth_fitted_wcatch <-  sspm_smooth_fitted %>% 
   map_catch(catch, name = "catch_data", 
             time_column = "year_f", 
-            uniqueID = "obs_id", 
+            uniqueID = "uniqueID", 
             coords = c("lon_start", "lat_start"), 
             catch_column = "catch", 
             biomass_column = "borealis_smooth")
@@ -248,7 +248,7 @@ sspm_smooth_fitted_wcatch
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
-#>    ٭ catch_data (catch) — [491973 observations, 13 variables]
+#>    ٭ catch_data (catch) — [64943 observations, 11 variables]
 #> →  Smoothed data : [1656 observations, 11 variables]
 #>    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth
 ```
@@ -271,7 +271,7 @@ sspm_smooth_fitted_wcatch_lagged
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
-#>    ٭ catch_data (catch) — [491973 observations, 13 variables]
+#>    ٭ catch_data (catch) — [64943 observations, 11 variables]
 #> →  Smoothed data : [1656 observations, 13 variables]
 #>    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth
 #>    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1
@@ -294,7 +294,7 @@ sspm_smooth_fitted_wcatch_lagged
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
-#>    ٭ catch_data (catch) — [491973 observations, 13 variables]
+#>    ٭ catch_data (catch) — [64943 observations, 11 variables]
 #> →  Smoothed data : [1656 observations, 14 variables]
 #>    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth
 #>    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1
@@ -318,7 +318,7 @@ sspm_smooth_with_formulas
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
-#>    ٭ catch_data (catch) — [491973 observations, 13 variables]
+#>    ٭ catch_data (catch) — [64943 observations, 11 variables]
 #> →  Smoothed data : [1656 observations, 14 variables]
 #>    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth
 #>    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1

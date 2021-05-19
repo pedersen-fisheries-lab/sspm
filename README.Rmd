@@ -53,7 +53,7 @@ library(mgcv)
 
 borealis <- sspm:::borealis_simulated
 predator <- sspm:::predator_simulated
-catch <- sspm:::catch
+catch <- sspm:::catch_simulated
 sfa_boundaries <- sspm:::sfa_boundaries
 ```
 
@@ -112,7 +112,7 @@ sspm_smooth_fitted
 sspm_smooth_fitted_wcatch <-  sspm_smooth_fitted %>% 
   map_catch(catch, name = "catch_data", 
             time_column = "year_f", 
-            uniqueID = "obs_id", 
+            uniqueID = "uniqueID", 
             coords = c("lon_start", "lat_start"), 
             catch_column = "catch", 
             biomass_column = "borealis_smooth")
