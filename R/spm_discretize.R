@@ -98,7 +98,7 @@ setMethod(f = "spm_discretize",
 
             # If boundaries are not overwritten, use th boundaries of sspm_object
             if(length(other_args) > 0){
-              if (!is.element(other_args, "boundaries")){
+              if (!any(is.element(other_args, "boundaries"))){
                 other_args$boundaries <- spm_boundaries(sspm_object)
               }
             } else if (length(other_args) == 0){
