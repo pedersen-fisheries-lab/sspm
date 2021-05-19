@@ -4,6 +4,7 @@
 #'
 #' @inheritParams map_dataset
 #' @param new_data **\[data.frame\]**
+#' @param ... Arguments passed on to [predict.bam].
 #'
 #' @export
 setGeneric(name = "spm_predict",

@@ -14,6 +14,8 @@ spm_predict(sspm_object, new_data = NULL, ...)
 \link[=sspm-class]{sspm} or \link[=sspm_discrete-class]{sspm_discrete}.}
 
 \item{new_data}{\strong{[data.frame]}}
+
+\item{...}{Arguments passed on to \link{predict.bam}.}
 }
 \description{
 Predict using a fitted SPM model on the whole data or on new data
