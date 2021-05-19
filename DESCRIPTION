@@ -21,18 +21,19 @@ RoxygenNote: 7.1.1
 Depends: 
     sf,
     mgcv,
+    tweedie,
     R (>= 2.10)
 Imports: 
     methods,
+    units,
     checkmate,
     cli,
+    statmod,
     magrittr,
     tidyr,
     dplyr,
     purrr,
-    units,
-    rlang,
-    statmod
+    rlang
 Suggests: 
     testthat (>= 3.0.0),
     covr,
