@@ -358,7 +358,7 @@ check_sspm_for_catch <- function(sspm_object){
 
   # Map only if discrete already
 
-  if(!checkmate::test_class(sspm_discrete, "sspm_discrete")){
+  if(!checkmate::test_class(sspm_object, "sspm_discrete")){
     cli::cli_alert_danger(" Catch data can only be mapped once the model has been discretized")
     stop("sspm object is not discrete", call. = FALSE)
   }
