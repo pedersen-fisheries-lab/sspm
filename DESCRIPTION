@@ -24,7 +24,6 @@ Depends:
     R (>= 2.10)
 Imports: 
     methods,
-    utils,
     checkmate,
     cli,
     magrittr,
@@ -34,7 +33,6 @@ Imports:
     units,
     rlang,
     statmod,
-    tweedie
 Suggests: 
     testthat (>= 3.0.0),
     covr,
