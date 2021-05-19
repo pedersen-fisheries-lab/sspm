@@ -311,11 +311,11 @@ setMethod(f = "map_catch",
             time_col <- spm_time_column(catch_dataset)
 
             catch_data <- spm_data(catch_dataset) %>%
-              dplyr::group_by(.data[[time_col]], patch_id) %>%
+              dplyr::group_by(.data[[time_col]], .data$patch_id) %>%
               sf::st_drop_geometry() %>%
               dplyr::summarise(total_catch = sum(.data[[catch_column]],
                                                  na.rm = TRUE)) %>%
-              tidyr::complete(.data[[time_col]], patch_id,
+              tidyr::complete(.data[[time_col]], .data$patch_id,
                               fill = list(total_catch = 0)) %>%
               dplyr::mutate(!!time_col :=
                               as.factor(.data[[time_col]])) %>%
@@ -338,12 +338,13 @@ setMethod(f = "map_catch",
             smooth_data_with_new_cols <- smoothed_data_mod %>%
               dplyr::mutate(
                 "{biomass_column}_with_catch" :=
-                  borealis_smooth + total_catch/area_km2) %>%
+                  .data$borealis_smooth + .data$total_catch/.data$area_km2) %>%
               dplyr::mutate(
                 "{biomass_column}_with_catch_change" :=
-                  log(borealis_smooth_with_catch) - log(lag(borealis_smooth))
+                  log(.data$borealis_smooth_with_catch) - log(dplyr::lag(.data$borealis_smooth))
               ) %>%
-              dplyr::relocate(dplyr::starts_with(biomass_column), .after = row_ID)
+              dplyr::relocate(dplyr::starts_with(biomass_column),
+                              .after = .data$row_ID)
 
             spm_data(spm_smoothed_data(sspm_object)) <- smooth_data_with_new_cols
 
