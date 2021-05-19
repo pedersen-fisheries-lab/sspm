@@ -66,8 +66,6 @@ test_that("Families are checked correctly", {
 
 test_that("Residuals are correctly retrieved", {
 
-  library(tweedie)
-
   # Tweedie case
   gam_obj <- mgcv::gam(mpg ~ s(drat), data = mtcars, family = mgcv::tw)
   res <- sspm:::rqresiduals(gam_obj)
