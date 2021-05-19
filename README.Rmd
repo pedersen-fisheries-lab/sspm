@@ -53,6 +53,7 @@ library(mgcv)
 
 borealis <- sspm:::borealis_simulated
 predator <- sspm:::predator_simulated
+catch <- sspm:::catch
 sfa_boundaries <- sspm:::sfa_boundaries
 ```
 
@@ -80,62 +81,69 @@ spm_patches(sspm_discrete)
 spm_points(sspm_discrete)
 ```
 
-
-3. Then, other datasets may be mapped onto the base dataset, for example, predator data.
+3. Then, other datasets may be loaded alongside the biomass dataset, for example, predator and catch data.
 ```{r}
-sspm_discrete_mapped <- sspm_discrete %>%
+sspm_mapped <- sspm_discrete %>%
   map_predictor(predator,
                 name = "pred_data",
                 time_column = "year",
                 uniqueID = "uniqueID",
-                coords = c("lon_dec", "lat_dec"))
-sspm_discrete_mapped
+                coords = c("lon_dec", "lat_dec")) 
+sspm_mapped
 ```
 
 4. Smoothing formulas for any of the datasets may be specified, using special terms `smooth_time()`, `smooth_space` and `smooth_space_time`. NOTE: the testing dataset is dummy data and wont converge if `smooth_time()` or `smooth_space_time` is used (to be fixed soon).
 ```{r}
-sspm_discrete_mapped_with_forms <- sspm_discrete_mapped %>%
+sspm_with_formulas <- sspm_mapped %>%
   map_formula(weight_per_km2~smooth_time(), "borealis", ) %>% 
   map_formula(weight_per_km2~smooth_space(), "pred_data")
-sspm_discrete_mapped_with_forms
+sspm_with_formulas
 ```
 
 5. Finally, formulas can be fitted with `fit_smooths()`
 ```{r}
-sspm_discrete_mapped_fitted <- sspm_discrete_mapped_with_forms %>%
+sspm_smooth_fitted <- sspm_with_formulas %>%
   fit_smooths()
-sspm_discrete_mapped_fitted
+sspm_smooth_fitted
 ```
-6. To fit the final SPM, we might need to add lagged values. This is easily done with spm_lag.
+
+6. We also need to register catch data.  For catch data, it is important to precise a data column which will be aggregated at the `patch_id` level.
 ```{r}
-sspm_fitted_lagged <- sspm_discrete_mapped_fitted %>% 
+sspm_smooth_fitted_wcatch <-  sspm_smooth_fitted %>% 
+  map_catch(catch, name = "catch_data", 
+            time_column = "year_f", 
+            uniqueID = "obs_id", 
+            coords = c("lon_start", "lat_start"), 
+            catch_column = "catch", 
+            biomass_column = "borealis_smooth")
+sspm_smooth_fitted_wcatch
+```
+
+6. To fit the final SPM, we might need to add lagged values. This is easily done with `spm_lag`.
+```{r}
+sspm_smooth_fitted_wcatch_lagged <- sspm_smooth_fitted_wcatch %>% 
   spm_lag(c("borealis_smooth", "pred_data_smooth"), 1)
-sspm_fitted_lagged
+sspm_smooth_fitted_wcatch_lagged
 ```
 
 7. Before fitting the model, we split data into test/train.
 ```{r}
-sspm_fitted_lagged <-
-  spm_split(sspm_fitted_lagged, year_f %in% c(1996:2000))
-sspm_fitted_lagged
+sspm_smooth_fitted_wcatch_lagged <-
+  spm_split(sspm_smooth_fitted_wcatch_lagged, year_f %in% c(1996:2000))
+sspm_smooth_fitted_wcatch_lagged
 ```
 
-8. We can bow map a final spm formula onto the smoothed data
+8. We can now map a final spm formula onto the smoothed data
 ```{r}
-sspm_fitted_lagged_mapped <- sspm_fitted_lagged %>% 
-  map_formula(borealis_smooth ~ pred_data_smooth_lag_1 + smooth_lag("borealis_smooth"))
-sspm_fitted_lagged_mapped
-```
-
-9. We also need to register catch data.
-```{r}
-# TODO
+sspm_smooth_with_formulas <- sspm_smooth_fitted_wcatch_lagged %>% 
+  map_formula(borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + smooth_lag("borealis_smooth"))
+sspm_smooth_with_formulas
 ```
 
 8. We can now fit the SPM. 
 ```{r, eval = FALSE}
 sspm_fit <- 
-  sspm_fitted_lagged_mapped %>% fit_spm()
+  sspm_smooth_with_formulas %>% fit_spm()
 sspm_fit
 ```
 
