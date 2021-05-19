@@ -303,25 +303,52 @@ setMethod(f = "map_catch",
 
             check_sspm_for_catch(sspm_object)
 
-            # Need to aggregate to the polygon
-
-            # => need to look up the response column in the smoothed data to know
-            #    which column to apply the change
-
-            # 2 possible things:
-            # 1. mapped first will be simply added as a dataset and calculate with_catch later
-            # 2. mapped second will do both right away
-
             sspm_object <-
               map_dataset(sspm_object, data, name, type, time_column, uniqueID, coords, crs, ...)
 
-            browser()
+            # Aggregate to the polygon level
+            catch_dataset <- spm_datasets(sspm_object, "catch")
+            time_col <- spm_time_column(catch_dataset)
+
+            catch_data <- spm_data(catch_dataset) %>%
+              dplyr::group_by(.data[[time_col]], patch_id) %>%
+              sf::st_drop_geometry() %>%
+              dplyr::summarise(total_catch = sum(.data[[catch_column]],
+                                                 na.rm = TRUE)) %>%
+              tidyr::complete(.data[[time_col]], patch_id,
+                              fill = list(total_catch = 0)) %>%
+              dplyr::mutate(!!time_col :=
+                              as.factor(.data[[time_col]])) %>%
+              unique()
+
+            # Calculate the right columns
+            smooth_dataset <- spm_smoothed_data(sspm_object)
+            smoothed_data <- spm_data(smooth_dataset)
+            smoothed_data_time_col <- spm_time_column(smooth_dataset)
+
+            # First, join data
+            smoothed_data_mod <- smoothed_data %>%
+              dplyr::mutate(!!smoothed_data_time_col :=
+                              as.factor(.data[[smoothed_data_time_col]])) %>%
+              dplyr::rename(!!time_col := smoothed_data_time_col) %>%
+              dplyr::left_join(catch_data,
+                               by = sapply(c(time_col, "patch_id"),
+                                           rlang::as_string))
+
+            smooth_data_with_new_cols <- smoothed_data_mod %>%
+              dplyr::mutate(
+                "{biomass_column}_with_catch" :=
+                  borealis_smooth + total_catch/area_km2) %>%
+              dplyr::mutate(
+                "{biomass_column}_with_catch_change" :=
+                  log(borealis_smooth_with_catch) - log(lag(borealis_smooth))
+              ) %>%
+              dplyr::relocate(dplyr::starts_with(biomass_column), .after = row_ID)
 
             return(sspm_object)
 
           }
 )
-
 
 # Helpers -----------------------------------------------------------------
 
