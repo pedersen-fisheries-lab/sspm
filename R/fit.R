@@ -185,7 +185,9 @@ setMethod(f = "fit_smooths",
                       preds_df <- preds_df %>%
                         dplyr::rename(!!time_col_biomass := !!time_col_name)
                       full_smoothed_data <- full_smoothed_data %>%
-                        dplyr::left_join(preds_df, by = c("patch_id", time_col_biomass))
+                        dplyr::left_join(preds_df, by = c("patch_id", time_col_biomass),
+                                         suffix = c("", "_duplicate")) %>%
+                        dplyr::select(-c(dplyr::ends_with("_duplicate")))
 
                     }
 
