@@ -305,7 +305,7 @@ sspm_smooth_fitted_wcatch_lagged
 
 ``` r
 sspm_smooth_with_formulas <- sspm_smooth_fitted_wcatch_lagged %>% 
-  map_formula(borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + smooth_lag("borealis_smooth"))
+  map_formula(borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + smooth_lag("borealis_smooth_with_catch"))
 sspm_smooth_with_formulas
 #> 
 #> ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒
@@ -331,10 +331,7 @@ sspm_smooth_with_formulas
 ``` r
 sspm_with_fit <- 
   sspm_smooth_with_formulas %>% fit_spm()
-#> ℹ  Fitting SPM formula: borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + smooth_lag('borealis_smooth')
-#> Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :
-#> step failure in theta estimation
-
+#> ℹ  Fitting SPM formula: borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + smooth_lag('borealis_smooth_with_catch')
 #> Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :
 #> step failure in theta estimation
 
@@ -343,7 +340,7 @@ sspm_with_fit <-
 spm_smoothed_fit(spm_smoothed_data(sspm_with_fit))
 #> $smoothed_data_f1
 #> 
-#> Family: Scaled t(Inf,71.803) 
+#> Family: Scaled t(Inf,67.164) 
 #> Link function: identity 
 #> 
 #> Formula:
@@ -351,9 +348,9 @@ spm_smoothed_fit(spm_smoothed_data(sspm_with_fit))
 #>     k = 5, m = 1, by = by_matrix)
 #> 
 #> Estimated degrees of freedom:
-#> 2.92  total = 4.92 
+#> 4.77  total = 6.77 
 #> 
-#> REML score: 496.6813
+#> REML score: 508.0234
 ```
 
 9.  We can also extract predictions.

@@ -136,7 +136,7 @@ sspm_smooth_fitted_wcatch_lagged
 8. We can now map a final spm formula onto the smoothed data
 ```{r}
 sspm_smooth_with_formulas <- sspm_smooth_fitted_wcatch_lagged %>% 
-  map_formula(borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + smooth_lag("borealis_smooth"))
+  map_formula(borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + smooth_lag("borealis_smooth_with_catch"))
 sspm_smooth_with_formulas
 ```
 
