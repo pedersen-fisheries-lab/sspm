@@ -361,9 +361,31 @@
 <li>We can now fit the SPM.</li>
 </ol>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sspm_fit</span> <span class="op">&lt;-</span> 
+<code class="sourceCode R"><span class="va">sspm_with_fit</span> <span class="op">&lt;-</span> 
   <span class="va">sspm_smooth_with_formulas</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/fit_smooths.html">fit_spm</a></span><span class="op">(</span><span class="op">)</span>
-<span class="va">sspm_fit</span></code></pre></div>
+<span class="co">#&gt; ℹ  Fitting SPM formula: borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + smooth_lag('borealis_smooth')</span>
+<span class="co">#&gt; Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :</span>
+<span class="co">#&gt; step failure in theta estimation</span>
+
+<span class="co">#&gt; Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :</span>
+<span class="co">#&gt; step failure in theta estimation</span>
+
+<span class="co">#&gt; Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :</span>
+<span class="co">#&gt; step failure in theta estimation</span>
+<span class="fu"><a href="reference/spm_data.html">spm_smoothed_fit</a></span><span class="op">(</span><span class="fu"><a href="reference/spm_name.html">spm_smoothed_data</a></span><span class="op">(</span><span class="va">sspm_with_fit</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; $smoothed_data_f1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Family: Scaled t(Inf,71.803) </span>
+<span class="co">#&gt; Link function: identity </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Formula:</span>
+<span class="co">#&gt; borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + s(lag_matrix, </span>
+<span class="co">#&gt;     k = 5, m = 1, by = by_matrix)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Estimated degrees of freedom:</span>
+<span class="co">#&gt; 2.92  total = 4.92 </span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; REML score: 496.6813</span></code></pre></div>
 <ol>
 <li>We can also extract predictions.</li>
 </ol>
