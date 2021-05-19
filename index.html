@@ -113,6 +113,7 @@
 
 <span class="va">borealis</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">borealis_simulated</span>
 <span class="va">predator</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">predator_simulated</span>
+<span class="va">catch</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">catch</span>
 <span class="va">sfa_boundaries</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">sfa_boundaries</span></code></pre></div>
 <ol>
 <li>Start by creating a base <code>sapspm</code> object with a base dataset called “Biomass”.</li>
@@ -126,7 +127,6 @@
               uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span><span class="op">)</span>
 <span class="co">#&gt; !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting</span>
 <span class="co">#&gt; ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec</span>
-<span class="co">#&gt; !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting</span>
 <span class="va">sspm_base</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM object 'My Model' ‒‒</span>
@@ -197,19 +197,18 @@
 <span class="co">#&gt; #   recruit_weight &lt;dbl&gt;, row &lt;int&gt;, uniqueID &lt;chr&gt;, geometry &lt;POINT [°]&gt;,</span>
 <span class="co">#&gt; #   sfa &lt;chr&gt;</span></code></pre></div>
 <ol>
-<li>Then, other datasets may be mapped onto the base dataset, for example, predator data.</li>
+<li>Then, other datasets may be loaded alongside the biomass dataset, for example, predator and catch data.</li>
 </ol>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sspm_discrete_mapped</span> <span class="op">&lt;-</span> <span class="va">sspm_discrete</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">sspm_mapped</span> <span class="op">&lt;-</span> <span class="va">sspm_discrete</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/map_dataset.html">map_predictor</a></span><span class="op">(</span><span class="va">predator</span>,
                 name <span class="op">=</span> <span class="st">"pred_data"</span>,
                 time_column <span class="op">=</span> <span class="st">"year"</span>,
                 uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span>,
-                coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon_dec"</span>, <span class="st">"lat_dec"</span><span class="op">)</span><span class="op">)</span>
+                coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon_dec"</span>, <span class="st">"lat_dec"</span><span class="op">)</span><span class="op">)</span> 
 <span class="co">#&gt; !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting</span>
 <span class="co">#&gt; ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec</span>
-<span class="co">#&gt; !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting</span>
-<span class="va">sspm_discrete_mapped</span>
+<span class="va">sspm_mapped</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒</span>
 <span class="co">#&gt; →  Boundaries    : [4 observations, 2 variables]</span>
@@ -223,10 +222,10 @@
 <li>Smoothing formulas for any of the datasets may be specified, using special terms <code><a href="reference/smooth_time.html">smooth_time()</a></code>, <code>smooth_space</code> and <code>smooth_space_time</code>. NOTE: the testing dataset is dummy data and wont converge if <code><a href="reference/smooth_time.html">smooth_time()</a></code> or <code>smooth_space_time</code> is used (to be fixed soon).</li>
 </ol>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sspm_discrete_mapped_with_forms</span> <span class="op">&lt;-</span> <span class="va">sspm_discrete_mapped</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">sspm_with_formulas</span> <span class="op">&lt;-</span> <span class="va">sspm_mapped</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/map_formula.html">map_formula</a></span><span class="op">(</span><span class="va">weight_per_km2</span><span class="op">~</span><span class="fu"><a href="reference/smooth_time.html">smooth_time</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"borealis"</span>, <span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="reference/map_formula.html">map_formula</a></span><span class="op">(</span><span class="va">weight_per_km2</span><span class="op">~</span><span class="fu"><a href="reference/smooth_time.html">smooth_space</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"pred_data"</span><span class="op">)</span>
-<span class="va">sspm_discrete_mapped_with_forms</span>
+<span class="va">sspm_with_formulas</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒</span>
 <span class="co">#&gt; →  Boundaries    : [4 observations, 2 variables]</span>
@@ -243,11 +242,11 @@
 </li>
 </ol>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sspm_discrete_mapped_fitted</span> <span class="op">&lt;-</span> <span class="va">sspm_discrete_mapped_with_forms</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">sspm_smooth_fitted</span> <span class="op">&lt;-</span> <span class="va">sspm_with_formulas</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="reference/fit_smooths.html">fit_smooths</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; ℹ  Fitting formula: weight_per_km2 ~ smooth_time() for dataset 'borealis'</span>
 <span class="co">#&gt; ℹ  Fitting formula: weight_per_km2 ~ smooth_space() for dataset 'pred_data'</span>
-<span class="va">sspm_discrete_mapped_fitted</span>
+<span class="va">sspm_smooth_fitted</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒</span>
 <span class="co">#&gt; →  Boundaries    : [4 observations, 2 variables]</span>
@@ -259,85 +258,111 @@
 <span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_time()</span>
 <span class="co">#&gt;    ٭ pred_data (predictor) — [1979 observations, 18 variables]</span>
 <span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_space()</span>
-<span class="co">#&gt; →  Smoothed data : [1656 observations, 12 variables]</span>
+<span class="co">#&gt; →  Smoothed data : [1656 observations, 8 variables]</span>
 <span class="co">#&gt;    ٭ smoothed vars: borealis_smooth — pred_data_smooth</span></code></pre></div>
 <ol>
-<li>To fit the final SPM, we might need to add lagged values. This is easily done with spm_lag.</li>
+<li>We also need to register catch data. For catch data, it is important to precise a data column which will be aggregated at the <code>patch_id</code> level.</li>
 </ol>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sspm_fitted_lagged</span> <span class="op">&lt;-</span> <span class="va">sspm_discrete_mapped_fitted</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="reference/spm_lag.html">spm_lag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"borealis_smooth"</span>, <span class="st">"pred_data_smooth"</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
-<span class="va">sspm_fitted_lagged</span>
+<code class="sourceCode R"><span class="va">sspm_smooth_fitted_wcatch</span> <span class="op">&lt;-</span>  <span class="va">sspm_smooth_fitted</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/map_dataset.html">map_catch</a></span><span class="op">(</span><span class="va">catch</span>, name <span class="op">=</span> <span class="st">"catch_data"</span>, 
+            time_column <span class="op">=</span> <span class="st">"year_f"</span>, 
+            uniqueID <span class="op">=</span> <span class="st">"obs_id"</span>, 
+            coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon_start"</span>, <span class="st">"lat_start"</span><span class="op">)</span>, 
+            catch_column <span class="op">=</span> <span class="st">"catch"</span>, 
+            biomass_column <span class="op">=</span> <span class="st">"borealis_smooth"</span><span class="op">)</span>
+<span class="co">#&gt; !  Warning: sspm is assuming that the CRS of boundaries is to be used for casting</span>
+<span class="co">#&gt; ℹ  Casting data matrix into simple feature collection using columns: lon_start, lat_start</span>
+<span class="va">sspm_smooth_fitted_wcatch</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒</span>
 <span class="co">#&gt; →  Boundaries    : [4 observations, 2 variables]</span>
 <span class="co">#&gt; →  Discretized   : </span>
 <span class="co">#&gt;    ٭ Points — [75 features, 19 variables]</span>
 <span class="co">#&gt;    ٭ Patches — [69 features, 4 variables]</span>
-<span class="co">#&gt; →  Datasets      : 2 datasets</span>
+<span class="co">#&gt; →  Datasets      : 3 datasets</span>
 <span class="co">#&gt;    ٭ borealis (biomass) — [1026 observations, 21 variables]</span>
 <span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_time()</span>
 <span class="co">#&gt;    ٭ pred_data (predictor) — [1979 observations, 18 variables]</span>
 <span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_space()</span>
-<span class="co">#&gt; →  Smoothed data : [1656 observations, 14 variables]</span>
-<span class="co">#&gt;    ٭ smoothed vars: borealis_smooth — pred_data_smooth</span>
+<span class="co">#&gt;    ٭ catch_data (catch) — [491973 observations, 13 variables]</span>
+<span class="co">#&gt; →  Smoothed data : [1656 observations, 11 variables]</span>
+<span class="co">#&gt;    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth</span></code></pre></div>
+<ol>
+<li>To fit the final SPM, we might need to add lagged values. This is easily done with <code>spm_lag</code>.</li>
+</ol>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">sspm_smooth_fitted_wcatch_lagged</span> <span class="op">&lt;-</span> <span class="va">sspm_smooth_fitted_wcatch</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/spm_lag.html">spm_lag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"borealis_smooth"</span>, <span class="st">"pred_data_smooth"</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
+<span class="va">sspm_smooth_fitted_wcatch_lagged</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒</span>
+<span class="co">#&gt; →  Boundaries    : [4 observations, 2 variables]</span>
+<span class="co">#&gt; →  Discretized   : </span>
+<span class="co">#&gt;    ٭ Points — [75 features, 19 variables]</span>
+<span class="co">#&gt;    ٭ Patches — [69 features, 4 variables]</span>
+<span class="co">#&gt; →  Datasets      : 3 datasets</span>
+<span class="co">#&gt;    ٭ borealis (biomass) — [1026 observations, 21 variables]</span>
+<span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_time()</span>
+<span class="co">#&gt;    ٭ pred_data (predictor) — [1979 observations, 18 variables]</span>
+<span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_space()</span>
+<span class="co">#&gt;    ٭ catch_data (catch) — [491973 observations, 13 variables]</span>
+<span class="co">#&gt; →  Smoothed data : [1656 observations, 13 variables]</span>
+<span class="co">#&gt;    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth</span>
 <span class="co">#&gt;    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1</span></code></pre></div>
 <ol>
 <li>Before fitting the model, we split data into test/train.</li>
 </ol>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sspm_fitted_lagged</span> <span class="op">&lt;-</span>
-  <span class="fu"><a href="reference/spm_split.html">spm_split</a></span><span class="op">(</span><span class="va">sspm_fitted_lagged</span>, <span class="va">year_f</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1996</span><span class="op">:</span><span class="fl">2000</span><span class="op">)</span><span class="op">)</span>
-<span class="va">sspm_fitted_lagged</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒</span>
-<span class="co">#&gt; →  Boundaries    : [4 observations, 2 variables]</span>
-<span class="co">#&gt; →  Discretized   : </span>
-<span class="co">#&gt;    ٭ Points — [75 features, 19 variables]</span>
-<span class="co">#&gt;    ٭ Patches — [69 features, 4 variables]</span>
-<span class="co">#&gt; →  Datasets      : 2 datasets</span>
-<span class="co">#&gt;    ٭ borealis (biomass) — [1026 observations, 21 variables]</span>
-<span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_time()</span>
-<span class="co">#&gt;    ٭ pred_data (predictor) — [1979 observations, 18 variables]</span>
-<span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_space()</span>
-<span class="co">#&gt; →  Smoothed data : [1656 observations, 15 variables]</span>
-<span class="co">#&gt;    ٭ smoothed vars: borealis_smooth — pred_data_smooth</span>
-<span class="co">#&gt;    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1</span>
-<span class="co">#&gt;       – [345 train, 1311 test]</span></code></pre></div>
-<ol>
-<li>We can bow map a final spm formula onto the smoothed data</li>
-</ol>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">sspm_fitted_lagged_mapped</span> <span class="op">&lt;-</span> <span class="va">sspm_fitted_lagged</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="reference/map_formula.html">map_formula</a></span><span class="op">(</span><span class="va">borealis_smooth</span> <span class="op">~</span> <span class="va">pred_data_smooth_lag_1</span> <span class="op">+</span> <span class="fu"><a href="reference/smooth_time.html">smooth_lag</a></span><span class="op">(</span><span class="st">"borealis_smooth"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">sspm_fitted_lagged_mapped</span>
+<code class="sourceCode R"><span class="va">sspm_smooth_fitted_wcatch_lagged</span> <span class="op">&lt;-</span>
+  <span class="fu"><a href="reference/spm_split.html">spm_split</a></span><span class="op">(</span><span class="va">sspm_smooth_fitted_wcatch_lagged</span>, <span class="va">year_f</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1996</span><span class="op">:</span><span class="fl">2000</span><span class="op">)</span><span class="op">)</span>
+<span class="va">sspm_smooth_fitted_wcatch_lagged</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒</span>
 <span class="co">#&gt; →  Boundaries    : [4 observations, 2 variables]</span>
 <span class="co">#&gt; →  Discretized   : </span>
 <span class="co">#&gt;    ٭ Points — [75 features, 19 variables]</span>
 <span class="co">#&gt;    ٭ Patches — [69 features, 4 variables]</span>
-<span class="co">#&gt; →  Datasets      : 2 datasets</span>
+<span class="co">#&gt; →  Datasets      : 3 datasets</span>
 <span class="co">#&gt;    ٭ borealis (biomass) — [1026 observations, 21 variables]</span>
 <span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_time()</span>
 <span class="co">#&gt;    ٭ pred_data (predictor) — [1979 observations, 18 variables]</span>
 <span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_space()</span>
-<span class="co">#&gt; →  Smoothed data : [1656 observations, 15 variables]</span>
-<span class="co">#&gt;    ٭ smoothed vars: borealis_smooth — pred_data_smooth</span>
+<span class="co">#&gt;    ٭ catch_data (catch) — [491973 observations, 13 variables]</span>
+<span class="co">#&gt; →  Smoothed data : [1656 observations, 14 variables]</span>
+<span class="co">#&gt;    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth</span>
 <span class="co">#&gt;    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1</span>
-<span class="co">#&gt;       – borealis_smooth ~ pred_data_smooth_lag_1...</span>
 <span class="co">#&gt;       – [345 train, 1311 test]</span></code></pre></div>
 <ol>
-<li>We also need to register catch data.</li>
+<li>We can now map a final spm formula onto the smoothed data</li>
 </ol>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># TODO</span></code></pre></div>
+<code class="sourceCode R"><span class="va">sspm_smooth_with_formulas</span> <span class="op">&lt;-</span> <span class="va">sspm_smooth_fitted_wcatch_lagged</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/map_formula.html">map_formula</a></span><span class="op">(</span><span class="va">borealis_smooth_with_catch</span> <span class="op">~</span> <span class="va">pred_data_smooth_lag_1</span> <span class="op">+</span> <span class="fu"><a href="reference/smooth_time.html">smooth_lag</a></span><span class="op">(</span><span class="st">"borealis_smooth"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">sspm_smooth_with_formulas</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒</span>
+<span class="co">#&gt; →  Boundaries    : [4 observations, 2 variables]</span>
+<span class="co">#&gt; →  Discretized   : </span>
+<span class="co">#&gt;    ٭ Points — [75 features, 19 variables]</span>
+<span class="co">#&gt;    ٭ Patches — [69 features, 4 variables]</span>
+<span class="co">#&gt; →  Datasets      : 3 datasets</span>
+<span class="co">#&gt;    ٭ borealis (biomass) — [1026 observations, 21 variables]</span>
+<span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_time()</span>
+<span class="co">#&gt;    ٭ pred_data (predictor) — [1979 observations, 18 variables]</span>
+<span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_space()</span>
+<span class="co">#&gt;    ٭ catch_data (catch) — [491973 observations, 13 variables]</span>
+<span class="co">#&gt; →  Smoothed data : [1656 observations, 14 variables]</span>
+<span class="co">#&gt;    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth</span>
+<span class="co">#&gt;    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1</span>
+<span class="co">#&gt;       – borealis_smooth_with_catch ~ pred_data_s...</span>
+<span class="co">#&gt;       – [345 train, 1311 test]</span></code></pre></div>
 <ol>
 <li>We can now fit the SPM.</li>
 </ol>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_fit</span> <span class="op">&lt;-</span> 
-  <span class="va">sspm_fitted_lagged_mapped</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/fit_smooths.html">fit_spm</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="va">sspm_smooth_with_formulas</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/fit_smooths.html">fit_spm</a></span><span class="op">(</span><span class="op">)</span>
 <span class="va">sspm_fit</span></code></pre></div>
 <ol>
 <li>We can also extract predictions.</li>
