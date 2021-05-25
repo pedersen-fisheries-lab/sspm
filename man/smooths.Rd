@@ -93,7 +93,8 @@ see \code{\link[mgcv]{smooth.terms}} for an over view of what is available.
 }
 
 \item{xt}{Any extra information required to set up a particular basis. Used
-  e.g. to set large data set handling behaviour for \code{"tp"} basis.}
+  e.g. to set large data set handling behaviour for \code{"tp"} basis. If \code{xt$sumConv}
+  exists and is \code{FALSE} then the summation convention for matrix arguments is turned off. }
 
 \item{...}{Further arguments passed down, none used for now.}
 
