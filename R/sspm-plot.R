@@ -27,7 +27,7 @@ setMethod("plot",
 setMethod("plot",
           signature(x = "sspm_discrete"),
           definition = function(x, smoothed_var = NULL,
-                                page = "first", nrow = 3, ncol = 3) {
+                                page = "first", nrow = 2, ncol = 4) {
 
             smoothed_dataset <- spm_smoothed_data(x)
             smoothed_data <- spm_data(smoothed_dataset)
@@ -49,7 +49,7 @@ setMethod("plot",
 
               time_col <- spm_time_column(smoothed_dataset)
 
-              if(is.character(pages)){
+              if(is.character(page)){
 
                 if (page == "all"){
 
