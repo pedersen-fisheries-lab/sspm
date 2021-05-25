@@ -262,10 +262,14 @@
 <span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_space()</span>
 <span class="co">#&gt; →  Smoothed data : [1656 observations, 8 variables]</span>
 <span class="co">#&gt;    ٭ smoothed vars: borealis_smooth — pred_data_smooth</span></code></pre></div>
+<p>The smoothed results for any smoothed variables (listed in “smoothed vars” above) can be plotted:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sspm_smooth_fitted</span>, smoothed_var <span class="op">=</span> <span class="st">"borealis_smooth"</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%"></p>
 <ol>
 <li>We also need to register catch data. For catch data, it is important to precise a data column which will be aggregated at the <code>patch_id</code> level.</li>
 </ol>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_smooth_fitted_wcatch</span> <span class="op">&lt;-</span>  <span class="va">sspm_smooth_fitted</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="reference/map_dataset.html">map_catch</a></span><span class="op">(</span><span class="va">catch</span>, name <span class="op">=</span> <span class="st">"catch_data"</span>, 
             time_column <span class="op">=</span> <span class="st">"year_f"</span>, 
@@ -293,7 +297,7 @@
 <ol>
 <li>To fit the final SPM, we might need to add lagged values. This is easily done with <code>spm_lag</code>.</li>
 </ol>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_smooth_fitted_wcatch_lagged</span> <span class="op">&lt;-</span> <span class="va">sspm_smooth_fitted_wcatch</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="reference/spm_lag.html">spm_lag</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"borealis_smooth"</span>, <span class="st">"pred_data_smooth"</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="va">sspm_smooth_fitted_wcatch_lagged</span>
@@ -315,7 +319,7 @@
 <ol>
 <li>Before fitting the model, we split data into test/train.</li>
 </ol>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_smooth_fitted_wcatch_lagged</span> <span class="op">&lt;-</span>
   <span class="fu"><a href="reference/spm_split.html">spm_split</a></span><span class="op">(</span><span class="va">sspm_smooth_fitted_wcatch_lagged</span>, <span class="va">year_f</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1996</span><span class="op">:</span><span class="fl">2000</span><span class="op">)</span><span class="op">)</span>
 <span class="va">sspm_smooth_fitted_wcatch_lagged</span>
@@ -338,7 +342,7 @@
 <ol>
 <li>We can now map a final spm formula onto the smoothed data</li>
 </ol>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_smooth_with_formulas</span> <span class="op">&lt;-</span> <span class="va">sspm_smooth_fitted_wcatch_lagged</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="reference/map_formula.html">map_formula</a></span><span class="op">(</span><span class="va">borealis_smooth_with_catch</span> <span class="op">~</span> <span class="va">pred_data_smooth_lag_1</span> <span class="op">+</span> <span class="fu"><a href="reference/smooth_time.html">smooth_lag</a></span><span class="op">(</span><span class="st">"borealis_smooth_with_catch"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">sspm_smooth_with_formulas</span>
@@ -362,7 +366,7 @@
 <ol>
 <li>We can now fit the SPM.</li>
 </ol>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_with_fit</span> <span class="op">&lt;-</span> 
   <span class="va">sspm_smooth_with_formulas</span> <span class="op">%&gt;%</span> <span class="fu"><a href="reference/fit_smooths.html">fit_spm</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt; ℹ  Fitting SPM formula: borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + smooth_lag('borealis_smooth_with_catch')</span>
@@ -388,7 +392,7 @@
 <ol>
 <li>We can also extract predictions.</li>
 </ol>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># TODO</span></code></pre></div>
 </div>
 </div>
