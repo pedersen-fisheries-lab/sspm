@@ -13,7 +13,7 @@
 
 NULL
 
-#' @rdname plot-sspm 
+#' @rdname plot-sspm
 #' @export
 setMethod("plot",
           signature(x = "sspm"),
@@ -22,17 +22,24 @@ setMethod("plot",
           }
 )
 
-#' @rdname plot-sspm 
+#' @rdname plot-sspm
 #' @export
 setMethod("plot",
           signature(x = "sspm_discrete"),
           definition = function(x) {
 
             old_par <- par(no.readonly = TRUE)
-            par(mfrow=c(1,2))
-            plot(spm_patches(x)$geometry, main = "Patches")
-            plot(spm_points(x)$geometry, main = "Points")
-            par(old_par)
+
+            sspm_discrete_plot <- ggplot2::ggplot() +
+              ggplot2::geom_sf(data = spm_patches(x),
+                               fill = NA, col = "#8A9A5B") +
+              ggplot2::geom_sf(data = spm_boundaries(x),
+                               fill = NA, col = "#36454F") +
+              ggplot2::geom_sf(data = spm_points(x),
+                               col ="#6082B6") +
+              ggplot2::theme_light()
+
+            sspm_discrete_plot
 
           }
 )
