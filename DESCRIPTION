@@ -33,7 +33,8 @@ Imports:
     dplyr,
     purrr,
     rlang, 
-    ggplot2
+    ggplot2, 
+    ggforce
 Suggests: 
     testthat (>= 3.0.0),
     covr,

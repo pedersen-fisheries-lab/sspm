@@ -8,7 +8,7 @@
 \usage{
 \S4method{plot}{sspm}(x)
 
-\S4method{plot}{sspm_discrete}(x)
+\S4method{plot}{sspm_discrete}(x, smoothed_var = NULL, pages = "first", nrow = 3, ncol = 3)
 }
 \arguments{
 \item{x}{\strong{[sspm_discrete]} An object of class
