@@ -108,6 +108,11 @@ sspm_smooth_fitted <- sspm_with_formulas %>%
 sspm_smooth_fitted
 ```
 
+The smoothed results for any smoothed variables (listed in "smoothed vars" above) can be plotted:
+```{r}
+plot(sspm_smooth_fitted, smoothed_var = "borealis_smooth")
+```
+
 6. We also need to register catch data.  For catch data, it is important to precise a data column which will be aggregated at the `patch_id` level.
 ```{r}
 sspm_smooth_fitted_wcatch <-  sspm_smooth_fitted %>% 
@@ -120,35 +125,35 @@ sspm_smooth_fitted_wcatch <-  sspm_smooth_fitted %>%
 sspm_smooth_fitted_wcatch
 ```
 
-6. To fit the final SPM, we might need to add lagged values. This is easily done with `spm_lag`.
+7. To fit the final SPM, we might need to add lagged values. This is easily done with `spm_lag`.
 ```{r}
 sspm_smooth_fitted_wcatch_lagged <- sspm_smooth_fitted_wcatch %>% 
   spm_lag(c("borealis_smooth", "pred_data_smooth"), 1)
 sspm_smooth_fitted_wcatch_lagged
 ```
 
-7. Before fitting the model, we split data into test/train.
+8. Before fitting the model, we split data into test/train.
 ```{r}
 sspm_smooth_fitted_wcatch_lagged <-
   spm_split(sspm_smooth_fitted_wcatch_lagged, year_f %in% c(1996:2000))
 sspm_smooth_fitted_wcatch_lagged
 ```
 
-8. We can now map a final spm formula onto the smoothed data
+9. We can now map a final spm formula onto the smoothed data
 ```{r}
 sspm_smooth_with_formulas <- sspm_smooth_fitted_wcatch_lagged %>% 
   map_formula(borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + smooth_lag("borealis_smooth_with_catch"))
 sspm_smooth_with_formulas
 ```
 
-8. We can now fit the SPM. 
+10. We can now fit the SPM. 
 ```{r, eval = TRUE}
 sspm_with_fit <- 
   sspm_smooth_with_formulas %>% fit_spm()
 spm_smoothed_fit(spm_smoothed_data(sspm_with_fit))
 ```
 
-9. We can also extract predictions.
+11. We can also extract predictions.
 ```{r}
 # TODO
 ```
