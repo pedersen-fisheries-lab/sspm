@@ -105,10 +105,10 @@
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://pedersen-fisheries-lab.github.io/sspm/">sspm</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: sf</span>
-<span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1</span>
+<span class="co">#&gt; Linking to GEOS 3.8.1, GDAL 3.1.3, PROJ 7.1.0</span>
 <span class="co">#&gt; Loading required package: mgcv</span>
 <span class="co">#&gt; Loading required package: nlme</span>
-<span class="co">#&gt; This is mgcv 1.8-33. For overview type 'help("mgcv-package")'.</span>
+<span class="co">#&gt; This is mgcv 1.8-35. For overview type 'help("mgcv-package")'.</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span>
 
 <span class="va">borealis</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">borealis_simulated</span>
@@ -150,14 +150,14 @@
 <span class="co">#&gt;    ٭ Patches — [69 features, 4 variables]</span>
 <span class="co">#&gt; →  Datasets      : 1 dataset</span>
 <span class="co">#&gt;    ٭ borealis (biomass) — [1026 observations, 21 variables]</span></code></pre></div>
-<p>The results of the discretization can be explored with <code><a href="reference/spm_name.html">spm_patches()</a></code> and <code><a href="reference/spm_name.html">spm_points()</a></code>.</p>
+<p>The results of the discretization can be explored with <code><a href="reference/spm_name.html">spm_patches()</a></code> and <code><a href="reference/spm_name.html">spm_points()</a></code>. You can also plot the object to inspect the resulting discretization.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/spm_name.html">spm_patches</a></span><span class="op">(</span><span class="va">sspm_discrete</span><span class="op">)</span>
 <span class="co">#&gt; Simple feature collection with 69 features and 3 fields</span>
-<span class="co">#&gt; geometry type:  POLYGON</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -64.5 ymin: 46.00004 xmax: -46.6269 ymax: 61</span>
-<span class="co">#&gt; geographic CRS: WGS 84</span>
+<span class="co">#&gt; Geometry type: POLYGON</span>
+<span class="co">#&gt; Dimension:     XY</span>
+<span class="co">#&gt; Bounding box:  xmin: -64.5 ymin: 46.00004 xmax: -46.6269 ymax: 61</span>
+<span class="co">#&gt; Geodetic CRS:  WGS 84</span>
 <span class="co">#&gt; # A tibble: 69 x 4</span>
 <span class="co">#&gt;    sfa   patch_id                                              geometry area_km2</span>
 <span class="co">#&gt;  * &lt;chr&gt; &lt;fct&gt;                                            &lt;POLYGON [°]&gt;    &lt;dbl&gt;</span>
@@ -174,10 +174,10 @@
 <span class="co">#&gt; # … with 59 more rows</span>
 <span class="fu"><a href="reference/spm_name.html">spm_points</a></span><span class="op">(</span><span class="va">sspm_discrete</span><span class="op">)</span>
 <span class="co">#&gt; Simple feature collection with 75 features and 18 fields</span>
-<span class="co">#&gt; geometry type:  POINT</span>
-<span class="co">#&gt; dimension:      XY</span>
-<span class="co">#&gt; bbox:           xmin: -61.77175 ymin: 46.37211 xmax: -48.19061 ymax: 59.70288</span>
-<span class="co">#&gt; geographic CRS: WGS 84</span>
+<span class="co">#&gt; Geometry type: POINT</span>
+<span class="co">#&gt; Dimension:     XY</span>
+<span class="co">#&gt; Bounding box:  xmin: -61.77175 ymin: 46.37211 xmax: -48.19061 ymax: 59.70288</span>
+<span class="co">#&gt; Geodetic CRS:  WGS 84</span>
 <span class="co">#&gt; # A tibble: 75 x 19</span>
 <span class="co">#&gt; # Groups:   sfa [4]</span>
 <span class="co">#&gt;     year vessel  trip div_nafo season area_swept_km2 year_f n_samples lon_dec</span>
@@ -195,7 +195,9 @@
 <span class="co">#&gt; # … with 65 more rows, and 10 more variables: lat_dec &lt;dbl&gt;, depth &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   temp_at_bottom &lt;dbl&gt;, weight &lt;dbl&gt;, weight_per_km2 &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   recruit_weight &lt;dbl&gt;, row &lt;int&gt;, uniqueID &lt;chr&gt;, geometry &lt;POINT [°]&gt;,</span>
-<span class="co">#&gt; #   sfa &lt;chr&gt;</span></code></pre></div>
+<span class="co">#&gt; #   sfa &lt;chr&gt;</span>
+<span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">sspm_discrete</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-5-1.png" width="100%"></p>
 <ol>
 <li>Then, other datasets may be loaded alongside the biomass dataset, for example, predator and catch data.</li>
 </ol>
