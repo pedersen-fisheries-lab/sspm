@@ -27,7 +27,7 @@ setMethod("plot",
 setMethod("plot",
           signature(x = "sspm_discrete"),
           definition = function(x, smoothed_var = NULL,
-                                pages = "first", nrow = 3, ncol = 3) {
+                                page = "first", nrow = 3, ncol = 3) {
 
             smoothed_dataset <- spm_smoothed_data(x)
             smoothed_data <- spm_data(smoothed_dataset)
@@ -49,37 +49,50 @@ setMethod("plot",
 
               time_col <- spm_time_column(smoothed_dataset)
 
-              if (pages == "all"){
+              if(is.character(pages)){
 
-                time_col_levels <- length(unique(smoothed_data[[time_col]]))
-                n_per_page <- nrow*ncol
-                n_pages <- time_col_levels %/% (n_per_page) +
-                  (time_col_levels %% n_per_page > 1)
+                if (page == "all"){
 
-                sspm_discrete_plot <- list()
+                  time_col_levels <- length(unique(smoothed_data[[time_col]]))
+                  n_per_page <- nrow*ncol
+                  n_pages <- time_col_levels %/% (n_per_page) +
+                    (time_col_levels %% n_per_page > 1)
 
-                for (page in seq_len(length.out = n_pages)){
+                  sspm_discrete_plot <- list()
 
-                  sspm_discrete_plot[[page]] <- ggplot2::ggplot(data = smoothed_data) +
+                  for (page_nb in seq_len(length.out = n_pages)){
+
+                    sspm_discrete_plot[[page_nb]] <-
+                      ggplot2::ggplot(data = smoothed_data) +
+                      ggplot2::geom_sf(ggplot2::aes(fill=.data[[smoothed_var]])) +
+                      ggforce::facet_wrap_paginate(~.data[[time_col]],
+                                                   nrow = nrow, ncol = ncol,
+                                                   page = page_nb) +
+                      ggplot2::scale_fill_viridis_c()
+
+                  }
+
+                } else {
+
+                  sspm_discrete_plot <- ggplot2::ggplot(data = smoothed_data) +
                     ggplot2::geom_sf(ggplot2::aes(fill=.data[[smoothed_var]])) +
                     ggforce::facet_wrap_paginate(~.data[[time_col]],
                                                  nrow = nrow, ncol = ncol,
-                                                 page = page) +
+                                                 page = 1) +
                     ggplot2::scale_fill_viridis_c()
 
                 }
 
-              } else {
+              } else if(is.numeric(page)){
 
                 sspm_discrete_plot <- ggplot2::ggplot(data = smoothed_data) +
                   ggplot2::geom_sf(ggplot2::aes(fill=.data[[smoothed_var]])) +
                   ggforce::facet_wrap_paginate(~.data[[time_col]],
                                                nrow = nrow, ncol = ncol,
-                                               page = 1) +
+                                               page = page) +
                   ggplot2::scale_fill_viridis_c()
 
               }
-
             }
 
             return(sspm_discrete_plot)
