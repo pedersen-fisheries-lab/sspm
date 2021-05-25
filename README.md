@@ -187,8 +187,8 @@ sspm_mapped
 
 ``` r
 sspm_with_formulas <- sspm_mapped %>%
-  map_formula(weight_per_km2~smooth_time(), "borealis", ) %>% 
-  map_formula(weight_per_km2~smooth_space(), "pred_data")
+  map_formula(weight_per_km2~smooth_time() + smooth_space(), "borealis", ) %>% 
+  map_formula(weight_per_km2~smooth_time() + smooth_space(), "pred_data")
 sspm_with_formulas
 #> 
 #> ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒
@@ -198,9 +198,9 @@ sspm_with_formulas
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets      : 2 datasets
 #>    ٭ borealis (biomass) — [1026 observations, 21 variables]
-#>       – weight_per_km2 ~ smooth_time()
+#>       – weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
-#>       – weight_per_km2 ~ smooth_space()
+#>       – weight_per_km2 ~ smooth_time() + smooth_...
 ```
 
 5.  Finally, formulas can be fitted with `fit_smooths()`
@@ -208,8 +208,8 @@ sspm_with_formulas
 ``` r
 sspm_smooth_fitted <- sspm_with_formulas %>%
   fit_smooths()
-#> ℹ  Fitting formula: weight_per_km2 ~ smooth_time() for dataset 'borealis'
-#> ℹ  Fitting formula: weight_per_km2 ~ smooth_space() for dataset 'pred_data'
+#> ℹ  Fitting formula: weight_per_km2 ~ smooth_time() + smooth_space() for dataset 'borealis'
+#> ℹ  Fitting formula: weight_per_km2 ~ smooth_time() + smooth_space() for dataset 'pred_data'
 sspm_smooth_fitted
 #> 
 #> ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒
@@ -219,9 +219,9 @@ sspm_smooth_fitted
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets      : 2 datasets
 #>    ٭ borealis (biomass) — [1026 observations, 21 variables]
-#>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
-#>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #> →  Smoothed data : [1656 observations, 8 variables]
 #>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
 ```
@@ -230,7 +230,7 @@ The smoothed results for any smoothed variables (listed in “smoothed
 vars” above) can be plotted:
 
 ``` r
-plot(sspm_smooth_fitted, smoothed_var = "borealis_smooth")
+plot(sspm_smooth_fitted, smoothed_var = "pred_data_smooth")
 ```
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
@@ -258,9 +258,9 @@ sspm_smooth_fitted_wcatch
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets      : 3 datasets
 #>    ٭ borealis (biomass) — [1026 observations, 21 variables]
-#>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
-#>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ catch_data (catch) — [64943 observations, 11 variables]
 #> →  Smoothed data : [1656 observations, 11 variables]
 #>    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth
@@ -281,9 +281,9 @@ sspm_smooth_fitted_wcatch_lagged
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets      : 3 datasets
 #>    ٭ borealis (biomass) — [1026 observations, 21 variables]
-#>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
-#>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ catch_data (catch) — [64943 observations, 11 variables]
 #> →  Smoothed data : [1656 observations, 13 variables]
 #>    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth
@@ -304,9 +304,9 @@ sspm_smooth_fitted_wcatch_lagged
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets      : 3 datasets
 #>    ٭ borealis (biomass) — [1026 observations, 21 variables]
-#>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
-#>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ catch_data (catch) — [64943 observations, 11 variables]
 #> →  Smoothed data : [1656 observations, 14 variables]
 #>    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth
@@ -328,9 +328,9 @@ sspm_smooth_with_formulas
 #>    ٭ Patches — [69 features, 4 variables]
 #> →  Datasets      : 3 datasets
 #>    ٭ borealis (biomass) — [1026 observations, 21 variables]
-#>       – (SMOOTHED) weight_per_km2 ~ smooth_time()
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
-#>       – (SMOOTHED) weight_per_km2 ~ smooth_space()
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ catch_data (catch) — [64943 observations, 11 variables]
 #> →  Smoothed data : [1656 observations, 14 variables]
 #>    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth
@@ -353,7 +353,7 @@ sspm_with_fit <-
 spm_smoothed_fit(spm_smoothed_data(sspm_with_fit))
 #> $smoothed_data_f1
 #> 
-#> Family: Scaled t(Inf,67.164) 
+#> Family: Scaled t(Inf,67.163) 
 #> Link function: identity 
 #> 
 #> Formula:
@@ -363,7 +363,7 @@ spm_smoothed_fit(spm_smoothed_data(sspm_with_fit))
 #> Estimated degrees of freedom:
 #> 4.77  total = 6.77 
 #> 
-#> REML score: 508.0234
+#> REML score: 508.0242
 ```
 
 11. We can also extract predictions.
