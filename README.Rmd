@@ -75,10 +75,11 @@ sspm_discrete <- sspm_base %>%
                  discretization_method = "tesselate_voronoi")
 sspm_discrete
 ```
-The results of the discretization can be explored with `spm_patches()` and `spm_points()`.
+The results of the discretization can be explored with `spm_patches()` and `spm_points()`. You can also plot the object to inspect the resulting discretization.
 ```{r}
 spm_patches(sspm_discrete)
 spm_points(sspm_discrete)
+plot(sspm_discrete)
 ```
 
 3. Then, other datasets may be loaded alongside the biomass dataset, for example, predator and catch data.

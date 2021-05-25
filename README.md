@@ -49,10 +49,10 @@ Let’s first load the test data.
 ``` r
 library(sspm)
 #> Loading required package: sf
-#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1
+#> Linking to GEOS 3.8.1, GDAL 3.1.3, PROJ 7.1.0
 #> Loading required package: mgcv
 #> Loading required package: nlme
-#> This is mgcv 1.8-33. For overview type 'help("mgcv-package")'.
+#> This is mgcv 1.8-35. For overview type 'help("mgcv-package")'.
 library(mgcv)
 
 borealis <- sspm:::borealis_simulated
@@ -102,15 +102,16 @@ sspm_discrete
 ```
 
 The results of the discretization can be explored with `spm_patches()`
-and `spm_points()`.
+and `spm_points()`. You can also plot the object to inspect the
+resulting discretization.
 
 ``` r
 spm_patches(sspm_discrete)
 #> Simple feature collection with 69 features and 3 fields
-#> geometry type:  POLYGON
-#> dimension:      XY
-#> bbox:           xmin: -64.5 ymin: 46.00004 xmax: -46.6269 ymax: 61
-#> geographic CRS: WGS 84
+#> Geometry type: POLYGON
+#> Dimension:     XY
+#> Bounding box:  xmin: -64.5 ymin: 46.00004 xmax: -46.6269 ymax: 61
+#> Geodetic CRS:  WGS 84
 #> # A tibble: 69 x 4
 #>    sfa   patch_id                                              geometry area_km2
 #>  * <chr> <fct>                                            <POLYGON [°]>    <dbl>
@@ -127,10 +128,10 @@ spm_patches(sspm_discrete)
 #> # … with 59 more rows
 spm_points(sspm_discrete)
 #> Simple feature collection with 75 features and 18 fields
-#> geometry type:  POINT
-#> dimension:      XY
-#> bbox:           xmin: -61.77175 ymin: 46.37211 xmax: -48.19061 ymax: 59.70288
-#> geographic CRS: WGS 84
+#> Geometry type: POINT
+#> Dimension:     XY
+#> Bounding box:  xmin: -61.77175 ymin: 46.37211 xmax: -48.19061 ymax: 59.70288
+#> Geodetic CRS:  WGS 84
 #> # A tibble: 75 x 19
 #> # Groups:   sfa [4]
 #>     year vessel  trip div_nafo season area_swept_km2 year_f n_samples lon_dec
@@ -149,7 +150,10 @@ spm_points(sspm_discrete)
 #> #   temp_at_bottom <dbl>, weight <dbl>, weight_per_km2 <dbl>,
 #> #   recruit_weight <dbl>, row <int>, uniqueID <chr>, geometry <POINT [°]>,
 #> #   sfa <chr>
+plot(sspm_discrete)
 ```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
 3.  Then, other datasets may be loaded alongside the biomass dataset,
     for example, predator and catch data.
