@@ -4,6 +4,10 @@
 #'
 #' @param x **\[sspm_discrete\]** An object of class
 #'     [sspm_discrete][sspm_discrete-class].
+#' @param smoothed_var TODO
+#' @param page TODO
+#' @param nrow TODO
+#' @param ncol TODO
 #'
 #' @return
 #' N/A

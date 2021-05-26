@@ -13,6 +13,14 @@
 \arguments{
 \item{x}{\strong{[sspm_discrete]} An object of class
 \link[=sspm_discrete-class]{sspm_discrete}.}
+
+\item{smoothed_var}{TODO}
+
+\item{page}{TODO}
+
+\item{nrow}{TODO}
+
+\item{ncol}{TODO}
 }
 \value{
 N/A
