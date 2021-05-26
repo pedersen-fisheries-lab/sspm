@@ -230,6 +230,11 @@ cat_smoothed_data <- function(object){
 
   }
 
+  if(length(object@smoothed_data@smoothed_fit) > 0){
+    cli::cat_bullet(cli::col_green(" SPM FITTED"),
+                    bullet = "tick")
+  }
+
 }
 
 cat_discretization_info <- function(object){
