@@ -47,6 +47,7 @@ setMethod(f = "spm_split",
 
             the_data <- spm_data(smoothed_data)
 
+            is_factor <- FALSE
             if(is.factor(the_data[[spm_time_column(smoothed_data)]])){
               is_factor <- TRUE
               the_data <- the_data %>%
