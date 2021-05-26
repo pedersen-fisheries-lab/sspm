@@ -36,6 +36,7 @@ setMethod(f = "spm_split",
 
             # Check correct dataset name
             smoothed_data <- spm_smoothed_data(sspm_object)
+            time_col <- spm_time_column(smoothed_data)
 
             # Check dataset is smoothed
             if(is.null(smoothed_data)){
@@ -45,6 +46,13 @@ setMethod(f = "spm_split",
             # TODO add check if splitted
 
             the_data <- spm_data(smoothed_data)
+
+            if(is.factor(the_data[[spm_time_column(smoothed_data)]])){
+              is_factor <- TRUE
+              the_data <- the_data %>%
+                dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
+            }
+
             the_expr <- (match.call(expand.dots = FALSE)$`...`)[[1]]
             selection <- rlang::eval_tidy(the_expr,
                                           data = the_data)
@@ -52,6 +60,11 @@ setMethod(f = "spm_split",
             #                               data = the_data)
             the_data$train_test <- selection
             is_splitted(smoothed_data) <- TRUE
+
+            if(is_factor){
+              the_data <- the_data %>%
+                dplyr::mutate(!!time_col := as.factor(.data[[time_col]]))
+            }
 
             spm_data(smoothed_data) <- the_data %>%
               dplyr::relocate(.data$train_test, .after = .data$row_ID)
