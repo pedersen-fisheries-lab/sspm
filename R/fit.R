@@ -139,13 +139,22 @@ setMethod(f = "fit_smooths",
                     }
 
                     # Fit the formula, important to attach the vars
-                    tmp_fit[[form_name]] <-
+                    tmp_fit[[form_name]] <- tryCatch({
                       mgcv::bam(formula = translated_formula(form),
                                 data = the_data,
                                 family = family,
                                 drop.unused.levels = drop.unused.levels,
                                 method = method,
                                 ...)
+                    }, error = function(e){
+
+                      if (e$message == "Can't find by variable"){
+                        cli::cli_alert_danger(" mgcv failed to fit 'by' smooths")
+                        cli::cli_alert_info(" Please ensure that all 'by = ...' variables are encoded as factors")
+                        stop("mgcv failed to fit 'by' smooths", call. = FALSE)
+                      }
+
+                    })
                   }
 
                   # Store results at dataset level
