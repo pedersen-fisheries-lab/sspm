@@ -410,8 +410,8 @@ LINPRED <- function(sspm_object, var,
 
   # Make the lag matrix
   biomass_time_col <- spm_time_column(spm_datasets(sspm_object, "biomass"))
-  boundary_col <- names(spm_boundaries(sspm_object))[which(names(spm_boundaries(sspm_object)) %in%
-                                                             c("geometry", "polygons"))]
+  boundary_col <- names(spm_boundaries(sspm_object))[-which(names(spm_boundaries(sspm_object)) %in%
+                                                              c("geometry", "polygons"))]
 
   smoothed_data <- spm_data(spm_smoothed_data(sspm_object))
 
@@ -425,6 +425,7 @@ LINPRED <- function(sspm_object, var,
     as.matrix()
 
   by_matrix <- smoothed_data %>%
+    sf::st_set_geometry(NULL) %>%
     dplyr::select(.data$patch_id, !!boundary_col, !!biomass_time_col, !!var) %>%
     dplyr::nest_by(.data$patch_id, !!boundary_col := .data[[boundary_col]]) %>%
     dplyr::mutate(lags = list(multilag(variable = .data$data[[var]],
@@ -434,7 +435,6 @@ LINPRED <- function(sspm_object, var,
                                                       na.rm = T)))) %>%
     tidyr::unnest(cols = c(.data$lags, .data$data)) %>%
     dplyr::ungroup() %>%
-    sf::st_set_geometry(NULL) %>%
     dplyr::select(dplyr::contains('lag')) %>%
     dplyr::select(-dplyr::contains(var)) %>%
     as.matrix()
