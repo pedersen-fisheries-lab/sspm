@@ -354,6 +354,29 @@ sspm_with_fit <-
 
 #> Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :
 #> step failure in theta estimation
+sspm_with_fit
+#> 
+#> ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒
+#> →  Boundaries    : [4 observations, 2 variables]
+#> →  Discretized   : 
+#>    ٭ Points — [75 features, 19 variables]
+#>    ٭ Patches — [69 features, 4 variables]
+#> →  Datasets      : 3 datasets
+#>    ٭ borealis (biomass) — [1026 observations, 21 variables]
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
+#>    ٭ pred_data (predictor) — [1979 observations, 18 variables]
+#>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
+#>    ٭ catch_data (catch) — [64943 observations, 11 variables]
+#> →  Smoothed data : [1656 observations, 14 variables]
+#>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
+#>    ٭ smoothed vars with catch: borealis_smooth_with_catch — borealis_smooth_with_catch_change
+#>    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1
+#>       – (SMOOTHED) borealis_smooth_with_catch ~ pred_data_s...
+#>       – [345 train, 1311 test]
+#> ✓  SPM FITTED
+```
+
+``` r
 spm_smoothed_fit(spm_smoothed_data(sspm_with_fit))
 #> $smoothed_data_f1
 #> 

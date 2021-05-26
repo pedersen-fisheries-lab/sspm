@@ -150,6 +150,9 @@ sspm_smooth_with_formulas
 ```{r, eval = TRUE}
 sspm_with_fit <- 
   sspm_smooth_with_formulas %>% fit_spm()
+sspm_with_fit
+```
+```{r}
 spm_smoothed_fit(spm_smoothed_data(sspm_with_fit))
 ```
 
