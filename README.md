@@ -263,7 +263,8 @@ sspm_smooth_fitted_wcatch
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ catch_data (catch) — [64943 observations, 11 variables]
 #> →  Smoothed data : [1656 observations, 11 variables]
-#>    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth
+#>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
+#>    ٭ smoothed vars with catch: borealis_smooth_with_catch — borealis_smooth_with_catch_change
 ```
 
 7.  To fit the final SPM, we might need to add lagged values. This is
@@ -286,7 +287,8 @@ sspm_smooth_fitted_wcatch_lagged
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ catch_data (catch) — [64943 observations, 11 variables]
 #> →  Smoothed data : [1656 observations, 13 variables]
-#>    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth
+#>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
+#>    ٭ smoothed vars with catch: borealis_smooth_with_catch — borealis_smooth_with_catch_change
 #>    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1
 ```
 
@@ -309,7 +311,8 @@ sspm_smooth_fitted_wcatch_lagged
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ catch_data (catch) — [64943 observations, 11 variables]
 #> →  Smoothed data : [1656 observations, 14 variables]
-#>    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth
+#>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
+#>    ٭ smoothed vars with catch: borealis_smooth_with_catch — borealis_smooth_with_catch_change
 #>    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1
 #>       – [345 train, 1311 test]
 ```
@@ -333,7 +336,8 @@ sspm_smooth_with_formulas
 #>       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...
 #>    ٭ catch_data (catch) — [64943 observations, 11 variables]
 #> →  Smoothed data : [1656 observations, 14 variables]
-#>    ٭ smoothed vars: borealis_smooth — borealis_smooth_with_catch — borealis_smooth_with_catch_change — pred_data_smooth
+#>    ٭ smoothed vars: borealis_smooth — pred_data_smooth
+#>    ٭ smoothed vars with catch: borealis_smooth_with_catch — borealis_smooth_with_catch_change
 #>    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1
 #>       – borealis_smooth_with_catch ~ pred_data_s...
 #>       – [345 train, 1311 test]
