@@ -88,7 +88,7 @@ setMethod(f = "fit_smooths",
 
               time_col_biomass <- spm_time_column(biomass_dataset)
               predict_mat <- spm_patches(sspm_object) %>%
-                sf::st_drop_geometry() %>%
+                sf::st_set_geometry(NULL) %>%
                 tidyr::expand_grid("time_col" = min_year:max_year)
 
             }

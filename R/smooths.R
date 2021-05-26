@@ -434,7 +434,7 @@ LINPRED <- function(sspm_object, var,
                                                       na.rm = T)))) %>%
     tidyr::unnest(cols = c(.data$lags, .data$data)) %>%
     dplyr::ungroup() %>%
-    sf::st_drop_geometry() %>%
+    sf::st_set_geometry(NULL) %>%
     dplyr::select(dplyr::contains('lag')) %>%
     dplyr::select(-dplyr::contains(var)) %>%
     as.matrix()

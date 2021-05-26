@@ -312,7 +312,7 @@ setMethod(f = "map_catch",
 
             catch_data <- spm_data(catch_dataset) %>%
               dplyr::group_by(.data[[time_col]], .data$patch_id) %>%
-              sf::st_drop_geometry() %>%
+              sf::st_set_geometry(NULL) %>%
               dplyr::summarise(total_catch = sum(.data[[catch_column]],
                                                  na.rm = TRUE)) %>%
               tidyr::complete(.data[[time_col]], .data$patch_id,
