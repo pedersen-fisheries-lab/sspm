@@ -379,7 +379,28 @@
 
 <span class="co">#&gt; Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :</span>
 <span class="co">#&gt; step failure in theta estimation</span>
-<span class="fu"><a href="reference/spm_data.html">spm_smoothed_fit</a></span><span class="op">(</span><span class="fu"><a href="reference/spm_name.html">spm_smoothed_data</a></span><span class="op">(</span><span class="va">sspm_with_fit</span><span class="op">)</span><span class="op">)</span>
+<span class="va">sspm_with_fit</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ‒‒  SSPM object 'My Model' [DISCRETIZED]  ‒‒</span>
+<span class="co">#&gt; →  Boundaries    : [4 observations, 2 variables]</span>
+<span class="co">#&gt; →  Discretized   : </span>
+<span class="co">#&gt;    ٭ Points — [75 features, 19 variables]</span>
+<span class="co">#&gt;    ٭ Patches — [69 features, 4 variables]</span>
+<span class="co">#&gt; →  Datasets      : 3 datasets</span>
+<span class="co">#&gt;    ٭ borealis (biomass) — [1026 observations, 21 variables]</span>
+<span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...</span>
+<span class="co">#&gt;    ٭ pred_data (predictor) — [1979 observations, 18 variables]</span>
+<span class="co">#&gt;       – (SMOOTHED) weight_per_km2 ~ smooth_time() + smooth_...</span>
+<span class="co">#&gt;    ٭ catch_data (catch) — [64943 observations, 11 variables]</span>
+<span class="co">#&gt; →  Smoothed data : [1656 observations, 14 variables]</span>
+<span class="co">#&gt;    ٭ smoothed vars: borealis_smooth — pred_data_smooth</span>
+<span class="co">#&gt;    ٭ smoothed vars with catch: borealis_smooth_with_catch — borealis_smooth_with_catch_change</span>
+<span class="co">#&gt;    ٭ lagged vars: borealis_smooth_lag_1 — pred_data_smooth_lag_1</span>
+<span class="co">#&gt;       – (SMOOTHED) borealis_smooth_with_catch ~ pred_data_s...</span>
+<span class="co">#&gt;       – [345 train, 1311 test]</span>
+<span class="co">#&gt; ✓  SPM FITTED</span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/spm_data.html">spm_smoothed_fit</a></span><span class="op">(</span><span class="fu"><a href="reference/spm_name.html">spm_smoothed_data</a></span><span class="op">(</span><span class="va">sspm_with_fit</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; $smoothed_data_f1</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Family: Scaled t(Inf,67.163) </span>
@@ -396,7 +417,7 @@
 <ol>
 <li>We can also extract predictions.</li>
 </ol>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># TODO</span></code></pre></div>
 </div>
 </div>
