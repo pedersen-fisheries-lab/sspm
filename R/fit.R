@@ -151,6 +151,8 @@ setMethod(f = "fit_smooths",
                         cli::cli_alert_danger(" mgcv failed to fit 'by' smooths")
                         cli::cli_alert_info(" Please ensure that all 'by = ...' variables are encoded as factors")
                         stop("mgcv failed to fit 'by' smooths", call. = FALSE)
+                      } else {
+                        stop(e)
                       }
 
                     })
