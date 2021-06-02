@@ -187,7 +187,7 @@ sspm_mapped
 
 ``` r
 sspm_with_formulas <- sspm_mapped %>%
-  map_formula(weight_per_km2~smooth_time() + smooth_space(), "borealis", ) %>% 
+  map_formula(weight_per_km2~smooth_time() + smooth_space(), "borealis") %>% 
   map_formula(weight_per_km2~smooth_time() + smooth_space(), "pred_data")
 sspm_with_formulas
 #> 
