@@ -1,24 +1,16 @@
 #' Map model formula onto a discretized sspm object
 #'
-#' This functions allows to specify a model formula for a given discrete sspm
-#' object. This formula makes use of specific smoothing terms `smooth_time()`,
-#' `smooth_space()`, `smooth_space_time()`. This formula can also contain fixed
-#' effects and custom smooths, and can make use of specific smoothing terms
-#' `smooth_time()`, `smooth_space()`, `smooth_space_time()`. See Details for
-#' more explanations.
+#' This functions is now used internally to map a formula onto a `sspm_data`
+#' obejct.
 #'
-#' @param sspm_object **\[sspm_discrete\]** An object of class
+#' @param sspm_object **\[sspm_data\]** An object of class
 #'     [sspm_discrete][sspm_discrete-class].
 #' @param formula **\[formula\]** A formula definition of the form
-#'     response ~ smoothing_terms + ...
-#' @param dataset **\[character\]** The name(s) of the dataset(s) for which to
-#'     specify the formula.
-#' @param ... Further arguments passed down, none used for now.
+#'     response ~ smoothing_terms.
 #'
 #' @return
 #' The updated object, of class [sspm_discrete][sspm_discrete-class].
 #'
-#' @export
 setGeneric(name = "map_formula",
            def = function(sspm_object,
                           formula,
@@ -36,17 +28,7 @@ setGeneric(name = "map_formula",
 
 # Methods -----------------------------------------------------------------
 
-#' @export
-#' @rdname map_formula
-setMethod(f = "map_formula",
-          signature(sspm_object = "sspm_discrete",
-                    formula = "missing"),
-          function(sspm_object, formula, dataset, ... ){
-            cli::cli_alert_danger(" Argument 'formula' missing with no default")
-          }
-)
-
-#' @export
+# TODO review this
 #' @rdname map_formula
 setMethod(f = "map_formula",
           signature(sspm_object = "sspm_discrete",
@@ -121,59 +103,13 @@ setMethod(f = "map_formula",
           }
 )
 
-#' @export
 #' @rdname map_formula
 setMethod(f = "map_formula",
-          signature(sspm_object = "sspm_discrete",
-                    formula = "formula",
-                    dataset = "character"),
-          function(sspm_object, formula, dataset, ...){
+          signature(sspm_object = "sspm_data",
+                    formula = "formula"),
+          function(sspm_object, formula, ...){
 
-            # Get datasets
-            all_datasets <- spm_datasets(sspm_object)
-
-            # Check names
-            all_dataset_names <- names(all_datasets)
-            if(any(!sapply(dataset, checkmate::test_choice, all_dataset_names))){
-              stop(paste0("Argument 'dataset' must be one of: ",
-                          paste0(all_dataset_names,
-                                 collapse =  ", " )), call. = FALSE)
-            }
-
-            # Process each dataset in a loop
-            for (dataset_name in dataset){
-
-              the_dataset <- spm_datasets(sspm_object)[[dataset_name]]
-
-              if(is_smoothed(the_dataset)){
-                cli::cli_alert_danger("Dataset is already smoothed.")
-                stop(call. = FALSE)
-              }
-
-              # Pass onto the sspm_data method
-              the_dataset <- sspm_object %>%
-                map_formula(formula = formula,
-                            dataset = the_dataset,
-                            ...)
-
-              all_datasets[[dataset_name]] <- the_dataset
-              spm_datasets(sspm_object) <- all_datasets
-
-            }
-
-            return(sspm_object)
-
-          }
-)
-
-#' @export
-#' @rdname map_formula
-setMethod(f = "map_formula",
-          signature(sspm_object = "sspm_discrete",
-                    formula = "formula",
-                    dataset = "sspm_data"),
-          function(sspm_object, formula, dataset, ...){
-            # This maps foprmula to a given dataset
+            # This maps formula to a given dataset
 
             dataset_name <- spm_name(dataset)
 
@@ -245,5 +181,3 @@ setMethod(f = "map_formula",
 
           }
 )
-
-# -------------------------------------------------------------------------
