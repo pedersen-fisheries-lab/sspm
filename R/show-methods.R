@@ -38,9 +38,11 @@ setMethod("show",
           "sspm_data",
           function(object) {
             cli::cat_line()
-            custom_h1(paste0("SSPM Dataset: ", cli::col_blue(object@name)))
+            custom_h1(paste0("SSPM Dataset: ", cli::col_blue(object@name),
+                             cli::col_magenta(" (", object@type, ")")))
             cat_data(object)
             cat_formulas(object)
+            cat_smoothed_data(object)
             cli::cat_line()
           }
 )
@@ -138,21 +140,22 @@ cat_formulas <- function(object){
       form <- the_dataset_formulas[[f_id]]
       formatted <- cat_formula(form@raw_formula)
 
-      # if(the_dataset@is_smoothed == TRUE){
-      #
-      #   the_tag <- "(SMOOTHED)"
-      #
-      #   cli::cat_line("      ", cli::symbol$en_dash, " ",
-      #                 cli::col_green(the_tag), " ",
-      #                 cli::col_yellow(formatted))
-      #
-      # } else {
-
       cli::cat_line("      ", cli::symbol$en_dash, " ",
                     cli::col_yellow(formatted))
 
-      # }
     }
+
+  }
+
+}
+
+cat_smoothed_data <- function(object){
+
+  if(!is.null(object@smoothed_data)){
+
+    cli::cat_bullet(cli::col_cyan(" Smoothed data : "),
+                    pluralize_data_info(object@smoothed_data),
+                    bullet = "arrow_right")
 
   }
 
