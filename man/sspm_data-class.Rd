@@ -31,7 +31,7 @@ base dataset.}
 
 \item{\code{is_smoothed}}{\strong{[Logical]} Whether or not this dataset has been smoothed.}
 
-\item{\code{smoothed_data}}{\strong{[list]} The smoothed data.}
+\item{\code{smoothed_data}}{\strong{[sf]} The smoothed data.}
 
 \item{\code{smoothed_fit}}{\strong{[list]} The fit from smoothing the data}
 

@@ -85,7 +85,7 @@ setClass("sspm_discrete_boundary",
 #'     [sspm_formula][sspm_formula-class] objects that are mapped onto the
 #'     base dataset.
 #' @slot is_smoothed **\[Logical\]** Whether or not this dataset has been smoothed.
-#' @slot smoothed_data **\[list\]** The smoothed data.
+#' @slot smoothed_data **\[sf\]** The smoothed data.
 #' @slot smoothed_fit **\[list\]** The fit from smoothing the data
 #' @slot is_splitted **\[Logical\]** Whether or not this dataset has been splitted.
 #'
@@ -101,7 +101,7 @@ setClass("sspm_data",
                       uniqueID = "character",
                       formulas = "list",
                       is_smoothed = "logical",
-                      smoothed_data = "list",
+                      smoothed_data = "ANY",
                       smoothed_fit = "list",
                       is_splitted = "logical"),
          prototype = prototype(name = "Biomass",
