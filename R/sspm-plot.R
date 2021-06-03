@@ -1,9 +1,8 @@
-#' Plot a discrete `sspm` model object
+#' Plot various `sspm` objects
 #'
-#' This will plot the patches and points of a `sspm_discrete` object.
+#' Plot methods for a range of sspm objects.
 #'
-#' @param x **\[sspm_discrete\]** An object of class
-#'     [sspm_discrete][sspm_discrete-class].
+#' @param x An object from this package.
 #' @param smoothed_var TODO
 #' @param page TODO
 #' @param nrow TODO
@@ -20,9 +19,41 @@ NULL
 #' @rdname plot-sspm
 #' @export
 setMethod("plot",
-          signature(x = "sspm"),
+          signature(x = "sspm_boundary"),
           definition = function(x) {
-            cli::cli_alert_danger(" This model is not discretized and cannot be plotted")
+
+            boundaries <- x@boundaries
+            b_col <- x@boundary_column
+
+            if (checkmate::test_class(x, "sspm_discrete_boundary")){
+
+              patches <- x@patches
+              points <- x@points
+
+              sspm_discrete_plot <- ggplot2::ggplot() +
+                ggplot2::geom_sf(data = patches,
+                                 fill = NA, col = "#36454F") +
+                ggplot2::geom_sf(data = points,
+                                 col ="#6082B6") +
+                ggplot2::geom_sf(data = boundaries,
+                                 ggplot2::aes(col = .data[[b_col]]),
+                                 fill = NA) +
+                ggplot2::scale_color_viridis_d(b_col) +
+                ggplot2::theme_light()
+
+            } else if(checkmate::test_class(x, "sspm_boundary")){
+
+              sspm_discrete_plot <- ggplot2::ggplot() +
+                ggplot2::geom_sf(data = boundaries,
+                                 ggplot2::aes(fill = .data[[b_col]]),
+                                 col = "#36454F") +
+                ggplot2::scale_fill_viridis_d(b_col) +
+                ggplot2::theme_light()
+
+            }
+
+            return(sspm_discrete_plot)
+
           }
 )
 
