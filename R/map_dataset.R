@@ -4,8 +4,8 @@
 #'
 #' @param sspm_object **\[sspm_discrete\]** An object of class
 #'     [sspm][sspm-class] or [sspm_discrete][sspm_discrete-class].
-#' @inheritParams as_sspm_data
-#' @inheritDotParams as_sspm_data
+#' @inheritParams spm_as_dataset
+#' @inheritDotParams spm_as_dataset
 #' @param catch_column **\[character\]** For mapping catch data only: the name
 #'     of the column containing catch data in the catch dataset.
 #' @param biomass_column **\[character\]** For mapping catch data only: the name
@@ -80,7 +80,7 @@ cast_and_return <- function(sspm_object, data, name, type,
                             time_column, uniqueID, coords, crs, ...){
 
   # Cast data.frame as sspm_data
-  sspm_data <- as_sspm_data(data = data, name, type,
+  sspm_data <- spm_as_dataset(data = data, name, type,
                             time_column, uniqueID, coords, crs, ...)
 
   # Call next method
