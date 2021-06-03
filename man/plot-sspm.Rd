@@ -2,17 +2,16 @@
 % Please edit documentation in R/sspm-plot.R
 \name{plot.sspm}
 \alias{plot.sspm}
-\alias{plot,sspm-method}
+\alias{plot,sspm_boundary-method}
 \alias{plot,sspm_discrete-method}
-\title{Plot a discrete \code{sspm} model object}
+\title{Plot various \code{sspm} objects}
 \usage{
-\S4method{plot}{sspm}(x)
+\S4method{plot}{sspm_boundary}(x)
 
 \S4method{plot}{sspm_discrete}(x, smoothed_var = NULL, page = "first", nrow = 2, ncol = 4)
 }
 \arguments{
-\item{x}{\strong{[sspm_discrete]} An object of class
-\link[=sspm_discrete-class]{sspm_discrete}.}
+\item{x}{An object from this package.}
 
 \item{smoothed_var}{TODO}
 
@@ -26,5 +25,5 @@
 N/A
 }
 \description{
-This will plot the patches and points of a \code{sspm_discrete} object.
+Plot methods for a range of sspm objects.
 }
