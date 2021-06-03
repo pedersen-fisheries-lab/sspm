@@ -39,13 +39,13 @@ spm_smooth_methods <- function(){
 # Not exported ------------------------------------------------------------
 
 # Join datasets to patches
-join_datasets <- function(sspm_data, sspm_object){
+join_datasets <- function(sspm_data, sspm_boundary){
 
   checkmate::assert_class(sspm_data, "sspm_data")
-  checkmate::assert_class(sspm_object, "sspm_discrete")
+  checkmate::assert_class(sspm_boundary, "sspm_discrete_boundary")
 
   the_data <- spm_data(sspm_data)
-  the_patches <- spm_patches(sspm_object)
+  the_patches <- sspm_boundary@patches
 
   # TODO REVIEW THE COHERENCE OF ST_TRANSFORM
   joined <- suppressMessages(sf::st_transform(the_data, crs = sf::st_crs(the_patches)))
