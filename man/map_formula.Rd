@@ -13,7 +13,7 @@ map_formula(sspm_object, formula, dataset, ...)
 
 \S4method{map_formula}{sspm_data,formula,ANY}(sspm_object, formula, dataset, ...)
 
-\S4method{spm_smooth}{sspm_data,missing}(sspm_object, formula, keep_fit, predict, ...)
+\S4method{spm_smooth}{sspm_data,missing}(sspm_object, formula, keep_fit = FALSE, predict = TRUE, ...)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class
