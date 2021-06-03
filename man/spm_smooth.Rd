@@ -5,9 +5,9 @@
 \alias{spm_smooth,sspm_data,ANY-method}
 \title{Smooth a variable in a sspm dataset}
 \usage{
-spm_smooth(sspm_object, formula, keep_fit, predict, ...)
+spm_smooth(sspm_object, formula, keep_fit = FALSE, predict = TRUE, ...)
 
-\S4method{spm_smooth}{sspm_data,ANY}(sspm_object, formula, keep_fit, predict, ...)
+\S4method{spm_smooth}{sspm_data,ANY}(sspm_object, formula, keep_fit = FALSE, predict = TRUE, ...)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class

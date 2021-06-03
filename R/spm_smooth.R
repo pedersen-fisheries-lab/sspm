@@ -26,8 +26,8 @@
 setGeneric(name = "spm_smooth",
            def = function(sspm_object,
                           formula,
-                          keep_fit,
-                          predict,
+                          keep_fit = FALSE,
+                          predict = TRUE,
                           ...){
              standardGeneric("spm_smooth")
            }
