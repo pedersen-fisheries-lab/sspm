@@ -18,10 +18,59 @@ setClassUnion("missingOrNULL", c("missing", "NULL"))
 
 # -------------------------------------------------------------------------
 
+#' sspm discretization method class
+#'
+#' This class encapsulates a name and a method (function) used for
+#' discretization.
+#'
+#' @slot name **\[character\]** Name of the discretization method.
+#' @slot method **\[function\]** Function used for discretization.
+#'
+#' @name discretization_method-class
+#' @rdname discretization_method-class
+#'
+setClass("discretization_method",
+         slots = list(name = "character",
+                      method = 'function')
+)
+
+# -------------------------------------------------------------------------
+
+#' sspm boundary structure
+#'
+#' One of the first step in the `sspm` workflow is to create one or more
+#' object(s) of class `sspm_boundary` from an `sf` object.
+#'
+#' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
+#' @slot boundary_col **\[character\]** The column of `data` that represents the
+#'     spatial boundaries.
+#' @slot method **\[[discretization_method][discretization_method-class]\]**
+#'     *(if discrete)* discretization method used.
+#' @slot patches **\[sf\]** *(if discrete)* Patches resulting from
+#'     discretization.
+#' @slot points **\[sf\]** *(if discrete)* Sample points used for
+#'     discretization.
+#'
+#' @name sspm_boundary-class
+#' @rdname sspm_boundary-class
+#'
+setClass("sspm_boundary",
+         slots = list(boundaries = "sf",
+                      boundary_column = "character"))
+
+#' @describeIn sspm_boundary-class sspm_discrete_boundary
+setClass("sspm_discrete_boundary",
+         slots = list(method = "discretization_method",
+                      patches = "sf",
+                      points = "sf"),
+         contains = "sspm_boundary")
+
+# -------------------------------------------------------------------------
+
 #' sspm dataset structure
 #'
-#' The first step in the `sspm` workflow is to register the base dataset
-#' (usually biomass) using the [sspm] function.
+#' One of the first step in the `sspm` workflow is to create one or more
+#' object(s) of class `sspm_data` from a `data.frame`, `tibble` or `sf` object.
 #'
 #' @slot name **\[character\]** The name of the dataset, default to "Biomass".
 #' @slot data **\[data.frame OR sf\]** The dataset.
@@ -60,26 +109,28 @@ setClass("sspm_data",
                                is_splitted = FALSE),
          contains = c("sf", "data.frame"))
 
-# TODO reconsider using the stack approach
-# setClass("sspm_data_stack",
-#          slots = list(stack = "list"))
-
 # -------------------------------------------------------------------------
 
-#' sspm discretization method class
+#' sspm formula object
 #'
-#' This class encapsulates a name and a method (function) used for
-#' discretization.
+#' This class is a wrapper around the `formula` class. It is not intended for
+#' users to directly manipulate and create new objects.
 #'
-#' @slot name **\[character\]** Name of the discretization method.
-#' @slot method **\[function\]** Function used for discretization.
+#' @slot raw_formula **\[formula\]** The raw formula call
+#' @slot translated_formula **\[formula\]** The translated formula call ready
+#'     to be evaluated.
+#' @slot vars **\[list\]** List of relevant variables for the evaluation of the
+#'     different smooths.
+#' @slot type **\[charatcer\]** One of "smooth" and "surplus", the type of
+#'     formula, either for smoothing datasets or for fitting a surplus model
 #'
-#' @name discretization_method-class
-#' @rdname discretization_method-class
+#' @seealso See the `mgcv` function for defining smooths: [s()][mgcv::s].
 #'
-setClass("discretization_method",
-         slots = list(name = "character",
-                      method = 'function')
+setClass("sspm_formula",
+         slots = list(raw_formula = "formula",
+                      translated_formula = "formula",
+                      vars = "list",
+                      type = "character")
 )
 
 # -------------------------------------------------------------------------
@@ -135,36 +186,5 @@ setClass("sspm_discrete",
                                formulas = list(),
                                fit = list()),
          contains = c("sspm"))
-
-# #' @describeIn sspm-class sspm_spm_fit
-# # Modelled SPM ~ end of workflow
-# setClass("sspm_spm_fit",
-#          slots = list(spm_fit = "list"),
-#          contains = "sspm_discrete"
-# )
-
-# -------------------------------------------------------------------------
-
-#' sspm formula object
-#'
-#' This class is a wrapper around the `formula` class. It is not intended for
-#' users to directly manipulate and create new objects.
-#'
-#' @slot raw_formula **\[formula\]** The raw formula call
-#' @slot translated_formula **\[formula\]** The translated formula call ready
-#'     to be evaluated.
-#' @slot vars **\[list\]** List of relevant variables for the evaluation of the
-#'     different smooths.
-#' @slot type **\[charatcer\]** One of "smooth" and "surplus", the type of
-#'     formula, either for smoothing datasets or for fitting a surplus model
-#'
-#' @seealso See the `mgcv` function for defining smooths: [s()][mgcv::s].
-#'
-setClass("sspm_formula",
-         slots = list(raw_formula = "formula",
-                      translated_formula = "formula",
-                      vars = "list",
-                      type = "character")
-)
 
 # -------------------------------------------------------------------------
