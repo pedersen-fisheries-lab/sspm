@@ -5,8 +5,8 @@
 \alias{sspm_data-class}
 \title{sspm dataset structure}
 \description{
-The first step in the \code{sspm} workflow is to register the base dataset
-(usually biomass) using the \link{sspm} function.
+One of the first step in the \code{sspm} workflow is to create one or more
+object(s) of class \code{sspm_data} from a \code{data.frame}, \code{tibble} or \code{sf} object.
 }
 \section{Slots}{
 

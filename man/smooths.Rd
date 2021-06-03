@@ -79,10 +79,7 @@ smooth_lag(var, type = "LINPRED", dataset, sspm_object, k = 5, m = 1, ...)
 \item{type}{\strong{[character]} Type of smooth, currently only "ICAR" is
 supported.}
 
-\item{dataset}{\strong{[character]} The name(s) of the dataset(s) for which to
-specify the formula.}
-
-\item{sspm_object}{\strong{[sspm_discrete]} An object of class
+\item{sspm_object}{\strong{[sspm_data]} An object of class
 \link[=sspm_discrete-class]{sspm_discrete}.}
 
 \item{k}{\strong{[numeric]} Size of the smooths and/or size of the lag.}
@@ -96,7 +93,10 @@ see \code{\link[mgcv]{smooth.terms}} for an over view of what is available.
   e.g. to set large data set handling behaviour for \code{"tp"} basis. If \code{xt$sumConv}
   exists and is \code{FALSE} then the summation convention for matrix arguments is turned off. }
 
-\item{...}{Further arguments passed down, none used for now.}
+\item{...}{ a list of variables that are the covariates that this
+    smooth is a function of. Transformations whose form depends on
+    the values of the data are best avoided here: e.g. \code{s(log(x))}
+    is fine, but \code{s(I(x/sd(x)))} is not (see \code{\link[mgcv]{predict.gam}}).}
 
 \item{var}{\strong{[symbol]} Variable (only for smooth_lag).}
 

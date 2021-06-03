@@ -173,7 +173,7 @@ latitude of the observations.}
 \item{crs}{Coordinate reference system, passed onto \link[=sf]{st_as_sf}.}
 
 \item{...}{
-  Arguments passed on to \code{\link[=as_sspm_data]{as_sspm_data}}
+  Arguments passed on to \code{\link[=spm_as_dataset]{spm_as_dataset}}
   \describe{
     \item{\code{}}{}
   }}

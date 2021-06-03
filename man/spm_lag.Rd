@@ -10,7 +10,7 @@ spm_lag(sspm_object, vars, n = 1, default = "mean", ...)
 \S4method{spm_lag}{sspm_discrete}(sspm_object, vars, n = 1, default = "mean", ...)
 }
 \arguments{
-\item{sspm_object}{\strong{[sspm_discrete]} An object of class
+\item{sspm_object}{\strong{[sspm_data]} An object of class
 \link[=sspm_discrete-class]{sspm_discrete}.}
 
 \item{vars}{\strong{[character]} Names of the variables to lag.}
@@ -20,7 +20,7 @@ lead or lag by}
 
 \item{default}{Value used for non-existent rows. Defaults to \code{NA}.}
 
-\item{...}{Further arguments passed down, none used for now.}
+\item{...}{Needed for compatibility with lag generic.}
 }
 \description{
 This function is a wrapper around \link[dplyr:lead-lag]{lag} (note that not all

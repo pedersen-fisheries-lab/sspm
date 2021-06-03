@@ -2,12 +2,12 @@
 % Please edit documentation in R/spm_smooth.R
 \name{spm_smooth}
 \alias{spm_smooth}
-\alias{spm_smooth,sspm_data-method}
+\alias{spm_smooth,sspm_data,ANY-method}
 \title{Smooth a variable in a sspm dataset}
 \usage{
 spm_smooth(sspm_object, formula, keep_fit, predict, ...)
 
-\S4method{spm_smooth}{sspm_data}(sspm_object, formula, keep_fit, predict, ...)
+\S4method{spm_smooth}{sspm_data,ANY}(sspm_object, formula, keep_fit, predict, ...)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class
@@ -116,15 +116,18 @@ involving factor variables you might want to turn this off. Only do so if you kn
     \item{\code{drop.intercept}}{Set to \code{TRUE} to force the model to really not have the a constant in the parametric model part,
 even with factor variables present.}
   }}
+
+\item{boundary}{\strong{[sspm_boundary]} An object of class
+\link[=sspm_boundary-class]{sspm_boundary}.}
 }
 \description{
-With a formula, smooth a variable in a sspm dataset.
+With a formula, smooth a variable in a sspm dataset. See Details for
+more explanations.
 }
 \details{
 This functions allows to specify a model formula for a given discrete sspm
-object. This formula makes use of specific smoothing terms \code{smooth_time()},
-\code{smooth_space()}, \code{smooth_space_time()}. This formula can also contain fixed
+object. The formula makes use of specific smoothing terms \code{smooth_time()},
+\code{smooth_space()}, \code{smooth_space_time()}. The formula can also contain fixed
 effects and custom smooths, and can make use of specific smoothing terms
-\code{smooth_time()}, \code{smooth_space()}, \code{smooth_space_time()}. See Details for
-more explanations.
+\code{smooth_time()}, \code{smooth_space()}, \code{smooth_space_time()}.
 }
