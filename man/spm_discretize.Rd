@@ -3,44 +3,47 @@
 \name{spm_discretize}
 \alias{spm_discretize}
 \alias{spm_discretize,ANY,ANY,missingOrNULL-method}
-\alias{spm_discretize,ANY,missing,ANY-method}
-\alias{spm_discretize,sspm,character,discretization_method-method}
-\alias{spm_discretize,sspm,character,character-method}
-\alias{spm_discretize,sspm_discrete,ANY,ANY-method}
+\alias{spm_discretize,ANY,missingOrNULL,ANY-method}
+\alias{spm_discretize,ANY,ANY,character-method}
+\alias{spm_discretize,sspm_boundary,sspm_data,discretization_method-method}
+\alias{spm_discretize,sspm_boundary,sf,discretization_method-method}
+\alias{spm_discretize,sspm_discrete_boundary,ANY,ANY-method}
 \title{Discretize a \code{sspm} model object}
 \usage{
-spm_discretize(sspm_object, with_dataset, discretization_method, ...)
+spm_discretize(boundary_object, with, method = "tesselate_voronoi", ...)
 
-\S4method{spm_discretize}{ANY,ANY,missingOrNULL}(sspm_object, with_dataset, discretization_method, ...)
+\S4method{spm_discretize}{ANY,ANY,missingOrNULL}(boundary_object, with, method = "tesselate_voronoi", ...)
 
-\S4method{spm_discretize}{ANY,missing,ANY}(sspm_object, with_dataset, discretization_method, ...)
+\S4method{spm_discretize}{ANY,missingOrNULL,ANY}(boundary_object, with, method = "tesselate_voronoi", ...)
 
-\S4method{spm_discretize}{sspm,character,discretization_method}(sspm_object, with_dataset, discretization_method, ...)
+\S4method{spm_discretize}{ANY,ANY,character}(boundary_object, with, method = "tesselate_voronoi", ...)
 
-\S4method{spm_discretize}{sspm,character,character}(sspm_object, with_dataset, discretization_method, ...)
+\S4method{spm_discretize}{sspm_boundary,sspm_data,discretization_method}(boundary_object, with, method = "tesselate_voronoi", ...)
 
-\S4method{spm_discretize}{sspm_discrete,ANY,ANY}(sspm_object, with_dataset, discretization_method, ...)
+\S4method{spm_discretize}{sspm_boundary,sf,discretization_method}(boundary_object, with, method = "tesselate_voronoi", ...)
+
+\S4method{spm_discretize}{sspm_discrete_boundary,ANY,ANY}(boundary_object, with, method = "tesselate_voronoi", ...)
 }
 \arguments{
-\item{sspm_object}{\strong{[sspm]} An object of class
-\link[=sspm-class]{sspm}.}
+\item{boundary_object}{\strong{[sspm]} An object of class
+\link[=sspm-class]{sspm_boundary}.}
 
-\item{with_dataset}{\strong{[character]} The name of the dataset to use for the
-discretization.}
+\item{with}{\strong{[sspm_data OR sf]} Either an object of class sspm_data or
+a set of custom points.}
 
-\item{discretization_method}{\strong{[character OR discretization_method]}
+\item{method}{\strong{[character OR method]}
 Either a \code{character} from the list of available methods
 (see \link{spm_methods} for the list) \strong{OR} an object of class
 \link[=discretization_method-class]{discretization_method}.}
 
 \item{...}{\strong{[named list]} Further arguments to be passed onto the function
-used in the \code{discretization_method}.}
+used in \code{method}.}
 }
 \value{
-An object of class \link[=sspm-class]{sspm_discrete} (the updated
+An object of class \link[=sspm-class]{sspm_discrete_boundary} (the updated
 and discretized \code{sspm} object given as input).
 }
 \description{
 Discretize a \link[=sspm-class]{sspm} model object with a function from a
-\link[=discretization_method-class]{discretization_method} object class.
+\link[=method-class]{method} object class.
 }
