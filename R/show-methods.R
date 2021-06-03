@@ -24,21 +24,32 @@ setMethod("show",
 )
 
 setMethod("show",
+          "sspm_discrete_boundary",
+          function(object) {
+            cli::cat_line()
+            custom_h1(paste0("SSPM Boundary ", cli::col_green("(Discrete)")))
+            cat_boundaries(object)
+            cat_discretization_info(object)
+            cli::cat_line()
+          }
+)
+
+setMethod("show",
           "sspm_data",
           function(object) {
             cli::cat_line()
             custom_h1(paste0("SSPM Dataset: ", cli::col_blue(object@name)))
-            cli::cat_bullet(" Data             : ",
+            cli::cat_bullet(" Data              : ",
                             pluralize_data_info(object@data),
                             bullet = "arrow_right")
-            cli::cat_bullet(" Data unique ID   : ",
-                            cli::col_cyan(object@uniqueID),
+            cli::cat_bullet(" Data unique ID    : ",
+                            cli::col_blue(object@uniqueID),
                             bullet = "arrow_right")
-            cli::cat_bullet(" Time column      : ",
-                            cli::col_cyan(object@time_column),
+            cli::cat_bullet(" Time col.         : ",
+                            cli::col_blue(object@time_column),
                             bullet = "arrow_right")
             if(!is.null(object@coords)){
-              cli::cat_bullet(" Coordinates cols : ",
+              cli::cat_bullet(" Coordinates cols. : ",
                               paste(cli::col_green(object@coords),
                                     collapse = ", "),
                               bullet = "arrow_right")
@@ -78,12 +89,26 @@ setMethod("show",
 
 cat_boundaries <- function(object){
 
-  cli::cat_bullet(" Boundaries       : ",
+  cli::cat_bullet(" Boundaries    : ",
                   pluralize_data_info(object@boundaries),
                   bullet = "arrow_right")
-  cli::cat_bullet(" Boundary col     : ",
-                  cli::col_cyan(object@boundary_column),
+  cli::cat_bullet(" Boundary col. : ",
+                  cli::col_blue(object@boundary_column),
                   bullet = "arrow_right")
+
+}
+
+cat_discretization_info <- function(object){
+
+  cli::cat_bullet(" Discretized   : ",
+                  bullet = "arrow_right")
+
+  cli::cat_line("   ", paste(cli::symbol$star, cli::col_green("Points"),
+                             cli::symbol$em_dash,
+                             pluralize_data_info(object@points, dim_1_name = "feature")))
+  cli::cat_line("   ", paste(cli::symbol$star, cli::col_green("Patches"),
+                             cli::symbol$em_dash,
+                             pluralize_data_info(object@patches, dim_1_name = "feature")))
 
 }
 
@@ -219,20 +244,6 @@ cat_smoothed_data <- function(object){
     cli::cat_bullet(cli::col_green(" SPM FITTED"),
                     bullet = "tick")
   }
-
-}
-
-cat_discretization_info <- function(object){
-
-  cli::cat_bullet(cli::col_cyan(" Discretized   : "),
-                  bullet = "arrow_right")
-
-  cli::cat_line("   ", paste(cli::symbol$star, cli::col_green("Points"),
-                             cli::symbol$em_dash,
-                             pluralize_data_info(object@points, dim_1_name = "feature")))
-  cli::cat_line("   ", paste(cli::symbol$star, cli::col_green("Patches"),
-                             cli::symbol$em_dash,
-                             pluralize_data_info(object@patches, dim_1_name = "feature")))
 
 }
 
