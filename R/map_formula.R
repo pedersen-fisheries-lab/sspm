@@ -1,27 +1,24 @@
-#' Map model formula onto a discretized sspm object
+#' Map model formula onto a sspm_data object
 #'
 #' This functions is now used internally to map a formula onto a `sspm_data`
-#' obejct.
+#' object.
 #'
-#' @param sspm_object **\[sspm_data\]** An object of class
-#'     [sspm_discrete][sspm_discrete-class].
-#' @param formula **\[formula\]** A formula definition of the form
-#'     response ~ smoothing_terms.
+#' @inheritParams spm_smooth
 #'
 #' @return
 #' The updated object, of class [sspm_discrete][sspm_discrete-class].
 #'
 setGeneric(name = "map_formula",
            def = function(sspm_object,
+                          boundaries,
                           formula,
-                          dataset,
                           ...){
              standardGeneric("map_formula")
            }
 )
 
 ## IMPORTANT NOTES:
-# I have realized that when gam or bam evaluate the formula, it looks for
+# When gam or bam evaluate the formula, it seems that it starts by looking for
 # variables in the s() statement in the parent environment and it will looks for
 # response/predictors in the environment provided with the data=argument.
 # Therefore all cannot be enclosed in the environment captured by the formula.
@@ -32,9 +29,9 @@ setGeneric(name = "map_formula",
 #' @rdname map_formula
 setMethod(f = "map_formula",
           signature(sspm_object = "sspm_discrete",
-                    formula = "formula",
-                    dataset = "missing"),
-          function(sspm_object, formula, dataset, ...){
+                    boundaries = "missing",
+                    formula = "formula"),
+          function(sspm_object, boundaries, formula, ...){
 
             # If dataset name is not provided, assume we want to map an actual
             # SPM formula and not smooth the data (previous step in workflow)
@@ -47,6 +44,7 @@ setMethod(f = "map_formula",
             smoothed_data <- spm_smoothed_data(sspm_object)
 
             # 1. Are all datasets smoothed?
+            # TODO not used anymore
             are_smoothed <- sapply(all_datasets, is_smoothed)
 
             if(!(any(are_smoothed))){
@@ -64,7 +62,7 @@ setMethod(f = "map_formula",
             # }
 
             # 3. Is there a splitting scheme?
-            if(!is_splitted(smoothed_data)){
+            if(!is_split(smoothed_data)){
               stop("Data must be splitted.")
             } else {
               old_sspm_data <- spm_data(spm_smoothed_data(sspm_object))
@@ -106,12 +104,13 @@ setMethod(f = "map_formula",
 #' @rdname map_formula
 setMethod(f = "map_formula",
           signature(sspm_object = "sspm_data",
+                    boundaries = "sspm_discrete_boundary",
                     formula = "formula"),
-          function(sspm_object, formula, ...){
+          function(sspm_object, boundaries, formula, ...){
 
             # This maps formula to a given dataset
 
-            dataset_name <- spm_name(dataset)
+            dataset_name <- spm_name(sspm_object)
 
             # Retrieve terms, response, and term labels
             formula_terms <- terms(formula)
@@ -119,7 +118,7 @@ setMethod(f = "map_formula",
             terms_labels <- attr(formula_terms, "term.labels")
 
             # Check response
-            the_data <- spm_data(dataset)
+            the_data <- spm_data(sspm_object)
             if(!checkmate::test_subset(response, names(the_data))){
               stop("The response in the formula is not a column of the dataset.",
                    call. = FALSE)
@@ -145,14 +144,14 @@ setMethod(f = "map_formula",
             # Capture calls and modify them
             smooth_calls <- lapply(smooth_terms_labels, str2lang)
 
+            # Modify and evaluate the calls to get the args to make a smooth
             smooth_calls_modified <-
               lapply(smooth_calls, modify_call,
                      args = list(sspm_object = substitute(sspm_object),
-                                 dataset = substitute(dataset_name)))
-
-            # Evaluate the calls to get the args to make a smooth
+                                 boundaries = substitute(boundaries)))
             smooth_and_vars <-lapply(smooth_calls_modified, eval,
-                                     envir = list(. = sspm_object))
+                                     envir = list(. = sspm_object,
+                                                  boundaries = boundaries))
 
             smooth_list <- sapply(smooth_and_vars, `[[`, "smooth")
 
@@ -172,12 +171,14 @@ setMethod(f = "map_formula",
                                 raw_formula = formula,
                                 translated_formula = final_formula_casted,
                                 vars = vars_list,
-                                type = "smooth")
+                                type = "smooth",
+                                response = response,
+                                is_fitted = FALSE)
 
-            spm_formulas(dataset) <- append(spm_formulas(dataset),
-                                            list(sspm_formula))
+            spm_formulas(sspm_object) <- append(spm_formulas(sspm_object),
+                                                list(sspm_formula))
 
-            return(dataset)
+            return(sspm_object)
 
           }
 )
