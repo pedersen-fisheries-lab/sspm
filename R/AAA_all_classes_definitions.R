@@ -84,10 +84,11 @@ setClass("sspm_discrete_boundary",
 #' @slot formulas **\[list\]** *(if discrete)* List of
 #'     [sspm_formula][sspm_formula-class] objects that are mapped onto the
 #'     base dataset.
-#' @slot is_smoothed **\[Logical\]** Whether or not this dataset has been smoothed.
 #' @slot smoothed_data **\[sf\]** The smoothed data.
 #' @slot smoothed_fit **\[list\]** The fit from smoothing the data
-#' @slot is_splitted **\[Logical\]** Whether or not this dataset has been splitted.
+#' @slot is_split **\[logical\]** Whether or not this dataset has been splitted.
+#' @slot is_mapped **\[logical\]** Whether the dataset has been mapped to
+#'     boundaries (used internally).
 #'
 #' @name sspm_data-class
 #' @rdname sspm_data-class
@@ -100,13 +101,13 @@ setClass("sspm_data",
                       coords = "characterOrNULL",
                       uniqueID = "character",
                       formulas = "list",
-                      is_smoothed = "logical",
                       smoothed_data = "ANY",
                       smoothed_fit = "list",
-                      is_splitted = "logical"),
+                      is_split = "logical",
+                      is_mapped = "logical"),
          prototype = prototype(name = "Biomass",
-                               is_smoothed = FALSE,
-                               is_splitted = FALSE),
+                               is_split = FALSE,
+                               is_mapped = FALSE),
          contains = c("sf", "data.frame"))
 
 # -------------------------------------------------------------------------
@@ -123,6 +124,8 @@ setClass("sspm_data",
 #'     different smooths.
 #' @slot type **\[charatcer\]** One of "smooth" and "surplus", the type of
 #'     formula, either for smoothing datasets or for fitting a surplus model
+#' @slot response **\[charatcer\]** The response variable in the formula.
+#' @slot is_fitted **\[logical\]** Whether this formula has already been fitted.
 #'
 #' @seealso See the `mgcv` function for defining smooths: [s()][mgcv::s].
 #'
@@ -130,7 +133,9 @@ setClass("sspm_formula",
          slots = list(raw_formula = "formula",
                       translated_formula = "formula",
                       vars = "list",
-                      type = "character")
+                      type = "character",
+                      response = "character",
+                      is_fitted = "logical")
 )
 
 # -------------------------------------------------------------------------
