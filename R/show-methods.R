@@ -108,7 +108,14 @@ cat_discretization_info <- function(object){
 
 cat_data <- function(object){
 
-  cli::cat_bullet(" Data              : ",
+  if(object@is_mapped){
+    header <- paste0(" Data ", cli::col_blue("(MAPPED)"),
+                     "     : ")
+  } else {
+    header <- " Data              : "
+  }
+
+  cli::cat_bullet(header,
                   pluralize_data_info(object@data),
                   bullet = "arrow_right")
   cli::cat_bullet(" Data unique ID    : ",
