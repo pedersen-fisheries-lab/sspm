@@ -153,7 +153,7 @@ cat_smoothed_data <- function(object){
 
   if(!is.null(object@smoothed_data)){
 
-    cli::cat_bullet(cli::col_cyan(" Smoothed data : "),
+    cli::cat_bullet(" Smoothed data     : ",
                     pluralize_data_info(object@smoothed_data),
                     bullet = "arrow_right")
 
@@ -273,7 +273,7 @@ cat_smoothed_data <- function(object){
 #
 #     cat_formula_lines(object@smoothed_data, object@smoothed_data@formulas)
 #
-#     if(is_splitted(object@smoothed_data)){
+#     if(is_split(object@smoothed_data)){
 #
 #       n_train <- sum(object@smoothed_data@data$train_test)
 #       n_test <- sum(!object@smoothed_data@data$train_test)
