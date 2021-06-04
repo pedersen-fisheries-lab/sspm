@@ -3,13 +3,13 @@
 \name{fit_smooths}
 \alias{fit_smooths}
 \alias{fit_spm}
-\alias{fit_smooths,sspm-method}
-\alias{fit_smooths,sspm_discrete-method}
+\alias{fit_smooths,sspm_data,sspm_discrete_boundary-method}
 \alias{fit_spm,sspm_discrete-method}
 \title{Fit the GAM part of a sspm model}
 \usage{
 fit_smooths(
   sspm_object,
+  boundaries,
   keep_fit = TRUE,
   predict = TRUE,
   family = mgcv::tw,
@@ -27,18 +27,9 @@ fit_spm(
   ...
 )
 
-\S4method{fit_smooths}{sspm}(
+\S4method{fit_smooths}{sspm_data,sspm_discrete_boundary}(
   sspm_object,
-  keep_fit = TRUE,
-  predict = TRUE,
-  family = mgcv::tw,
-  drop.unused.levels = F,
-  method = "fREML",
-  ...
-)
-
-\S4method{fit_smooths}{sspm_discrete}(
-  sspm_object,
+  boundaries,
   keep_fit = TRUE,
   predict = TRUE,
   family = mgcv::tw,
@@ -57,8 +48,11 @@ fit_spm(
 )
 }
 \arguments{
-\item{sspm_object}{\strong{[sspm_discrete]} An object of class
-\link[=sspm_discrete-class]{sspm_discrete}}
+\item{sspm_object}{\strong{[sspm_data]} An object of class
+\link[=sspm_data-class]{sspm_data}.}
+
+\item{boundaries}{\strong{[sspm_boundary]} An object of class
+\link[=sspm_boundary-class]{sspm_discrete_boundary}.}
 
 \item{keep_fit}{\strong{[logical]} Whether or not to keep the fitted values and
 model (default to TRUE, set to FALSE to reduce memory footprint).}

@@ -2,12 +2,26 @@
 % Please edit documentation in R/spm_smooth.R
 \name{spm_smooth}
 \alias{spm_smooth}
-\alias{spm_smooth,sspm_data,ANY-method}
+\alias{spm_smooth,sspm_data,formula,sspm_discrete_boundary-method}
 \title{Smooth a variable in a sspm dataset}
 \usage{
-spm_smooth(sspm_object, formula, keep_fit = FALSE, predict = TRUE, ...)
+spm_smooth(
+  sspm_object,
+  formula,
+  boundaries,
+  keep_fit = FALSE,
+  predict = TRUE,
+  ...
+)
 
-\S4method{spm_smooth}{sspm_data,ANY}(sspm_object, formula, keep_fit = FALSE, predict = TRUE, ...)
+\S4method{spm_smooth}{sspm_data,formula,sspm_discrete_boundary}(
+  sspm_object,
+  formula,
+  boundaries,
+  keep_fit = FALSE,
+  predict = TRUE,
+  ...
+)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class
@@ -15,6 +29,9 @@ spm_smooth(sspm_object, formula, keep_fit = FALSE, predict = TRUE, ...)
 
 \item{formula}{\strong{[formula]} A formula definition of the form
 response ~ smoothing_terms + ...}
+
+\item{boundaries}{\strong{[sspm_boundary]} An object of class
+\link[=sspm_boundary-class]{sspm_discrete_boundary}.}
 
 \item{keep_fit}{\strong{[logical]} Whether or not to keep the fitted values and
 model (default to TRUE, set to FALSE to reduce memory footprint).}
@@ -116,9 +133,6 @@ involving factor variables you might want to turn this off. Only do so if you kn
     \item{\code{drop.intercept}}{Set to \code{TRUE} to force the model to really not have the a constant in the parametric model part,
 even with factor variables present.}
   }}
-
-\item{boundary}{\strong{[sspm_boundary]} An object of class
-\link[=sspm_boundary-class]{sspm_boundary}.}
 }
 \description{
 With a formula, smooth a variable in a sspm dataset. See Details for

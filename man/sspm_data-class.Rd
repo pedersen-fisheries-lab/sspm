@@ -29,12 +29,13 @@ rows of the data matrix.}
 \link[=sspm_formula-class]{sspm_formula} objects that are mapped onto the
 base dataset.}
 
-\item{\code{is_smoothed}}{\strong{[Logical]} Whether or not this dataset has been smoothed.}
-
 \item{\code{smoothed_data}}{\strong{[sf]} The smoothed data.}
 
 \item{\code{smoothed_fit}}{\strong{[list]} The fit from smoothing the data}
 
-\item{\code{is_splitted}}{\strong{[Logical]} Whether or not this dataset has been splitted.}
+\item{\code{is_split}}{\strong{[logical]} Whether or not this dataset has been splitted.}
+
+\item{\code{is_mapped}}{\strong{[logical]} Whether the dataset has been mapped to
+boundaries (used internally).}
 }}
 

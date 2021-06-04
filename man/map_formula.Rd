@@ -2,30 +2,66 @@
 % Please edit documentation in R/map_formula.R, R/spm_smooth.R
 \name{map_formula}
 \alias{map_formula}
-\alias{map_formula,sspm_discrete,formula,missing-method}
-\alias{map_formula,sspm_data,formula,ANY-method}
-\alias{spm_smooth,sspm_data,missing-method}
-\title{Map model formula onto a discretized sspm object}
+\alias{map_formula,sspm_discrete,missing,formula-method}
+\alias{map_formula,sspm_data,sspm_discrete_boundary,formula-method}
+\alias{spm_smooth,ANY,missing,ANY-method}
+\alias{spm_smooth,ANY,ANY,missing-method}
+\alias{spm_smooth,ANY,ANY,sspm_boundary-method}
+\title{Map model formula onto a sspm_data object}
 \usage{
-map_formula(sspm_object, formula, dataset, ...)
+map_formula(sspm_object, boundaries, formula, ...)
 
-\S4method{map_formula}{sspm_discrete,formula,missing}(sspm_object, formula, dataset, ...)
+\S4method{map_formula}{sspm_discrete,missing,formula}(sspm_object, boundaries, formula, ...)
 
-\S4method{map_formula}{sspm_data,formula,ANY}(sspm_object, formula, dataset, ...)
+\S4method{map_formula}{sspm_data,sspm_discrete_boundary,formula}(sspm_object, boundaries, formula, ...)
 
-\S4method{spm_smooth}{sspm_data,missing}(sspm_object, formula, keep_fit = FALSE, predict = TRUE, ...)
+\S4method{spm_smooth}{ANY,missing,ANY}(
+  sspm_object,
+  formula,
+  boundaries,
+  keep_fit = FALSE,
+  predict = TRUE,
+  ...
+)
+
+\S4method{spm_smooth}{ANY,ANY,missing}(
+  sspm_object,
+  formula,
+  boundaries,
+  keep_fit = FALSE,
+  predict = TRUE,
+  ...
+)
+
+\S4method{spm_smooth}{ANY,ANY,sspm_boundary}(
+  sspm_object,
+  formula,
+  boundaries,
+  keep_fit = FALSE,
+  predict = TRUE,
+  ...
+)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class
-\link[=sspm_discrete-class]{sspm_discrete}.}
+\link[=sspm_data-class]{sspm_data}.}
+
+\item{boundaries}{\strong{[sspm_boundary]} An object of class
+\link[=sspm_boundary-class]{sspm_discrete_boundary}.}
 
 \item{formula}{\strong{[formula]} A formula definition of the form
-response ~ smoothing_terms.}
+response ~ smoothing_terms + ...}
+
+\item{keep_fit}{\strong{[logical]} Whether or not to keep the fitted values and
+model (default to TRUE, set to FALSE to reduce memory footprint).}
+
+\item{predict}{\strong{[logical]} Whether or not to generate the smoothed
+predictions (necessary to fit the final SPM model, default to TRUE).}
 }
 \value{
 The updated object, of class \link[=sspm_discrete-class]{sspm_discrete}.
 }
 \description{
 This functions is now used internally to map a formula onto a \code{sspm_data}
-obejct.
+object.
 }

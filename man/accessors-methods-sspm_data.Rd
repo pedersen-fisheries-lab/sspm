@@ -32,14 +32,14 @@
 \alias{spm_smoothed_fit,sspm_data-method}
 \alias{spm_smoothed_fit<-}
 \alias{spm_smoothed_fit<-,sspm_data-method}
-\alias{is_smoothed}
-\alias{is_smoothed,sspm_data-method}
-\alias{is_smoothed<-}
-\alias{is_smoothed<-,sspm_data-method}
-\alias{is_splitted}
-\alias{is_splitted,sspm_data-method}
-\alias{is_splitted<-}
-\alias{is_splitted<-,sspm_data-method}
+\alias{is_split}
+\alias{is_split,sspm_data-method}
+\alias{is_split<-}
+\alias{is_split<-,sspm_data-method}
+\alias{is_mapped}
+\alias{is_mapped,sspm_data-method}
+\alias{is_mapped<-}
+\alias{is_mapped<-,sspm_data-method}
 \title{Accessing OR replacing \code{sspm_data} model elements}
 \usage{
 spm_data(sspm_object)
@@ -104,21 +104,21 @@ spm_smoothed_fit(object) <- value
 
 \S4method{spm_smoothed_fit}{sspm_data}(object) <- value
 
-is_smoothed(sspm_object)
+is_split(sspm_object)
 
-\S4method{is_smoothed}{sspm_data}(sspm_object)
+\S4method{is_split}{sspm_data}(sspm_object)
 
-is_smoothed(object) <- value
+is_split(object) <- value
 
-\S4method{is_smoothed}{sspm_data}(object) <- value
+\S4method{is_split}{sspm_data}(object) <- value
 
-is_splitted(sspm_object)
+is_mapped(sspm_object)
 
-\S4method{is_splitted}{sspm_data}(sspm_object)
+\S4method{is_mapped}{sspm_data}(sspm_object)
 
-is_splitted(object) <- value
+is_mapped(object) <- value
 
-\S4method{is_splitted}{sspm_data}(object) <- value
+\S4method{is_mapped}{sspm_data}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class

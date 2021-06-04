@@ -5,16 +5,16 @@
 \alias{smooth_space}
 \alias{smooth_space_time}
 \alias{smooth_lag}
-\alias{smooth_time,ANY,character,sspm_discrete-method}
-\alias{smooth_space,ANY,character,sspm_discrete-method}
-\alias{smooth_space_time,ANY,character,sspm_discrete-method}
-\alias{smooth_lag,ANY,ANY,ANY,sspm_discrete-method}
+\alias{smooth_time,sspm_data,sspm_discrete_boundary-method}
+\alias{smooth_space,sspm_data,sspm_discrete_boundary-method}
+\alias{smooth_space_time,sspm_data,sspm_discrete_boundary-method}
+\alias{smooth_lag,ANY,sspm_data,sspm_discrete_boundary-method}
 \title{sspm Smoothing functions}
 \usage{
 smooth_time(
-  type = "ICAR",
-  dataset,
   sspm_object,
+  boundaries,
+  type = "ICAR",
   k = NULL,
   bs = "re",
   xt = NULL,
@@ -22,9 +22,9 @@ smooth_time(
 )
 
 smooth_space(
-  type = "ICAR",
-  dataset,
   sspm_object,
+  boundaries,
+  type = "ICAR",
   k = 30,
   bs = "mrf",
   xt = NULL,
@@ -32,55 +32,58 @@ smooth_space(
 )
 
 smooth_space_time(
-  type = "ICAR",
-  dataset,
   sspm_object,
+  boundaries,
+  type = "ICAR",
   k = NULL,
   bs = c("re", "mrf"),
   xt = NULL,
   ...
 )
 
-smooth_lag(var, type = "LINPRED", dataset, sspm_object, k = 5, m = 1, ...)
+smooth_lag(var, sspm_object, boundaries, type = "LINPRED", k = 5, m = 1, ...)
 
-\S4method{smooth_time}{ANY,character,sspm_discrete}(
-  type = "ICAR",
-  dataset,
+\S4method{smooth_time}{sspm_data,sspm_discrete_boundary}(
   sspm_object,
+  boundaries,
+  type = "ICAR",
   k = NULL,
   bs = "re",
   xt = NULL,
   ...
 )
 
-\S4method{smooth_space}{ANY,character,sspm_discrete}(
-  type = "ICAR",
-  dataset,
+\S4method{smooth_space}{sspm_data,sspm_discrete_boundary}(
   sspm_object,
+  boundaries,
+  type = "ICAR",
   k = 30,
   bs = "mrf",
   xt = NULL,
   ...
 )
 
-\S4method{smooth_space_time}{ANY,character,sspm_discrete}(
-  type = "ICAR",
-  dataset,
+\S4method{smooth_space_time}{sspm_data,sspm_discrete_boundary}(
   sspm_object,
+  boundaries,
+  type = "ICAR",
   k = NULL,
   bs = c("re", "mrf"),
   xt = NULL,
   ...
 )
 
-\S4method{smooth_lag}{ANY,ANY,ANY,sspm_discrete}(var, type = "LINPRED", dataset, sspm_object, k = 5, m = 1, ...)
+\S4method{smooth_lag}{ANY,sspm_data,sspm_discrete_boundary}(var, sspm_object, boundaries, type = "LINPRED", k = 5, m = 1, ...)
 }
 \arguments{
+\item{sspm_object}{\strong{[sspm_data]} An object of class
+\link[=sspm_data-class]{sspm_data}.}
+
+\item{boundaries}{\strong{[sspm_boundary]} An object of class
+\link[=sspm_boundary-class]{sspm_discrete_boundary}.}
+
 \item{type}{\strong{[character]} Type of smooth, currently only "ICAR" is
 supported.}
-
-\item{sspm_object}{\strong{[sspm_data]} An object of class
-\link[=sspm_discrete-class]{sspm_discrete}.}
 
 \item{k}{\strong{[numeric]} Size of the smooths and/or size of the lag.}
 

@@ -11,7 +11,7 @@ spm_lag(sspm_object, vars, n = 1, default = "mean", ...)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class
-\link[=sspm_discrete-class]{sspm_discrete}.}
+\link[=sspm_data-class]{sspm_data}.}
 
 \item{vars}{\strong{[character]} Names of the variables to lag.}
 
