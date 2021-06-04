@@ -18,7 +18,7 @@ setGeneric(name = "raw_formula",
            def = function(sspm_object) standardGeneric("raw_formula")
 )
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setMethod("raw_formula",
           signature("sspm_object" = "sspm_formula"),
@@ -27,13 +27,13 @@ setMethod("raw_formula",
 
 # Replacers ---------------------------------------------------------------
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setGeneric(name = "raw_formula<-",
            def = function(object, value) standardGeneric("raw_formula<-")
 )
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setMethod("raw_formula<-",
           signature("object" = "sspm_formula"),
@@ -47,13 +47,13 @@ setMethod("raw_formula<-",
 # Translated_formula ------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setGeneric(name = "translated_formula",
            def = function(sspm_object) standardGeneric("translated_formula")
 )
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setMethod("translated_formula",
           signature("sspm_object" = "sspm_formula"),
@@ -62,13 +62,13 @@ setMethod("translated_formula",
 
 # Replacers ---------------------------------------------------------------
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setGeneric(name = "translated_formula<-",
            def = function(object, value) standardGeneric("translated_formula<-")
 )
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setMethod("translated_formula<-",
           signature("object" = "sspm_formula"),
@@ -82,13 +82,13 @@ setMethod("translated_formula<-",
 # Dataset -----------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setGeneric(name = "dataset",
            def = function(sspm_object) standardGeneric("dataset")
 )
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setMethod("dataset",
           signature("sspm_object" = "sspm_formula"),
@@ -97,13 +97,13 @@ setMethod("dataset",
 
 # Replacers ---------------------------------------------------------------
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setGeneric(name = "dataset<-",
            def = function(object, value) standardGeneric("dataset<-")
 )
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setMethod("dataset<-",
           signature("object" = "sspm_formula"),
@@ -117,13 +117,13 @@ setMethod("dataset<-",
 # Vars --------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setGeneric(name = "formula_vars",
            def = function(sspm_object) standardGeneric("formula_vars")
 )
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setMethod("formula_vars",
           signature("sspm_object" = "sspm_formula"),
@@ -132,13 +132,13 @@ setMethod("formula_vars",
 
 # Replacers ---------------------------------------------------------------
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setGeneric(name = "formula_vars<-",
            def = function(object, value) standardGeneric("formula_vars<-")
 )
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setMethod("formula_vars<-",
           signature("object" = "sspm_formula"),
@@ -150,16 +150,15 @@ setMethod("formula_vars<-",
 )
 
 # Type --------------------------------------------------------------------
-
 # Accessors ---------------------------------------------------------------
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setGeneric(name = "formula_type",
            def = function(sspm_object) standardGeneric("formula_type")
 )
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setMethod("formula_type",
           signature("sspm_object" = "sspm_formula"),
@@ -168,13 +167,13 @@ setMethod("formula_type",
 
 # Replacers ---------------------------------------------------------------
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setGeneric(name = "formula_type<-",
            def = function(object, value) standardGeneric("formula_type<-")
 )
 
-#' @rdname accessors-methods-sspm_formula 
+#' @rdname accessors-methods-sspm_formula
 #' @export
 setMethod("formula_type<-",
           signature("object" = "sspm_formula"),
@@ -184,3 +183,40 @@ setMethod("formula_type<-",
             return(object)
           }
 )
+
+
+# Is_fitted ---------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_formula
+#' @export
+setGeneric(name = "is_fitted",
+           def = function(sspm_object) standardGeneric("is_fitted")
+)
+
+#' @rdname accessors-methods-sspm_formula
+#' @export
+setMethod("is_fitted",
+          signature("sspm_object" = "sspm_formula"),
+          function(sspm_object) sspm_object@is_fitted
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_formula
+#' @export
+setGeneric(name = "is_fitted<-",
+           def = function(object, value) standardGeneric("is_fitted<-")
+)
+
+#' @rdname accessors-methods-sspm_formula
+#' @export
+setMethod("is_fitted<-",
+          signature("object" = "sspm_formula"),
+          function(object, value){
+            object@is_fitted <- value
+            validObject(object)
+            return(object)
+          }
+)
+

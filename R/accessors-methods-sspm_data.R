@@ -293,71 +293,72 @@ setMethod("spm_smoothed_fit<-",
           }
 )
 
-# Is smoothed -------------------------------------------------------------
+# Is split ----------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
 #' @rdname accessors-methods-sspm_data
 #' @export
-setGeneric(name = "is_smoothed",
-           def = function(sspm_object) standardGeneric("is_smoothed")
+setGeneric(name = "is_split",
+           def = function(sspm_object) standardGeneric("is_split")
 )
 
 #' @rdname accessors-methods-sspm_data
 #' @export
-setMethod("is_smoothed",
+setMethod("is_split",
           signature("sspm_object" = "sspm_data"),
-          function(sspm_object) sspm_object@is_smoothed
+          function(sspm_object) sspm_object@is_split
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @rdname accessors-methods-sspm_data
 #' @export
-setGeneric(name = "is_smoothed<-",
-           def = function(object, value) standardGeneric("is_smoothed<-")
+setGeneric(name = "is_split<-",
+           def = function(object, value) standardGeneric("is_split<-")
 )
 
 #' @rdname accessors-methods-sspm_data
 #' @export
-setMethod("is_smoothed<-",
+setMethod("is_split<-",
           signature("object" = "sspm_data"),
           function(object, value){
-            object@is_smoothed <- value
+            object@is_split <- value
             validObject(object)
             return(object)
           }
 )
 
-# Is splitted -------------------------------------------------------------
+
+# Is mapped ---------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
 #' @rdname accessors-methods-sspm_data
 #' @export
-setGeneric(name = "is_splitted",
-           def = function(sspm_object) standardGeneric("is_splitted")
+setGeneric(name = "is_mapped",
+           def = function(sspm_object) standardGeneric("is_mapped")
 )
 
 #' @rdname accessors-methods-sspm_data
 #' @export
-setMethod("is_splitted",
+setMethod("is_mapped",
           signature("sspm_object" = "sspm_data"),
-          function(sspm_object) sspm_object@is_splitted
+          function(sspm_object) sspm_object@is_mapped
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @rdname accessors-methods-sspm_data
 #' @export
-setGeneric(name = "is_splitted<-",
-           def = function(object, value) standardGeneric("is_splitted<-")
+setGeneric(name = "is_mapped<-",
+           def = function(object, value) standardGeneric("is_mapped<-")
 )
 
 #' @rdname accessors-methods-sspm_data
 #' @export
-setMethod("is_splitted<-",
+setMethod("is_mapped<-",
           signature("object" = "sspm_data"),
           function(object, value){
-            object@is_splitted <- value
+            object@is_mapped <- value
             validObject(object)
             return(object)
           }
