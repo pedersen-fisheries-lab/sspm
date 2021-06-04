@@ -60,7 +60,7 @@ setMethod(f = "spm_split",
             # selection <- rlang::eval_tidy(str2lang(predicate),
             #                               data = the_data)
             the_data$train_test <- selection
-            is_splitted(smoothed_data) <- TRUE
+            is_split(smoothed_data) <- TRUE
 
             if(is_factor){
               the_data <- the_data %>%
