@@ -102,214 +102,214 @@ setMethod("spm_datasets<-",
           }
 )
 
-# Boundaries --------------------------------------------------------------
-# Accessors ---------------------------------------------------------------
-
-#' @rdname sspm-accessors-methods
-#' @export
-setGeneric(name = "spm_boundaries",
-           def = function(sspm_object) standardGeneric("spm_boundaries")
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_boundaries", signature("sspm_object" = "sspm"),
-          function(sspm_object) sspm_object@boundaries
-)
-
-# Replacers ---------------------------------------------------------------
-
-#' @rdname sspm-accessors-methods
-#' @export
-setGeneric(name = "spm_boundaries<-",
-           def = function(object, value) standardGeneric("spm_boundaries<-")
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_boundaries<-",
-          signature("object" = "sspm_discrete"),
-          function(object, value){
-            object@boundaries <- value
-            validObject(object)
-            return(object)
-          }
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_boundaries<-",
-          signature("object" = "sspm"),
-          function(object, value){
-            object@boundaries <- value
-            validObject(object)
-            return(object)
-          }
-)
-
-# DISCRETE BEYOND THIS POINT ----------------------------------------------
-
-# Discretization method ---------------------------------------------------
-# Accessors ---------------------------------------------------------------
-
-#' @rdname sspm-accessors-methods
-#' @export
-setGeneric(name = "spm_discret_method",
-           def = function(sspm_object) standardGeneric("spm_discret_method")
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_discret_method",
-          signature("sspm_object" = "sspm"),
-          function(sspm_object){
-            message_not_discrete(sspm_object)
-          }
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_discret_method",
-          signature("sspm_object" = "sspm_discrete"),
-          function(sspm_object) sspm_object@method
-)
-
-# Replacers ---------------------------------------------------------------
-
-#' @rdname sspm-accessors-methods
-#' @export
-setGeneric(name = "spm_discret_method<-",
-           def = function(object, value) standardGeneric("spm_discret_method<-")
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_discret_method<-",
-          signature("object" = "sspm_discrete"),
-          function(object, value){
-            object@method <- value
-            validObject(object)
-            return(object)
-          }
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_discret_method<-",
-          signature("object" = "sspm"),
-          function(object, value){
-            message_not_discrete(object)
-            return(object)
-          }
-)
-
-# Patches -----------------------------------------------------------------
-# Accessors ---------------------------------------------------------------
-
-#' @rdname sspm-accessors-methods
-#' @export
-setGeneric(name = "spm_patches",
-           def = function(sspm_object) standardGeneric("spm_patches")
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_patches",
-          signature("sspm_object" = "sspm"),
-          function(sspm_object){
-            message_not_discrete(sspm_object)
-          }
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_patches",
-          signature("sspm_object" = "sspm_discrete"),
-          function(sspm_object) sspm_object@patches
-)
-
-# Replacers ---------------------------------------------------------------
-
-#' @rdname sspm-accessors-methods
-#' @export
-setGeneric(name = "spm_patches<-",
-           def = function(object, value) standardGeneric("spm_patches<-")
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_patches<-",
-          signature("object" = "sspm_discrete"),
-          function(object, value){
-            object@patches <- value
-            validObject(object)
-            return(object)
-          }
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_patches<-",
-          signature("object" = "sspm"),
-          function(object, value){
-            message_not_discrete(object)
-            return(object)
-          }
-)
-
-# Points ------------------------------------------------------------------
-# Accessors ---------------------------------------------------------------
-
-#' @rdname sspm-accessors-methods
-#' @export
-setGeneric(name = "spm_points",
-           def = function(sspm_object) standardGeneric("spm_points")
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_points",
-          signature("sspm_object" = "sspm"),
-          function(sspm_object){
-            message_not_discrete(sspm_object)
-          }
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_points",
-          signature("sspm_object" = "sspm_discrete"),
-          function(sspm_object) sspm_object@points
-)
-
-# Replacers ---------------------------------------------------------------
-
-#' @rdname sspm-accessors-methods
-#' @export
-setGeneric(name = "spm_points<-",
-           def = function(object, value) standardGeneric("spm_points<-")
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_points<-",
-          signature("object" = "sspm_discrete"),
-          function(object, value){
-            object@points <- value
-            validObject(object)
-            return(object)
-          }
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_points<-",
-          signature("object" = "sspm"),
-          function(object, value){
-            message_not_discrete(object)
-            return(object)
-          }
-)
+# # Boundaries --------------------------------------------------------------
+# # Accessors ---------------------------------------------------------------
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setGeneric(name = "spm_boundaries",
+#            def = function(sspm_object) standardGeneric("spm_boundaries")
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_boundaries", signature("sspm_object" = "sspm"),
+#           function(sspm_object) sspm_object@boundaries
+# )
+#
+# # Replacers ---------------------------------------------------------------
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setGeneric(name = "spm_boundaries<-",
+#            def = function(object, value) standardGeneric("spm_boundaries<-")
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_boundaries<-",
+#           signature("object" = "sspm_discrete"),
+#           function(object, value){
+#             object@boundaries <- value
+#             validObject(object)
+#             return(object)
+#           }
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_boundaries<-",
+#           signature("object" = "sspm"),
+#           function(object, value){
+#             object@boundaries <- value
+#             validObject(object)
+#             return(object)
+#           }
+# )
+#
+# # DISCRETE BEYOND THIS POINT ----------------------------------------------
+#
+# # Discretization method ---------------------------------------------------
+# # Accessors ---------------------------------------------------------------
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setGeneric(name = "spm_discret_method",
+#            def = function(sspm_object) standardGeneric("spm_discret_method")
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_discret_method",
+#           signature("sspm_object" = "sspm"),
+#           function(sspm_object){
+#             message_not_discrete(sspm_object)
+#           }
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_discret_method",
+#           signature("sspm_object" = "sspm_discrete"),
+#           function(sspm_object) sspm_object@method
+# )
+#
+# # Replacers ---------------------------------------------------------------
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setGeneric(name = "spm_discret_method<-",
+#            def = function(object, value) standardGeneric("spm_discret_method<-")
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_discret_method<-",
+#           signature("object" = "sspm_discrete"),
+#           function(object, value){
+#             object@method <- value
+#             validObject(object)
+#             return(object)
+#           }
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_discret_method<-",
+#           signature("object" = "sspm"),
+#           function(object, value){
+#             message_not_discrete(object)
+#             return(object)
+#           }
+# )
+#
+# # Patches -----------------------------------------------------------------
+# # Accessors ---------------------------------------------------------------
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setGeneric(name = "spm_patches",
+#            def = function(sspm_object) standardGeneric("spm_patches")
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_patches",
+#           signature("sspm_object" = "sspm"),
+#           function(sspm_object){
+#             message_not_discrete(sspm_object)
+#           }
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_patches",
+#           signature("sspm_object" = "sspm_discrete"),
+#           function(sspm_object) sspm_object@patches
+# )
+#
+# # Replacers ---------------------------------------------------------------
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setGeneric(name = "spm_patches<-",
+#            def = function(object, value) standardGeneric("spm_patches<-")
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_patches<-",
+#           signature("object" = "sspm_discrete"),
+#           function(object, value){
+#             object@patches <- value
+#             validObject(object)
+#             return(object)
+#           }
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_patches<-",
+#           signature("object" = "sspm"),
+#           function(object, value){
+#             message_not_discrete(object)
+#             return(object)
+#           }
+# )
+#
+# # Points ------------------------------------------------------------------
+# # Accessors ---------------------------------------------------------------
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setGeneric(name = "spm_points",
+#            def = function(sspm_object) standardGeneric("spm_points")
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_points",
+#           signature("sspm_object" = "sspm"),
+#           function(sspm_object){
+#             message_not_discrete(sspm_object)
+#           }
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_points",
+#           signature("sspm_object" = "sspm_discrete"),
+#           function(sspm_object) sspm_object@points
+# )
+#
+# # Replacers ---------------------------------------------------------------
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setGeneric(name = "spm_points<-",
+#            def = function(object, value) standardGeneric("spm_points<-")
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_points<-",
+#           signature("object" = "sspm_discrete"),
+#           function(object, value){
+#             object@points <- value
+#             validObject(object)
+#             return(object)
+#           }
+# )
+#
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_points<-",
+#           signature("object" = "sspm"),
+#           function(object, value){
+#             message_not_discrete(object)
+#             return(object)
+#           }
+# )
 
 # TODO dim should get dims of data and sf if discrete
 # setMethod("dim",

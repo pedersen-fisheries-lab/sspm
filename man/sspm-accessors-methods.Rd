@@ -11,29 +11,6 @@
 \alias{spm_datasets,sspm_data-method}
 \alias{spm_datasets<-}
 \alias{spm_datasets<-,sspm-method}
-\alias{spm_boundaries}
-\alias{spm_boundaries,sspm-method}
-\alias{spm_boundaries<-}
-\alias{spm_boundaries<-,sspm_discrete-method}
-\alias{spm_boundaries<-,sspm-method}
-\alias{spm_discret_method}
-\alias{spm_discret_method,sspm-method}
-\alias{spm_discret_method,sspm_discrete-method}
-\alias{spm_discret_method<-}
-\alias{spm_discret_method<-,sspm_discrete-method}
-\alias{spm_discret_method<-,sspm-method}
-\alias{spm_patches}
-\alias{spm_patches,sspm-method}
-\alias{spm_patches,sspm_discrete-method}
-\alias{spm_patches<-}
-\alias{spm_patches<-,sspm_discrete-method}
-\alias{spm_patches<-,sspm-method}
-\alias{spm_points}
-\alias{spm_points,sspm-method}
-\alias{spm_points,sspm_discrete-method}
-\alias{spm_points<-}
-\alias{spm_points<-,sspm_discrete-method}
-\alias{spm_points<-,sspm-method}
 \alias{spm_smoothed_data}
 \alias{spm_smoothed_data,sspm-method}
 \alias{spm_smoothed_data,sspm_discrete-method}
@@ -63,52 +40,6 @@ spm_datasets(sspm_object, type = NULL)
 spm_datasets(object) <- value
 
 \S4method{spm_datasets}{sspm}(object) <- value
-
-spm_boundaries(sspm_object)
-
-\S4method{spm_boundaries}{sspm}(sspm_object)
-
-spm_boundaries(object) <- value
-
-\S4method{spm_boundaries}{sspm_discrete}(object) <- value
-
-\S4method{spm_boundaries}{sspm}(object) <- value
-
-spm_discret_method(sspm_object)
-
-\S4method{spm_discret_method}{sspm}(sspm_object)
-
-\S4method{spm_discret_method}{sspm_discrete}(sspm_object)
-
-spm_discret_method(object) <- value
-
-\S4method{spm_discret_method}{sspm_discrete}(object) <- value
-
-\S4method{spm_discret_method}{sspm}(object) <- value
-
-spm_patches(sspm_object)
-
-\S4method{spm_patches}{sspm}(sspm_object)
-
-\S4method{spm_patches}{sspm_discrete}(sspm_object)
-
-spm_patches(object) <- value
-
-\S4method{spm_patches}{sspm_discrete}(object) <- value
-
-\S4method{spm_patches}{sspm}(object) <- value
-
-spm_points(sspm_object)
-
-\S4method{spm_points}{sspm}(sspm_object)
-
-\S4method{spm_points}{sspm_discrete}(sspm_object)
-
-spm_points(object) <- value
-
-\S4method{spm_points}{sspm_discrete}(object) <- value
-
-\S4method{spm_points}{sspm}(object) <- value
 
 spm_smoothed_data(sspm_object)
 
