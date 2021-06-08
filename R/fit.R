@@ -177,7 +177,8 @@ setMethod(f = "fit_smooths",
               dplyr::relocate(dplyr::contains("smooth")) %>%
               dplyr::ungroup() %>%
               dplyr::mutate("row_ID" = 1:nrow_smoothed_data) %>%
-              dplyr::relocate(.data$row_ID)
+              dplyr::relocate(.data$row_ID) %>%
+              sf::st_as_sf()
 
             spm_smoothed_data(sspm_object) <- full_smoothed_data_clean
 
