@@ -60,43 +60,27 @@ setMethod("plot",
 #' @rdname plot-sspm
 #' @export
 setMethod("plot",
-          signature(x = "sspm_discrete"),
+          signature(x = "sspm_data"),
           definition = function(x, smoothed_var = NULL,
                                 page = "first", nrow = 2, ncol = 4) {
 
-            smoothed_dataset <- spm_smoothed_data(x)
-            smoothed_data <- spm_data(smoothed_dataset)
+            smoothed_data <- spm_smoothed_data(x)
 
-            if(length(spm_smoothed_fit(spm_smoothed_data(x))) > 0){
+            if(is.null(smoothed_data)){
 
-              the_fit <- spm_smoothed_fit(spm_smoothed_data(x))[[1]]
-              response <- all.vars(the_fit$formula)[1]
-              the_preds <- the_fit %>%
-                mgcv::predict.bam()
-
-              the_data <- spm_data(spm_smoothed_data(x)) %>%
-                dplyr::select(train_test, dplyr::all_of(response)) %>%
-                cbind(pred = the_preds)
-
+              cli::cli_alert_warning("Data object not smoothed, nothing to plot")
 
             } else {
 
-              if(is.null(smoothed_var) | is.null(smoothed_data)){
+              if(is.null(smoothed_var)){
 
-                sspm_discrete_plot <- ggplot2::ggplot() +
-                  ggplot2::geom_sf(data = spm_patches(x),
-                                   fill = NA, col = "#8A9A5B") +
-                  ggplot2::geom_sf(data = spm_boundaries(x),
-                                   fill = NA, col = "#36454F") +
-                  ggplot2::geom_sf(data = spm_points(x),
-                                   col ="#6082B6") +
-                  ggplot2::theme_light()
+                cli::cli_alert_warning("Please specify which variable to plot")
 
               } else {
 
                 # TODO add check for smoothed_var to be in smoothed_data
 
-                time_col <- spm_time_column(smoothed_dataset)
+                time_col <- spm_time_column(x)
 
                 if(is.character(page)){
 
@@ -134,6 +118,8 @@ setMethod("plot",
 
                 } else if(is.numeric(page)){
 
+                  browser()
+
                   sspm_discrete_plot <- ggplot2::ggplot(data = smoothed_data) +
                     ggplot2::geom_sf(ggplot2::aes(fill=.data[[smoothed_var]])) +
                     ggforce::facet_wrap_paginate(~.data[[time_col]],
@@ -142,10 +128,8 @@ setMethod("plot",
                     ggplot2::scale_fill_viridis_c()
 
                 }
+                return(sspm_discrete_plot)
               }
             }
-
-            return(sspm_discrete_plot)
-
           }
 )
