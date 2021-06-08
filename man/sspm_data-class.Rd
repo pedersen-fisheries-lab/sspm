@@ -25,6 +25,8 @@ latitude of the observations.}
 \item{\code{uniqueID}}{\strong{[character]} The column of \code{data} that is unique for all
 rows of the data matrix.}
 
+\item{\code{boundaries}}{\strong{[sf]} Spatial boundaries (polygons).}
+
 \item{\code{formulas}}{\strong{[list]} \emph{(if discrete)} List of
 \link[=sspm_formula-class]{sspm_formula} objects that are mapped onto the
 base dataset.}

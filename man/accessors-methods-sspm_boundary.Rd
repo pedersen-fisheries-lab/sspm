@@ -27,8 +27,6 @@ spm_boundaries(object) <- value
 
 \S4method{spm_boundaries}{sspm_boundary}(object) <- value
 
-\S4method{spm_boundaries}{sspm_boundary}(object) <- value
-
 spm_discret_method(sspm_object)
 
 \S4method{spm_discret_method}{sspm_boundary}(sspm_object)

@@ -3,22 +3,10 @@
 \docType{class}
 \name{sspm-class}
 \alias{sspm-class}
-\alias{sspm_discrete-class}
-\title{sspm model classes}
+\title{sspm model class}
 \description{
-The different model classes follow the typical workflow of \code{sspm}:
-\itemize{
-\item \strong{\code{sspm}} Basic model object.
-\item \strong{\code{sspm_discrete}} Discretized model object. Contains a
-\link[=discretization_method-class]{discretization_method} object. It can also
-containes "mapped datasets" (for example, predator or observator data).
+The \strong{\code{sspm}} model object.
 }
-}
-\section{Functions}{
-\itemize{
-\item \code{sspm_discrete-class}: sspm_discrete
-}}
-
 \section{Slots}{
 
 \describe{
@@ -29,25 +17,6 @@ containes "mapped datasets" (for example, predator or observator data).
 \item{\code{datasets}}{\strong{[list]} \emph{(if discrete)} List of
 \link[=sspm_data-class]{sspm_data} that define variables in the SPM model.}
 
-\item{\code{method}}{\strong{[\link[=discretization_method-class]{discretization_method}]}
-\emph{(if discrete)} discretization method used.}
-
-\item{\code{patches}}{\strong{[sf]} \emph{(if discrete)} Patches resulting from
-discretization.}
-
-\item{\code{points}}{\strong{[sf]} \emph{(if discrete)} Sample points used for
-discretization.}
-
-\item{\code{formulas}}{\strong{[list]} \emph{(if discrete)} List of
-\link[=sspm_formula-class]{sspm_formula} objects that are mapped onto the
-base dataset.}
-
-\item{\code{smoothed_data}}{\strong{[sspm_data]} \emph{(if discrete)} The smoothed
-data, under the form of a \link[=sspm_data-class]{sspm_data} object. Each
-column corresponds to a fitted (smoothed) datasets and is used for SPM
-formula and model definition.}
-
-\item{\code{fit}}{\strong{[LIST]} \emph{(if discrete)} The list of fitted spm model, each
-corresponding to a different formula from the formulas slot.}
+\item{\code{smoothed_data}}{\strong{[sf]} The smoothed data.}
 }}
 

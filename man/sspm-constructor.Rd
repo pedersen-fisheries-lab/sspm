@@ -2,18 +2,24 @@
 % Please edit documentation in R/sspm.R
 \name{sspm}
 \alias{sspm}
+\alias{sspm,sspm_discrete_boundary,sspm_data,ANY,missing,ANY,ANY-method}
+\alias{sspm,sspm_discrete_boundary,sspm_data,ANY,sspm_data,character,character-method}
 \title{Create a \code{sspm} model object}
 \usage{
-sspm(model_name = "My sspm model", boundaries)
+sspm(boundaries, biomass, predictors, catch, biomass_var, catch_var)
+
+\S4method{sspm}{sspm_discrete_boundary,sspm_data,ANY,missing,ANY,ANY}(boundaries, biomass, predictors = NULL, catch = NULL)
+
+\S4method{sspm}{sspm_discrete_boundary,sspm_data,ANY,sspm_data,character,character}(boundaries, biomass, predictors, catch, biomass_var, catch_var)
 }
 \arguments{
-\item{model_name}{\strong{[character]} The name to be given to the model}
-
 \item{boundaries}{\strong{[sf]} The spatial boundaries (polygons) for the model.}
+
+\item{name}{\strong{[character]} The name to be given to the model}
 }
 \value{
 An object of class  \link[=sspm-class]{sspm}.
 }
 \description{
-The starting point of the \code{sspm} workflow: creating a base \code{sspm} object.
+Create a sspm_model object.
 }

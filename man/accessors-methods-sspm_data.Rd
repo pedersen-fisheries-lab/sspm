@@ -40,6 +40,8 @@
 \alias{is_mapped,sspm_data-method}
 \alias{is_mapped<-}
 \alias{is_mapped<-,sspm_data-method}
+\alias{spm_boundaries,sspm_data-method}
+\alias{spm_boundaries<-,sspm_data-method}
 \title{Accessing OR replacing \code{sspm_data} model elements}
 \usage{
 spm_data(sspm_object)
@@ -119,6 +121,10 @@ is_mapped(sspm_object)
 is_mapped(object) <- value
 
 \S4method{is_mapped}{sspm_data}(object) <- value
+
+\S4method{spm_boundaries}{sspm_data}(sspm_object)
+
+\S4method{spm_boundaries}{sspm_data}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class
