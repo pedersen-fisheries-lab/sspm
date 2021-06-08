@@ -66,70 +66,65 @@ setMethod("plot",
 
             smoothed_data <- spm_smoothed_data(x)
 
-            if(is.null(smoothed_data)){
+            if(is.null(smoothed_var)){
 
-              cli::cli_alert_warning("Data object not smoothed, nothing to plot")
+              sspm_discrete_plot <- plot(spm_boundaries(x))
+              show(sspm_discrete_plot)
 
             } else {
 
-              if(is.null(smoothed_var)){
+              # TODO add check for smoothed_var to be in smoothed_data
 
-                cli::cli_alert_warning("Please specify which variable to plot")
+              time_col <- spm_time_column(x)
 
-              } else {
+              if(is.character(page)){
 
-                # TODO add check for smoothed_var to be in smoothed_data
+                if (page == "all"){
 
-                time_col <- spm_time_column(x)
+                  time_col_levels <- length(unique(smoothed_data[[time_col]]))
+                  n_per_page <- nrow*ncol
+                  n_pages <- time_col_levels %/% (n_per_page) +
+                    (time_col_levels %% n_per_page > 1)
 
-                if(is.character(page)){
+                  sspm_discrete_plot <- list()
 
-                  if (page == "all"){
+                  for (page_nb in seq_len(length.out = n_pages)){
 
-                    time_col_levels <- length(unique(smoothed_data[[time_col]]))
-                    n_per_page <- nrow*ncol
-                    n_pages <- time_col_levels %/% (n_per_page) +
-                      (time_col_levels %% n_per_page > 1)
-
-                    sspm_discrete_plot <- list()
-
-                    for (page_nb in seq_len(length.out = n_pages)){
-
-                      sspm_discrete_plot[[page_nb]] <-
-                        ggplot2::ggplot(data = smoothed_data) +
-                        ggplot2::geom_sf(ggplot2::aes(fill=.data[[smoothed_var]])) +
-                        ggforce::facet_wrap_paginate(~.data[[time_col]],
-                                                     nrow = nrow, ncol = ncol,
-                                                     page = page_nb) +
-                        ggplot2::scale_fill_viridis_c()
-
-                    }
-
-                  } else {
-
-                    sspm_discrete_plot <- ggplot2::ggplot(data = smoothed_data) +
+                    sspm_discrete_plot[[page_nb]] <-
+                      ggplot2::ggplot(data = smoothed_data) +
                       ggplot2::geom_sf(ggplot2::aes(fill=.data[[smoothed_var]])) +
                       ggforce::facet_wrap_paginate(~.data[[time_col]],
                                                    nrow = nrow, ncol = ncol,
-                                                   page = 1) +
+                                                   page = page_nb) +
                       ggplot2::scale_fill_viridis_c()
 
                   }
 
-                } else if(is.numeric(page)){
-
-                  browser()
+                } else {
 
                   sspm_discrete_plot <- ggplot2::ggplot(data = smoothed_data) +
                     ggplot2::geom_sf(ggplot2::aes(fill=.data[[smoothed_var]])) +
                     ggforce::facet_wrap_paginate(~.data[[time_col]],
                                                  nrow = nrow, ncol = ncol,
-                                                 page = page) +
+                                                 page = 1) +
                     ggplot2::scale_fill_viridis_c()
 
                 }
-                return(sspm_discrete_plot)
+
+              } else if(is.numeric(page)){
+
+                browser()
+
+                sspm_discrete_plot <- ggplot2::ggplot(data = smoothed_data) +
+                  ggplot2::geom_sf(ggplot2::aes(fill=.data[[smoothed_var]])) +
+                  ggforce::facet_wrap_paginate(~.data[[time_col]],
+                                               nrow = nrow, ncol = ncol,
+                                               page = page) +
+                  ggplot2::scale_fill_viridis_c()
+
               }
+              return(sspm_discrete_plot)
             }
+
           }
 )
