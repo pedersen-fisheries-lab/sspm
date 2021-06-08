@@ -1,8 +1,8 @@
 #' Create a `sspm` model object
 #'
-#' The starting point of the `sspm` workflow: creating a base `sspm` object.
+#' Create a sspm_model object.
 #'
-#' @param model_name **\[character\]** The name to be given to the model
+#' @param name **\[character\]** The name to be given to the model
 #' @param boundaries **\[sf\]** The spatial boundaries (polygons) for the model.
 #'
 #' @return
@@ -10,18 +10,49 @@
 #'
 #' @rdname sspm-constructor
 #' @export
-sspm <- function(model_name = "My sspm model",
-                 boundaries){
+setGeneric(name = "sspm",
+           def = function(boundaries,
+                          biomass,
+                          predictors,
+                          catch,
+                          biomass_var,
+                          catch_var){
+             standardGeneric("sspm")
+           }
+)
 
-  checkmate::assert_character(model_name)
-  checkmate::assert_class(boundaries, "sf")
+# Methods -----------------------------------------------------------------
 
-  the_object <- new("sspm",
-                    name = model_name,
-                    #data = the_spapspm_data,
-                    boundaries = boundaries)
+#' @export
+#' @rdname sspm-constructor
+setMethod(f = "sspm",
+          signature(boundaries = "sspm_discrete_boundary",
+                    biomass = "sspm_data",
+                    predictors = "ANY",
+                    catch = "missing"),
+          function(boundaries,
+                   biomass,
+                   predictors = NULL,
+                   catch = NULL){
+            print("1")
+          }
+)
 
-  return(the_object)
-}
-
-
+#' @export
+#' @rdname sspm-constructor
+setMethod(f = "sspm",
+          signature(boundaries = "sspm_discrete_boundary",
+                    biomass = "sspm_data",
+                    predictors = "ANY",
+                    catch = "sspm_data",
+                    biomass_var = "character",
+                    catch_var = "character"),
+          function(boundaries,
+                   biomass,
+                   predictors,
+                   catch,
+                   biomass_var,
+                   catch_var){
+            print("2")
+          }
+)
