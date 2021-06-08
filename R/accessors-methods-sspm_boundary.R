@@ -10,7 +10,6 @@
 #'
 #' @rdname accessors-methods-sspm_boundary
 
-
 # Boundaries --------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
@@ -31,17 +30,6 @@ setMethod("spm_boundaries", signature("sspm_object" = "sspm_boundary"),
 #' @export
 setGeneric(name = "spm_boundaries<-",
            def = function(object, value) standardGeneric("spm_boundaries<-")
-)
-
-#' @rdname accessors-methods-sspm_boundary
-#' @export
-setMethod("spm_boundaries<-",
-          signature("object" = "sspm_boundary"),
-          function(object, value){
-            object@boundaries <- value
-            validObject(object)
-            return(object)
-          }
 )
 
 #' @rdname accessors-methods-sspm_boundary

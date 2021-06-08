@@ -81,6 +81,7 @@ setClass("sspm_discrete_boundary",
 #'     latitude of the observations.
 #' @slot uniqueID **\[character\]** The column of `data` that is unique for all
 #'     rows of the data matrix.
+#' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
 #' @slot formulas **\[list\]** *(if discrete)* List of
 #'     [sspm_formula][sspm_formula-class] objects that are mapped onto the
 #'     base dataset.
@@ -100,6 +101,7 @@ setClass("sspm_data",
                       time_column = "character",
                       coords = "characterOrNULL",
                       uniqueID = "character",
+                      boundaries = "sspm_discrete_boundary",
                       formulas = "list",
                       smoothed_data = "ANY",
                       smoothed_fit = "list",
@@ -140,56 +142,28 @@ setClass("sspm_formula",
 
 # -------------------------------------------------------------------------
 
-#' sspm model classes
+#' sspm model class
 #'
-#' The different model classes follow the typical workflow of `sspm`:
-#'  * **`sspm`** Basic model object.
-#'  * **`sspm_discrete`** Discretized model object. Contains a
-#'  [discretization_method][discretization_method-class] object. It can also
-#'  containes "mapped datasets" (for example, predator or observator data).
+#' The **`sspm`** model object.
 #'
 #' @slot name **\[character\]** Name of the model.
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
-#'
 #' @slot datasets **\[list\]** *(if discrete)* List of
 #'     [sspm_data][sspm_data-class] that define variables in the SPM model.
-#' @slot method **\[[discretization_method][discretization_method-class]\]**
-#'     *(if discrete)* discretization method used.
-#' @slot patches **\[sf\]** *(if discrete)* Patches resulting from
-#'     discretization.
-#' @slot points **\[sf\]** *(if discrete)* Sample points used for
-#'     discretization.
-#' @slot formulas **\[list\]** *(if discrete)* List of
-#'     [sspm_formula][sspm_formula-class] objects that are mapped onto the
-#'     base dataset.
-#' @slot smoothed_data **\[sspm_data]** *(if discrete)* The smoothed
-#'     data, under the form of a [sspm_data][sspm_data-class] object. Each
-#'     column corresponds to a fitted (smoothed) datasets and is used for SPM
-#'     formula and model definition.
-#' @slot fit **\[LIST]** *(if discrete)* The list of fitted spm model, each
-#'     corresponding to a different formula from the formulas slot.
+#' @slot smoothed_data **\[sf\]** The smoothed data.
 #'
 #' @name sspm-class
 #' @rdname sspm-class
 setClass("sspm",
          slots = list(name = "character",
                       datasets = "list",
-                      boundaries = "sf"),
+                      boundaries = "sspm_discrete_boundary",
+                      smoothed_data = "ANY"),
          prototype = prototype(name = "My Model",
                                datasets = list())
 )
 
-#' @describeIn sspm-class sspm_discrete
-setClass("sspm_discrete",
-         slots = list(method = "discretization_method",
-                      patches = "sf",
-                      points = "sf",
-                      formulas = "list",
-                      smoothed_data = "sspm_data",
-                      fit = "list"),
-         prototype = prototype(name = "Default Model Name",
-                               formulas = list(),
-                               fit = list()),
-         contains = c("sspm"))
-
 # -------------------------------------------------------------------------
+
+
+# TODO sspm_fit object

@@ -363,3 +363,25 @@ setMethod("is_mapped<-",
             return(object)
           }
 )
+
+# Boundaries --------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_data
+#' @export
+setMethod("spm_boundaries", signature("sspm_object" = "sspm_data"),
+          function(sspm_object) sspm_object@boundaries
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_data
+#' @export
+setMethod("spm_boundaries<-",
+          signature("object" = "sspm_data"),
+          function(object, value){
+            object@boundaries <- value
+            validObject(object)
+            return(object)
+          }
+)

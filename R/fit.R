@@ -181,6 +181,7 @@ setMethod(f = "fit_smooths",
               sf::st_as_sf()
 
             spm_smoothed_data(sspm_object) <- full_smoothed_data_clean
+            spm_boundaries(sspm_object) <- boundaries
 
             return(sspm_object)
 
