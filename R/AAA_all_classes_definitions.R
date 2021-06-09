@@ -56,14 +56,16 @@ setClass("discretization_method",
 #'
 setClass("sspm_boundary",
          slots = list(boundaries = "sf",
-                      boundary_column = "character"))
+                      boundary_column = "character")
+)
 
 #' @describeIn sspm_boundary-class sspm_discrete_boundary
 setClass("sspm_discrete_boundary",
          slots = list(method = "discretization_method",
                       patches = "sf",
                       points = "sf"),
-         contains = "sspm_boundary")
+         contains = "sspm_boundary"
+)
 
 # -------------------------------------------------------------------------
 
@@ -107,10 +109,10 @@ setClass("sspm_data",
                       smoothed_fit = "list",
                       is_split = "logical",
                       is_mapped = "logical"),
-         prototype = prototype(name = "Biomass",
-                               is_split = FALSE,
-                               is_mapped = FALSE),
-         contains = c("sf", "data.frame"))
+         prototype = prototype(is_split = FALSE,
+                               is_mapped = FALSE,
+                               smoothed_data = NULL)
+)
 
 # -------------------------------------------------------------------------
 
@@ -146,7 +148,6 @@ setClass("sspm_formula",
 #'
 #' The **`sspm`** model object.
 #'
-#' @slot name **\[character\]** Name of the model.
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
 #' @slot datasets **\[list\]** *(if discrete)* List of
 #'     [sspm_data][sspm_data-class] that define variables in the SPM model.
@@ -155,15 +156,12 @@ setClass("sspm_formula",
 #' @name sspm-class
 #' @rdname sspm-class
 setClass("sspm",
-         slots = list(name = "character",
-                      datasets = "list",
+         slots = list(datasets = "list",
                       boundaries = "sspm_discrete_boundary",
                       smoothed_data = "ANY"),
-         prototype = prototype(name = "My Model",
-                               datasets = list())
+         prototype = prototype(datasets = list())
 )
 
 # -------------------------------------------------------------------------
-
 
 # TODO sspm_fit object
