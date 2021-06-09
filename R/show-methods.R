@@ -18,7 +18,7 @@ setMethod("show",
           function(object) {
             cli::cat_line()
             custom_h1(paste0("SSPM Boundary"))
-            cat_boundaries(object)
+            cat_boundaries(object, column = TRUE)
             cli::cat_line()
           }
 )
@@ -28,7 +28,7 @@ setMethod("show",
           function(object) {
             cli::cat_line()
             custom_h1(paste0("SSPM Boundary ", cli::col_green("(Discrete)")))
-            cat_boundaries(object)
+            cat_boundaries(object, column = TRUE)
             cat_discretization_info(object)
             cli::cat_line()
           }
@@ -42,6 +42,7 @@ setMethod("show",
                              cli::col_magenta(" (", object@type, ")")))
             cat_data(object)
             cat_formulas(object)
+            cat_boundaries(object, column = FALSE)
             cat_smoothed_data(object)
             cli::cat_line()
           }
@@ -81,14 +82,23 @@ setMethod("show",
 
 # Helpers -----------------------------------------------------------------
 
-cat_boundaries <- function(object){
+cat_boundaries <- function(object, column = TRUE){
 
-  cli::cat_bullet(" Boundaries    : ",
-                  pluralize_data_info(object@boundaries),
-                  bullet = "arrow_right")
-  cli::cat_bullet(" Boundary col. : ",
-                  cli::col_blue(object@boundary_column),
-                  bullet = "arrow_right")
+  if(column){
+    cli::cat_bullet(" Boundaries    : ",
+                    pluralize_data_info(object@boundaries),
+                    bullet = "arrow_right")
+
+    cli::cat_bullet(" Boundary col. : ",
+                    cli::col_blue(object@boundary_column),
+                    bullet = "arrow_right")
+  } else {
+
+    cli::cat_bullet(" Boundaries        : ",
+                    pluralize_data_info(object@boundaries@boundaries),
+                    bullet = "arrow_right")
+
+  }
 
 }
 
