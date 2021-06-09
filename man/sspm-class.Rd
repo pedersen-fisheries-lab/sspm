@@ -10,8 +10,6 @@ The \strong{\code{sspm}} model object.
 \section{Slots}{
 
 \describe{
-\item{\code{name}}{\strong{[character]} Name of the model.}
-
 \item{\code{boundaries}}{\strong{[sf]} Spatial boundaries (polygons).}
 
 \item{\code{datasets}}{\strong{[list]} \emph{(if discrete)} List of

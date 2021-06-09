@@ -2,19 +2,17 @@
 % Please edit documentation in R/sspm.R
 \name{sspm}
 \alias{sspm}
-\alias{sspm,sspm_discrete_boundary,sspm_data,ANY,missing,ANY,ANY-method}
-\alias{sspm,sspm_discrete_boundary,sspm_data,ANY,sspm_data,character,character-method}
+\alias{sspm,sspm_data,sspm_data-method}
+\alias{sspm,sspm_data,list-method}
 \title{Create a \code{sspm} model object}
 \usage{
-sspm(boundaries, biomass, predictors, catch, biomass_var, catch_var)
+sspm(biomass, predictors, catch = NULL, biomass_var = NULL, catch_var = NULL)
 
-\S4method{sspm}{sspm_discrete_boundary,sspm_data,ANY,missing,ANY,ANY}(boundaries, biomass, predictors = NULL, catch = NULL)
+\S4method{sspm}{sspm_data,sspm_data}(biomass, predictors, catch = NULL, biomass_var = NULL, catch_var = NULL)
 
-\S4method{sspm}{sspm_discrete_boundary,sspm_data,ANY,sspm_data,character,character}(boundaries, biomass, predictors, catch, biomass_var, catch_var)
+\S4method{sspm}{sspm_data,list}(biomass, predictors, catch = NULL, biomass_var = NULL, catch_var = NULL)
 }
 \arguments{
-\item{boundaries}{\strong{[sf]} The spatial boundaries (polygons) for the model.}
-
 \item{name}{\strong{[character]} The name to be given to the model}
 }
 \value{
