@@ -80,6 +80,20 @@ setMethod("show",
           }
 )
 
+setMethod("show",
+          "sspm",
+          function(object) {
+            cli::cat_line()
+            custom_h1(sprintf(paste0("SSPM Model ",
+                                     cli::col_green("(%s datasets)")),
+                              length(object@datasets)))
+            # cat_datasets(object)
+            cat_boundaries(object, column = FALSE)
+            cat_smoothed_data(object)
+            cli::cat_line()
+          }
+)
+
 # Helpers -----------------------------------------------------------------
 
 cat_boundaries <- function(object, column = TRUE){
