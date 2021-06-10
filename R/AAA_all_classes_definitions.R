@@ -157,7 +157,10 @@ setClass("sspm_formula",
 #' @rdname sspm-class
 setClass("sspm",
          slots = list(datasets = "list",
+                      time_column = "character",
+                      uniqueID = "character",
                       boundaries = "sspm_discrete_boundary",
+                      formulas = "list",
                       smoothed_data = "ANY"),
          prototype = prototype(datasets = list())
 )
