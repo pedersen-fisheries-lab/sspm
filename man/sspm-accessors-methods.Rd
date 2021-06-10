@@ -8,19 +8,28 @@
 \alias{spm_name<-,sspm-method}
 \alias{spm_datasets}
 \alias{spm_datasets,sspm-method}
-\alias{spm_datasets,sspm_data-method}
 \alias{spm_datasets<-}
 \alias{spm_datasets<-,sspm-method}
+\alias{spm_boundaries}
+\alias{spm_boundaries,sspm-method}
+\alias{spm_boundaries<-}
+\alias{spm_boundaries<-,sspm_discrete-method}
 \alias{spm_smoothed_data}
 \alias{spm_smoothed_data,sspm-method}
-\alias{spm_smoothed_data,sspm_discrete-method}
 \alias{spm_smoothed_data<-}
-\alias{spm_smoothed_data<-,sspm_discrete-method}
 \alias{spm_smoothed_data<-,sspm-method}
 \alias{spm_formulas}
 \alias{spm_formulas,sspm-method}
 \alias{spm_formulas<-}
 \alias{spm_formulas<-,sspm-method}
+\alias{spm_time_column}
+\alias{spm_time_column,sspm-method}
+\alias{spm_time_column<-}
+\alias{spm_time_column<-,sspm-method}
+\alias{is_split}
+\alias{is_split,sspm-method}
+\alias{is_split<-}
+\alias{is_split<-,sspm-method}
 \title{Accessing OR replacing \code{sspm} model elements}
 \usage{
 spm_name(sspm_object)
@@ -33,23 +42,27 @@ spm_name(object) <- value
 
 spm_datasets(sspm_object, type = NULL)
 
-\S4method{spm_datasets}{sspm}(sspm_object, type = NULL)
+\S4method{spm_datasets}{sspm}(sspm_object)
 
-\S4method{spm_datasets}{sspm_data}(sspm_object)
+\S4method{spm_datasets}{sspm}(sspm_object)
 
 spm_datasets(object) <- value
 
 \S4method{spm_datasets}{sspm}(object) <- value
 
+spm_boundaries(sspm_object)
+
+\S4method{spm_boundaries}{sspm}(sspm_object)
+
+spm_boundaries(object) <- value
+
+\S4method{spm_boundaries}{sspm_discrete}(object) <- value
+
 spm_smoothed_data(sspm_object)
 
 \S4method{spm_smoothed_data}{sspm}(sspm_object)
 
-\S4method{spm_smoothed_data}{sspm_discrete}(sspm_object)
-
 spm_smoothed_data(object) <- value
-
-\S4method{spm_smoothed_data}{sspm_discrete}(object) <- value
 
 \S4method{spm_smoothed_data}{sspm}(object) <- value
 
@@ -60,6 +73,22 @@ spm_formulas(sspm_object)
 spm_formulas(object) <- value
 
 \S4method{spm_formulas}{sspm}(object) <- value
+
+spm_time_column(sspm_object)
+
+\S4method{spm_time_column}{sspm}(sspm_object)
+
+spm_time_column(object) <- value
+
+\S4method{spm_time_column}{sspm}(object) <- value
+
+is_split(sspm_object)
+
+\S4method{is_split}{sspm}(sspm_object)
+
+is_split(object) <- value
+
+\S4method{is_split}{sspm}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm OR adjacent]} An object of class

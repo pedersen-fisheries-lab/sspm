@@ -17,14 +17,6 @@ setGeneric(name = "spm_data",
            def = function(sspm_object) standardGeneric("spm_data")
 )
 
-#' @export
-#' @rdname accessors-methods-sspm_data
-setMethod("spm_data", signature("sspm_object" = "sspm"),
-          function(sspm_object) {
-            cli::cli_alert_danger("Use `spm_datasets` or `spm_base_dataset` to access the datasets of a sspm object")
-          }
-)
-
 #' @rdname accessors-methods-sspm_data
 #' @export
 setMethod("spm_data", signature("sspm_object" = "sspm_data"),
@@ -147,24 +139,12 @@ setMethod("spm_coords_col<-",
 
 #' @rdname accessors-methods-sspm_data
 #' @export
-setGeneric(name = "spm_time_column",
-           def = function(sspm_object) standardGeneric("spm_time_column")
-)
-
-#' @rdname accessors-methods-sspm_data
-#' @export
 setMethod("spm_time_column",
           signature("sspm_object" = "sspm_data"),
           function(sspm_object) sspm_object@time_column
 )
 
 # Replacers ---------------------------------------------------------------
-
-#' @rdname accessors-methods-sspm_data
-#' @export
-setGeneric(name = "spm_time_column<-",
-           def = function(object, value) standardGeneric("spm_time_column<-")
-)
 
 #' @rdname accessors-methods-sspm_data
 #' @export
@@ -292,42 +272,6 @@ setMethod("spm_smoothed_fit<-",
             return(object)
           }
 )
-
-# Is split ----------------------------------------------------------------
-# Accessors ---------------------------------------------------------------
-
-#' @rdname accessors-methods-sspm_data
-#' @export
-setGeneric(name = "is_split",
-           def = function(sspm_object) standardGeneric("is_split")
-)
-
-#' @rdname accessors-methods-sspm_data
-#' @export
-setMethod("is_split",
-          signature("sspm_object" = "sspm_data"),
-          function(sspm_object) sspm_object@is_split
-)
-
-# Replacers ---------------------------------------------------------------
-
-#' @rdname accessors-methods-sspm_data
-#' @export
-setGeneric(name = "is_split<-",
-           def = function(object, value) standardGeneric("is_split<-")
-)
-
-#' @rdname accessors-methods-sspm_data
-#' @export
-setMethod("is_split<-",
-          signature("object" = "sspm_data"),
-          function(object, value){
-            object@is_split <- value
-            validObject(object)
-            return(object)
-          }
-)
-
 
 # Is mapped ---------------------------------------------------------------
 # Accessors ---------------------------------------------------------------

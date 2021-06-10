@@ -13,11 +13,6 @@
 # Boundaries --------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
-#' @export
-setGeneric(name = "spm_boundaries",
-           def = function(sspm_object) standardGeneric("spm_boundaries")
-)
-
 #' @rdname accessors-methods-sspm_boundary
 #' @export
 setMethod("spm_boundaries", signature("sspm_object" = "sspm_boundary"),
@@ -25,12 +20,6 @@ setMethod("spm_boundaries", signature("sspm_object" = "sspm_boundary"),
 )
 
 # Replacers ---------------------------------------------------------------
-
-#' @rdname accessors-methods-sspm_boundary
-#' @export
-setGeneric(name = "spm_boundaries<-",
-           def = function(object, value) standardGeneric("spm_boundaries<-")
-)
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
