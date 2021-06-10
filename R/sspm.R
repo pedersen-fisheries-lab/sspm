@@ -90,7 +90,8 @@ setMethod(f = "sspm",
                 dplyr::left_join(dplyr::select(spm_patches(spm_boundaries(biomass)),
                                                c("patch_id")),
                                  by = "patch_id") %>%
-                sf::st_as_sf()
+                sf::st_as_sf() %>%
+                tibble::rowid_to_column("row_ID")
 
               if(!is.null(catch)){
 
@@ -122,7 +123,8 @@ setMethod(f = "sspm",
                               uniqueID = spm_unique_ID(biomass),
                               boundaries = spm_boundaries(biomass),
                               formulas = list(),
-                              smoothed_data = full_smoothed_data)
+                              smoothed_data = full_smoothed_data,
+                              is_split = FALSE)
             }
 
           }

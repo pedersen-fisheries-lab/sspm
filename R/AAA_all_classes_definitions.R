@@ -107,10 +107,8 @@ setClass("sspm_data",
                       formulas = "list",
                       smoothed_data = "ANY",
                       smoothed_fit = "list",
-                      is_split = "logical",
                       is_mapped = "logical"),
-         prototype = prototype(is_split = FALSE,
-                               is_mapped = FALSE,
+         prototype = prototype(is_mapped = FALSE,
                                smoothed_data = NULL)
 )
 
@@ -161,8 +159,10 @@ setClass("sspm",
                       uniqueID = "character",
                       boundaries = "sspm_discrete_boundary",
                       formulas = "list",
-                      smoothed_data = "ANY"),
-         prototype = prototype(datasets = list())
+                      smoothed_data = "ANY",
+                      is_split = "logical"),
+         prototype = prototype(datasets = list(),
+                               is_split = FALSE)
 )
 
 # -------------------------------------------------------------------------
