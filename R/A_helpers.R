@@ -54,6 +54,7 @@ join_datasets <- function(sspm_data, sspm_boundary){
     dplyr::filter(!is.na(.data$patch_id))
 
   spm_data(sspm_data) <- joined
+  spm_boundaries(sspm_data) <- sspm_boundary
   is_mapped(sspm_data) <- TRUE
 
   return(sspm_data)
