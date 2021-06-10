@@ -60,7 +60,7 @@ setMethod(f = "sspm",
                 stop(call. = FALSE)
               }
 
-              # 3. combine the smoothed_data
+              # 3. combine the full_smoothed_data
               biomass_clean <- clean_data_for_joining(spm_smoothed_data(biomass))
               joining_vars <- c("patch_id", spm_boundaries(biomass)@boundary_column)
               if("area_km2" %in% names(biomass_clean)){
@@ -97,25 +97,69 @@ setMethod(f = "sspm",
 
                 # 4. deal with catch data
 
-                if(any(sapply(c(biomass_var, catch_var), is.null))){
+                if(any(sapply(list(biomass_var, catch_var), is.null))){
                   cli::cli_alert_danger("biomass_var or catch_var missing")
                   stop(call. = FALSE)
                 }
 
-                # join/calculate change from catch
+                if(!is_mapped(catch)){
+                  # Need to map dataset
+                  catch <- join_datasets(catch, spm_boundaries(biomass))
+                }
+
+                time_col <- spm_time_column(catch)
+                catch_data <- spm_data(catch) %>%
+                  dplyr::group_by(.data[[time_col]], .data$patch_id) %>%
+                  sf::st_set_geometry(NULL) %>%
+                  dplyr::summarise(total_catch = sum(.data[[catch_var]],
+                                                     na.rm = TRUE)) %>%
+                  tidyr::complete(.data[[time_col]], .data$patch_id,
+                                  fill = list(total_catch = 0)) %>%
+                  dplyr::mutate(!!time_col :=
+                                  as.factor(.data[[time_col]])) %>%
+                  unique()
+
+                # Calculate the right columns
+                smoothed_data_time_col <- spm_time_column(biomass)
+
+                # First, join data
+                full_smoothed_data <- full_smoothed_data %>%
+                  dplyr::mutate(!!smoothed_data_time_col :=
+                                  as.factor(.data[[smoothed_data_time_col]])) %>%
+                  dplyr::rename(!!time_col := smoothed_data_time_col) %>%
+                  dplyr::left_join(catch_data,
+                                   by = sapply(c(time_col, "patch_id"),
+                                               rlang::as_string))
+
+                catch_name <- paste0(biomass_var, "_with_catch")
+                change_name <- paste0(biomass_var, "_with_catch")
+
+                full_smoothed_data <- full_smoothed_data %>%
+                  dplyr::mutate(
+                    !!catch_name :=
+                      .data[[biomass_var]] + .data$total_catch/.data$area_km2) %>%
+                  dplyr::mutate(
+                    !!change_name :=
+                      log(.data[[catch_name]]) - log(dplyr::lag(.data[[biomass_var]]))) %>%
+                  dplyr::relocate(dplyr::starts_with(biomass_var),
+                                  .after = .data$row_ID)
+
+                # 3. create and return object
+                biomass_name <- spm_name(biomass)
+                all_data <- append(list(biomass = biomass,
+                                        catch = catch),
+                                   predictors)
+                names(all_data)[1] <- biomass_name
 
               } else {
 
-                # 5. combine here
-                # full_smoothed_data <-
+                # 3. create and return object
+                biomass_name <- spm_name(biomass)
+                all_data <- append(list(biomass = biomass),
+                                   predictors)
+                names(all_data)[1] <- biomass_name
 
               }
-
-              # 3. create and return object
-              biomass_name <- spm_name(biomass)
-              all_data <- append(list(biomass = biomass),
-                                 predictors)
-              names(all_data)[1] <- biomass_name
 
               new_sspm <- new("sspm",
                               datasets = all_data,
