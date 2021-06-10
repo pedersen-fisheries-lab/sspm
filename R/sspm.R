@@ -84,6 +84,7 @@ setMethod(f = "sspm",
                                    by = c(dplyr::all_of(joining_vars),
                                           spm_time_column(biomass)),
                                    suffix = the_suffix)
+
               }
 
               full_smoothed_data <- full_smoothed_data %>%
@@ -98,8 +99,17 @@ setMethod(f = "sspm",
                 # 4. deal with catch data
 
                 if(any(sapply(list(biomass_var, catch_var), is.null))){
+
                   cli::cli_alert_danger("biomass_var or catch_var missing")
                   stop(call. = FALSE)
+
+                } else {
+                  matches <- sum(grepl(biomass_var, colnames(full_smoothed_data)))
+                  if (matches > 1){
+                    cli::cli_alert_warning("More than one columns matching the biomass_var variable")
+                    cli::cli_alert_info(paste0("You might need to set biomass_var to ",
+                                               paste0(biomass_var, "_", spm_name(biomass))))
+                  }
                 }
 
                 if(!is_mapped(catch)){
