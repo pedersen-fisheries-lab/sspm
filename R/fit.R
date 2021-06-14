@@ -190,7 +190,7 @@ setMethod(f = "fit_smooths",
 #' @export
 #' @rdname fit
 setMethod(f = "fit_spm",
-          signature(sspm_object = "sspm_discrete"),
+          signature(sspm_object = "sspm"),
           function(sspm_object, keep_fit, family, select, method, ...){
 
             # Here we fit the full spm

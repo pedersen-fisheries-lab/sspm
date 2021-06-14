@@ -2,7 +2,7 @@
 #'
 #' Predict using a fitted SPM model on the whole data or on new data
 #'
-#' @inheritParams map_dataset
+#' @inheritParams spm_smooth
 #' @param new_data **\[data.frame\]**
 #' @param ... Arguments passed on to [predict.bam].
 #'

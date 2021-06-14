@@ -2,8 +2,8 @@
 % Please edit documentation in R/map_formula.R, R/spm_smooth.R
 \name{map_formula}
 \alias{map_formula}
-\alias{map_formula,sspm_discrete,missing,formula-method}
 \alias{map_formula,sspm_data,sspm_discrete_boundary,formula-method}
+\alias{map_formula,sspm,missing,formula-method}
 \alias{spm_smooth,ANY,missing,ANY-method}
 \alias{spm_smooth,ANY,ANY,missing-method}
 \alias{spm_smooth,ANY,ANY,sspm_boundary-method}
@@ -11,9 +11,9 @@
 \usage{
 map_formula(sspm_object, boundaries, formula, ...)
 
-\S4method{map_formula}{sspm_discrete,missing,formula}(sspm_object, boundaries, formula, ...)
-
 \S4method{map_formula}{sspm_data,sspm_discrete_boundary,formula}(sspm_object, boundaries, formula, ...)
+
+\S4method{map_formula}{sspm,missing,formula}(sspm_object, boundaries, formula, ...)
 
 \S4method{spm_smooth}{ANY,missing,ANY}(
   sspm_object,
@@ -59,9 +59,9 @@ model (default to TRUE, set to FALSE to reduce memory footprint).}
 predictions (necessary to fit the final SPM model, default to TRUE).}
 }
 \value{
-The updated object, of class \link[=sspm_discrete-class]{sspm_discrete}.
+The updated object.
 }
 \description{
 This functions is now used internally to map a formula onto a \code{sspm_data}
-object.
+or \code{sspm} object.
 }

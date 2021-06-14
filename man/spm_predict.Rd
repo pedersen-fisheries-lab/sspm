@@ -10,6 +10,9 @@ spm_predict(sspm_object, new_data = NULL, ...)
 \S4method{spm_predict}{sspm}(sspm_object, new_data = NULL, ...)
 }
 \arguments{
+\item{sspm_object}{\strong{[sspm_data]} An object of class
+\link[=sspm_data-class]{sspm_data}.}
+
 \item{new_data}{\strong{[data.frame]}}
 
 \item{...}{Arguments passed on to \link{predict.bam}.}

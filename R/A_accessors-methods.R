@@ -1,13 +1,12 @@
 #' Accessing OR replacing `sspm` model elements
 #'
 #' All methods described here allow to access the elements of contained in
-#' objects of class [sspm][sspm-class] and others derivative classes
-#' (`sspm_discrete`, etc...).
+#' objects of the different classes of the package.
 #'
 #' @param sspm_object **\[sspm OR adjacent\]** An object of class
 #'     [sspm][sspm-class] or others derivative classes.
 #' @inheritParams base::Extract
-#' @inheritParams map_dataset
+#' @inheritParams spm_smooth
 #'
 #' @aliases spm_
 #' @rdname sspm-accessors-methods
@@ -120,7 +119,7 @@ setGeneric(name = "spm_boundaries<-",
 #' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_boundaries<-",
-          signature("object" = "sspm_discrete"),
+          signature("object" = "sspm"),
           function(object, value){
             object@boundaries <- value
             validObject(object)

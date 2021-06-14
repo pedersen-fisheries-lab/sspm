@@ -13,7 +13,7 @@
 \alias{spm_boundaries}
 \alias{spm_boundaries,sspm-method}
 \alias{spm_boundaries<-}
-\alias{spm_boundaries<-,sspm_discrete-method}
+\alias{spm_boundaries<-,sspm-method}
 \alias{spm_smoothed_data}
 \alias{spm_smoothed_data,sspm-method}
 \alias{spm_smoothed_data<-}
@@ -52,7 +52,7 @@ spm_boundaries(sspm_object)
 
 spm_boundaries(object) <- value
 
-\S4method{spm_boundaries}{sspm_discrete}(object) <- value
+\S4method{spm_boundaries}{sspm}(object) <- value
 
 spm_smoothed_data(sspm_object)
 
@@ -95,6 +95,5 @@ is_split(object) <- value
 }
 \description{
 All methods described here allow to access the elements of contained in
-objects of class \link[=sspm-class]{sspm} and others derivative classes
-(\code{sspm_discrete}, etc...).
+objects of the different classes of the package.
 }
