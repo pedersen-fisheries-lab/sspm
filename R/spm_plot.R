@@ -2,7 +2,7 @@
 #'
 #' Plot methods for a range of sspm objects.
 #'
-#' @param x An object from this package.
+#' @param sspm_object An object from this package.
 #' @param smoothed_var TODO
 #' @param page TODO
 #' @param nrow TODO
@@ -11,24 +11,28 @@
 #' @return
 #' N/A
 #'
-#' @name plot.sspm
-#' @rdname plot-sspm
-
-NULL
-
-#' @rdname plot-sspm
 #' @export
-setMethod("plot",
-          signature(x = "sspm_boundary"),
-          definition = function(x) {
+setGeneric(name = "spm_plot",
+           def = function(sspm_object, smoothed_var,
+                          page = NULL, nrow = NULL, ncol = NULL){
+             standardGeneric("spm_plot")
+           }
+)
 
-            boundaries <- spm_boundaries(x)
-            boundary_column <- spm_boundary_colum(x)
+# Methods -----------------------------------------------------------------
 
-            if (checkmate::test_class(x, "sspm_discrete_boundary")){
+#' @export
+setMethod("spm_plot",
+          signature(sspm_object = "sspm_boundary"),
+          definition = function(sspm_object) {
 
-              patches <- x@patches
-              points <- x@points
+            boundaries <- spm_boundaries(sspm_object)
+            boundary_column <- spm_boundary_colum(sspm_object)
+
+            if (checkmate::test_class(sspm_object, "sspm_discrete_boundary")){
+
+              patches <- sspm_object@patches
+              points <- sspm_object@points
 
               sspm_discrete_plot <- ggplot2::ggplot() +
                 ggplot2::geom_sf(data = patches,
@@ -41,7 +45,7 @@ setMethod("plot",
                 ggplot2::scale_color_viridis_d(boundary_column) +
                 ggplot2::theme_light()
 
-            } else if(checkmate::test_class(x, "sspm_boundary")){
+            } else if(checkmate::test_class(sspm_object, "sspm_boundary")){
 
               sspm_discrete_plot <- ggplot2::ggplot() +
                 ggplot2::geom_sf(data = boundaries,
@@ -57,25 +61,24 @@ setMethod("plot",
           }
 )
 
-#' @rdname plot-sspm
 #' @export
-setMethod("plot",
-          signature(x = "sspm_data"),
-          definition = function(x, smoothed_var = NULL,
+setMethod("spm_plot",
+          signature(sspm_object = "sspm_data"),
+          definition = function(sspm_object, smoothed_var = NULL,
                                 page = "first", nrow = 2, ncol = 4) {
 
-            smoothed_data <- spm_smoothed_data(x)
+            smoothed_data <- spm_smoothed_data(sspm_object)
 
             if(is.null(smoothed_var)){
 
-              sspm_discrete_plot <- plot(spm_boundaries(x))
+              sspm_discrete_plot <- plot(spm_boundaries(sspm_object))
               show(sspm_discrete_plot)
 
             } else {
 
               # TODO add check for smoothed_var to be in smoothed_data
 
-              time_col <- spm_time_column(x)
+              time_col <- spm_time_column(sspm_object)
 
               if(is.character(page)){
 
