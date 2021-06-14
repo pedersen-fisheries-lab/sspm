@@ -102,7 +102,7 @@ setMethod(f = "spm_discretize",
 
             # Send to discretization routine
             boundaries <- boundary_object@boundaries
-            boundary_column <- boundary_object@boundary_column
+            boundary_column <- spm_boundary_colum(boundary_object)
             other_args <- list(...)
 
             discrete <-

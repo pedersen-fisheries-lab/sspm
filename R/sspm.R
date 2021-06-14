@@ -62,7 +62,7 @@ setMethod(f = "sspm",
 
               # 3. combine the full_smoothed_data
               biomass_clean <- clean_data_for_joining(spm_smoothed_data(biomass))
-              joining_vars <- c("patch_id", spm_boundaries(biomass)@boundary_column)
+              joining_vars <- c("patch_id", spm_boundary_colum(spm_boundaries(biomass)))
               if("area_km2" %in% names(biomass_clean)){
                 joining_vars <- c(joining_vars, "area_km2")
               }
