@@ -1,12 +1,12 @@
 #' Map model formula onto a sspm_data object
 #'
 #' This functions is now used internally to map a formula onto a `sspm_data`
-#' object.
+#' or `sspm` object.
 #'
 #' @inheritParams spm_smooth
 #'
 #' @return
-#' The updated object, of class [sspm_discrete][sspm_discrete-class].
+#' The updated object.
 #'
 setGeneric(name = "map_formula",
            def = function(sspm_object,
@@ -24,82 +24,6 @@ setGeneric(name = "map_formula",
 # Therefore all cannot be enclosed in the environment captured by the formula.
 
 # Methods -----------------------------------------------------------------
-
-# TODO review this
-#' @rdname map_formula
-setMethod(f = "map_formula",
-          signature(sspm_object = "sspm_discrete",
-                    boundaries = "missing",
-                    formula = "formula"),
-          function(sspm_object, boundaries, formula, ...){
-
-            # If dataset name is not provided, assume we want to map an actual
-            # SPM formula and not smooth the data (previous step in workflow)
-
-            # So first determine whether all datasets have been smoothed and
-            # whether a splitting scheme has been provided
-
-            # Get all datasets
-            all_datasets <- spm_datasets(sspm_object)
-            smoothed_data <- spm_smoothed_data(sspm_object)
-
-            # 1. Are all datasets smoothed?
-            # TODO not used anymore
-            are_smoothed <- sapply(all_datasets, is_smoothed)
-
-            if(!(any(are_smoothed))){
-              cli::cli_alert_warning(" Warning: Not all datasets are smoothed")
-              cli::cli_alert_info(" To fit a smoothing formula to a specific dataset, use dataset = ...")
-              # stop("Not all datasets are smoothed", call. = FALSE)
-            }
-
-            # 2. Is there a dataset of type "biomass" and one of type "catch"
-            # all_types <- sapply(all_datasets, spm_type)
-            # TODO Uncomment this before next release
-            # if(any(!("biomass" %in% all_types) | !("catch" %in% all_types))){
-            #   cli::cli_alert_danger(" No dataset of type biomass or catch")
-            #   stop("No dataset of type biomass or catch", call. = FALSE)
-            # }
-
-            # 3. Is there a splitting scheme?
-            if(!is_split(smoothed_data)){
-              stop("Data must be splitted.")
-            } else {
-              old_sspm_data <- spm_data(spm_smoothed_data(sspm_object))
-              new_sspm_data <- old_sspm_data %>%
-                dplyr::filter(.data$train_test == TRUE)
-              spm_data(spm_smoothed_data(sspm_object)) <- new_sspm_data
-            }
-
-            # 4. Map the formula
-
-            # Retrieve terms, response, and term labels
-            formula_terms <- terms(formula)
-            response <- all.vars(formula)[1]
-            terms_labels <- attr(formula_terms, "term.labels")
-
-            # Check response
-
-            response_data <- spm_data(smoothed_data)
-
-            if(!checkmate::test_subset(response, names(response_data))){
-              stop("The response in the formula is not a column of the smoothed_data.",
-                   call. = FALSE)
-            }
-
-            # Pass onto the sspm_data method
-            smoothed_data <- sspm_object %>%
-              map_formula(formula = formula,
-                          dataset = smoothed_data,
-                          ...)
-
-            spm_smoothed_data(sspm_object) <- smoothed_data
-            spm_data(spm_smoothed_data(sspm_object)) <- old_sspm_data
-
-            return(sspm_object)
-
-          }
-)
 
 #' @rdname map_formula
 setMethod(f = "map_formula",
@@ -177,6 +101,83 @@ setMethod(f = "map_formula",
 
             spm_formulas(sspm_object) <- append(spm_formulas(sspm_object),
                                                 list(sspm_formula))
+
+            return(sspm_object)
+
+          }
+)
+
+
+# TODO review this
+#' @rdname map_formula
+setMethod(f = "map_formula",
+          signature(sspm_object = "sspm",
+                    boundaries = "missing",
+                    formula = "formula"),
+          function(sspm_object, boundaries, formula, ...){
+
+            # If dataset name is not provided, assume we want to map an actual
+            # SPM formula and not smooth the data (previous step in workflow)
+
+            # So first determine whether all datasets have been smoothed and
+            # whether a splitting scheme has been provided
+
+            # Get all datasets
+            all_datasets <- spm_datasets(sspm_object)
+            smoothed_data <- spm_smoothed_data(sspm_object)
+
+            # 1. Are all datasets smoothed?
+            # TODO not used anymore
+            are_smoothed <- sapply(all_datasets, is_smoothed)
+
+            if(!(any(are_smoothed))){
+              cli::cli_alert_warning(" Warning: Not all datasets are smoothed")
+              cli::cli_alert_info(" To fit a smoothing formula to a specific dataset, use dataset = ...")
+              # stop("Not all datasets are smoothed", call. = FALSE)
+            }
+
+            # 2. Is there a dataset of type "biomass" and one of type "catch"
+            # all_types <- sapply(all_datasets, spm_type)
+            # TODO Uncomment this before next release
+            # if(any(!("biomass" %in% all_types) | !("catch" %in% all_types))){
+            #   cli::cli_alert_danger(" No dataset of type biomass or catch")
+            #   stop("No dataset of type biomass or catch", call. = FALSE)
+            # }
+
+            # 3. Is there a splitting scheme?
+            if(!is_split(smoothed_data)){
+              stop("Data must be splitted.")
+            } else {
+              old_sspm_data <- spm_data(spm_smoothed_data(sspm_object))
+              new_sspm_data <- old_sspm_data %>%
+                dplyr::filter(.data$train_test == TRUE)
+              spm_data(spm_smoothed_data(sspm_object)) <- new_sspm_data
+            }
+
+            # 4. Map the formula
+
+            # Retrieve terms, response, and term labels
+            formula_terms <- terms(formula)
+            response <- all.vars(formula)[1]
+            terms_labels <- attr(formula_terms, "term.labels")
+
+            # Check response
+
+            response_data <- spm_data(smoothed_data)
+
+            if(!checkmate::test_subset(response, names(response_data))){
+              stop("The response in the formula is not a column of the smoothed_data.",
+                   call. = FALSE)
+            }
+
+            # Pass onto the sspm_data method
+            smoothed_data <- sspm_object %>%
+              map_formula(formula = formula,
+                          dataset = smoothed_data,
+                          ...)
+
+            spm_smoothed_data(sspm_object) <- smoothed_data
+            spm_data(spm_smoothed_data(sspm_object)) <- old_sspm_data
 
             return(sspm_object)
 
