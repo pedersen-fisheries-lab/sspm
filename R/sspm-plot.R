@@ -22,8 +22,8 @@ setMethod("plot",
           signature(x = "sspm_boundary"),
           definition = function(x) {
 
-            boundaries <- x@boundaries
-            b_col <- x@boundary_column
+            boundaries <- spm_boundaries(x)
+            boundary_column <- spm_boundary_colum(x)
 
             if (checkmate::test_class(x, "sspm_discrete_boundary")){
 
@@ -36,18 +36,18 @@ setMethod("plot",
                 ggplot2::geom_sf(data = points,
                                  col ="#6082B6") +
                 ggplot2::geom_sf(data = boundaries,
-                                 ggplot2::aes(col = .data[[b_col]]),
+                                 ggplot2::aes(col = .data[[boundary_column]]),
                                  fill = NA) +
-                ggplot2::scale_color_viridis_d(b_col) +
+                ggplot2::scale_color_viridis_d(boundary_column) +
                 ggplot2::theme_light()
 
             } else if(checkmate::test_class(x, "sspm_boundary")){
 
               sspm_discrete_plot <- ggplot2::ggplot() +
                 ggplot2::geom_sf(data = boundaries,
-                                 ggplot2::aes(fill = .data[[b_col]]),
+                                 ggplot2::aes(fill = .data[[boundary_column]]),
                                  col = "#36454F") +
-                ggplot2::scale_fill_viridis_d(b_col) +
+                ggplot2::scale_fill_viridis_d(boundary_column) +
                 ggplot2::theme_light()
 
             }
