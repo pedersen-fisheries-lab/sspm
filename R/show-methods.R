@@ -198,10 +198,13 @@ cat_smoothed_data <- function(object){
       names(which(sapply(colnames(object@smoothed_data),
                          grepl, pattern = "_with_catch", fixed=TRUE)))
 
-    if(length(columns_with_catch) > 0){
-      columns_with_smooth <- columns_with_smooth[!(columns_with_smooth %in%
-                                                     columns_with_catch)]
-    }
+    columns_with_lag <-
+      names(which(sapply(colnames(object@smoothed_data),
+                         grepl, pattern="_lag", fixed=TRUE)))
+
+    columns_with_smooth <- columns_with_smooth[!(columns_with_smooth %in%
+                                                   c(columns_with_catch,
+                                                     columns_with_lag))]
 
     if (length(columns_with_smooth) > 0){
       the_line <-
@@ -216,6 +219,15 @@ cat_smoothed_data <- function(object){
       the_line <-
         paste(cli::symbol$star, "vars with catch:",
               paste(cli::col_green(sort(columns_with_catch)),
+                    collapse = paste0(" ", cli::symbol$em_dash, " ")))
+
+      cli::cat_line("   ", the_line)
+    }
+
+    if (length(columns_with_lag) > 0){
+      the_line <-
+        paste(cli::symbol$star, "lagged vars:",
+              paste(cli::col_green(sort(columns_with_lag)),
                     collapse = paste0(" ", cli::symbol$em_dash, " ")))
 
       cli::cat_line("   ", the_line)
