@@ -19,9 +19,7 @@
 \alias{spm_smoothed_data<-}
 \alias{spm_smoothed_data<-,sspm-method}
 \alias{spm_formulas}
-\alias{spm_formulas,sspm-method}
 \alias{spm_formulas<-}
-\alias{spm_formulas<-,sspm-method}
 \alias{spm_time_column}
 \alias{spm_time_column,sspm-method}
 \alias{spm_time_column<-}
@@ -42,9 +40,7 @@ spm_name(object) <- value
 
 spm_datasets(sspm_object, type = NULL)
 
-\S4method{spm_datasets}{sspm}(sspm_object)
-
-\S4method{spm_datasets}{sspm}(sspm_object)
+\S4method{spm_datasets}{sspm}(sspm_object, type = NULL)
 
 spm_datasets(object) <- value
 
@@ -68,11 +64,7 @@ spm_smoothed_data(object) <- value
 
 spm_formulas(sspm_object)
 
-\S4method{spm_formulas}{sspm}(sspm_object)
-
 spm_formulas(object) <- value
-
-\S4method{spm_formulas}{sspm}(object) <- value
 
 spm_time_column(sspm_object)
 
@@ -100,9 +92,6 @@ is_split(object) <- value
 
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
-
-\item{type}{\strong{[character]} The type of dataset in the context of the sspm
-workflow, one of "biomass", "predictor", or "catch".}
 }
 \description{
 All methods described here allow to access the elements of contained in

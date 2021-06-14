@@ -75,14 +75,6 @@ setMethod("spm_datasets", signature("sspm_object" = "sspm"),
           }
 )
 
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_datasets", signature("sspm_object" = "sspm"),
-          function(sspm_object) {
-            cli::cli_alert_danger("Use `spm_data` to access the data of a dataset object")
-          }
-)
-
 # Replacers ---------------------------------------------------------------
 
 #' @rdname sspm-accessors-methods
@@ -185,12 +177,12 @@ setGeneric(name = "spm_formulas",
            def = function(sspm_object) standardGeneric("spm_formulas")
 )
 
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_formulas",
-          signature("sspm_object" = "sspm"),
-          function(sspm_object) sspm_object@formulas
-)
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_formulas",
+#           signature("sspm_object" = "sspm"),
+#           function(sspm_object) sspm_object@formulas
+# )
 
 # Replacers ---------------------------------------------------------------
 
@@ -200,16 +192,16 @@ setGeneric(name = "spm_formulas<-",
            def = function(object, value) standardGeneric("spm_formulas<-")
 )
 
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_formulas<-",
-          signature("object" = "sspm"),
-          function(object, value){
-            object@formulas <- value
-            validObject(object)
-            return(object)
-          }
-)
+# #' @rdname sspm-accessors-methods
+# #' @export
+# setMethod("spm_formulas<-",
+#           signature("object" = "sspm"),
+#           function(object, value){
+#             object@formulas <- value
+#             validObject(object)
+#             return(object)
+#           }
+# )
 
 # Time col ----------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
