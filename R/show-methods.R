@@ -184,9 +184,26 @@ cat_smoothed_data <- function(object){
 
   if(!is.null(object@smoothed_data)){
 
-    cli::cat_bullet(" Smoothed Data     : ",
-                    pluralize_data_info(object@smoothed_data),
-                    bullet = "arrow_right")
+    if(is_split(object)){
+
+      n_train <- sum(object@smoothed_data$train_test)
+      n_test <- sum(!object@smoothed_data$train_test)
+
+      split_info <- paste0(" [", cli::col_blue(n_train),
+                           cli::col_yellow(" train, "),
+                           cli::col_blue(n_test),
+                           cli::col_yellow(" test"), "]")
+
+      cli::cat_bullet(" Smoothed Data     : ",
+                      pluralize_data_info(object@smoothed_data),
+                      " /", split_info,
+                      bullet = "arrow_right")
+
+    } else {
+      cli::cat_bullet(" Smoothed Data     : ",
+                      pluralize_data_info(object@smoothed_data),
+                      bullet = "arrow_right")
+    }
 
     columns_with_smooth <-
       names(which(sapply(colnames(object@smoothed_data),
