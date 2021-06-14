@@ -20,7 +20,7 @@ setGeneric(name = "spm_predict",
 #' @export
 #' @rdname spm_predict
 setMethod(f = "spm_predict",
-          signature(sspm_object = "sspm_discrete"),
+          signature(sspm_object = "sspm"),
           function(sspm_object, new_data, ...){
 
             smoothed_data <- spm_smoothed_data(sspm_object)
