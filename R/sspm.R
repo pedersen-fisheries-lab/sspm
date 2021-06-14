@@ -61,6 +61,11 @@ setMethod(f = "sspm",
               }
 
               # 3. combine the full_smoothed_data
+              # message about catch
+              info_message <-
+                paste0(" Joining smoothed data from all datasets")
+              cli::cli_alert_info(info_message)
+
               biomass_clean <- clean_data_for_joining(spm_smoothed_data(biomass))
               joining_vars <- c("patch_id", spm_boundary_colum(spm_boundaries(biomass)))
               if("area_km2" %in% names(biomass_clean)){
@@ -107,8 +112,14 @@ setMethod(f = "sspm",
                   matches <- sum(grepl(biomass_var, colnames(full_smoothed_data)))
                   if (matches > 1){
                     cli::cli_alert_warning("More than one columns matching the biomass_var variable")
-                    cli::cli_alert_info(paste0("You might need to set biomass_var to ",
-                                               paste0(biomass_var, "_", spm_name(biomass))))
+                    cli::cli_alert_warning(paste0("You might need to set biomass_var to ",
+                                                  cli::col_yellow(paste0(biomass_var, "_", spm_name(biomass)))))
+                  } else {
+                    # message about catch
+                    info_message <-
+                      paste0(" Offsetting biomass with catch data using columns: ",
+                             paste(cli::col_green(c(biomass_var, catch_var)), collapse = ", "))
+                    cli::cli_alert_info(info_message)
                   }
                 }
 
