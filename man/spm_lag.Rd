@@ -2,12 +2,12 @@
 % Please edit documentation in R/spm_lag.R
 \name{spm_lag}
 \alias{spm_lag}
-\alias{spm_lag,sspm_discrete-method}
+\alias{spm_lag,sspm-method}
 \title{Create lagged columns in a sspm smoothed data slot}
 \usage{
 spm_lag(sspm_object, vars, n = 1, default = "mean", ...)
 
-\S4method{spm_lag}{sspm_discrete}(sspm_object, vars, n = 1, default = "mean", ...)
+\S4method{spm_lag}{sspm}(sspm_object, vars, n = 1, default = "mean", ...)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class
