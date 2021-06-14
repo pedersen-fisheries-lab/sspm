@@ -8,7 +8,6 @@
 #'
 #' @inheritParams base::Extract
 #'
-#' @rdname accessors-methods-sspm_boundary
 
 # Boundaries --------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
@@ -134,6 +133,41 @@ setMethod("spm_points<-",
           signature("object" = "sspm_boundary"),
           function(object, value){
             object@points <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+# Boundary col ------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_boundary
+#' @export
+setGeneric(name = "spm_boundary_colum",
+           def = function(sspm_object) standardGeneric("spm_boundary_colum")
+)
+
+#' @rdname accessors-methods-sspm_boundary
+#' @export
+setMethod("spm_boundary_colum",
+          signature("sspm_object" = "sspm_boundary"),
+          function(sspm_object) sspm_object@boundary_column
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_boundary
+#' @export
+setGeneric(name = "spm_boundary_colum<-",
+           def = function(object, value) standardGeneric("spm_boundary_colum<-")
+)
+
+#' @rdname accessors-methods-sspm_boundary
+#' @export
+setMethod("spm_boundary_colum<-",
+          signature("object" = "sspm_boundary"),
+          function(object, value){
+            object@boundary_column <- value
             validObject(object)
             return(object)
           }
