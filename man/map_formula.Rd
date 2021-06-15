@@ -2,21 +2,15 @@
 % Please edit documentation in R/map_formula.R, R/spm_smooth.R
 \name{map_formula}
 \alias{map_formula}
-\alias{map_formula,sspm_data,sspm_discrete_boundary,formula-method}
-\alias{map_formula,sspm,missing,formula-method}
 \alias{map_formula,sf,ANY,formula-method}
 \alias{spm_smooth,ANY,missing,ANY-method}
 \alias{spm_smooth,ANY,ANY,missing-method}
 \alias{spm_smooth,ANY,ANY,sspm_boundary-method}
 \title{Map model formula onto a sspm_data object}
 \usage{
-map_formula(sspm_object, boundaries, formula, time_column, ...)
+map_formula(data_frame, boundaries, formula, time_column, ...)
 
-\S4method{map_formula}{sspm_data,sspm_discrete_boundary,formula}(sspm_object, boundaries, formula, time_column, ...)
-
-\S4method{map_formula}{sspm,missing,formula}(sspm_object, boundaries, formula, time_column, ...)
-
-\S4method{map_formula}{sf,ANY,formula}(sspm_object, boundaries, formula, time_column, ...)
+\S4method{map_formula}{sf,ANY,formula}(data_frame, boundaries, formula, time_column, ...)
 
 \S4method{spm_smooth}{ANY,missing,ANY}(
   sspm_object,
@@ -46,14 +40,23 @@ map_formula(sspm_object, boundaries, formula, time_column, ...)
 )
 }
 \arguments{
-\item{sspm_object}{\strong{[sspm_data]} An object of class
-\link[=sspm_data-class]{sspm_data}.}
+\item{data_frame}{\strong{[sf data.frame]} The data.}
 
 \item{boundaries}{\strong{[sspm_boundary]} An object of class
 \link[=sspm_boundary-class]{sspm_discrete_boundary}.}
 
 \item{formula}{\strong{[formula]} A formula definition of the form
 response ~ smoothing_terms + ...}
+
+\item{time_column}{\strong{[character]} The time column.}
+
+\item{...}{ a list of variables that are the covariates that this
+    smooth is a function of. Transformations whose form depends on
+    the values of the data are best avoided here: e.g. \code{s(log(x))}
+    is fine, but \code{s(I(x/sd(x)))} is not (see \code{\link[mgcv]{predict.gam}}).}
+
+\item{sspm_object}{\strong{[sspm_data]} An object of class
+\link[=sspm_data-class]{sspm_data}.}
 
 \item{keep_fit}{\strong{[logical]} Whether or not to keep the fitted values and
 model (default to TRUE, set to FALSE to reduce memory footprint).}

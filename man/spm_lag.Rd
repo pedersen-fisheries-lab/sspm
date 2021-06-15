@@ -20,7 +20,10 @@ lead or lag by}
 
 \item{default}{Value used for non-existent rows. Defaults to \code{NA}.}
 
-\item{...}{Needed for compatibility with lag generic.}
+\item{...}{ a list of variables that are the covariates that this
+    smooth is a function of. Transformations whose form depends on
+    the values of the data are best avoided here: e.g. \code{s(log(x))}
+    is fine, but \code{s(I(x/sd(x)))} is not (see \code{\link[mgcv]{predict.gam}}).}
 }
 \description{
 This function is a wrapper around \link[dplyr:lead-lag]{lag} (note that not all

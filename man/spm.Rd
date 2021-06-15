@@ -6,11 +6,11 @@
 \alias{spm,sspm,formula-method}
 \title{Fit an SPM model}
 \usage{
-spm(sspm_object, formula)
+spm(sspm_object, formula, ...)
 
-\S4method{spm}{sspm,missing}(sspm_object, formula)
+\S4method{spm}{sspm,missing}(sspm_object, formula, ...)
 
-\S4method{spm}{sspm,formula}(sspm_object, formula)
+\S4method{spm}{sspm,formula}(sspm_object, formula, ...)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_data]} An object of class
