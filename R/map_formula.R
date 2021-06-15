@@ -119,42 +119,17 @@ setMethod(f = "map_formula",
             # If dataset name is not provided, assume we want to map an actual
             # SPM formula and not smooth the data (previous step in workflow)
 
-            # So first determine whether all datasets have been smoothed and
-            # whether a splitting scheme has been provided
-
-            # Get all datasets
-            all_datasets <- spm_datasets(sspm_object)
-            smoothed_data <- spm_smoothed_data(sspm_object)
-
-            # 1. Are all datasets smoothed?
-            # TODO not used anymore
-            are_smoothed <- sapply(all_datasets, is_smoothed)
-
-            if(!(any(are_smoothed))){
-              cli::cli_alert_warning(" Warning: Not all datasets are smoothed")
-              cli::cli_alert_info(" To fit a smoothing formula to a specific dataset, use dataset = ...")
-              # stop("Not all datasets are smoothed", call. = FALSE)
-            }
-
-            # 2. Is there a dataset of type "biomass" and one of type "catch"
-            # all_types <- sapply(all_datasets, spm_type)
-            # TODO Uncomment this before next release
-            # if(any(!("biomass" %in% all_types) | !("catch" %in% all_types))){
-            #   cli::cli_alert_danger(" No dataset of type biomass or catch")
-            #   stop("No dataset of type biomass or catch", call. = FALSE)
-            # }
-
-            # 3. Is there a splitting scheme?
+            # 1. Is there a splitting scheme?
             if(!is_split(smoothed_data)){
-              stop("Data must be splitted.")
+              stop("Data must be split with a test/train column.")
             } else {
-              old_sspm_data <- spm_data(spm_smoothed_data(sspm_object))
-              new_sspm_data <- old_sspm_data %>%
+              old_data <- spm_smoothed_data(sspm_object)
+              train_data <- old_data %>%
                 dplyr::filter(.data$train_test == TRUE)
-              spm_data(spm_smoothed_data(sspm_object)) <- new_sspm_data
+              spm_smoothed_data(sspm_object) <- train_data
             }
 
-            # 4. Map the formula
+            # 2. Map the formula
 
             # Retrieve terms, response, and term labels
             formula_terms <- terms(formula)
