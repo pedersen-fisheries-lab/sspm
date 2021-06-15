@@ -184,7 +184,6 @@ setMethod("formula_type<-",
           }
 )
 
-
 # Is_fitted ---------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
@@ -220,3 +219,37 @@ setMethod("is_fitted<-",
           }
 )
 
+# Response ----------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_formula
+#' @export
+setGeneric(name = "spm_response",
+           def = function(sspm_object) standardGeneric("spm_response")
+)
+
+#' @rdname accessors-methods-sspm_formula
+#' @export
+setMethod("spm_response",
+          signature("sspm_object" = "sspm_formula"),
+          function(sspm_object) sspm_object@response
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_formula
+#' @export
+setGeneric(name = "spm_response<-",
+           def = function(object, value) standardGeneric("spm_response<-")
+)
+
+#' @rdname accessors-methods-sspm_formula
+#' @export
+setMethod("spm_response<-",
+          signature("object" = "sspm_formula"),
+          function(object, value){
+            object@response <- value
+            validObject(object)
+            return(object)
+          }
+)
