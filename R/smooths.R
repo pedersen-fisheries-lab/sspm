@@ -209,6 +209,7 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
 
   checkmate::assert_class(data_frame, "sf")
   checkmate::assert_class(boundaries, "sspm_discrete_boundary")
+  checkmate::assert_character(time_column)
   checkmate::assert_character(dimension)
   checkmate::assert_choice(dimension, choices = c("time", "space", "space_time"))
 
@@ -387,10 +388,12 @@ ICAR_space <- function(patches, space_column){
 # Construct the lag matrix and associated lag columns for the linear predictor
 # method of fitting the smooth
 
-LINPRED <- function(sspm_object, boundaries, time_column, var,
+LINPRED <- function(data_frame, boundaries, time_column, var,
                     k, m, ...){
 
-  checkmate::assert_class(sspm_object, "sspm_data")
+  checkmate::assert_class(data_frame, "sf")
+  checkmate::assert_class(boundaries, "sspm_discrete_boundary")
+  checkmate::assert_character(time_column)
 
   # Recapture the ellipsis again
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
@@ -398,18 +401,16 @@ LINPRED <- function(sspm_object, boundaries, time_column, var,
   # Make the lag matrix
   boundary_col <- spm_boundary_colum(boundaries)
 
-  smoothed_data <- spm_data(spm_smoothed_data(sspm_object))
-
-  lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(smoothed_data),
+  lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(data_frame),
                                      ncol = k, byrow = TRUE)) %>%
     dplyr::rename_all(.funs = gsub, pattern = "V", replacement = "lag") %>%
-    dplyr::mutate(!!time_column := smoothed_data[[time_column]],
-                  !!boundary_col := smoothed_data[[boundary_col]],
-                  "patch_id" = smoothed_data[["patch_id"]]) %>%
+    dplyr::mutate(!!time_column := data_frame[[time_column]],
+                  !!boundary_col := data_frame[[boundary_col]],
+                  "patch_id" = data_frame[["patch_id"]]) %>%
     dplyr:: select(dplyr::contains('lag')) %>%
     as.matrix()
 
-  by_matrix <- smoothed_data %>%
+  by_matrix <- data_frame %>%
     sf::st_set_geometry(NULL) %>%
     dplyr::select(.data$patch_id, !!boundary_col, !!time_column, !!var) %>%
     dplyr::nest_by(.data$patch_id, !!boundary_col := .data[[boundary_col]]) %>%

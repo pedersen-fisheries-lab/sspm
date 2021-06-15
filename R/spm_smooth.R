@@ -84,11 +84,21 @@ setMethod(f = "spm_smooth",
               sspm_object_joined <- sspm_object
             }
 
-            # 1. call map_formula
-            sspm_object_joined <- sspm_object_joined %>%
-              map_formula(boundaries = boundaries, formula = formula)
+            # 2. call map_formula
+            data_frame <- spm_data(sspm_object_joined)
+            time_column <- spm_time_column(sspm_object_joined)
 
-            # 2. call fit with ... arguments
+            sspm_formula <- map_formula(data_frame = data_frame,
+                                        boundaries = boundaries,
+                                        formula = formula,
+                                        time_column = time_column,
+                                        ...)
+
+            spm_formulas(sspm_object_joined) <-
+              append(spm_formulas(sspm_object_joined),
+                     list(sspm_formula))
+
+            # 3. call fit with ... arguments
             sspm_object_fitted <- sspm_object_joined %>%
               fit_smooths(boundaries = boundaries,
                           keep_fit = keep_fit, predict = predict, ...)
