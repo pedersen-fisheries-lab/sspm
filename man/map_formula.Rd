@@ -4,16 +4,19 @@
 \alias{map_formula}
 \alias{map_formula,sspm_data,sspm_discrete_boundary,formula-method}
 \alias{map_formula,sspm,missing,formula-method}
+\alias{map_formula,sf,ANY,formula-method}
 \alias{spm_smooth,ANY,missing,ANY-method}
 \alias{spm_smooth,ANY,ANY,missing-method}
 \alias{spm_smooth,ANY,ANY,sspm_boundary-method}
 \title{Map model formula onto a sspm_data object}
 \usage{
-map_formula(sspm_object, boundaries, formula, ...)
+map_formula(sspm_object, boundaries, formula, time_column, ...)
 
-\S4method{map_formula}{sspm_data,sspm_discrete_boundary,formula}(sspm_object, boundaries, formula, ...)
+\S4method{map_formula}{sspm_data,sspm_discrete_boundary,formula}(sspm_object, boundaries, formula, time_column, ...)
 
-\S4method{map_formula}{sspm,missing,formula}(sspm_object, boundaries, formula, ...)
+\S4method{map_formula}{sspm,missing,formula}(sspm_object, boundaries, formula, time_column, ...)
+
+\S4method{map_formula}{sf,ANY,formula}(sspm_object, boundaries, formula, time_column, ...)
 
 \S4method{spm_smooth}{ANY,missing,ANY}(
   sspm_object,

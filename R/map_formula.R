@@ -12,6 +12,7 @@ setGeneric(name = "map_formula",
            def = function(sspm_object,
                           boundaries,
                           formula,
+                          time_column,
                           ...){
              standardGeneric("map_formula")
            }
@@ -32,9 +33,78 @@ setMethod(f = "map_formula",
                     formula = "formula"),
           function(sspm_object, boundaries, formula, ...){
 
-            # This maps formula to a given dataset
+            browser()
 
-            dataset_name <- spm_name(sspm_object)
+            # This maps formula to a given dataset
+            data_frame <- spm_data(sspm_object)
+            time_column <- spm_time_column(sspm_object)
+
+            sspm_formula <- map_formula(sspm_object = data_frame,
+                                        boundaries = boundaries,
+                                        formula = formula,
+                                        time_column = time_column,
+                                        ...)
+
+            spm_formulas(sspm_object) <- append(spm_formulas(sspm_object),
+                                                list(sspm_formula))
+
+            return(sspm_object)
+
+          }
+)
+
+#' @rdname map_formula
+setMethod(f = "map_formula",
+          signature(sspm_object = "sspm",
+                    boundaries = "missing",
+                    formula = "formula"),
+          function(sspm_object, boundaries, formula, ...){
+
+            browser()
+
+            # If dataset name is not provided, assume we want to map an actual
+            # SPM formula and not smooth the data (previous step in workflow)
+
+            # 1. Is there a splitting scheme?
+            if(!is_split(smoothed_data)){
+              stop("Data must be split with a test/train column.")
+            } else {
+              old_data <- spm_smoothed_data(sspm_object)
+              train_data <- old_data %>%
+                dplyr::filter(.data$train_test == TRUE)
+              spm_smoothed_data(sspm_object) <- train_data
+            }
+
+            data_frame <- spm_smoothed_data(sspm_object)
+            time_column <- spm_time_column(sspm_object)
+
+            # Pass onto the sspm_data method
+            the_formula <- map_formula(sspm_object = data_frame,
+                                       boundaries = boundaries,
+                                       formula = formula,
+                                       time_column = time_column,
+                                       dataset = smoothed_data,
+                                       ...)
+
+            spm_smoothed_data(sspm_object) <- old_data
+
+            return(sspm_object = sspm_object,
+                   formula = the_formula)
+
+          }
+)
+
+#' @rdname map_formula
+setMethod(f = "map_formula",
+          signature(sspm_object = "sf",
+                    boundaries = "ANY",
+                    formula = "formula"),
+          function(sspm_object, boundaries, formula, time_column, ...){
+
+            browser()
+
+            # The object is now the data
+            the_data <- sspm_object
 
             # Retrieve terms, response, and term labels
             formula_terms <- terms(formula)
@@ -42,7 +112,6 @@ setMethod(f = "map_formula",
             terms_labels <- attr(formula_terms, "term.labels")
 
             # Check response
-            the_data <- spm_data(sspm_object)
             if(!checkmate::test_subset(response, names(the_data))){
               stop("The response in the formula is not a column of the dataset.",
                    call. = FALSE)
@@ -71,8 +140,9 @@ setMethod(f = "map_formula",
             # Modify and evaluate the calls to get the args to make a smooth
             smooth_calls_modified <-
               lapply(smooth_calls, modify_call,
-                     args = list(sspm_object = substitute(sspm_object),
-                                 boundaries = substitute(boundaries)))
+                     args = list(data_frame = sspm_object,
+                                 boundaries = substitute(boundaries),
+                                 time_column = time_column))
             smooth_and_vars <-lapply(smooth_calls_modified, eval,
                                      envir = list(. = sspm_object,
                                                   boundaries = boundaries))
@@ -99,62 +169,7 @@ setMethod(f = "map_formula",
                                 response = response,
                                 is_fitted = FALSE)
 
-            spm_formulas(sspm_object) <- append(spm_formulas(sspm_object),
-                                                list(sspm_formula))
-
-            return(sspm_object)
-
-          }
-)
-
-
-# TODO review this
-#' @rdname map_formula
-setMethod(f = "map_formula",
-          signature(sspm_object = "sspm",
-                    boundaries = "missing",
-                    formula = "formula"),
-          function(sspm_object, boundaries, formula, ...){
-
-            # If dataset name is not provided, assume we want to map an actual
-            # SPM formula and not smooth the data (previous step in workflow)
-
-            # 1. Is there a splitting scheme?
-            if(!is_split(smoothed_data)){
-              stop("Data must be split with a test/train column.")
-            } else {
-              old_data <- spm_smoothed_data(sspm_object)
-              train_data <- old_data %>%
-                dplyr::filter(.data$train_test == TRUE)
-              spm_smoothed_data(sspm_object) <- train_data
-            }
-
-            # 2. Map the formula
-
-            # Retrieve terms, response, and term labels
-            formula_terms <- terms(formula)
-            response <- all.vars(formula)[1]
-            terms_labels <- attr(formula_terms, "term.labels")
-
-            # Check response
-
-            response_data <- spm_data(smoothed_data)
-
-            if(!checkmate::test_subset(response, names(response_data))){
-              stop("The response in the formula is not a column of the smoothed_data.",
-                   call. = FALSE)
-            }
-
-            # Pass onto the sspm_data method
-            smoothed_data <- sspm_object %>%
-              map_formula(formula = formula,
-                          dataset = smoothed_data,
-                          ...)
-
-            spm_smoothed_data(sspm_object) <- smoothed_data
-            spm_data(spm_smoothed_data(sspm_object)) <- old_sspm_data
-
-            return(sspm_object)
+            return(sspm_formula)
 
           }
 )

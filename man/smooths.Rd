@@ -5,15 +5,16 @@
 \alias{smooth_space}
 \alias{smooth_space_time}
 \alias{smooth_lag}
-\alias{smooth_time,sspm_data,sspm_discrete_boundary-method}
-\alias{smooth_space,sspm_data,sspm_discrete_boundary-method}
-\alias{smooth_space_time,sspm_data,sspm_discrete_boundary-method}
-\alias{smooth_lag,ANY,sspm_data,sspm_discrete_boundary-method}
+\alias{smooth_time,sf,sspm_discrete_boundary-method}
+\alias{smooth_space,sf,sspm_discrete_boundary-method}
+\alias{smooth_space_time,sf,sspm_discrete_boundary-method}
+\alias{smooth_lag,ANY,sf,sspm_discrete_boundary-method}
 \title{sspm Smoothing functions}
 \usage{
 smooth_time(
-  sspm_object,
+  data_frame,
   boundaries,
+  time_column,
   type = "ICAR",
   k = NULL,
   bs = "re",
@@ -22,8 +23,9 @@ smooth_time(
 )
 
 smooth_space(
-  sspm_object,
+  data_frame,
   boundaries,
+  time_column,
   type = "ICAR",
   k = 30,
   bs = "mrf",
@@ -32,8 +34,9 @@ smooth_space(
 )
 
 smooth_space_time(
-  sspm_object,
+  data_frame,
   boundaries,
+  time_column,
   type = "ICAR",
   k = NULL,
   bs = c("re", "mrf"),
@@ -41,11 +44,21 @@ smooth_space_time(
   ...
 )
 
-smooth_lag(var, sspm_object, boundaries, type = "LINPRED", k = 5, m = 1, ...)
-
-\S4method{smooth_time}{sspm_data,sspm_discrete_boundary}(
-  sspm_object,
+smooth_lag(
+  var,
+  data_frame,
   boundaries,
+  time_column,
+  type = "LINPRED",
+  k = 5,
+  m = 1,
+  ...
+)
+
+\S4method{smooth_time}{sf,sspm_discrete_boundary}(
+  data_frame,
+  boundaries,
+  time_column,
   type = "ICAR",
   k = NULL,
   bs = "re",
@@ -53,9 +66,10 @@ smooth_lag(var, sspm_object, boundaries, type = "LINPRED", k = 5, m = 1, ...)
   ...
 )
 
-\S4method{smooth_space}{sspm_data,sspm_discrete_boundary}(
-  sspm_object,
+\S4method{smooth_space}{sf,sspm_discrete_boundary}(
+  data_frame,
   boundaries,
+  time_column,
   type = "ICAR",
   k = 30,
   bs = "mrf",
@@ -63,9 +77,10 @@ smooth_lag(var, sspm_object, boundaries, type = "LINPRED", k = 5, m = 1, ...)
   ...
 )
 
-\S4method{smooth_space_time}{sspm_data,sspm_discrete_boundary}(
-  sspm_object,
+\S4method{smooth_space_time}{sf,sspm_discrete_boundary}(
+  data_frame,
   boundaries,
+  time_column,
   type = "ICAR",
   k = NULL,
   bs = c("re", "mrf"),
@@ -73,14 +88,24 @@ smooth_lag(var, sspm_object, boundaries, type = "LINPRED", k = 5, m = 1, ...)
   ...
 )
 
-\S4method{smooth_lag}{ANY,sspm_data,sspm_discrete_boundary}(var, sspm_object, boundaries, type = "LINPRED", k = 5, m = 1, ...)
+\S4method{smooth_lag}{ANY,sf,sspm_discrete_boundary}(
+  var,
+  data_frame,
+  boundaries,
+  time_column,
+  type = "LINPRED",
+  k = 5,
+  m = 1,
+  ...
+)
 }
 \arguments{
-\item{sspm_object}{\strong{[sspm_data]} An object of class
-\link[=sspm_data-class]{sspm_data}.}
+\item{data_frame}{\strong{[sf data.frame]} The data.}
 
 \item{boundaries}{\strong{[sspm_boundary]} An object of class
 \link[=sspm_boundary-class]{sspm_discrete_boundary}.}
+
+\item{time_column}{\strong{[character]} The time column.}
 
 \item{type}{\strong{[character]} Type of smooth, currently only "ICAR" is
 supported.}

@@ -3,6 +3,8 @@
 #' A full sspm formula contains calls to the smoothing terms `smooth_time()`,
 #' `smooth_space()`, `smooth_space_time()`.
 #'
+#' @param data_frame **\[sf data.frame\]** The data.
+#' @param time_column **\[character\]** The time column.
 #' @param var **\[symbol\]** Variable (only for smooth_lag).
 #' @param type **\[character\]** Type of smooth, currently only "ICAR" is
 #'     supported.
@@ -18,8 +20,9 @@
 #' @rdname smooths
 #' @export
 setGeneric(name = "smooth_time",
-           def = function(sspm_object,
+           def = function(data_frame,
                           boundaries,
+                          time_column,
                           type = "ICAR",
                           k = NULL,
                           bs = "re",
@@ -32,8 +35,9 @@ setGeneric(name = "smooth_time",
 #' @export
 #' @rdname smooths
 setGeneric(name = "smooth_space",
-           def = function(sspm_object,
+           def = function(data_frame,
                           boundaries,
+                          time_column,
                           type = "ICAR",
                           k = 30,
                           bs = "mrf",
@@ -46,8 +50,9 @@ setGeneric(name = "smooth_space",
 #' @export
 #' @rdname smooths
 setGeneric(name = "smooth_space_time",
-           def = function(sspm_object,
+           def = function(data_frame,
                           boundaries,
+                          time_column,
                           type = "ICAR",
                           k = NULL,
                           bs = c("re","mrf"),
@@ -61,8 +66,9 @@ setGeneric(name = "smooth_space_time",
 #' @rdname smooths
 setGeneric(name = "smooth_lag",
            def = function(var,
-                          sspm_object,
+                          data_frame,
                           boundaries,
+                          time_column,
                           type = "LINPRED",
                           k = 5,
                           m = 1,
@@ -81,9 +87,9 @@ setGeneric(name = "smooth_lag",
 #' @export
 #' @rdname smooths
 setMethod(f = "smooth_time",
-          signature(sspm_object = "sspm_data",
+          signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(sspm_object, boundaries, type, k, bs, xt, ...){
+          function(data_frame, boundaries, time_column, type, k, bs, xt, ...){
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -91,7 +97,8 @@ setMethod(f = "smooth_time",
 
             # Get the default arguments for the smooth type used
             args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(sspm_object = sspm_object,
+                                     append(list(data_frame = data_frame,
+                                                 time_column = time_column,
                                                  dimension = "time",
                                                  boundaries = boundaries,
                                                  k = k, bs = bs, xt = xt),
@@ -109,9 +116,9 @@ setMethod(f = "smooth_time",
 #' @export
 #' @rdname smooths
 setMethod(f = "smooth_space",
-          signature(sspm_object = "sspm_data",
+          signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(sspm_object, boundaries, type, k, bs, xt, ...){
+          function(data_frame, boundaries, time_column, type, k, bs, xt, ...){
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -119,7 +126,8 @@ setMethod(f = "smooth_space",
 
             # Get the default arguments for the smooth type used
             args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(sspm_object = sspm_object,
+                                     append(list(data_frame = data_frame,
+                                                 time_column = time_column,
                                                  dimension = "space",
                                                  boundaries = boundaries,
                                                  k = k, bs = bs, xt = xt),
@@ -137,9 +145,9 @@ setMethod(f = "smooth_space",
 #' @export
 #' @rdname smooths
 setMethod(f = "smooth_space_time",
-          signature(sspm_object = "sspm_data",
+          signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(sspm_object, boundaries, type, k, bs, xt, ...){
+          function(data_frame, boundaries, time_column, type, k, bs, xt, ...){
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -147,7 +155,8 @@ setMethod(f = "smooth_space_time",
 
             # Get the default arguments for the smooth type used
             args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(sspm_object = sspm_object,
+                                     append(list(data_frame = data_frame,
+                                                 time_column = time_column,
                                                  dimension = "space_time",
                                                  boundaries = boundaries,
                                                  k = k, bs = bs, xt = xt),
@@ -165,18 +174,19 @@ setMethod(f = "smooth_space_time",
 #' @export
 #' @rdname smooths
 setMethod(f = "smooth_lag",
-          signature(sspm_object = "sspm_data",
+          signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(var, sspm_object, boundaries, type, k, m, ...){
+          function(var, data_frame, boundaries, time_column, type, k, m, ...){
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
             args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
             # Get the default arguments for the smooth type used
             args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(sspm_object = sspm_object,
-                                                 var = var,
+                                     append(list(data_frame = data_frame,
                                                  boundaries = boundaries,
+                                                 time_column = time_column,
+                                                 var = var,
                                                  k = k, m = m),
                                             args_list))
 
@@ -194,39 +204,19 @@ setMethod(f = "smooth_lag",
 # Construct an ICAR penalization matrix for a given "dimension" and returns the
 # double list args_and_vars that have the args to build a new call to s() and the
 # vars necessary for the evaluation of that s() smooth
-ICAR <- function(sspm_object, boundaries, dimension,
+ICAR <- function(data_frame, boundaries, time_column, dimension,
                  k, bs, xt, ...){
 
-  checkmate::assert_class(sspm_object, "sspm_data")
+  checkmate::assert_class(data_frame, "sf")
+  checkmate::assert_class(boundaries, "sspm_discrete_boundary")
   checkmate::assert_character(dimension)
   checkmate::assert_choice(dimension, choices = c("time", "space", "space_time"))
 
   # Recapture the ellipsis again
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
-  # # Get data/dataset and relevant columns
-  # all_datasets <- spm_datasets(sspm_object)
-  # all_dataset_names <- names(all_datasets)
-  # choices <- c(all_dataset_names, "smoothed_data")
-  #
-  # if(any(!sapply(dataset, checkmate::test_choice, choices))){
-  #   stop(paste0("Argument 'dataset' must be one of: ",
-  #               paste0(all_dataset_names,
-  #                      collapse =  ", " )), call. = FALSE)
-  # }
-  #
-  # if(dataset == "smoothed_data") {
-  #   the_dataset <- spm_smoothed_data(sspm_object)
-  # } else {
-  #   the_dataset <- spm_datasets(sspm_object)[[dataset]]
-  # }
-
-  the_dataset <- sspm_object
-  the_data <- spm_data(the_dataset)
-
   # ---- TIME ----
-  time_column <- spm_time_column(the_dataset)
-  time_levels <- unique(the_data[[time_column]])
+  time_levels <- unique(data_frame[[time_column]])
   n_time_levels = length(time_levels)
 
   # ---- SPACE ----
@@ -397,7 +387,7 @@ ICAR_space <- function(patches, space_column){
 # Construct the lag matrix and associated lag columns for the linear predictor
 # method of fitting the smooth
 
-LINPRED <- function(sspm_object, var,
+LINPRED <- function(sspm_object, boundaries, time_column, var,
                     k, m, ...){
 
   checkmate::assert_class(sspm_object, "sspm_data")
@@ -406,16 +396,14 @@ LINPRED <- function(sspm_object, var,
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
   # Make the lag matrix
-  biomass_time_col <- spm_time_column(sspm_object)
-  boundary_col <- names(spm_boundaries(sspm_object))[-which(names(spm_boundaries(sspm_object)) %in%
-                                                              c("geometry", "polygons"))]
+  boundary_col <- spm_boundary_colum(boundaries)
 
   smoothed_data <- spm_data(spm_smoothed_data(sspm_object))
 
   lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(smoothed_data),
                                      ncol = k, byrow = TRUE)) %>%
     dplyr::rename_all(.funs = gsub, pattern = "V", replacement = "lag") %>%
-    dplyr::mutate(!!biomass_time_col := smoothed_data[[biomass_time_col]],
+    dplyr::mutate(!!time_column := smoothed_data[[time_column]],
                   !!boundary_col := smoothed_data[[boundary_col]],
                   "patch_id" = smoothed_data[["patch_id"]]) %>%
     dplyr:: select(dplyr::contains('lag')) %>%
@@ -423,7 +411,7 @@ LINPRED <- function(sspm_object, var,
 
   by_matrix <- smoothed_data %>%
     sf::st_set_geometry(NULL) %>%
-    dplyr::select(.data$patch_id, !!boundary_col, !!biomass_time_col, !!var) %>%
+    dplyr::select(.data$patch_id, !!boundary_col, !!time_column, !!var) %>%
     dplyr::nest_by(.data$patch_id, !!boundary_col := .data[[boundary_col]]) %>%
     dplyr::mutate(lags = list(multilag(variable = .data$data[[var]],
                                        n_lags = k,
