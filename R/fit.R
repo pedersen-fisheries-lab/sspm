@@ -143,7 +143,7 @@ setMethod(f = "fit_smooths",
               preds <- predict(tmp_fit[[form_name]],
                                predict_mat, type = "response")
 
-              response <- form@response
+              response <- spm_response(form)
 
               column_name <- paste0(response, "_smooth")
 
