@@ -8,7 +8,6 @@
 #' @inheritDotParams mgcv::bam
 #'
 #' @rdname fit
-#' @export
 setGeneric(name = "fit_smooths",
            def = function(sspm_object,
                           boundaries,
@@ -23,13 +22,14 @@ setGeneric(name = "fit_smooths",
 )
 
 #' @rdname fit
-#' @export
 setGeneric(name = "fit_spm",
            def = function(sspm_object,
+                          sspm_formula,
                           keep_fit = TRUE,
                           family = mgcv::scat,
+                          drop.unused.levels = F,
                           select = TRUE,
-                          method="REML",
+                          method = "REML",
                           ...){
              standardGeneric("fit_spm")
            }
@@ -37,13 +37,13 @@ setGeneric(name = "fit_spm",
 
 # Methods -----------------------------------------------------------------
 
-#' @export
 #' @rdname fit
 setMethod(f = "fit_smooths",
           signature(sspm_object = "sspm_data",
                     boundaries = "sspm_discrete_boundary"),
           function(sspm_object, boundaries,
-                   keep_fit, predict, family, drop.unused.levels, method,  ...){
+                   keep_fit, predict,
+                   family, drop.unused.levels, method,  ...){
 
             # Initialize/collect smoothed_data
             full_smoothed_data <- sspm_object@smoothed_data
@@ -65,7 +65,7 @@ setMethod(f = "fit_smooths",
                     na.rm = TRUE)
 
               time_col <- spm_time_column(sspm_object)
-              predict_mat <- boundaries@patches %>%
+              predict_mat <- spm_patches(boundaries) %>%
                 sf::st_set_geometry(NULL) %>%
                 tidyr::expand_grid(!!time_col := min_year:max_year)
 
@@ -187,86 +187,68 @@ setMethod(f = "fit_smooths",
           }
 )
 
-#' @export
 #' @rdname fit
 setMethod(f = "fit_spm",
-          signature(sspm_object = "sspm"),
-          function(sspm_object, keep_fit, family, select, method, ...){
+          signature(sspm_object = "sspm",
+                    sspm_formula = "sspm_formula"),
+          function(sspm_object, sspm_formula,
+                   family, drop.unused.levels, select, method, ...){
 
             # Here we fit the full spm
-            # Get dataset
-            smoothed_data <- spm_smoothed_data(sspm_object)
-
-            # Check if all datasets have a mapped formula
-            formulas <- spm_formulas(smoothed_data)
-            formula_length <- length(formulas)
-            has_no_formulas <- formula_length < 1
-
-            if(has_no_formulas){
-              cli::cli_alert_danger("No mapped formulas for smoothed data")
-              stop("No mapped formulas.", call. = FALSE)
-            }
-
-            # Initialize/collect smoothed_data
-            the_fit <- NULL
-            time_col_name <- spm_time_column(smoothed_data)
-
-            # Get data
-            the_data <- spm_data(smoothed_data) %>%
+            # Get train dataset
+            all_data <- spm_smoothed_data(sspm_object)
+            the_data <- all_data %>%
               dplyr::filter(.data$train_test == TRUE)
 
+            # Get/Initializa vars of use
+            time_col_name <- spm_time_column(sspm_object)
+            the_fit <- NULL
+
+            # Index formula
+            form_vars <- process_formula_vars(formula_vars(sspm_formula),
+                                              all_data)
+
+            # Print info
+            cli::cli_alert_info(
+              paste0(" Fitting SPM formula: ",
+                     cli::col_yellow(format_formula(raw_formula(sspm_formula)))))
+
+            # Modify formula env, best solution for now
+            form_env <- attr(translated_formula(sspm_formula), ".Environment")
+            for(var in names(form_vars)){
+              assign(x = var, value = form_vars[[var]], envir = form_env)
+            }
+
+            # Fit the formula, important to attach the vars
             tmp_fit <-
-              vector(mode = "list", length = sum(formula_length))
-            tmp_smoothed <-
-              vector(mode = "list", length = sum(formula_length))
-
-            for (form_id in seq_len(length.out = formula_length)){
-
-              # Index formula
-              form <- formulas[[form_id]]
-              form_name <- paste0(spm_name(smoothed_data), "_f", form_id)
-              form_vars <- formula_vars(form)
-
-              # Inject name
-              names(tmp_fit)[form_id] <- form_name
-              names(tmp_smoothed)[form_id] <- form_name
-
-              # Print info
-              cli::cli_alert_info(
-                paste0(" Fitting SPM formula: ",
-                       cli::col_yellow(format_formula(raw_formula(form)))))
-
-              # Modify formula env, best solution for now
-              form_env <- attr(translated_formula(form), ".Environment")
-              for(var in names(form_vars)){
-                assign(x = var, value = form_vars[[var]], envir = form_env)
-              }
-
-              # Fit the formula, important to attach the vars
-              tmp_fit[[form_name]] <-
-                mgcv::bam(formula = translated_formula(form),
-                          data = c(as.list(the_data),
-                                   form_vars),
-                          family = family,
-                          select = select,
-                          method = method,
-                          ...)
-            }
-
-            # Store results at smoothed_data level
-            if(keep_fit){
-              spm_smoothed_fit(smoothed_data) <- tmp_fit
-            }
-
-            # TODO not used anymore
-            is_smoothed(smoothed_data) <- TRUE
-
-            spm_smoothed_data(sspm_object) <- smoothed_data
+              mgcv::bam(formula = translated_formula(sspm_formula),
+                        data = c(as.list(the_data),
+                                 form_vars),
+                        family = family,
+                        select = select,
+                        method = method,
+                        ...)
 
             # For now return fit
-            return(sspm_object)
+            return(tmp_fit)
 
           }
 )
 
+process_formula_vars <- function(vars, the_data, select = TRUE){
 
+  checkmate::assert_list(vars)
+  train_IDs <- which(the_data$train_test == select)
+
+  for(var_name in names(vars)){
+
+    if(var_name %in% c("lag_matrix", "by_matrix")){
+
+      vars[[var_name]] <- vars[[var_name]][train_IDs,]
+
+    }
+
+  }
+
+  return(vars)
+}
