@@ -20,27 +20,36 @@ setGeneric(name = "spm_predict",
 #' @export
 #' @rdname spm_predict
 setMethod(f = "spm_predict",
-          signature(sspm_object = "sspm"),
+          signature(sspm_object = "sspm_fit",
+                    new_data = "data.frame"),
+          function(sspm_object, new_data, ...){
+            new_data <- as.list(new_data)
+            spm_predict(sspm_object = sspm_object, new_data = new_data, ...)
+          }
+)
+
+#' @export
+#' @rdname spm_predict
+setMethod(f = "spm_predict",
+          signature(sspm_object = "sspm_fit",
+                    new_data = "missing"),
+          function(sspm_object, new_data, ...){
+            new_data <- append(as.list(spm_smoothed_data(sspm_object)),
+                               formula_vars(spm_formulas(sspm_model_fit)))
+            spm_predict(sspm_object = sspm_object, new_data = new_data, ...)
+          }
+)
+
+#' @export
+#' @rdname spm_predict
+setMethod(f = "spm_predict",
+          signature(sspm_object = "sspm_fit",
+                    new_data = "list"),
           function(sspm_object, new_data, ...){
 
-            smoothed_data <- spm_smoothed_data(sspm_object)
+            preds <- spm_get_fit(sspm_model_fit) %>%
+              predict.bam(newdata = new_data, ...)
 
-            if(is.null(new_data)){
-
-              new_data <- spm_data(smoothed_data)
-
-            }
-
-            fits <- spm_smoothed_fit(smoothed_data)
-            fits_length <- length(fits)
-
-            fit_tmp <- list()
-
-            for (fit_id in seq_len(length.out = fits_length)){
-
-
-
-            }
-
+            return(preds)
           }
 )
