@@ -41,35 +41,40 @@ setMethod(f = "spm",
             # 1. Is there a splitting scheme?
             if(!is_split(sspm_object)){
               stop("Data must be split with a test/train column.")
-            } else {
-              old_data <- spm_smoothed_data(sspm_object)
-              train_data <- old_data %>%
-                dplyr::filter(.data$train_test == TRUE)
-              spm_smoothed_data(sspm_object) <- train_data
             }
 
-            # 1. call map_formula
-            data_frame <- spm_smoothed_data(sspm_object)
+            # 1. Get data
+            all_data <- spm_smoothed_data(sspm_object)
+            # train_data <- all_data %>%
+            #   dplyr::filter(.data$train_test == TRUE)
+
+            # 2. call map_formula
             time_column <- spm_time_column(sspm_object)
             boundaries <- spm_boundaries(sspm_object)
 
-            browser()
+
 
             # Pass onto the sspm_data method
-            sspm_formula <- map_formula(data_frame = data_frame,
+            sspm_formula <- map_formula(data_frame = all_data,
                                         boundaries = boundaries,
                                         formula = formula,
                                         time_column = time_column,
                                         ...)
 
-            spm_smoothed_data(sspm_object) <- old_data
+            # Call the fit function
+            the_fit <- fit_spm(sspm_object = sspm_object,
+                                sspm_formula = sspm_formula,
+                                ...)
 
-            # 2. call fit with ... arguments
-            # sspm_object_fitted <- sspm_object_joined %>%
-            #   fit_smooths(boundaries = boundaries,
-            #               keep_fit = keep_fit, predict = predict, ...)
+            sspm_fit <- new("sspm_fit",
+                            smoothed_data = all_data,
+                            time_column = spm_time_column(sspm_object),
+                            uniqueID = spm_unique_ID(sspm_object),
+                            formula = sspm_formula,
+                            boundaries = spm_boundaries(sspm_object),
+                            fit = the_fit)
 
-            return(sspm_object_fitted)
+            return(sspm_fit)
 
           }
 )
