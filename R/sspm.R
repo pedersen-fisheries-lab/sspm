@@ -185,9 +185,8 @@ setMethod(f = "sspm",
               new_sspm <- new("sspm",
                               datasets = all_data,
                               time_column = spm_time_column(biomass),
-                              uniqueID = spm_unique_ID(biomass),
+                              uniqueID = "row_ID",
                               boundaries = spm_boundaries(biomass),
-                              formulas = list(),
                               smoothed_data = full_smoothed_data,
                               is_split = FALSE)
             }
