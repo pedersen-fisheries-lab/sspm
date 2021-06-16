@@ -135,7 +135,7 @@ setMethod(f = "sspm",
                   dplyr::summarise(total_catch = sum(.data[[catch_var]],
                                                      na.rm = TRUE)) %>%
                   tidyr::complete(.data[[time_col]], .data$patch_id,
-                                  fill = list(total_catch = 0)) %>%
+                                  fill = list(total_catch = NA)) %>%
                   dplyr::mutate(!!time_col :=
                                   as.factor(.data[[time_col]])) %>%
                   unique()
@@ -156,12 +156,18 @@ setMethod(f = "sspm",
                 change_name <- paste0(biomass_var, "_with_catch")
 
                 full_smoothed_data <- full_smoothed_data %>%
+                  dplyr::group_by(.data[["patch_id"]],
+                                  !!spm_boundary_colum(biomass_boundaries)) %>%
                   dplyr::mutate(
                     !!catch_name :=
                       .data[[biomass_var]] + .data$total_catch/.data$area_km2) %>%
                   dplyr::mutate(
                     !!change_name :=
-                      log(.data[[catch_name]]) - log(dplyr::lag(.data[[biomass_var]]))) %>%
+                      log(.data[[catch_name]]) - log(dplyr::lag(.data[[biomass_var]],
+                                                                default = NA))) %>%
+                  dplyr::ungroup() %>%
+                  dplyr::mutate(!!change_name := ifelse(is.na(.data[[change_name]]),
+                                                        0, .data[[change_name]])) %>%
                   dplyr::relocate(dplyr::starts_with(biomass_var),
                                   .after = .data$row_ID)
 
