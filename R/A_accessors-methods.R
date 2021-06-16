@@ -271,3 +271,38 @@ setMethod("is_split<-",
             return(object)
           }
 )
+
+# Unique ID ---------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname sspm-accessors-methods
+#' @export
+setGeneric(name = "spm_unique_ID",
+           def = function(sspm_object) standardGeneric("spm_unique_ID")
+)
+
+#' @rdname sspm-accessors-methods
+#' @export
+setMethod("spm_unique_ID",
+          signature("sspm_object" = "sspm"),
+          function(sspm_object) sspm_object@uniqueID
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname sspm-accessors-methods
+#' @export
+setGeneric(name = "spm_unique_ID<-",
+           def = function(object, value) standardGeneric("spm_unique_ID<-")
+)
+
+#' @rdname sspm-accessors-methods
+#' @export
+setMethod("spm_unique_ID<-",
+          signature("object" = "sspm"),
+          function(object, value){
+            object@uniqueID <- value
+            validObject(object)
+            return(object)
+          }
+)

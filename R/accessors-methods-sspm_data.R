@@ -69,24 +69,12 @@ setMethod("spm_name<-",
 
 #' @rdname accessors-methods-sspm_data
 #' @export
-setGeneric(name = "spm_unique_ID",
-           def = function(sspm_object) standardGeneric("spm_unique_ID")
-)
-
-#' @rdname accessors-methods-sspm_data
-#' @export
 setMethod("spm_unique_ID",
           signature("sspm_object" = "sspm_data"),
           function(sspm_object) sspm_object@uniqueID
 )
 
 # Replacers ---------------------------------------------------------------
-
-#' @rdname accessors-methods-sspm_data
-#' @export
-setGeneric(name = "spm_unique_ID<-",
-           def = function(object, value) standardGeneric("spm_unique_ID<-")
-)
 
 #' @rdname accessors-methods-sspm_data
 #' @export
