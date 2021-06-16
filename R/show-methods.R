@@ -87,9 +87,20 @@ setMethod("show",
             custom_h1(sprintf(paste0("SSPM Model ",
                                      cli::col_green("(%s datasets)")),
                               length(object@datasets)))
-            # cat_datasets(object)
             cat_boundaries(object, column = FALSE)
             cat_smoothed_data(object)
+            cli::cat_line()
+          }
+)
+
+setMethod("show",
+          "sspm_fit",
+          function(object) {
+            cli::cat_line()
+            custom_h1("SSPM SPM Fit")
+            cat_boundaries(object, column = FALSE)
+            cat_smoothed_data(object, print_columns = FALSE)
+            cat_spm_fit(object)
             cli::cat_line()
           }
 )
@@ -180,80 +191,89 @@ cat_formulas <- function(object){
 
 }
 
-cat_smoothed_data <- function(object){
+cat_smoothed_data <- function(object, print_columns = TRUE){
 
   if(!is.null(object@smoothed_data)){
 
-    if(checkmate::test_class(object, "sspm")){
-      if(is_split(object)){
+    if(("train_test" %in% names(object@smoothed_data))){
 
-        n_train <- sum(object@smoothed_data$train_test)
-        n_test <- sum(!object@smoothed_data$train_test)
+      n_train <- sum(object@smoothed_data$train_test)
+      n_test <- sum(!object@smoothed_data$train_test)
 
-        split_info <- paste0(" [", cli::col_blue(n_train),
-                             cli::col_yellow(" train, "),
-                             cli::col_blue(n_test),
-                             cli::col_yellow(" test"), "]")
+      split_info <- paste0(" [", cli::col_blue(n_train),
+                           cli::col_yellow(" train, "),
+                           cli::col_blue(n_test),
+                           cli::col_yellow(" test"), "]")
 
-        cli::cat_bullet(" Smoothed Data     : ",
-                        pluralize_data_info(object@smoothed_data),
-                        " /", split_info,
-                        bullet = "arrow_right")
+      cli::cat_bullet(" Smoothed Data     : ",
+                      pluralize_data_info(object@smoothed_data),
+                      " /", split_info,
+                      bullet = "arrow_right")
 
-      }
+
     } else {
       cli::cat_bullet(" Smoothed Data     : ",
                       pluralize_data_info(object@smoothed_data),
                       bullet = "arrow_right")
     }
 
-    columns_with_smooth <-
-      names(which(sapply(colnames(object@smoothed_data),
-                         grepl, pattern = "_smooth", fixed=TRUE)))
-    columns_with_smooth <-
-      names(which(!sapply(columns_with_smooth,
-                          grepl, pattern = "lag", fixed=TRUE)))
-    columns_with_catch <-
-      names(which(sapply(colnames(object@smoothed_data),
-                         grepl, pattern = "_with_catch", fixed=TRUE)))
+    if(print_columns){
 
-    columns_with_lag <-
-      names(which(sapply(colnames(object@smoothed_data),
-                         grepl, pattern="_lag", fixed=TRUE)))
+      columns_with_smooth <-
+        names(which(sapply(colnames(object@smoothed_data),
+                           grepl, pattern = "_smooth", fixed=TRUE)))
+      columns_with_smooth <-
+        names(which(!sapply(columns_with_smooth,
+                            grepl, pattern = "lag", fixed=TRUE)))
+      columns_with_catch <-
+        names(which(sapply(colnames(object@smoothed_data),
+                           grepl, pattern = "_with_catch", fixed=TRUE)))
 
-    columns_with_smooth <- columns_with_smooth[!(columns_with_smooth %in%
-                                                   c(columns_with_catch,
-                                                     columns_with_lag))]
+      columns_with_lag <-
+        names(which(sapply(colnames(object@smoothed_data),
+                           grepl, pattern="_lag", fixed=TRUE)))
 
-    if (length(columns_with_smooth) > 0){
-      the_line <-
-        paste(cli::symbol$star, "smoothed vars:",
-              paste(cli::col_green(sort(columns_with_smooth)),
-                    collapse = paste0(" ", cli::symbol$em_dash, " ")))
+      columns_with_smooth <- columns_with_smooth[!(columns_with_smooth %in%
+                                                     c(columns_with_catch,
+                                                       columns_with_lag))]
 
-      cli::cat_line("   ", the_line)
+      if (length(columns_with_smooth) > 0){
+        the_line <-
+          paste(cli::symbol$star, "smoothed vars:",
+                paste(cli::col_green(sort(columns_with_smooth)),
+                      collapse = paste0(" ", cli::symbol$em_dash, " ")))
+
+        cli::cat_line("   ", the_line)
+      }
+
+      if(length(columns_with_catch) > 0){
+        the_line <-
+          paste(cli::symbol$star, "vars with catch:",
+                paste(cli::col_green(sort(columns_with_catch)),
+                      collapse = paste0(" ", cli::symbol$em_dash, " ")))
+
+        cli::cat_line("   ", the_line)
+      }
+
+      if (length(columns_with_lag) > 0){
+        the_line <-
+          paste(cli::symbol$star, "lagged vars:",
+                paste(cli::col_green(sort(columns_with_lag)),
+                      collapse = paste0(" ", cli::symbol$em_dash, " ")))
+
+        cli::cat_line("   ", the_line)
+      }
     }
-
-    if(length(columns_with_catch) > 0){
-      the_line <-
-        paste(cli::symbol$star, "vars with catch:",
-              paste(cli::col_green(sort(columns_with_catch)),
-                    collapse = paste0(" ", cli::symbol$em_dash, " ")))
-
-      cli::cat_line("   ", the_line)
-    }
-
-    if (length(columns_with_lag) > 0){
-      the_line <-
-        paste(cli::symbol$star, "lagged vars:",
-              paste(cli::col_green(sort(columns_with_lag)),
-                    collapse = paste0(" ", cli::symbol$em_dash, " ")))
-
-      cli::cat_line("   ", the_line)
-    }
-
   }
 
+}
+
+cat_spm_fit <- function(object){
+  the_fit <- spm_get_fit(object)
+  the_fit_summary <- summary(the_fit)
+  cli::cat_bullet(" Fit summary       : ",
+                  bullet = "arrow_right")
+  show(the_fit_summary)
 }
 
 # -------------------------------------------------------------------------
