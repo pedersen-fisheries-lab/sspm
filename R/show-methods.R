@@ -97,7 +97,7 @@ setMethod("show",
           "sspm_fit",
           function(object) {
             cli::cat_line()
-            custom_h1("SSPM SPM Fit")
+            custom_h1("SSPM Model Fit")
             cat_boundaries(object, column = FALSE)
             cat_smoothed_data(object, print_columns = FALSE)
             cat_spm_fit(object)
