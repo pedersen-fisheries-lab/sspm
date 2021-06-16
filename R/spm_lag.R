@@ -38,7 +38,7 @@ setMethod(f = "spm_lag",
                 if(is.character(default)){
 
                   if(default == "mean"){
-                    def_val <- mean(smoothed_data[[var]])
+                    def_val <- mean(smoothed_data[[var]], na.rm = TRUE)
                   } else {
                     stop("Defaulting scheme not recognized")
                   }
@@ -47,10 +47,12 @@ setMethod(f = "spm_lag",
                   def_val <- default
                 }
 
-                smoothed_data[[var_name]] <-
-                  dplyr::lag(x = smoothed_data[[var]],
-                             n = n, default = def_val, ...)
                 smoothed_data <- smoothed_data %>%
+                  dplyr::group_by(patch_id,
+                                  .data[[spm_boundary_colum(spm_boundaries(sspm_object))]]) %>%
+                  dplyr::mutate(!!var_name := dplyr::lag(x = .data[[var]],
+                                                         n = n, default = def_val, ...)) %>%
+                  dplyr::ungroup() %>%
                   dplyr::relocate(var_name, .after = var)
 
               } else {
