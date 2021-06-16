@@ -4,7 +4,13 @@
 \alias{spm_plot}
 \title{Plot various \code{sspm} objects}
 \usage{
-spm_plot(sspm_object, smoothed_var, page = NULL, nrow = NULL, ncol = NULL)
+spm_plot(
+  sspm_object,
+  smoothed_var = NULL,
+  page = NULL,
+  nrow = NULL,
+  ncol = NULL
+)
 }
 \arguments{
 \item{sspm_object}{An object from this package.}
