@@ -10,6 +10,7 @@
 
 setOldClass("data.frame")
 setOldClass("sf")
+setOldClass("bam")
 
 # ClassUnions -------------------------------------------------------------
 
@@ -42,7 +43,7 @@ setClass("discretization_method",
 #' object(s) of class `sspm_boundary` from an `sf` object.
 #'
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
-#' @slot boundary_col **\[character\]** The column of `data` that represents the
+#' @slot boundary_column **\[character\]** The column of `data` that represents the
 #'     spatial boundaries.
 #' @slot method **\[[discretization_method][discretization_method-class]\]**
 #'     *(if discrete)* discretization method used.
@@ -158,7 +159,6 @@ setClass("sspm",
                       time_column = "character",
                       uniqueID = "character",
                       boundaries = "sspm_discrete_boundary",
-                      formulas = "list",
                       smoothed_data = "ANY",
                       is_split = "logical"),
          prototype = prototype(datasets = list(),
@@ -167,4 +167,22 @@ setClass("sspm",
 
 # -------------------------------------------------------------------------
 
-# TODO sspm_fit object
+#' sspm fit
+#'
+#' The fit object for a sspm model
+#'
+#' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
+#' @slot datasets **\[list\]** *(if discrete)* List of
+#'     [sspm_data][sspm_data-class] that define variables in the SPM model.
+#' @slot smoothed_data **\[sf\]** The smoothed data.
+#'
+#' @name sspm_fit-class
+#' @rdname sspm_fit-class
+setClass("sspm_fit",
+         slots = list(smoothed_data = "ANY",
+                      time_column = "character",
+                      uniqueID = "character",
+                      formula = "sspm_formula",
+                      boundaries = "sspm_discrete_boundary",
+                      fit = "bam")
+)
