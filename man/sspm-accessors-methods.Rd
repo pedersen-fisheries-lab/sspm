@@ -28,6 +28,10 @@
 \alias{is_split,sspm-method}
 \alias{is_split<-}
 \alias{is_split<-,sspm-method}
+\alias{spm_unique_ID}
+\alias{spm_unique_ID,sspm-method}
+\alias{spm_unique_ID<-}
+\alias{spm_unique_ID<-,sspm-method}
 \title{Accessing OR replacing \code{sspm} model elements}
 \usage{
 spm_name(sspm_object)
@@ -81,6 +85,14 @@ is_split(sspm_object)
 is_split(object) <- value
 
 \S4method{is_split}{sspm}(object) <- value
+
+spm_unique_ID(sspm_object)
+
+\S4method{spm_unique_ID}{sspm}(sspm_object)
+
+spm_unique_ID(object) <- value
+
+\S4method{spm_unique_ID}{sspm}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm OR adjacent]} An object of class

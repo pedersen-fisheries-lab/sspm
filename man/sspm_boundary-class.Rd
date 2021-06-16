@@ -19,7 +19,7 @@ object(s) of class \code{sspm_boundary} from an \code{sf} object.
 \describe{
 \item{\code{boundaries}}{\strong{[sf]} Spatial boundaries (polygons).}
 
-\item{\code{boundary_col}}{\strong{[character]} The column of \code{data} that represents the
+\item{\code{boundary_column}}{\strong{[character]} The column of \code{data} that represents the
 spatial boundaries.}
 
 \item{\code{method}}{\strong{[\link[=discretization_method-class]{discretization_method}]}

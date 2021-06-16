@@ -4,7 +4,7 @@
 \alias{fit_smooths}
 \alias{fit_spm}
 \alias{fit_smooths,sspm_data,sspm_discrete_boundary-method}
-\alias{fit_spm,sspm-method}
+\alias{fit_spm,sspm,sspm_formula-method}
 \title{Fit the GAM part of a sspm model}
 \usage{
 fit_smooths(
@@ -20,8 +20,10 @@ fit_smooths(
 
 fit_spm(
   sspm_object,
+  sspm_formula,
   keep_fit = TRUE,
   family = mgcv::scat,
+  drop.unused.levels = F,
   select = TRUE,
   method = "REML",
   ...
@@ -38,10 +40,12 @@ fit_spm(
   ...
 )
 
-\S4method{fit_spm}{sspm}(
+\S4method{fit_spm}{sspm,sspm_formula}(
   sspm_object,
+  sspm_formula,
   keep_fit = TRUE,
   family = mgcv::scat,
+  drop.unused.levels = F,
   select = TRUE,
   method = "REML",
   ...

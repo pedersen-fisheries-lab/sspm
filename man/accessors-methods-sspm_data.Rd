@@ -7,9 +7,7 @@
 \alias{spm_data<-,sspm_data-method}
 \alias{spm_name,sspm_data-method}
 \alias{spm_name<-,sspm_data-method}
-\alias{spm_unique_ID}
 \alias{spm_unique_ID,sspm_data-method}
-\alias{spm_unique_ID<-}
 \alias{spm_unique_ID<-,sspm_data-method}
 \alias{spm_coords_col}
 \alias{spm_coords_col,sspm_data-method}
@@ -49,11 +47,7 @@ spm_data(object) <- value
 
 \S4method{spm_name}{sspm_data}(object) <- value
 
-spm_unique_ID(sspm_object)
-
 \S4method{spm_unique_ID}{sspm_data}(sspm_object)
-
-spm_unique_ID(object) <- value
 
 \S4method{spm_unique_ID}{sspm_data}(object) <- value
 
