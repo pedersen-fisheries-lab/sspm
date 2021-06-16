@@ -29,3 +29,30 @@ setMethod("$",
             }
           }
 )
+
+setMethod("$",
+          "sspm",
+          function(x, name) {
+            if (is.null(x@smoothed_data)){
+              x@data %>%
+                dplyr::select(c(name, spm_time_column(x), "geometry"))
+            }else{
+              x@smoothed_data %>%
+                dplyr::select(c(name, spm_time_column(x), "geometry"))
+            }
+          }
+)
+
+setMethod("$",
+          "sspm_fit",
+          function(x, name) {
+            if (is.null(x@smoothed_data)){
+              x@data %>%
+                dplyr::select(c(name, spm_time_column(x), "geometry"))
+            }else{
+              x@smoothed_data %>%
+                dplyr::select(c(name, spm_time_column(x), "geometry"))
+            }
+          }
+)
+
