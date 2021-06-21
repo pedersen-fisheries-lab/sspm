@@ -24,8 +24,8 @@ setGeneric(name = "sspm",
 #' @export
 #' @rdname sspm-constructor
 setMethod(f = "sspm",
-          signature(biomass = "sspm_data",
-                    predictors = "sspm_data"),
+          signature(biomass = "sspm_dataset",
+                    predictors = "sspm_dataset"),
           function(biomass, predictors, catch, biomass_var, catch_var){
 
             # Turn predictors to list
@@ -39,13 +39,13 @@ setMethod(f = "sspm",
 #' @export
 #' @rdname sspm-constructor
 setMethod(f = "sspm",
-          signature(biomass = "sspm_data",
+          signature(biomass = "sspm_dataset",
                     predictors = "list"),
           function(biomass, predictors, catch, biomass_var, catch_var){
 
-            # 1. Check all predictors in list are sspm_data
-            if(any(!is_sspm_data(predictors))){
-              cli::cli_alert_danger("Some predictors are not of class sspm_data")
+            # 1. Check all predictors in list are sspm_dataset
+            if(any(!is_sspm_dataset(predictors))){
+              cli::cli_alert_danger("Some predictors are not of class sspm_dataset")
 
             } else {
 
@@ -206,11 +206,11 @@ check_identical_boundaries <- function(boundaries){
   do.call(identical, boundaries)
 }
 
-# Check whether of sspm_data class of a list of objects
-is_sspm_data <- function(list_of_datasets){
+# Check whether of sspm_dataset class of a list of objects
+is_sspm_dataset <- function(list_of_datasets){
   checkmate::assert_list(list_of_datasets)
   checks <- sapply(list_of_datasets,
-                   function(x){checkmate::test_class(x, "sspm_data")})
+                   function(x){checkmate::test_class(x, "sspm_dataset")})
   return(checks)
 }
 

@@ -15,7 +15,7 @@ borealis_spatial <- sspm:::borealis_simulated_spatial
 predator_spatial <- sspm:::predator_simulated_spatial
 
 # Base objects
-sspm_data <- new("sspm_data",
+sspm_dataset <- new("sspm_dataset",
                  name = "Biomass",
                  data = borealis_spatial,
                  type = "biomass",
@@ -23,7 +23,7 @@ sspm_data <- new("sspm_data",
                  uniqueID = "uniqueID",
                  coords = c('lon_dec','lat_dec'))
 
-sspm_data_pred <- new("sspm_data",
+sspm_dataset_pred <- new("sspm_dataset",
                       name = "Predator",
                       type = "predictor",
                       data = predator_spatial,
@@ -31,7 +31,7 @@ sspm_data_pred <- new("sspm_data",
                       uniqueID = "uniqueID",
                       coords = c('lon_dec','lat_dec'))
 
-dataset_list <- list(sspm_data)
+dataset_list <- list(sspm_dataset)
 names(dataset_list) <- sapply(dataset_list, spm_name)
 sspm_base <- new("sspm",
                  name="Model test",
@@ -51,7 +51,7 @@ sspm_discrete <- new("sspm_discrete",
                      patches = borealis_patches,
                      points = borealis_points)
 
-dataset_list <- list(sspm_data, sspm_data_pred)
+dataset_list <- list(sspm_dataset, sspm_dataset_pred)
 names(dataset_list) <- sapply(dataset_list, spm_name)
 sspm_discrete_mapped <- new("sspm_discrete",
                             name = spm_name(sspm_base),

@@ -6,7 +6,7 @@
 \alias{spm_smooth,ANY,missing,ANY-method}
 \alias{spm_smooth,ANY,ANY,missing-method}
 \alias{spm_smooth,ANY,ANY,sspm_boundary-method}
-\title{Map model formula onto a sspm_data object}
+\title{Map model formula onto a sspm_dataset object}
 \usage{
 map_formula(data_frame, boundaries, formula, time_column, ...)
 
@@ -55,8 +55,8 @@ response ~ smoothing_terms + ...}
     the values of the data are best avoided here: e.g. \code{s(log(x))}
     is fine, but \code{s(I(x/sd(x)))} is not (see \code{\link[mgcv]{predict.gam}}).}
 
-\item{sspm_object}{\strong{[sspm_data]} An object of class
-\link[=sspm_data-class]{sspm_data}.}
+\item{sspm_object}{\strong{[sspm_dataset]} An object of class
+\link[=sspm_dataset-class]{sspm_dataset}.}
 
 \item{keep_fit}{\strong{[logical]} Whether or not to keep the fitted values and
 model (default to TRUE, set to FALSE to reduce memory footprint).}
@@ -68,6 +68,6 @@ predictions (necessary to fit the final SPM model, default to TRUE).}
 The updated object.
 }
 \description{
-This functions is now used internally to map a formula onto a \code{sspm_data}
+This functions is now used internally to map a formula onto a \code{sspm_dataset}
 or \code{sspm} object.
 }

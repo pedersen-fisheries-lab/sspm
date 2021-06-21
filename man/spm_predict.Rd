@@ -16,8 +16,8 @@ spm_predict(sspm_object, new_data = NULL, ...)
 \S4method{spm_predict}{sspm_fit,list}(sspm_object, new_data = NULL, ...)
 }
 \arguments{
-\item{sspm_object}{\strong{[sspm_data]} An object of class
-\link[=sspm_data-class]{sspm_data}.}
+\item{sspm_object}{\strong{[sspm_dataset]} An object of class
+\link[=sspm_dataset-class]{sspm_dataset}.}
 
 \item{new_data}{\strong{[data.frame]}}
 

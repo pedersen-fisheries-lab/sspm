@@ -4,27 +4,27 @@
 #
 # })
 
-test_that("Accessors work as expected on `sspm_data`", {
+test_that("Accessors work as expected on `sspm_dataset`", {
 
   # Valid
-  expect_character(spm_name(sspm_data))
+  expect_character(spm_name(sspm_dataset))
 
-  expect_data_frame(spm_data(sspm_data))
+  expect_data_frame(spm_data(sspm_dataset))
 
-  expect_character(spm_unique_ID(sspm_data))
-  expect_length(spm_unique_ID(sspm_data), 1)
+  expect_character(spm_unique_ID(sspm_dataset))
+  expect_length(spm_unique_ID(sspm_dataset), 1)
 
-  expect_character(spm_coords_col(sspm_data))
-  expect_length(spm_coords_col(sspm_data), 2)
+  expect_character(spm_coords_col(sspm_dataset))
+  expect_length(spm_coords_col(sspm_dataset), 2)
 
-  expect_character(spm_time_column(sspm_data))
-  expect_length(spm_time_column(sspm_data), 1)
+  expect_character(spm_time_column(sspm_dataset))
+  expect_length(spm_time_column(sspm_dataset), 1)
 
-  expect_list(spm_formulas(sspm_data))
-  expect_length(spm_formulas(sspm_data), 0)
+  expect_list(spm_formulas(sspm_dataset))
+  expect_length(spm_formulas(sspm_dataset), 0)
 
   # Invalid
-  expect_message(spm_datasets(sspm_data),
+  expect_message(spm_datasets(sspm_dataset),
                  "Use `spm_data` to access the data of a dataset object")
 
 })

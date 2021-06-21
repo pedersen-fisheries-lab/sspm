@@ -6,7 +6,7 @@
 \alias{spm_as_dataset,data.frame,ANY,ANY,ANY,ANY,list-method}
 \alias{spm_as_dataset,data.frame,ANY,ANY,ANY,ANY,character-method}
 \alias{spm_as_dataset,sf,ANY,ANY,ANY,ANY,ANY-method}
-\title{Create a \code{sspm_data} dataset structure}
+\title{Create a \code{sspm_dataset} dataset structure}
 \usage{
 spm_as_dataset(data, name, type, time_column, uniqueID, coords, crs = NULL)
 
@@ -38,9 +38,9 @@ latitude of the observations.}
 \item{crs}{Coordinate reference system, passed onto \link[=sf]{st_as_sf}.}
 }
 \value{
-An object of class \code{\link[=sspm_data-class]{sspm_data}}.
+An object of class \code{\link[=sspm_dataset-class]{sspm_dataset}}.
 }
 \description{
 This casts a \code{data.frame} or \code{sf} object into  an object of class
-\code{\link[=sspm_data-class]{sspm_data}}.
+\code{\link[=sspm_dataset-class]{sspm_dataset}}.
 }

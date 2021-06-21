@@ -10,11 +10,19 @@ The fit object for a sspm model
 \section{Slots}{
 
 \describe{
+\item{\code{smoothed_data}}{\strong{[ANY (sf)]} The smoothed data.}
+
+\item{\code{time_column}}{\strong{[character]} The column of \code{data} that represents the
+temporal dimension of the dataset.}
+
+\item{\code{uniqueID}}{\strong{[character]} The column of \code{data} that is unique for all
+rows of the data matrix.}
+
+\item{\code{formula}}{\strong{[list]} The \link[=sspm_formula-class]{sspm_formula} object that
+specifies the spm model.}
+
 \item{\code{boundaries}}{\strong{[sf]} Spatial boundaries (polygons).}
 
-\item{\code{datasets}}{\strong{[list]} \emph{(if discrete)} List of
-\link[=sspm_data-class]{sspm_data} that define variables in the SPM model.}
-
-\item{\code{smoothed_data}}{\strong{[sf]} The smoothed data.}
+\item{\code{fit}}{\strong{[bam]} The fit of the spm model.}
 }}
 

@@ -1,7 +1,7 @@
-#' Create a `sspm_data` dataset structure
+#' Create a `sspm_dataset` dataset structure
 #'
 #' This casts a `data.frame` or `sf` object into  an object of class
-#' [`sspm_data`][sspm_data-class].
+#' [`sspm_dataset`][sspm_dataset-class].
 #'
 #' @param data **\[data.frame OR sf\]** The dataset.
 #' @param type **\[character\]** The type of dataset in the context of the sspm
@@ -16,7 +16,7 @@
 #' @param crs Coordinate reference system, passed onto [st_as_sf][sf].
 #'
 #' @return
-#' An object of class [`sspm_data`][sspm_data-class].
+#' An object of class [`sspm_dataset`][sspm_dataset-class].
 #'
 #' @export
 setGeneric(name = "spm_as_dataset",
@@ -100,7 +100,7 @@ setMethod(f = "spm_as_dataset",
             new_data <- sf::st_as_sf(x = data, coords = coords, crs = crs,
                                      remove = FALSE)
 
-            the_sspm_data <- new("sspm_data",
+            the_sspm_dataset <- new("sspm_dataset",
                                  name = name,
                                  type = type,
                                  data = new_data,
@@ -108,7 +108,7 @@ setMethod(f = "spm_as_dataset",
                                  uniqueID = uniqueID,
                                  coords = coords)
 
-            return(the_sspm_data)
+            return(the_sspm_dataset)
           }
 )
 
@@ -121,7 +121,7 @@ setMethod(f = "spm_as_dataset",
 
             # TODO CRS checks
 
-            the_sspm_data <- new("sspm_data",
+            the_sspm_dataset <- new("sspm_dataset",
                                  name = name,
                                  type = type,
                                  data = data,
@@ -129,6 +129,6 @@ setMethod(f = "spm_as_dataset",
                                  uniqueID = uniqueID,
                                  coords = coords)
 
-            return(the_sspm_data)
+            return(the_sspm_dataset)
           }
 )

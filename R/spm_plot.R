@@ -63,7 +63,7 @@ setMethod("spm_plot",
 
 #' @export
 setMethod("spm_plot",
-          signature(sspm_object = "sspm_data"),
+          signature(sspm_object = "sspm_dataset"),
           definition = function(sspm_object, smoothed_var = NULL,
                                 page = "first", nrow = 2, ncol = 4) {
 

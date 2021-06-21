@@ -3,7 +3,7 @@
 \name{fit_smooths}
 \alias{fit_smooths}
 \alias{fit_spm}
-\alias{fit_smooths,sspm_data,sspm_discrete_boundary-method}
+\alias{fit_smooths,sspm_dataset,sspm_discrete_boundary-method}
 \alias{fit_spm,sspm,sspm_formula-method}
 \title{Fit the GAM part of a sspm model}
 \usage{
@@ -29,7 +29,7 @@ fit_spm(
   ...
 )
 
-\S4method{fit_smooths}{sspm_data,sspm_discrete_boundary}(
+\S4method{fit_smooths}{sspm_dataset,sspm_discrete_boundary}(
   sspm_object,
   boundaries,
   keep_fit = TRUE,
@@ -52,8 +52,8 @@ fit_spm(
 )
 }
 \arguments{
-\item{sspm_object}{\strong{[sspm_data]} An object of class
-\link[=sspm_data-class]{sspm_data}.}
+\item{sspm_object}{\strong{[sspm_dataset]} An object of class
+\link[=sspm_dataset-class]{sspm_dataset}.}
 
 \item{boundaries}{\strong{[sspm_boundary]} An object of class
 \link[=sspm_boundary-class]{sspm_discrete_boundary}.}

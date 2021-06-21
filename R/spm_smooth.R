@@ -3,8 +3,8 @@
 #' With a formula, smooth a variable in a sspm dataset. See Details for
 #' more explanations.
 #'
-#' @param sspm_object **\[sspm_data\]** An object of class
-#'     [sspm_data][sspm_data-class].
+#' @param sspm_object **\[sspm_dataset\]** An object of class
+#'     [sspm_dataset][sspm_dataset-class].
 #' @param formula **\[formula\]** A formula definition of the form
 #'     response ~ smoothing_terms + ...
 #' @param boundaries **\[sspm_boundary\]** An object of class
@@ -80,7 +80,7 @@ setMethod(f = "spm_smooth",
 #' @export
 #' @rdname spm_smooth
 setMethod(f = "spm_smooth",
-          signature(sspm_object = "sspm_data",
+          signature(sspm_object = "sspm_dataset",
                     formula = "formula",
                     boundaries = "sspm_discrete_boundary"),
           function(sspm_object, formula, boundaries, keep_fit, predict, ...){

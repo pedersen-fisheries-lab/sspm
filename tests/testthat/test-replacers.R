@@ -83,33 +83,33 @@ test_that("Replacers work as expected", {
   # Data
 
   expect_data_frame({
-    spm_data(sspm_data) <- mtcars
-    spm_data(sspm_data)
+    spm_data(sspm_dataset) <- mtcars
+    spm_data(sspm_dataset)
   })
 
   expect_match({
-    spm_name(sspm_data) <- "NewDatasetName_2"
-    spm_name(sspm_data)
+    spm_name(sspm_dataset) <- "NewDatasetName_2"
+    spm_name(sspm_dataset)
   }, "NewDatasetName_2")
 
   expect_match({
-    spm_coords_col(sspm_data) <- c("one_2", "two_2")
-    spm_coords_col(sspm_data)[1]
+    spm_coords_col(sspm_dataset) <- c("one_2", "two_2")
+    spm_coords_col(sspm_dataset)[1]
   }, c("one_2"))
 
   expect_match({
-    spm_coords_col(sspm_data) <- c("one_2", "two_2")
-    spm_coords_col(sspm_data)[2]
+    spm_coords_col(sspm_dataset) <- c("one_2", "two_2")
+    spm_coords_col(sspm_dataset)[2]
   }, c("two_2"))
 
   expect_match({
-    spm_unique_ID(sspm_data) <- "New_ID_2"
-    spm_unique_ID(sspm_data)
+    spm_unique_ID(sspm_dataset) <- "New_ID_2"
+    spm_unique_ID(sspm_dataset)
   }, "New_ID_2")
 
   expect_match({
-    spm_time_column(sspm_data) <- "new_time_column_2"
-    spm_time_column(sspm_data)
+    spm_time_column(sspm_dataset) <- "new_time_column_2"
+    spm_time_column(sspm_dataset)
   }, "new_time_column_2")
 
 })

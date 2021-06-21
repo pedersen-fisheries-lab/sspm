@@ -69,7 +69,7 @@ test_that("sspm data is casted correctly", {
                  coords = c('lon_dec','lat_dec'),
                  name = "Biomass",
                  uniqueID = "uniqueID")
-  }, "sspm_data")
+  }, "sspm_dataset")
 
   expect_class({
     spm_as_dataset(data = borealis_simulated,
@@ -78,7 +78,7 @@ test_that("sspm data is casted correctly", {
                  coords = list('lon_dec','lat_dec'),
                  name = "Biomass",
                  uniqueID = "uniqueID")
-  }, "sspm_data")
+  }, "sspm_dataset")
 
   expect_class({
     spm_as_dataset(data = borealis_spatial,
@@ -87,6 +87,6 @@ test_that("sspm data is casted correctly", {
                  coords = c('lon_dec','lat_dec'),
                  name = "Biomass",
                  uniqueID = "uniqueID")
-  }, "sspm_data")
+  }, "sspm_dataset")
 
 })

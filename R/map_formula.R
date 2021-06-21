@@ -1,6 +1,6 @@
-#' Map model formula onto a sspm_data object
+#' Map model formula onto a sspm_dataset object
 #'
-#' This functions is now used internally to map a formula onto a `sspm_data`
+#' This functions is now used internally to map a formula onto a `sspm_dataset`
 #' or `sspm` object.
 #'
 #' @inheritParams smooth_time

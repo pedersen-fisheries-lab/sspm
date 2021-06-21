@@ -13,8 +13,8 @@ spm(sspm_object, formula, ...)
 \S4method{spm}{sspm,formula}(sspm_object, formula, ...)
 }
 \arguments{
-\item{sspm_object}{\strong{[sspm_data]} An object of class
-\link[=sspm_data-class]{sspm_data}.}
+\item{sspm_object}{\strong{[sspm_dataset]} An object of class
+\link[=sspm_dataset-class]{sspm_dataset}.}
 
 \item{formula}{\strong{[formula]} A formula definition of the form
 response ~ smoothing_terms + ...}

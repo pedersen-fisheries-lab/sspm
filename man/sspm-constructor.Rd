@@ -2,15 +2,15 @@
 % Please edit documentation in R/sspm.R
 \name{sspm}
 \alias{sspm}
-\alias{sspm,sspm_data,sspm_data-method}
-\alias{sspm,sspm_data,list-method}
+\alias{sspm,sspm_dataset,sspm_dataset-method}
+\alias{sspm,sspm_dataset,list-method}
 \title{Create a \code{sspm} model object}
 \usage{
 sspm(biomass, predictors, catch = NULL, biomass_var = NULL, catch_var = NULL)
 
-\S4method{sspm}{sspm_data,sspm_data}(biomass, predictors, catch = NULL, biomass_var = NULL, catch_var = NULL)
+\S4method{sspm}{sspm_dataset,sspm_dataset}(biomass, predictors, catch = NULL, biomass_var = NULL, catch_var = NULL)
 
-\S4method{sspm}{sspm_data,list}(biomass, predictors, catch = NULL, biomass_var = NULL, catch_var = NULL)
+\S4method{sspm}{sspm_dataset,list}(biomass, predictors, catch = NULL, biomass_var = NULL, catch_var = NULL)
 }
 \arguments{
 \item{name}{\strong{[character]} The name to be given to the model}

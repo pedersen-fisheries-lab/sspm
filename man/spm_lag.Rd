@@ -10,8 +10,8 @@ spm_lag(sspm_object, vars, n = 1, default = "mean", ...)
 \S4method{spm_lag}{sspm}(sspm_object, vars, n = 1, default = "mean", ...)
 }
 \arguments{
-\item{sspm_object}{\strong{[sspm_data]} An object of class
-\link[=sspm_data-class]{sspm_data}.}
+\item{sspm_object}{\strong{[sspm_dataset]} An object of class
+\link[=sspm_dataset-class]{sspm_dataset}.}
 
 \item{vars}{\strong{[character]} Names of the variables to lag.}
 

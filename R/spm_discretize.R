@@ -5,7 +5,7 @@
 #'
 #' @param boundary_object **\[sspm\]** An object of class
 #'    [sspm_boundary][sspm-class].
-#' @param with **\[sspm_data OR sf\]** Either an object of class sspm_data or
+#' @param with **\[sspm_dataset OR sf\]** Either an object of class sspm_dataset or
 #'    a set of custom points.
 #' @param method **\[character OR method\]**
 #'    Either a `character` from the list of available methods
@@ -71,12 +71,12 @@ setMethod(f = "spm_discretize",
           }
 )
 
-# If with is sspm_data, subsitute for the data
+# If with is sspm_dataset, subsitute for the data
 #' @rdname spm_discretize
 #' @export
 setMethod(f = "spm_discretize",
           signature(boundary_object = "sspm_boundary",
-                    with = "sspm_data",
+                    with = "sspm_dataset",
                     method = "discretization_method"),
           function(boundary_object, with, method, ...){
 
@@ -129,8 +129,8 @@ setMethod(f = "spm_discretize",
             # datasets <- spm_datasets(new_sspm_discrete)
             #
             # for (dataset_name in names(datasets)){
-            #   sspm_data_tmp <- datasets[[dataset_name]]
-            #   datasets[[dataset_name]] <- join_datasets(sspm_data_tmp, new_sspm_discrete)
+            #   sspm_dataset_tmp <- datasets[[dataset_name]]
+            #   datasets[[dataset_name]] <- join_datasets(sspm_dataset_tmp, new_sspm_discrete)
             # }
             #
             # # Replace the objects

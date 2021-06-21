@@ -35,7 +35,7 @@ setMethod("show",
 )
 
 setMethod("show",
-          "sspm_data",
+          "sspm_dataset",
           function(object) {
             cli::cat_line()
             custom_h1(paste0("SSPM Dataset: ", cli::col_blue(object@name),
@@ -111,7 +111,7 @@ cat_boundaries <- function(object, column = TRUE){
 
   if(checkmate::test_class(object, "sspm_boundary")){
     ok_to_print <- TRUE
-  } else if(checkmate::test_class(object, "sspm_data")){
+  } else if(checkmate::test_class(object, "sspm_dataset")){
     if(!is.null(dim(object@boundaries@boundaries))){
       ok_to_print <- TRUE
     } else {

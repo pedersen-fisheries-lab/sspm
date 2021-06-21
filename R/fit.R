@@ -39,7 +39,7 @@ setGeneric(name = "fit_spm",
 
 #' @rdname fit
 setMethod(f = "fit_smooths",
-          signature(sspm_object = "sspm_data",
+          signature(sspm_object = "sspm_dataset",
                     boundaries = "sspm_discrete_boundary"),
           function(sspm_object, boundaries,
                    keep_fit, predict,

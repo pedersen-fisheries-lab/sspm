@@ -2,8 +2,8 @@
 #'
 #' Fit an spm model to a sspm object
 #'
-#' @param sspm_object **\[sspm_data\]** An object of class
-#'     [sspm_data][sspm_data-class].
+#' @param sspm_object **\[sspm_dataset\]** An object of class
+#'     [sspm_dataset][sspm_dataset-class].
 #' @param formula **\[formula\]** A formula definition of the form
 #'     response ~ smoothing_terms + ...
 #'
@@ -54,7 +54,7 @@ setMethod(f = "spm",
 
 
 
-            # Pass onto the sspm_data method
+            # Pass onto the sspm_dataset method
             sspm_formula <- map_formula(data_frame = all_data,
                                         boundaries = boundaries,
                                         formula = formula,

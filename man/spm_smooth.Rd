@@ -2,7 +2,7 @@
 % Please edit documentation in R/spm_smooth.R
 \name{spm_smooth}
 \alias{spm_smooth}
-\alias{spm_smooth,sspm_data,formula,sspm_discrete_boundary-method}
+\alias{spm_smooth,sspm_dataset,formula,sspm_discrete_boundary-method}
 \title{Smooth a variable in a sspm dataset}
 \usage{
 spm_smooth(
@@ -14,7 +14,7 @@ spm_smooth(
   ...
 )
 
-\S4method{spm_smooth}{sspm_data,formula,sspm_discrete_boundary}(
+\S4method{spm_smooth}{sspm_dataset,formula,sspm_discrete_boundary}(
   sspm_object,
   formula,
   boundaries,
@@ -24,8 +24,8 @@ spm_smooth(
 )
 }
 \arguments{
-\item{sspm_object}{\strong{[sspm_data]} An object of class
-\link[=sspm_data-class]{sspm_data}.}
+\item{sspm_object}{\strong{[sspm_dataset]} An object of class
+\link[=sspm_dataset-class]{sspm_dataset}.}
 
 \item{formula}{\strong{[formula]} A formula definition of the form
 response ~ smoothing_terms + ...}

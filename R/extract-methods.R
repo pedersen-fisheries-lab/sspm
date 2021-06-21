@@ -18,7 +18,7 @@ setMethod("$",
 )
 
 setMethod("$",
-          "sspm_data",
+          "sspm_dataset",
           function(x, name) {
             if (is.null(x@smoothed_data)){
               x@data %>%
