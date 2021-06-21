@@ -28,6 +28,7 @@ Imports:
     checkmate,
     cli,
     statmod,
+    tibble,
     magrittr,
     tidyr,
     dplyr,
