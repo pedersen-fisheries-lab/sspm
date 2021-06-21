@@ -54,7 +54,15 @@ setMethod(f = "spm_smooth",
                     formula = "ANY",
                     boundaries = "missing"),
           function(sspm_object, formula, boundaries, keep_fit, predict, ...){
-            cli::cli_alert_danger(" Argument 'boundaries' missing with no default")
+
+            if(!is_mapped(sspm_object)){
+              cli::cli_alert_danger(" Argument 'boundaries' missing with no default")
+            } else {
+              boundaries <- spm_boundaries(sspm_object)
+            }
+
+             spm_smooth(sspm_object, formula, boundaries, keep_fit, predict, ...)
+
           }
 )
 
