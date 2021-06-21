@@ -109,7 +109,19 @@ setMethod("show",
 
 cat_boundaries <- function(object, column = TRUE){
 
-  if(object@is_mapped){
+  if(checkmate::test_class(object, "sspm_boundary")){
+    ok_to_print <- TRUE
+  } else if(checkmate::test_class(object, "sspm_data")){
+    if(!is.null(dim(object@boundaries@boundaries))){
+      ok_to_print <- TRUE
+    } else {
+      ok_to_print <- FALSE
+    }
+  } else {
+    ok_to_print <- FALSE
+  }
+
+  if(ok_to_print){
     if(column){
       cli::cat_bullet(" Boundaries    : ",
                       pluralize_data_info(object@boundaries),
