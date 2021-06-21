@@ -109,20 +109,22 @@ setMethod("show",
 
 cat_boundaries <- function(object, column = TRUE){
 
-  if(column){
-    cli::cat_bullet(" Boundaries    : ",
-                    pluralize_data_info(object@boundaries),
-                    bullet = "arrow_right")
+  if(object@is_mapped){
+    if(column){
+      cli::cat_bullet(" Boundaries    : ",
+                      pluralize_data_info(object@boundaries),
+                      bullet = "arrow_right")
 
-    cli::cat_bullet(" Boundary col. : ",
-                    cli::col_blue(object@boundary_column),
-                    bullet = "arrow_right")
-  } else {
+      cli::cat_bullet(" Boundary col. : ",
+                      cli::col_blue(object@boundary_column),
+                      bullet = "arrow_right")
+    } else {
 
-    cli::cat_bullet(" Boundaries        : ",
-                    pluralize_data_info(object@boundaries@boundaries),
-                    bullet = "arrow_right")
+      cli::cat_bullet(" Boundaries        : ",
+                      pluralize_data_info(object@boundaries@boundaries),
+                      bullet = "arrow_right")
 
+    }
   }
 
 }
