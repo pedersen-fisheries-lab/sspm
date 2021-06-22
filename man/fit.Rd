@@ -165,6 +165,9 @@ be reduced by first fitting a model to a random sample of the data, and using th
 even with factor variables present.}
   }}
 
+\item{sspm_formula}{\strong{[sspm_formula]} The formula specifying the the
+smoothing model.}
+
 \item{select}{Should selection penalties be added to the smooth effects, so that they can in principle be 
 penalized out of the model? See \code{gamma} to increase penalization.  Has the side effect that smooths no longer have a fixed effect component (improper prior from a Bayesian perspective) allowing REML comparison of models with the same fixed effect structure. 
 }

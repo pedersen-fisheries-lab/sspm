@@ -45,5 +45,5 @@ and discretized \code{sspm} object given as input).
 }
 \description{
 Discretize a \link[=sspm-class]{sspm} model object with a function from a
-\link[=method-class]{method} object class.
+\link[=discretization_method-class]{discretization_method} object class.
 }

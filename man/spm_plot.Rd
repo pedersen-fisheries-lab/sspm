@@ -2,6 +2,9 @@
 % Please edit documentation in R/spm_plot.R
 \name{spm_plot}
 \alias{spm_plot}
+\alias{spm_plot,sspm_boundary-method}
+\alias{spm_plot,sspm_dataset-method}
+\alias{spm_plot,sspm_fit-method}
 \title{Plot various \code{sspm} objects}
 \usage{
 spm_plot(
@@ -11,17 +14,24 @@ spm_plot(
   nrow = NULL,
   ncol = NULL
 )
+
+\S4method{spm_plot}{sspm_boundary}(sspm_object)
+
+\S4method{spm_plot}{sspm_dataset}(sspm_object, smoothed_var = NULL, page = "first", nrow = 2, ncol = 4)
+
+\S4method{spm_plot}{sspm_fit}(sspm_object, smoothed_var = NULL, page = "first", nrow = 2, ncol = 4)
 }
 \arguments{
-\item{sspm_object}{An object from this package.}
+\item{sspm_object}{\strong{[sspm_...]} An object from this package.}
 
-\item{smoothed_var}{TODO}
+\item{smoothed_var}{\strong{[character]} Variable to plot.}
 
-\item{page}{TODO}
+\item{page}{\strong{[character]} Either "first" for the firs page of plots, or
+"all" for all pages}
 
-\item{nrow}{TODO}
+\item{nrow}{\strong{[numeric]} The number of rows to paginate the plot on.}
 
-\item{ncol}{TODO}
+\item{ncol}{\strong{[numeric]} The number of columns to paginate the plot on.}
 }
 \value{
 N/A

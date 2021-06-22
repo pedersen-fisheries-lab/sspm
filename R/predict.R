@@ -35,7 +35,7 @@ setMethod(f = "spm_predict",
                     new_data = "missing"),
           function(sspm_object, new_data, ...){
             new_data <- append(as.list(spm_smoothed_data(sspm_object)),
-                               formula_vars(spm_formulas(sspm_model_fit)))
+                               formula_vars(spm_formulas(sspm_object)))
             spm_predict(sspm_object = sspm_object, new_data = new_data, ...)
           }
 )
@@ -47,7 +47,7 @@ setMethod(f = "spm_predict",
                     new_data = "list"),
           function(sspm_object, new_data, ...){
 
-            preds <- spm_get_fit(sspm_model_fit) %>%
+            preds <- spm_get_fit(sspm_object) %>%
               predict.bam(newdata = new_data, ...)
 
             return(preds)

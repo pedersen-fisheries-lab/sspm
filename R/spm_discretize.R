@@ -1,7 +1,7 @@
 #' Discretize a `sspm` model object
 #'
 #' Discretize a [sspm][sspm-class] model object with a function from a
-#' [method][method-class] object class.
+#' [discretization_method][discretization_method-class] object class.
 #'
 #' @param boundary_object **\[sspm\]** An object of class
 #'    [sspm_boundary][sspm-class].

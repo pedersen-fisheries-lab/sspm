@@ -4,6 +4,8 @@
 #' fitted with this function. Arguments can be passed onto `bam`.
 #'
 #' @inheritParams spm_smooth
+#' @param sspm_formula **\[sspm_formula\]** The formula specifying the the
+#'     smoothing model.
 #' @inheritParams mgcv::bam
 #' @inheritDotParams mgcv::bam
 #'

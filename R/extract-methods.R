@@ -1,6 +1,15 @@
-
-# Methods for extraction and selection generics ---------------------------
-
+#' Extract methods
+#'
+#' WIP extract variables from sspm objects
+#'
+#' @param x **\[sspm_...\]** An object from this package.
+#' @param name **\[character\]** The name of the column
+#'
+#' @return
+#' The `data.frame` matching the request.
+#'
+#' @export
+#' @rdname extract-methods
 setMethod("$",
           "sspm_boundary",
           function(x, name) {
@@ -9,6 +18,8 @@ setMethod("$",
           }
 )
 
+#' @export
+#' @rdname extract-methods
 setMethod("$",
           "sspm_discrete_boundary",
           function(x, name) {
@@ -17,6 +28,8 @@ setMethod("$",
           }
 )
 
+#' @export
+#' @rdname extract-methods
 setMethod("$",
           "sspm_dataset",
           function(x, name) {
@@ -30,6 +43,8 @@ setMethod("$",
           }
 )
 
+#' @export
+#' @rdname extract-methods
 setMethod("$",
           "sspm",
           function(x, name) {
@@ -43,6 +58,8 @@ setMethod("$",
           }
 )
 
+#' @export
+#' @rdname extract-methods
 setMethod("$",
           "sspm_fit",
           function(x, name) {
@@ -55,4 +72,3 @@ setMethod("$",
             }
           }
 )
-

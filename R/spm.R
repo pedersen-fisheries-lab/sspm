@@ -6,9 +6,10 @@
 #'     [sspm_dataset][sspm_dataset-class].
 #' @param formula **\[formula\]** A formula definition of the form
 #'     response ~ smoothing_terms + ...
+#' @inheritDotParams mgcv::bam
 #'
 #' @return
-#' The updated sspm object.
+#' An object of type `sspm_fit`.
 #'
 #' @export
 setGeneric(name = "spm",

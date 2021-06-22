@@ -48,7 +48,7 @@ setMethod(f = "spm_lag",
                 }
 
                 smoothed_data <- smoothed_data %>%
-                  dplyr::group_by(patch_id,
+                  dplyr::group_by(.data$patch_id,
                                   .data[[spm_boundary_colum(spm_boundaries(sspm_object))]]) %>%
                   dplyr::mutate(!!var_name := dplyr::lag(x = .data[[var]],
                                                          n = n, default = def_val, ...)) %>%

@@ -2,7 +2,13 @@
 #'
 #' Create a sspm_model object.
 #'
-#' @param name **\[character\]** The name to be given to the model
+#' @param biomass **\[sspm_dataset (smoothed)\]** The dataset containing the
+#'     biomass variable.
+#' @param predictors **\[list  OF sspm_dataset (smoothed)\]** The list of predictor
+#'     datasets.
+#' @param catch **\[sspm_dataset (smoothed)\]** Optionnal, the catch data
+#' @param biomass_var **\[character\]** The biomass column of `biomass`.
+#' @param catch_var **\[character\]** The catch column of `catch`.
 #'
 #' @return
 #' An object of class  [sspm][sspm-class].
@@ -216,5 +222,5 @@ is_sspm_dataset <- function(list_of_datasets){
 
 # clean up data frame before we can join
 clean_data_for_joining <- function(dataset){
-  dataset %>% dplyr::select(-row_ID) %>% sf::st_drop_geometry()
+  dataset %>% dplyr::select(-.data$row_ID) %>% sf::st_drop_geometry()
 }

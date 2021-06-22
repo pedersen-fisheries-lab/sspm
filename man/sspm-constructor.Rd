@@ -13,7 +13,17 @@ sspm(biomass, predictors, catch = NULL, biomass_var = NULL, catch_var = NULL)
 \S4method{sspm}{sspm_dataset,list}(biomass, predictors, catch = NULL, biomass_var = NULL, catch_var = NULL)
 }
 \arguments{
-\item{name}{\strong{[character]} The name to be given to the model}
+\item{biomass}{\strong{[sspm_dataset (smoothed)]} The dataset containing the
+biomass variable.}
+
+\item{predictors}{\strong{[list  OF sspm_dataset (smoothed)]} The list of predictor
+datasets.}
+
+\item{catch}{\strong{[sspm_dataset (smoothed)]} Optionnal, the catch data}
+
+\item{biomass_var}{\strong{[character]} The biomass column of \code{biomass}.}
+
+\item{catch_var}{\strong{[character]} The catch column of \code{catch}.}
 }
 \value{
 An object of class  \link[=sspm-class]{sspm}.

@@ -2,11 +2,12 @@
 #'
 #' Plot methods for a range of sspm objects.
 #'
-#' @param sspm_object An object from this package.
-#' @param smoothed_var TODO
-#' @param page TODO
-#' @param nrow TODO
-#' @param ncol TODO
+#' @param sspm_object **\[sspm_...\]** An object from this package.
+#' @param smoothed_var **\[character\]** Variable to plot.
+#' @param page **\[character\]** Either "first" for the firs page of plots, or
+#'     "all" for all pages
+#' @param nrow **\[numeric\]** The number of rows to paginate the plot on.
+#' @param ncol **\[numeric\]** The number of columns to paginate the plot on.
 #'
 #' @return
 #' N/A
@@ -22,6 +23,7 @@ setGeneric(name = "spm_plot",
 # Methods -----------------------------------------------------------------
 
 #' @export
+#' @rdname spm_plot
 setMethod("spm_plot",
           signature(sspm_object = "sspm_boundary"),
           definition = function(sspm_object) {
@@ -62,6 +64,7 @@ setMethod("spm_plot",
 )
 
 #' @export
+#' @rdname spm_plot
 setMethod("spm_plot",
           signature(sspm_object = "sspm_dataset"),
           definition = function(sspm_object, smoothed_var = NULL,
@@ -90,6 +93,7 @@ setMethod("spm_plot",
 )
 
 #' @export
+#' @rdname spm_plot
 setMethod("spm_plot",
           signature(sspm_object = "sspm_fit"),
           definition = function(sspm_object, smoothed_var = NULL,
@@ -112,11 +116,13 @@ setMethod("spm_plot",
               response <- spm_response(spm_formulas(sspm_object))
               smoothed_data_with_preds <- smoothed_data %>%
                 dplyr::mutate(predicted = preds,
-                              color = ifelse(train_test, "TRAIN", "TEST"))
+                              color = ifelse(.data$train_test, "TRAIN", "TEST"))
 
               sspm_discrete_plot <-
                 ggplot2::ggplot(data = smoothed_data_with_preds) +
-                ggplot2::geom_point(ggplot2::aes(x = .data[[response]], y = predicted, col = color)) +
+                ggplot2::geom_point(ggplot2::aes(x = .data[[response]],
+                                                 y = .data$predicted,
+                                                 col = .data$color)) +
                 ggplot2::theme_light() +
                 ggplot2::labs(x="actual") +
                 ggplot2::scale_color_viridis_d("Set")
