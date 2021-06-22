@@ -67,6 +67,9 @@ setMethod("show",
           function(object) {
             cli::cat_line()
             custom_h1("SSPM Formula")
+            cli::cat_bullet(" Response           : ",
+                            object@response,
+                            bullet = "arrow_right")
             cli::cat_bullet(" Raw formula        : ",
                             format_formula(object@raw_formula),
                             bullet = "arrow_right")
