@@ -1,10 +1,8 @@
 # Simple tests for plotting functions
 
 test_that("Plotting works as expected", {
+  skip("TODO")
 
-  expect_message(plot(sspm_base),
-                 "This model is not discretized and cannot be plotted")
-
-  expect_list(plot(sspm_discrete))
+  # TODO
 
 })

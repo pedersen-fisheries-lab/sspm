@@ -41,6 +41,7 @@ test_that("Smooths are assembles correctly", {
 })
 
 test_that("Main smooth functions work as expected", {
+  skip("TODO")
 
   # Failures => This avctually test ICAR
   expect_error(smooth_time(dataset = "NotValid", sspm_object = sspm_discrete_mapped),
@@ -69,6 +70,7 @@ test_that("Main smooth functions work as expected", {
 })
 
 test_that("ICAR function works as expected", {
+  skip("TODO")
 
   # Just basic output
   res_ICAR  <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "time",

@@ -1,7 +1,7 @@
 # Test of map_dataset
 
 test_that("Mapping of dataset works as expected", {
-  skip()
+  skip("Deprecated")
 
   expect_error({
     sspm_discrete %>% map_dataset(predator_simulated, name = "pred_data", time_column = "year",
