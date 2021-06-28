@@ -85,3 +85,14 @@ test_that("Residuals are correctly retrieved", {
   expect_equal(median(res), -0.1017879, tolerance=1e-06)
 
 })
+
+# Testing miscellaneous functions
+
+test_that("Methods are correctly returned", {
+  expect_class({spm_methods()}, "character")
+  expect_length({spm_methods()}, 1)
+})
+
+test_that("Functons for methods are correctly dispatched", {
+  expect_class({sspm:::dispatch_method("tesselate_voronoi")}, "function")
+})
