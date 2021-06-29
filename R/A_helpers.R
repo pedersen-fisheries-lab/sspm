@@ -39,23 +39,25 @@ spm_smooth_methods <- function(){
 # Not exported ------------------------------------------------------------
 
 # Join datasets to patches
-join_datasets <- function(sspm_data, sspm_object){
+join_datasets <- function(sspm_dataset, sspm_boundary){
 
-  checkmate::assert_class(sspm_data, "sspm_data")
-  checkmate::assert_class(sspm_object, "sspm_discrete")
+  checkmate::assert_class(sspm_dataset, "sspm_dataset")
+  checkmate::assert_class(sspm_boundary, "sspm_discrete_boundary")
 
-  the_data <- spm_data(sspm_data)
-  the_patches <- spm_patches(sspm_object)
+  the_data <- spm_data(sspm_dataset)
+  the_patches <- sspm_boundary@patches
 
   # TODO REVIEW THE COHERENCE OF ST_TRANSFORM
   joined <- suppressMessages(sf::st_transform(the_data, crs = sf::st_crs(the_patches)))
   joined <- suppressMessages(sf::st_join(the_data, the_patches)) %>%
-    dplyr::filter(!duplicated(.data[[spm_unique_ID(sspm_data)]])) %>%
+    dplyr::filter(!duplicated(.data[[spm_unique_ID(sspm_dataset)]])) %>%
     dplyr::filter(!is.na(.data$patch_id))
 
-  spm_data(sspm_data) <- joined
+  spm_data(sspm_dataset) <- joined
+  spm_boundaries(sspm_dataset) <- sspm_boundary
+  is_mapped(sspm_dataset) <- TRUE
 
-  return(sspm_data)
+  return(sspm_dataset)
 }
 
 # Dispatch the correct function based on the name of the method

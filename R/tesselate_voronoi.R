@@ -2,39 +2,34 @@
 #'
 #' Generates voronoi polygons by first performing stratified sampling across
 #' boundary polygons, then by running  the voronoisation with
-#' [st_voronoi()][sf::st_voronoi()]. The sampling can be bypassed by providing
-#' points via `sample_points`.
+#' [st_voronoi()][sf::st_voronoi()].
 #'
-#' @param sspm_data **\[sspm\]** `sspm_data` object to used for discretization.
-#' @param data **\[data.frame\]** Overwrites the data slot of `sspm_data`.
-#' @param boundaries **\[sf\]** The boundaries to be used, usually the
-#'     boundaries of the parent `sspm_object`.
-#' @param boundary_col **\[character\]** The column in `boundaries` that is to
+#' @param boundaries **\[sf\]** The boundaries to be used.
+#' @param with **\[sf\]** A set of data points to use for voronoisation.
+#' @param sample_points **\[logical]** Whether to sample points from `with` or
+#'     to take all points in `with`. Default to `TRUE`.
+#' @param boundary_column **\[character\]** The column in `boundaries` that is to
 #'     be used for the stratified sampling.
 #' @param nb_samples **\[named character vector\]** The number of samples to draw
-#'     by boundary polygons (must bear the levels of `boundary_col` as names).
+#'     by boundary polygons (must bear the levels of `boundary_column` as names).
 #' @param min_size **\[numeric\]** The minimum size for a polygon above which it
 #'     will be merged (in km2).
-#' @param sample_points **\[sf\]** A set of points to use for voronoisation,
-#'     all parameters used for sampling are ignored.
 #' @param seed **\[numeric\]** Passed onto [`set.seed()`][base::set.seed()],
 #'     important for reproducibility of sampling.
 #'
 #' @return
 #' A named list with three elements (each an `sf` object):
-#'     * `data_spatial`, the spatialized version of `data`
 #'     * `patches`, the voronoi polygons generated
 #'     * `points`, the points used for the tessellation.
 #'
 #' @export
-tesselate_voronoi <- function(sspm_data,
-                              data = NULL,
-                              boundaries = NULL,
-                              boundary_col = "sfa",
+tesselate_voronoi <- function(boundaries,
+                              with,
+                              sample_points = TRUE,
+                              boundary_column = "sfa",
                               nb_samples = c(`4` = 10, `5` = 30,
                                              `6` = 30, `7` = 5),
                               min_size = 1500,
-                              sample_points = NULL,
                               seed = 1) {
 
   # TODO some steps in original code not supported as these are not general:
@@ -45,27 +40,29 @@ tesselate_voronoi <- function(sspm_data,
   # Prep --------------------------------------------------------------------
 
   # Check main params
-  checkmate::assert_class(sspm_data, "sspm_data", null.ok = TRUE)
-  checkmate::assert_numeric(nb_samples)
-  if (!checkmate::test_null(sample_points)) {
-    checkmate::assert_class(sample_points, "sf")
-  }
-
-  # Get params from model object if necessary
-  if(!is.null(sspm_data)){
-    name <- spm_name(sspm_data)
-    if (is.null(data)) {
-      data_spatial <- spm_data(sspm_data)
-    } else {
-      checkmate::assert_class(data, "sf")
-      data_spatial <- data
-    }
-  }
   if (is.null(boundaries)) {
     stop("boundaries argument is missing")
   } else{
     checkmate::assert_class(boundaries, "sf")
   }
+
+  if (is.null(with)) {
+    stop("with argument is missing")
+  } else{
+    checkmate::assert_class(with, "sf")
+  }
+
+  checkmate::assert_logical(sample_points)
+  checkmate::assert_character(boundary_column)
+
+  if(!checkmate::test_subset(boundary_column, names(boundaries))){
+    stop("`boundary_column` must be a column of `boundaries`",
+         call. = FALSE)
+  }
+
+  checkmate::assert_numeric(nb_samples)
+  checkmate::assert_numeric(min_size)
+  checkmate::assert_numeric(seed)
 
   # Body --------------------------------------------------------------------
 
@@ -73,17 +70,18 @@ tesselate_voronoi <- function(sspm_data,
   if(getRversion()>=3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))
 
   # 2. Create (sample) the points
-  if(is.null(sample_points)){
-    set.seed(seed) ; voronoi_points <- suppressMessages(sf::st_join(data_spatial, boundaries)) %>%
-      dplyr::filter(!is.na(eval(dplyr::sym(boundary_col)))) %>%
-      dplyr::group_by(.data[[boundary_col]]) %>%
+  if(sample_points){
+    set.seed(seed) ; voronoi_points <-
+      suppressMessages(sf::st_join(with, boundaries)) %>%
+      dplyr::filter(!is.na(eval(dplyr::sym(boundary_column)))) %>%
+      dplyr::group_by(.data[[boundary_column]]) %>%
       # TODO revise here: allows stratified sampling, but doesn't allow a given
       # number (like "want to sample 100" polygons)
       dplyr::filter(1:dplyr::n() %in%
                       sample(1:dplyr::n(),
-                             size = nb_samples[[.data[[boundary_col]][1]]]))
+                             size = nb_samples[[.data[[boundary_column]][1]]]))
   } else {
-    voronoi_points <- sample_points
+    voronoi_points <- with
   }
 
   # 3. Create the polygons
@@ -98,7 +96,7 @@ tesselate_voronoi <- function(sspm_data,
   voronoi <-
     suppressAll(voronoi %>%
                   dplyr::mutate(patch_id =  paste("V", 1:dplyr::n(),sep = "")) %>%
-                  dplyr::group_by(.data$patch_id, .data[[boundary_col]]) %>%
+                  dplyr::group_by(.data$patch_id, .data[[boundary_column]]) %>%
                   dplyr::summarize() %>%
                   dplyr::ungroup())
   voronoi <-
@@ -117,7 +115,7 @@ tesselate_voronoi <- function(sspm_data,
   # TODO vectorize this
   for(i in small_voronoi){
     current_polygons <- voronoi[voronoi_edges[[i]],] %>%
-      dplyr::filter(.data[[boundary_col]] == .data[[boundary_col]][.data$patch_id == i]) %>%
+      dplyr::filter(.data[[boundary_column]] == .data[[boundary_column]][.data$patch_id == i]) %>%
       dplyr::filter(.data$area_km2 == max(.data$area_km2))
     max_id <- current_polygons$patch_id
     voronoi$patch_id[voronoi$patch_id==i] <- max_id
@@ -128,7 +126,7 @@ tesselate_voronoi <- function(sspm_data,
     suppressWarnings(
       suppressMessages(
         voronoi %>%
-          dplyr::group_by(.data[[boundary_col]], .data$patch_id) %>%
+          dplyr::group_by(.data[[boundary_column]], .data$patch_id) %>%
           dplyr::summarize() %>%
           dplyr::ungroup()))
   voronoi <-

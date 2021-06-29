@@ -21,6 +21,14 @@
 \alias{formula_type,sspm_formula-method}
 \alias{formula_type<-}
 \alias{formula_type<-,sspm_formula-method}
+\alias{is_fitted}
+\alias{is_fitted,sspm_formula-method}
+\alias{is_fitted<-}
+\alias{is_fitted<-,sspm_formula-method}
+\alias{spm_response}
+\alias{spm_response,sspm_formula-method}
+\alias{spm_response<-}
+\alias{spm_response<-,sspm_formula-method}
 \title{Accessing OR replacing \code{sspm_formula} model elements}
 \usage{
 raw_formula(sspm_object)
@@ -62,6 +70,22 @@ formula_type(sspm_object)
 formula_type(object) <- value
 
 \S4method{formula_type}{sspm_formula}(object) <- value
+
+is_fitted(sspm_object)
+
+\S4method{is_fitted}{sspm_formula}(sspm_object)
+
+is_fitted(object) <- value
+
+\S4method{is_fitted}{sspm_formula}(object) <- value
+
+spm_response(sspm_object)
+
+\S4method{spm_response}{sspm_formula}(sspm_object)
+
+spm_response(object) <- value
+
+\S4method{spm_response}{sspm_formula}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_formula]} An object of class

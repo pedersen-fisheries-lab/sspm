@@ -5,16 +5,17 @@
 \alias{smooth_space}
 \alias{smooth_space_time}
 \alias{smooth_lag}
-\alias{smooth_time,ANY,character,sspm_discrete-method}
-\alias{smooth_space,ANY,character,sspm_discrete-method}
-\alias{smooth_space_time,ANY,character,sspm_discrete-method}
-\alias{smooth_lag,ANY,ANY,ANY,sspm_discrete-method}
+\alias{smooth_time,sf,sspm_discrete_boundary-method}
+\alias{smooth_space,sf,sspm_discrete_boundary-method}
+\alias{smooth_space_time,sf,sspm_discrete_boundary-method}
+\alias{smooth_lag,ANY,sf,sspm_discrete_boundary-method}
 \title{sspm Smoothing functions}
 \usage{
 smooth_time(
+  data_frame,
+  boundaries,
+  time_column,
   type = "ICAR",
-  dataset,
-  sspm_object,
   k = NULL,
   bs = "re",
   xt = NULL,
@@ -22,9 +23,10 @@ smooth_time(
 )
 
 smooth_space(
+  data_frame,
+  boundaries,
+  time_column,
   type = "ICAR",
-  dataset,
-  sspm_object,
   k = 30,
   bs = "mrf",
   xt = NULL,
@@ -32,58 +34,81 @@ smooth_space(
 )
 
 smooth_space_time(
+  data_frame,
+  boundaries,
+  time_column,
   type = "ICAR",
-  dataset,
-  sspm_object,
   k = NULL,
   bs = c("re", "mrf"),
   xt = NULL,
   ...
 )
 
-smooth_lag(var, type = "LINPRED", dataset, sspm_object, k = 5, m = 1, ...)
+smooth_lag(
+  var,
+  data_frame,
+  boundaries,
+  time_column,
+  type = "LINPRED",
+  k = 5,
+  m = 1,
+  ...
+)
 
-\S4method{smooth_time}{ANY,character,sspm_discrete}(
+\S4method{smooth_time}{sf,sspm_discrete_boundary}(
+  data_frame,
+  boundaries,
+  time_column,
   type = "ICAR",
-  dataset,
-  sspm_object,
   k = NULL,
   bs = "re",
   xt = NULL,
   ...
 )
 
-\S4method{smooth_space}{ANY,character,sspm_discrete}(
+\S4method{smooth_space}{sf,sspm_discrete_boundary}(
+  data_frame,
+  boundaries,
+  time_column,
   type = "ICAR",
-  dataset,
-  sspm_object,
   k = 30,
   bs = "mrf",
   xt = NULL,
   ...
 )
 
-\S4method{smooth_space_time}{ANY,character,sspm_discrete}(
+\S4method{smooth_space_time}{sf,sspm_discrete_boundary}(
+  data_frame,
+  boundaries,
+  time_column,
   type = "ICAR",
-  dataset,
-  sspm_object,
   k = NULL,
   bs = c("re", "mrf"),
   xt = NULL,
   ...
 )
 
-\S4method{smooth_lag}{ANY,ANY,ANY,sspm_discrete}(var, type = "LINPRED", dataset, sspm_object, k = 5, m = 1, ...)
+\S4method{smooth_lag}{ANY,sf,sspm_discrete_boundary}(
+  var,
+  data_frame,
+  boundaries,
+  time_column,
+  type = "LINPRED",
+  k = 5,
+  m = 1,
+  ...
+)
 }
 \arguments{
+\item{data_frame}{\strong{[sf data.frame]} The data.}
+
+\item{boundaries}{\strong{[sspm_boundary]} An object of class
+\link[=sspm_boundary-class]{sspm_discrete_boundary}.}
+
+\item{time_column}{\strong{[character]} The time column.}
+
 \item{type}{\strong{[character]} Type of smooth, currently only "ICAR" is
 supported.}
-
-\item{dataset}{\strong{[character]} The name(s) of the dataset(s) for which to
-specify the formula.}
-
-\item{sspm_object}{\strong{[sspm_discrete]} An object of class
-\link[=sspm_discrete-class]{sspm_discrete}.}
 
 \item{k}{\strong{[numeric]} Size of the smooths and/or size of the lag.}
 
@@ -96,7 +121,10 @@ see \code{\link[mgcv]{smooth.terms}} for an over view of what is available.
   e.g. to set large data set handling behaviour for \code{"tp"} basis. If \code{xt$sumConv}
   exists and is \code{FALSE} then the summation convention for matrix arguments is turned off. }
 
-\item{...}{Further arguments passed down, none used for now.}
+\item{...}{ a list of variables that are the covariates that this
+    smooth is a function of. Transformations whose form depends on
+    the values of the data are best avoided here: e.g. \code{s(log(x))}
+    is fine, but \code{s(I(x/sd(x)))} is not (see \code{\link[mgcv]{predict.gam}}).}
 
 \item{var}{\strong{[symbol]} Variable (only for smooth_lag).}
 

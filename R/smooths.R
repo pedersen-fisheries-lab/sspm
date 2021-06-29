@@ -3,11 +3,13 @@
 #' A full sspm formula contains calls to the smoothing terms `smooth_time()`,
 #' `smooth_space()`, `smooth_space_time()`.
 #'
+#' @param data_frame **\[sf data.frame\]** The data.
+#' @param time_column **\[character\]** The time column.
 #' @param var **\[symbol\]** Variable (only for smooth_lag).
 #' @param type **\[character\]** Type of smooth, currently only "ICAR" is
 #'     supported.
 #' @param k **\[numeric\]** Size of the smooths and/or size of the lag.
-#' @inheritParams map_formula
+#' @inheritParams spm_smooth
 #' @inheritParams mgcv::s
 #'
 #' @return
@@ -18,9 +20,10 @@
 #' @rdname smooths
 #' @export
 setGeneric(name = "smooth_time",
-           def = function(type = "ICAR",
-                          dataset,
-                          sspm_object,
+           def = function(data_frame,
+                          boundaries,
+                          time_column,
+                          type = "ICAR",
                           k = NULL,
                           bs = "re",
                           xt = NULL,
@@ -32,9 +35,10 @@ setGeneric(name = "smooth_time",
 #' @export
 #' @rdname smooths
 setGeneric(name = "smooth_space",
-           def = function(type = "ICAR",
-                          dataset,
-                          sspm_object,
+           def = function(data_frame,
+                          boundaries,
+                          time_column,
+                          type = "ICAR",
                           k = 30,
                           bs = "mrf",
                           xt = NULL,
@@ -46,9 +50,10 @@ setGeneric(name = "smooth_space",
 #' @export
 #' @rdname smooths
 setGeneric(name = "smooth_space_time",
-           def = function(type = "ICAR",
-                          dataset,
-                          sspm_object,
+           def = function(data_frame,
+                          boundaries,
+                          time_column,
+                          type = "ICAR",
                           k = NULL,
                           bs = c("re","mrf"),
                           xt = NULL,
@@ -61,9 +66,10 @@ setGeneric(name = "smooth_space_time",
 #' @rdname smooths
 setGeneric(name = "smooth_lag",
            def = function(var,
+                          data_frame,
+                          boundaries,
+                          time_column,
                           type = "LINPRED",
-                          dataset,
-                          sspm_object,
                           k = 5,
                           m = 1,
                           ...){
@@ -81,10 +87,9 @@ setGeneric(name = "smooth_lag",
 #' @export
 #' @rdname smooths
 setMethod(f = "smooth_time",
-          signature(type = "ANY",
-                    dataset = "character",
-                    sspm_object = "sspm_discrete"),
-          function(type, dataset, sspm_object, k, bs, xt, ...){
+          signature(data_frame = "sf",
+                    boundaries = "sspm_discrete_boundary"),
+          function(data_frame, boundaries, time_column, type, k, bs, xt, ...){
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -92,9 +97,10 @@ setMethod(f = "smooth_time",
 
             # Get the default arguments for the smooth type used
             args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(sspm_object = sspm_object,
-                                                 dataset = dataset,
+                                     append(list(data_frame = data_frame,
+                                                 time_column = time_column,
                                                  dimension = "time",
+                                                 boundaries = boundaries,
                                                  k = k, bs = bs, xt = xt),
                                             args_list))
 
@@ -110,10 +116,9 @@ setMethod(f = "smooth_time",
 #' @export
 #' @rdname smooths
 setMethod(f = "smooth_space",
-          signature(type = "ANY",
-                    dataset = "character",
-                    sspm_object = "sspm_discrete"),
-          function(type, dataset, sspm_object, k, bs, xt, ...){
+          signature(data_frame = "sf",
+                    boundaries = "sspm_discrete_boundary"),
+          function(data_frame, boundaries, time_column, type, k, bs, xt, ...){
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -121,9 +126,10 @@ setMethod(f = "smooth_space",
 
             # Get the default arguments for the smooth type used
             args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(sspm_object = sspm_object,
-                                                 dataset = dataset,
+                                     append(list(data_frame = data_frame,
+                                                 time_column = time_column,
                                                  dimension = "space",
+                                                 boundaries = boundaries,
                                                  k = k, bs = bs, xt = xt),
                                             args_list))
 
@@ -139,10 +145,9 @@ setMethod(f = "smooth_space",
 #' @export
 #' @rdname smooths
 setMethod(f = "smooth_space_time",
-          signature(type = "ANY",
-                    dataset = "character",
-                    sspm_object = "sspm_discrete"),
-          function(type, dataset, sspm_object, k, bs, xt, ...){
+          signature(data_frame = "sf",
+                    boundaries = "sspm_discrete_boundary"),
+          function(data_frame, boundaries, time_column, type, k, bs, xt, ...){
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -150,9 +155,10 @@ setMethod(f = "smooth_space_time",
 
             # Get the default arguments for the smooth type used
             args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(sspm_object = sspm_object,
-                                                 dataset = dataset,
+                                     append(list(data_frame = data_frame,
+                                                 time_column = time_column,
                                                  dimension = "space_time",
+                                                 boundaries = boundaries,
                                                  k = k, bs = bs, xt = xt),
                                             args_list))
 
@@ -168,17 +174,18 @@ setMethod(f = "smooth_space_time",
 #' @export
 #' @rdname smooths
 setMethod(f = "smooth_lag",
-          signature(sspm_object = "sspm_discrete"),
-          function(var, type, dataset, sspm_object, k, m, ...){
-            # Note that dataset argument in unused in this case
-
+          signature(data_frame = "sf",
+                    boundaries = "sspm_discrete_boundary"),
+          function(var, data_frame, boundaries, time_column, type, k, m, ...){
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
             args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
             # Get the default arguments for the smooth type used
             args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(sspm_object = sspm_object,
+                                     append(list(data_frame = data_frame,
+                                                 boundaries = boundaries,
+                                                 time_column = time_column,
                                                  var = var,
                                                  k = k, m = m),
                                             args_list))
@@ -197,46 +204,27 @@ setMethod(f = "smooth_lag",
 # Construct an ICAR penalization matrix for a given "dimension" and returns the
 # double list args_and_vars that have the args to build a new call to s() and the
 # vars necessary for the evaluation of that s() smooth
-ICAR <- function(sspm_object, dataset, dimension,
+ICAR <- function(data_frame, boundaries, time_column, dimension,
                  k, bs, xt, ...){
 
-  checkmate::assert_class(sspm_object, "sspm")
-  checkmate::assert_character(dataset)
+  checkmate::assert_class(data_frame, "sf")
+  checkmate::assert_class(boundaries, "sspm_discrete_boundary")
+  checkmate::assert_character(time_column)
   checkmate::assert_character(dimension)
   checkmate::assert_choice(dimension, choices = c("time", "space", "space_time"))
 
   # Recapture the ellipsis again
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
-  # Get data/dataset and relevant columns
-  all_datasets <- spm_datasets(sspm_object)
-  all_dataset_names <- names(all_datasets)
-  choices <- c(all_dataset_names, "smoothed_data")
-
-  if(any(!sapply(dataset, checkmate::test_choice, choices))){
-    stop(paste0("Argument 'dataset' must be one of: ",
-                paste0(all_dataset_names,
-                       collapse =  ", " )), call. = FALSE)
-  }
-
-  if(dataset == "smoothed_data") {
-    the_dataset <- spm_smoothed_data(sspm_object)
-  } else {
-    the_dataset <- spm_datasets(sspm_object)[[dataset]]
-  }
-
-  the_data <- spm_data(the_dataset)
-
   # ---- TIME ----
-  time_column <- spm_time_column(the_dataset)
-  time_levels <- unique(the_data[[time_column]])
+  time_levels <- unique(data_frame[[time_column]])
   n_time_levels = length(time_levels)
 
   # ---- SPACE ----
   # Here we assume the hardcoded convention that the patch column is patch_id
   # (from the discretization)
   space_column <- "patch_id"
-  patches <- spm_patches(sspm_object)
+  patches <- boundaries@patches
 
   # Setup done ----
 
@@ -400,33 +388,31 @@ ICAR_space <- function(patches, space_column){
 # Construct the lag matrix and associated lag columns for the linear predictor
 # method of fitting the smooth
 
-LINPRED <- function(sspm_object, var,
+LINPRED <- function(data_frame, boundaries, time_column, var,
                     k, m, ...){
 
-  checkmate::assert_class(sspm_object, "sspm_discrete")
+  checkmate::assert_class(data_frame, "sf")
+  checkmate::assert_class(boundaries, "sspm_discrete_boundary")
+  checkmate::assert_character(time_column)
 
   # Recapture the ellipsis again
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
   # Make the lag matrix
-  biomass_time_col <- spm_time_column(spm_datasets(sspm_object, "biomass"))
-  boundary_col <- names(spm_boundaries(sspm_object))[-which(names(spm_boundaries(sspm_object)) %in%
-                                                              c("geometry", "polygons"))]
+  boundary_col <- spm_boundary_colum(boundaries)
 
-  smoothed_data <- spm_data(spm_smoothed_data(sspm_object))
-
-  lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(smoothed_data),
+  lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(data_frame),
                                      ncol = k, byrow = TRUE)) %>%
     dplyr::rename_all(.funs = gsub, pattern = "V", replacement = "lag") %>%
-    dplyr::mutate(!!biomass_time_col := smoothed_data[[biomass_time_col]],
-                  !!boundary_col := smoothed_data[[boundary_col]],
-                  "patch_id" = smoothed_data[["patch_id"]]) %>%
+    dplyr::mutate(!!time_column := data_frame[[time_column]],
+                  !!boundary_col := data_frame[[boundary_col]],
+                  "patch_id" = data_frame[["patch_id"]]) %>%
     dplyr:: select(dplyr::contains('lag')) %>%
     as.matrix()
 
-  by_matrix <- smoothed_data %>%
+  by_matrix <- data_frame %>%
     sf::st_set_geometry(NULL) %>%
-    dplyr::select(.data$patch_id, !!boundary_col, !!biomass_time_col, !!var) %>%
+    dplyr::select(.data$patch_id, !!boundary_col, !!time_column, !!var) %>%
     dplyr::nest_by(.data$patch_id, !!boundary_col := .data[[boundary_col]]) %>%
     dplyr::mutate(lags = list(multilag(variable = .data$data[[var]],
                                        n_lags = k,

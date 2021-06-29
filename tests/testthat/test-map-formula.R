@@ -1,6 +1,7 @@
 # Test of map_formula
 
 test_that("Map formula works as expected", {
+  skip("Deprecated")
 
   form_mapped <- sspm_discrete_mapped %>%
     map_formula(weight_per_km2~smooth_time()+smooth_space()+smooth_space_time(),

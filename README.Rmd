@@ -45,7 +45,7 @@ devtools::install_github("pedersen-fisheries-lab/sspm")
 
 The following example shows the typical `sspm` workflow. The API is subject to changes as the package is still in development.
 
-Let's first load the test data.
+Let's first load the packages and the test data.
 
 ```{r}
 library(sspm)
@@ -54,109 +54,144 @@ library(mgcv)
 borealis <- sspm:::borealis_simulated
 predator <- sspm:::predator_simulated
 catch <- sspm:::catch_simulated
+
 sfa_boundaries <- sspm:::sfa_boundaries
 ```
 
-1. Start by creating a base `sapspm` object with a base dataset called "Biomass".
+1. The first step of the `sspm` workflow is to create a `sspm_boundary` from an `sf` object, providing the `boundary_column` that delineates the boundary regions. The object can then be plotted with `spm_plot` (as can most `sspm` objects). 
+
 ```{r}
-sspm_base <- sspm(model_name = "My Model",
-                  boundaries = sfa_boundaries) %>% 
-  map_biomass(borealis, "borealis", 
-              time_column = "year_f",
-              coords = c('lon_dec','lat_dec'),
-              uniqueID = "uniqueID")
-sspm_base
+bounds <- spm_as_boundary(boundaries = sfa_boundaries, 
+                          boundary_column = "sfa")
+
+spm_plot(bounds)
 ```
 
-2. Then, discretize the object using a method for discretization, the default behind voronoi tesselation. See `?spm_methods()` for the list of methods available.
+2. The second step consists in wrapping a `data.frame`, `tibble` or `sf` object into a `sspm_data` object, with a few other pieces of relevant information, such as the name, dataset type (biomass, predictor or catch, depending on the type of information contained), time column and coordinates column (i not `sf`) and unique row identifier. Here we wrap the borealis dataset that contains the biomass information.
+
 ```{r}
-sspm_discrete <- sspm_base %>%
-  spm_discretize(with_dataset = "borealis", 
-                 discretization_method = "tesselate_voronoi")
-sspm_discrete
-```
-The results of the discretization can be explored with `spm_patches()` and `spm_points()`. You can also plot the object to inspect the resulting discretization.
-```{r}
-spm_patches(sspm_discrete)
-spm_points(sspm_discrete)
-plot(sspm_discrete)
+biomass_dataset <- 
+  spm_as_dataset(borealis, name = "borealis", 
+                 type = "biomass", time_column = "year_f",
+                 coords = c('lon_dec','lat_dec'), uniqueID = "uniqueID")
+
+biomass_dataset
 ```
 
-3. Then, other datasets may be loaded alongside the biomass dataset, for example, predator and catch data.
+3. We do the same with the predator and catch data.
+
 ```{r}
-sspm_mapped <- sspm_discrete %>%
-  map_predictor(predator,
-                name = "pred_data",
-                time_column = "year",
-                uniqueID = "uniqueID",
-                coords = c("lon_dec", "lat_dec")) 
-sspm_mapped
+predator_dataset <- 
+  spm_as_dataset(predator, name = "all_predators", 
+                 type = "predictor", time_column = "year",
+                 uniqueID = "uniqueID", coords = c("lon_dec", "lat_dec"))
+
+predator_dataset
+
+catch_dataset <- 
+  spm_as_dataset(catch, name = "catch_data", 
+                 type = "catch", time_column = "year_f", 
+                 uniqueID = "uniqueID", coords = c("lon_start", "lat_start"))
+
+catch_dataset
 ```
 
-4. Smoothing formulas for any of the datasets may be specified, using special terms `smooth_time()`, `smooth_space` and `smooth_space_time`. NOTE: the testing dataset is dummy data and wont converge if `smooth_time()` or `smooth_space_time` is used (to be fixed soon).
+4. The `sspm` workflow relies on the discretization of the boundary objects, the default method being voronoi tesselation (only one method available currently, but see in the future see `?spm_methods()` for the list of methods available).
+
 ```{r}
-sspm_with_formulas <- sspm_mapped %>%
-  map_formula(weight_per_km2~smooth_time() + smooth_space(), "borealis") %>% 
-  map_formula(weight_per_km2~smooth_time() + smooth_space(), "pred_data")
-sspm_with_formulas
+bounds_voronoi <- bounds %>% 
+  spm_discretize(with = biomass_dataset, 
+                 method = "tesselate_voronoi")
+
+bounds_voronoi
 ```
 
-5. Finally, formulas can be fitted with `fit_smooths()`
+5. Plotting the object shows the polygons that have been created.
+
 ```{r}
-sspm_smooth_fitted <- sspm_with_formulas %>%
-  fit_smooths()
-sspm_smooth_fitted
+spm_plot(bounds_voronoi)
 ```
 
-The smoothed results for any smoothed variables (listed in "smoothed vars" above) can be plotted:
+6. The results of the discretization can also be explored with `spm_patches()` and `spm_points()`.
+
 ```{r}
-plot(sspm_smooth_fitted, smoothed_var = "pred_data_smooth")
+spm_patches(bounds_voronoi)
+spm_points(bounds_voronoi)
 ```
 
-6. We also need to register catch data.  For catch data, it is important to precise a data column which will be aggregated at the `patch_id` level.
+7. The next step in this workflow is to smooth the variables to be used in the final `sspm` model, by using spatial-temporal smoothers, by passing each dataset through `spm_smooth`. Here we first smooth `weight_per_km2` as well as `temp_at_bottom`. Note that the boundary column `sfa` can be used in the formula as the data will be first joined to the provided boundaries.
+
 ```{r}
-sspm_smooth_fitted_wcatch <-  sspm_smooth_fitted %>% 
-  map_catch(catch, name = "catch_data", 
-            time_column = "year_f", 
-            uniqueID = "uniqueID", 
-            coords = c("lon_start", "lat_start"), 
-            catch_column = "catch", 
-            biomass_column = "borealis_smooth")
-sspm_smooth_fitted_wcatch
+biomass_smooth <- biomass_dataset %>%  
+  spm_smooth(weight_per_km2 ~ sfa + smooth_time(k = 3) + smooth_space(),
+             boundaries = bounds_voronoi,
+             drop.unused.levels = F, family=tw, method= "fREML") %>% 
+  spm_smooth(temp_at_bottom ~ smooth_time(k = 2) + smooth_space(),
+             drop.unused.levels = F, family=gaussian, method= "fREML")
+
+biomass_smooth
 ```
 
-7. To fit the final SPM, we might need to add lagged values. This is easily done with `spm_lag`.
+8. The smoothed results for any smoothed variables (listed in "smoothed vars" above) can be easily plotted:
+
 ```{r}
-sspm_smooth_fitted_wcatch_lagged <- sspm_smooth_fitted_wcatch %>% 
-  spm_lag(c("borealis_smooth", "pred_data_smooth"), 1)
-sspm_smooth_fitted_wcatch_lagged
+spm_plot(biomass_smooth, "weight_per_km2_smooth")
 ```
 
-8. Before fitting the model, we split data into test/train.
+9. We also smooth the `weight_per_km2` variable in the predator data.
+
 ```{r}
-sspm_smooth_fitted_wcatch_lagged <-
-  spm_split(sspm_smooth_fitted_wcatch_lagged, year_f %in% c(1996:2000))
-sspm_smooth_fitted_wcatch_lagged
+predator_smooth <- predator_dataset %>%  
+  spm_smooth(weight_per_km2 ~ smooth_time(k = 3) + smooth_space(),
+             boundaries = bounds_voronoi,
+             drop.unused.levels = F, family=tw, method= "fREML")
+
+predator_smooth
 ```
 
-9. We can now map a final spm formula onto the smoothed data
+10. Once data has been smoothed, we can assemble a `sspm` model object, using one dataset of type biomass, one dataset of type predictor and (optionnaly) a dataset of type catch. If we want to use a 
+
 ```{r}
-sspm_smooth_with_formulas <- sspm_smooth_fitted_wcatch_lagged %>% 
-  map_formula(borealis_smooth_with_catch ~ pred_data_smooth_lag_1 + smooth_lag("borealis_smooth_with_catch"))
-sspm_smooth_with_formulas
+sspm_model <- sspm(biomass = biomass_smooth, 
+                   predictors = predator_smooth, 
+                   catch = catch_dataset, 
+                   catch_var = "catch", 
+                   biomass_var = "weight_per_km2_smooth_borealis")
+
+sspm_model
 ```
 
-10. We can now fit the SPM. 
-```{r, eval = TRUE}
-sspm_with_fit <- 
-  sspm_smooth_with_formulas %>% fit_spm()
-sspm_with_fit
-```
+11. Before fitting the model, we must split data into test/train with `spm_split`.
+
 ```{r}
-spm_smoothed_fit(spm_smoothed_data(sspm_with_fit))
+sspm_model <- sspm_model %>% 
+  spm_split(year_f %in% c(1990:2017))
+
+sspm_model
 ```
 
-11. We can also extract predictions.
+12. To fit the model, we might be interested in including lagged values. This is done with `spm_lag`.
+
 ```{r}
-# TODO
+sspm_model <- sspm_model %>% 
+  spm_lag(vars = c("weight_per_km2_smooth_borealis_with_catch", "weight_per_km2_smooth_all_predators"), 
+          n = 1)
+
+sspm_model
+```
+
+13. We can now fit the final spm model with `spm`. 
+
+```{r}
+sspm_model_fit <- sspm_model %>% 
+  spm(weight_per_km2_smooth_borealis_with_catch ~ temp_at_bottom_smooth + 
+        weight_per_km2_smooth_all_predators_lag_1 + smooth_lag("weight_per_km2_smooth_borealis_with_catch"))
+
+sspm_model_fit
+```
+
+14. Plotting the object produces a actual vs predicted plot (with TEST/TRAIN data highlighted.
+
+```{r}
+spm_plot(sspm_model_fit)
 ```

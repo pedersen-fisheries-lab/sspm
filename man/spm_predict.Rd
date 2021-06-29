@@ -2,16 +2,22 @@
 % Please edit documentation in R/predict.R
 \name{spm_predict}
 \alias{spm_predict}
-\alias{spm_predict,sspm_discrete-method}
+\alias{spm_predict,sspm_fit,data.frame-method}
+\alias{spm_predict,sspm_fit,missing-method}
+\alias{spm_predict,sspm_fit,list-method}
 \title{Predict with a SPM model}
 \usage{
 spm_predict(sspm_object, new_data = NULL, ...)
 
-\S4method{spm_predict}{sspm_discrete}(sspm_object, new_data = NULL, ...)
+\S4method{spm_predict}{sspm_fit,data.frame}(sspm_object, new_data = NULL, ...)
+
+\S4method{spm_predict}{sspm_fit,missing}(sspm_object, new_data = NULL, ...)
+
+\S4method{spm_predict}{sspm_fit,list}(sspm_object, new_data = NULL, ...)
 }
 \arguments{
-\item{sspm_object}{\strong{[sspm_discrete]} An object of class
-\link[=sspm-class]{sspm} or \link[=sspm_discrete-class]{sspm_discrete}.}
+\item{sspm_object}{\strong{[sspm_dataset]} An object of class
+\link[=sspm_dataset-class]{sspm_dataset}.}
 
 \item{new_data}{\strong{[data.frame]}}
 

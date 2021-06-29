@@ -5,48 +5,42 @@
 \title{Perform voronoi tesselation}
 \usage{
 tesselate_voronoi(
-  sspm_data,
-  data = NULL,
-  boundaries = NULL,
-  boundary_col = "sfa",
+  boundaries,
+  with,
+  sample_points = TRUE,
+  boundary_column = "sfa",
   nb_samples = c(`4` = 10, `5` = 30, `6` = 30, `7` = 5),
   min_size = 1500,
-  sample_points = NULL,
   seed = 1
 )
 }
 \arguments{
-\item{sspm_data}{\strong{[sspm]} \code{sspm_data} object to used for discretization.}
+\item{boundaries}{\strong{[sf]} The boundaries to be used.}
 
-\item{data}{\strong{[data.frame]} Overwrites the data slot of \code{sspm_data}.}
+\item{with}{\strong{[sf]} A set of data points to use for voronoisation.}
 
-\item{boundaries}{\strong{[sf]} The boundaries to be used, usually the
-boundaries of the parent \code{sspm_object}.}
+\item{sample_points}{\strong{[logical]} Whether to sample points from \code{with} or
+to take all points in \code{with}. Default to \code{TRUE}.}
 
-\item{boundary_col}{\strong{[character]} The column in \code{boundaries} that is to
+\item{boundary_column}{\strong{[character]} The column in \code{boundaries} that is to
 be used for the stratified sampling.}
 
 \item{nb_samples}{\strong{[named character vector]} The number of samples to draw
-by boundary polygons (must bear the levels of \code{boundary_col} as names).}
+by boundary polygons (must bear the levels of \code{boundary_column} as names).}
 
 \item{min_size}{\strong{[numeric]} The minimum size for a polygon above which it
 will be merged (in km2).}
-
-\item{sample_points}{\strong{[sf]} A set of points to use for voronoisation,
-all parameters used for sampling are ignored.}
 
 \item{seed}{\strong{[numeric]} Passed onto \code{\link[base:Random]{set.seed()}},
 important for reproducibility of sampling.}
 }
 \value{
 A named list with three elements (each an \code{sf} object):
-* \code{data_spatial}, the spatialized version of \code{data}
 * \code{patches}, the voronoi polygons generated
 * \code{points}, the points used for the tessellation.
 }
 \description{
 Generates voronoi polygons by first performing stratified sampling across
 boundary polygons, then by running  the voronoisation with
-\link[sf:geos_unary]{st_voronoi()}. The sampling can be bypassed by providing
-points via \code{sample_points}.
+\link[sf:geos_unary]{st_voronoi()}.
 }

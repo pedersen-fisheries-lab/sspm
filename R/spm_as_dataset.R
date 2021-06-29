@@ -1,7 +1,7 @@
-#' Create a `sspm_data` dataset structure
+#' Create a `sspm_dataset` dataset structure
 #'
 #' This casts a `data.frame` or `sf` object into  an object of class
-#' [`sspm_data`][sspm_data-class].
+#' [`sspm_dataset`][sspm_dataset-class].
 #'
 #' @param data **\[data.frame OR sf\]** The dataset.
 #' @param type **\[character\]** The type of dataset in the context of the sspm
@@ -16,10 +16,10 @@
 #' @param crs Coordinate reference system, passed onto [st_as_sf][sf].
 #'
 #' @return
-#' An object of class [`sspm_data`][sspm_data-class].
+#' An object of class [`sspm_dataset`][sspm_dataset-class].
 #'
 #' @export
-setGeneric(name = "as_sspm_data",
+setGeneric(name = "spm_as_dataset",
            def = function(data, name, type, time_column, uniqueID, coords, crs = NULL){
 
              if(!checkmate::test_subset(uniqueID, names(data))){
@@ -38,15 +38,15 @@ setGeneric(name = "as_sspm_data",
                stop("`time_column` must be a column of `data`", call. = FALSE)
              }
 
-             standardGeneric("as_sspm_data")
+             standardGeneric("spm_as_dataset")
            }
 )
 
 # Methods -----------------------------------------------------------------
 
-#' @rdname as_sspm_data
+#' @rdname spm_as_dataset
 #' @export
-setMethod(f = "as_sspm_data",
+setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "missingOrNULL"),
           function(data, name, type, time_column, uniqueID, coords, crs){
 
@@ -56,21 +56,21 @@ setMethod(f = "as_sspm_data",
 )
 
 # If data.frame with coords, make it sf
-#' @rdname as_sspm_data
+#' @rdname spm_as_dataset
 #' @export
-setMethod(f = "as_sspm_data",
+setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "list"),
           function(data, name, type, time_column, uniqueID, coords, crs){
             coords <- unlist(coords)
-            as_sspm_data(data, name, type, time_column, uniqueID, coords, crs)
+            spm_as_dataset(data, name, type, time_column, uniqueID, coords, crs)
           }
 )
 
 
 # If data.frame with coords, make it sf
-#' @rdname as_sspm_data
+#' @rdname spm_as_dataset
 #' @export
-setMethod(f = "as_sspm_data",
+setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "character"),
           function(data, name, type, time_column, uniqueID, coords, crs){
 
@@ -100,7 +100,7 @@ setMethod(f = "as_sspm_data",
             new_data <- sf::st_as_sf(x = data, coords = coords, crs = crs,
                                      remove = FALSE)
 
-            the_sspm_data <- new("sspm_data",
+            the_sspm_dataset <- new("sspm_dataset",
                                  name = name,
                                  type = type,
                                  data = new_data,
@@ -108,20 +108,20 @@ setMethod(f = "as_sspm_data",
                                  uniqueID = uniqueID,
                                  coords = coords)
 
-            return(the_sspm_data)
+            return(the_sspm_dataset)
           }
 )
 
 # If sf, ingest as is
-#' @rdname as_sspm_data
+#' @rdname spm_as_dataset
 #' @export
-setMethod(f = "as_sspm_data",
+setMethod(f = "spm_as_dataset",
           signature(data = "sf", coords = "ANY"),
           function(data, name, type, time_column, uniqueID, coords, crs){
 
             # TODO CRS checks
 
-            the_sspm_data <- new("sspm_data",
+            the_sspm_dataset <- new("sspm_dataset",
                                  name = name,
                                  type = type,
                                  data = data,
@@ -129,6 +129,6 @@ setMethod(f = "as_sspm_data",
                                  uniqueID = uniqueID,
                                  coords = coords)
 
-            return(the_sspm_data)
+            return(the_sspm_dataset)
           }
 )

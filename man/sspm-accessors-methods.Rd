@@ -8,42 +8,30 @@
 \alias{spm_name<-,sspm-method}
 \alias{spm_datasets}
 \alias{spm_datasets,sspm-method}
-\alias{spm_datasets,sspm_data-method}
 \alias{spm_datasets<-}
 \alias{spm_datasets<-,sspm-method}
 \alias{spm_boundaries}
 \alias{spm_boundaries,sspm-method}
 \alias{spm_boundaries<-}
-\alias{spm_boundaries<-,sspm_discrete-method}
 \alias{spm_boundaries<-,sspm-method}
-\alias{spm_discret_method}
-\alias{spm_discret_method,sspm-method}
-\alias{spm_discret_method,sspm_discrete-method}
-\alias{spm_discret_method<-}
-\alias{spm_discret_method<-,sspm_discrete-method}
-\alias{spm_discret_method<-,sspm-method}
-\alias{spm_patches}
-\alias{spm_patches,sspm-method}
-\alias{spm_patches,sspm_discrete-method}
-\alias{spm_patches<-}
-\alias{spm_patches<-,sspm_discrete-method}
-\alias{spm_patches<-,sspm-method}
-\alias{spm_points}
-\alias{spm_points,sspm-method}
-\alias{spm_points,sspm_discrete-method}
-\alias{spm_points<-}
-\alias{spm_points<-,sspm_discrete-method}
-\alias{spm_points<-,sspm-method}
 \alias{spm_smoothed_data}
 \alias{spm_smoothed_data,sspm-method}
-\alias{spm_smoothed_data,sspm_discrete-method}
 \alias{spm_smoothed_data<-}
-\alias{spm_smoothed_data<-,sspm_discrete-method}
 \alias{spm_smoothed_data<-,sspm-method}
 \alias{spm_formulas}
-\alias{spm_formulas,sspm-method}
 \alias{spm_formulas<-}
-\alias{spm_formulas<-,sspm-method}
+\alias{spm_time_column}
+\alias{spm_time_column,sspm-method}
+\alias{spm_time_column<-}
+\alias{spm_time_column<-,sspm-method}
+\alias{is_split}
+\alias{is_split,sspm-method}
+\alias{is_split<-}
+\alias{is_split<-,sspm-method}
+\alias{spm_unique_ID}
+\alias{spm_unique_ID,sspm-method}
+\alias{spm_unique_ID<-}
+\alias{spm_unique_ID<-,sspm-method}
 \title{Accessing OR replacing \code{sspm} model elements}
 \usage{
 spm_name(sspm_object)
@@ -58,8 +46,6 @@ spm_datasets(sspm_object, type = NULL)
 
 \S4method{spm_datasets}{sspm}(sspm_object, type = NULL)
 
-\S4method{spm_datasets}{sspm_data}(sspm_object)
-
 spm_datasets(object) <- value
 
 \S4method{spm_datasets}{sspm}(object) <- value
@@ -70,65 +56,43 @@ spm_boundaries(sspm_object)
 
 spm_boundaries(object) <- value
 
-\S4method{spm_boundaries}{sspm_discrete}(object) <- value
-
 \S4method{spm_boundaries}{sspm}(object) <- value
-
-spm_discret_method(sspm_object)
-
-\S4method{spm_discret_method}{sspm}(sspm_object)
-
-\S4method{spm_discret_method}{sspm_discrete}(sspm_object)
-
-spm_discret_method(object) <- value
-
-\S4method{spm_discret_method}{sspm_discrete}(object) <- value
-
-\S4method{spm_discret_method}{sspm}(object) <- value
-
-spm_patches(sspm_object)
-
-\S4method{spm_patches}{sspm}(sspm_object)
-
-\S4method{spm_patches}{sspm_discrete}(sspm_object)
-
-spm_patches(object) <- value
-
-\S4method{spm_patches}{sspm_discrete}(object) <- value
-
-\S4method{spm_patches}{sspm}(object) <- value
-
-spm_points(sspm_object)
-
-\S4method{spm_points}{sspm}(sspm_object)
-
-\S4method{spm_points}{sspm_discrete}(sspm_object)
-
-spm_points(object) <- value
-
-\S4method{spm_points}{sspm_discrete}(object) <- value
-
-\S4method{spm_points}{sspm}(object) <- value
 
 spm_smoothed_data(sspm_object)
 
 \S4method{spm_smoothed_data}{sspm}(sspm_object)
 
-\S4method{spm_smoothed_data}{sspm_discrete}(sspm_object)
-
 spm_smoothed_data(object) <- value
-
-\S4method{spm_smoothed_data}{sspm_discrete}(object) <- value
 
 \S4method{spm_smoothed_data}{sspm}(object) <- value
 
 spm_formulas(sspm_object)
 
-\S4method{spm_formulas}{sspm}(sspm_object)
-
 spm_formulas(object) <- value
 
-\S4method{spm_formulas}{sspm}(object) <- value
+spm_time_column(sspm_object)
+
+\S4method{spm_time_column}{sspm}(sspm_object)
+
+spm_time_column(object) <- value
+
+\S4method{spm_time_column}{sspm}(object) <- value
+
+is_split(sspm_object)
+
+\S4method{is_split}{sspm}(sspm_object)
+
+is_split(object) <- value
+
+\S4method{is_split}{sspm}(object) <- value
+
+spm_unique_ID(sspm_object)
+
+\S4method{spm_unique_ID}{sspm}(sspm_object)
+
+spm_unique_ID(object) <- value
+
+\S4method{spm_unique_ID}{sspm}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm OR adjacent]} An object of class
@@ -146,6 +110,5 @@ workflow, one of "biomass", "predictor", or "catch".}
 }
 \description{
 All methods described here allow to access the elements of contained in
-objects of class \link[=sspm-class]{sspm} and others derivative classes
-(\code{sspm_discrete}, etc...).
+objects of the different classes of the package.
 }

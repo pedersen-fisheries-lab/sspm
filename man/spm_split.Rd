@@ -3,18 +3,14 @@
 \name{spm_split}
 \alias{spm_split}
 \alias{spm_split,sspm-method}
-\alias{spm_split,sspm_discrete-method}
 \title{Split data in test and train sets}
 \usage{
 spm_split(sspm_object, ...)
 
-\S4method{spm_split}{sspm}(sspm_object)
-
-\S4method{spm_split}{sspm_discrete}(sspm_object, ...)
+\S4method{spm_split}{sspm}(sspm_object, ...)
 }
 \arguments{
-\item{sspm_object}{\strong{[sspm_discrete]} An object of class
-\link[=sspm-class]{sspm} or \link[=sspm_discrete-class]{sspm_discrete}}
+\item{sspm_object}{\strong{[sspm]} An object of class \link[=sspm-class]{sspm}.}
 
 \item{...}{\strong{[expression]} Expression to evaluate to split data.}
 }

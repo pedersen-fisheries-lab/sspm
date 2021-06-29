@@ -1,10 +1,8 @@
 # Test sspm function
 
 test_that("sspm object are created correcly", {
+  skip("TODO")
 
-  expect_class( {
-    sspm(model_name = "My Model",
-         boundaries = sfa_boundaries) },
-    "sspm")
+  # TODO
 
 })
