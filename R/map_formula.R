@@ -58,7 +58,7 @@ setMethod(f = "map_formula",
             base_formula <- (paste(response, "~", paste(other_terms, collapse = " + "),
                                    collapse = " "))
 
-            if(length(other_terms)>0) {
+            if(length(other_terms)>0 & length(smooth_terms_labels)>0) {
               base_formula <- paste0(base_formula, " + ")
             }
 
