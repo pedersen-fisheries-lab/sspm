@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Create a sspm model object — sspm" />
-<meta property="og:description" content="The starting point of the sspm workflow: creating a base sspm object." />
+<meta property="og:description" content="Create a sspm_model object." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -122,21 +122,41 @@
     </div>
 
     <div class="ref-description">
-    <p>The starting point of the <code>sspm</code> workflow: creating a base <code>sspm</code> object.</p>
+    <p>Create a sspm_model object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sspm</span><span class='op'>(</span>model_name <span class='op'>=</span> <span class='st'>"My sspm model"</span>, <span class='va'>boundaries</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>sspm</span><span class='op'>(</span><span class='va'>biomass</span>, <span class='va'>predictors</span>, catch <span class='op'>=</span> <span class='cn'>NULL</span>, biomass_var <span class='op'>=</span> <span class='cn'>NULL</span>, catch_var <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+
+<span class='co'># S4 method for sspm_dataset,sspm_dataset</span>
+<span class='fu'>sspm</span><span class='op'>(</span><span class='va'>biomass</span>, <span class='va'>predictors</span>, catch <span class='op'>=</span> <span class='cn'>NULL</span>, biomass_var <span class='op'>=</span> <span class='cn'>NULL</span>, catch_var <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+
+<span class='co'># S4 method for sspm_dataset,list</span>
+<span class='fu'>sspm</span><span class='op'>(</span><span class='va'>biomass</span>, <span class='va'>predictors</span>, catch <span class='op'>=</span> <span class='cn'>NULL</span>, biomass_var <span class='op'>=</span> <span class='cn'>NULL</span>, catch_var <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>model_name</th>
-      <td><p><strong>[character]</strong> The name to be given to the model</p></td>
+      <th>biomass</th>
+      <td><p><strong>[sspm_dataset (smoothed)]</strong> The dataset containing the
+biomass variable.</p></td>
     </tr>
     <tr>
-      <th>boundaries</th>
-      <td><p><strong>[sf]</strong> The spatial boundaries (polygons) for the model.</p></td>
+      <th>predictors</th>
+      <td><p><strong>[list  OF sspm_dataset (smoothed)]</strong> The list of predictor
+datasets.</p></td>
+    </tr>
+    <tr>
+      <th>catch</th>
+      <td><p><strong>[sspm_dataset (smoothed)]</strong> Optionnal, the catch data</p></td>
+    </tr>
+    <tr>
+      <th>biomass_var</th>
+      <td><p><strong>[character]</strong> The biomass column of <code>biomass</code>.</p></td>
+    </tr>
+    <tr>
+      <th>catch_var</th>
+      <td><p><strong>[character]</strong> The catch column of <code>catch</code>.</p></td>
     </tr>
     </table>
 

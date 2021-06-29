@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Fit the GAM part of a sspm model — fit_smooths • sspm</title>
+<title>Smooth a variable in a sspm dataset — spm_smooth • sspm</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Fit the GAM part of a sspm model — fit_smooths" />
-<meta property="og:description" content="Once formulas have been mapped onto a sspm discrete object, the GAMs can be
-fitted with this function. Arguments can be passed onto bam." />
+<meta property="og:title" content="Smooth a variable in a sspm dataset — spm_smooth" />
+<meta property="og:description" content="With a formula, smooth a variable in a sspm dataset. See Details for
+more explanations." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -117,59 +117,32 @@ fitted with this function. Arguments can be passed onto bam." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Fit the GAM part of a sspm model</h1>
-    <small class="dont-index">Source: <a href='https://github.com/pedersen-fisheries-lab/sspm/blob/master/R/fit.R'><code>R/fit.R</code></a></small>
-    <div class="hidden name"><code>fit.Rd</code></div>
+    <h1>Smooth a variable in a sspm dataset</h1>
+    <small class="dont-index">Source: <a href='https://github.com/pedersen-fisheries-lab/sspm/blob/master/R/spm_smooth.R'><code>R/spm_smooth.R</code></a></small>
+    <div class="hidden name"><code>spm_smooth.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Once formulas have been mapped onto a sspm discrete object, the GAMs can be
-fitted with this function. Arguments can be passed onto <code>bam</code>.</p>
+    <p>With a formula, smooth a variable in a sspm dataset. See Details for
+more explanations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>fit_smooths</span><span class='op'>(</span>
+    <pre class="usage"><span class='fu'>spm_smooth</span><span class='op'>(</span>
   <span class='va'>sspm_object</span>,
+  <span class='va'>formula</span>,
   <span class='va'>boundaries</span>,
-  keep_fit <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  keep_fit <span class='op'>=</span> <span class='cn'>FALSE</span>,
   predict <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  family <span class='op'>=</span> <span class='fu'>mgcv</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/mgcv/man/Tweedie.html'>tw</a></span>,
-  drop.unused.levels <span class='op'>=</span> <span class='cn'>F</span>,
-  method <span class='op'>=</span> <span class='st'>"fREML"</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
-<span class='fu'>fit_spm</span><span class='op'>(</span>
+<span class='co'># S4 method for sspm_dataset,formula,sspm_discrete_boundary</span>
+<span class='fu'>spm_smooth</span><span class='op'>(</span>
   <span class='va'>sspm_object</span>,
-  <span class='va'>sspm_formula</span>,
-  keep_fit <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  family <span class='op'>=</span> <span class='fu'>mgcv</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/mgcv/man/scat.html'>scat</a></span>,
-  drop.unused.levels <span class='op'>=</span> <span class='cn'>F</span>,
-  select <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  method <span class='op'>=</span> <span class='st'>"REML"</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='co'># S4 method for sspm_dataset,sspm_discrete_boundary</span>
-<span class='fu'>fit_smooths</span><span class='op'>(</span>
-  <span class='va'>sspm_object</span>,
+  <span class='va'>formula</span>,
   <span class='va'>boundaries</span>,
-  keep_fit <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  keep_fit <span class='op'>=</span> <span class='cn'>FALSE</span>,
   predict <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  family <span class='op'>=</span> <span class='fu'>mgcv</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/mgcv/man/Tweedie.html'>tw</a></span>,
-  drop.unused.levels <span class='op'>=</span> <span class='cn'>F</span>,
-  method <span class='op'>=</span> <span class='st'>"fREML"</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
-
-<span class='co'># S4 method for sspm,sspm_formula</span>
-<span class='fu'>fit_spm</span><span class='op'>(</span>
-  <span class='va'>sspm_object</span>,
-  <span class='va'>sspm_formula</span>,
-  keep_fit <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  family <span class='op'>=</span> <span class='fu'>mgcv</span><span class='fu'>::</span><span class='va'><a href='https://rdrr.io/pkg/mgcv/man/scat.html'>scat</a></span>,
-  drop.unused.levels <span class='op'>=</span> <span class='cn'>F</span>,
-  select <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  method <span class='op'>=</span> <span class='st'>"REML"</span>,
   <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
@@ -180,6 +153,11 @@ fitted with this function. Arguments can be passed onto <code>bam</code>.</p>
       <th>sspm_object</th>
       <td><p><strong>[sspm_dataset]</strong> An object of class
 <a href='sspm_dataset-class.html'>sspm_dataset</a>.</p></td>
+    </tr>
+    <tr>
+      <th>formula</th>
+      <td><p><strong>[formula]</strong> A formula definition of the form
+response ~ smoothing_terms + ...</p></td>
     </tr>
     <tr>
       <th>boundaries</th>
@@ -197,31 +175,11 @@ model (default to TRUE, set to FALSE to reduce memory footprint).</p></td>
 predictions (necessary to fit the final SPM model, default to TRUE).</p></td>
     </tr>
     <tr>
-      <th>family</th>
-      <td><p>This is a family object specifying the distribution and link to use in
-fitting etc. See <code><a href='https://rdrr.io/r/stats/glm.html'>glm</a></code> and <code><a href='https://rdrr.io/r/stats/family.html'>family</a></code> for more
-details. The extended families listed in <code><a href='https://rdrr.io/pkg/mgcv/man/family.mgcv.html'>family.mgcv</a></code> can also be used.</p></td>
-    </tr>
-    <tr>
-      <th>drop.unused.levels</th>
-      <td><p>by default unused levels are dropped from factors before fitting. For some smooths 
-involving factor variables you might want to turn this off. Only do so if you know what you are doing.</p></td>
-    </tr>
-    <tr>
-      <th>method</th>
-      <td><p>The smoothing parameter estimation method. <code>"GCV.Cp"</code> to use GCV for unknown scale parameter and
-Mallows' Cp/UBRE/AIC for known scale. <code>"GACV.Cp"</code> is equivalent, but using GACV in place of GCV. <code>"REML"</code> 
-for REML estimation, including of unknown scale, <code>"P-REML"</code> for REML estimation, but using a Pearson estimate 
-of the scale. <code>"ML"</code> and <code>"P-ML"</code> are similar, but using maximum likelihood in place of REML. Default 
-<code>"fREML"</code> uses fast REML computation.</p></td>
-    </tr>
-    <tr>
       <th>...</th>
       <td><p>Arguments passed on to <code><a href='https://rdrr.io/pkg/mgcv/man/bam.html'>mgcv::bam</a></code></p><dl>
-    <dt><code>formula</code></dt><dd><p>A GAM formula (see <code><a href='https://rdrr.io/pkg/mgcv/man/formula.gam.html'>formula.gam</a></code> and also <code><a href='https://rdrr.io/pkg/mgcv/man/gam.models.html'>gam.models</a></code>). 
-This is exactly like the formula for a GLM except that smooth terms, <code>s</code> and <code>te</code> can be added 
-to the right hand side to specify that the linear predictor depends on smooth functions of predictors 
-(or linear functionals of these).</p></dd>
+    <dt><code>family</code></dt><dd><p>This is a family object specifying the distribution and link to use in
+fitting etc. See <code><a href='https://rdrr.io/r/stats/glm.html'>glm</a></code> and <code><a href='https://rdrr.io/r/stats/family.html'>family</a></code> for more
+details. The extended families listed in <code><a href='https://rdrr.io/pkg/mgcv/man/family.mgcv.html'>family.mgcv</a></code> can also be used.</p></dd>
     <dt><code>data</code></dt><dd><p>A data frame or list containing the model response variable and 
 covariates required by the formula. By default the variables are taken 
 from <code><a href='https://rdrr.io/r/base/environment.html'>environment(formula)</a></code>: typically the environment from 
@@ -240,8 +198,15 @@ which <code>gam</code> is called.</p></dd>
 that this offset will always be completely ignored when predicting, unlike an offset 
 included in <code>formula</code> (this used to conform to the behaviour of
 <code>lm</code> and <code>glm</code>).</p></dd>
+    <dt><code>method</code></dt><dd><p>The smoothing parameter estimation method. <code>"GCV.Cp"</code> to use GCV for unknown scale parameter and
+Mallows' Cp/UBRE/AIC for known scale. <code>"GACV.Cp"</code> is equivalent, but using GACV in place of GCV. <code>"REML"</code> 
+for REML estimation, including of unknown scale, <code>"P-REML"</code> for REML estimation, but using a Pearson estimate 
+of the scale. <code>"ML"</code> and <code>"P-ML"</code> are similar, but using maximum likelihood in place of REML. Default 
+<code>"fREML"</code> uses fast REML computation.</p></dd>
     <dt><code>control</code></dt><dd><p>A list of fit control parameters to replace defaults returned by 
 <code><a href='https://rdrr.io/pkg/mgcv/man/gam.control.html'>gam.control</a></code>. Any control parameters not supplied stay at their default values.</p></dd>
+    <dt><code>select</code></dt><dd><p>Should selection penalties be added to the smooth effects, so that they can in principle be 
+penalized out of the model? See <code>gamma</code> to increase penalization.  Has the side effect that smooths no longer have a fixed effect component (improper prior from a Bayesian perspective) allowing REML comparison of models with the same fixed effect structure.</p></dd>
     <dt><code>scale</code></dt><dd><p>If this is positive then it is taken as the known scale parameter. Negative signals that the 
 scale paraemter is unknown. 0 signals that the scale parameter is 1  for Poisson and binomial and unknown otherwise. 
 Note that (RE)ML methods can only work with scale parameter 1 for the Poisson and binomial cases.</p></dd>
@@ -289,6 +254,8 @@ and then finds its Choleski decomposition, at the end. This is somewhat more eff
     <dt><code>samfrac</code></dt><dd><p>For very large sample size Generalized additive models the number of iterations needed for the model fit can 
 be reduced by first fitting a model to a random sample of the data, and using the results to supply starting values. This initial fit is run with sloppy convergence tolerances, so is typically very low cost. <code>samfrac</code> is the sampling fraction to use. 0.1 is often reasonable.</p></dd>
     <dt><code>coef</code></dt><dd><p>initial values for model coefficients</p></dd>
+    <dt><code>drop.unused.levels</code></dt><dd><p>by default unused levels are dropped from factors before fitting. For some smooths 
+involving factor variables you might want to turn this off. Only do so if you know what you are doing.</p></dd>
     <dt><code>G</code></dt><dd><p>if not <code>NULL</code> then this should be the object returned by a previous call to <code>bam</code> with 
 <code>fit=FALSE</code>. Causes all other arguments to be ignored except <code>sp</code>, <code>chunk.size</code>, <code>gamma</code>,<code>nthreads</code>, <code>cluster</code>, <code>rho</code>, <code>gc.level</code>, <code>samfrac</code>, <code>use.chol</code>, <code>method</code> and <code>scale</code> (if &gt;0).</p></dd>
     <dt><code>fit</code></dt><dd><p>if <code>FALSE</code> then the model is set up for fitting but not estimated, and an object is returned, suitable for passing as the <code>G</code> argument to <code>bam</code>.</p></dd>
@@ -297,18 +264,15 @@ even with factor variables present.</p></dd>
   
 </dl></td>
     </tr>
-    <tr>
-      <th>sspm_formula</th>
-      <td><p><strong>[sspm_formula]</strong> The formula specifying the the
-smoothing model.</p></td>
-    </tr>
-    <tr>
-      <th>select</th>
-      <td><p>Should selection penalties be added to the smooth effects, so that they can in principle be 
-penalized out of the model? See <code>gamma</code> to increase penalization.  Has the side effect that smooths no longer have a fixed effect component (improper prior from a Bayesian perspective) allowing REML comparison of models with the same fixed effect structure.</p></td>
-    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>This functions allows to specify a model formula for a given discrete sspm
+object. The formula makes use of specific smoothing terms <code><a href='smooth_time.html'>smooth_time()</a></code>,
+<code><a href='smooth_time.html'>smooth_space()</a></code>, <code><a href='smooth_time.html'>smooth_space_time()</a></code>. The formula can also contain fixed
+effects and custom smooths, and can make use of specific smoothing terms
+<code><a href='smooth_time.html'>smooth_time()</a></code>, <code><a href='smooth_time.html'>smooth_space()</a></code>, <code><a href='smooth_time.html'>smooth_space_time()</a></code>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

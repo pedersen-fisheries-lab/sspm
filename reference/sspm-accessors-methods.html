@@ -48,8 +48,7 @@
 
 <meta property="og:title" content="Accessing OR replacing sspm model elements — spm_name" />
 <meta property="og:description" content="All methods described here allow to access the elements of contained in
-objects of class sspm and others derivative classes
-(sspm_discrete, etc...)." />
+objects of the different classes of the package." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -125,8 +124,7 @@ objects of class sspm and others derivative classes
 
     <div class="ref-description">
     <p>All methods described here allow to access the elements of contained in
-objects of class <a href='sspm-class.html'>sspm</a> and others derivative classes
-(<code>sspm_discrete</code>, etc...).</p>
+objects of the different classes of the package.</p>
     </div>
 
     <pre class="usage"><span class='fu'>spm_name</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
@@ -144,9 +142,6 @@ objects of class <a href='sspm-class.html'>sspm</a> and others derivative classe
 <span class='co'># S4 method for sspm</span>
 <span class='fu'>spm_datasets</span><span class='op'>(</span><span class='va'>sspm_object</span>, type <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_data</span>
-<span class='fu'>spm_datasets</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
 <span class='fu'>spm_datasets</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
 <span class='co'># S4 method for sspm</span>
@@ -159,85 +154,52 @@ objects of class <a href='sspm-class.html'>sspm</a> and others derivative classe
 
 <span class='fu'>spm_boundaries</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_boundaries</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
 <span class='co'># S4 method for sspm</span>
 <span class='fu'>spm_boundaries</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='fu'>spm_discret_method</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_discret_method</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_discret_method</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='fu'>spm_discret_method</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_discret_method</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_discret_method</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='fu'>spm_patches</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_patches</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_patches</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='fu'>spm_patches</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_patches</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_patches</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='fu'>spm_points</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_points</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_points</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='fu'>spm_points</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_points</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_points</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
 <span class='fu'>spm_smoothed_data</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sspm</span>
 <span class='fu'>spm_smoothed_data</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete</span>
-<span class='fu'>spm_smoothed_data</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='fu'>spm_smoothed_data</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
-
-<span class='co'># S4 method for sspm_discrete</span>
 <span class='fu'>spm_smoothed_data</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
 <span class='co'># S4 method for sspm</span>
 <span class='fu'>spm_smoothed_data</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
-<span class='fu'>spm_formulas</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
-
-<span class='co'># S4 method for sspm</span>
 <span class='fu'>spm_formulas</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
 
 <span class='fu'>spm_formulas</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
 
+<span class='fu'>spm_time_column</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+
 <span class='co'># S4 method for sspm</span>
-<span class='fu'>spm_formulas</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span></pre>
+<span class='fu'>spm_time_column</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+
+<span class='fu'>spm_time_column</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
+
+<span class='co'># S4 method for sspm</span>
+<span class='fu'>spm_time_column</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
+
+<span class='fu'>is_split</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+
+<span class='co'># S4 method for sspm</span>
+<span class='fu'>is_split</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+
+<span class='fu'>is_split</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
+
+<span class='co'># S4 method for sspm</span>
+<span class='fu'>is_split</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
+
+<span class='fu'>spm_unique_ID</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+
+<span class='co'># S4 method for sspm</span>
+<span class='fu'>spm_unique_ID</span><span class='op'>(</span><span class='va'>sspm_object</span><span class='op'>)</span>
+
+<span class='fu'>spm_unique_ID</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span>
+
+<span class='co'># S4 method for sspm</span>
+<span class='fu'>spm_unique_ID</span><span class='op'>(</span><span class='va'>object</span><span class='op'>)</span> <span class='op'>&lt;-</span> <span class='va'>value</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">

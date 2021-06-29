@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Map model formula onto a sspm_dataset object — map_formula • sspm</title>
+<title>sspm dataset structure — sspm_dataset-class • sspm</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Map model formula onto a sspm_dataset object — map_formula" />
-<meta property="og:description" content="This functions is now used internally to map a formula onto a sspm_dataset
-or sspm object." />
+<meta property="og:title" content="sspm dataset structure — sspm_dataset-class" />
+<meta property="og:description" content="One of the first step in the sspm workflow is to create one or more
+object(s) of class sspm_dataset from a data.frame, tibble or sf object." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -117,99 +117,51 @@ or sspm object." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Map model formula onto a sspm_dataset object</h1>
-    <small class="dont-index">Source: <a href='https://github.com/pedersen-fisheries-lab/sspm/blob/master/R/map_formula.R'><code>R/map_formula.R</code></a>, <a href='https://github.com/pedersen-fisheries-lab/sspm/blob/master/R/spm_smooth.R'><code>R/spm_smooth.R</code></a></small>
-    <div class="hidden name"><code>map_formula.Rd</code></div>
+    <h1>sspm dataset structure</h1>
+    <small class="dont-index">Source: <a href='https://github.com/pedersen-fisheries-lab/sspm/blob/master/R/AAA_all_classes_definitions.R'><code>R/AAA_all_classes_definitions.R</code></a></small>
+    <div class="hidden name"><code>sspm_dataset-class.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This functions is now used internally to map a formula onto a <code>sspm_dataset</code>
-or <code>sspm</code> object.</p>
+    <p>One of the first step in the <code>sspm</code> workflow is to create one or more
+object(s) of class <code>sspm_dataset</code> from a <code>data.frame</code>, <code>tibble</code> or <code>sf</code> object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>map_formula</span><span class='op'>(</span><span class='va'>data_frame</span>, <span class='va'>boundaries</span>, <span class='va'>formula</span>, <span class='va'>time_column</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sf,ANY,formula</span>
-<span class='fu'>map_formula</span><span class='op'>(</span><span class='va'>data_frame</span>, <span class='va'>boundaries</span>, <span class='va'>formula</span>, <span class='va'>time_column</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for ANY,missing,ANY</span>
-<span class='fu'><a href='spm_smooth.html'>spm_smooth</a></span><span class='op'>(</span>
-  <span class='va'>sspm_object</span>,
-  <span class='va'>formula</span>,
-  <span class='va'>boundaries</span>,
-  keep_fit <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  predict <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
+    <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
-<span class='co'># S4 method for ANY,ANY,missing</span>
-<span class='fu'><a href='spm_smooth.html'>spm_smooth</a></span><span class='op'>(</span>
-  <span class='va'>sspm_object</span>,
-  <span class='va'>formula</span>,
-  <span class='va'>boundaries</span>,
-  keep_fit <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  predict <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span>
+    
 
-<span class='co'># S4 method for ANY,ANY,sspm_boundary</span>
-<span class='fu'><a href='spm_smooth.html'>spm_smooth</a></span><span class='op'>(</span>
-  <span class='va'>sspm_object</span>,
-  <span class='va'>formula</span>,
-  <span class='va'>boundaries</span>,
-  keep_fit <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  predict <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<dl>
+<dt><code>name</code></dt><dd><p><strong>[character]</strong> The name of the dataset, default to "Biomass".</p></dd>
 
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>data_frame</th>
-      <td><p><strong>[sf data.frame]</strong> The data.</p></td>
-    </tr>
-    <tr>
-      <th>boundaries</th>
-      <td><p><strong>[sspm_boundary]</strong> An object of class
-<a href='sspm_boundary-class.html'>sspm_discrete_boundary</a>.</p></td>
-    </tr>
-    <tr>
-      <th>formula</th>
-      <td><p><strong>[formula]</strong> A formula definition of the form
-response ~ smoothing_terms + ...</p></td>
-    </tr>
-    <tr>
-      <th>time_column</th>
-      <td><p><strong>[character]</strong> The time column.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>a list of variables that are the covariates that this
-    smooth is a function of. Transformations whose form depends on
-    the values of the data are best avoided here: e.g. <code><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s(log(x))</a></code>
-    is fine, but <code><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s(I(x/sd(x)))</a></code> is not (see <code><a href='https://rdrr.io/pkg/mgcv/man/predict.gam.html'>predict.gam</a></code>).</p></td>
-    </tr>
-    <tr>
-      <th>sspm_object</th>
-      <td><p><strong>[sspm_dataset]</strong> An object of class
-<a href='sspm_dataset-class.html'>sspm_dataset</a>.</p></td>
-    </tr>
-    <tr>
-      <th>keep_fit</th>
-      <td><p><strong>[logical]</strong> Whether or not to keep the fitted values and
-model (default to TRUE, set to FALSE to reduce memory footprint).</p></td>
-    </tr>
-    <tr>
-      <th>predict</th>
-      <td><p><strong>[logical]</strong> Whether or not to generate the smoothed
-predictions (necessary to fit the final SPM model, default to TRUE).</p></td>
-    </tr>
-    </table>
+<dt><code>data</code></dt><dd><p><strong>[data.frame OR sf OR tibble]</strong> The dataset.</p></dd>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+<dt><code>time_column</code></dt><dd><p><strong>[character]</strong> The column of <code>data</code> that represents the
+temporal dimension of the dataset.</p></dd>
 
-    <p>The updated object.</p>
+<dt><code>coords</code></dt><dd><p><strong>[character]</strong> The columns of <code>data</code> that represent the
+spatial dimension of the dataset: the two columns for longitude and
+latitude of the observations.</p></dd>
+
+<dt><code>uniqueID</code></dt><dd><p><strong>[character]</strong> The column of <code>data</code> that is unique for all
+rows of the data matrix.</p></dd>
+
+<dt><code>boundaries</code></dt><dd><p><strong>[sspm_discrete_boundary]</strong> Spatial boundaries (polygons).</p></dd>
+
+<dt><code>formulas</code></dt><dd><p><strong>[list]</strong> List of
+<a href='sspm_formula-class.html'>sspm_formula</a> objects that specifies the smoothed
+variables.</p></dd>
+
+<dt><code>smoothed_data</code></dt><dd><p><strong>[ANY (sf)]</strong> The smoothed data.</p></dd>
+
+<dt><code>smoothed_fit</code></dt><dd><p><strong>[list]</strong> The fit from smoothing the data</p></dd>
+
+<dt><code>is_mapped</code></dt><dd><p><strong>[logical]</strong> Whether the dataset has been mapped to
+boundaries (used internally).</p></dd>
+
+</dl>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

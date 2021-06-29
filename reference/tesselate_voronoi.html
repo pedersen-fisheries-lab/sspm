@@ -49,8 +49,7 @@
 <meta property="og:title" content="Perform voronoi tesselation — tesselate_voronoi" />
 <meta property="og:description" content="Generates voronoi polygons by first performing stratified sampling across
 boundary polygons, then by running  the voronoisation with
-st_voronoi(). The sampling can be bypassed by providing
-points via sample_points." />
+st_voronoi()." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -127,18 +126,16 @@ points via sample_points." />
     <div class="ref-description">
     <p>Generates voronoi polygons by first performing stratified sampling across
 boundary polygons, then by running  the voronoisation with
-<a href='https://r-spatial.github.io/sf/reference/geos_unary.html'>st_voronoi()</a>. The sampling can be bypassed by providing
-points via <code>sample_points</code>.</p>
+<a href='https://r-spatial.github.io/sf/reference/geos_unary.html'>st_voronoi()</a>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>tesselate_voronoi</span><span class='op'>(</span>
-  <span class='va'>sspm_data</span>,
-  data <span class='op'>=</span> <span class='cn'>NULL</span>,
-  boundaries <span class='op'>=</span> <span class='cn'>NULL</span>,
-  boundary_col <span class='op'>=</span> <span class='st'>"sfa"</span>,
+  <span class='va'>boundaries</span>,
+  <span class='va'>with</span>,
+  sample_points <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  boundary_column <span class='op'>=</span> <span class='st'>"sfa"</span>,
   nb_samples <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>`4` <span class='op'>=</span> <span class='fl'>10</span>, `5` <span class='op'>=</span> <span class='fl'>30</span>, `6` <span class='op'>=</span> <span class='fl'>30</span>, `7` <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>,
   min_size <span class='op'>=</span> <span class='fl'>1500</span>,
-  sample_points <span class='op'>=</span> <span class='cn'>NULL</span>,
   seed <span class='op'>=</span> <span class='fl'>1</span>
 <span class='op'>)</span></pre>
 
@@ -146,37 +143,32 @@ points via <code>sample_points</code>.</p>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>sspm_data</th>
-      <td><p><strong>[sspm]</strong> <code>sspm_data</code> object to used for discretization.</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p><strong>[data.frame]</strong> Overwrites the data slot of <code>sspm_data</code>.</p></td>
-    </tr>
-    <tr>
       <th>boundaries</th>
-      <td><p><strong>[sf]</strong> The boundaries to be used, usually the
-boundaries of the parent <code>sspm_object</code>.</p></td>
+      <td><p><strong>[sf]</strong> The boundaries to be used.</p></td>
     </tr>
     <tr>
-      <th>boundary_col</th>
+      <th>with</th>
+      <td><p><strong>[sf]</strong> A set of data points to use for voronoisation.</p></td>
+    </tr>
+    <tr>
+      <th>sample_points</th>
+      <td><p><strong>[logical]</strong> Whether to sample points from <code>with</code> or
+to take all points in <code>with</code>. Default to <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>boundary_column</th>
       <td><p><strong>[character]</strong> The column in <code>boundaries</code> that is to
 be used for the stratified sampling.</p></td>
     </tr>
     <tr>
       <th>nb_samples</th>
       <td><p><strong>[named character vector]</strong> The number of samples to draw
-by boundary polygons (must bear the levels of <code>boundary_col</code> as names).</p></td>
+by boundary polygons (must bear the levels of <code>boundary_column</code> as names).</p></td>
     </tr>
     <tr>
       <th>min_size</th>
       <td><p><strong>[numeric]</strong> The minimum size for a polygon above which it
 will be merged (in km2).</p></td>
-    </tr>
-    <tr>
-      <th>sample_points</th>
-      <td><p><strong>[sf]</strong> A set of points to use for voronoisation,
-all parameters used for sampling are ignored.</p></td>
     </tr>
     <tr>
       <th>seed</th>
@@ -188,7 +180,6 @@ important for reproducibility of sampling.</p></td>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A named list with three elements (each an <code>sf</code> object):
-* <code>data_spatial</code>, the spatialized version of <code>data</code>
 * <code>patches</code>, the voronoi polygons generated
 * <code>points</code>, the points used for the tessellation.</p>
 

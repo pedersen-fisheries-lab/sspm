@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>sspm model classes — sspm-class • sspm</title>
+<title>sspm model class — sspm-class • sspm</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,14 +46,8 @@
 
 
 
-<meta property="og:title" content="sspm model classes — sspm-class" />
-<meta property="og:description" content="The different model classes follow the typical workflow of sspm:
-sspm Basic model object.
-sspm_discrete Discretized model object. Contains a
-discretization_method object. It can also
-containes &quot;mapped datasets&quot; (for example, predator or observator data).
-
-" />
+<meta property="og:title" content="sspm model class — sspm-class" />
+<meta property="og:description" content="The sspm model object, made from biomass, predictor and catch data." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -122,61 +116,37 @@ containes &quot;mapped datasets&quot; (for example, predator or observator data)
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>sspm model classes</h1>
+    <h1>sspm model class</h1>
     <small class="dont-index">Source: <a href='https://github.com/pedersen-fisheries-lab/sspm/blob/master/R/AAA_all_classes_definitions.R'><code>R/AAA_all_classes_definitions.R</code></a></small>
     <div class="hidden name"><code>sspm-class.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The different model classes follow the typical workflow of <code>sspm</code>:</p><ul>
-<li><p><strong><code>sspm</code></strong> Basic model object.</p></li>
-<li><p><strong><code>sspm_discrete</code></strong> Discretized model object. Contains a
-<a href='discretization_method-class.html'>discretization_method</a> object. It can also
-containes "mapped datasets" (for example, predator or observator data).</p></li>
-</ul>
-
+    <p>The <strong><code>sspm</code></strong> model object, made from biomass, predictor and catch data.</p>
     </div>
 
 
 
-    <h2 class="hasAnchor" id="functions"><a class="anchor" href="#functions"></a>Functions</h2>
-
-    
-<ul>
-<li><p><code>sspm_discrete-class</code>: sspm_discrete</p></li>
-</ul>
     <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
 
     
 
 <dl>
-<dt><code>name</code></dt><dd><p><strong>[character]</strong> Name of the model.</p></dd>
+<dt><code>datasets</code></dt><dd><p><strong>[list]</strong> List of
+<a href='sspm_dataset-class.html'>sspm_dataset</a> that define variables in the SPM model.</p></dd>
+
+<dt><code>time_column</code></dt><dd><p><strong>[character]</strong> The column of <code>data</code> that represents the
+temporal dimension of the dataset.</p></dd>
+
+<dt><code>uniqueID</code></dt><dd><p><strong>[character]</strong> The column of <code>data</code> that is unique for all
+rows of the data matrix.</p></dd>
 
 <dt><code>boundaries</code></dt><dd><p><strong>[sf]</strong> Spatial boundaries (polygons).</p></dd>
 
-<dt><code>datasets</code></dt><dd><p><strong>[list]</strong> <em>(if discrete)</em> List of
-<a href='sspm_data-class.html'>sspm_data</a> that define variables in the SPM model.</p></dd>
+<dt><code>smoothed_data</code></dt><dd><p><strong>[ANY (sf)]</strong> The smoothed data.</p></dd>
 
-<dt><code>method</code></dt><dd><p><strong>[<a href='discretization_method-class.html'>discretization_method</a>]</strong>
-<em>(if discrete)</em> discretization method used.</p></dd>
-
-<dt><code>patches</code></dt><dd><p><strong>[sf]</strong> <em>(if discrete)</em> Patches resulting from
-discretization.</p></dd>
-
-<dt><code>points</code></dt><dd><p><strong>[sf]</strong> <em>(if discrete)</em> Sample points used for
-discretization.</p></dd>
-
-<dt><code>formulas</code></dt><dd><p><strong>[list]</strong> <em>(if discrete)</em> List of
-<a href='sspm_formula-class.html'>sspm_formula</a> objects that are mapped onto the
-base dataset.</p></dd>
-
-<dt><code>smoothed_data</code></dt><dd><p><strong>[sspm_data]</strong> <em>(if discrete)</em> The smoothed
-data, under the form of a <a href='sspm_data-class.html'>sspm_data</a> object. Each
-column corresponds to a fitted (smoothed) datasets and is used for SPM
-formula and model definition.</p></dd>
-
-<dt><code>fit</code></dt><dd><p><strong>[LIST]</strong> <em>(if discrete)</em> The list of fitted spm model, each
-corresponding to a different formula from the formulas slot.</p></dd>
+<dt><code>is_split</code></dt><dd><p><strong>[logical]</strong> Whether this object has been split into
+train/test sets.</p></dd>
 
 </dl>
 

@@ -131,7 +131,7 @@ series.</p>
 
     <pre class="usage"><span class='fu'>spm_lag</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>vars</span>, n <span class='op'>=</span> <span class='fl'>1</span>, default <span class='op'>=</span> <span class='st'>"mean"</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete</span>
+<span class='co'># S4 method for sspm</span>
 <span class='fu'>spm_lag</span><span class='op'>(</span><span class='va'>sspm_object</span>, <span class='va'>vars</span>, n <span class='op'>=</span> <span class='fl'>1</span>, default <span class='op'>=</span> <span class='st'>"mean"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -139,8 +139,8 @@ series.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>sspm_object</th>
-      <td><p><strong>[sspm_discrete]</strong> An object of class
-<a href='sspm-class.html'>sspm_discrete</a>.</p></td>
+      <td><p><strong>[sspm_dataset]</strong> An object of class
+<a href='sspm_dataset-class.html'>sspm_dataset</a>.</p></td>
     </tr>
     <tr>
       <th>vars</th>
@@ -157,7 +157,10 @@ lead or lag by</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Further arguments passed down, none used for now.</p></td>
+      <td><p>a list of variables that are the covariates that this
+    smooth is a function of. Transformations whose form depends on
+    the values of the data are best avoided here: e.g. <code><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s(log(x))</a></code>
+    is fine, but <code><a href='https://rdrr.io/pkg/mgcv/man/s.html'>s(I(x/sd(x)))</a></code> is not (see <code><a href='https://rdrr.io/pkg/mgcv/man/predict.gam.html'>predict.gam</a></code>).</p></td>
     </tr>
     </table>
 

@@ -127,7 +127,13 @@
 
     <pre class="usage"><span class='fu'>spm_predict</span><span class='op'>(</span><span class='va'>sspm_object</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_discrete</span>
+<span class='co'># S4 method for sspm_fit,data.frame</span>
+<span class='fu'>spm_predict</span><span class='op'>(</span><span class='va'>sspm_object</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S4 method for sspm_fit,missing</span>
+<span class='fu'>spm_predict</span><span class='op'>(</span><span class='va'>sspm_object</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='co'># S4 method for sspm_fit,list</span>
 <span class='fu'>spm_predict</span><span class='op'>(</span><span class='va'>sspm_object</span>, new_data <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -135,8 +141,8 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>sspm_object</th>
-      <td><p><strong>[sspm_discrete]</strong> An object of class
-<a href='sspm-class.html'>sspm</a> or <a href='sspm-class.html'>sspm_discrete</a>.</p></td>
+      <td><p><strong>[sspm_dataset]</strong> An object of class
+<a href='sspm_dataset-class.html'>sspm_dataset</a>.</p></td>
     </tr>
     <tr>
       <th>new_data</th>
