@@ -19,6 +19,10 @@
 \alias{spm_boundary_colum,sspm_boundary-method}
 \alias{spm_boundary_colum<-}
 \alias{spm_boundary_colum<-,sspm_boundary-method}
+\alias{spm_surface_colum}
+\alias{spm_surface_colum,sspm_boundary-method}
+\alias{spm_surface_colum<-}
+\alias{spm_surface_colum<-,sspm_boundary-method}
 \title{Accessing OR replacing \code{sspm_boundary} model elements}
 \usage{
 \S4method{spm_boundaries}{sspm_boundary}(sspm_object)
@@ -56,6 +60,14 @@ spm_boundary_colum(sspm_object)
 spm_boundary_colum(object) <- value
 
 \S4method{spm_boundary_colum}{sspm_boundary}(object) <- value
+
+spm_surface_colum(sspm_object)
+
+\S4method{spm_surface_colum}{sspm_boundary}(sspm_object)
+
+spm_surface_colum(object) <- value
+
+\S4method{spm_surface_colum}{sspm_boundary}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_boundary]} An object of class

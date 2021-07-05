@@ -133,6 +133,10 @@ cat_boundaries <- function(object, column = TRUE){
       cli::cat_bullet(" Boundary col. : ",
                       cli::col_blue(object@boundary_column),
                       bullet = "arrow_right")
+
+      cli::cat_bullet(" Surface col.  : ",
+                      cli::col_blue(object@surface_column),
+                      bullet = "arrow_right")
     } else {
 
       cli::cat_bullet(" Boundaries        : ",

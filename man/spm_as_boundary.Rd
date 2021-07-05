@@ -2,12 +2,18 @@
 % Please edit documentation in R/spm_as_boundary.R
 \name{spm_as_boundary}
 \alias{spm_as_boundary}
-\alias{spm_as_boundary,sf,characterOrNULL-method}
+\alias{spm_as_boundary,sf,NULL,ANY-method}
+\alias{spm_as_boundary,sf,character,missing-method}
+\alias{spm_as_boundary,sf,character,character-method}
 \title{Create a sspm_boundary object}
 \usage{
-spm_as_boundary(boundaries, boundary_column = NULL)
+spm_as_boundary(boundaries, boundary_column, surface_column)
 
-\S4method{spm_as_boundary}{sf,characterOrNULL}(boundaries, boundary_column = NULL)
+\S4method{spm_as_boundary}{sf,`NULL`,ANY}(boundaries, boundary_column, surface_column)
+
+\S4method{spm_as_boundary}{sf,character,missing}(boundaries, boundary_column, surface_column)
+
+\S4method{spm_as_boundary}{sf,character,character}(boundaries, boundary_column, surface_column)
 }
 \arguments{
 \item{boundaries}{\strong{[sf]} The sf object to cast.}

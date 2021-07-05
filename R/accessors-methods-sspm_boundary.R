@@ -172,3 +172,38 @@ setMethod("spm_boundary_colum<-",
             return(object)
           }
 )
+
+# Surface col -------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_boundary
+#' @export
+setGeneric(name = "spm_surface_colum",
+           def = function(sspm_object) standardGeneric("spm_surface_colum")
+)
+
+#' @rdname accessors-methods-sspm_boundary
+#' @export
+setMethod("spm_surface_colum",
+          signature("sspm_object" = "sspm_boundary"),
+          function(sspm_object) sspm_object@surface_column
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_boundary
+#' @export
+setGeneric(name = "spm_surface_colum<-",
+           def = function(object, value) standardGeneric("spm_surface_colum<-")
+)
+
+#' @rdname accessors-methods-sspm_boundary
+#' @export
+setMethod("spm_surface_colum<-",
+          signature("object" = "sspm_boundary"),
+          function(object, value){
+            object@surface_column <- value
+            validObject(object)
+            return(object)
+          }
+)
