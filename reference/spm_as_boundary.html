@@ -125,10 +125,16 @@
     <p>Create a sspm_boundary object.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>spm_as_boundary</span><span class='op'>(</span><span class='va'>boundaries</span>, boundary_column <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>spm_as_boundary</span><span class='op'>(</span><span class='va'>boundaries</span>, <span class='va'>boundary_column</span>, <span class='va'>surface_column</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sf,characterOrNULL</span>
-<span class='fu'>spm_as_boundary</span><span class='op'>(</span><span class='va'>boundaries</span>, boundary_column <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+<span class='co'># S4 method for sf,`NULL`,ANY</span>
+<span class='fu'>spm_as_boundary</span><span class='op'>(</span><span class='va'>boundaries</span>, <span class='va'>boundary_column</span>, <span class='va'>surface_column</span><span class='op'>)</span>
+
+<span class='co'># S4 method for sf,character,missing</span>
+<span class='fu'>spm_as_boundary</span><span class='op'>(</span><span class='va'>boundaries</span>, <span class='va'>boundary_column</span>, <span class='va'>surface_column</span><span class='op'>)</span>
+
+<span class='co'># S4 method for sf,character,character</span>
+<span class='fu'>spm_as_boundary</span><span class='op'>(</span><span class='va'>boundaries</span>, <span class='va'>boundary_column</span>, <span class='va'>surface_column</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
