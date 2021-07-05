@@ -10,7 +10,7 @@
 setGeneric(name = "spm_as_boundary",
            def = function(boundaries,
                           boundary_column,
-                          surface_column){
+                          surface_column) {
              standardGeneric("spm_as_boundary")
            }
 )
@@ -23,7 +23,7 @@ setMethod(f = "spm_as_boundary",
           signature(boundaries = "sf",
                     boundary_column = "NULL",
                     surface_column = "ANY"),
-          function(boundaries, boundary_column, surface_column){
+          function(boundaries, boundary_column, surface_column) {
             stop("`boundary_column` cannot be NULL",
                  call. = FALSE)
           }
@@ -35,7 +35,7 @@ setMethod(f = "spm_as_boundary",
           signature(boundaries = "sf",
                     boundary_column = "character",
                     surface_column = "missing"),
-          function(boundaries, boundary_column, surface_column){
+          function(boundaries, boundary_column, surface_column) {
 
             boundaries <- boundaries %>%
               dplyr::mutate(area = sf::st_area(boundaries))
@@ -54,14 +54,14 @@ setMethod(f = "spm_as_boundary",
           signature(boundaries = "sf",
                     boundary_column = "character",
                     surface_column = "character"),
-          function(boundaries, boundary_column, surface_column){
+          function(boundaries, boundary_column, surface_column) {
 
-            if(!checkmate::test_subset(boundary_column, names(boundaries))){
+            if (!checkmate::test_subset(boundary_column, names(boundaries))) {
               stop("`boundary_column` must be a column of `boundaries`",
                    call. = FALSE)
             }
 
-            if(!checkmate::test_subset(surface_column, names(boundaries))){
+            if (!checkmate::test_subset(surface_column, names(boundaries))) {
               stop("`surface_column` must be a column of `boundaries`",
                    call. = FALSE)
             }

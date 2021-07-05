@@ -27,7 +27,7 @@ setGeneric(name = "smooth_time",
                           k = NULL,
                           bs = "re",
                           xt = NULL,
-                          ...){
+                          ...) {
              standardGeneric("smooth_time")
            }
 )
@@ -42,7 +42,7 @@ setGeneric(name = "smooth_space",
                           k = 30,
                           bs = "mrf",
                           xt = NULL,
-                          ...){
+                          ...) {
              standardGeneric("smooth_space")
            }
 )
@@ -55,9 +55,9 @@ setGeneric(name = "smooth_space_time",
                           time_column,
                           type = "ICAR",
                           k = NULL,
-                          bs = c("re","mrf"),
+                          bs = c("re", "mrf"),
                           xt = NULL,
-                          ...){
+                          ...) {
              standardGeneric("smooth_space_time")
            }
 )
@@ -72,7 +72,7 @@ setGeneric(name = "smooth_lag",
                           type = "LINPRED",
                           k = 5,
                           m = 1,
-                          ...){
+                          ...) {
              standardGeneric("smooth_lag")
            }
 )
@@ -89,7 +89,7 @@ setGeneric(name = "smooth_lag",
 setMethod(f = "smooth_time",
           signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(data_frame, boundaries, time_column, type, k, bs, xt, ...){
+          function(data_frame, boundaries, time_column, type, k, bs, xt, ...) {
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -118,7 +118,7 @@ setMethod(f = "smooth_time",
 setMethod(f = "smooth_space",
           signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(data_frame, boundaries, time_column, type, k, bs, xt, ...){
+          function(data_frame, boundaries, time_column, type, k, bs, xt, ...) {
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -147,7 +147,7 @@ setMethod(f = "smooth_space",
 setMethod(f = "smooth_space_time",
           signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(data_frame, boundaries, time_column, type, k, bs, xt, ...){
+          function(data_frame, boundaries, time_column, type, k, bs, xt, ...) {
 
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
@@ -176,7 +176,7 @@ setMethod(f = "smooth_space_time",
 setMethod(f = "smooth_lag",
           signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(var, data_frame, boundaries, time_column, type, k, m, ...){
+          function(var, data_frame, boundaries, time_column, type, k, m, ...) {
             # Get args from ellipsis for extra args: this form is necessary for
             # capturing symbols as well
             args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
@@ -205,7 +205,7 @@ setMethod(f = "smooth_lag",
 # double list args_and_vars that have the args to build a new call to s() and the
 # vars necessary for the evaluation of that s() smooth
 ICAR <- function(data_frame, boundaries, time_column, dimension,
-                 k, bs, xt, ...){
+                 k, bs, xt, ...) {
 
   checkmate::assert_class(data_frame, "sf")
   checkmate::assert_class(boundaries, "sspm_discrete_boundary")
@@ -234,21 +234,21 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
 
     out_column <- list(str2lang(time_column))
 
-    if(is.null(k)){
+    if (is.null(k)) {
       k <- n_time_levels
     }
 
-    if(is.null(bs)){
+    if (is.null(bs)) {
       bs <- "re"
     }
 
-    if(is.null(xt)){
+    if (is.null(xt)) {
       pen_mat_time <- ICAR_time(time_levels)
     } else {
 
       checkmate::assert_list(xt)
 
-      if (is.null(xt$penalty)){
+      if (is.null(xt$penalty)) {
         pen_mat_time <- ICAR_time(time_levels)
       } else {
         checkmate::assert_matrix(xt$penalty)
@@ -261,25 +261,25 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
     vars$pen_mat_time <- pen_mat_time
     xt_list <- list(xt = list(penalty = pen_expression))
 
-  } else if (dimension == "space"){
+  } else if (dimension == "space") {
 
     out_column <- list(str2lang(space_column))
 
-    if(is.null(k)){
+    if (is.null(k)) {
       k <- 30
     }
 
-    if(is.null(bs)){
+    if (is.null(bs)) {
       bs <- "mrf"
     }
 
-    if(is.null(xt)){
+    if (is.null(xt)) {
       pen_mat_space <- ICAR_space(patches, space_column)
     } else {
 
       checkmate::assert_list(xt)
 
-      if (is.null(xt$penalty)){
+      if (is.null(xt$penalty)) {
         pen_mat_space <- ICAR_space(patches, space_column)
       } else {
         checkmate::assert_matrix(xt$penalty)
@@ -292,19 +292,19 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
     vars$pen_mat_space <- pen_mat_space
     xt_list <- list(xt = list(penalty = pen_expression))
 
-  } else if (dimension == "space_time"){
+  } else if (dimension == "space_time") {
 
     out_column <- list(str2lang(time_column), str2lang(space_column))
 
-    if(is.null(k)){
+    if (is.null(k)) {
       k <- c(n_time_levels, 30)
     }
 
-    if(is.null(bs)){
-      bs <- c("re","mrf")
+    if (is.null(bs)) {
+      bs <- c("re", "mrf")
     }
 
-    if(is.null(xt)){
+    if (is.null(xt)) {
 
       pen_mat_time <- ICAR_time(time_levels)
       pen_mat_space <- ICAR_space(patches, space_column)
@@ -320,16 +320,16 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
       checkmate::assert_names(names(xt),
                               subset.of = c(time_column, space_column))
 
-      if (is.null(xt[[time_column]]$penalty)){
+      if (is.null(xt[[time_column]]$penalty)) {
         vars$pen_mat_time <- ICAR_time(time_levels)
       } else {
         checkmate::assert_matrix(xt[[time_column]]$penalty)
         vars$pen_mat_time <- xt[[time_column]]$penalty
       }
 
-      if (is.null(xt[[space_column]]$penalty)){
+      if (is.null(xt[[space_column]]$penalty)) {
         vars$pen_mat_space <- ICAR_space(patches, space_column)
-      } else{
+      } else {
         checkmate::assert_matrix(xt[[space_column]]$penalty)
         vars$pen_mat_space <- xt[[space_column]]$penalty
       }
@@ -344,13 +344,13 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
 
   return(list(args = do.call(c,
                              args = list(out_column,
-                                         list(k=k, bs=bs),
+                                         list(k = k, bs = bs),
                                          xt_list,
                                          args_list)),
               vars = vars))
 }
 
-ICAR_time <- function(time_levels){
+ICAR_time <- function(time_levels) {
 
   # Creating an auto-regressive year penalty; this matrix means that the
   # estimate for each year is penalized to be close to the years before and
@@ -359,16 +359,16 @@ ICAR_time <- function(time_levels){
   time_levels <- sort(time_levels)
   n_time_levels <- length(unique(time_levels))
 
-  pen_mat = matrix(0, nrow=n_time_levels, ncol = n_time_levels)
+  pen_mat = matrix(0, nrow = n_time_levels, ncol = n_time_levels)
   dimnames(pen_mat) = list(time_levels, time_levels)
-  diag(pen_mat[-1,-n_time_levels]) = diag(pen_mat[-n_time_levels,-1]) = -1
-  diag(pen_mat) = -(colSums(pen_mat)-diag(pen_mat))
+  diag(pen_mat[-1, -n_time_levels]) = diag(pen_mat[-n_time_levels, -1]) = -1
+  diag(pen_mat) = -(colSums(pen_mat) - diag(pen_mat))
 
   return(pen_mat)
 
 }
 
-ICAR_space <- function(patches, space_column){
+ICAR_space <- function(patches, space_column) {
 
   checkmate::assert_choice(space_column, names(patches))
 
@@ -389,7 +389,7 @@ ICAR_space <- function(patches, space_column){
 # method of fitting the smooth
 
 LINPRED <- function(data_frame, boundaries, time_column, var,
-                    k, m, ...){
+                    k, m, ...) {
 
   checkmate::assert_class(data_frame, "sf")
   checkmate::assert_class(boundaries, "sspm_discrete_boundary")
@@ -407,7 +407,7 @@ LINPRED <- function(data_frame, boundaries, time_column, var,
     dplyr::mutate(!!time_column := data_frame[[time_column]],
                   !!boundary_col := data_frame[[boundary_col]],
                   "patch_id" = data_frame[["patch_id"]]) %>%
-    dplyr:: select(dplyr::contains('lag')) %>%
+    dplyr::select(dplyr::contains('lag')) %>%
     as.matrix()
 
   by_matrix <- data_frame %>%
@@ -432,8 +432,8 @@ LINPRED <- function(data_frame, boundaries, time_column, var,
 
   return(list(args = do.call(c,
                              args = list(out_column,
-                                         list(k=k, m=m,
-                                              by=str2lang("by_matrix")),
+                                         list(k = k, m = m,
+                                              by = str2lang("by_matrix")),
                                          args_list)),
               vars = vars))
 
@@ -443,7 +443,7 @@ LINPRED <- function(data_frame, boundaries, time_column, var,
 
 # This functions turns the args_and_vars returned by ICAR (and potentially any
 # any other functions like ICAR) into a call to a smooth (s, ti, etc...)
-assemble_smooth <- function(s_type, args){
+assemble_smooth <- function(s_type, args) {
 
   checkmate::assert_character(s_type)
   checkmate::assert_list(args)

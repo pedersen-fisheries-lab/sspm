@@ -4,7 +4,7 @@ test_that("Map formula works as expected", {
   skip("Deprecated")
 
   form_mapped <- sspm_discrete_mapped %>%
-    map_formula(weight_per_km2~smooth_time()+smooth_space()+smooth_space_time(),
+    map_formula(weight_per_km2 ~ smooth_time() + smooth_space() + smooth_space_time(),
                 "Biomass")
   the_form <- translated_formula(spm_formulas(spm_datasets(form_mapped)$Biomass)[[1]])
 
@@ -32,11 +32,11 @@ test_that("Map formula works as expected", {
   # }, "Argument 'dataset' missing with no default")
 
   expect_error({
-    sspm_discrete_mapped %>% map_formula(weight_per_km2~smooth_time(), "NotADataset")
+    sspm_discrete_mapped %>% map_formula(weight_per_km2 ~ smooth_time(), "NotADataset")
   }, "Argument 'dataset' must be one of: Biomass, Predator")
 
   expect_error({
-    sspm_discrete_mapped %>% map_formula(NotAColumn~smooth_time(), "Biomass")
+    sspm_discrete_mapped %>% map_formula(NotAColumn ~ smooth_time(), "Biomass")
   }, "The response in the formula is not a column of the dataset.")
 
 })

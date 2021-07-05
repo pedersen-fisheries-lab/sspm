@@ -14,7 +14,7 @@ setGeneric(name = "map_formula",
                           boundaries,
                           formula,
                           time_column,
-                          ...){
+                          ...) {
              standardGeneric("map_formula")
            }
 )
@@ -32,7 +32,7 @@ setMethod(f = "map_formula",
           signature(data_frame = "sf",
                     boundaries = "ANY",
                     formula = "formula"),
-          function(data_frame, boundaries, formula, time_column, ...){
+          function(data_frame, boundaries, formula, time_column, ...) {
 
             # Retrieve terms, response, and term labels
             formula_terms <- terms(formula)
@@ -40,16 +40,16 @@ setMethod(f = "map_formula",
             terms_labels <- attr(formula_terms, "term.labels")
 
             # Check response
-            if(!checkmate::test_subset(response, names(data_frame))){
+            if (!checkmate::test_subset(response, names(data_frame))) {
               stop("The response in the formula is not a column of the dataset.",
                    call. = FALSE)
             }
 
             # Find the special calls to edit and evaluate
-            is_special <- sapply(terms_labels, grepl, pattern="smooth_lag(", fixed=TRUE) |
-              sapply(terms_labels, grepl, pattern="smooth_time(", fixed=TRUE) |
-              sapply(terms_labels, grepl, pattern="smooth_space(", fixed=TRUE) |
-              sapply(terms_labels, grepl, pattern="smooth_space_time(", fixed=TRUE)
+            is_special <- sapply(terms_labels, grepl, pattern = "smooth_lag(", fixed = TRUE) |
+              sapply(terms_labels, grepl, pattern = "smooth_time(", fixed = TRUE) |
+              sapply(terms_labels, grepl, pattern = "smooth_space(", fixed = TRUE) |
+              sapply(terms_labels, grepl, pattern = "smooth_space_time(", fixed = TRUE)
 
             smooth_terms_labels <- terms_labels[is_special]
             other_terms <- terms_labels[!is_special]
@@ -58,7 +58,7 @@ setMethod(f = "map_formula",
             base_formula <- (paste(response, "~", paste(other_terms, collapse = " + "),
                                    collapse = " "))
 
-            if(length(other_terms)>0 & length(smooth_terms_labels)>0) {
+            if (length(other_terms) > 0 & length(smooth_terms_labels) > 0) {
               base_formula <- paste0(base_formula, " + ")
             }
 
@@ -72,7 +72,7 @@ setMethod(f = "map_formula",
                      args = list(data_frame = data_frame,
                                  boundaries = substitute(boundaries),
                                  time_column = time_column))
-            smooth_and_vars <-lapply(smooth_calls_modified, eval,
+            smooth_and_vars <- lapply(smooth_calls_modified, eval,
                                      envir = list(. = data_frame,
                                                   boundaries = boundaries))
 

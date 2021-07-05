@@ -37,7 +37,7 @@ test_that("Replacers work as expected", {
   }, "c ~ d")
 
   expect_names({
-    formula_vars(sspm_formula) <- list(a=1, b=2)
+    formula_vars(sspm_formula) <- list(a = 1, b = 2)
     names(formula_vars(sspm_formula))
   }, identical.to = c("a", "b"))
 

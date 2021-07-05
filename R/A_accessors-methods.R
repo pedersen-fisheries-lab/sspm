@@ -37,7 +37,7 @@ setGeneric(name = "spm_name<-",
 #' @export
 setMethod("spm_name<-",
           signature("object" = "sspm"),
-          function(object, value){
+          function(object, value) {
             object@name <- value
             validObject(object)
             return(object)
@@ -59,7 +59,7 @@ setMethod("spm_datasets", signature("sspm_object" = "sspm"),
           function(sspm_object, type) {
             datasets <- sspm_object@datasets
 
-            if(!is.null(type)){
+            if (!is.null(type)) {
 
               checkmate::assert_choice(type, c("biomass", "catch", "predictor"))
 
@@ -86,7 +86,7 @@ setGeneric(name = "spm_datasets<-",
 #' @export
 setMethod("spm_datasets<-",
           signature("object" = "sspm"),
-          function(object, value){
+          function(object, value) {
             object@datasets <- value
             validObject(object)
             return(object)
@@ -120,7 +120,7 @@ setGeneric(name = "spm_boundaries<-",
 #' @export
 setMethod("spm_boundaries<-",
           signature("object" = "sspm"),
-          function(object, value){
+          function(object, value) {
             object@boundaries <- value
             validObject(object)
             return(object)
@@ -160,7 +160,7 @@ setGeneric(name = "spm_smoothed_data<-",
 #' @export
 setMethod("spm_smoothed_data<-",
           signature("object" = "sspm"),
-          function(object, value){
+          function(object, value) {
             object@smoothed_data <- value
             validObject(object)
             return(object)
@@ -230,7 +230,7 @@ setGeneric(name = "spm_time_column<-",
 #' @export
 setMethod("spm_time_column<-",
           signature("object" = "sspm"),
-          function(object, value){
+          function(object, value) {
             object@time_column <- value
             validObject(object)
             return(object)
@@ -265,7 +265,7 @@ setGeneric(name = "is_split<-",
 #' @export
 setMethod("is_split<-",
           signature("object" = "sspm"),
-          function(object, value){
+          function(object, value) {
             object@is_split <- value
             validObject(object)
             return(object)
@@ -300,7 +300,7 @@ setGeneric(name = "spm_unique_ID<-",
 #' @export
 setMethod("spm_unique_ID<-",
           signature("object" = "sspm"),
-          function(object, value){
+          function(object, value) {
             object@uniqueID <- value
             validObject(object)
             return(object)

@@ -20,7 +20,7 @@ setGeneric(name = "sspm",
                           predictors,
                           catch = NULL,
                           biomass_var = NULL,
-                          catch_var = NULL){
+                          catch_var = NULL) {
              standardGeneric("sspm")
            }
 )
@@ -32,7 +32,7 @@ setGeneric(name = "sspm",
 setMethod(f = "sspm",
           signature(biomass = "sspm_dataset",
                     predictors = "sspm_dataset"),
-          function(biomass, predictors, catch, biomass_var, catch_var){
+          function(biomass, predictors, catch, biomass_var, catch_var) {
 
             # Turn predictors to list
             predictors <- list(predictors)
@@ -47,10 +47,10 @@ setMethod(f = "sspm",
 setMethod(f = "sspm",
           signature(biomass = "sspm_dataset",
                     predictors = "list"),
-          function(biomass, predictors, catch, biomass_var, catch_var){
+          function(biomass, predictors, catch, biomass_var, catch_var) {
 
             # 1. Check all predictors in list are sspm_dataset
-            if(any(!is_sspm_dataset(predictors))){
+            if (any(!is_sspm_dataset(predictors))) {
               cli::cli_alert_danger("Some predictors are not of class sspm_dataset")
 
             } else {
@@ -61,7 +61,7 @@ setMethod(f = "sspm",
               all_boundaries <- unname(append(list(biomass_boundaries),
                                               predictors_boundaries))
 
-              if(!check_identical_boundaries(all_boundaries)){
+              if (!check_identical_boundaries(all_boundaries)) {
                 cli::cli_alert_danger("not all datasets have the same boundaries object")
                 stop(call. = FALSE)
               }
@@ -74,23 +74,23 @@ setMethod(f = "sspm",
 
               biomass_clean <- clean_data_for_joining(spm_smoothed_data(biomass))
               joining_vars <- c("patch_id", spm_boundary_colum(spm_boundaries(biomass)))
-              if("area_km2" %in% names(biomass_clean)){
+              if ("area_km2" %in% names(biomass_clean)) {
                 joining_vars <- c(joining_vars, "area_km2")
               }
 
               full_smoothed_data <- biomass_clean
-              for(predictor in predictors){
+              for (predictor in predictors) {
 
                 the_suffix <- c(paste0("_", spm_name(biomass)),
                                 paste0("_", spm_name(predictor)))
 
                 dataset <- predictor %>%
-                  spm_smoothed_data()  %>%
+                  spm_smoothed_data() %>%
                   clean_data_for_joining() %>%
                   dplyr::rename(!!spm_time_column(biomass) :=
                                   spm_time_column(predictor))
 
-                full_smoothed_data <- full_smoothed_data  %>%
+                full_smoothed_data <- full_smoothed_data %>%
                   dplyr::left_join(dataset,
                                    by = c(dplyr::all_of(joining_vars),
                                           spm_time_column(biomass)),
@@ -105,18 +105,18 @@ setMethod(f = "sspm",
                 sf::st_as_sf() %>%
                 tibble::rowid_to_column("row_ID")
 
-              if(!is.null(catch)){
+              if (!is.null(catch)) {
 
                 # 4. deal with catch data
 
-                if(any(sapply(list(biomass_var, catch_var), is.null))){
+                if (any(sapply(list(biomass_var, catch_var), is.null))) {
 
                   cli::cli_alert_danger("biomass_var or catch_var missing")
                   stop(call. = FALSE)
 
                 } else {
                   matches <- sum(grepl(biomass_var, colnames(full_smoothed_data)))
-                  if (matches > 1){
+                  if (matches > 1) {
                     cli::cli_alert_warning("More than one columns matching the biomass_var variable")
                     cli::cli_alert_warning(paste0("You might need to set biomass_var to ",
                                                   cli::col_yellow(paste0(biomass_var, "_", spm_name(biomass)))))
@@ -129,7 +129,7 @@ setMethod(f = "sspm",
                   }
                 }
 
-                if(!is_mapped(catch)){
+                if (!is_mapped(catch)) {
                   # Need to map dataset
                   catch <- join_datasets(catch, spm_boundaries(biomass))
                 }
@@ -166,7 +166,7 @@ setMethod(f = "sspm",
                                   !!spm_boundary_colum(biomass_boundaries)) %>%
                   dplyr::mutate(
                     !!catch_name :=
-                      .data[[biomass_var]] + .data$total_catch/.data$area_km2) %>%
+                      .data[[biomass_var]] + .data$total_catch / .data$area_km2) %>%
                   dplyr::mutate(
                     !!change_name :=
                       log(.data[[catch_name]]) - log(dplyr::lag(.data[[biomass_var]],
@@ -208,19 +208,19 @@ setMethod(f = "sspm",
 
 
 # Check if boundaries are identical
-check_identical_boundaries <- function(boundaries){
+check_identical_boundaries <- function(boundaries) {
   do.call(identical, boundaries)
 }
 
 # Check whether of sspm_dataset class of a list of objects
-is_sspm_dataset <- function(list_of_datasets){
+is_sspm_dataset <- function(list_of_datasets) {
   checkmate::assert_list(list_of_datasets)
   checks <- sapply(list_of_datasets,
-                   function(x){checkmate::test_class(x, "sspm_dataset")})
+                   function(x) {checkmate::test_class(x, "sspm_dataset")})
   return(checks)
 }
 
 # clean up data frame before we can join
-clean_data_for_joining <- function(dataset){
+clean_data_for_joining <- function(dataset) {
   dataset %>% dplyr::select(-.data$row_ID) %>% sf::st_drop_geometry()
 }

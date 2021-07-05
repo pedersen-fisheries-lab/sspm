@@ -1,13 +1,13 @@
 # Methods -----------------------------------------------------------------
 
-custom_h1 <- function(text){
+custom_h1 <- function(text) {
   cli::cat_line(
     cli::symbol$figure_dash, cli::symbol$figure_dash,
     " ", cli::style_bold(text), " ",
     cli::symbol$figure_dash, cli::symbol$figure_dash)
 }
 
-custom_h3 <- function(text){
+custom_h3 <- function(text) {
   cli::cat_line(
     cli::symbol$figure_dash,
     " ", cli::style_bold(text), " ")
@@ -110,12 +110,12 @@ setMethod("show",
 
 # Helpers -----------------------------------------------------------------
 
-cat_boundaries <- function(object, column = TRUE){
+cat_boundaries <- function(object, column = TRUE) {
 
-  if(checkmate::test_class(object, "sspm_boundary")){
+  if (checkmate::test_class(object, "sspm_boundary")) {
     ok_to_print <- TRUE
-  } else if(checkmate::test_class(object, "sspm_dataset")){
-    if(!is.null(dim(object@boundaries@boundaries))){
+  } else if (checkmate::test_class(object, "sspm_dataset")) {
+    if (!is.null(dim(object@boundaries@boundaries))) {
       ok_to_print <- TRUE
     } else {
       ok_to_print <- FALSE
@@ -124,8 +124,8 @@ cat_boundaries <- function(object, column = TRUE){
     ok_to_print <- FALSE
   }
 
-  if(ok_to_print){
-    if(column){
+  if (ok_to_print) {
+    if (column) {
       cli::cat_bullet(" Boundaries    : ",
                       pluralize_data_info(object@boundaries),
                       bullet = "arrow_right")
@@ -148,7 +148,7 @@ cat_boundaries <- function(object, column = TRUE){
 
 }
 
-cat_discretization_info <- function(object){
+cat_discretization_info <- function(object) {
 
   cli::cat_bullet(" Discretized   : ",
                   bullet = "arrow_right")
@@ -162,9 +162,9 @@ cat_discretization_info <- function(object){
 
 }
 
-cat_data <- function(object){
+cat_data <- function(object) {
 
-  if(object@is_mapped){
+  if (object@is_mapped) {
     header <- paste0(" Data ", cli::col_blue("(MAPPED)"),
                      "     : ")
   } else {
@@ -180,7 +180,7 @@ cat_data <- function(object){
   cli::cat_bullet(" Time col.         : ",
                   cli::col_blue(object@time_column),
                   bullet = "arrow_right")
-  if(!is.null(object@coords)){
+  if (!is.null(object@coords)) {
     cli::cat_bullet(" Coordinates cols. : ",
                     paste(cli::col_green(object@coords),
                           collapse = ", "),
@@ -189,16 +189,16 @@ cat_data <- function(object){
 
 }
 
-cat_formulas <- function(object){
+cat_formulas <- function(object) {
 
   the_dataset_formulas <- spm_formulas(object)
 
-  if(length(the_dataset_formulas) != 0){
+  if (length(the_dataset_formulas) != 0) {
 
     cli::cat_bullet(" Formulas          : ",
                     bullet = "arrow_right")
 
-    for (f_id in seq_len(length.out = length(the_dataset_formulas))){
+    for (f_id in seq_len(length.out = length(the_dataset_formulas))) {
 
       form <- the_dataset_formulas[[f_id]]
       formatted <- cat_formula(form@raw_formula)
@@ -212,11 +212,11 @@ cat_formulas <- function(object){
 
 }
 
-cat_smoothed_data <- function(object, print_columns = TRUE){
+cat_smoothed_data <- function(object, print_columns = TRUE) {
 
-  if(!is.null(object@smoothed_data)){
+  if (!is.null(object@smoothed_data)) {
 
-    if(("train_test" %in% names(object@smoothed_data))){
+    if (("train_test" %in% names(object@smoothed_data))) {
 
       n_train <- sum(object@smoothed_data$train_test)
       n_test <- sum(!object@smoothed_data$train_test)
@@ -238,27 +238,27 @@ cat_smoothed_data <- function(object, print_columns = TRUE){
                       bullet = "arrow_right")
     }
 
-    if(print_columns){
+    if (print_columns) {
 
       columns_with_smooth <-
         names(which(sapply(colnames(object@smoothed_data),
-                           grepl, pattern = "_smooth", fixed=TRUE)))
+                           grepl, pattern = "_smooth", fixed = TRUE)))
       columns_with_smooth <-
         names(which(!sapply(columns_with_smooth,
-                            grepl, pattern = "lag", fixed=TRUE)))
+                            grepl, pattern = "lag", fixed = TRUE)))
       columns_with_catch <-
         names(which(sapply(colnames(object@smoothed_data),
-                           grepl, pattern = "_with_catch", fixed=TRUE)))
+                           grepl, pattern = "_with_catch", fixed = TRUE)))
 
       columns_with_lag <-
         names(which(sapply(colnames(object@smoothed_data),
-                           grepl, pattern="_lag", fixed=TRUE)))
+                           grepl, pattern = "_lag", fixed = TRUE)))
 
       columns_with_smooth <- columns_with_smooth[!(columns_with_smooth %in%
                                                      c(columns_with_catch,
                                                        columns_with_lag))]
 
-      if (length(columns_with_smooth) > 0){
+      if (length(columns_with_smooth) > 0) {
         the_line <-
           paste(cli::symbol$star, "smoothed vars:",
                 paste(cli::col_green(sort(columns_with_smooth)),
@@ -267,7 +267,7 @@ cat_smoothed_data <- function(object, print_columns = TRUE){
         cli::cat_line("   ", the_line)
       }
 
-      if(length(columns_with_catch) > 0){
+      if (length(columns_with_catch) > 0) {
         the_line <-
           paste(cli::symbol$star, "vars with catch:",
                 paste(cli::col_green(sort(columns_with_catch)),
@@ -276,7 +276,7 @@ cat_smoothed_data <- function(object, print_columns = TRUE){
         cli::cat_line("   ", the_line)
       }
 
-      if (length(columns_with_lag) > 0){
+      if (length(columns_with_lag) > 0) {
         the_line <-
           paste(cli::symbol$star, "lagged vars:",
                 paste(cli::col_green(sort(columns_with_lag)),
@@ -289,7 +289,7 @@ cat_smoothed_data <- function(object, print_columns = TRUE){
 
 }
 
-cat_spm_fit <- function(object){
+cat_spm_fit <- function(object) {
   the_fit <- spm_get_fit(object)
   the_fit_summary <- summary(the_fit)
   cli::cat_bullet(" Fit summary       : ",
@@ -301,28 +301,28 @@ cat_spm_fit <- function(object){
 
 pluralize_data_info <- function(object,
                                 dim_1_name = "observation",
-                                dim_2_name = "variable"){
+                                dim_2_name = "variable") {
 
   dim_1 <- dim(object)[1]
   dim_2 <- dim(object)[2]
 
   info <-
-    cli::pluralize("[", cli::col_blue("{dim_1}")," ", dim_1_name, "{?s}, ",
+    cli::pluralize("[", cli::col_blue("{dim_1}"), " ", dim_1_name, "{?s}, ",
                    cli::col_blue("{dim_2}"), " ", dim_2_name, "{?s}]")
 
   return(info)
 
 }
 
-format_formula <- function(form){
+format_formula <- function(form) {
   gsub(format(
     paste0(trimws(format(form)), collapse = " ")
-  ), pattern = "\\\"", replacement="'")
+  ), pattern = "\\\"", replacement = "'")
 }
 
-cat_formula <- function(formula, max_length=1000){
+cat_formula <- function(formula, max_length = 1000) {
   formatted <- format_formula(formula)
-  if(nchar(formatted)>max_length){
+  if (nchar(formatted) > max_length) {
     formatted <- paste0(strtrim(formatted, max_length), "...")
   }
   return(formatted)

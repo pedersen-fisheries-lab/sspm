@@ -14,7 +14,7 @@ setGeneric(name = "spm_lag",
                           vars,
                           n = 1,
                           default = "mean",
-                          ...){
+                          ...) {
              standardGeneric("spm_lag")
            }
 )
@@ -25,19 +25,19 @@ setGeneric(name = "spm_lag",
 #' @rdname spm_lag
 setMethod(f = "spm_lag",
           signature(sspm_object = "sspm"),
-          function(sspm_object, vars, n, default, ...){
+          function(sspm_object, vars, n, default, ...) {
 
             smoothed_data <- spm_smoothed_data(sspm_object)
 
             for (var in vars) {
 
-              if(var %in% colnames(smoothed_data)){
+              if (var %in% colnames(smoothed_data)) {
 
                 var_name <- paste0(var, "_lag_", n)
 
-                if(is.character(default)){
+                if (is.character(default)) {
 
-                  if(default == "mean"){
+                  if (default == "mean") {
                     def_val <- mean(smoothed_data[[var]], na.rm = TRUE)
                   } else {
                     stop("Defaulting scheme not recognized")

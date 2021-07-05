@@ -16,7 +16,7 @@ predator_spatial <- sspm:::predator_simulated_spatial
 
 # Method
 discret_method <- new("discretization_method",
-                      name ="voronoi_method",
+                      name = "voronoi_method",
                       method = tesselate_voronoi)
 
 # Boundaries
@@ -38,7 +38,7 @@ biomass_dataset <- new("sspm_dataset",
                        type = "biomass",
                        time_column = "year_f",
                        uniqueID = "uniqueID",
-                       coords = c('lon_dec','lat_dec'))
+                       coords = c('lon_dec', 'lat_dec'))
 
 predator_dataset <- new("sspm_dataset",
                         name = "Predator",
@@ -46,7 +46,7 @@ predator_dataset <- new("sspm_dataset",
                         data = predator_spatial,
                         time_column = "year",
                         uniqueID = "uniqueID",
-                        coords = c('lon_dec','lat_dec'))
+                        coords = c('lon_dec', 'lat_dec'))
 
 catch_dataset <- new("sspm_dataset",
                      name = "Catch",
@@ -54,7 +54,7 @@ catch_dataset <- new("sspm_dataset",
                      data = predator_spatial,
                      time_column = "year",
                      uniqueID = "uniqueID",
-                     coords = c('lon_dec','lat_dec'))
+                     coords = c('lon_dec', 'lat_dec'))
 
 # Formula
 sspm_formula <- new("sspm_formula",
@@ -77,7 +77,7 @@ biomass_dataset_smoothed <- new("sspm_dataset",
                                 type = "biomass",
                                 time_column = "year_f",
                                 uniqueID = "uniqueID",
-                                coords = c('lon_dec','lat_dec'),
+                                coords = c('lon_dec', 'lat_dec'),
                                 formulas = list(sspm_formula),
                                 smoothed_data = borealis_spatial,
                                 smoothed_fit = list(),
@@ -89,7 +89,7 @@ predator_dataset_smoothed <- new("sspm_dataset",
                                  data = predator_spatial,
                                  time_column = "year",
                                  uniqueID = "uniqueID",
-                                 coords = c('lon_dec','lat_dec'),
+                                 coords = c('lon_dec', 'lat_dec'),
                                  formulas = list(sspm_formula),
                                  smoothed_data = predator_spatial,
                                  smoothed_fit = list(),
@@ -114,4 +114,4 @@ sspm_fit <- new("sspm_fit",
                 uniqueID = spm_unique_ID(biomass_dataset_smoothed),
                 formula = sspm_formula,
                 boundaries = spm_boundaries(biomass_dataset_smoothed),
-                fit = bam(data = mtcars, mpg~wt, family = gaussian))
+                fit = bam(data = mtcars, mpg ~ wt, family = gaussian))

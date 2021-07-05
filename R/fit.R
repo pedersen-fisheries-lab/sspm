@@ -18,7 +18,7 @@ setGeneric(name = "fit_smooths",
                           family = mgcv::tw,
                           drop.unused.levels = F,
                           method = "fREML",
-                          ...){
+                          ...) {
              standardGeneric("fit_smooths")
            }
 )
@@ -32,7 +32,7 @@ setGeneric(name = "fit_spm",
                           drop.unused.levels = F,
                           select = TRUE,
                           method = "REML",
-                          ...){
+                          ...) {
              standardGeneric("fit_spm")
            }
 )
@@ -45,11 +45,11 @@ setMethod(f = "fit_smooths",
                     boundaries = "sspm_discrete_boundary"),
           function(sspm_object, boundaries,
                    keep_fit, predict,
-                   family, drop.unused.levels, method,  ...){
+                   family, drop.unused.levels, method, ...) {
 
             # Initialize/collect smoothed_data
             full_smoothed_data <- sspm_object@smoothed_data
-            if (is.null(full_smoothed_data)){
+            if (is.null(full_smoothed_data)) {
               full_smoothed_data <- data.frame()
             }
 
@@ -57,7 +57,7 @@ setMethod(f = "fit_smooths",
             the_data <- spm_data(sspm_object)
 
             # If predict, make the predict matrix
-            if(predict){
+            if (predict) {
 
               min_year <-
                 min(as.numeric(as.character(the_data[[spm_time_column(sspm_object)]])),
@@ -81,12 +81,12 @@ setMethod(f = "fit_smooths",
             tmp_smoothed <-
               vector(mode = "list", length = formula_length)
 
-            for (form_id in seq_len(length.out = formula_length)){
+            for (form_id in seq_len(length.out = formula_length)) {
 
               # Index formula
               form <- formulas[[form_id]]
 
-              if(is_fitted(form)){
+              if (is_fitted(form)) {
                 next
               }
 
@@ -101,11 +101,11 @@ setMethod(f = "fit_smooths",
               cli::cli_alert_info(
                 paste0(" Fitting formula: ",
                        cli::col_yellow(format_formula(raw_formula(form))),
-                       " for dataset ", cli::col_cyan(paste0("'", spm_name(sspm_object),"'"))))
+                       " for dataset ", cli::col_cyan(paste0("'", spm_name(sspm_object), "'"))))
 
               # Modify formula env, best solution for now
               form_env <- attr(translated_formula(form), ".Environment")
-              for(var in names(form_vars)){
+              for (var in names(form_vars)) {
                 assign(x = var, value = form_vars[[var]], envir = form_env)
               }
 
@@ -117,9 +117,9 @@ setMethod(f = "fit_smooths",
                           drop.unused.levels = drop.unused.levels,
                           method = method,
                           ...)
-              }, error = function(e){
+              }, error = function(e) {
 
-                if (e$message == "Can't find by variable"){
+                if (e$message == "Can't find by variable") {
                   cli::cli_alert_danger(" mgcv failed to fit 'by' smooths")
                   cli::cli_alert_info(" Please ensure that all 'by = ...' variables are encoded as factors")
                   stop("mgcv failed to fit 'by' smooths", call. = FALSE)
@@ -135,12 +135,12 @@ setMethod(f = "fit_smooths",
             spm_formulas(sspm_object) <- formulas
 
             # Store results at dataset level
-            if(keep_fit){
+            if (keep_fit) {
               spm_smoothed_fit(sspm_object) <- tmp_fit
             }
 
             # Predict and store smoothed data to sspm level
-            if(predict){
+            if (predict) {
 
               preds <- predict(tmp_fit[[form_name]],
                                predict_mat, type = "response")
@@ -154,7 +154,7 @@ setMethod(f = "fit_smooths",
                 dplyr::arrange(!!time_col) %>%
                 dplyr::group_by(.data$patch_id)
 
-              if (nrow(full_smoothed_data) == 0){
+              if (nrow(full_smoothed_data) == 0) {
 
                 full_smoothed_data <- preds_df %>%
                   dplyr::left_join(boundaries@patches, by = c("patch_id"),
@@ -194,7 +194,7 @@ setMethod(f = "fit_spm",
           signature(sspm_object = "sspm",
                     sspm_formula = "sspm_formula"),
           function(sspm_object, sspm_formula,
-                   family, drop.unused.levels, select, method, ...){
+                   family, drop.unused.levels, select, method, ...) {
 
             # Here we fit the full spm
             # Get train dataset
@@ -217,7 +217,7 @@ setMethod(f = "fit_spm",
 
             # Modify formula env, best solution for now
             form_env <- attr(translated_formula(sspm_formula), ".Environment")
-            for(var in names(form_vars)){
+            for (var in names(form_vars)) {
               assign(x = var, value = form_vars[[var]], envir = form_env)
             }
 
@@ -237,16 +237,16 @@ setMethod(f = "fit_spm",
           }
 )
 
-process_formula_vars <- function(vars, the_data, select = TRUE){
+process_formula_vars <- function(vars, the_data, select = TRUE) {
 
   checkmate::assert_list(vars)
   train_IDs <- which(the_data$train_test == select)
 
-  for(var_name in names(vars)){
+  for (var_name in names(vars)) {
 
-    if(var_name %in% c("lag_matrix", "by_matrix")){
+    if (var_name %in% c("lag_matrix", "by_matrix")) {
 
-      vars[[var_name]] <- vars[[var_name]][train_IDs,]
+      vars[[var_name]] <- vars[[var_name]][train_IDs, ]
 
     }
 

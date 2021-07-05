@@ -24,7 +24,7 @@ setMethod("spm_boundaries", signature("sspm_object" = "sspm_boundary"),
 #' @export
 setMethod("spm_boundaries<-",
           signature("object" = "sspm_boundary"),
-          function(object, value){
+          function(object, value) {
             object@boundaries <- value
             validObject(object)
             return(object)
@@ -61,7 +61,7 @@ setGeneric(name = "spm_discret_method<-",
 #' @export
 setMethod("spm_discret_method<-",
           signature("object" = "sspm_boundary"),
-          function(object, value){
+          function(object, value) {
             object@method <- value
             validObject(object)
             return(object)
@@ -96,7 +96,7 @@ setGeneric(name = "spm_patches<-",
 #' @export
 setMethod("spm_patches<-",
           signature("object" = "sspm_boundary"),
-          function(object, value){
+          function(object, value) {
             object@patches <- value
             validObject(object)
             return(object)
@@ -131,7 +131,7 @@ setGeneric(name = "spm_points<-",
 #' @export
 setMethod("spm_points<-",
           signature("object" = "sspm_boundary"),
-          function(object, value){
+          function(object, value) {
             object@points <- value
             validObject(object)
             return(object)
@@ -166,7 +166,7 @@ setGeneric(name = "spm_boundary_colum<-",
 #' @export
 setMethod("spm_boundary_colum<-",
           signature("object" = "sspm_boundary"),
-          function(object, value){
+          function(object, value) {
             object@boundary_column <- value
             validObject(object)
             return(object)
@@ -201,7 +201,7 @@ setGeneric(name = "spm_surface_colum<-",
 #' @export
 setMethod("spm_surface_colum<-",
           signature("object" = "sspm_boundary"),
-          function(object, value){
+          function(object, value) {
             object@surface_column <- value
             validObject(object)
             return(object)

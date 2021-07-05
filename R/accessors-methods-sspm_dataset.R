@@ -35,7 +35,7 @@ setGeneric(name = "spm_data<-",
 #' @export
 setMethod("spm_data<-",
           signature("object" = "sspm_dataset"),
-          function(object, value){
+          function(object, value) {
             object@data <- value
             validObject(object)
             return(object)
@@ -57,7 +57,7 @@ setMethod("spm_name", signature("sspm_object" = "sspm_dataset"),
 #' @export
 setMethod("spm_name<-",
           signature("object" = "sspm_dataset"),
-          function(object, value){
+          function(object, value) {
             object@name <- value
             validObject(object)
             return(object)
@@ -80,7 +80,7 @@ setMethod("spm_unique_ID",
 #' @export
 setMethod("spm_unique_ID<-",
           signature("object" = "sspm_dataset"),
-          function(object, value){
+          function(object, value) {
             object@uniqueID <- value
             validObject(object)
             return(object)
@@ -115,7 +115,7 @@ setGeneric(name = "spm_coords_col<-",
 #' @export
 setMethod("spm_coords_col<-",
           signature("object" = "sspm_dataset"),
-          function(object, value){
+          function(object, value) {
             object@coords <- value
             validObject(object)
             return(object)
@@ -138,7 +138,7 @@ setMethod("spm_time_column",
 #' @export
 setMethod("spm_time_column<-",
           signature("object" = "sspm_dataset"),
-          function(object, value){
+          function(object, value) {
             object@time_column <- value
             validObject(object)
             return(object)
@@ -161,7 +161,7 @@ setMethod("spm_formulas",
 #' @export
 setMethod("spm_formulas<-",
           signature("object" = "sspm_dataset"),
-          function(object, value){
+          function(object, value) {
             object@formulas <- value
             validObject(object)
             return(object)
@@ -196,7 +196,7 @@ setGeneric(name = "spm_type<-",
 #' @export
 setMethod("spm_type<-",
           signature("object" = "sspm_dataset"),
-          function(object, value){
+          function(object, value) {
             object@type <- value
             validObject(object)
             return(object)
@@ -219,7 +219,7 @@ setMethod("spm_smoothed_data",
 #' @export
 setMethod("spm_smoothed_data<-",
           signature("object" = "sspm_dataset"),
-          function(object, value){
+          function(object, value) {
             object@smoothed_data <- value
             validObject(object)
             return(object)
@@ -254,7 +254,7 @@ setGeneric(name = "spm_smoothed_fit<-",
 #' @export
 setMethod("spm_smoothed_fit<-",
           signature("object" = "sspm_dataset"),
-          function(object, value){
+          function(object, value) {
             object@smoothed_fit <- value
             validObject(object)
             return(object)
@@ -289,7 +289,7 @@ setGeneric(name = "is_mapped<-",
 #' @export
 setMethod("is_mapped<-",
           signature("object" = "sspm_dataset"),
-          function(object, value){
+          function(object, value) {
             object@is_mapped <- value
             validObject(object)
             return(object)
@@ -311,7 +311,7 @@ setMethod("spm_boundaries", signature("sspm_object" = "sspm_dataset"),
 #' @export
 setMethod("spm_boundaries<-",
           signature("object" = "sspm_dataset"),
-          function(object, value){
+          function(object, value) {
             object@boundaries <- value
             validObject(object)
             return(object)

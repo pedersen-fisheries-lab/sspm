@@ -42,20 +42,20 @@ tesselate_voronoi <- function(boundaries,
   # Check main params
   if (is.null(boundaries)) {
     stop("boundaries argument is missing")
-  } else{
+  } else {
     checkmate::assert_class(boundaries, "sf")
   }
 
   if (is.null(with)) {
     stop("with argument is missing")
-  } else{
+  } else {
     checkmate::assert_class(with, "sf")
   }
 
   checkmate::assert_logical(sample_points)
   checkmate::assert_character(boundary_column)
 
-  if(!checkmate::test_subset(boundary_column, names(boundaries))){
+  if (!checkmate::test_subset(boundary_column, names(boundaries))) {
     stop("`boundary_column` must be a column of `boundaries`",
          call. = FALSE)
   }
@@ -67,10 +67,10 @@ tesselate_voronoi <- function(boundaries,
   # Body --------------------------------------------------------------------
 
   # Make sure seed options are set correctly
-  if(getRversion()>=3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))
+  if (getRversion() >= 3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))
 
   # 2. Create (sample) the points
-  if(sample_points){
+  if (sample_points) {
     set.seed(seed) ; voronoi_points <-
       suppressMessages(sf::st_join(with, boundaries)) %>%
       dplyr::filter(!is.na(eval(dplyr::sym(boundary_column)))) %>%
@@ -92,10 +92,10 @@ tesselate_voronoi <- function(boundaries,
                   sf::st_cast() %>%
                   sf::st_sf())
   voronoi <-
-    suppressAll(sf::st_intersection(x=boundaries, y = voronoi))
+    suppressAll(sf::st_intersection(x = boundaries, y = voronoi))
   voronoi <-
     suppressAll(voronoi %>%
-                  dplyr::mutate(patch_id =  paste("V", 1:dplyr::n(),sep = "")) %>%
+                  dplyr::mutate(patch_id = paste("V", 1:dplyr::n(), sep = "")) %>%
                   dplyr::group_by(.data$patch_id, .data[[boundary_column]]) %>%
                   dplyr::summarize() %>%
                   dplyr::ungroup())
@@ -113,12 +113,12 @@ tesselate_voronoi <- function(boundaries,
   names(voronoi_edges) <- voronoi$patch_id
 
   # TODO vectorize this
-  for(i in small_voronoi){
-    current_polygons <- voronoi[voronoi_edges[[i]],] %>%
+  for (i in small_voronoi) {
+    current_polygons <- voronoi[voronoi_edges[[i]], ] %>%
       dplyr::filter(.data[[boundary_column]] == .data[[boundary_column]][.data$patch_id == i]) %>%
       dplyr::filter(.data$area_km2 == max(.data$area_km2))
     max_id <- current_polygons$patch_id
-    voronoi$patch_id[voronoi$patch_id==i] <- max_id
+    voronoi$patch_id[voronoi$patch_id == i] <- max_id
   }
 
   # Summarise and calculate area
@@ -134,7 +134,7 @@ tesselate_voronoi <- function(boundaries,
   voronoi <-
     dplyr::mutate(voronoi,
                   area_km2 = as.numeric(units::set_units(.data$area_km2, value = "km^2")),
-                  patch_id = factor(paste("V", 1:dplyr::n(),sep = "")))
+                  patch_id = factor(paste("V", 1:dplyr::n(), sep = "")))
 
   # Core function must return a list of "patches" and "points"
   return(list(patches = voronoi,

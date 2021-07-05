@@ -11,7 +11,7 @@
 #' @export
 setGeneric(name = "spm_split",
            def = function(sspm_object,
-                          ...){
+                          ...) {
              standardGeneric("spm_split")
            }
 )
@@ -22,7 +22,7 @@ setGeneric(name = "spm_split",
 #' @rdname spm_split
 setMethod(f = "spm_split",
           signature(sspm_object = "sspm"),
-          function(sspm_object, ...){
+          function(sspm_object, ...) {
 
             # Check correct dataset name
             the_data <- spm_smoothed_data(sspm_object)
@@ -31,7 +31,7 @@ setMethod(f = "spm_split",
             # TODO add check if splitted
 
             is_factor <- FALSE
-            if(is.factor(the_data[[spm_time_column(sspm_object)]])){
+            if (is.factor(the_data[[spm_time_column(sspm_object)]])) {
               is_factor <- TRUE
               the_data <- the_data %>%
                 dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
@@ -45,7 +45,7 @@ setMethod(f = "spm_split",
             the_data$train_test <- selection
             is_split(sspm_object) <- TRUE
 
-            if(is_factor){
+            if (is_factor) {
               the_data <- the_data %>%
                 dplyr::mutate(!!time_col := as.factor(.data[[time_col]]))
             }

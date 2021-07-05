@@ -15,7 +15,7 @@
 setGeneric(name = "spm",
            def = function(sspm_object,
                           formula,
-                          ...){
+                          ...) {
              standardGeneric("spm")
            }
 )
@@ -27,7 +27,7 @@ setGeneric(name = "spm",
 setMethod(f = "spm",
           signature(sspm_object = "sspm",
                     formula = "missing"),
-          function(sspm_object, formula, ...){
+          function(sspm_object, formula, ...) {
             cli::cli_alert_danger(" Argument 'formula' missing with no default")
           }
 )
@@ -37,10 +37,10 @@ setMethod(f = "spm",
 setMethod(f = "spm",
           signature(sspm_object = "sspm",
                     formula = "formula"),
-          function(sspm_object, formula, ...){
+          function(sspm_object, formula, ...) {
 
             # 1. Is there a splitting scheme?
-            if(!is_split(sspm_object)){
+            if (!is_split(sspm_object)) {
               stop("Data must be split with a test/train column.")
             }
 

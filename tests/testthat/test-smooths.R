@@ -6,10 +6,10 @@ test_that("Low - level matrix functions work as expected", {
   time_levels <- c(1991, 1992, 1993, 1994)
   pen_mat_time <- sspm:::ICAR_time(c(1991, 1992, 1993, 1994))
 
-  pen_mat_time_compare <-   matrix(c(1, -1,  0,  0,
-                                     -1,  2, -1,  0,
-                                     0, -1,  2, -1,
-                                     0,  0, -1,  1), 4, 4)
+  pen_mat_time_compare <- matrix(c(1, -1, 0, 0,
+                                     -1, 2, -1, 0,
+                                     0, -1, 2, -1,
+                                     0, 0, -1, 1), 4, 4)
   dimnames(pen_mat_time_compare) <- list(time_levels, time_levels)
 
   expect_identical(pen_mat_time, pen_mat_time_compare)
@@ -17,7 +17,7 @@ test_that("Low - level matrix functions work as expected", {
   expect_true(sum(colSums(pen_mat_time) != 0) == 0)
 
   # Space
-  pen_mat_space <- sspm:::ICAR_space(borealis_patches[1:5,], "patch_id")
+  pen_mat_space <- sspm:::ICAR_space(borealis_patches[1:5, ], "patch_id")
 
   pen_mat_space_compare <- matrix(c(1, -1, 0, 0, 0,
                                     -1, 2, 0, 0, -1,
@@ -73,28 +73,28 @@ test_that("ICAR function works as expected", {
   skip("TODO")
 
   # Just basic output
-  res_ICAR  <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "time",
+  res_ICAR <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "time",
                            k = NULL, xt = NULL, bs = NULL)
   expect_equal(res_ICAR$args[[1]], substitute(year_f))
   expect_equal(res_ICAR$args$k, 24)
   expect_equal(res_ICAR$args$bs, "re")
-  expect_equal(res_ICAR$args$xt, alist(penalty=pen_mat_time))
+  expect_equal(res_ICAR$args$xt, alist(penalty = pen_mat_time))
 
-  res_ICAR  <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space",
+  res_ICAR <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space",
                            k = NULL, xt = NULL, bs = NULL)
   expect_equal(res_ICAR$args[[1]], substitute(patch_id))
   expect_equal(res_ICAR$args$k, 30)
   expect_equal(res_ICAR$args$bs, "mrf")
-  expect_equal(res_ICAR$args$xt, alist(penalty=pen_mat_space))
+  expect_equal(res_ICAR$args$xt, alist(penalty = pen_mat_space))
 
-  res_ICAR  <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space_time",
+  res_ICAR <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space_time",
                            k = NULL, xt = NULL, bs = NULL)
   expect_equal(res_ICAR$args[[1]], substitute(year_f))
   expect_equal(res_ICAR$args[[2]], substitute(patch_id))
   expect_equal(res_ICAR$args$k, c(24, 30))
   expect_equal(res_ICAR$args$bs, c("re", "mrf"))
-  expect_equal(res_ICAR$args$xt, list(year_f = alist(penalty=pen_mat_time),
-                                      patch_id = alist(penalty=pen_mat_space)))
+  expect_equal(res_ICAR$args$xt, list(year_f = alist(penalty = pen_mat_time),
+                                      patch_id = alist(penalty = pen_mat_space)))
 
   # Now test xt cases
   # Cannot handle cases where other arguments are passed as list in xt
@@ -112,27 +112,27 @@ test_that("ICAR function works as expected", {
 
   expect_identical({
   sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space_time",
-              k = NULL, xt = list(patch_id=list(penalty=matrix(0, 5,5))), bs = NULL)$vars$pen_mat_space
+              k = NULL, xt = list(patch_id = list(penalty = matrix(0, 5, 5))), bs = NULL)$vars$pen_mat_space
   }, test_mat)
 
   expect_identical({
     sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space_time",
-                k = NULL, xt = list(year_f=list(penalty=matrix(0, 5,5))), bs = NULL)$vars$pen_mat_time
+                k = NULL, xt = list(year_f = list(penalty = matrix(0, 5, 5))), bs = NULL)$vars$pen_mat_time
   }, test_mat)
 
   # Failures
   expect_error({
     sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space_time",
-                k = NULL, xt = list(year_f=list(penalty=mtcars)), bs = NULL)
+                k = NULL, xt = list(year_f = list(penalty = mtcars)), bs = NULL)
   }, "Must be of type 'matrix', not 'data.frame'")
 
   expect_error({
     sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space_time",
-                k = NULL, xt = list(list(penalty=test_mat)), bs = NULL)
+                k = NULL, xt = list(list(penalty = test_mat)), bs = NULL)
   }, "failed: Must have names.")
 
   expect_error({
     sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space_time",
-                k = NULL, xt = list(penalty=test_mat), bs = NULL)
+                k = NULL, xt = list(penalty = test_mat), bs = NULL)
   }, "failed: Must be of type 'list', not 'matrix'.")
 })

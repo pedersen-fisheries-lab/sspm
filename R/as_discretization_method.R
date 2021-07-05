@@ -12,7 +12,7 @@
 #'
 #' @export
 setGeneric(name = "as_discretization_method",
-           def = function(method){
+           def = function(method) {
              standardGeneric("as_discretization_method")
            }
 )
@@ -23,11 +23,11 @@ setGeneric(name = "as_discretization_method",
 #' @rdname as_discretization_method
 setMethod(f = "as_discretization_method",
           signature(method = "character"),
-          function(method){
+          function(method) {
 
             method_f <- dispatch_method(method)
 
-            if (!is.character(method_f)){
+            if (!is.character(method_f)) {
 
               method_object <- new("discretization_method",
                                    name = method,

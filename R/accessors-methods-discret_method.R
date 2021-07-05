@@ -37,7 +37,7 @@ setGeneric(name = "method_func<-",
 #' @export
 setMethod("method_func<-",
           signature("object" = "discretization_method"),
-          function(object, value){
+          function(object, value) {
             object@method <- value
             validObject(object)
             return(object)
@@ -59,7 +59,7 @@ setMethod("spm_name", signature("sspm_object" = "discretization_method"),
 #' @export
 setMethod("spm_name<-",
           signature("object" = "discretization_method"),
-          function(object, value){
+          function(object, value) {
             object@name <- value
             validObject(object)
             return(object)

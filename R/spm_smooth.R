@@ -29,7 +29,7 @@ setGeneric(name = "spm_smooth",
                           boundaries,
                           keep_fit = FALSE,
                           predict = TRUE,
-                          ...){
+                          ...) {
              standardGeneric("spm_smooth")
            }
 )
@@ -42,7 +42,7 @@ setMethod(f = "spm_smooth",
           signature(sspm_object = "ANY",
                     formula = "missing",
                     boundaries = "ANY"),
-          function(sspm_object, formula, boundaries, keep_fit, predict, ...){
+          function(sspm_object, formula, boundaries, keep_fit, predict, ...) {
             cli::cli_alert_danger(" Argument 'formula' missing with no default")
           }
 )
@@ -53,9 +53,9 @@ setMethod(f = "spm_smooth",
           signature(sspm_object = "ANY",
                     formula = "ANY",
                     boundaries = "missing"),
-          function(sspm_object, formula, boundaries, keep_fit, predict, ...){
+          function(sspm_object, formula, boundaries, keep_fit, predict, ...) {
 
-            if(!is_mapped(sspm_object)){
+            if (!is_mapped(sspm_object)) {
               cli::cli_alert_danger(" Argument 'boundaries' missing with no default")
             } else {
               boundaries <- spm_boundaries(sspm_object)
@@ -72,7 +72,7 @@ setMethod(f = "spm_smooth",
           signature(sspm_object = "ANY",
                     formula = "ANY",
                     boundaries = "sspm_boundary"),
-          function(sspm_object, formula, boundaries, keep_fit, predict, ...){
+          function(sspm_object, formula, boundaries, keep_fit, predict, ...) {
             cli::cli_alert_danger(" Argument 'boundaries' must have been discretized")
           }
 )
@@ -83,10 +83,10 @@ setMethod(f = "spm_smooth",
           signature(sspm_object = "sspm_dataset",
                     formula = "formula",
                     boundaries = "sspm_discrete_boundary"),
-          function(sspm_object, formula, boundaries, keep_fit, predict, ...){
+          function(sspm_object, formula, boundaries, keep_fit, predict, ...) {
 
             # 1. Map boundary data
-            if(!is_mapped(sspm_object)){
+            if (!is_mapped(sspm_object)) {
               sspm_object_joined <- join_datasets(sspm_object, boundaries)
             } else {
               sspm_object_joined <- sspm_object

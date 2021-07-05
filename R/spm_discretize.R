@@ -23,7 +23,7 @@ setGeneric(name = "spm_discretize",
            def = function(boundary_object,
                           with,
                           method = "tesselate_voronoi",
-                          ...){
+                          ...) {
              standardGeneric("spm_discretize")
            }
 )
@@ -38,7 +38,7 @@ setMethod(f = "spm_discretize",
           signature(boundary_object = "ANY",
                     with = "ANY",
                     method = "missingOrNULL"),
-          function(boundary_object, with, method, ...){
+          function(boundary_object, with, method, ...) {
             stop("method argument missing.")
           }
 )
@@ -50,7 +50,7 @@ setMethod(f = "spm_discretize",
           signature(boundary_object = "ANY",
                     with = "missingOrNULL",
                     method = "ANY"),
-          function(boundary_object, with, method, ...){
+          function(boundary_object, with, method, ...) {
             stop("with argument missing.")
           }
 )
@@ -63,7 +63,7 @@ setMethod(f = "spm_discretize",
           signature(boundary_object = "ANY",
                     with = "ANY",
                     method = "character"),
-          function(boundary_object, with, method, ...){
+          function(boundary_object, with, method, ...) {
 
             method <- as_discretization_method(method)
 
@@ -78,7 +78,7 @@ setMethod(f = "spm_discretize",
           signature(boundary_object = "sspm_boundary",
                     with = "sspm_dataset",
                     method = "discretization_method"),
-          function(boundary_object, with, method, ...){
+          function(boundary_object, with, method, ...) {
 
             with <- spm_data(with)
 
@@ -94,7 +94,7 @@ setMethod(f = "spm_discretize",
           signature(boundary_object = "sspm_boundary",
                     with = "sf",
                     method = "discretization_method"),
-          function(boundary_object, with, method, ...){
+          function(boundary_object, with, method, ...) {
 
             # Info message
             cli::cli_alert_info(paste0(" Discretizing using method ",
@@ -147,7 +147,7 @@ setMethod(f = "spm_discretize",
           signature(boundary_object = "sspm_discrete_boundary",
                     with = "ANY",
                     method = "ANY"),
-          function(boundary_object, with, method, ...){
+          function(boundary_object, with, method, ...) {
 
             cli::cli_alert_danger(paste0(" Boundary is already discretized"))
           }

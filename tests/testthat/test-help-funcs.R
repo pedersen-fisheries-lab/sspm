@@ -8,11 +8,11 @@ test_that("Methods choices are retrieved", {
 
   choices <- spm_methods()
   expect_character(choices)
-  expect_names(choices, identical.to = "tesselate_voronoi" )
+  expect_names(choices, identical.to = "tesselate_voronoi")
 
   smooth_choices <- spm_smooth_methods()
   expect_character(smooth_choices)
-  expect_names(smooth_choices, identical.to = "ICAR" )
+  expect_names(smooth_choices, identical.to = "ICAR")
 
 })
 
@@ -45,7 +45,7 @@ test_that("Warnings/messages can be suppressed", {
 test_that("Calls are modified correctly", {
 
   base_col <- str2lang("s()")
-  modified_call <- modify_call(base_col, list(k=1, bs="mrf"))
+  modified_call <- modify_call(base_col, list(k = 1, bs = "mrf"))
   modified_call_str <- deparse(modified_call)
 
   expect_class(modified_call, "call")
@@ -71,18 +71,18 @@ test_that("Residuals are correctly retrieved", {
   res <- sspm:::rqresiduals(gam_obj)
 
   expect_length(res, 32)
-  expect_equal(min(res), -1.860841, tolerance=1e-07)
-  expect_equal(max(res), 1.872867, tolerance=1e-07)
-  expect_equal(median(res), -0.0278781, tolerance=1e-06)
+  expect_equal(min(res), -1.860841, tolerance = 1e-07)
+  expect_equal(max(res), 1.872867, tolerance = 1e-07)
+  expect_equal(median(res), -0.0278781, tolerance = 1e-06)
 
   # Neg bin case
   gam_obj <- mgcv::gam(mpg ~ s(drat), data = mtcars, family = mgcv::nb)
   set.seed(77);res <- sspm:::rqresiduals(gam_obj)
 
   expect_length(res, 32)
-  expect_equal(min(res), -1.870483, tolerance=1e-07)
-  expect_equal(max(res), 1.899658, tolerance=1e-07)
-  expect_equal(median(res), -0.1017879, tolerance=1e-06)
+  expect_equal(min(res), -1.870483, tolerance = 1e-07)
+  expect_equal(max(res), 1.899658, tolerance = 1e-07)
+  expect_equal(median(res), -0.1017879, tolerance = 1e-06)
 
 })
 

@@ -33,10 +33,10 @@ setMethod("$",
 setMethod("$",
           "sspm_dataset",
           function(x, name) {
-            if (is.null(x@smoothed_data)){
+            if (is.null(x@smoothed_data)) {
               x@data %>%
                 dplyr::select(c(name, spm_time_column(x), "geometry"))
-            }else{
+            } else {
               x@smoothed_data %>%
                 dplyr::select(c(name, spm_time_column(x), "geometry"))
             }
@@ -48,10 +48,10 @@ setMethod("$",
 setMethod("$",
           "sspm",
           function(x, name) {
-            if (is.null(x@smoothed_data)){
+            if (is.null(x@smoothed_data)) {
               x@data %>%
                 dplyr::select(c(name, spm_time_column(x), "geometry"))
-            }else{
+            } else {
               x@smoothed_data %>%
                 dplyr::select(c(name, spm_time_column(x), "geometry"))
             }
@@ -63,10 +63,10 @@ setMethod("$",
 setMethod("$",
           "sspm_fit",
           function(x, name) {
-            if (is.null(x@smoothed_data)){
+            if (is.null(x@smoothed_data)) {
               x@data %>%
                 dplyr::select(c(name, spm_time_column(x), "geometry"))
-            }else{
+            } else {
               x@smoothed_data %>%
                 dplyr::select(c(name, spm_time_column(x), "geometry"))
             }

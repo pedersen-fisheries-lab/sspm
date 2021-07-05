@@ -37,7 +37,7 @@ setGeneric(name = "raw_formula<-",
 #' @export
 setMethod("raw_formula<-",
           signature("object" = "sspm_formula"),
-          function(object, value){
+          function(object, value) {
             object@raw_formula <- value
             validObject(object)
             return(object)
@@ -72,7 +72,7 @@ setGeneric(name = "translated_formula<-",
 #' @export
 setMethod("translated_formula<-",
           signature("object" = "sspm_formula"),
-          function(object, value){
+          function(object, value) {
             object@translated_formula <- value
             validObject(object)
             return(object)
@@ -107,7 +107,7 @@ setGeneric(name = "dataset<-",
 #' @export
 setMethod("dataset<-",
           signature("object" = "sspm_formula"),
-          function(object, value){
+          function(object, value) {
             object@dataset <- value
             validObject(object)
             return(object)
@@ -142,7 +142,7 @@ setGeneric(name = "formula_vars<-",
 #' @export
 setMethod("formula_vars<-",
           signature("object" = "sspm_formula"),
-          function(object, value){
+          function(object, value) {
             object@vars <- value
             validObject(object)
             return(object)
@@ -177,7 +177,7 @@ setGeneric(name = "formula_type<-",
 #' @export
 setMethod("formula_type<-",
           signature("object" = "sspm_formula"),
-          function(object, value){
+          function(object, value) {
             object@type <- value
             validObject(object)
             return(object)
@@ -212,7 +212,7 @@ setGeneric(name = "is_fitted<-",
 #' @export
 setMethod("is_fitted<-",
           signature("object" = "sspm_formula"),
-          function(object, value){
+          function(object, value) {
             object@is_fitted <- value
             validObject(object)
             return(object)
@@ -247,7 +247,7 @@ setGeneric(name = "spm_response<-",
 #' @export
 setMethod("spm_response<-",
           signature("object" = "sspm_formula"),
-          function(object, value){
+          function(object, value) {
             object@response <- value
             validObject(object)
             return(object)

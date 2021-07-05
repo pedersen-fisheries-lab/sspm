@@ -13,7 +13,7 @@ test_that("Discretization work as expected", {
   discretized <- sspm_base %>%
     spm_discretize(with_dataset = "Biomass",
                    discretization_method = "tesselate_voronoi")
-  expect_class({discretized},"sspm_discrete")
+  expect_class({discretized}, "sspm_discrete")
 
   expect_names(names(spm_data(spm_datasets(discretized)$Biomass)),
                must.include = c("patch_id", "area_km2"))

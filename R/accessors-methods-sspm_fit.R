@@ -24,7 +24,7 @@ setMethod("spm_unique_ID",
 #' @export
 setMethod("spm_unique_ID<-",
           signature("object" = "sspm_fit"),
-          function(object, value){
+          function(object, value) {
             object@uniqueID <- value
             validObject(object)
             return(object)
@@ -47,7 +47,7 @@ setMethod("spm_time_column",
 #' @export
 setMethod("spm_time_column<-",
           signature("object" = "sspm_fit"),
-          function(object, value){
+          function(object, value) {
             object@time_column <- value
             validObject(object)
             return(object)
@@ -70,7 +70,7 @@ setMethod("spm_formulas",
 #' @export
 setMethod("spm_formulas<-",
           signature("object" = "sspm_fit"),
-          function(object, value){
+          function(object, value) {
             object@formula <- value
             validObject(object)
             return(object)
@@ -93,7 +93,7 @@ setMethod("spm_smoothed_data",
 #' @export
 setMethod("spm_smoothed_data<-",
           signature("object" = "sspm_fit"),
-          function(object, value){
+          function(object, value) {
             object@smoothed_data <- value
             validObject(object)
             return(object)
@@ -129,7 +129,7 @@ setGeneric(name = "spm_get_fit<-",
 #' @export
 setMethod("spm_get_fit<-",
           signature("object" = "sspm_fit"),
-          function(object, value){
+          function(object, value) {
             object@fit <- value
             validObject(object)
             return(object)
@@ -151,7 +151,7 @@ setMethod("spm_boundaries", signature("sspm_object" = "sspm_fit"),
 #' @export
 setMethod("spm_boundaries<-",
           signature("object" = "sspm_fit"),
-          function(object, value){
+          function(object, value) {
             object@boundaries <- value
             validObject(object)
             return(object)

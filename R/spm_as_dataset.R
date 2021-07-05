@@ -20,21 +20,21 @@
 #'
 #' @export
 setGeneric(name = "spm_as_dataset",
-           def = function(data, name, type, time_column, uniqueID, coords, crs = NULL){
+           def = function(data, name, type, time_column, uniqueID, coords, crs = NULL) {
 
-             if(!checkmate::test_subset(uniqueID, names(data))){
+             if (!checkmate::test_subset(uniqueID, names(data))) {
                stop("`uniqueID` must be a column of `data`", call. = FALSE)
              }
 
-             if(!checkmate::test_subset(type, c("biomass", "predictor", "catch"))){
+             if (!checkmate::test_subset(type, c("biomass", "predictor", "catch"))) {
                stop("`type` must be be one of biomass, predictor or ctach", call. = FALSE)
              }
 
-             if(!(length(unique(data[[uniqueID]])) == nrow(data))){
+             if (!(length(unique(data[[uniqueID]])) == nrow(data))) {
                stop("`uniqueID` must be unique for each row of `data`", call. = FALSE)
              }
 
-             if(!checkmate::test_subset(time_column, names(data))){
+             if (!checkmate::test_subset(time_column, names(data))) {
                stop("`time_column` must be a column of `data`", call. = FALSE)
              }
 
@@ -48,7 +48,7 @@ setGeneric(name = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "missingOrNULL"),
-          function(data, name, type, time_column, uniqueID, coords, crs){
+          function(data, name, type, time_column, uniqueID, coords, crs) {
 
             stop("Argument `coords` must be provided when data matrix is a dataframe",
                  call. = FALSE)
@@ -60,7 +60,7 @@ setMethod(f = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "list"),
-          function(data, name, type, time_column, uniqueID, coords, crs){
+          function(data, name, type, time_column, uniqueID, coords, crs) {
             coords <- unlist(coords)
             spm_as_dataset(data, name, type, time_column, uniqueID, coords, crs)
           }
@@ -72,13 +72,13 @@ setMethod(f = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "character"),
-          function(data, name, type, time_column, uniqueID, coords, crs){
+          function(data, name, type, time_column, uniqueID, coords, crs) {
 
             # Check coords
-            if(!checkmate::test_subset(coords, names(data))){
+            if (!checkmate::test_subset(coords, names(data))) {
               stop("`coords` must be columns of `data`", call. = FALSE)
             }
-            if(length(coords) != 2){
+            if (length(coords) != 2) {
               stop("`coords` must be of length 2", call. = FALSE)
             }
 
@@ -89,7 +89,7 @@ setMethod(f = "spm_as_dataset",
             cli::cli_alert_info(info_message)
 
             # TODO better CRS checks
-            if (is.null(crs)){
+            if (is.null(crs)) {
               info_message <-
                 paste0(" Warning: sspm is assuming WGS 84 CRS is to be ",
                        "used for casting")
@@ -117,7 +117,7 @@ setMethod(f = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "sf", coords = "ANY"),
-          function(data, name, type, time_column, uniqueID, coords, crs){
+          function(data, name, type, time_column, uniqueID, coords, crs) {
 
             # TODO CRS checks
 

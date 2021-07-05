@@ -17,7 +17,7 @@ test_that("sspm data is casted correctly", {
   expect_error({
     spm_as_dataset(data = borealis_simulated,
                  time_column = "year_f",
-                 coords = c('lon_dec','lat_dec'),
+                 coords = c('lon_dec', 'lat_dec'),
                  name = "Biomass",
                  uniqueID = "Bad column")
   }, "`uniqueID` must be a column of `data`")
@@ -28,7 +28,7 @@ test_that("sspm data is casted correctly", {
     spm_as_dataset(data = borealis_simulated_NU,
                  type = "biomass",
                  time_column = "year_f",
-                 coords = c('lon_dec','lat_dec'),
+                 coords = c('lon_dec', 'lat_dec'),
                  name = "Biomass",
                  uniqueID = "new_col")
   }, "`uniqueID` must be unique for each row of `data`")
@@ -37,7 +37,7 @@ test_that("sspm data is casted correctly", {
     spm_as_dataset(data = borealis_simulated,
                  type = "biomass",
                  time_column = "Bad column",
-                 coords = c('lon_dec','lat_dec'),
+                 coords = c('lon_dec', 'lat_dec'),
                  name = "Biomass",
                  uniqueID = "uniqueID")
   }, "`time_column` must be a column of `data`")
@@ -56,7 +56,7 @@ test_that("sspm data is casted correctly", {
     spm_as_dataset(data = borealis_simulated,
                  type = "biomass",
                  time_column = "year_f",
-                 coords = c('Bad column 1','Bad column 2'),
+                 coords = c('Bad column 1', 'Bad column 2'),
                  name = "Biomass",
                  uniqueID = "uniqueID")
   }, "`coords` must be columns of `data`")
@@ -66,7 +66,7 @@ test_that("sspm data is casted correctly", {
     spm_as_dataset(data = borealis_simulated,
                  type = "biomass",
                  time_column = "year_f",
-                 coords = c('lon_dec','lat_dec'),
+                 coords = c('lon_dec', 'lat_dec'),
                  name = "Biomass",
                  uniqueID = "uniqueID")
   }, "sspm_dataset")
@@ -75,7 +75,7 @@ test_that("sspm data is casted correctly", {
     spm_as_dataset(data = borealis_simulated,
                  type = "biomass",
                  time_column = "year_f",
-                 coords = list('lon_dec','lat_dec'),
+                 coords = list('lon_dec', 'lat_dec'),
                  name = "Biomass",
                  uniqueID = "uniqueID")
   }, "sspm_dataset")
@@ -84,7 +84,7 @@ test_that("sspm data is casted correctly", {
     spm_as_dataset(data = borealis_spatial,
                  type = "biomass",
                  time_column = "year_f",
-                 coords = c('lon_dec','lat_dec'),
+                 coords = c('lon_dec', 'lat_dec'),
                  name = "Biomass",
                  uniqueID = "uniqueID")
   }, "sspm_dataset")
