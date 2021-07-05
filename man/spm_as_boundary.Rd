@@ -18,8 +18,11 @@ spm_as_boundary(boundaries, boundary_column, surface_column)
 \arguments{
 \item{boundaries}{\strong{[sf]} The sf object to cast.}
 
-\item{boundary_column}{\strong{[character]} The column that comtains the possible
+\item{boundary_column}{\strong{[character]} The column that contains the possible
 subdivisions of the boundaries.}
+
+\item{surface_column}{\strong{[character]} The column that contains the surface
+of the subdivisions (optional).}
 }
 \description{
 Create a sspm_boundary object.

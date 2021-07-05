@@ -3,8 +3,10 @@
 #' Create a sspm_boundary object.
 #'
 #' @param boundaries **\[sf\]** The sf object to cast.
-#' @param boundary_column **\[character\]** The column that comtains the possible
+#' @param boundary_column **\[character\]** The column that contains the possible
 #'   subdivisions of the boundaries.
+#' @param surface_column **\[character\]** The column that contains the surface
+#'   of the subdivisions (optional).
 #'
 #' @export
 setGeneric(name = "spm_as_boundary",
