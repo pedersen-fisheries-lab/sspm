@@ -20,7 +20,7 @@ setGeneric(name = "as_discretization_method",
 # Methods -----------------------------------------------------------------
 
 #' @export
-#' @rdname as_discretization_method 
+#' @rdname as_discretization_method
 setMethod(f = "as_discretization_method",
           signature(method = "character"),
           function(method){
