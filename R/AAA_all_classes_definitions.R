@@ -71,6 +71,10 @@ setClass("sspm_discrete_boundary",
          contains = "sspm_boundary"
 )
 
+# ClassUnions
+
+setClassUnion("sspm_discrete_boundaryOrNULL", c("sspm_discrete_boundary", "NULL"))
+
 # -------------------------------------------------------------------------
 
 #' sspm dataset structure

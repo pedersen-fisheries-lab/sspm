@@ -17,11 +17,6 @@ spm_methods <- function() {
   return(choices)
 }
 
-spm_type_choices <- function() {
-  choices <- c('biomass', 'predictor', 'catch')
-  return(choices)
-}
-
 #' Get the list of available smoothing methods
 #'
 #' Currently, only one smoothing method is supported:
@@ -33,6 +28,18 @@ spm_type_choices <- function() {
 #' @export
 spm_smooth_methods <- function() {
   choices <- c('ICAR')
+  return(choices)
+}
+
+# -------------------------------------------------------------------------
+
+spm_type_choices <- function() {
+  choices <- c('biomass', 'predictor', 'catch')
+  return(choices)
+}
+
+spm_aggregation_choices <- function() {
+  choices <- c('space', 'time', 'spacetime')
   return(choices)
 }
 
