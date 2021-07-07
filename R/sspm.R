@@ -74,8 +74,8 @@ setMethod(f = "sspm",
 
               biomass_clean <- clean_data_for_joining(spm_smoothed_data(biomass))
               joining_vars <- c("patch_id", spm_boundary_colum(spm_boundaries(biomass)))
-              if ("area_km2" %in% names(biomass_clean)) {
-                joining_vars <- c(joining_vars, "area_km2")
+              if ("area" %in% names(biomass_clean)) {
+                joining_vars <- c(joining_vars, "area")
               }
 
               full_smoothed_data <- biomass_clean
@@ -166,7 +166,7 @@ setMethod(f = "sspm",
                                   !!spm_boundary_colum(biomass_boundaries)) %>%
                   dplyr::mutate(
                     !!catch_name :=
-                      .data[[biomass_var]] + .data$total_catch / .data$area_km2) %>%
+                      .data[[biomass_var]] + .data$total_catch / .data$area) %>%
                   dplyr::mutate(
                     !!change_name :=
                       log(.data[[catch_name]]) - log(dplyr::lag(.data[[biomass_var]],
