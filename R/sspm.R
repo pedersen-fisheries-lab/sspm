@@ -6,7 +6,7 @@
 #'     biomass variable.
 #' @param predictors **\[list  OF sspm_dataset (smoothed)\]** The list of predictor
 #'     datasets.
-#' @param catch **\[sspm_dataset (smoothed)\]** Optionnal, the catch data
+#' @param catch **\[sspm_dataset (smoothed)\]** Optional, the catch data
 #' @param biomass_var **\[character\]** The biomass column of `biomass`.
 #' @param catch_var **\[character\]** The catch column of `catch`.
 #'
