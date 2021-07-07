@@ -148,6 +148,19 @@ using a function and a filling value</p>
   fill <span class='op'>=</span> <span class='cn'>FALSE</span>,
   apply_to_df <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>...</span>
+<span class='op'>)</span>
+
+<span class='co'># S4 method for sspm_dataset,sspm_dataset,character,character</span>
+<span class='fu'>spm_aggregate_catch</span><span class='op'>(</span>
+  <span class='va'>biomass</span>,
+  <span class='va'>catch</span>,
+  <span class='va'>biomass_variable</span>,
+  <span class='va'>catch_variable</span>,
+  fun <span class='op'>=</span> <span class='va'>sum</span>,
+  group_by <span class='op'>=</span> <span class='st'>"spacetime"</span>,
+  <span class='va'>fill</span>,
+  apply_to_df <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -188,6 +201,23 @@ group or to <code>variable</code>, default to <code>FALSE</code>.</p></td>
     <tr>
       <th>...</th>
       <td><p>More arguments passed onto <code>fun</code></p></td>
+    </tr>
+    <tr>
+      <th>biomass</th>
+      <td><p><strong>[sspm_dataset (smoothed)]</strong> The dataset containing the
+biomass variable.</p></td>
+    </tr>
+    <tr>
+      <th>catch</th>
+      <td><p><strong>[sspm_dataset]</strong> The dataset containing the catch variable.</p></td>
+    </tr>
+    <tr>
+      <th>biomass_variable</th>
+      <td><p><strong>[character]</strong> The biomass variab of <code>biomass</code>.</p></td>
+    </tr>
+    <tr>
+      <th>catch_variable</th>
+      <td><p><strong>[character]</strong> The catch column of <code>catch</code>.</p></td>
     </tr>
     </table>
 
