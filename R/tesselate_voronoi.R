@@ -101,14 +101,14 @@ tesselate_voronoi <- function(boundaries,
                   dplyr::ungroup())
   voronoi <-
     suppressAll(dplyr::mutate(voronoi,
-                              area_km2 = sf::st_area(voronoi)))
+                              area = sf::st_area(voronoi)))
   voronoi <-
     suppressAll(dplyr::mutate(voronoi,
-                              area_km2 = as.numeric(units::set_units(.data$area_km2,
+                              area = as.numeric(units::set_units(.data$area,
                                                                      value = "km^2"))))
 
   # 4. Fix size
-  small_voronoi <- voronoi$patch_id[which(voronoi$area_km2 < min_size)]
+  small_voronoi <- voronoi$patch_id[which(voronoi$area < min_size)]
   voronoi_edges <- suppressMessages(sf::st_intersects(voronoi))
   names(voronoi_edges) <- voronoi$patch_id
 
@@ -116,7 +116,7 @@ tesselate_voronoi <- function(boundaries,
   for (i in small_voronoi) {
     current_polygons <- voronoi[voronoi_edges[[i]], ] %>%
       dplyr::filter(.data[[boundary_column]] == .data[[boundary_column]][.data$patch_id == i]) %>%
-      dplyr::filter(.data$area_km2 == max(.data$area_km2))
+      dplyr::filter(.data$area == max(.data$area))
     max_id <- current_polygons$patch_id
     voronoi$patch_id[voronoi$patch_id == i] <- max_id
   }
@@ -130,10 +130,10 @@ tesselate_voronoi <- function(boundaries,
           dplyr::summarize() %>%
           dplyr::ungroup()))
   voronoi <-
-    dplyr::mutate(voronoi, area_km2 = sf::st_area(voronoi))
+    dplyr::mutate(voronoi, area = sf::st_area(voronoi))
   voronoi <-
     dplyr::mutate(voronoi,
-                  area_km2 = as.numeric(units::set_units(.data$area_km2, value = "km^2")),
+                  area = as.numeric(units::set_units(.data$area, value = "km^2")),
                   patch_id = factor(paste("V", 1:dplyr::n(), sep = "")))
 
   # Core function must return a list of "patches" and "points"

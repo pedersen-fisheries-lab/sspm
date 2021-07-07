@@ -19,7 +19,7 @@ biomass variable.}
 \item{predictors}{\strong{[list  OF sspm_dataset (smoothed)]} The list of predictor
 datasets.}
 
-\item{catch}{\strong{[sspm_dataset (smoothed)]} Optionnal, the catch data}
+\item{catch}{\strong{[sspm_dataset (smoothed)]} Optional, the catch data}
 
 \item{biomass_var}{\strong{[character]} The biomass column of \code{biomass}.}
 

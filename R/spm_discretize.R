@@ -119,22 +119,12 @@ setMethod(f = "spm_discretize",
 
             new_sspm_discrete_boundary <-
               new("sspm_discrete_boundary",
-                  boundaries = boundary_object@boundaries,
+                  boundaries = spm_boundaries(boundary_object),
                   boundary_column = boundary_column,
+                  surface_column = spm_surface_column(boundary_object),
                   method = method,
                   patches = discrete[["patches"]],
                   points = discrete[["points"]])
-
-            # JOIN all datasets
-            # datasets <- spm_datasets(new_sspm_discrete)
-            #
-            # for (dataset_name in names(datasets)){
-            #   sspm_dataset_tmp <- datasets[[dataset_name]]
-            #   datasets[[dataset_name]] <- join_datasets(sspm_dataset_tmp, new_sspm_discrete)
-            # }
-            #
-            # # Replace the objects
-            # spm_datasets(new_sspm_discrete) <- datasets
 
             return(new_sspm_discrete_boundary)
           }
