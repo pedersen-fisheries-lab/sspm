@@ -3,7 +3,6 @@
 \name{spm_aggregate}
 \alias{spm_aggregate}
 \alias{spm_aggregate,sspm_dataset,sspm_discrete_boundaryOrNULL-method}
-\alias{spm_aggregate_catch,sspm_dataset,sspm_dataset,character,character-method}
 \title{Aggregate a dataset variable based on a boundary}
 \usage{
 spm_aggregate(
@@ -24,18 +23,6 @@ spm_aggregate(
   fun,
   group_by = "spacetime",
   fill = FALSE,
-  apply_to_df = FALSE,
-  ...
-)
-
-\S4method{spm_aggregate_catch}{sspm_dataset,sspm_dataset,character,character}(
-  biomass,
-  catch,
-  biomass_variable,
-  catch_variable,
-  fun = sum,
-  group_by = "spacetime",
-  fill,
   apply_to_df = FALSE,
   ...
 )
@@ -60,22 +47,11 @@ incomplete cases, default to \code{FALSE} for no completion.}
 group or to \code{variable}, default to \code{FALSE}.}
 
 \item{...}{More arguments passed onto \code{fun}}
-
-\item{biomass}{\strong{[sspm_dataset (smoothed)]} The dataset containing the
-biomass variable.}
-
-\item{catch}{\strong{[sspm_dataset]} The dataset containing the catch variable.}
-
-\item{biomass_variable}{\strong{[character]} The biomass variab of \code{biomass}.}
-
-\item{catch_variable}{\strong{[character]} The catch column of \code{catch}.}
+}
+\value{
+Updated \code{sspm_dataset}.
 }
 \description{
 Aggregate the data contained in a dataset based on the discretized boundaries,
 using a function and a filling value
 }
-\section{Functions}{
-\itemize{
-\item \code{spm_aggregate_catch,sspm_dataset,sspm_dataset,character,character-method}: spm_aggregate_catch
-}}
-
