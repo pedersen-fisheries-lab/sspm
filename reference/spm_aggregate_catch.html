@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>sspm model class — sspm-class • sspm</title>
+<title>Update biomass value from catch adta — spm_aggregate_catch • sspm</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,9 @@
 
 
 
-<meta property="og:title" content="sspm model class — sspm-class" />
-<meta property="og:description" content="The sspm model object, made from biomass, predictor and catch data." />
+<meta property="og:title" content="Update biomass value from catch adta — spm_aggregate_catch" />
+<meta property="og:description" content="Aggregate the catch data contained in a catch dataset and update the biomass
+dataset with the subtracted catch." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -116,39 +117,88 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>sspm model class</h1>
-    <small class="dont-index">Source: <a href='https://github.com/pedersen-fisheries-lab/sspm/blob/master/R/AAA_all_classes_definitions.R'><code>R/AAA_all_classes_definitions.R</code></a></small>
-    <div class="hidden name"><code>sspm-class.Rd</code></div>
+    <h1>Update biomass value from catch adta</h1>
+    <small class="dont-index">Source: <a href='https://github.com/pedersen-fisheries-lab/sspm/blob/master/R/spm_aggregate_catch.R'><code>R/spm_aggregate_catch.R</code></a></small>
+    <div class="hidden name"><code>spm_aggregate_catch.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The <strong><code>sspm</code></strong> model object, made from biomass, predictor and catch data.</p>
+    <p>Aggregate the catch data contained in a catch dataset and update the biomass
+dataset with the subtracted catch.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>spm_aggregate_catch</span><span class='op'>(</span>
+  <span class='va'>biomass</span>,
+  <span class='va'>catch</span>,
+  <span class='va'>biomass_variable</span>,
+  <span class='va'>catch_variable</span>,
+  fun <span class='op'>=</span> <span class='va'>sum</span>,
+  group_by <span class='op'>=</span> <span class='st'>"spacetime"</span>,
+  <span class='va'>fill</span>,
+  apply_to_df <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
+<span class='co'># S4 method for sspm_dataset,sspm_dataset,character,character</span>
+<span class='fu'>spm_aggregate_catch</span><span class='op'>(</span>
+  <span class='va'>biomass</span>,
+  <span class='va'>catch</span>,
+  <span class='va'>biomass_variable</span>,
+  <span class='va'>catch_variable</span>,
+  fun <span class='op'>=</span> <span class='va'>sum</span>,
+  group_by <span class='op'>=</span> <span class='st'>"spacetime"</span>,
+  <span class='va'>fill</span>,
+  apply_to_df <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
-    <h2 class="hasAnchor" id="slots"><a class="anchor" href="#slots"></a>Slots</h2>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>biomass</th>
+      <td><p><strong>[sspm_dataset (smoothed)]</strong> The dataset containing the
+biomass variable.</p></td>
+    </tr>
+    <tr>
+      <th>catch</th>
+      <td><p><strong>[sspm_dataset]</strong> The dataset containing the catch variable.</p></td>
+    </tr>
+    <tr>
+      <th>biomass_variable</th>
+      <td><p><strong>[character]</strong> The biomass variab of <code>biomass</code>.</p></td>
+    </tr>
+    <tr>
+      <th>catch_variable</th>
+      <td><p><strong>[character]</strong> The catch column of <code>catch</code>.</p></td>
+    </tr>
+    <tr>
+      <th>fun</th>
+      <td><p><strong>[function]</strong> Function to use to aggregate data.</p></td>
+    </tr>
+    <tr>
+      <th>group_by</th>
+      <td><p><strong>[character]</strong> One of <code>time</code>, <code>space</code> and <code>spacetime</code>.</p></td>
+    </tr>
+    <tr>
+      <th>fill</th>
+      <td><p><strong>[logical OR numeric OR function]</strong> Whether to complete the
+incomplete cases, default to <code>FALSE</code> for no completion.</p></td>
+    </tr>
+    <tr>
+      <th>apply_to_df</th>
+      <td><p><strong>[logical]</strong> Wether <code>fun</code> applied to  the data frame
+group or to <code>variable</code>, default to <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>More arguments passed onto <code>fun</code></p></td>
+    </tr>
+    </table>
 
-    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-<dl>
-<dt><code>datasets</code></dt><dd><p><strong>[list]</strong> List of
-<a href='sspm_dataset-class.html'>sspm_dataset</a> that define variables in the SPM model.</p></dd>
-
-<dt><code>time_column</code></dt><dd><p><strong>[character]</strong> The column of <code>data</code> that represents the
-temporal dimension of the dataset.</p></dd>
-
-<dt><code>uniqueID</code></dt><dd><p><strong>[character]</strong> The column of <code>data</code> that is unique for all
-rows of the data matrix.</p></dd>
-
-<dt><code>boundaries</code></dt><dd><p><strong>[sf]</strong> Spatial boundaries (polygons).</p></dd>
-
-<dt><code>smoothed_data</code></dt><dd><p><strong>[ANY (sf)]</strong> The smoothed data.</p></dd>
-
-<dt><code>is_split</code></dt><dd><p><strong>[logical]</strong> Whether this object has been split into
-train/test sets.</p></dd>
-
-</dl>
+    <p>Updated <code>sspm_dataset</code>.</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
