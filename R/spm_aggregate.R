@@ -100,13 +100,18 @@ setMethod(f = "spm_aggregate",
             if (apply_to_df) {
 
               the_fun <- function(df, groups, ...){
-                data.frame(temp = do.call(...$fun, append(list(df), ...$args)))
+                all_args <- list(...)[[1]]
+                data.frame(temp = do.call(all_args$fun,
+                                          append(list(df), all_args$args)))
               }
 
             } else {
 
               the_fun <- function(df, groups, ...){
-                data.frame(temp = do.call(...$fun, append(list(df[[...$variable]]), ...$args)))
+                all_args <- list(...)[[1]]
+                data.frame(temp = do.call(all_args$fun,
+                                          append(list(df[[all_args$variable]]),
+                                                 all_args$args)))
               }
 
             }
@@ -159,7 +164,7 @@ setMethod(f = "spm_aggregate",
 )
 
 #' @export
-#' @rdname spm_aggregate
+#' @describeIn spm_aggregate spm_aggregate_catch
 setMethod(f = "spm_aggregate_catch",
           signature(biomass = "sspm_dataset",
                     catch = "sspm_dataset",
@@ -205,7 +210,7 @@ setMethod(f = "spm_aggregate_catch",
 
             full_smoothed_data <- full_smoothed_data %>%
               dplyr::group_by(.data[["patch_id"]],
-                              !!spm_boundary_colum(biomass_boundaries)) %>%
+                              !!spm_boundary_colum(spm_boundaries(biomass))) %>%
               dplyr::mutate(
                 !!catch_name :=
                   .data[[biomass_variable]] + .data / .data$area) %>%

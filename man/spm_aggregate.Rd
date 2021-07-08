@@ -74,3 +74,8 @@ biomass variable.}
 Aggregate the data contained in a dataset based on the discretized boundaries,
 using a function and a filling value
 }
+\section{Functions}{
+\itemize{
+\item \code{spm_aggregate_catch,sspm_dataset,sspm_dataset,character,character-method}: spm_aggregate_catch
+}}
+
