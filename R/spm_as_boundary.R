@@ -41,6 +41,9 @@ setMethod(f = "spm_as_boundary",
 
             boundaries <- boundaries %>%
               dplyr::mutate(area = sf::st_area(boundaries))
+            boundaries <-
+              dplyr::mutate(boundaries,
+                            area = units::set_units(.data$area, value = "km^2"))
             surface_column <- "area"
 
             spm_as_boundary(boundaries = boundaries,
