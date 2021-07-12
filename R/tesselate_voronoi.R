@@ -6,10 +6,10 @@
 #'
 #' @param boundaries **\[sf\]** The boundaries to be used.
 #' @param with **\[sf\]** A set of data points to use for voronoisation.
-#' @param sample_points **\[logical]** Whether to sample points from `with` or
-#'     to take all points in `with`. Default to `TRUE`.
 #' @param boundary_column **\[character\]** The column in `boundaries` that is to
 #'     be used for the stratified sampling.
+#' @param sample_points **\[logical]** Whether to sample points from `with` or
+#'     to take all points in `with`. Default to `TRUE`.
 #' @param nb_samples **\[named character vector\]** The number of samples to draw
 #'     by boundary polygons (must bear the levels of `boundary_column` as names).
 #' @param min_size **\[numeric\]** The minimum size for a polygon above which it
@@ -25,8 +25,8 @@
 #' @export
 tesselate_voronoi <- function(boundaries,
                               with,
-                              sample_points = TRUE,
                               boundary_column = "sfa",
+                              sample_points = TRUE,
                               nb_samples = c(`4` = 10, `5` = 30,
                                              `6` = 30, `7` = 5),
                               min_size = 1500,

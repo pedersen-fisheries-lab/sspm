@@ -7,8 +7,8 @@
 tesselate_voronoi(
   boundaries,
   with,
-  sample_points = TRUE,
   boundary_column = "sfa",
+  sample_points = TRUE,
   nb_samples = c(`4` = 10, `5` = 30, `6` = 30, `7` = 5),
   min_size = 1500,
   seed = 1
@@ -19,11 +19,11 @@ tesselate_voronoi(
 
 \item{with}{\strong{[sf]} A set of data points to use for voronoisation.}
 
-\item{sample_points}{\strong{[logical]} Whether to sample points from \code{with} or
-to take all points in \code{with}. Default to \code{TRUE}.}
-
 \item{boundary_column}{\strong{[character]} The column in \code{boundaries} that is to
 be used for the stratified sampling.}
+
+\item{sample_points}{\strong{[logical]} Whether to sample points from \code{with} or
+to take all points in \code{with}. Default to \code{TRUE}.}
 
 \item{nb_samples}{\strong{[named character vector]} The number of samples to draw
 by boundary polygons (must bear the levels of \code{boundary_column} as names).}
