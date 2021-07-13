@@ -96,7 +96,7 @@ tesselate_voronoi <- function(boundaries,
              nb_samples = nb_samples) %>%
       lapply(sf::st_as_sf) %>%
       dplyr::bind_rows() %>%
-      dplyr::rename(geometry = x) %>%
+      dplyr::rename(geometry = .data$x) %>%
       sf::st_join(boundaries)
 
   } else {
@@ -122,7 +122,7 @@ tesselate_voronoi <- function(boundaries,
   if(stratify){
 
     envelopes <- boundaries_split %>%
-      lapply(function(x) x[["geometry"]])
+      lapply(function(x) { x[["geometry"]] } )
 
     voronoi <- voronoi_points %>%
       split(voronoi_points[[boundary_column]]) %>%
@@ -137,7 +137,7 @@ tesselate_voronoi <- function(boundaries,
       dplyr::bind_rows()
 
     voronoi <- sf::st_sf(voronoi) %>%
-      dplyr::rename(geometry = x)
+      dplyr::rename(geometry = .data$x)
 
   } else {
 
