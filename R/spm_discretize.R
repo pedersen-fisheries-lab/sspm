@@ -26,9 +26,32 @@
 #'    discretization and **boundary_column**, the boundary column of
 #'    **boundaries** (these last 2 arguments are passed and connot be
 #'    overwritten but could be ignored).
-#' 2, Returns a named list with 2 elements: `patches`. an `sf` object that
+#'
+#' 2. Returns a named list with 2 elements: `patches`. an `sf` object that
 #'    stores the discretized polygons, and `points`, an `sf` object that
 #'    stores the points that were used for discretization.
+#'
+#' @examples
+#' \dontrun{
+#' # Voronoi tesselation
+#' bounds_voronoi <- bounds %>%
+#'   spm_discretize(method = "tesselate_voronoi",
+#'                  with = biomass_dataset,
+#'                  nb_samples = 10)
+#'
+#' # Custom method
+#' custom_func <- function(boundaries, ...){
+#'   args <- list(...)
+#'   # Can access passed arguments with args$arg_name
+#'   # Do your custom discretization
+#'   # Careful: must return sf objects!
+#'   return(list(patches = c(),
+#'               points = c())
+#'          )
+#' }
+#'
+#' spm_discretize(boundary_object, method = custom_func)
+#' }
 #'
 #' @export
 setGeneric(name = "spm_discretize",
