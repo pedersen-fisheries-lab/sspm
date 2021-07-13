@@ -127,25 +127,25 @@ discretization_method object class." />
 <a href='discretization_method-class.html'>discretization_method</a> object class.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, <span class='va'>with</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, with <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for ANY,ANY,missingOrNULL</span>
-<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, <span class='va'>with</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for sspm_boundary,missing,ANY</span>
+<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, with <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for ANY,missingOrNULL,ANY</span>
-<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, <span class='va'>with</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for sspm_boundary,ANY,missing</span>
+<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, with <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for ANY,ANY,character</span>
-<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, <span class='va'>with</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for sspm_boundary,character,DatasetORANYOrNULL</span>
+<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, with <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_boundary,sspm_dataset,discretization_method</span>
-<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, <span class='va'>with</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for sspm_boundary,`function`,DatasetORANYOrNULL</span>
+<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, with <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sspm_boundary,sf,discretization_method</span>
-<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, <span class='va'>with</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='co'># S4 method for sspm_boundary,discretization_method,DatasetORANYOrNULL</span>
+<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, with <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S4 method for sspm_discrete_boundary,ANY,ANY</span>
-<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, <span class='va'>with</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>spm_discretize</span><span class='op'>(</span><span class='va'>boundary_object</span>, method <span class='op'>=</span> <span class='st'>"tesselate_voronoi"</span>, with <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -156,16 +156,16 @@ discretization_method object class." />
 <a href='sspm-class.html'>sspm_boundary</a>.</p></td>
     </tr>
     <tr>
-      <th>with</th>
-      <td><p><strong>[sspm_dataset OR sf]</strong> Either an object of class sspm_dataset or
-a set of custom points.</p></td>
-    </tr>
-    <tr>
       <th>method</th>
       <td><p><strong>[character OR method]</strong>
 Either a <code>character</code> from the list of available methods
 (see <a href='spm_methods.html'>spm_methods</a> for the list) <strong>OR</strong> an object of class
 <a href='discretization_method-class.html'>discretization_method</a>.</p></td>
+    </tr>
+    <tr>
+      <th>with</th>
+      <td><p><strong>[sspm_dataset OR sf]</strong> Either an object of class sspm_dataset or
+a set of custom points.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -178,6 +178,19 @@ used in <code>method</code>.</p></td>
 
     <p>An object of class <a href='sspm-class.html'>sspm_discrete_boundary</a> (the updated
 and discretized <code>sspm</code> object given as input).</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Custom discretization functions can be written. The function must:</p><ol>
+<li><p>Accept at least 1 argument: <strong>boundaries</strong> (the <code>sf</code> boundary object),
+and optionnaly <strong>with</strong> (can be NULL) a separate object to be used for
+discretization and <strong>boundary_column</strong>, the boundary column of
+<strong>boundaries</strong> (these last 2 arguments are passed and connot be
+overwritten but could be ignored).
+2, Returns a named list with 2 elements: <code>patches</code>. an <code>sf</code> object that
+stores the discretized polygons, and <code>points</code>, an <code>sf</code> object that
+stores the points that were used for discretization.</p></li>
+</ol>
+
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

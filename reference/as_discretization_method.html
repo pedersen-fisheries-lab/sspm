@@ -127,14 +127,21 @@ object, using the list of possible methods in spm_methods." />
 object, using the list of possible methods in <code><a href='spm_methods.html'>spm_methods</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>as_discretization_method</span><span class='op'>(</span><span class='va'>method</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>as_discretization_method</span><span class='op'>(</span><span class='va'>name</span>, <span class='va'>method</span><span class='op'>)</span>
 
-<span class='co'># S4 method for character</span>
+<span class='co'># S4 method for character,ANY</span>
+<span class='fu'>as_discretization_method</span><span class='op'>(</span><span class='va'>name</span><span class='op'>)</span>
+
+<span class='co'># S4 method for missing,`function`</span>
 <span class='fu'>as_discretization_method</span><span class='op'>(</span><span class='va'>method</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>name</th>
+      <td><p><strong>[character]</strong> The name of the method.</p></td>
+    </tr>
     <tr>
       <th>method</th>
       <td><p><strong>[character]</strong> The name of the method.</p></td>

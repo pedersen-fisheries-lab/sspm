@@ -132,10 +132,12 @@ boundary polygons, then by running  the voronoisation with
     <pre class="usage"><span class='fu'>tesselate_voronoi</span><span class='op'>(</span>
   <span class='va'>boundaries</span>,
   <span class='va'>with</span>,
-  sample_points <span class='op'>=</span> <span class='cn'>TRUE</span>,
   boundary_column <span class='op'>=</span> <span class='st'>"sfa"</span>,
-  nb_samples <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span>`4` <span class='op'>=</span> <span class='fl'>10</span>, `5` <span class='op'>=</span> <span class='fl'>30</span>, `6` <span class='op'>=</span> <span class='fl'>30</span>, `7` <span class='op'>=</span> <span class='fl'>5</span><span class='op'>)</span>,
+  sample_surface <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  sample_points <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>nb_samples</span>,
   min_size <span class='op'>=</span> <span class='fl'>1500</span>,
+  stratify <span class='op'>=</span> <span class='cn'>TRUE</span>,
   seed <span class='op'>=</span> <span class='fl'>1</span>
 <span class='op'>)</span></pre>
 
@@ -151,24 +153,35 @@ boundary polygons, then by running  the voronoisation with
       <td><p><strong>[sf]</strong> A set of data points to use for voronoisation.</p></td>
     </tr>
     <tr>
-      <th>sample_points</th>
-      <td><p><strong>[logical]</strong> Whether to sample points from <code>with</code> or
-to take all points in <code>with</code>. Default to <code>TRUE</code>.</p></td>
-    </tr>
-    <tr>
       <th>boundary_column</th>
       <td><p><strong>[character]</strong> The column in <code>boundaries</code> that is to
 be used for the stratified sampling.</p></td>
     </tr>
     <tr>
+      <th>sample_surface</th>
+      <td><p><strong>[logical]</strong> Whether to sample the surfaces in
+<code>boundaries</code>, Default to <code>FALSE</code>.</p></td>
+    </tr>
+    <tr>
+      <th>sample_points</th>
+      <td><p><strong>[logical]</strong> Whether to sample points from <code>with</code> or
+to take all points in <code>with</code>. Default to <code>TRUE</code>.</p></td>
+    </tr>
+    <tr>
       <th>nb_samples</th>
       <td><p><strong>[named character vector]</strong> The number of samples to draw
-by boundary polygons (must bear the levels of <code>boundary_column</code> as names).</p></td>
+by boundary polygons (must bear the levels of <code>boundary_column</code> as names
+or be a single value to be applied to each level).</p></td>
     </tr>
     <tr>
       <th>min_size</th>
       <td><p><strong>[numeric]</strong> The minimum size for a polygon above which it
 will be merged (in km2).</p></td>
+    </tr>
+    <tr>
+      <th>stratify</th>
+      <td><p><strong>[logical]</strong> Whether the discretization happens within the
+boundaries or whether the whole area is to be used (default to TRUE).</p></td>
     </tr>
     <tr>
       <th>seed</th>
