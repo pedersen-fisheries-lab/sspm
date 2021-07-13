@@ -6,9 +6,6 @@
 #'     biomass variable.
 #' @param predictors **\[list  OF sspm_dataset (smoothed)\]** The list of predictor
 #'     datasets.
-#' @param catch **\[sspm_dataset (smoothed)\]** Optional, the catch data
-#' @param biomass_var **\[character\]** The biomass column of `biomass`.
-#' @param catch_var **\[character\]** The catch column of `catch`.
 #'
 #' @return
 #' An object of class  [sspm][sspm-class].
@@ -17,10 +14,7 @@
 #' @export
 setGeneric(name = "sspm",
            def = function(biomass,
-                          predictors,
-                          catch = NULL,
-                          biomass_var = NULL,
-                          catch_var = NULL) {
+                          predictors) {
              standardGeneric("sspm")
            }
 )
@@ -32,12 +26,12 @@ setGeneric(name = "sspm",
 setMethod(f = "sspm",
           signature(biomass = "sspm_dataset",
                     predictors = "sspm_dataset"),
-          function(biomass, predictors, catch, biomass_var, catch_var) {
+          function(biomass, predictors) {
 
             # Turn predictors to list
             predictors <- list(predictors)
             names(predictors) <- sapply(predictors, spm_name)
-            sspm(biomass, predictors, catch, biomass_var, catch_var)
+            sspm(biomass, predictors)
 
           }
 )
@@ -47,7 +41,7 @@ setMethod(f = "sspm",
 setMethod(f = "sspm",
           signature(biomass = "sspm_dataset",
                     predictors = "list"),
-          function(biomass, predictors, catch, biomass_var, catch_var) {
+          function(biomass, predictors) {
 
             # 1. Check all predictors in list are sspm_dataset
             if (any(!is_sspm_dataset(predictors))) {
@@ -105,94 +99,11 @@ setMethod(f = "sspm",
                 sf::st_as_sf() %>%
                 tibble::rowid_to_column("row_ID")
 
-              if (!is.null(catch)) {
-
-                # 4. deal with catch data
-
-                if (any(sapply(list(biomass_var, catch_var), is.null))) {
-
-                  cli::cli_alert_danger("biomass_var or catch_var missing")
-                  stop(call. = FALSE)
-
-                } else {
-                  matches <- sum(grepl(biomass_var, colnames(full_smoothed_data)))
-                  if (matches > 1) {
-                    cli::cli_alert_warning("More than one columns matching the biomass_var variable")
-                    cli::cli_alert_warning(paste0("You might need to set biomass_var to ",
-                                                  cli::col_yellow(paste0(biomass_var, "_", spm_name(biomass)))))
-                  } else {
-                    # message about catch
-                    info_message <-
-                      paste0(" Offsetting biomass with catch data using columns: ",
-                             paste(cli::col_green(c(biomass_var, catch_var)), collapse = ", "))
-                    cli::cli_alert_info(info_message)
-                  }
-                }
-
-                if (!is_mapped(catch)) {
-                  # Need to map dataset
-                  catch <- join_datasets(catch, spm_boundaries(biomass))
-                }
-
-                time_col <- spm_time_column(catch)
-                catch_data <- spm_data(catch) %>%
-                  dplyr::group_by(.data[[time_col]], .data$patch_id) %>%
-                  sf::st_set_geometry(NULL) %>%
-                  dplyr::summarise(total_catch = sum(.data[[catch_var]],
-                                                     na.rm = TRUE)) %>%
-                  tidyr::complete(.data[[time_col]], .data$patch_id,
-                                  fill = list(total_catch = NA)) %>%
-                  dplyr::mutate(!!time_col :=
-                                  as.factor(.data[[time_col]])) %>%
-                  unique()
-
-                # Calculate the right columns
-                smoothed_data_time_col <- spm_time_column(biomass)
-
-                # First, join data
-                full_smoothed_data <- full_smoothed_data %>%
-                  dplyr::mutate(!!smoothed_data_time_col :=
-                                  as.factor(.data[[smoothed_data_time_col]])) %>%
-                  dplyr::rename(!!time_col := smoothed_data_time_col) %>%
-                  dplyr::left_join(catch_data,
-                                   by = sapply(c(time_col, "patch_id"),
-                                               rlang::as_string))
-
-                catch_name <- paste0(biomass_var, "_with_catch")
-                change_name <- paste0(biomass_var, "_with_catch")
-
-                full_smoothed_data <- full_smoothed_data %>%
-                  dplyr::group_by(.data[["patch_id"]],
-                                  !!spm_boundary_colum(biomass_boundaries)) %>%
-                  dplyr::mutate(
-                    !!catch_name :=
-                      .data[[biomass_var]] + .data$total_catch / .data$area) %>%
-                  dplyr::mutate(
-                    !!change_name :=
-                      log(.data[[catch_name]]) - log(dplyr::lag(.data[[biomass_var]],
-                                                                default = NA))) %>%
-                  dplyr::ungroup() %>%
-                  dplyr::mutate(!!change_name := ifelse(is.na(.data[[change_name]]),
-                                                        0, .data[[change_name]])) %>%
-                  dplyr::relocate(dplyr::starts_with(biomass_var),
-                                  .after = .data$row_ID)
-
-                # 3. create and return object
-                biomass_name <- spm_name(biomass)
-                all_data <- append(list(biomass = biomass,
-                                        catch = catch),
-                                   predictors)
-                names(all_data)[1] <- biomass_name
-
-              } else {
-
-                # 3. create and return object
-                biomass_name <- spm_name(biomass)
-                all_data <- append(list(biomass = biomass),
-                                   predictors)
-                names(all_data)[1] <- biomass_name
-
-              }
+              # 3. create and return object
+              biomass_name <- spm_name(biomass)
+              all_data <- append(list(biomass = biomass),
+                                 predictors)
+              names(all_data)[1] <- biomass_name
 
               new_sspm <- new("sspm",
                               datasets = all_data,
@@ -201,8 +112,8 @@ setMethod(f = "sspm",
                               boundaries = spm_boundaries(biomass),
                               smoothed_data = full_smoothed_data,
                               is_split = FALSE)
-            }
 
+            }
           }
 )
 

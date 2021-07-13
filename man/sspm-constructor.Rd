@@ -6,11 +6,11 @@
 \alias{sspm,sspm_dataset,list-method}
 \title{Create a \code{sspm} model object}
 \usage{
-sspm(biomass, predictors, catch = NULL, biomass_var = NULL, catch_var = NULL)
+sspm(biomass, predictors)
 
-\S4method{sspm}{sspm_dataset,sspm_dataset}(biomass, predictors, catch = NULL, biomass_var = NULL, catch_var = NULL)
+\S4method{sspm}{sspm_dataset,sspm_dataset}(biomass, predictors)
 
-\S4method{sspm}{sspm_dataset,list}(biomass, predictors, catch = NULL, biomass_var = NULL, catch_var = NULL)
+\S4method{sspm}{sspm_dataset,list}(biomass, predictors)
 }
 \arguments{
 \item{biomass}{\strong{[sspm_dataset (smoothed)]} The dataset containing the
@@ -18,12 +18,6 @@ biomass variable.}
 
 \item{predictors}{\strong{[list  OF sspm_dataset (smoothed)]} The list of predictor
 datasets.}
-
-\item{catch}{\strong{[sspm_dataset (smoothed)]} Optional, the catch data}
-
-\item{biomass_var}{\strong{[character]} The biomass column of \code{biomass}.}
-
-\item{catch_var}{\strong{[character]} The catch column of \code{catch}.}
 }
 \value{
 An object of class  \link[=sspm-class]{sspm}.
