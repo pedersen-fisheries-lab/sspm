@@ -78,7 +78,7 @@ biomass_dataset <-
 biomass_dataset
 ```
 
-3. We do the same with the predator and catch data.
+3. We do the same with the predator data, which are of the predictor type.
 
 ```{r}
 predator_dataset <- 
@@ -87,13 +87,6 @@ predator_dataset <-
                  uniqueID = "uniqueID", coords = c("lon_dec", "lat_dec"))
 
 predator_dataset
-
-catch_dataset <- 
-  spm_as_dataset(catch, name = "catch_data", 
-                 type = "catch", time_column = "year_f", 
-                 uniqueID = "uniqueID", coords = c("lon_start", "lat_start"))
-
-catch_dataset
 ```
 
 4. The `sspm` workflow relies on the discretization of the boundary objects, the default method being voronoi tesselation (only one method available currently, but see in the future see `?spm_methods()` for the list of methods available).
@@ -150,19 +143,39 @@ predator_smooth <- predator_dataset %>%
 predator_smooth
 ```
 
-10. Once data has been smoothed, we can assemble a `sspm` model object, using one dataset of type biomass, one dataset of type predictor and (optionnaly) a dataset of type catch. If we want to use a 
+10. Before we assemble the full model with our newly smoothed data, we need to deal with the catch data. We first load the dataset.
 
 ```{r}
-sspm_model <- sspm(biomass = biomass_smooth, 
-                   predictors = predator_smooth, 
-                   catch = catch_dataset, 
-                   catch_var = "catch", 
-                   biomass_var = "weight_per_km2_smooth_borealis")
+catch_dataset <- 
+  spm_as_dataset(catch, name = "catch_data", 
+                 type = "catch", time_column = "year_f", 
+                 uniqueID = "uniqueID", coords = c("lon_start", "lat_start"))
+
+catch_dataset
+```
+
+11. We then need to aggregate this data. This illustrate using the `spm_aggregate` functions. Here we use `spm_aggregate_catch`:
+
+```{r}
+biomass_smooth_w_catch <- 
+  spm_aggregate_catch(biomass = biomass_smooth, 
+                      catch = catch_dataset, 
+                      biomass_variable = "weight_per_km2_smooth",
+                      catch_variable = "catch",
+                      fill = mean)
+biomass_smooth_w_catch
+```
+
+12. Once data has been smoothed, we can assemble a `sspm` model object, using one dataset of type biomass, one dataset of type predictor and (optionnaly) a dataset of type catch. If we want to use a 
+
+```{r}
+sspm_model <- sspm(biomass = biomass_smooth_w_catch, 
+                   predictors = predator_smooth)
 
 sspm_model
 ```
 
-11. Before fitting the model, we must split data into test/train with `spm_split`.
+13. Before fitting the model, we must split data into test/train with `spm_split`.
 
 ```{r}
 sspm_model <- sspm_model %>% 
@@ -171,27 +184,31 @@ sspm_model <- sspm_model %>%
 sspm_model
 ```
 
-12. To fit the model, we might be interested in including lagged values. This is done with `spm_lag`.
+14. To fit the model, we might be interested in including lagged values. This is done with `spm_lag`.
 
 ```{r}
 sspm_model <- sspm_model %>% 
-  spm_lag(vars = c("weight_per_km2_smooth_borealis_with_catch", "weight_per_km2_smooth_all_predators"), 
+  spm_lag(vars = c("weight_per_km2_smooth_borealis_with_catch", 
+                   "weight_per_km2_smooth_all_predators"), 
           n = 1)
 
 sspm_model
 ```
 
-13. We can now fit the final spm model with `spm`. 
+15. We can now fit the final spm model with `spm`. 
 
 ```{r}
 sspm_model_fit <- sspm_model %>% 
-  spm(weight_per_km2_smooth_borealis_with_catch ~ temp_at_bottom_smooth + 
-        weight_per_km2_smooth_all_predators_lag_1 + smooth_lag("weight_per_km2_smooth_borealis_with_catch"))
+  spm(weight_per_km2_smooth_borealis_with_catch ~ 
+        weight_per_km2_smooth_borealis_with_catch_lag_1 +
+        weight_per_km2_smooth_all_predators_lag_1 +
+        smooth_lag("weight_per_km2_smooth_borealis_with_catch") + 
+        temp_at_bottom_smooth)
 
 sspm_model_fit
 ```
 
-14. Plotting the object produces a actual vs predicted plot (with TEST/TRAIN data highlighted.
+16. Plotting the object produces a actual vs predicted plot (with TEST/TRAIN data highlighted.
 
 ```{r}
 spm_plot(sspm_model_fit)
