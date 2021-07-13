@@ -2,39 +2,39 @@
 % Please edit documentation in R/spm_discretize.R
 \name{spm_discretize}
 \alias{spm_discretize}
-\alias{spm_discretize,ANY,ANY,missingOrNULL-method}
-\alias{spm_discretize,ANY,missingOrNULL,ANY-method}
-\alias{spm_discretize,ANY,ANY,character-method}
-\alias{spm_discretize,sspm_boundary,sspm_dataset,discretization_method-method}
-\alias{spm_discretize,sspm_boundary,sf,discretization_method-method}
+\alias{spm_discretize,sspm_boundary,missing,ANY-method}
+\alias{spm_discretize,sspm_boundary,ANY,missing-method}
+\alias{spm_discretize,sspm_boundary,character,DatasetORANYOrNULL-method}
+\alias{spm_discretize,sspm_boundary,function,DatasetORANYOrNULL-method}
+\alias{spm_discretize,sspm_boundary,discretization_method,DatasetORANYOrNULL-method}
 \alias{spm_discretize,sspm_discrete_boundary,ANY,ANY-method}
 \title{Discretize a \code{sspm} model object}
 \usage{
-spm_discretize(boundary_object, with, method = "tesselate_voronoi", ...)
+spm_discretize(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
-\S4method{spm_discretize}{ANY,ANY,missingOrNULL}(boundary_object, with, method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm_boundary,missing,ANY}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
-\S4method{spm_discretize}{ANY,missingOrNULL,ANY}(boundary_object, with, method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm_boundary,ANY,missing}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
-\S4method{spm_discretize}{ANY,ANY,character}(boundary_object, with, method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm_boundary,character,DatasetORANYOrNULL}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
-\S4method{spm_discretize}{sspm_boundary,sspm_dataset,discretization_method}(boundary_object, with, method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm_boundary,`function`,DatasetORANYOrNULL}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
-\S4method{spm_discretize}{sspm_boundary,sf,discretization_method}(boundary_object, with, method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm_boundary,discretization_method,DatasetORANYOrNULL}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
-\S4method{spm_discretize}{sspm_discrete_boundary,ANY,ANY}(boundary_object, with, method = "tesselate_voronoi", ...)
+\S4method{spm_discretize}{sspm_discrete_boundary,ANY,ANY}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 }
 \arguments{
 \item{boundary_object}{\strong{[sspm]} An object of class
 \link[=sspm-class]{sspm_boundary}.}
 
-\item{with}{\strong{[sspm_dataset OR sf]} Either an object of class sspm_dataset or
-a set of custom points.}
-
 \item{method}{\strong{[character OR method]}
 Either a \code{character} from the list of available methods
 (see \link{spm_methods} for the list) \strong{OR} an object of class
 \link[=discretization_method-class]{discretization_method}.}
+
+\item{with}{\strong{[sspm_dataset OR sf]} Either an object of class sspm_dataset or
+a set of custom points.}
 
 \item{...}{\strong{[named list]} Further arguments to be passed onto the function
 used in \code{method}.}
@@ -46,4 +46,17 @@ and discretized \code{sspm} object given as input).
 \description{
 Discretize a \link[=sspm-class]{sspm} model object with a function from a
 \link[=discretization_method-class]{discretization_method} object class.
+}
+\details{
+Custom discretization functions can be written. The function must:
+\enumerate{
+\item Accept at least 1 argument: \strong{boundaries} (the \code{sf} boundary object),
+and optionnaly \strong{with} (can be NULL) a separate object to be used for
+discretization and \strong{boundary_column}, the boundary column of
+\strong{boundaries} (these last 2 arguments are passed and connot be
+overwritten but could be ignored).
+2, Returns a named list with 2 elements: \code{patches}. an \code{sf} object that
+stores the discretized polygons, and \code{points}, an \code{sf} object that
+stores the points that were used for discretization.
+}
 }

@@ -5,12 +5,12 @@
 #'
 #' @param boundary_object **\[sspm\]** An object of class
 #'    [sspm_boundary][sspm-class].
-#' @param with **\[sspm_dataset OR sf\]** Either an object of class sspm_dataset or
-#'    a set of custom points.
 #' @param method **\[character OR method\]**
 #'    Either a `character` from the list of available methods
 #'    (see [spm_methods][spm_methods] for the list) **OR** an object of class
 #'    [discretization_method][discretization_method-class].
+#' @param with **\[sspm_dataset OR sf\]** Either an object of class sspm_dataset or
+#'    a set of custom points.
 #' @param ... **\[named list\]** Further arguments to be passed onto the function
 #'    used in `method`.
 #'
@@ -18,11 +18,23 @@
 #' An object of class [sspm_discrete_boundary][sspm-class] (the updated
 #' and discretized `sspm` object given as input).
 #'
+#' @details
+#' Custom discretization functions can be written. The function must:
+#'
+#' 1. Accept at least 1 argument: **boundaries** (the `sf` boundary object),
+#'    and optionnaly **with** (can be NULL) a separate object to be used for
+#'    discretization and **boundary_column**, the boundary column of
+#'    **boundaries** (these last 2 arguments are passed and connot be
+#'    overwritten but could be ignored).
+#' 2, Returns a named list with 2 elements: `patches`. an `sf` object that
+#'    stores the discretized polygons, and `points`, an `sf` object that
+#'    stores the points that were used for discretization.
+#'
 #' @export
 setGeneric(name = "spm_discretize",
            def = function(boundary_object,
-                          with,
                           method = "tesselate_voronoi",
+                          with = NULL,
                           ...) {
              standardGeneric("spm_discretize")
            }
@@ -35,23 +47,24 @@ setGeneric(name = "spm_discretize",
 #' @rdname spm_discretize
 #' @export
 setMethod(f = "spm_discretize",
-          signature(boundary_object = "ANY",
-                    with = "ANY",
-                    method = "missingOrNULL"),
-          function(boundary_object, with, method, ...) {
+          signature(boundary_object = "sspm_boundary",
+                    method = "missing"),
+          function(boundary_object, method, with, ...) {
             stop("method argument missing.")
           }
 )
 
-# If missing arg, throw error
+# with missing
 #' @rdname spm_discretize
 #' @export
 setMethod(f = "spm_discretize",
-          signature(boundary_object = "ANY",
-                    with = "missingOrNULL",
-                    method = "ANY"),
-          function(boundary_object, with, method, ...) {
-            stop("with argument missing.")
+          signature(boundary_object = "sspm_boundary",
+                    method = "ANY",
+                    with = "missing"),
+          function(boundary_object, method, with, ...) {
+
+            discrete <- spm_discretize(boundary_object, method, with = NULL, ...)
+
           }
 )
 
@@ -60,30 +73,35 @@ setMethod(f = "spm_discretize",
 #' @rdname spm_discretize
 #' @export
 setMethod(f = "spm_discretize",
-          signature(boundary_object = "ANY",
-                    with = "ANY",
-                    method = "character"),
-          function(boundary_object, with, method, ...) {
+          signature(boundary_object = "sspm_boundary",
+                    method = "character",
+                    with = "DatasetORANYOrNULL"),
+          function(boundary_object, method, with, ...) {
 
-            method <- as_discretization_method(method)
+            method_f <- as_discretization_method(name = method)
 
-            discrete <- spm_discretize(boundary_object, with, method, ...)
+            if(is.null(with)){
+              stop(paste0("Discretization method ", method,
+                          " cannot work if 'with' argument is missing."))
+            }
+
+            discrete <- spm_discretize(boundary_object, method_f, with, ...)
           }
 )
 
-# If with is sspm_dataset, subsitute for the data
+# If method is function, make a `discretization_method`
+# and call next signature.
 #' @rdname spm_discretize
 #' @export
 setMethod(f = "spm_discretize",
           signature(boundary_object = "sspm_boundary",
-                    with = "sspm_dataset",
-                    method = "discretization_method"),
-          function(boundary_object, with, method, ...) {
+                    method = "function",
+                    with = "DatasetORANYOrNULL"),
+          function(boundary_object, method, with, ...) {
 
-            with <- spm_data(with)
+            method_f <- as_discretization_method(method = method)
 
-            discrete <- spm_discretize(boundary_object, with, method, ...)
-
+            discrete <- spm_discretize(boundary_object, method_f, with, ...)
           }
 )
 
@@ -92,9 +110,13 @@ setMethod(f = "spm_discretize",
 #' @export
 setMethod(f = "spm_discretize",
           signature(boundary_object = "sspm_boundary",
-                    with = "sf",
-                    method = "discretization_method"),
-          function(boundary_object, with, method, ...) {
+                    method = "discretization_method",
+                    with = "DatasetORANYOrNULL"),
+          function(boundary_object, method, with, ...) {
+
+            if(checkmate::test_class(with, "sspm_dataset")){
+              with <- spm_data(with)
+            }
 
             # Info message
             cli::cli_alert_info(paste0(" Discretizing using method ",
@@ -134,10 +156,8 @@ setMethod(f = "spm_discretize",
 #' @rdname spm_discretize
 #' @export
 setMethod(f = "spm_discretize",
-          signature(boundary_object = "sspm_discrete_boundary",
-                    with = "ANY",
-                    method = "ANY"),
-          function(boundary_object, with, method, ...) {
+          signature(boundary_object = "sspm_discrete_boundary"),
+          function(boundary_object, method, with, ...) {
 
             cli::cli_alert_danger(paste0(" Boundary is already discretized"))
           }
