@@ -64,6 +64,16 @@ tesselate_voronoi <- function(boundaries,
   checkmate::assert_numeric(min_size)
   checkmate::assert_numeric(seed)
 
+  unique_boundaries <- unique(boundaries[[boundary_column]])
+  if (length(nb_samples) == 1){
+    nb_samples <- rep(nb_samples, length(unique_boundaries))
+    names(nb_samples) = unique_boundaries
+  } else {
+    if(any(!(names(nb_samples) %in% unique_boundaries))){
+      stop("nb_samples incorrectly named")
+    }
+  }
+
   # Body --------------------------------------------------------------------
 
   # Make sure seed options are set correctly
@@ -113,15 +123,19 @@ tesselate_voronoi <- function(boundaries,
   # 3. Create the polygons
   if(stratify){
 
+    envelopes <- boundaries_split %>%
+      lapply(function(x) x[["geometry"]])
+
     voronoi <- voronoi_points %>%
       split(voronoi_points[[boundary_column]]) %>%
       lapply(function(x) { suppressAll(sf::st_union(x)) } ) %>%
-      lapply(function(x) { suppressAll(sf::st_voronoi(x)) } ) %>%
+      mapply(FUN = function(x, y) {
+        suppressAll(sf::st_voronoi(x, envelope = y)) },
+        envelopes, SIMPLIFY = FALSE) %>%
       lapply(function(x) { suppressAll(sf::st_cast(x)) } ) %>%
       lapply(function(x) { suppressAll(sf::st_sf(x)) } ) %>%
       mapply(FUN = function(x, y) { suppressAll(sf::st_intersection(x, y)) },
-             boundaries_split,
-             SIMPLIFY = FALSE) %>%
+             boundaries_split, SIMPLIFY = FALSE) %>%
       dplyr::bind_rows()
 
     voronoi <- sf::st_sf(voronoi) %>%
@@ -143,6 +157,7 @@ tesselate_voronoi <- function(boundaries,
 
   voronoi <-
     suppressAll(voronoi %>%
+                  sf::st_make_valid() %>%
                   dplyr::mutate(patch_id = paste("V", 1:dplyr::n(), sep = "")) %>%
                   dplyr::group_by(.data$patch_id, .data[[boundary_column]]) %>%
                   dplyr::summarize() %>%
