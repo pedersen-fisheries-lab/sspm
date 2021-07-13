@@ -2,14 +2,19 @@
 % Please edit documentation in R/as_discretization_method.R
 \name{as_discretization_method}
 \alias{as_discretization_method}
-\alias{as_discretization_method,character-method}
+\alias{as_discretization_method,character,ANY-method}
+\alias{as_discretization_method,missing,function-method}
 \title{Cast into a \code{discretization_method} object}
 \usage{
-as_discretization_method(method)
+as_discretization_method(name, method)
 
-\S4method{as_discretization_method}{character}(method)
+\S4method{as_discretization_method}{character,ANY}(name)
+
+\S4method{as_discretization_method}{missing,`function`}(method)
 }
 \arguments{
+\item{name}{\strong{[character]} The name of the method.}
+
 \item{method}{\strong{[character]} The name of the method.}
 }
 \value{
