@@ -8,9 +8,11 @@ tesselate_voronoi(
   boundaries,
   with,
   boundary_column = "sfa",
+  sample_surface = FALSE,
   sample_points = TRUE,
-  nb_samples = c(`4` = 10, `5` = 30, `6` = 30, `7` = 5),
+  nb_samples,
   min_size = 1500,
+  stratify = TRUE,
   seed = 1
 )
 }
@@ -22,6 +24,9 @@ tesselate_voronoi(
 \item{boundary_column}{\strong{[character]} The column in \code{boundaries} that is to
 be used for the stratified sampling.}
 
+\item{sample_surface}{\strong{[logical]} Whether to sample the surfaces in
+\code{boundaries}, Default to \code{FALSE}.}
+
 \item{sample_points}{\strong{[logical]} Whether to sample points from \code{with} or
 to take all points in \code{with}. Default to \code{TRUE}.}
 
@@ -30,6 +35,9 @@ by boundary polygons (must bear the levels of \code{boundary_column} as names).}
 
 \item{min_size}{\strong{[numeric]} The minimum size for a polygon above which it
 will be merged (in km2).}
+
+\item{stratify}{\strong{[logical]} Whether the discretization happens within the
+boundaries or whether the whole area is to be used (default to TRUE).}
 
 \item{seed}{\strong{[numeric]} Passed onto \code{\link[base:Random]{set.seed()}},
 important for reproducibility of sampling.}
