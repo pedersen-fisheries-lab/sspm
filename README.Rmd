@@ -101,6 +101,7 @@ catch_dataset
 ```{r}
 bounds_voronoi <- bounds %>% 
   spm_discretize(method = "tesselate_voronoi",
+                 nb_samples = 10,
                  with = biomass_dataset)
 
 bounds_voronoi
