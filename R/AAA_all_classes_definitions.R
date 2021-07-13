@@ -119,6 +119,10 @@ setClass("sspm_dataset",
                                smoothed_data = NULL)
 )
 
+# ClassUnions
+
+setClassUnion("DatasetORANYOrNULL", c("sspm_dataset", "ANY", "NULL"))
+
 # -------------------------------------------------------------------------
 
 #' sspm formula object
