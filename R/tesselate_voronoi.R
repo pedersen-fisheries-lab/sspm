@@ -15,7 +15,8 @@
 #'     to take all points in `with`. Default to `TRUE`.
 #'
 #' @param nb_samples **\[named character vector\]** The number of samples to draw
-#'     by boundary polygons (must bear the levels of `boundary_column` as names).
+#'     by boundary polygons (must bear the levels of `boundary_column` as names
+#'     or be a single value to be applied to each level).
 #' @param min_size **\[numeric\]** The minimum size for a polygon above which it
 #'     will be merged (in km2).
 #' @param stratify **\[logical]** Whether the discretization happens within the

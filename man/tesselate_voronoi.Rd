@@ -31,7 +31,8 @@ be used for the stratified sampling.}
 to take all points in \code{with}. Default to \code{TRUE}.}
 
 \item{nb_samples}{\strong{[named character vector]} The number of samples to draw
-by boundary polygons (must bear the levels of \code{boundary_column} as names).}
+by boundary polygons (must bear the levels of \code{boundary_column} as names
+or be a single value to be applied to each level).}
 
 \item{min_size}{\strong{[numeric]} The minimum size for a polygon above which it
 will be merged (in km2).}
