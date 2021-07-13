@@ -80,11 +80,6 @@ setMethod(f = "spm_discretize",
 
             method_f <- as_discretization_method(name = method)
 
-            if(is.null(with)){
-              stop(paste0("Discretization method ", method,
-                          " cannot work if 'with' argument is missing."))
-            }
-
             discrete <- spm_discretize(boundary_object, method_f, with, ...)
           }
 )
