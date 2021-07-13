@@ -80,9 +80,6 @@ tesselate_voronoi <- function(boundaries,
   if (getRversion() >= 3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))
 
   # 2. Create (sample) the points
-  # TODO revise here: allows stratified sampling, but doesn't allow a given
-  # number (like "want to sample 100" polygons) : check for length of nb_samples?
-
   boundaries_split <- split(boundaries, boundaries[[boundary_column]])
 
   if (sample_surface){
