@@ -8,15 +8,55 @@
 \alias{spm_as_dataset,sf,ANY,ANY,ANY,ANY,ANY-method}
 \title{Create a \code{sspm_dataset} dataset structure}
 \usage{
-spm_as_dataset(data, name, type, time_column, uniqueID, coords, crs = NULL)
+spm_as_dataset(
+  data,
+  name,
+  type,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL
+)
 
-\S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,ANY,missingOrNULL}(data, name, type, time_column, uniqueID, coords, crs = NULL)
+\S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,ANY,missingOrNULL}(
+  data,
+  name,
+  type,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL
+)
 
-\S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,ANY,list}(data, name, type, time_column, uniqueID, coords, crs = NULL)
+\S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,ANY,list}(
+  data,
+  name,
+  type,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL
+)
 
-\S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,ANY,character}(data, name, type, time_column, uniqueID, coords, crs = NULL)
+\S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,ANY,character}(
+  data,
+  name,
+  type,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL
+)
 
-\S4method{spm_as_dataset}{sf,ANY,ANY,ANY,ANY,ANY}(data, name, type, time_column, uniqueID, coords, crs = NULL)
+\S4method{spm_as_dataset}{sf,ANY,ANY,ANY,ANY,ANY}(
+  data,
+  name,
+  type,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL
+)
 }
 \arguments{
 \item{data}{\strong{[data.frame OR sf]} The dataset.}
