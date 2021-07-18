@@ -87,14 +87,14 @@ spm_plot(bounds)
 ``` r
 biomass_dataset <- 
   spm_as_dataset(borealis, name = "borealis", 
-                 type = "biomass", time_column = "year_f",
+                 time_column = "year_f",
                  coords = c('lon_dec','lat_dec'), uniqueID = "uniqueID")
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
 #> !  Warning: sspm is assuming WGS 84 CRS is to be used for casting
 
 biomass_dataset
 #> 
-#> ‒‒ SSPM Dataset: borealis (biomass) ‒‒
+#> ‒‒ SSPM Dataset: borealis ‒‒
 #> →  Data              : [1541 observations, 18 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year_f
@@ -107,14 +107,14 @@ biomass_dataset
 ``` r
 predator_dataset <- 
   spm_as_dataset(predator, name = "all_predators", 
-                 type = "predictor", time_column = "year",
+                 time_column = "year",
                  uniqueID = "uniqueID", coords = c("lon_dec", "lat_dec"))
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
 #> !  Warning: sspm is assuming WGS 84 CRS is to be used for casting
 
 predator_dataset
 #> 
-#> ‒‒ SSPM Dataset: all_predators (predictor) ‒‒
+#> ‒‒ SSPM Dataset: all_predators ‒‒
 #> →  Data              : [4833 observations, 15 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year
@@ -221,7 +221,7 @@ biomass_smooth <- biomass_dataset %>%
 
 biomass_smooth
 #> 
-#> ‒‒ SSPM Dataset: borealis (biomass) ‒‒
+#> ‒‒ SSPM Dataset: borealis ‒‒
 #> →  Data (MAPPED)     : [1025 observations, 21 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year_f
@@ -254,7 +254,7 @@ predator_smooth <- predator_dataset %>%
 
 predator_smooth
 #> 
-#> ‒‒ SSPM Dataset: all_predators (predictor) ‒‒
+#> ‒‒ SSPM Dataset: all_predators ‒‒
 #> →  Data (MAPPED)     : [1964 observations, 18 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year
@@ -272,14 +272,14 @@ predator_smooth
 ``` r
 catch_dataset <- 
   spm_as_dataset(catch, name = "catch_data", 
-                 type = "catch", time_column = "year_f", 
+                 time_column = "year_f", 
                  uniqueID = "uniqueID", coords = c("lon_start", "lat_start"))
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_start, lat_start
 #> !  Warning: sspm is assuming WGS 84 CRS is to be used for casting
 
 catch_dataset
 #> 
-#> ‒‒ SSPM Dataset: catch_data (catch) ‒‒
+#> ‒‒ SSPM Dataset: catch_data ‒‒
 #> →  Data              : [88579 observations, 8 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year_f
@@ -299,7 +299,7 @@ biomass_smooth_w_catch <-
 #> ℹ  Offsetting biomass with catch data using columns: weight_per_km2_smooth, catch
 biomass_smooth_w_catch
 #> 
-#> ‒‒ SSPM Dataset: borealis (biomass) ‒‒
+#> ‒‒ SSPM Dataset: borealis ‒‒
 #> →  Data (MAPPED)     : [1025 observations, 21 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year_f
@@ -315,7 +315,7 @@ biomass_smooth_w_catch
 
 12. Once data has been smoothed, we can assemble a `sspm` model object,
     using one dataset of type biomass, one dataset of type predictor and
-    (optionnaly) a dataset of type catch. If we want to use a
+    (optionnaly) a dataset of type catch.
 
 ``` r
 sspm_model <- sspm(biomass = biomass_smooth_w_catch, 

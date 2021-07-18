@@ -42,8 +42,7 @@ setMethod("show",
           "sspm_dataset",
           function(object) {
             cli::cat_line()
-            custom_h1(paste0("SSPM Dataset: ", cli::col_blue(object@name),
-                             cli::col_magenta(" (", object@type, ")")))
+            custom_h1(paste0("SSPM Dataset: ", cli::col_blue(object@name)))
             cat_data(object)
             cat_formulas(object)
             cat_boundaries(object, column = FALSE)

@@ -17,10 +17,6 @@
 \alias{spm_time_column<-,sspm_dataset-method}
 \alias{spm_formulas,sspm_dataset-method}
 \alias{spm_formulas<-,sspm_dataset-method}
-\alias{spm_type}
-\alias{spm_type,sspm_dataset-method}
-\alias{spm_type<-}
-\alias{spm_type<-,sspm_dataset-method}
 \alias{spm_smoothed_data,sspm_dataset-method}
 \alias{spm_smoothed_data<-,sspm_dataset-method}
 \alias{spm_smoothed_fit}
@@ -66,14 +62,6 @@ spm_coords_col(object) <- value
 \S4method{spm_formulas}{sspm_dataset}(sspm_object)
 
 \S4method{spm_formulas}{sspm_dataset}(object) <- value
-
-spm_type(sspm_object)
-
-\S4method{spm_type}{sspm_dataset}(sspm_object)
-
-spm_type(object) <- value
-
-\S4method{spm_type}{sspm_dataset}(object) <- value
 
 \S4method{spm_smoothed_data}{sspm_dataset}(sspm_object)
 

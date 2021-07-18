@@ -106,7 +106,6 @@ setClassUnion("sspm_discrete_boundaryOrNULL", c("sspm_discrete_boundary", "NULL"
 setClass("sspm_dataset",
          slots = list(name = "character",
                       data = "ANY",
-                      type = "character",
                       time_column = "character",
                       coords = "characterOrNULL",
                       uniqueID = "character",
@@ -135,8 +134,6 @@ setClassUnion("DatasetORANYOrNULL", c("sspm_dataset", "ANY", "NULL"))
 #'     to be evaluated.
 #' @slot vars **\[list\]** List of relevant variables for the evaluation of the
 #'     different smooths.
-#' @slot type **\[charatcer\]** One of "smooth" and "surplus", the type of
-#'     formula, either for smoothing datasets or for fitting a surplus model
 #' @slot response **\[charatcer\]** The response variable in the formula.
 #' @slot is_fitted **\[logical\]** Whether this formula has already been fitted.
 #'

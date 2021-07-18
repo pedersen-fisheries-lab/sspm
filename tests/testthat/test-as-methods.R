@@ -26,7 +26,6 @@ test_that("sspm data is casted correctly", {
   borealis_simulated_NU$new_col <- "Non_unique"
   expect_error({
     spm_as_dataset(data = borealis_simulated_NU,
-                 type = "biomass",
                  time_column = "year_f",
                  coords = c('lon_dec', 'lat_dec'),
                  name = "Biomass",
@@ -35,7 +34,6 @@ test_that("sspm data is casted correctly", {
 
   expect_error({
     spm_as_dataset(data = borealis_simulated,
-                 type = "biomass",
                  time_column = "Bad column",
                  coords = c('lon_dec', 'lat_dec'),
                  name = "Biomass",
@@ -45,7 +43,6 @@ test_that("sspm data is casted correctly", {
   # If data matrix is df, coords must be provided
   expect_error({
     spm_as_dataset(data = borealis_simulated,
-                 type = "biomass",
                  time_column = "year_f",
                  name = "Biomass",
                  uniqueID = "uniqueID")
@@ -54,7 +51,6 @@ test_that("sspm data is casted correctly", {
   # Coords must be columns of data
   expect_error({
     spm_as_dataset(data = borealis_simulated,
-                 type = "biomass",
                  time_column = "year_f",
                  coords = c('Bad column 1', 'Bad column 2'),
                  name = "Biomass",
@@ -64,7 +60,6 @@ test_that("sspm data is casted correctly", {
   # When works fine
   expect_class({
     spm_as_dataset(data = borealis_simulated,
-                 type = "biomass",
                  time_column = "year_f",
                  coords = c('lon_dec', 'lat_dec'),
                  name = "Biomass",
@@ -73,7 +68,6 @@ test_that("sspm data is casted correctly", {
 
   expect_class({
     spm_as_dataset(data = borealis_simulated,
-                 type = "biomass",
                  time_column = "year_f",
                  coords = list('lon_dec', 'lat_dec'),
                  name = "Biomass",
@@ -82,7 +76,6 @@ test_that("sspm data is casted correctly", {
 
   expect_class({
     spm_as_dataset(data = borealis_spatial,
-                 type = "biomass",
                  time_column = "year_f",
                  coords = c('lon_dec', 'lat_dec'),
                  name = "Biomass",

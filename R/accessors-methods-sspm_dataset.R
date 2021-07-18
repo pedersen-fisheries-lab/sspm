@@ -168,41 +168,6 @@ setMethod("spm_formulas<-",
           }
 )
 
-# Type --------------------------------------------------------------------
-# Accessors ---------------------------------------------------------------
-
-#' @rdname accessors-methods-sspm_dataset
-#' @export
-setGeneric(name = "spm_type",
-           def = function(sspm_object) standardGeneric("spm_type")
-)
-
-#' @rdname accessors-methods-sspm_dataset
-#' @export
-setMethod("spm_type",
-          signature("sspm_object" = "sspm_dataset"),
-          function(sspm_object) sspm_object@type
-)
-
-# Replacers ---------------------------------------------------------------
-
-#' @rdname accessors-methods-sspm_dataset
-#' @export
-setGeneric(name = "spm_type<-",
-           def = function(object, value) standardGeneric("spm_type<-")
-)
-
-#' @rdname accessors-methods-sspm_dataset
-#' @export
-setMethod("spm_type<-",
-          signature("object" = "sspm_dataset"),
-          function(object, value) {
-            object@type <- value
-            validObject(object)
-            return(object)
-          }
-)
-
 # Smoothed data -----------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 

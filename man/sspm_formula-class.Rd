@@ -19,9 +19,6 @@ to be evaluated.}
 \item{\code{vars}}{\strong{[list]} List of relevant variables for the evaluation of the
 different smooths.}
 
-\item{\code{type}}{\strong{[charatcer]} One of "smooth" and "surplus", the type of
-formula, either for smoothing datasets or for fitting a surplus model}
-
 \item{\code{response}}{\strong{[charatcer]} The response variable in the formula.}
 
 \item{\code{is_fitted}}{\strong{[logical]} Whether this formula has already been fitted.}

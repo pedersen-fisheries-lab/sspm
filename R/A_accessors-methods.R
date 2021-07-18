@@ -50,25 +50,14 @@ setMethod("spm_name<-",
 #' @rdname sspm-accessors-methods
 #' @export
 setGeneric(name = "spm_datasets",
-           def = function(sspm_object, type = NULL) standardGeneric("spm_datasets")
+           def = function(sspm_object) standardGeneric("spm_datasets")
 )
 
 #' @rdname sspm-accessors-methods
 #' @export
 setMethod("spm_datasets", signature("sspm_object" = "sspm"),
-          function(sspm_object, type) {
+          function(sspm_object) {
             datasets <- sspm_object@datasets
-
-            if (!is.null(type)) {
-
-              checkmate::assert_choice(type, c("biomass", "catch", "predictor"))
-
-              types <- sapply(datasets, spm_type)
-              idx <- which(types == type)
-              datasets <- datasets[[idx]]
-
-            }
-
             names(datasets) <- sapply(datasets, spm_name)
             return(datasets)
           }

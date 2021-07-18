@@ -33,11 +33,6 @@ spm_smooth_methods <- function() {
 
 # -------------------------------------------------------------------------
 
-spm_type_choices <- function() {
-  choices <- c('biomass', 'predictor', 'catch')
-  return(choices)
-}
-
 spm_aggregation_choices <- function() {
   choices <- c('space', 'time', 'spacetime')
   return(choices)
@@ -183,14 +178,4 @@ multilag <- function(variable, n_lags, default = NA) {
   out_mat <- sapply(1:n_lags, FUN = dplyr::lag, x = variable, default = default)
   colnames(out_mat) <- paste0("lag", 1:n_lags)
   as.data.frame(out_mat)
-}
-
-# This function performs fuzzy matching for the type of dataset
-match_type <- function(type, vect_type = c("biomass", "predictor", "catch")) {
-  pos <- agrep(type, vect_type, fixed = TRUE, max.distance = list(sub = 0, ins = 0, cost = 0))
-  if (length(pos == 1)) {
-    return(vect_type[pos])
-  } else {
-    stop("Ambiguous string for type provided")
-  }
 }
