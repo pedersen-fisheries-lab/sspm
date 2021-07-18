@@ -156,7 +156,7 @@ tesselate_voronoi <- function(boundaries,
   voronoi <-
     suppressAll(voronoi %>%
                   sf::st_make_valid() %>%
-                  dplyr::mutate(patch_id = paste("V", 1:dplyr::n(), sep = "")) %>%
+                  dplyr::mutate(patch_id = paste("P", 1:dplyr::n(), sep = "")) %>%
                   dplyr::group_by(.data$patch_id, .data[[boundary_column]]) %>%
                   dplyr::summarize() %>%
                   dplyr::ungroup())
