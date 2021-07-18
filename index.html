@@ -131,14 +131,14 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">biomass_dataset</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="reference/spm_as_dataset.html">spm_as_dataset</a></span><span class="op">(</span><span class="va">borealis</span>, name <span class="op">=</span> <span class="st">"borealis"</span>, 
-                 type <span class="op">=</span> <span class="st">"biomass"</span>, time_column <span class="op">=</span> <span class="st">"year_f"</span>,
+                 time_column <span class="op">=</span> <span class="st">"year_f"</span>,
                  coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'lon_dec'</span>,<span class="st">'lat_dec'</span><span class="op">)</span>, uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span><span class="op">)</span>
 <span class="co">#&gt; ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec</span>
 <span class="co">#&gt; !  Warning: sspm is assuming WGS 84 CRS is to be used for casting</span>
 
 <span class="va">biomass_dataset</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Dataset: borealis (biomass) ‒‒</span>
+<span class="co">#&gt; ‒‒ SSPM Dataset: borealis ‒‒</span>
 <span class="co">#&gt; →  Data              : [1541 observations, 18 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
 <span class="co">#&gt; →  Time col.         : year_f</span>
@@ -149,14 +149,14 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">predator_dataset</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="reference/spm_as_dataset.html">spm_as_dataset</a></span><span class="op">(</span><span class="va">predator</span>, name <span class="op">=</span> <span class="st">"all_predators"</span>, 
-                 type <span class="op">=</span> <span class="st">"predictor"</span>, time_column <span class="op">=</span> <span class="st">"year"</span>,
+                 time_column <span class="op">=</span> <span class="st">"year"</span>,
                  uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon_dec"</span>, <span class="st">"lat_dec"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec</span>
 <span class="co">#&gt; !  Warning: sspm is assuming WGS 84 CRS is to be used for casting</span>
 
 <span class="va">predator_dataset</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Dataset: all_predators (predictor) ‒‒</span>
+<span class="co">#&gt; ‒‒ SSPM Dataset: all_predators ‒‒</span>
 <span class="co">#&gt; →  Data              : [4833 observations, 15 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
 <span class="co">#&gt; →  Time col.         : year</span>
@@ -249,7 +249,7 @@
 
 <span class="va">biomass_smooth</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Dataset: borealis (biomass) ‒‒</span>
+<span class="co">#&gt; ‒‒ SSPM Dataset: borealis ‒‒</span>
 <span class="co">#&gt; →  Data (MAPPED)     : [1025 observations, 21 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
 <span class="co">#&gt; →  Time col.         : year_f</span>
@@ -278,7 +278,7 @@
 
 <span class="va">predator_smooth</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Dataset: all_predators (predictor) ‒‒</span>
+<span class="co">#&gt; ‒‒ SSPM Dataset: all_predators ‒‒</span>
 <span class="co">#&gt; →  Data (MAPPED)     : [1964 observations, 18 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
 <span class="co">#&gt; →  Time col.         : year</span>
@@ -294,14 +294,14 @@
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">catch_dataset</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="reference/spm_as_dataset.html">spm_as_dataset</a></span><span class="op">(</span><span class="va">catch</span>, name <span class="op">=</span> <span class="st">"catch_data"</span>, 
-                 type <span class="op">=</span> <span class="st">"catch"</span>, time_column <span class="op">=</span> <span class="st">"year_f"</span>, 
+                 time_column <span class="op">=</span> <span class="st">"year_f"</span>, 
                  uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"lon_start"</span>, <span class="st">"lat_start"</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; ℹ  Casting data matrix into simple feature collection using columns: lon_start, lat_start</span>
 <span class="co">#&gt; !  Warning: sspm is assuming WGS 84 CRS is to be used for casting</span>
 
 <span class="va">catch_dataset</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Dataset: catch_data (catch) ‒‒</span>
+<span class="co">#&gt; ‒‒ SSPM Dataset: catch_data ‒‒</span>
 <span class="co">#&gt; →  Data              : [88579 observations, 8 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
 <span class="co">#&gt; →  Time col.         : year_f</span>
@@ -319,7 +319,7 @@
 <span class="co">#&gt; ℹ  Offsetting biomass with catch data using columns: weight_per_km2_smooth, catch</span>
 <span class="va">biomass_smooth_w_catch</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Dataset: borealis (biomass) ‒‒</span>
+<span class="co">#&gt; ‒‒ SSPM Dataset: borealis ‒‒</span>
 <span class="co">#&gt; →  Data (MAPPED)     : [1025 observations, 21 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
 <span class="co">#&gt; →  Time col.         : year_f</span>
@@ -332,7 +332,7 @@
 <span class="co">#&gt;    ٭ smoothed vars: temp_at_bottom_smooth — weight_per_km2_smooth</span>
 <span class="co">#&gt;    ٭ vars with catch: weight_per_km2_smooth_borealis_with_catch — weight_per_km2_smooth_borealis_with_catch_change</span></code></pre></div>
 <ol>
-<li>Once data has been smoothed, we can assemble a <code>sspm</code> model object, using one dataset of type biomass, one dataset of type predictor and (optionnaly) a dataset of type catch. If we want to use a</li>
+<li>Once data has been smoothed, we can assemble a <code>sspm</code> model object, using one dataset of type biomass, one dataset of type predictor and (optionnaly) a dataset of type catch.</li>
 </ol>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sspm.html">sspm</a></span><span class="op">(</span>biomass <span class="op">=</span> <span class="va">biomass_smooth_w_catch</span>, 
