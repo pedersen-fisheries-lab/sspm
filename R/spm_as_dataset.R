@@ -119,15 +119,54 @@ setMethod(f = "spm_as_dataset",
           signature(data = "sf", coords = "ANY"),
           function(data, name, type, time_column, uniqueID, coords, crs) {
 
-            # TODO CRS checks
+            # Test if point
+            if (sum(sf::st_is(data, "POINT")) >= 1) {
 
-            the_sspm_dataset <- new("sspm_dataset",
-                                 name = name,
-                                 type = type,
-                                 data = data,
-                                 time_column = time_column,
-                                 uniqueID = uniqueID,
-                                 coords = coords)
+              the_sspm_dataset <- new("sspm_dataset",
+                                      name = name,
+                                      type = type,
+                                      data = data,
+                                      time_column = time_column,
+                                      uniqueID = uniqueID,
+                                      coords = coords)
+
+            } else if(sum(sf::st_is(data, "POLYGON")) >= 1) {
+
+              browser()
+
+              # Create boundaries, create patch id
+              patches <- data %>%
+                dplyr::select("geometry") %>%
+                dplyr::distinct() %>%
+                dplyr::mutate(patch_id = paste0("P", 1:dplyr::n()))
+
+              boundary_data <- patches %>%
+                sf::st_union() %>%
+                sf::st_as_sf() %>%
+                dplyr::mutate(boundary_col = "B1") %>%
+                dplyr::rename(geometry = .data$x)
+
+              boundaries <- spm_as_boundary(boundaries = boundary_data,
+                                            boundary_column = "boundary_col",
+                                            discrete = TRUE,
+                                            patches = patches,
+                                            points = NULL)
+
+              the_sspm_dataset <- new("sspm_dataset",
+                                      name = name,
+                                      type = type,
+                                      data = data,
+                                      time_column = time_column,
+                                      uniqueID = uniqueID,
+                                      coords = coords,
+                                      is_mapped = TRUE,
+                                      boundaries = boundaries)
+
+            } else {
+
+              stop("sf object must be of type POINT or POLYGON to be sspm datasets")
+
+            }
 
             return(the_sspm_dataset)
           }

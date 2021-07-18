@@ -7,13 +7,35 @@
 \alias{spm_as_boundary,sf,character,character-method}
 \title{Create a sspm_boundary object}
 \usage{
-spm_as_boundary(boundaries, boundary_column, surface_column)
+spm_as_boundary(
+  boundaries,
+  boundary_column,
+  surface_column,
+  discrete = FALSE,
+  patches = NULL,
+  points = NULL,
+  ...
+)
 
-\S4method{spm_as_boundary}{sf,`NULL`,ANY}(boundaries, boundary_column, surface_column)
+\S4method{spm_as_boundary}{sf,`NULL`,ANY}(boundaries, boundary_column, surface_column, discrete)
 
-\S4method{spm_as_boundary}{sf,character,missing}(boundaries, boundary_column, surface_column)
+\S4method{spm_as_boundary}{sf,character,missing}(
+  boundaries,
+  boundary_column,
+  surface_column,
+  discrete,
+  patches,
+  points
+)
 
-\S4method{spm_as_boundary}{sf,character,character}(boundaries, boundary_column, surface_column)
+\S4method{spm_as_boundary}{sf,character,character}(
+  boundaries,
+  boundary_column,
+  surface_column,
+  discrete,
+  patches,
+  points
+)
 }
 \arguments{
 \item{boundaries}{\strong{[sf]} The sf object to cast.}
@@ -23,6 +45,18 @@ subdivisions of the boundaries.}
 
 \item{surface_column}{\strong{[character]} The column that contains the surface
 of the subdivisions (optional).}
+
+\item{discrete}{\strong{[logical]} Whether to cast a discrete boundary, default
+to \code{FALSE}.}
+
+\item{patches}{\strong{[sf]} Patches resulting from discretization.}
+
+\item{points}{\strong{[sf]} Sample points used for discretization.}
+
+\item{...}{further args passed onto methods}
+}
+\value{
+An object of class \link{sspm_boundary} or \link{sspm_discrete_boundary}.
 }
 \description{
 Create a sspm_boundary object.

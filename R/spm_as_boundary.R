@@ -7,12 +7,24 @@
 #'   subdivisions of the boundaries.
 #' @param surface_column **\[character\]** The column that contains the surface
 #'   of the subdivisions (optional).
+#' @param discrete **\[logical\]** Whether to cast a discrete boundary, default
+#'   to `FALSE`.
+#' @param ... further args passed onto methods
+#' @param patches **\[sf\]** Patches resulting from discretization.
+#' @param points **\[sf\]** Sample points used for discretization.
+#'
+#' @return
+#' An object of class [sspm_boundary] or [sspm_discrete_boundary].
 #'
 #' @export
 setGeneric(name = "spm_as_boundary",
            def = function(boundaries,
                           boundary_column,
-                          surface_column) {
+                          surface_column,
+                          discrete = FALSE,
+                          patches = NULL,
+                          points = NULL,
+                          ...) {
              standardGeneric("spm_as_boundary")
            }
 )
@@ -25,7 +37,7 @@ setMethod(f = "spm_as_boundary",
           signature(boundaries = "sf",
                     boundary_column = "NULL",
                     surface_column = "ANY"),
-          function(boundaries, boundary_column, surface_column) {
+          function(boundaries, boundary_column, surface_column, discrete) {
             stop("`boundary_column` cannot be NULL",
                  call. = FALSE)
           }
@@ -37,7 +49,8 @@ setMethod(f = "spm_as_boundary",
           signature(boundaries = "sf",
                     boundary_column = "character",
                     surface_column = "missing"),
-          function(boundaries, boundary_column, surface_column) {
+          function(boundaries, boundary_column, surface_column, discrete,
+                   patches, points) {
 
             boundaries <- boundaries %>%
               dplyr::mutate(area = sf::st_area(boundaries))
@@ -48,7 +61,10 @@ setMethod(f = "spm_as_boundary",
 
             spm_as_boundary(boundaries = boundaries,
                             boundary_column = boundary_column,
-                            surface_column = surface_column)
+                            surface_column = surface_column,
+                            discrete = discrete ,
+                            patches = patches,
+                            points = points)
 
           }
 )
@@ -59,22 +75,38 @@ setMethod(f = "spm_as_boundary",
           signature(boundaries = "sf",
                     boundary_column = "character",
                     surface_column = "character"),
-          function(boundaries, boundary_column, surface_column) {
+          function(boundaries, boundary_column, surface_column, discrete,
+                   patches, points) {
 
-            if (!checkmate::test_subset(boundary_column, names(boundaries))) {
-              stop("`boundary_column` must be a column of `boundaries`",
-                   call. = FALSE)
+              if (!checkmate::test_subset(boundary_column, names(boundaries))) {
+                stop("`boundary_column` must be a column of `boundaries`",
+                     call. = FALSE)
+              }
+
+              if (!checkmate::test_subset(surface_column, names(boundaries))) {
+                stop("`surface_column` must be a column of `boundaries`",
+                     call. = FALSE)
+              }
+
+            if (!discrete) {
+
+              boundary_object <- new("sspm_boundary",
+                                     boundaries = boundaries,
+                                     boundary_column = boundary_column,
+                                     surface_column = surface_column)
+
+            } else {
+
+              boundary_object <-
+                new("sspm_discrete_boundary",
+                    boundaries = boundaries,
+                    boundary_column = boundary_column,
+                    surface_column = surface_column,
+                    method = as_discretization_method(method = I),
+                    patches = patches,
+                    points = points)
+
             }
-
-            if (!checkmate::test_subset(surface_column, names(boundaries))) {
-              stop("`surface_column` must be a column of `boundaries`",
-                   call. = FALSE)
-            }
-
-            boundary_object <- new("sspm_boundary",
-                                   boundaries = boundaries,
-                                   boundary_column = boundary_column,
-                                   surface_column = surface_column)
 
             return(boundary_object)
 
