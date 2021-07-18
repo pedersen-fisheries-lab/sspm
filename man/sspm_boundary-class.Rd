@@ -31,7 +31,7 @@ area of spatial boundaries.}
 \item{\code{patches}}{\strong{[sf]} \emph{(if discrete)} Patches resulting from
 discretization.}
 
-\item{\code{points}}{\strong{[sf]} \emph{(if discrete)} Sample points used for
+\item{\code{points}}{\strong{[sf or NULL]} \emph{(if discrete)} Sample points used for
 discretization.}
 }}
 

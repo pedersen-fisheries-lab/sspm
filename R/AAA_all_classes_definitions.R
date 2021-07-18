@@ -51,7 +51,7 @@ setClass("discretization_method",
 #'     *(if discrete)* discretization method used.
 #' @slot patches **\[sf\]** *(if discrete)* Patches resulting from
 #'     discretization.
-#' @slot points **\[sf\]** *(if discrete)* Sample points used for
+#' @slot points **\[sf or NULL\]** *(if discrete)* Sample points used for
 #'     discretization.
 #'
 #' @name sspm_boundary-class
@@ -67,7 +67,7 @@ setClass("sspm_boundary",
 setClass("sspm_discrete_boundary",
          slots = list(method = "discretization_method",
                       patches = "sf",
-                      points = "sf"),
+                      points = "ANY"),
          contains = "sspm_boundary"
 )
 
