@@ -120,7 +120,7 @@ setMethod(f = "spm_as_dataset",
           function(data, name, type, time_column, uniqueID, coords, crs) {
 
             # Test if point
-            if (sum(sf::st_is(data, "POINT")) >= 1) {
+            if (any(sf::st_is(data, "POINT"))) {
 
               the_sspm_dataset <- new("sspm_dataset",
                                       name = name,
@@ -130,7 +130,7 @@ setMethod(f = "spm_as_dataset",
                                       uniqueID = uniqueID,
                                       coords = coords)
 
-            } else if(sum(sf::st_is(data, "POLYGON")) >= 1) {
+            } else if(any(sf::st_is(data, "POLYGON"))) {
 
               browser()
 
