@@ -20,7 +20,7 @@
 #'
 #' @export
 setGeneric(name = "spm_as_dataset",
-           def = function(data, name, type, time_column, uniqueID, coords, crs = NULL) {
+           def = function(data, name, type, time_column, uniqueID, coords = NULL, crs = NULL) {
 
              if (!checkmate::test_subset(uniqueID, names(data))) {
                stop("`uniqueID` must be a column of `data`", call. = FALSE)
