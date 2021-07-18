@@ -101,12 +101,12 @@ setMethod(f = "spm_as_dataset",
                                      remove = FALSE)
 
             the_sspm_dataset <- new("sspm_dataset",
-                                 name = name,
-                                 type = type,
-                                 data = new_data,
-                                 time_column = time_column,
-                                 uniqueID = uniqueID,
-                                 coords = coords)
+                                    name = name,
+                                    type = type,
+                                    data = new_data,
+                                    time_column = time_column,
+                                    uniqueID = uniqueID,
+                                    coords = coords)
 
             return(the_sspm_dataset)
           }
