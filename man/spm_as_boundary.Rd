@@ -56,7 +56,8 @@ to \code{FALSE}.}
 \item{...}{further args passed onto methods}
 }
 \value{
-An object of class \link{sspm_boundary} or \link{sspm_discrete_boundary}.
+An object of class \link[=sspm_boundary-class]{sspm_boundary} or
+\link[=sspm_discrete_boundary-class]{sspm_discrete_boundary}.
 }
 \description{
 Create a sspm_boundary object.

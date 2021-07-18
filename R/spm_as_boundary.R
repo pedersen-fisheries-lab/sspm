@@ -14,7 +14,8 @@
 #' @param points **\[sf\]** Sample points used for discretization.
 #'
 #' @return
-#' An object of class [sspm_boundary] or [sspm_discrete_boundary].
+#' An object of class [sspm_boundary][sspm_boundary-class] or
+#' [sspm_discrete_boundary][sspm_discrete_boundary-class].
 #'
 #' @export
 setGeneric(name = "spm_as_boundary",
