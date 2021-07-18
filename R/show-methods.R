@@ -27,9 +27,13 @@ setMethod("show",
           "sspm_discrete_boundary",
           function(object) {
             cli::cat_line()
-            custom_h1(paste0("SSPM Boundary ", cli::col_green("(Discrete)")))
+            if (!is.null(dim(object@boundaries))) {
+              custom_h1(paste0("SSPM Boundary ", cli::col_green("(Discrete)")))
+            }
             cat_boundaries(object, column = TRUE)
-            cat_discretization_info(object)
+            if (!is.null(dim(object@boundaries))) {
+              cat_discretization_info(object)
+            }
             cli::cat_line()
           }
 )
@@ -112,8 +116,15 @@ setMethod("show",
 
 cat_boundaries <- function(object, column = TRUE) {
 
+  print_not_init <- FALSE
+
   if (checkmate::test_class(object, "sspm_boundary")) {
-    ok_to_print <- TRUE
+    if (!is.null(dim(object@boundaries))) {
+      ok_to_print <- TRUE
+    } else {
+      ok_to_print <- FALSE
+      print_not_init <- TRUE
+    }
   } else if (checkmate::test_class(object, "sspm_dataset")) {
     if (!is.null(dim(object@boundaries@boundaries))) {
       ok_to_print <- TRUE
@@ -124,7 +135,9 @@ cat_boundaries <- function(object, column = TRUE) {
     ok_to_print <- FALSE
   }
 
-  if (ok_to_print) {
+  if (print_not_init){
+    cli::cli_alert_info(" Boundaries not initialized")
+  } else if (ok_to_print) {
     if (column) {
       cli::cat_bullet(" Boundaries    : ",
                       pluralize_data_info(object@boundaries),
