@@ -140,7 +140,7 @@ triangulate_delaunay <- function(boundaries,
     delaunay_mesh <- delaunay_mesh %>% dplyr::select(-"npoints")
   }
 
-  delaunay_mesh <- delaunay_mesh %>%
+  delaunay_mesh <- suppressAll(delaunay_mesh %>%
     sf::st_collection_extract() %>%
     sf::st_make_valid() %>%
     sf::st_cast("POLYGON") %>%
@@ -150,7 +150,7 @@ triangulate_delaunay <- function(boundaries,
     sf::st_make_valid() %>%
     st_cast("POLYGON") %>%
     sf::st_make_valid() %>%
-    dplyr::mutate(patch_id = paste0("P", 1:dplyr::n()))
+    dplyr::mutate(patch_id = paste0("P", 1:dplyr::n())))
 
   # voronoi <-
   #   suppressAll(voronoi %>%
