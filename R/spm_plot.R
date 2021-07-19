@@ -39,13 +39,16 @@ setMethod("spm_plot",
               sspm_discrete_plot <- ggplot2::ggplot() +
                 ggplot2::geom_sf(data = patches,
                                  fill = NA, col = "#36454F") +
-                ggplot2::geom_sf(data = points,
-                                 col = "#6082B6") +
                 ggplot2::geom_sf(data = boundaries,
                                  ggplot2::aes(col = .data[[boundary_column]]),
                                  fill = NA) +
                 ggplot2::scale_color_viridis_d(boundary_column) +
                 ggplot2::theme_light()
+
+              if(!is.null(points)){
+                sspm_discrete_plot <- sspm_discrete_plot +
+                  ggplot2::geom_sf(data = points, col = "#6082B6")
+              }
 
             } else if (checkmate::test_class(sspm_object, "sspm_boundary")) {
 
