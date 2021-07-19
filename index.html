@@ -162,7 +162,7 @@
 <span class="co">#&gt; →  Time col.         : year</span>
 <span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span></code></pre></div>
 <ol>
-<li>The <code>sspm</code> workflow relies on the discretization of the boundary objects, the default method being voronoi tesselation (only one method available currently, but see in the future see <code>?spm_methods()</code> for the list of methods available).</li>
+<li>The <code>sspm</code> workflow relies on the discretization of the boundary objects, the default method being voronoi tesselation.</li>
 </ol>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bounds_voronoi</span> <span class="op">&lt;-</span> <span class="va">bounds</span> <span class="op">%&gt;%</span> 
@@ -180,16 +180,24 @@
 <span class="co">#&gt; →  Discretized   : </span>
 <span class="co">#&gt;    ٭ Points — [40 features, 20 variables]</span>
 <span class="co">#&gt;    ٭ Patches — [38 features, 4 variables]</span></code></pre></div>
+<p>The other available method is <code>triangulate_delaunay</code> for delaunay triangulation. Here the <code>a</code> argument is used to set the size of the mesh (see <code><a href="https://rdrr.io/pkg/RTriangle/man/triangulate.html">RTriangle::triangulate</a></code> for more details).</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">bounds_delaunay</span> <span class="op">&lt;-</span> <span class="va">bounds</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="reference/spm_discretize.html">spm_discretize</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"triangulate_delaunay"</span>, a <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
+<span class="co">#&gt; ℹ  Discretizing using method triangulate_delaunay</span></code></pre></div>
 <ol>
 <li>Plotting the object shows the polygons that have been created.</li>
 </ol>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/spm_plot.html">spm_plot</a></span><span class="op">(</span><span class="va">bounds_voronoi</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-7-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%"></p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/spm_plot.html">spm_plot</a></span><span class="op">(</span><span class="va">bounds_delaunay</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%"></p>
 <ol>
 <li>The results of the discretization can also be explored with <code><a href="reference/spm_boundaries,sspm_boundary-method.html">spm_patches()</a></code> and <code><a href="reference/spm_boundaries,sspm_boundary-method.html">spm_points()</a></code>.</li>
 </ol>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/spm_boundaries,sspm_boundary-method.html">spm_patches</a></span><span class="op">(</span><span class="va">bounds_voronoi</span><span class="op">)</span>
 <span class="co">#&gt; Simple feature collection with 38 features and 3 fields</span>
 <span class="co">#&gt; Geometry type: GEOMETRY</span>
@@ -237,7 +245,7 @@
 <ol>
 <li>The next step in this workflow is to smooth the variables to be used in the final <code>sspm</code> model, by using spatial-temporal smoothers, by passing each dataset through <code>spm_smooth</code>. Here we first smooth <code>weight_per_km2</code> as well as <code>temp_at_bottom</code>. Note that the boundary column <code>sfa</code> can be used in the formula as the data will be first joined to the provided boundaries.</li>
 </ol>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">biomass_smooth</span> <span class="op">&lt;-</span> <span class="va">biomass_dataset</span> <span class="op">%&gt;%</span>  
   <span class="fu"><a href="reference/spm_smooth.html">spm_smooth</a></span><span class="op">(</span><span class="va">weight_per_km2</span> <span class="op">~</span> <span class="va">sfa</span> <span class="op">+</span> <span class="fu"><a href="reference/smooth_time.html">smooth_time</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/smooth_time.html">smooth_space</a></span><span class="op">(</span><span class="op">)</span>,
              boundaries <span class="op">=</span> <span class="va">bounds_voronoi</span>,
@@ -263,13 +271,13 @@
 <ol>
 <li>The smoothed results for any smoothed variables (listed in “smoothed vars” above) can be easily plotted:</li>
 </ol>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/spm_plot.html">spm_plot</a></span><span class="op">(</span><span class="va">biomass_smooth</span>, <span class="st">"weight_per_km2_smooth"</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-12-1.png" width="100%"></p>
 <ol>
 <li>We also smooth the <code>weight_per_km2</code> variable in the predator data.</li>
 </ol>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">predator_smooth</span> <span class="op">&lt;-</span> <span class="va">predator_dataset</span> <span class="op">%&gt;%</span>  
   <span class="fu"><a href="reference/spm_smooth.html">spm_smooth</a></span><span class="op">(</span><span class="va">weight_per_km2</span> <span class="op">~</span> <span class="fu"><a href="reference/smooth_time.html">smooth_time</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="reference/smooth_time.html">smooth_space</a></span><span class="op">(</span><span class="op">)</span>,
              boundaries <span class="op">=</span> <span class="va">bounds_voronoi</span>,
@@ -291,7 +299,7 @@
 <ol>
 <li>Before we assemble the full model with our newly smoothed data, we need to deal with the catch data. We first load the dataset.</li>
 </ol>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">catch_dataset</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="reference/spm_as_dataset.html">spm_as_dataset</a></span><span class="op">(</span><span class="va">catch</span>, name <span class="op">=</span> <span class="st">"catch_data"</span>, 
                  time_column <span class="op">=</span> <span class="st">"year_f"</span>, 
@@ -309,7 +317,7 @@
 <ol>
 <li>We then need to aggregate this data. This illustrate using the <code>spm_aggregate</code> functions. Here we use <code>spm_aggregate_catch</code>:</li>
 </ol>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">biomass_smooth_w_catch</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="reference/spm_aggregate_catch.html">spm_aggregate_catch</a></span><span class="op">(</span>biomass <span class="op">=</span> <span class="va">biomass_smooth</span>, 
                       catch <span class="op">=</span> <span class="va">catch_dataset</span>, 
@@ -334,7 +342,7 @@
 <ol>
 <li>Once data has been smoothed, we can assemble a <code>sspm</code> model object, using one dataset of type biomass, one dataset of type predictor and (optionnaly) a dataset of type catch.</li>
 </ol>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_model</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sspm.html">sspm</a></span><span class="op">(</span>biomass <span class="op">=</span> <span class="va">biomass_smooth_w_catch</span>, 
                    predictors <span class="op">=</span> <span class="va">predator_smooth</span><span class="op">)</span>
 <span class="co">#&gt; ℹ  Joining smoothed data from all datasets</span>
@@ -348,7 +356,7 @@
 <ol>
 <li>Before fitting the model, we must split data into test/train with <code>spm_split</code>.</li>
 </ol>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_model</span> <span class="op">&lt;-</span> <span class="va">sspm_model</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="reference/spm_split.html">spm_split</a></span><span class="op">(</span><span class="va">year_f</span> <span class="op">%in%</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1990</span><span class="op">:</span><span class="fl">2017</span><span class="op">)</span><span class="op">)</span>
 
@@ -361,7 +369,7 @@
 <ol>
 <li>To fit the model, we might be interested in including lagged values. This is done with <code>spm_lag</code>.</li>
 </ol>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_model</span> <span class="op">&lt;-</span> <span class="va">sspm_model</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="reference/spm_lag.html">spm_lag</a></span><span class="op">(</span>vars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"weight_per_km2_smooth_borealis_with_catch"</span>, 
                    <span class="st">"weight_per_km2_smooth_all_predators"</span><span class="op">)</span>, 
@@ -377,7 +385,7 @@
 <ol>
 <li>We can now fit the final spm model with <code>spm</code>.</li>
 </ol>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sspm_model_fit</span> <span class="op">&lt;-</span> <span class="va">sspm_model</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="reference/spm.html">spm</a></span><span class="op">(</span><span class="va">weight_per_km2_smooth_borealis_with_catch</span> <span class="op">~</span> 
         <span class="va">weight_per_km2_smooth_borealis_with_catch_lag_1</span> <span class="op">+</span>
@@ -425,9 +433,9 @@
 <ol>
 <li>Plotting the object produces a actual vs predicted plot (with TEST/TRAIN data highlighted.</li>
 </ol>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/spm_plot.html">spm_plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-18-1.png" width="100%"></p>
+<p><img src="reference/figures/README-unnamed-chunk-20-1.png" width="100%"></p>
 </div>
 </div>
   </div>
