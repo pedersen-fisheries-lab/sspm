@@ -142,10 +142,12 @@ triangulate_delaunay <- function(boundaries,
 
   delaunay_mesh <- delaunay_mesh %>%
     sf::st_collection_extract() %>%
+    sf::st_make_valid() %>%
     sf::st_cast("POLYGON") %>%
     sf::st_join(boundaries, largest = TRUE) %>%
     sf::st_intersection(
       sf::st_union(boundaries)) %>%
+    sf::st_make_valid() %>%
     st_cast("POLYGON") %>%
     sf::st_make_valid() %>%
     dplyr::mutate(patch_id = paste0("P", 1:dplyr::n()))
