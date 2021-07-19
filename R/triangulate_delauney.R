@@ -202,9 +202,14 @@ triangulate_delaunay <- function(boundaries,
                   patch_id = factor(paste("V", 1:dplyr::n(), sep = "")))
 
   # Core function must return a list of "patches" and "points"
+
+  if (any(c(sample_surface, sample_points))) {
+    points <- delaunay_base
+  } else {
+    points = NULL
+  }
+
   return(list(patches = delaunay_mesh,
-              points = ifelse(any(c(sample_surface,
-                                    sample_points)),
-                              delaunay_base, NULL)))
+              points = points))
 
 }
