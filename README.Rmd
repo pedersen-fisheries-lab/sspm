@@ -89,7 +89,7 @@ predator_dataset <-
 predator_dataset
 ```
 
-4. The `sspm` workflow relies on the discretization of the boundary objects, the default method being voronoi tesselation (only one method available currently, but see in the future see `?spm_methods()` for the list of methods available).
+4. The `sspm` workflow relies on the discretization of the boundary objects, the default method being voronoi tesselation.
 
 ```{r}
 bounds_voronoi <- bounds %>% 
@@ -100,10 +100,21 @@ bounds_voronoi <- bounds %>%
 bounds_voronoi
 ```
 
+The other available method is `triangulate_delaunay` for delaunay triangulation. Here the `a` argument is used to set the size of the mesh (see `RTriangle::triangulate` for more details).
+
+```{r}
+bounds_delaunay <- bounds %>% 
+  spm_discretize(method = "triangulate_delaunay", a = 5)
+```
+
 5. Plotting the object shows the polygons that have been created.
 
 ```{r}
 spm_plot(bounds_voronoi)
+```
+
+```{r}
+spm_plot(bounds_delaunay)
 ```
 
 6. The results of the discretization can also be explored with `spm_patches()` and `spm_points()`.

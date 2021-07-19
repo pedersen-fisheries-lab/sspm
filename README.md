@@ -122,9 +122,7 @@ predator_dataset
 ```
 
 4.  The `sspm` workflow relies on the discretization of the boundary
-    objects, the default method being voronoi tesselation (only one
-    method available currently, but see in the future see
-    `?spm_methods()` for the list of methods available).
+    objects, the default method being voronoi tesselation.
 
 ``` r
 bounds_voronoi <- bounds %>% 
@@ -144,13 +142,29 @@ bounds_voronoi
 #>    ٭ Patches — [38 features, 4 variables]
 ```
 
+The other available method is `triangulate_delaunay` for delaunay
+triangulation. Here the `a` argument is used to set the size of the mesh
+(see `RTriangle::triangulate` for more details).
+
+``` r
+bounds_delaunay <- bounds %>% 
+  spm_discretize(method = "triangulate_delaunay", a = 5)
+#> ℹ  Discretizing using method triangulate_delaunay
+```
+
 5.  Plotting the object shows the polygons that have been created.
 
 ``` r
 spm_plot(bounds_voronoi)
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-8-1.png" width="100%" />
+
+``` r
+spm_plot(bounds_delaunay)
+```
+
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
 6.  The results of the discretization can also be explored with
     `spm_patches()` and `spm_points()`.
@@ -241,7 +255,7 @@ biomass_smooth
 spm_plot(biomass_smooth, "weight_per_km2_smooth")
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" />
 
 9.  We also smooth the `weight_per_km2` variable in the predator data.
 
@@ -419,4 +433,4 @@ sspm_model_fit
 spm_plot(sspm_model_fit)
 ```
 
-<img src="man/figures/README-unnamed-chunk-18-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-20-1.png" width="100%" />
