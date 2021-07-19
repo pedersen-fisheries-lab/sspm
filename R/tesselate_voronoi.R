@@ -44,7 +44,7 @@ tesselate_voronoi <- function(boundaries,
   # TODO to be discussed
   # 1. NAFO division
 
-  # Prep --------------------------------------------------------------------
+  # 1. Prep -----------------------------------------------------------------
 
   # Check main params
   if (is.null(boundaries)) {
@@ -53,6 +53,7 @@ tesselate_voronoi <- function(boundaries,
     checkmate::assert_class(boundaries, "sf")
   }
 
+  checkmate::assert_logical(sample_surface)
   checkmate::assert_logical(sample_points)
   checkmate::assert_character(boundary_column)
 
@@ -68,14 +69,14 @@ tesselate_voronoi <- function(boundaries,
   unique_boundaries <- unique(boundaries[[boundary_column]])
   if (length(nb_samples) == 1){
     nb_samples <- rep(nb_samples, length(unique_boundaries))
-    names(nb_samples) = unique_boundaries
+    names(nb_samples) <- unique_boundaries
   } else {
     if(any(!(names(nb_samples) %in% unique_boundaries))){
       stop("nb_samples incorrectly named")
     }
   }
 
-  # Body --------------------------------------------------------------------
+  # 2. Sample points, if need be --------------------------------------------
 
   # Make sure seed options are set correctly
   if (getRversion() >= 3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))
@@ -118,7 +119,8 @@ tesselate_voronoi <- function(boundaries,
 
   }
 
-  # 3. Create the polygons
+  # 3. Create patches -------------------------------------------------------
+
   if(stratify){
 
     envelopes <- boundaries_split %>%
@@ -168,7 +170,8 @@ tesselate_voronoi <- function(boundaries,
                               area = units::set_units(.data$area,
                                                       value = "km^2")))
 
-  # 4. Merge small polygons
+  # 4. Merge small polygons -------------------------------------------------
+
   # TODO the removal of small polygons has not been stratified
 
   small_voronoi <- voronoi$patch_id[which(voronoi$area <
@@ -186,9 +189,8 @@ tesselate_voronoi <- function(boundaries,
     voronoi$patch_id[voronoi$patch_id == i] <- max_id
   }
 
-  # -------------------------------------------------------------------------
+  # 5. Summarise and re - calculate area ------------------------------------
 
-  # Summarise and calculate area
   voronoi <-
     suppressWarnings(
       suppressMessages(
