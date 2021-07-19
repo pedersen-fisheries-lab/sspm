@@ -33,12 +33,13 @@ Imports:
     tidyr,
     dplyr,
     purrr,
-    rlang, 
-    ggplot2, 
-    ggforce
+    rlang
 Suggests: 
     testthat (>= 3.0.0),
     covr,
+    ggplot2,
+    ggforce,
     lwgeom,
-    tweedie
+    tweedie,
+    sfdct
 Config/testthat/edition: 3

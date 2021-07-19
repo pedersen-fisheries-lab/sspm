@@ -13,7 +13,7 @@
 #'
 #' @export
 spm_methods <- function() {
-  choices <- c('tesselate_voronoi')
+  choices <- c('tesselate_voronoi', 'triangulate_delaunay')
   return(choices)
 }
 
@@ -69,6 +69,8 @@ dispatch_method <- function(discretization_method) {
 
   if (discretization_method == "tesselate_voronoi") {
     return(tesselate_voronoi)
+  } else if (discretization_method == "triangulate_delaunay") {
+    return(triangulate_delaunay)
   } else {
     cli::cli_alert_danger(paste0("Method '", discretization_method,
                                  "' is not part of the supported methods."))
