@@ -3,9 +3,7 @@
 \name{spm_name}
 \alias{spm_name}
 \alias{spm_}
-\alias{spm_name,sspm-method}
 \alias{spm_name<-}
-\alias{spm_name<-,sspm-method}
 \alias{spm_datasets}
 \alias{spm_datasets,sspm-method}
 \alias{spm_datasets<-}
@@ -36,11 +34,7 @@
 \usage{
 spm_name(sspm_object)
 
-\S4method{spm_name}{sspm}(sspm_object)
-
 spm_name(object) <- value
-
-\S4method{spm_name}{sspm}(object) <- value
 
 spm_datasets(sspm_object)
 

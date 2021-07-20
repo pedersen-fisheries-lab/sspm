@@ -19,29 +19,12 @@ setGeneric(name = "spm_name",
            def = function(sspm_object) standardGeneric("spm_name")
 )
 
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_name", signature("sspm_object" = "sspm"),
-          function(sspm_object) sspm_object@name
-)
-
 # Replacers ---------------------------------------------------------------
 
 #' @rdname sspm-accessors-methods
 #' @export
 setGeneric(name = "spm_name<-",
            def = function(object, value) standardGeneric("spm_name<-")
-)
-
-#' @rdname sspm-accessors-methods
-#' @export
-setMethod("spm_name<-",
-          signature("object" = "sspm"),
-          function(object, value) {
-            object@name <- value
-            validObject(object)
-            return(object)
-          }
 )
 
 # Datasets ----------------------------------------------------------------
