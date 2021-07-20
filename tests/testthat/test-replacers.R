@@ -4,11 +4,6 @@ test_that("Replacers work as expected", {
 
   # SSPM
 
-  expect_match({
-    spm_name(discret_method) <- "New_Name"
-    spm_name(discret_method)
-  }, "New_Name")
-
   expect_class({
     spm_boundaries(sspm_model) <- boundary_discrete
     spm_boundaries(sspm_model)
@@ -20,6 +15,11 @@ test_that("Replacers work as expected", {
   }, "list")
 
   # Method
+
+  expect_match({
+    spm_name(discret_method) <- "New_Name"
+    spm_name(discret_method)
+  }, "New_Name")
 
   expect_function({
     method_func(discret_method) <- rnorm
@@ -41,11 +41,16 @@ test_that("Replacers work as expected", {
     names(formula_vars(sspm_formula))
   }, identical.to = c("a", "b"))
 
-  # Data
+  # Dataset
 
   expect_data_frame({
     spm_data(biomass_dataset) <- mtcars
     spm_data(biomass_dataset)
+  })
+
+  expect_data_frame({
+    spm_smoothed_data(biomass_dataset) <- mtcars
+    spm_smoothed_data(biomass_dataset)
   })
 
   expect_match({
