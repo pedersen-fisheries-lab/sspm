@@ -14,6 +14,11 @@ test_that("Replacers work as expected", {
     spm_datasets(sspm_model)
   }, "list")
 
+  expect_equal({
+    spm_time_column(sspm_model) <- "time_col"
+    spm_time_column(sspm_model)
+  }, "time_col")
+
   # Method
 
   expect_match({
