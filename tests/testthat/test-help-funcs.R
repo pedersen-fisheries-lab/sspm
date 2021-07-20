@@ -8,7 +8,7 @@ test_that("Methods choices are retrieved", {
 
   choices <- spm_methods()
   expect_character(choices)
-  expect_names(choices, identical.to = "tesselate_voronoi")
+  expect_names(choices, identical.to = c("tesselate_voronoi", "triangulate_delaunay"))
 
   smooth_choices <- spm_smooth_methods()
   expect_character(smooth_choices)
@@ -90,7 +90,7 @@ test_that("Residuals are correctly retrieved", {
 
 test_that("Methods are correctly returned", {
   expect_class({spm_methods()}, "character")
-  expect_length({spm_methods()}, 1)
+  expect_length({spm_methods()}, 2)
 })
 
 test_that("Functons for methods are correctly dispatched", {
