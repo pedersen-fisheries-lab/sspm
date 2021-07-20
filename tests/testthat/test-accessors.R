@@ -49,6 +49,11 @@ test_that("Accessors work as expected on `sspm_dataset` (smoothed or not)", {
   expect_null(spm_smoothed_data(biomass_dataset))
   expect_data_frame(spm_smoothed_data(biomass_dataset_smoothed))
 
+  expect_list(spm_smoothed_fit(biomass_dataset))
+  expect_length(spm_smoothed_fit(biomass_dataset), 0)
+  expect_list(spm_smoothed_fit(biomass_dataset_smoothed))
+  expect_length(spm_smoothed_fit(biomass_dataset_smoothed), 1)
+
   expect_length(spm_formulas(biomass_dataset), 0)
   expect_list(spm_formulas(biomass_dataset_smoothed))
   expect_length(spm_formulas(biomass_dataset_smoothed), 1)

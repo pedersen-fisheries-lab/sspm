@@ -78,7 +78,8 @@ biomass_dataset_smoothed <- new("sspm_dataset",
                                 coords = c('lon_dec', 'lat_dec'),
                                 formulas = list(sspm_formula),
                                 smoothed_data = borealis_spatial,
-                                smoothed_fit = list(),
+                                smoothed_fit = list(mgcv::gam(mtcars$mpg~mtcars$cyl,
+                                                              family = gaussian)),
                                 is_mapped = TRUE)
 
 predator_dataset_smoothed <- new("sspm_dataset",
@@ -90,7 +91,8 @@ predator_dataset_smoothed <- new("sspm_dataset",
                                  coords = c('lon_dec', 'lat_dec'),
                                  formulas = list(sspm_formula),
                                  smoothed_data = predator_spatial,
-                                 smoothed_fit = list(),
+                                 smoothed_fit = list(mgcv::gam(mtcars$mpg~mtcars$cyl,
+                                                               family = gaussian)),
                                  is_mapped = TRUE)
 # -------------------------------------------------------------------------
 

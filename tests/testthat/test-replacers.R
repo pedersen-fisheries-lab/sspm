@@ -132,4 +132,16 @@ test_that("Replacers work as expected", {
     spm_time_column(biomass_dataset)
   }, "new_time_column_2")
 
+  expect_equal({
+    gam_fit <- list(mgcv::gam(mtcars$mpg~mtcars$disp,
+                              family = gaussian))
+    spm_smoothed_fit(biomass_dataset_smoothed) <- gam_fit
+    spm_smoothed_fit(biomass_dataset_smoothed)
+  }, gam_fit)
+
+  expect_equal({
+    spm_formulas(biomass_dataset_smoothed) <- list(sspm_formula)
+    spm_formulas(biomass_dataset_smoothed)
+  }, list(sspm_formula))
+
 })
