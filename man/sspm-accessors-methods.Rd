@@ -16,8 +16,6 @@
 \alias{spm_smoothed_data,sspm-method}
 \alias{spm_smoothed_data<-}
 \alias{spm_smoothed_data<-,sspm-method}
-\alias{spm_formulas}
-\alias{spm_formulas<-}
 \alias{spm_time_column}
 \alias{spm_time_column,sspm-method}
 \alias{spm_time_column<-}
@@ -59,10 +57,6 @@ spm_smoothed_data(sspm_object)
 spm_smoothed_data(object) <- value
 
 \S4method{spm_smoothed_data}{sspm}(object) <- value
-
-spm_formulas(sspm_object)
-
-spm_formulas(object) <- value
 
 spm_time_column(sspm_object)
 
