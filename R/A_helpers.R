@@ -27,7 +27,7 @@ spm_methods <- function() {
 #'
 #' @export
 spm_smooth_methods <- function() {
-  choices <- c('ICAR')
+  choices <- c('ICAR', 'LINPRED')
   return(choices)
 }
 

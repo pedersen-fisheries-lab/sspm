@@ -12,17 +12,26 @@ test_that("Methods choices are retrieved", {
 
   smooth_choices <- spm_smooth_methods()
   expect_character(smooth_choices)
-  expect_names(smooth_choices, identical.to = "ICAR")
+  expect_names(smooth_choices, identical.to = c("ICAR", "LINPRED"))
+
+})
+
+test_that("Aggregation choices are retrieved", {
+
+  choices <- spm_aggregation_choices()
+  expect_equal(choices, c('space', 'time', 'spacetime'))
 
 })
 
 test_that("Methods are dispatched correctly", {
 
-  expect_function(dispatch_method("tesselate_voronoi"))
+  expect_equal(dispatch_method("tesselate_voronoi"), tesselate_voronoi)
+  expect_equal(dispatch_method("triangulate_delaunay"), triangulate_delaunay)
   expect_message(dispatch_method("method_not_supported"),
                  "Method 'method_not_supported' is not part of the supported methods.")
 
-  expect_function(dispatch_smooth("ICAR"))
+  expect_equal(dispatch_smooth("ICAR"), ICAR)
+  expect_equal(dispatch_smooth("LINPRED"), LINPRED)
   expect_message(dispatch_smooth("method_not_supported"),
                  "Smoothing method 'method_not_supported' is not part of the supported methods.")
 
@@ -95,4 +104,15 @@ test_that("Methods are correctly returned", {
 
 test_that("Functons for methods are correctly dispatched", {
   expect_class({sspm:::dispatch_method("tesselate_voronoi")}, "function")
+})
+
+test_that("Not discrete message works", {
+  expect_message(message_not_discrete(biomass_dataset),
+                 "Model object 'Biomass' is not a discrete model")
+})
+
+test_that("Multilag works", {
+  expect_equal(multilag(c(1:5), 2),
+               data.frame(lag1 = c(NA, 1, 2, 3, 4),
+                          lag2 = c(NA, NA, 1, 2, 3)))
 })
