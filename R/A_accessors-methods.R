@@ -99,7 +99,6 @@ setMethod("spm_boundaries<-",
           }
 )
 
-
 # TODO dim should get dims of data and sf if discrete
 # setMethod("dim",
 #           "sspm", function(x) length(x@snpid))
@@ -138,41 +137,6 @@ setMethod("spm_smoothed_data<-",
             return(object)
           }
 )
-
-# Formulas ----------------------------------------------------------------
-# Accessors ---------------------------------------------------------------
-
-#' @rdname sspm-accessors-methods
-#' @export
-setGeneric(name = "spm_formulas",
-           def = function(sspm_object) standardGeneric("spm_formulas")
-)
-
-# #' @rdname sspm-accessors-methods
-# #' @export
-# setMethod("spm_formulas",
-#           signature("sspm_object" = "sspm"),
-#           function(sspm_object) sspm_object@formulas
-# )
-
-# Replacers ---------------------------------------------------------------
-
-#' @rdname sspm-accessors-methods
-#' @export
-setGeneric(name = "spm_formulas<-",
-           def = function(object, value) standardGeneric("spm_formulas<-")
-)
-
-# #' @rdname sspm-accessors-methods
-# #' @export
-# setMethod("spm_formulas<-",
-#           signature("object" = "sspm"),
-#           function(object, value){
-#             object@formulas <- value
-#             validObject(object)
-#             return(object)
-#           }
-# )
 
 # Time col ----------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
