@@ -1,8 +1,4 @@
-# Test helper functions
-#
-# test_that("", {
-#
-# })
+# Testing helper functions
 
 test_that("Methods choices are retrieved", {
 
@@ -95,8 +91,6 @@ test_that("Residuals are correctly retrieved", {
 
 })
 
-# Testing miscellaneous functions
-
 test_that("Methods are correctly returned", {
   expect_class({spm_methods()}, "character")
   expect_length({spm_methods()}, 2)
@@ -115,4 +109,15 @@ test_that("Multilag works", {
   expect_equal(multilag(c(1:5), 2),
                data.frame(lag1 = c(NA, 1, 2, 3, 4),
                           lag2 = c(NA, NA, 1, 2, 3)))
+})
+
+test_that("Datasets are correctly joined", {
+
+  joined <- join_datasets(biomass_dataset, boundary_discrete)
+
+  expect_true(is_mapped(joined))
+  expect_true("patch_id" %in% names(spm_data(joined)))
+  expect_equal(sum(is.na(spm_data(joined)$patch_id)), 0)
+  expect_equal(spm_boundaries(joined), boundary_discrete)
+
 })
