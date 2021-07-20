@@ -52,6 +52,10 @@ test_that("Accessors work as expected on `sspm`", {
 
   expect_class(spm_boundaries(sspm_model), "sspm_discrete_boundary")
 
+  expect_false(is_split(sspm_model))
+
+  expect_character(spm_unique_ID(sspm_model))
+
 })
 
 test_that("Accesors work as expected on `discretization_method`", {

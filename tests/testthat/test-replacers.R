@@ -19,6 +19,21 @@ test_that("Replacers work as expected", {
     spm_time_column(sspm_model)
   }, "time_col")
 
+  expect_equal({
+    spm_unique_ID(sspm_model) <- "ID"
+    spm_unique_ID(sspm_model)
+  }, "ID")
+
+  expect_equal({
+    spm_smoothed_data(sspm_model) <- mtcars
+    spm_smoothed_data(sspm_model)
+  }, mtcars)
+
+  expect_true({
+    is_split(sspm_model) <- TRUE
+    is_split(sspm_model)
+  })
+
   # Method
 
   expect_match({
@@ -53,10 +68,10 @@ test_that("Replacers work as expected", {
     spm_data(biomass_dataset)
   })
 
-  expect_data_frame({
+  expect_equal({
     spm_smoothed_data(biomass_dataset) <- mtcars
     spm_smoothed_data(biomass_dataset)
-  })
+  }, mtcars)
 
   expect_match({
     spm_name(biomass_dataset) <- "NewDatasetName_2"
