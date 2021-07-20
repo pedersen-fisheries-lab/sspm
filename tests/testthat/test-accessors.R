@@ -4,9 +4,23 @@
 #
 # })
 
-test_that("Accessors work as expected on `sspm_dataset` (smoothed or not)", {
+test_that("Accessors work as expected on `sspm_boundary` (discrete or not)", {
 
-  # Valid
+  expect_equal(spm_boundaries(boundary), sfa_boundaries)
+
+  expect_equal(spm_boundary_colum(boundary), "sfa")
+
+  expect_equal(spm_surface_column(boundary), "area")
+
+  expect_equal(spm_points(boundary_discrete), borealis_points)
+
+  expect_equal(spm_patches(boundary_discrete), borealis_patches)
+
+  expect_equal(spm_discret_method(boundary_discrete), discret_method)
+
+})
+
+test_that("Accessors work as expected on `sspm_dataset` (smoothed or not)", {
 
   expect_data_frame(spm_data(biomass_dataset))
   expect_data_frame(spm_data(biomass_dataset_smoothed))

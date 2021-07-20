@@ -2,6 +2,40 @@
 
 test_that("Replacers work as expected", {
 
+  # Boundaries
+
+  expect_equal({
+    spm_boundaries(boundary) <- sfa_boundaries
+    spm_boundaries(boundary)
+  }, sfa_boundaries)
+
+  expect_equal({
+    spm_boundary_colum(boundary) <- "new_col"
+    spm_boundary_colum(boundary)
+  }, "new_col")
+
+  expect_equal({
+    spm_surface_column(boundary) <- "new_col_2"
+    spm_surface_column(boundary)
+  }, "new_col_2")
+
+  expect_equal({
+    discret_method_2 <- discret_method
+    spm_name(discret_method_2) <- "triangulate_delaunay"
+    spm_discret_method(boundary_discrete) <- discret_method_2
+    spm_discret_method(boundary_discrete)
+  }, discret_method_2)
+
+  expect_equal({
+    spm_points(boundary_discrete) <- sfa_boundaries
+    spm_points(boundary_discrete)
+  }, sfa_boundaries)
+
+  expect_equal({
+    spm_patches(boundary_discrete) <- sfa_boundaries
+    spm_patches(boundary_discrete)
+  }, sfa_boundaries)
+
   # SSPM
 
   expect_class({
