@@ -122,7 +122,8 @@ setMethod(f = "spm_as_dataset",
                                       uniqueID = uniqueID,
                                       coords = coords)
 
-            } else if(any(sf::st_is(data, "POLYGON"))) {
+            } else if(any(sf::st_is(data, "POLYGON")) ||
+                      any(sf::st_is(data, "MULTIPOLYGON"))) {
 
               browser()
 
