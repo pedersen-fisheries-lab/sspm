@@ -36,7 +36,7 @@ tesselate_voronoi <- function(boundaries,
                               boundary_column = "sfa",
                               sample_surface = FALSE,
                               sample_points = TRUE,
-                              nb_samples,
+                              nb_samples = NULL,
                               min_size = 1500,
                               stratify = TRUE,
                               seed = 1) {
@@ -62,7 +62,7 @@ tesselate_voronoi <- function(boundaries,
          call. = FALSE)
   }
 
-  checkmate::assert_numeric(nb_samples)
+  checkmate::assert_numeric(nb_samples, null.ok = TRUE)
   checkmate::assert_numeric(min_size)
   checkmate::assert_numeric(seed)
 
@@ -203,7 +203,7 @@ tesselate_voronoi <- function(boundaries,
   voronoi <-
     dplyr::mutate(voronoi,
                   area = units::set_units(.data$area, value = "km^2"),
-                  patch_id = factor(paste("V", 1:dplyr::n(), sep = "")))
+                  patch_id = factor(paste("P", 1:dplyr::n(), sep = "")))
 
   # Core function must return a list of "patches" and "points"
   return(list(patches = voronoi,
