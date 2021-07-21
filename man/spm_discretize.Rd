@@ -4,9 +4,9 @@
 \alias{spm_discretize}
 \alias{spm_discretize,sspm_boundary,missing,ANY-method}
 \alias{spm_discretize,sspm_boundary,ANY,missing-method}
-\alias{spm_discretize,sspm_boundary,character,DatasetORANYOrNULL-method}
-\alias{spm_discretize,sspm_boundary,function,DatasetORANYOrNULL-method}
-\alias{spm_discretize,sspm_boundary,discretization_method,DatasetORANYOrNULL-method}
+\alias{spm_discretize,sspm_boundary,character,ANY-method}
+\alias{spm_discretize,sspm_boundary,function,ANY-method}
+\alias{spm_discretize,sspm_boundary,discretization_method,ANY-method}
 \alias{spm_discretize,sspm_discrete_boundary,ANY,ANY-method}
 \title{Discretize a \code{sspm} model object}
 \usage{
@@ -16,11 +16,11 @@ spm_discretize(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
 \S4method{spm_discretize}{sspm_boundary,ANY,missing}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
-\S4method{spm_discretize}{sspm_boundary,character,DatasetORANYOrNULL}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
+\S4method{spm_discretize}{sspm_boundary,character,ANY}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
-\S4method{spm_discretize}{sspm_boundary,`function`,DatasetORANYOrNULL}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
+\S4method{spm_discretize}{sspm_boundary,`function`,ANY}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
-\S4method{spm_discretize}{sspm_boundary,discretization_method,DatasetORANYOrNULL}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
+\S4method{spm_discretize}{sspm_boundary,discretization_method,ANY}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
 \S4method{spm_discretize}{sspm_discrete_boundary,ANY,ANY}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 }

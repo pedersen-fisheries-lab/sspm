@@ -10,7 +10,7 @@ tesselate_voronoi(
   boundary_column = "sfa",
   sample_surface = FALSE,
   sample_points = TRUE,
-  nb_samples,
+  nb_samples = NULL,
   min_size = 1500,
   stratify = TRUE,
   seed = 1
