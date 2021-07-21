@@ -97,8 +97,7 @@ setMethod(f = "spm_discretize",
 #' @export
 setMethod(f = "spm_discretize",
           signature(boundary_object = "sspm_boundary",
-                    method = "character",
-                    with = "DatasetORANYOrNULL"),
+                    method = "character"),
           function(boundary_object, method, with, ...) {
 
             method_f <- as_discretization_method(name = method)
@@ -113,8 +112,7 @@ setMethod(f = "spm_discretize",
 #' @export
 setMethod(f = "spm_discretize",
           signature(boundary_object = "sspm_boundary",
-                    method = "function",
-                    with = "DatasetORANYOrNULL"),
+                    method = "function"),
           function(boundary_object, method, with, ...) {
 
             method_f <- as_discretization_method(method = method)
@@ -128,8 +126,7 @@ setMethod(f = "spm_discretize",
 #' @export
 setMethod(f = "spm_discretize",
           signature(boundary_object = "sspm_boundary",
-                    method = "discretization_method",
-                    with = "DatasetORANYOrNULL"),
+                    method = "discretization_method"),
           function(boundary_object, method, with, ...) {
 
             if(checkmate::test_class(with, "sspm_dataset")){
