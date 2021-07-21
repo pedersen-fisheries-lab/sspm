@@ -142,7 +142,6 @@ triangulate_delaunay <- function(boundaries,
 
   delaunay_mesh <- suppressAll(delaunay_mesh %>%
     sf::st_collection_extract() %>%
-    sf::st_make_valid() %>%
     sf::st_cast("POLYGON") %>%
     sf::st_join(boundaries, largest = TRUE) %>%
     sf::st_intersection(
