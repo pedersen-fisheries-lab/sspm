@@ -129,34 +129,25 @@
   <span class='va'>boundaries</span>,
   <span class='va'>boundary_column</span>,
   <span class='va'>surface_column</span>,
-  discrete <span class='op'>=</span> <span class='cn'>FALSE</span>,
   patches <span class='op'>=</span> <span class='cn'>NULL</span>,
   points <span class='op'>=</span> <span class='cn'>NULL</span>,
   <span class='va'>...</span>
 <span class='op'>)</span>
 
-<span class='co'># S4 method for sf,`NULL`,ANY</span>
-<span class='fu'>spm_as_boundary</span><span class='op'>(</span><span class='va'>boundaries</span>, <span class='va'>boundary_column</span>, <span class='va'>surface_column</span>, <span class='va'>discrete</span><span class='op'>)</span>
+<span class='co'># S4 method for sf,`NULL`,ANY,ANY,ANY</span>
+<span class='fu'>spm_as_boundary</span><span class='op'>(</span><span class='va'>boundaries</span>, <span class='va'>boundary_column</span>, <span class='va'>surface_column</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sf,character,missing</span>
-<span class='fu'>spm_as_boundary</span><span class='op'>(</span>
-  <span class='va'>boundaries</span>,
-  <span class='va'>boundary_column</span>,
-  <span class='va'>surface_column</span>,
-  <span class='va'>discrete</span>,
-  <span class='va'>patches</span>,
-  <span class='va'>points</span>
-<span class='op'>)</span>
+<span class='co'># S4 method for sf,character,missing,missing,missing</span>
+<span class='fu'>spm_as_boundary</span><span class='op'>(</span><span class='va'>boundaries</span>, <span class='va'>boundary_column</span>, <span class='va'>surface_column</span><span class='op'>)</span>
 
-<span class='co'># S4 method for sf,character,character</span>
-<span class='fu'>spm_as_boundary</span><span class='op'>(</span>
-  <span class='va'>boundaries</span>,
-  <span class='va'>boundary_column</span>,
-  <span class='va'>surface_column</span>,
-  <span class='va'>discrete</span>,
-  <span class='va'>patches</span>,
-  <span class='va'>points</span>
-<span class='op'>)</span></pre>
+<span class='co'># S4 method for sf,character,character,missing,missing</span>
+<span class='fu'>spm_as_boundary</span><span class='op'>(</span><span class='va'>boundaries</span>, <span class='va'>boundary_column</span>, <span class='va'>surface_column</span><span class='op'>)</span>
+
+<span class='co'># S4 method for sf,character,missing,ANY,ANY</span>
+<span class='fu'>spm_as_boundary</span><span class='op'>(</span><span class='va'>boundaries</span>, <span class='va'>boundary_column</span>, <span class='va'>surface_column</span>, <span class='va'>patches</span>, <span class='va'>points</span><span class='op'>)</span>
+
+<span class='co'># S4 method for sf,character,character,ANY,ANY</span>
+<span class='fu'>spm_as_boundary</span><span class='op'>(</span><span class='va'>boundaries</span>, <span class='va'>boundary_column</span>, <span class='va'>surface_column</span>, <span class='va'>patches</span>, <span class='va'>points</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,11 +165,6 @@ subdivisions of the boundaries.</p></td>
       <th>surface_column</th>
       <td><p><strong>[character]</strong> The column that contains the surface
 of the subdivisions (optional).</p></td>
-    </tr>
-    <tr>
-      <th>discrete</th>
-      <td><p><strong>[logical]</strong> Whether to cast a discrete boundary, default
-to <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>patches</th>
