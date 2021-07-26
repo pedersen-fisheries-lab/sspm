@@ -2,40 +2,31 @@
 % Please edit documentation in R/spm_as_boundary.R
 \name{spm_as_boundary}
 \alias{spm_as_boundary}
-\alias{spm_as_boundary,sf,NULL,ANY-method}
-\alias{spm_as_boundary,sf,character,missing-method}
-\alias{spm_as_boundary,sf,character,character-method}
+\alias{spm_as_boundary,sf,NULL,ANY,ANY,ANY-method}
+\alias{spm_as_boundary,sf,character,missing,missing,missing-method}
+\alias{spm_as_boundary,sf,character,character,missing,missing-method}
+\alias{spm_as_boundary,sf,character,missing,ANY,ANY-method}
+\alias{spm_as_boundary,sf,character,character,ANY,ANY-method}
 \title{Create a sspm_boundary object}
 \usage{
 spm_as_boundary(
   boundaries,
   boundary_column,
   surface_column,
-  discrete = FALSE,
   patches = NULL,
   points = NULL,
   ...
 )
 
-\S4method{spm_as_boundary}{sf,`NULL`,ANY}(boundaries, boundary_column, surface_column, discrete)
+\S4method{spm_as_boundary}{sf,`NULL`,ANY,ANY,ANY}(boundaries, boundary_column, surface_column)
 
-\S4method{spm_as_boundary}{sf,character,missing}(
-  boundaries,
-  boundary_column,
-  surface_column,
-  discrete,
-  patches,
-  points
-)
+\S4method{spm_as_boundary}{sf,character,missing,missing,missing}(boundaries, boundary_column, surface_column)
 
-\S4method{spm_as_boundary}{sf,character,character}(
-  boundaries,
-  boundary_column,
-  surface_column,
-  discrete,
-  patches,
-  points
-)
+\S4method{spm_as_boundary}{sf,character,character,missing,missing}(boundaries, boundary_column, surface_column)
+
+\S4method{spm_as_boundary}{sf,character,missing,ANY,ANY}(boundaries, boundary_column, surface_column, patches, points)
+
+\S4method{spm_as_boundary}{sf,character,character,ANY,ANY}(boundaries, boundary_column, surface_column, patches, points)
 }
 \arguments{
 \item{boundaries}{\strong{[sf]} The sf object to cast.}
@@ -45,9 +36,6 @@ subdivisions of the boundaries.}
 
 \item{surface_column}{\strong{[character]} The column that contains the surface
 of the subdivisions (optional).}
-
-\item{discrete}{\strong{[logical]} Whether to cast a discrete boundary, default
-to \code{FALSE}.}
 
 \item{patches}{\strong{[sf]} Patches resulting from discretization.}
 

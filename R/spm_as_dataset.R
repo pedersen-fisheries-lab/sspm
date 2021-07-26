@@ -125,8 +125,6 @@ setMethod(f = "spm_as_dataset",
             } else if(any(sf::st_is(data, "POLYGON")) ||
                       any(sf::st_is(data, "MULTIPOLYGON"))) {
 
-              browser()
-
               # Create boundaries, create patch id
               patches <- data %>%
                 dplyr::select("geometry") %>%
