@@ -129,7 +129,8 @@ setMethod(f = "spm_as_dataset",
               patches <- data %>%
                 dplyr::select("geometry") %>%
                 dplyr::distinct() %>%
-                dplyr::mutate(patch_id = paste0("P", 1:dplyr::n()))
+                dplyr::mutate(patch_id = paste0("P", 1:dplyr::n())) %>%
+                dplyr::mutate(boundary_col = "B1")
 
               boundary_data <- patches %>%
                 sf::st_union() %>%
