@@ -139,7 +139,6 @@ setMethod(f = "spm_as_dataset",
 
               boundaries <- spm_as_boundary(boundaries = boundary_data,
                                             boundary_column = "boundary_col",
-                                            discrete = TRUE,
                                             patches = patches,
                                             points = NULL)
 
