@@ -129,7 +129,9 @@ setMethod(f = "spm_as_dataset",
               patches <- data %>%
                 dplyr::select("geometry") %>%
                 dplyr::distinct() %>%
-                dplyr::mutate(patch_id = paste0("P", 1:dplyr::n())) %>%
+                dplyr::mutate(patch_id =
+                                factor(paste("P", 1:dplyr::n(), sep = ""),
+                                       levels = paste0("P", 1:length(unique(.data$patch_id))))) %>%
                 dplyr::mutate(boundary_col = "B1")
 
               boundary_data <- patches %>%

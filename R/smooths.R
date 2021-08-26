@@ -403,7 +403,7 @@ LINPRED <- function(data_frame, boundaries, time_column, var,
 
   lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(data_frame),
                                      ncol = k, byrow = TRUE)) %>%
-    dplyr::rename_all(.funs = gsub, pattern = "V", replacement = "lag") %>%
+    dplyr::rename_all(.funs = gsub, pattern = "P", replacement = "lag") %>%
     dplyr::mutate(!!time_column := data_frame[[time_column]],
                   !!boundary_col := data_frame[[boundary_col]],
                   "patch_id" = data_frame[["patch_id"]]) %>%
