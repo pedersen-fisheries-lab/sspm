@@ -153,7 +153,9 @@ setMethod(f = "spm_as_boundary",
             if (!(is.null(patches))) {
 
               patches <- patches %>%
-                dplyr::mutate(patch_id = factor(paste("P", 1:dplyr::n(), sep = "")))
+                dplyr::mutate(patch_id =
+                                factor(paste("P", 1:dplyr::n(), sep = ""),
+                                       levels = paste0("P", 1:length(unique(.data$patch_id)))))
               patches <-
                 dplyr::mutate(patches,
                               area = units::set_units(.data$area, value = "km^2"))

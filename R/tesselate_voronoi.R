@@ -203,7 +203,8 @@ tesselate_voronoi <- function(boundaries,
   voronoi <-
     dplyr::mutate(voronoi,
                   area = units::set_units(.data$area, value = "km^2"),
-                  patch_id = factor(paste("V", 1:dplyr::n(), sep = "")))
+                  patch_id = factor(paste("P", 1:dplyr::n(), sep = ""),
+                                    levels = paste0("P", 1:length(unique(.data$patch_id)))))
 
   # Core function must return a list of "patches" and "points"
   return(list(patches = voronoi,

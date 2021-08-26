@@ -149,12 +149,12 @@ triangulate_delaunay <- function(boundaries,
     sf::st_make_valid() %>%
     st_cast("POLYGON") %>%
     sf::st_make_valid() %>%
-    dplyr::mutate(patch_id = paste0("V", 1:dplyr::n())))
+    dplyr::mutate(patch_id = paste0("P", 1:dplyr::n())))
 
   # voronoi <-
   #   suppressAll(voronoi %>%
   #                 sf::st_make_valid() %>%
-  #                 dplyr::mutate(patch_id = paste("V", 1:dplyr::n(), sep = "")) %>%
+  #                 dplyr::mutate(patch_id = paste("P", 1:dplyr::n(), sep = "")) %>%
   #                 dplyr::group_by(.data$patch_id, .data[[boundary_column]]) %>%
   #                 dplyr::summarize() %>%
   #                 dplyr::ungroup())
