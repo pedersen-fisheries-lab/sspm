@@ -53,8 +53,6 @@ setMethod(f = "spm",
             time_column <- spm_time_column(sspm_object)
             boundaries <- spm_boundaries(sspm_object)
 
-
-
             # Pass onto the sspm_dataset method
             sspm_formula <- map_formula(data_frame = all_data,
                                         boundaries = boundaries,
