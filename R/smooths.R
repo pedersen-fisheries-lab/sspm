@@ -357,6 +357,8 @@ ICAR_time <- function(time_levels) {
   # after it
 
   time_levels <- sort(time_levels)
+  # time_levels <- 1979:2018
+
   n_time_levels <- length(unique(time_levels))
 
   pen_mat = matrix(0, nrow = n_time_levels, ncol = n_time_levels)

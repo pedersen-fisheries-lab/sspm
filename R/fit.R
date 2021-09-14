@@ -70,6 +70,7 @@ setMethod(f = "fit_smooths",
               predict_mat <- spm_patches(boundaries) %>%
                 sf::st_set_geometry(NULL) %>%
                 tidyr::expand_grid(!!time_col := min_year:max_year)
+                # tidyr::expand_grid(!!time_col := 1979:2018)
 
             }
 
