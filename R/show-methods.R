@@ -90,9 +90,9 @@ setMethod("show",
           "sspm",
           function(object) {
             cli::cat_line()
-            custom_h1(sprintf(paste0("SSPM Model ",
-                                     cli::col_green("(%s datasets)")),
-                              length(object@datasets)))
+            n_datasets <- length(object@datasets)
+            custom_h1(paste0("SSPM Model ",
+                             cli::pluralize(cli::col_green("({n_datasets} dataset{?s})"))))
             cat_boundaries(object, column = FALSE)
             cat_smoothed_data(object)
             cli::cat_line()
