@@ -75,20 +75,20 @@ setMethod(f = "spm_as_boundary",
                     points = "missing"),
           function(boundaries, boundary_column, surface_column) {
 
-              if (!checkmate::test_subset(boundary_column, names(boundaries))) {
-                stop("`boundary_column` must be a column of `boundaries`",
-                     call. = FALSE)
-              }
+            if (!checkmate::test_subset(boundary_column, names(boundaries))) {
+              stop("`boundary_column` must be a column of `boundaries`",
+                   call. = FALSE)
+            }
 
-              if (!checkmate::test_subset(surface_column, names(boundaries))) {
-                stop("`surface_column` must be a column of `boundaries`",
-                     call. = FALSE)
-              }
+            if (!checkmate::test_subset(surface_column, names(boundaries))) {
+              stop("`surface_column` must be a column of `boundaries`",
+                   call. = FALSE)
+            }
 
-              boundary_object <- new("sspm_boundary",
-                                     boundaries = boundaries,
-                                     boundary_column = boundary_column,
-                                     surface_column = surface_column)
+            boundary_object <- new("sspm_boundary",
+                                   boundaries = boundaries,
+                                   boundary_column = boundary_column,
+                                   surface_column = surface_column)
 
             return(boundary_object)
 
@@ -152,9 +152,13 @@ setMethod(f = "spm_as_boundary",
 
             if (!(is.null(patches))) {
 
+              browser()
+
               patches <- patches %>%
                 dplyr::mutate(patch_id =
-                                factor(paste("P", 1:dplyr::n(), sep = ""),
+                                factor(paste("P", 1:dplyr::n(), sep = ""))) %>%
+                dplyr::mutate(patch_id =
+                                factor(.data$patch_id,
                                        levels = paste0("P", 1:length(unique(.data$patch_id)))))
               patches <-
                 dplyr::mutate(patches,
