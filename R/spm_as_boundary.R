@@ -152,8 +152,6 @@ setMethod(f = "spm_as_boundary",
 
             if (!(is.null(patches))) {
 
-              browser()
-
               patches <- patches %>%
                 dplyr::mutate(patch_id =
                                 factor(paste("P", 1:dplyr::n(), sep = ""))) %>%
