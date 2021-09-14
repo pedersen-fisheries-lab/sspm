@@ -393,6 +393,11 @@
         <span class="fu"><a href="reference/smooth_time.html">smooth_lag</a></span><span class="op">(</span><span class="st">"weight_per_km2_smooth_borealis_with_catch"</span><span class="op">)</span> <span class="op">+</span> 
         <span class="va">temp_at_bottom_smooth</span><span class="op">)</span>
 <span class="co">#&gt; ℹ  Fitting SPM formula: weight_per_km2_smooth_borealis_with_catch ~ weight_per_km2_smooth_borealis_with_catch_lag_1 + weight_per_km2_smooth_all_predators_lag_1 + smooth_lag('weight_per_km2_smooth_borealis_with_catch') + temp_at_bottom_smooth</span>
+<span class="co">#&gt; Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :</span>
+<span class="co">#&gt; step failure in theta estimation</span>
+
+<span class="co">#&gt; Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :</span>
+<span class="co">#&gt; step failure in theta estimation</span>
 
 <span class="va">sspm_model_fit</span>
 <span class="co">#&gt; </span>
@@ -400,7 +405,7 @@
 <span class="co">#&gt; →  Smoothed Data     : [912 observations, 16 variables] / [874 train, 38 test]</span>
 <span class="co">#&gt; →  Fit summary       : </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Family: Scaled t(3,7.165) </span>
+<span class="co">#&gt; Family: Scaled t(Inf,104.423) </span>
 <span class="co">#&gt; Link function: identity </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Formula:</span>
@@ -409,27 +414,25 @@
 <span class="co">#&gt;     s(lag_matrix, k = 5, m = 1, by = by_matrix)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Parametric coefficients:</span>
-<span class="co">#&gt;                                                  Estimate Std. Error t value</span>
-<span class="co">#&gt; (Intercept)                                     35.674128  17.807781   2.003</span>
-<span class="co">#&gt; weight_per_km2_smooth_borealis_with_catch_lag_1  0.835819   0.023273  35.914</span>
-<span class="co">#&gt; weight_per_km2_smooth_all_predators_lag_1       -0.007765   0.003714  -2.091</span>
-<span class="co">#&gt; temp_at_bottom_smooth                            0.335478   0.784635   0.428</span>
-<span class="co">#&gt;                                                 Pr(&gt;|t|)    </span>
-<span class="co">#&gt; (Intercept)                                       0.0455 *  </span>
-<span class="co">#&gt; weight_per_km2_smooth_borealis_with_catch_lag_1   &lt;2e-16 ***</span>
-<span class="co">#&gt; weight_per_km2_smooth_all_predators_lag_1         0.0369 *  </span>
-<span class="co">#&gt; temp_at_bottom_smooth                             0.6691    </span>
-<span class="co">#&gt; ---</span>
-<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt;                                                   Estimate Std. Error t value</span>
+<span class="co">#&gt; (Intercept)                                     -241.82844  379.24227  -0.638</span>
+<span class="co">#&gt; weight_per_km2_smooth_borealis_with_catch_lag_1   -0.01510    0.07110  -0.212</span>
+<span class="co">#&gt; weight_per_km2_smooth_all_predators_lag_1          0.06681    0.06086   1.098</span>
+<span class="co">#&gt; temp_at_bottom_smooth                              9.40613    9.17059   1.026</span>
+<span class="co">#&gt;                                                 Pr(&gt;|t|)</span>
+<span class="co">#&gt; (Intercept)                                        0.524</span>
+<span class="co">#&gt; weight_per_km2_smooth_borealis_with_catch_lag_1    0.832</span>
+<span class="co">#&gt; weight_per_km2_smooth_all_predators_lag_1          0.273</span>
+<span class="co">#&gt; temp_at_bottom_smooth                              0.305</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Approximate significance of smooth terms:</span>
-<span class="co">#&gt;                            edf Ref.df     F  p-value    </span>
-<span class="co">#&gt; s(lag_matrix):by_matrix 0.9484      5 3.605 1.45e-05 ***</span>
+<span class="co">#&gt;                           edf Ref.df     F p-value    </span>
+<span class="co">#&gt; s(lag_matrix):by_matrix 4.716      5 176.9  &lt;2e-16 ***</span>
 <span class="co">#&gt; ---</span>
 <span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; R-sq.(adj) =  0.858   Deviance explained = 70.9%</span>
-<span class="co">#&gt; -REML = 1191.9  Scale est. = 1         n = 874</span></code></pre></div>
+<span class="co">#&gt; R-sq.(adj) =   0.83   Deviance explained = 83.2%</span>
+<span class="co">#&gt; -REML = 1251.9  Scale est. = 1         n = 874</span></code></pre></div>
 <ol>
 <li>Plotting the object produces a actual vs predicted plot (with TEST/TRAIN data highlighted.</li>
 </ol>
