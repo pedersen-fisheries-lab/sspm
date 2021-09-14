@@ -25,6 +25,25 @@ setGeneric(name = "sspm",
 #' @rdname sspm-constructor
 setMethod(f = "sspm",
           signature(biomass = "sspm_dataset",
+                    predictors = "missing"),
+          function(biomass, predictors) {
+
+            new_sspm <- new("sspm",
+                            datasets = list(biomass = biomass),
+                            time_column = spm_time_column(biomass),
+                            uniqueID = "row_ID",
+                            boundaries = spm_boundaries(biomass),
+                            smoothed_data = spm_smoothed_data(biomass),
+                            is_split = FALSE)
+
+          }
+)
+
+
+#' @export
+#' @rdname sspm-constructor
+setMethod(f = "sspm",
+          signature(biomass = "sspm_dataset",
                     predictors = "sspm_dataset"),
           function(biomass, predictors) {
 

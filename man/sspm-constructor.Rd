@@ -2,11 +2,14 @@
 % Please edit documentation in R/sspm.R
 \name{sspm}
 \alias{sspm}
+\alias{sspm,sspm_dataset,missing-method}
 \alias{sspm,sspm_dataset,sspm_dataset-method}
 \alias{sspm,sspm_dataset,list-method}
 \title{Create a \code{sspm} model object}
 \usage{
 sspm(biomass, predictors)
+
+\S4method{sspm}{sspm_dataset,missing}(biomass, predictors)
 
 \S4method{sspm}{sspm_dataset,sspm_dataset}(biomass, predictors)
 
