@@ -108,8 +108,9 @@ setMethod(f = "spm_aggregate_catch",
               dplyr::select(-.data$area_no_units) %>%
               dplyr::ungroup() %>%
 
-              dplyr::mutate(!!change_name := ifelse(is.na(.data[[change_name]]),
-                                                    0, .data[[change_name]])) %>%
+              # Replace NAs with 0s (disabled to fit script behavior better)
+              # dplyr::mutate(!!change_name := ifelse(is.na(.data[[change_name]]),
+              #                                       0, .data[[change_name]])) %>%
 
               dplyr::relocate(dplyr::starts_with(biomass_variable),
                               .after = .data$row_ID) %>%
