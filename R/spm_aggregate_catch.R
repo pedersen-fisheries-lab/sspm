@@ -118,7 +118,7 @@ setMethod(f = "spm_aggregate_catch",
                   (.data[[biomass_variable]] + .data[[catch_variable]] / .data$area_km2)) %>%
               dplyr::mutate(
                 !!change_name :=
-                  log(.data[[catch_name]]) - log(dplyr::lag(.data[[catch_name]],
+                  log(.data[[catch_name]]) - log(dplyr::lag(.data[[biomass_variable]],
                                                             default = NA))) %>%
 
               dplyr::select(-.data$area_no_units) %>%
