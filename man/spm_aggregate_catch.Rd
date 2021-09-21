@@ -10,6 +10,7 @@ spm_aggregate_catch(
   catch,
   biomass_variable,
   catch_variable,
+  corrections = NULL,
   fun = sum,
   group_by = "spacetime",
   fill,
@@ -22,6 +23,7 @@ spm_aggregate_catch(
   catch,
   biomass_variable,
   catch_variable,
+  corrections = NULL,
   fun = sum,
   group_by = "spacetime",
   fill,
@@ -38,6 +40,8 @@ biomass variable.}
 \item{biomass_variable}{\strong{[character]} The biomass variab of \code{biomass}.}
 
 \item{catch_variable}{\strong{[character]} The catch column of \code{catch}.}
+
+\item{corrections}{\strong{[data.frame]} Optional landings corrections.}
 
 \item{fun}{\strong{[function]} Function to use to aggregate data.}
 

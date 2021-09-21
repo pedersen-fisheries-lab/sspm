@@ -8,6 +8,7 @@
 #' @param catch **\[sspm_dataset\]** The dataset containing the catch variable.
 #' @param biomass_variable **\[character\]** The biomass variab of `biomass`.
 #' @param catch_variable **\[character\]** The catch column of `catch`.
+#' @param corrections **\[data.frame\]** Optional landings corrections.
 #' @inheritParams spm_aggregate
 #'
 #' @return
@@ -19,6 +20,7 @@ setGeneric(name = "spm_aggregate_catch",
                           catch,
                           biomass_variable,
                           catch_variable,
+                          corrections = NULL,
                           fun = sum,
                           group_by = "spacetime",
                           fill,
@@ -39,6 +41,7 @@ setMethod(f = "spm_aggregate_catch",
                    catch,
                    biomass_variable,
                    catch_variable,
+                   corrections = NULL,
                    fun = sum,
                    group_by = "spacetime",
                    fill,
@@ -66,6 +69,8 @@ setMethod(f = "spm_aggregate_catch",
             biomass_time_col <- spm_time_column(biomass)
             catch_time_col <- spm_time_column(catch)
 
+            # browser()
+
             # Aggregate the catch
             catch <- spm_aggregate(dataset = catch,
                                    boundaries = spm_boundaries(biomass),
@@ -84,6 +89,17 @@ setMethod(f = "spm_aggregate_catch",
                                by = sapply(c(biomass_time_col, "patch_id"),
                                            rlang::as_string))
 
+            # Use corrections if need be
+            if(!is.null(corrections)){
+              # TODO: add verification for time and boundary cols and catch_adjustment
+              nrow_data <- nrow(full_smoothed_data)
+              full_smoothed_data <- full_smoothed_data %>%
+                left_join(corrections) %>%
+                mutate(catch = catch_adjustment * catch) %>%
+                select(-catch_adjustment)
+              checkmate::assert_true(nrow(full_smoothed_data) == nrow_data)
+            }
+
             # Make correct names
             catch_name <- paste(c(biomass_variable, spm_name(biomass),
                                   "with_catch"), collapse = "_")
@@ -99,10 +115,10 @@ setMethod(f = "spm_aggregate_catch",
               dplyr::mutate(area_no_units = as.vector(.data$area)) %>%
               dplyr::mutate(
                 !!catch_name :=
-                  (.data[[biomass_variable]] + .data[[catch_variable]] / .data$area_no_units)) %>%
+                  (.data[[biomass_variable]] + .data[[catch_variable]] / .data$area_km2)) %>%
               dplyr::mutate(
                 !!change_name :=
-                  log(.data[[catch_name]]) - log(dplyr::lag(.data[[biomass_variable]],
+                  log(.data[[catch_name]]) - log(dplyr::lag(.data[[catch_name]],
                                                             default = NA))) %>%
 
               dplyr::select(-.data$area_no_units) %>%
