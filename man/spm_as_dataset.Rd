@@ -8,15 +8,55 @@
 \alias{spm_as_dataset,sf,ANY,ANY,ANY,ANY-method}
 \title{Create a \code{sspm_dataset} dataset structure}
 \usage{
-spm_as_dataset(data, name, time_column, uniqueID, coords = NULL, crs = NULL)
+spm_as_dataset(
+  data,
+  name,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL,
+  boundaries = NULL
+)
 
-\S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,missingOrNULL}(data, name, time_column, uniqueID, coords = NULL, crs = NULL)
+\S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,missingOrNULL}(
+  data,
+  name,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL,
+  boundaries = NULL
+)
 
-\S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,list}(data, name, time_column, uniqueID, coords = NULL, crs = NULL)
+\S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,list}(
+  data,
+  name,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL,
+  boundaries = NULL
+)
 
-\S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,character}(data, name, time_column, uniqueID, coords = NULL, crs = NULL)
+\S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,character}(
+  data,
+  name,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL,
+  boundaries = NULL
+)
 
-\S4method{spm_as_dataset}{sf,ANY,ANY,ANY,ANY}(data, name, time_column, uniqueID, coords = NULL, crs = NULL)
+\S4method{spm_as_dataset}{sf,ANY,ANY,ANY,ANY}(
+  data,
+  name,
+  time_column,
+  uniqueID,
+  coords = NULL,
+  crs = NULL,
+  boundaries = NULL
+)
 }
 \arguments{
 \item{data}{\strong{[data.frame OR sf]} The dataset.}
@@ -33,6 +73,9 @@ rows of the data matrix.}
 latitude of the observations.}
 
 \item{crs}{Coordinate reference system, passed onto \link[=sf]{st_as_sf}.}
+
+\item{boundaries}{\strong{[sspm_boundary]} An object of class
+\link[=sspm_boundary-class]{sspm_discrete_boundary}.}
 }
 \value{
 An object of class \code{\link[=sspm_dataset-class]{sspm_dataset}}.

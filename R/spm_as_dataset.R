@@ -12,13 +12,14 @@
 #' @param uniqueID **\[character\]** The column of `data` that is unique for all
 #'     rows of the data matrix.
 #' @param crs Coordinate reference system, passed onto [st_as_sf][sf].
+#' @inheritParams spm_smooth
 #'
 #' @return
 #' An object of class [`sspm_dataset`][sspm_dataset-class].
 #'
 #' @export
 setGeneric(name = "spm_as_dataset",
-           def = function(data, name, time_column, uniqueID, coords = NULL, crs = NULL) {
+           def = function(data, name, time_column, uniqueID, coords = NULL, crs = NULL, boundaries = NULL) {
 
              if (!checkmate::test_subset(uniqueID, names(data))) {
                stop("`uniqueID` must be a column of `data`", call. = FALSE)
@@ -42,7 +43,7 @@ setGeneric(name = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "missingOrNULL"),
-          function(data, name, time_column, uniqueID, coords, crs) {
+          function(data, name, time_column, uniqueID, coords, crs, boundaries) {
 
             stop("Argument `coords` must be provided when data matrix is a dataframe",
                  call. = FALSE)
@@ -54,9 +55,9 @@ setMethod(f = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "list"),
-          function(data, name, time_column, uniqueID, coords, crs) {
+          function(data, name, time_column, uniqueID, coords, crs, boundaries) {
             coords <- unlist(coords)
-            spm_as_dataset(data, name, time_column, uniqueID, coords, crs)
+            spm_as_dataset(data, name, time_column, uniqueID, coords, crs, boundaries)
           }
 )
 
@@ -66,7 +67,7 @@ setMethod(f = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "character"),
-          function(data, name, time_column, uniqueID, coords, crs) {
+          function(data, name, time_column, uniqueID, coords, crs, boundaries) {
 
             # Check coords
             if (!checkmate::test_subset(coords, names(data))) {
@@ -101,6 +102,10 @@ setMethod(f = "spm_as_dataset",
                                     uniqueID = uniqueID,
                                     coords = coords)
 
+            if (!is.null(boundaries)){
+              the_sspm_dataset <- join_datasets(the_sspm_dataset, boundaries)
+            }
+
             return(the_sspm_dataset)
           }
 )
@@ -110,7 +115,7 @@ setMethod(f = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "sf", coords = "ANY"),
-          function(data, name, time_column, uniqueID, coords, crs) {
+          function(data, name, time_column, uniqueID, coords, crs, boundaries) {
 
             # Test if point
             if (any(sf::st_is(data, "POINT"))) {
@@ -122,8 +127,16 @@ setMethod(f = "spm_as_dataset",
                                       uniqueID = uniqueID,
                                       coords = coords)
 
+              if (!is.null(boundaries)){
+                the_sspm_dataset <- join_datasets(the_sspm_dataset, boundaries)
+              }
+
             } else if(any(sf::st_is(data, "POLYGON")) ||
                       any(sf::st_is(data, "MULTIPOLYGON"))) {
+
+              if (!is.null(boundaries)){
+                cli::cli_alert_info("polygon geometry, boundaries argument ignored")
+              }
 
               # Create boundaries, create patch id
               patches <- data %>%
