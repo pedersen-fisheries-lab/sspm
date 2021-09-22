@@ -227,7 +227,6 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
   patches <- boundaries@patches
 
   # Setup done ----
-
   vars <- list()
 
   if (dimension == "time") {
@@ -239,34 +238,47 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
     }
 
     if (is.null(bs)) {
+
+      # If no bs specified, go with re, no penalty needed
       bs <- "re"
-    }
 
-    if (is.null(xt)) {
-      pen_mat_time <- ICAR_time(time_levels)
-    } else {
+      xt_list <- NULL
 
-      checkmate::assert_list(xt)
+    } else if (bs == "re"){
 
-      if (is.null(xt$penalty)) {
+      xt_list <- NULL
+
+    } else if (bs == "mrf"){ # If mrf specified, provide the matrix
+
+      if (is.null(xt)) {
+
         pen_mat_time <- ICAR_time(time_levels)
-      } else {
-        checkmate::assert_matrix(xt$penalty)
-        pen_mat_time <- xt
-      }
-    }
 
-    # Create symbol and assign to list
-    pen_expression <- rlang::expr(pen_mat_time)
-    vars$pen_mat_time <- pen_mat_time
-    xt_list <- list(xt = list(penalty = pen_expression))
+      } else {
+
+        checkmate::assert_list(xt)
+
+        if (is.null(xt$penalty)) {
+          pen_mat_time <- ICAR_time(time_levels)
+        } else {
+          checkmate::assert_matrix(xt$penalty)
+          pen_mat_time <- xt
+        }
+      }
+
+      # Create symbol and assign to list
+      pen_expression <- rlang::expr(pen_mat_time)
+      vars$pen_mat_time <- pen_mat_time
+      xt_list <- list(xt = list(penalty = pen_expression))
+
+    }
 
   } else if (dimension == "space") {
 
     out_column <- list(str2lang(space_column))
 
     if (is.null(k)) {
-      k <- 30
+      k <- NA
     }
 
     if (is.null(bs)) {
@@ -274,7 +286,9 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
     }
 
     if (is.null(xt)) {
+
       pen_mat_space <- ICAR_space(patches, space_column)
+
     } else {
 
       checkmate::assert_list(xt)
@@ -285,6 +299,7 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
         checkmate::assert_matrix(xt$penalty)
         pen_mat_space <- xt
       }
+
     }
 
     # Create symbol and assign to list
@@ -297,19 +312,59 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
     out_column <- list(str2lang(time_column), str2lang(space_column))
 
     if (is.null(k)) {
-      k <- c(n_time_levels, 30)
+      k <- c(NA, 30)
     }
 
     if (is.null(bs)) {
+
       bs <- c("re", "mrf")
+
+      xt_list <- NULL
+
+    } else if (identical(bs, c("mrf", "mrf"))){ # If mrf specified, provide the matrix
+
+      if (is.null(xt)) {
+
+        pen_mat_time <- ICAR_time(time_levels)
+        pen_mat_space <- ICAR_space(patches, space_column)
+
+        vars$pen_mat_time <- pen_mat_time
+        vars$pen_mat_space <- pen_mat_space
+
+      } else {
+
+        # Must be a list of list with correct names
+        checkmate::assert_list(xt)
+        lapply(xt, checkmate::assert_list)
+        checkmate::assert_names(names(xt),
+                                subset.of = c(time_column, space_column))
+
+        if (is.null(xt[[time_column]]$penalty)) {
+          vars$pen_mat_time <- ICAR_time(time_levels)
+        } else {
+          checkmate::assert_matrix(xt[[time_column]]$penalty)
+          vars$pen_mat_time <- xt[[time_column]]$penalty
+        }
+
+        if (is.null(xt[[space_column]]$penalty)) {
+          vars$pen_mat_space <- ICAR_space(patches, space_column)
+        } else {
+          checkmate::assert_matrix(xt[[space_column]]$penalty)
+          vars$pen_mat_space <- xt[[space_column]]$penalty
+        }
+
+      }
+
+      xt_list <- list(xt = list(list(penalty = rlang::expr(pen_mat_time)),
+                                list(penalty = rlang::expr(pen_mat_space))))
+      names(xt_list$xt) <- c(time_column, space_column)
+
     }
 
     if (is.null(xt)) {
 
-      pen_mat_time <- ICAR_time(time_levels)
       pen_mat_space <- ICAR_space(patches, space_column)
 
-      vars$pen_mat_time <- pen_mat_time
       vars$pen_mat_space <- pen_mat_space
 
     } else {
@@ -320,13 +375,6 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
       checkmate::assert_names(names(xt),
                               subset.of = c(time_column, space_column))
 
-      if (is.null(xt[[time_column]]$penalty)) {
-        vars$pen_mat_time <- ICAR_time(time_levels)
-      } else {
-        checkmate::assert_matrix(xt[[time_column]]$penalty)
-        vars$pen_mat_time <- xt[[time_column]]$penalty
-      }
-
       if (is.null(xt[[space_column]]$penalty)) {
         vars$pen_mat_space <- ICAR_space(patches, space_column)
       } else {
@@ -336,9 +384,10 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
 
     }
 
-    xt_list <- list(xt = list(list(penalty = rlang::expr(pen_mat_time)),
-                              list(penalty = rlang::expr(pen_mat_space))))
-    names(xt_list$xt) <- c(time_column, space_column)
+    # Create symbol and assign to list
+    pen_expression <- rlang::expr(pen_mat_space)
+    vars$pen_mat_space <- pen_mat_space
+    xt_list <- list(xt = list(penalty = pen_expression))
 
   }
 
