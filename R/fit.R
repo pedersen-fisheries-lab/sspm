@@ -70,15 +70,19 @@ setMethod(f = "fit_smooths",
               predict_mat <- spm_patches(boundaries) %>%
                 sf::st_set_geometry(NULL) %>%
                 tidyr::expand_grid(!!time_col := min_year:max_year)
-                # tidyr::expand_grid(!!time_col := 1979:2018)
+              # tidyr::expand_grid(!!time_col := 1979:2018)
 
             }
 
             formulas <- spm_formulas(sspm_object)
             formula_length <- length(formulas)
 
-            tmp_fit <-
-              vector(mode = "list", length = formula_length)
+            if (length(spm_smoothed_fit(sspm_object)) == 0){
+              tmp_fit <- list()
+            } else {
+              tmp_fit <- spm_smoothed_fit(sspm_object)
+            }
+
             tmp_smoothed <-
               vector(mode = "list", length = formula_length)
 
@@ -93,10 +97,6 @@ setMethod(f = "fit_smooths",
 
               form_name <- paste0(spm_name(sspm_object), "_f", form_id)
               form_vars <- formula_vars(form)
-
-              # Inject name
-              names(tmp_fit)[form_id] <- form_name
-              names(tmp_smoothed)[form_id] <- form_name
 
               # Print info
               cli::cli_alert_info(
