@@ -127,19 +127,59 @@ sspm_dataset." />
 <code><a href='sspm_dataset-class.html'>sspm_dataset</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>spm_as_dataset</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>name</span>, <span class='va'>time_column</span>, <span class='va'>uniqueID</span>, coords <span class='op'>=</span> <span class='cn'>NULL</span>, crs <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>spm_as_dataset</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>name</span>,
+  <span class='va'>time_column</span>,
+  <span class='va'>uniqueID</span>,
+  coords <span class='op'>=</span> <span class='cn'>NULL</span>,
+  crs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  boundaries <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
 
 <span class='co'># S4 method for data.frame,ANY,ANY,ANY,missingOrNULL</span>
-<span class='fu'>spm_as_dataset</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>name</span>, <span class='va'>time_column</span>, <span class='va'>uniqueID</span>, coords <span class='op'>=</span> <span class='cn'>NULL</span>, crs <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+<span class='fu'>spm_as_dataset</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>name</span>,
+  <span class='va'>time_column</span>,
+  <span class='va'>uniqueID</span>,
+  coords <span class='op'>=</span> <span class='cn'>NULL</span>,
+  crs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  boundaries <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
 
 <span class='co'># S4 method for data.frame,ANY,ANY,ANY,list</span>
-<span class='fu'>spm_as_dataset</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>name</span>, <span class='va'>time_column</span>, <span class='va'>uniqueID</span>, coords <span class='op'>=</span> <span class='cn'>NULL</span>, crs <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+<span class='fu'>spm_as_dataset</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>name</span>,
+  <span class='va'>time_column</span>,
+  <span class='va'>uniqueID</span>,
+  coords <span class='op'>=</span> <span class='cn'>NULL</span>,
+  crs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  boundaries <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
 
 <span class='co'># S4 method for data.frame,ANY,ANY,ANY,character</span>
-<span class='fu'>spm_as_dataset</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>name</span>, <span class='va'>time_column</span>, <span class='va'>uniqueID</span>, coords <span class='op'>=</span> <span class='cn'>NULL</span>, crs <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span>
+<span class='fu'>spm_as_dataset</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>name</span>,
+  <span class='va'>time_column</span>,
+  <span class='va'>uniqueID</span>,
+  coords <span class='op'>=</span> <span class='cn'>NULL</span>,
+  crs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  boundaries <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span>
 
 <span class='co'># S4 method for sf,ANY,ANY,ANY,ANY</span>
-<span class='fu'>spm_as_dataset</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>name</span>, <span class='va'>time_column</span>, <span class='va'>uniqueID</span>, coords <span class='op'>=</span> <span class='cn'>NULL</span>, crs <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+<span class='fu'>spm_as_dataset</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>name</span>,
+  <span class='va'>time_column</span>,
+  <span class='va'>uniqueID</span>,
+  coords <span class='op'>=</span> <span class='cn'>NULL</span>,
+  crs <span class='op'>=</span> <span class='cn'>NULL</span>,
+  boundaries <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -170,6 +210,11 @@ latitude of the observations.</p></td>
     <tr>
       <th>crs</th>
       <td><p>Coordinate reference system, passed onto st_as_sf.</p></td>
+    </tr>
+    <tr>
+      <th>boundaries</th>
+      <td><p><strong>[sspm_boundary]</strong> An object of class
+<a href='sspm_boundary-class.html'>sspm_discrete_boundary</a>.</p></td>
     </tr>
     </table>
 
