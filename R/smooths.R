@@ -217,7 +217,7 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
   # ---- TIME ----
-  time_levels <- unique(data_frame[[time_column]])
+  time_levels <- levels(data_frame[[time_column]])
   n_time_levels = length(time_levels)
 
   # ---- SPACE ----

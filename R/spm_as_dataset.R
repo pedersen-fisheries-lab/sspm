@@ -33,6 +33,10 @@ setGeneric(name = "spm_as_dataset",
                stop("`time_column` must be a column of `data`", call. = FALSE)
              }
 
+             if (!checkmate::test_factor(data[[time_column]])) {
+               stop("`time_column` must be a factor", call. = FALSE)
+             }
+
              standardGeneric("spm_as_dataset")
            }
 )
