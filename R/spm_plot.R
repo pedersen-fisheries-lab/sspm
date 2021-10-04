@@ -128,7 +128,8 @@ setMethod("spm_plot",
                                                  col = .data$color)) +
                 ggplot2::theme_light() +
                 ggplot2::labs(x = "actual") +
-                ggplot2::scale_color_viridis_d("Set")
+                ggplot2::scale_color_viridis_d("Set") +
+                ggplot2::facet_wrap(~.data[[spm_boundary_colum(spm_boundaries(sspm_object))]])
 
             }
 
