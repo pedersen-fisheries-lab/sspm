@@ -11,6 +11,7 @@
 #' @param k **\[numeric\]** Size of the smooths and/or size of the lag.
 #' @inheritParams spm_smooth
 #' @inheritParams mgcv::s
+#' @param is_spm Whether or not an SPM is being fitted (used internally)
 #'
 #' @return
 #' A list of 2 lists:
@@ -27,6 +28,7 @@ setGeneric(name = "smooth_time",
                           k = NULL,
                           bs = "re",
                           xt = NULL,
+                          is_spm = FALSE,
                           ...) {
              standardGeneric("smooth_time")
            }
@@ -39,9 +41,10 @@ setGeneric(name = "smooth_space",
                           boundaries,
                           time_column,
                           type = "ICAR",
-                          k = 30,
+                          k = NULL,
                           bs = "mrf",
                           xt = NULL,
+                          is_spm = FALSE,
                           ...) {
              standardGeneric("smooth_space")
            }
@@ -57,6 +60,7 @@ setGeneric(name = "smooth_space_time",
                           k = NULL,
                           bs = c("re", "mrf"),
                           xt = NULL,
+                          is_spm = FALSE,
                           ...) {
              standardGeneric("smooth_space_time")
            }
@@ -79,36 +83,21 @@ setGeneric(name = "smooth_lag",
 
 # Methods -----------------------------------------------------------------
 
-# Beware: the following code is repeated three time for the sake of user
-# friendliness, although much has been done to limit repetition. If you are
-# about to edit some of this code, check whether this edit should not be also
-# done to the other two occurrences of that code.
-
 #' @export
 #' @rdname smooths
 setMethod(f = "smooth_time",
           signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(data_frame, boundaries, time_column, type, k, bs, xt, ...) {
+          function(data_frame, boundaries, time_column, type, k, bs, xt, is_spm, ...) {
 
-            # Get args from ellipsis for extra args: this form is necessary for
-            # capturing symbols as well
             args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
-            # Get the default arguments for the smooth type used
-            args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(data_frame = data_frame,
-                                                 time_column = time_column,
-                                                 dimension = "time",
-                                                 boundaries = boundaries,
-                                                 k = k, bs = bs, xt = xt),
-                                            args_list))
-
-            # Assemble the smooths
-            string_smooth <- assemble_smooth("s", args_and_vars$args)
-
-            return(list(smooth = string_smooth,
-                        vars = args_and_vars$vars))
+            do.call(smooth_routine,
+                    append(list(dimension = "time", var = NULL, data_frame = data_frame,
+                                boundaries = boundaries, time_column = time_column,
+                                type = type, k = k, m = NULL, bs = bs, xt = xt,
+                                is_spm = is_spm),
+                           args_list))
 
           }
 )
@@ -118,26 +107,16 @@ setMethod(f = "smooth_time",
 setMethod(f = "smooth_space",
           signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(data_frame, boundaries, time_column, type, k, bs, xt, ...) {
+          function(data_frame, boundaries, time_column, type, k, bs, xt, is_spm, ...) {
 
-            # Get args from ellipsis for extra args: this form is necessary for
-            # capturing symbols as well
             args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
-            # Get the default arguments for the smooth type used
-            args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(data_frame = data_frame,
-                                                 time_column = time_column,
-                                                 dimension = "space",
-                                                 boundaries = boundaries,
-                                                 k = k, bs = bs, xt = xt),
-                                            args_list))
-
-            # Assemble the smooths
-            string_smooth <- assemble_smooth("s", args_and_vars$args)
-
-            return(list(smooth = string_smooth,
-                        vars = args_and_vars$vars))
+            do.call(smooth_routine,
+                    append(list(dimension = "space", var = NULL, data_frame = data_frame,
+                                boundaries = boundaries, time_column = time_column,
+                                type = type, k = k, m = NULL, bs = bs, xt = xt,
+                                is_spm = is_spm),
+                           args_list))
 
           }
 )
@@ -147,26 +126,16 @@ setMethod(f = "smooth_space",
 setMethod(f = "smooth_space_time",
           signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(data_frame, boundaries, time_column, type, k, bs, xt, ...) {
+          function(data_frame, boundaries, time_column, type, k, bs, xt, is_spm, ...) {
 
-            # Get args from ellipsis for extra args: this form is necessary for
-            # capturing symbols as well
             args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
-            # Get the default arguments for the smooth type used
-            args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(data_frame = data_frame,
-                                                 time_column = time_column,
-                                                 dimension = "space_time",
-                                                 boundaries = boundaries,
-                                                 k = k, bs = bs, xt = xt),
-                                            args_list))
-
-            # Assemble the smooths
-            string_smooth <- assemble_smooth("ti", args_and_vars$args)
-
-            return(list(smooth = string_smooth,
-                        vars = args_and_vars$vars))
+            do.call(smooth_routine,
+                    append(list(dimension = "space_time", var = NULL, data_frame = data_frame,
+                                boundaries = boundaries, time_column = time_column,
+                                type = type, k = k, m = NULL, bs = bs, xt = xt,
+                                is_spm = is_spm),
+                           args_list))
 
           }
 )
@@ -177,27 +146,48 @@ setMethod(f = "smooth_lag",
           signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
           function(var, data_frame, boundaries, time_column, type, k, m, ...) {
-            # Get args from ellipsis for extra args: this form is necessary for
-            # capturing symbols as well
+
             args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
-            # Get the default arguments for the smooth type used
-            args_and_vars <- do.call(dispatch_smooth(type),
-                                     append(list(data_frame = data_frame,
-                                                 boundaries = boundaries,
-                                                 time_column = time_column,
-                                                 var = var,
-                                                 k = k, m = m),
-                                            args_list))
-
-            # Assemble the smooths
-            string_smooth <- assemble_smooth("s", args_and_vars$args)
-
-            return(list(smooth = string_smooth,
-                        vars = args_and_vars$vars))
+            do.call(smooth_routine,
+                    append(list(dimension = NULL, var = var, data_frame = data_frame,
+                                boundaries = NULL, time_column = time_column,
+                                type = type, k = k, m = m, bs = NULL, xt = NULL,
+                                is_spm = NULL),
+                           args_list))
 
           }
 )
+
+
+# Routine -----------------------------------------------------------------
+
+smooth_routine <- function(dimension, var, data_frame, boundaries, time_column,
+                           type, k, m, bs, xt, is_spm, ...){
+
+  # Get args from ellipsis for extra args: this form is necessary for
+  # capturing symbols as well
+  args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
+
+  # Get the default arguments for the smooth type used
+  args_and_vars <- do.call(dispatch_smooth(type),
+                           append(list(dimension = dimension,
+                                       var = var,
+                                       data_frame = data_frame,
+                                       boundaries = boundaries,
+                                       time_column = time_column,
+                                       k = k, m = m,
+                                       bs = bs, xt = xt,
+                                       is_spm = is_spm),
+                                  args_list))
+
+  # Assemble the smooths
+  string_smooth <- assemble_smooth("s", args_and_vars$args)
+
+  return(list(smooth = string_smooth,
+              vars = args_and_vars$vars))
+
+}
 
 # ICAR --------------------------------------------------------------------
 
@@ -205,7 +195,7 @@ setMethod(f = "smooth_lag",
 # double list args_and_vars that have the args to build a new call to s() and the
 # vars necessary for the evaluation of that s() smooth
 ICAR <- function(data_frame, boundaries, time_column, dimension,
-                 k, bs, xt, ...) {
+                 k, bs, xt, is_spm, unused_names = c("var", "m"), ...) {
 
   checkmate::assert_class(data_frame, "sf")
   checkmate::assert_class(boundaries, "sspm_discrete_boundary")
@@ -215,10 +205,11 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
 
   # Recapture the ellipsis again
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
+  args_list <- args_list[!(names(args_list) %in% unused_names)]
 
   # ---- TIME ----
   time_levels <- levels(data_frame[[time_column]])
-  n_time_levels = length(time_levels)
+  n_time_levels = as.numeric(length(time_levels))
 
   # ---- SPACE ----
   # Here we assume the hardcoded convention that the patch column is patch_id
@@ -234,7 +225,9 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
     out_column <- list(str2lang(time_column))
 
     if (is.null(k)) {
-      k <- n_time_levels
+      if (!is_spm) {
+        k <- n_time_levels
+      }
     }
 
     if (is.null(bs)) {
@@ -278,7 +271,9 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
     out_column <- list(str2lang(space_column))
 
     if (is.null(k)) {
-      k <- NA
+      if (!is_spm) {
+        k <- 30
+      }
     }
 
     if (is.null(bs)) {
@@ -312,7 +307,11 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
     out_column <- list(str2lang(time_column), str2lang(space_column))
 
     if (is.null(k)) {
-      k <- c(NA, 30)
+      if (is_spm) {
+        k <- c(NA, 30)
+      } else {
+        k <- c(n_time_levels, 30)
+      }
     }
 
     if (is.null(bs)) {
@@ -502,3 +501,4 @@ assemble_smooth <- function(s_type, args) {
   deparse(rlang::call2(s_type, !!!args),
           width.cutoff = 500, nlines = 1)
 }
+

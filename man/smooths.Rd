@@ -19,6 +19,7 @@ smooth_time(
   k = NULL,
   bs = "re",
   xt = NULL,
+  is_spm = FALSE,
   ...
 )
 
@@ -27,9 +28,10 @@ smooth_space(
   boundaries,
   time_column,
   type = "ICAR",
-  k = 30,
+  k = NULL,
   bs = "mrf",
   xt = NULL,
+  is_spm = FALSE,
   ...
 )
 
@@ -41,6 +43,7 @@ smooth_space_time(
   k = NULL,
   bs = c("re", "mrf"),
   xt = NULL,
+  is_spm = FALSE,
   ...
 )
 
@@ -63,6 +66,7 @@ smooth_lag(
   k = NULL,
   bs = "re",
   xt = NULL,
+  is_spm = FALSE,
   ...
 )
 
@@ -71,9 +75,10 @@ smooth_lag(
   boundaries,
   time_column,
   type = "ICAR",
-  k = 30,
+  k = NULL,
   bs = "mrf",
   xt = NULL,
+  is_spm = FALSE,
   ...
 )
 
@@ -85,6 +90,7 @@ smooth_lag(
   k = NULL,
   bs = c("re", "mrf"),
   xt = NULL,
+  is_spm = FALSE,
   ...
 )
 
@@ -120,6 +126,8 @@ see \code{\link[mgcv]{smooth.terms}} for an over view of what is available.
 \item{xt}{Any extra information required to set up a particular basis. Used
   e.g. to set large data set handling behaviour for \code{"tp"} basis. If \code{xt$sumConv}
   exists and is \code{FALSE} then the summation convention for matrix arguments is turned off. }
+
+\item{is_spm}{Whether or not an SPM is being fitted (used internally)}
 
 \item{...}{ a list of variables that are the covariates that this
     smooth is a function of. Transformations whose form depends on
