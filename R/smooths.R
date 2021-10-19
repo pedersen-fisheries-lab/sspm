@@ -151,7 +151,7 @@ setMethod(f = "smooth_lag",
 
             do.call(smooth_routine,
                     append(list(dimension = NULL, var = var, data_frame = data_frame,
-                                boundaries = NULL, time_column = time_column,
+                                boundaries = boundaries, time_column = time_column,
                                 type = type, k = k, m = m, bs = NULL, xt = NULL,
                                 is_spm = NULL),
                            args_list))
