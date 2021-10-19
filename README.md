@@ -54,9 +54,23 @@ library(sspm)
 #> Loading required package: nlme
 #> This is mgcv 1.8-36. For overview type 'help("mgcv-package")'.
 library(mgcv)
+library(dplyr)
+#> 
+#> Attaching package: 'dplyr'
+#> The following object is masked from 'package:nlme':
+#> 
+#>     collapse
+#> The following objects are masked from 'package:stats':
+#> 
+#>     filter, lag
+#> The following objects are masked from 'package:base':
+#> 
+#>     intersect, setdiff, setequal, union
 
 borealis <- sspm:::borealis_simulated
-predator <- sspm:::predator_simulated
+predator <- sspm:::predator_simulated %>% 
+  arrange(year) %>% 
+  mutate(year = as.factor(year))
 catch <- sspm:::catch_simulated
 
 sfa_boundaries <- sspm:::sfa_boundaries
@@ -269,7 +283,7 @@ predator_smooth <- predator_dataset %>%
 predator_smooth
 #> 
 #> ‒‒ SSPM Dataset: all_predators ‒‒
-#> →  Data (MAPPED)     : [1964 observations, 18 variables]
+#> →  Data (MAPPED)     : [1965 observations, 18 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year
 #> →  Coordinates cols. : lon_dec, lat_dec
@@ -385,8 +399,8 @@ sspm_model_fit <- sspm_model %>%
         weight_per_km2_smooth_borealis_with_catch_lag_1 +
         weight_per_km2_smooth_all_predators_lag_1 +
         smooth_lag("weight_per_km2_smooth_borealis_with_catch") + 
-        temp_at_bottom_smooth)
-#> ℹ  Fitting SPM formula: weight_per_km2_smooth_borealis_with_catch ~ weight_per_km2_smooth_borealis_with_catch_lag_1 + weight_per_km2_smooth_all_predators_lag_1 + smooth_lag('weight_per_km2_smooth_borealis_with_catch') + temp_at_bottom_smooth
+        temp_at_bottom_smooth + smooth_space())
+#> ℹ  Fitting SPM formula: weight_per_km2_smooth_borealis_with_catch ~ weight_per_km2_smooth_borealis_with_catch_lag_1 + weight_per_km2_smooth_all_predators_lag_1 + smooth_lag('weight_per_km2_smooth_borealis_with_catch') + temp_at_bottom_smooth + smooth_space()
 #> Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :
 #> step failure in theta estimation
 
@@ -399,34 +413,38 @@ sspm_model_fit
 #> →  Smoothed Data     : [912 observations, 16 variables] / [874 train, 38 test]
 #> →  Fit summary       : 
 #> 
-#> Family: Scaled t(Inf,104.423) 
+#> Family: Scaled t(Inf,92.993) 
 #> Link function: identity 
 #> 
 #> Formula:
 #> weight_per_km2_smooth_borealis_with_catch ~ weight_per_km2_smooth_borealis_with_catch_lag_1 + 
 #>     weight_per_km2_smooth_all_predators_lag_1 + temp_at_bottom_smooth + 
-#>     s(lag_matrix, k = 5, m = 1, by = by_matrix)
+#>     s(lag_matrix, k = 5, m = 1, by = by_matrix) + s(patch_id, 
+#>     k = 30, bs = "mrf", xt = list(penalty = pen_mat_space))
 #> 
 #> Parametric coefficients:
 #>                                                   Estimate Std. Error t value
-#> (Intercept)                                     -241.82844  379.24227  -0.638
-#> weight_per_km2_smooth_borealis_with_catch_lag_1   -0.01510    0.07110  -0.212
-#> weight_per_km2_smooth_all_predators_lag_1          0.06681    0.06086   1.098
-#> temp_at_bottom_smooth                              9.40613    9.17059   1.026
-#>                                                 Pr(>|t|)
-#> (Intercept)                                        0.524
-#> weight_per_km2_smooth_borealis_with_catch_lag_1    0.832
-#> weight_per_km2_smooth_all_predators_lag_1          0.273
-#> temp_at_bottom_smooth                              0.305
-#> 
-#> Approximate significance of smooth terms:
-#>                           edf Ref.df     F p-value    
-#> s(lag_matrix):by_matrix 4.716      5 176.9  <2e-16 ***
+#> (Intercept)                                     9179.48145 1315.95743   6.976
+#> weight_per_km2_smooth_borealis_with_catch_lag_1   -0.18912    0.04765  -3.969
+#> weight_per_km2_smooth_all_predators_lag_1         -0.50779    0.23222  -2.187
+#> temp_at_bottom_smooth                            162.01644   31.22416   5.189
+#>                                                 Pr(>|t|)    
+#> (Intercept)                                     6.18e-12 ***
+#> weight_per_km2_smooth_borealis_with_catch_lag_1 7.84e-05 ***
+#> weight_per_km2_smooth_all_predators_lag_1          0.029 *  
+#> temp_at_bottom_smooth                           2.66e-07 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
-#> R-sq.(adj) =   0.83   Deviance explained = 83.2%
-#> -REML = 1251.9  Scale est. = 1         n = 874
+#> Approximate significance of smooth terms:
+#>                            edf Ref.df      F p-value    
+#> s(lag_matrix):by_matrix  3.834      5 13.411  <2e-16 ***
+#> s(patch_id)             27.566     29  7.615  <2e-16 ***
+#> ---
+#> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+#> 
+#> R-sq.(adj) =  0.861   Deviance explained = 86.7%
+#> -REML = 1313.2  Scale est. = 1         n = 874
 ```
 
 16. Plotting the object produces a actual vs predicted plot (with
