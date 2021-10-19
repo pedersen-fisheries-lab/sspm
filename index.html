@@ -110,9 +110,23 @@
 <span class="co">#&gt; Loading required package: nlme</span>
 <span class="co">#&gt; This is mgcv 1.8-36. For overview type 'help("mgcv-package")'.</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'dplyr'</span>
+<span class="co">#&gt; The following object is masked from 'package:nlme':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     collapse</span>
+<span class="co">#&gt; The following objects are masked from 'package:stats':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     filter, lag</span>
+<span class="co">#&gt; The following objects are masked from 'package:base':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     intersect, setdiff, setequal, union</span>
 
 <span class="va">borealis</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">borealis_simulated</span>
-<span class="va">predator</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">predator_simulated</span>
+<span class="va">predator</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">predator_simulated</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span>
 <span class="va">catch</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">catch_simulated</span>
 
 <span class="va">sfa_boundaries</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">sfa_boundaries</span></code></pre></div>
@@ -287,7 +301,7 @@
 <span class="va">predator_smooth</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM Dataset: all_predators ‒‒</span>
-<span class="co">#&gt; →  Data (MAPPED)     : [1964 observations, 18 variables]</span>
+<span class="co">#&gt; →  Data (MAPPED)     : [1965 observations, 18 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
 <span class="co">#&gt; →  Time col.         : year</span>
 <span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span>
@@ -391,8 +405,8 @@
         <span class="va">weight_per_km2_smooth_borealis_with_catch_lag_1</span> <span class="op">+</span>
         <span class="va">weight_per_km2_smooth_all_predators_lag_1</span> <span class="op">+</span>
         <span class="fu"><a href="reference/smooth_time.html">smooth_lag</a></span><span class="op">(</span><span class="st">"weight_per_km2_smooth_borealis_with_catch"</span><span class="op">)</span> <span class="op">+</span> 
-        <span class="va">temp_at_bottom_smooth</span><span class="op">)</span>
-<span class="co">#&gt; ℹ  Fitting SPM formula: weight_per_km2_smooth_borealis_with_catch ~ weight_per_km2_smooth_borealis_with_catch_lag_1 + weight_per_km2_smooth_all_predators_lag_1 + smooth_lag('weight_per_km2_smooth_borealis_with_catch') + temp_at_bottom_smooth</span>
+        <span class="va">temp_at_bottom_smooth</span> <span class="op">+</span> <span class="fu"><a href="reference/smooth_time.html">smooth_space</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; ℹ  Fitting SPM formula: weight_per_km2_smooth_borealis_with_catch ~ weight_per_km2_smooth_borealis_with_catch_lag_1 + weight_per_km2_smooth_all_predators_lag_1 + smooth_lag('weight_per_km2_smooth_borealis_with_catch') + temp_at_bottom_smooth + smooth_space()</span>
 <span class="co">#&gt; Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :</span>
 <span class="co">#&gt; step failure in theta estimation</span>
 
@@ -405,34 +419,38 @@
 <span class="co">#&gt; →  Smoothed Data     : [912 observations, 16 variables] / [874 train, 38 test]</span>
 <span class="co">#&gt; →  Fit summary       : </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Family: Scaled t(Inf,104.423) </span>
+<span class="co">#&gt; Family: Scaled t(Inf,92.993) </span>
 <span class="co">#&gt; Link function: identity </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Formula:</span>
 <span class="co">#&gt; weight_per_km2_smooth_borealis_with_catch ~ weight_per_km2_smooth_borealis_with_catch_lag_1 + </span>
 <span class="co">#&gt;     weight_per_km2_smooth_all_predators_lag_1 + temp_at_bottom_smooth + </span>
-<span class="co">#&gt;     s(lag_matrix, k = 5, m = 1, by = by_matrix)</span>
+<span class="co">#&gt;     s(lag_matrix, k = 5, m = 1, by = by_matrix) + s(patch_id, </span>
+<span class="co">#&gt;     k = 30, bs = "mrf", xt = list(penalty = pen_mat_space))</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Parametric coefficients:</span>
 <span class="co">#&gt;                                                   Estimate Std. Error t value</span>
-<span class="co">#&gt; (Intercept)                                     -241.82844  379.24227  -0.638</span>
-<span class="co">#&gt; weight_per_km2_smooth_borealis_with_catch_lag_1   -0.01510    0.07110  -0.212</span>
-<span class="co">#&gt; weight_per_km2_smooth_all_predators_lag_1          0.06681    0.06086   1.098</span>
-<span class="co">#&gt; temp_at_bottom_smooth                              9.40613    9.17059   1.026</span>
-<span class="co">#&gt;                                                 Pr(&gt;|t|)</span>
-<span class="co">#&gt; (Intercept)                                        0.524</span>
-<span class="co">#&gt; weight_per_km2_smooth_borealis_with_catch_lag_1    0.832</span>
-<span class="co">#&gt; weight_per_km2_smooth_all_predators_lag_1          0.273</span>
-<span class="co">#&gt; temp_at_bottom_smooth                              0.305</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Approximate significance of smooth terms:</span>
-<span class="co">#&gt;                           edf Ref.df     F p-value    </span>
-<span class="co">#&gt; s(lag_matrix):by_matrix 4.716      5 176.9  &lt;2e-16 ***</span>
+<span class="co">#&gt; (Intercept)                                     9179.48145 1315.95743   6.976</span>
+<span class="co">#&gt; weight_per_km2_smooth_borealis_with_catch_lag_1   -0.18912    0.04765  -3.969</span>
+<span class="co">#&gt; weight_per_km2_smooth_all_predators_lag_1         -0.50779    0.23222  -2.187</span>
+<span class="co">#&gt; temp_at_bottom_smooth                            162.01644   31.22416   5.189</span>
+<span class="co">#&gt;                                                 Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)                                     6.18e-12 ***</span>
+<span class="co">#&gt; weight_per_km2_smooth_borealis_with_catch_lag_1 7.84e-05 ***</span>
+<span class="co">#&gt; weight_per_km2_smooth_all_predators_lag_1          0.029 *  </span>
+<span class="co">#&gt; temp_at_bottom_smooth                           2.66e-07 ***</span>
 <span class="co">#&gt; ---</span>
 <span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; R-sq.(adj) =   0.83   Deviance explained = 83.2%</span>
-<span class="co">#&gt; -REML = 1251.9  Scale est. = 1         n = 874</span></code></pre></div>
+<span class="co">#&gt; Approximate significance of smooth terms:</span>
+<span class="co">#&gt;                            edf Ref.df      F p-value    </span>
+<span class="co">#&gt; s(lag_matrix):by_matrix  3.834      5 13.411  &lt;2e-16 ***</span>
+<span class="co">#&gt; s(patch_id)             27.566     29  7.615  &lt;2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; R-sq.(adj) =  0.861   Deviance explained = 86.7%</span>
+<span class="co">#&gt; -REML = 1313.2  Scale est. = 1         n = 874</span></code></pre></div>
 <ol>
 <li>Plotting the object produces a actual vs predicted plot (with TEST/TRAIN data highlighted.</li>
 </ol>
