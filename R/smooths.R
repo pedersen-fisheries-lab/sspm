@@ -438,8 +438,8 @@ ICAR_space <- function(patches, space_column) {
 # Construct the lag matrix and associated lag columns for the linear predictor
 # method of fitting the smooth
 
-LINPRED <- function(data_frame, boundaries, time_column, var,
-                    k, m, ...) {
+LINPRED <- function(data_frame, boundaries, time_column, var, k, m,
+                    unused_names = c("dimension", "bs", "xt", "is_spm"), ...) {
 
   checkmate::assert_class(data_frame, "sf")
   checkmate::assert_class(boundaries, "sspm_discrete_boundary")
@@ -447,6 +447,7 @@ LINPRED <- function(data_frame, boundaries, time_column, var,
 
   # Recapture the ellipsis again
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
+  args_list <- args_list[!(names(args_list) %in% unused_names)]
 
   # Make the lag matrix
   boundary_col <- spm_boundary_colum(boundaries)
