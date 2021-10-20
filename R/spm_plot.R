@@ -8,6 +8,7 @@
 #'     "all" for all pages
 #' @param nrow **\[numeric\]** The number of rows to paginate the plot on.
 #' @param ncol **\[numeric\]** The number of columns to paginate the plot on.
+#' @param log **\[logical\]** Whether to plot on a log scale, default to TRUE.
 #'
 #' @return
 #' N/A
@@ -15,7 +16,7 @@
 #' @export
 setGeneric(name = "spm_plot",
            def = function(sspm_object, smoothed_var = NULL,
-                          page = NULL, nrow = NULL, ncol = NULL) {
+                          page = NULL, nrow = NULL, ncol = NULL, log = NULL) {
              standardGeneric("spm_plot")
            }
 )
@@ -71,7 +72,7 @@ setMethod("spm_plot",
 setMethod("spm_plot",
           signature(sspm_object = "sspm_dataset"),
           definition = function(sspm_object, smoothed_var = NULL,
-                                page = "first", nrow = 2, ncol = 4) {
+                                page = "first", nrow = 2, ncol = 4, log = TRUE) {
 
             smoothed_data <- spm_smoothed_data(sspm_object)
 
@@ -82,12 +83,14 @@ setMethod("spm_plot",
 
             } else {
 
-              # TODO add check for smoothed_var to be in smoothed_data
+              if (!checkmate::test_subset(smoothed_var, names(smoothed_data))) {
+                stop("`smoothed_var` must be a column of the smoothed data", call. = FALSE)
+              }
 
               time_col <- spm_time_column(sspm_object)
 
               sspm_discrete_plot <- spm_plot_routine(smoothed_data, smoothed_var,
-                                                     page, nrow, ncol, time_col)
+                                                     page, nrow, ncol, time_col, log)
 
               return(sspm_discrete_plot)
             }
@@ -141,7 +144,14 @@ setMethod("spm_plot",
 # -------------------------------------------------------------------------
 
 spm_plot_routine <- function(smoothed_data, smoothed_var,
-                             page, nrow, ncol, time_col) {
+                             page, nrow, ncol, time_col, log) {
+
+  if (log) {
+    smoothed_data[[smoothed_var]] <- log(smoothed_data[[smoothed_var]])
+    the_title <- paste0(smoothed_var, " (log)")
+  } else {
+    the_title <- smoothed_var
+  }
 
   if (is.character(page)) {
 
@@ -187,6 +197,9 @@ spm_plot_routine <- function(smoothed_data, smoothed_var,
       ggplot2::scale_fill_viridis_c()
 
   }
+
+  sspm_discrete_plot <- sspm_discrete_plot +
+   ggplot2::labs(fill = the_title)
 
   return(sspm_discrete_plot)
 
