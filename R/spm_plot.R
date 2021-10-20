@@ -163,8 +163,8 @@ setMethod("spm_plot_biomass",
             time_col <- spm_time_column(sspm_object)
 
             biomass_plot <- biomass_preds %>%
-              ggplot2::ggplot(aes(x = .data[[time_col]],
-                                  y = biomass_pred)) +
+              ggplot2::ggplot(ggplot2::aes(x = .data[[time_col]],
+                                           y = biomass_pred)) +
               ggplot2::geom_point() +
               ggplot2::geom_smooth() +
 
@@ -172,9 +172,9 @@ setMethod("spm_plot_biomass",
                                            nrow = nrow, ncol = ncol,
                                            page = page) +
 
-              geom_line(data = spm_smoothed_data(sspm_object),
-                        aes(x = .data[[time_col]],
-                            y = .data[[biomass]]))
+              ggplot2::geom_line(data = spm_smoothed_data(sspm_object),
+                                 ggplot2::aes(x = .data[[time_col]],
+                                              y = .data[[biomass]]))
 
             return(biomass_plot)
           }
