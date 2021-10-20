@@ -213,7 +213,7 @@ sspm_model
 
 ```{r}
 sspm_model_fit <- sspm_model %>% 
-  spm(weight_per_km2_smooth_borealis_with_catch ~ 
+  spm(weight_per_km2_smooth_borealis_with_catch_change ~ 
         weight_per_km2_smooth_borealis_with_catch_lag_1 +
         weight_per_km2_smooth_all_predators_lag_1 +
         smooth_lag("weight_per_km2_smooth_borealis_with_catch") + 

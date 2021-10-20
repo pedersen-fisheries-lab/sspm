@@ -395,12 +395,15 @@ sspm_model
 
 ``` r
 sspm_model_fit <- sspm_model %>% 
-  spm(weight_per_km2_smooth_borealis_with_catch ~ 
+  spm(weight_per_km2_smooth_borealis_with_catch_change ~ 
         weight_per_km2_smooth_borealis_with_catch_lag_1 +
         weight_per_km2_smooth_all_predators_lag_1 +
         smooth_lag("weight_per_km2_smooth_borealis_with_catch") + 
         temp_at_bottom_smooth + smooth_space())
-#> ℹ  Fitting SPM formula: weight_per_km2_smooth_borealis_with_catch ~ weight_per_km2_smooth_borealis_with_catch_lag_1 + weight_per_km2_smooth_all_predators_lag_1 + smooth_lag('weight_per_km2_smooth_borealis_with_catch') + temp_at_bottom_smooth + smooth_space()
+#> ℹ  Fitting SPM formula: weight_per_km2_smooth_borealis_with_catch_change ~ weight_per_km2_smooth_borealis_with_catch_lag_1 + weight_per_km2_smooth_all_predators_lag_1 + smooth_lag('weight_per_km2_smooth_borealis_with_catch') + temp_at_bottom_smooth + smooth_space()
+#> Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :
+#> step failure in theta estimation
+
 #> Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :
 #> step failure in theta estimation
 
@@ -413,38 +416,38 @@ sspm_model_fit
 #> →  Smoothed Data     : [912 observations, 16 variables] / [874 train, 38 test]
 #> →  Fit summary       : 
 #> 
-#> Family: Scaled t(Inf,92.993) 
+#> Family: Scaled t(Inf,0.02) 
 #> Link function: identity 
 #> 
 #> Formula:
-#> weight_per_km2_smooth_borealis_with_catch ~ weight_per_km2_smooth_borealis_with_catch_lag_1 + 
+#> weight_per_km2_smooth_borealis_with_catch_change ~ weight_per_km2_smooth_borealis_with_catch_lag_1 + 
 #>     weight_per_km2_smooth_all_predators_lag_1 + temp_at_bottom_smooth + 
 #>     s(lag_matrix, k = 5, m = 1, by = by_matrix) + s(patch_id, 
 #>     k = 30, bs = "mrf", xt = list(penalty = pen_mat_space))
 #> 
 #> Parametric coefficients:
 #>                                                   Estimate Std. Error t value
-#> (Intercept)                                     9179.48145 1315.95743   6.976
-#> weight_per_km2_smooth_borealis_with_catch_lag_1   -0.18912    0.04765  -3.969
-#> weight_per_km2_smooth_all_predators_lag_1         -0.50779    0.23222  -2.187
-#> temp_at_bottom_smooth                            162.01644   31.22416   5.189
+#> (Intercept)                                      2.252e+00  8.041e-01   2.801
+#> weight_per_km2_smooth_borealis_with_catch_lag_1 -2.392e-04  6.701e-06 -35.692
+#> weight_per_km2_smooth_all_predators_lag_1       -2.452e-04  1.744e-04  -1.405
+#> temp_at_bottom_smooth                            3.607e-02  5.972e-03   6.041
 #>                                                 Pr(>|t|)    
-#> (Intercept)                                     6.18e-12 ***
-#> weight_per_km2_smooth_borealis_with_catch_lag_1 7.84e-05 ***
-#> weight_per_km2_smooth_all_predators_lag_1          0.029 *  
-#> temp_at_bottom_smooth                           2.66e-07 ***
+#> (Intercept)                                      0.00521 ** 
+#> weight_per_km2_smooth_borealis_with_catch_lag_1  < 2e-16 ***
+#> weight_per_km2_smooth_all_predators_lag_1        0.16027    
+#> temp_at_bottom_smooth                           2.34e-09 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #> Approximate significance of smooth terms:
-#>                            edf Ref.df      F p-value    
-#> s(lag_matrix):by_matrix  3.834      5 13.411  <2e-16 ***
-#> s(patch_id)             27.566     29  7.615  <2e-16 ***
+#>                               edf Ref.df     F  p-value    
+#> s(lag_matrix):by_matrix 1.661e-05      4  0.00 0.000147 ***
+#> s(patch_id)             2.661e+01     29 18.04  < 2e-16 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
-#> R-sq.(adj) =  0.861   Deviance explained = 86.7%
-#> -REML = 1313.2  Scale est. = 1         n = 874
+#> R-sq.(adj) =  0.607   Deviance explained = 62.1%
+#> -REML = 1276.6  Scale est. = 1         n = 836
 ```
 
 16. Plotting the object produces a actual vs predicted plot (with
@@ -452,6 +455,7 @@ sspm_model_fit
 
 ``` r
 spm_plot(sspm_model_fit)
+#> Warning: Removed 38 rows containing missing values (geom_point).
 ```
 
 <img src="man/figures/README-unnamed-chunk-20-1.png" width="100%" />
