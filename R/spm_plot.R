@@ -109,7 +109,9 @@ setMethod("spm_plot",
 
             if (!is.null(smoothed_var)) {
 
-              # TODO add check for smoothed_var to be in smoothed_data
+              if (!checkmate::test_subset(smoothed_var, names(smoothed_data))) {
+                stop("`smoothed_var` must be a column of the smoothed data", call. = FALSE)
+              }
 
               time_col <- spm_time_column(sspm_object)
 
