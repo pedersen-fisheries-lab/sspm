@@ -115,7 +115,7 @@ setMethod("spm_plot",
 
             } else {
 
-              preds <- spm_predict(sspm_object)
+              preds <- spm_predict(sspm_object)$pred
               response <- spm_response(spm_formulas(sspm_object))
               smoothed_data_with_preds <- smoothed_data %>%
                 dplyr::mutate(predicted = preds,
@@ -123,7 +123,7 @@ setMethod("spm_plot",
 
               sspm_discrete_plot <-
                 ggplot2::ggplot(data = smoothed_data_with_preds) +
-                ggplot2::geom_point(ggplot2::aes(x = .data[[response]],
+                ggplot2::geom_point(ggplot2::aes(x = exp(.data[[response]]),
                                                  y = .data$predicted,
                                                  col = .data$color)) +
                 ggplot2::theme_light() +
