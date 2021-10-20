@@ -6,6 +6,9 @@
 #' @param new_data **\[data.frame\]**
 #' @param ... Arguments passed on to [predict.bam].
 #'
+#' @return
+#' A `dataframe` of predictions.
+#'
 #' @export
 setGeneric(name = "spm_predict",
            def = function(sspm_object,
@@ -47,9 +50,17 @@ setMethod(f = "spm_predict",
                     new_data = "list"),
           function(sspm_object, new_data, ...) {
 
-            preds <- spm_get_fit(sspm_object) %>%
+            pred_log <- spm_get_fit(sspm_object) %>%
               predict.bam(newdata = new_data, ...)
+            preds_df <- data.frame(pred_log = pred_log) %>%
+              mutate(pred = exp(pred_log))
 
-            return(preds)
+            columns_to_keep <- spm_smoothed_data(sspm_object) %>%
+              dplyr::select(patch_id, !!spm_time_column(sspm_model_fit),
+                            !!spm_boundary_colum(spm_boundaries(sspm_model_fit)))
+
+            preds_df <- cbind(preds_df, columns_to_keep)
+
+            return(preds_df)
           }
 )

@@ -23,6 +23,9 @@ spm_predict(sspm_object, new_data = NULL, ...)
 
 \item{...}{Arguments passed on to \link{predict.bam}.}
 }
+\value{
+A \code{dataframe} of predictions.
+}
 \description{
 Predict using a fitted SPM model on the whole data or on new data
 }
