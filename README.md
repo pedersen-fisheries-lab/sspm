@@ -52,7 +52,7 @@ library(sspm)
 #> Linking to GEOS 3.9.0, GDAL 3.2.2, PROJ 7.2.1
 #> Loading required package: mgcv
 #> Loading required package: nlme
-#> This is mgcv 1.8-36. For overview type 'help("mgcv-package")'.
+#> This is mgcv 1.8-38. For overview type 'help("mgcv-package")'.
 library(mgcv)
 library(dplyr)
 #> 
@@ -68,8 +68,7 @@ library(dplyr)
 #>     intersect, setdiff, setequal, union
 
 borealis <- sspm:::borealis_simulated
-predator <- sspm:::predator_simulated %>% 
-  arrange(year) %>% 
+predator <- sspm:::predator_simulated %>%
   mutate(year = as.factor(year))
 catch <- sspm:::catch_simulated
 
@@ -427,14 +426,14 @@ sspm_model_fit
 #> 
 #> Parametric coefficients:
 #>                                                   Estimate Std. Error t value
-#> (Intercept)                                      2.252e+00  8.041e-01   2.801
-#> weight_per_km2_smooth_borealis_with_catch_lag_1 -2.392e-04  6.701e-06 -35.692
+#> (Intercept)                                      2.252e+00  8.040e-01   2.801
+#> weight_per_km2_smooth_borealis_with_catch_lag_1 -2.392e-04  6.701e-06 -35.694
 #> weight_per_km2_smooth_all_predators_lag_1       -2.452e-04  1.744e-04  -1.405
-#> temp_at_bottom_smooth                            3.607e-02  5.972e-03   6.041
+#> temp_at_bottom_smooth                            3.607e-02  5.971e-03   6.041
 #>                                                 Pr(>|t|)    
 #> (Intercept)                                      0.00521 ** 
 #> weight_per_km2_smooth_borealis_with_catch_lag_1  < 2e-16 ***
-#> weight_per_km2_smooth_all_predators_lag_1        0.16027    
+#> weight_per_km2_smooth_all_predators_lag_1        0.16026    
 #> temp_at_bottom_smooth                           2.34e-09 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
@@ -442,12 +441,12 @@ sspm_model_fit
 #> Approximate significance of smooth terms:
 #>                               edf Ref.df     F  p-value    
 #> s(lag_matrix):by_matrix 1.661e-05      4  0.00 0.000147 ***
-#> s(patch_id)             2.661e+01     29 18.04  < 2e-16 ***
+#> s(patch_id)             2.661e+01     29 18.05  < 2e-16 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #> R-sq.(adj) =  0.607   Deviance explained = 62.1%
-#> -REML = 1276.6  Scale est. = 1         n = 836
+#> -REML = 1276.7  Scale est. = 1         n = 836
 ```
 
 16. Plotting the object produces a actual vs predicted plot (with
@@ -459,3 +458,39 @@ spm_plot(sspm_model_fit)
 ```
 
 <img src="man/figures/README-unnamed-chunk-20-1.png" width="100%" />
+
+17. We can also extract the predictions, including for biomass.
+
+``` r
+biomass_preds <- spm_predict(sspm_model_fit)
+head(biomass_preds)
+#>       pred_log      pred patch_id year_f sfa                       geometry
+#> 1  0.067409734 1.0697337       P1   1995   4 POLYGON ((-64.42169 60.2712...
+#> 2 -0.024165834 0.9761238       P1   1996   4 POLYGON ((-64.42169 60.2712...
+#> 3  0.022761276 1.0230223       P1   1997   4 POLYGON ((-64.42169 60.2712...
+#> 4 -0.039454314 0.9613139       P1   1998   4 POLYGON ((-64.42169 60.2712...
+#> 5  0.007266922 1.0072934       P1   1999   4 POLYGON ((-64.42169 60.2712...
+#> 6  0.020199447 1.0204048       P1   2000   4 POLYGON ((-64.42169 60.2712...
+```
+
+``` r
+biomass_preds <- spm_predict_biomass(sspm_model_fit, "weight_per_km2_smooth_borealis")
+head(biomass_preds)
+#>   biomass_pred patch_id year_f sfa                       geometry
+#> 1     5929.906       P1   1995   4 POLYGON ((-64.42169 60.2712...
+#> 2     5219.547       P1   1996   4 POLYGON ((-64.42169 60.2712...
+#> 3     5737.215       P1   1997   4 POLYGON ((-64.42169 60.2712...
+#> 4     5201.781       P1   1998   4 POLYGON ((-64.42169 60.2712...
+#> 5     5394.878       P1   1999   4 POLYGON ((-64.42169 60.2712...
+#> 6     5411.334       P1   2000   4 POLYGON ((-64.42169 60.2712...
+```
+
+18. We can also produce a biomass plot (note that this simulated data is
+    very monotonous).
+
+``` r
+spm_plot_biomass(sspm_model_fit, "weight_per_km2_smooth_borealis")
+#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+```
+
+<img src="man/figures/README-unnamed-chunk-23-1.png" width="100%" />

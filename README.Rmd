@@ -53,8 +53,7 @@ library(mgcv)
 library(dplyr)
 
 borealis <- sspm:::borealis_simulated
-predator <- sspm:::predator_simulated %>% 
-  arrange(year) %>% 
+predator <- sspm:::predator_simulated %>%
   mutate(year = as.factor(year))
 catch <- sspm:::catch_simulated
 
@@ -226,4 +225,20 @@ sspm_model_fit
 
 ```{r}
 spm_plot(sspm_model_fit)
+```
+
+17. We can also extract the predictions, including for biomass.
+```{r}
+biomass_preds <- spm_predict(sspm_model_fit)
+head(biomass_preds)
+```
+
+```{r}
+biomass_preds <- spm_predict_biomass(sspm_model_fit, "weight_per_km2_smooth_borealis")
+head(biomass_preds)
+```
+
+18. We can also produce a biomass plot (note that this simulated data is very monotonous).
+```{r}
+spm_plot_biomass(sspm_model_fit, "weight_per_km2_smooth_borealis")
 ```
