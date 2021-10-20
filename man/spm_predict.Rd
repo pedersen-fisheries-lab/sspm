@@ -5,6 +5,8 @@
 \alias{spm_predict,sspm_fit,data.frame-method}
 \alias{spm_predict,sspm_fit,missing-method}
 \alias{spm_predict,sspm_fit,list-method}
+\alias{spm_predict_biomass,sspm_fit,character-method}
+\alias{spm_predict_biomass,sspm_fit,numeric-method}
 \title{Predict with a SPM model}
 \usage{
 spm_predict(sspm_object, new_data = NULL, ...)
@@ -14,14 +16,20 @@ spm_predict(sspm_object, new_data = NULL, ...)
 \S4method{spm_predict}{sspm_fit,missing}(sspm_object, new_data = NULL, ...)
 
 \S4method{spm_predict}{sspm_fit,list}(sspm_object, new_data = NULL, ...)
+
+\S4method{spm_predict_biomass}{sspm_fit,character}(sspm_object, biomass = NULL, ...)
+
+\S4method{spm_predict_biomass}{sspm_fit,numeric}(sspm_object, biomass = NULL, ...)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_dataset]} An object of class
 \link[=sspm_dataset-class]{sspm_dataset}.}
 
-\item{new_data}{\strong{[data.frame]}}
+\item{new_data}{\strong{[data.frame]} New data to predict with.}
 
 \item{...}{Arguments passed on to \link{predict.bam}.}
+
+\item{biomass}{\strong{[data.frame]} Biomass variable.}
 }
 \value{
 A \code{dataframe} of predictions.

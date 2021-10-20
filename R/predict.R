@@ -3,7 +3,8 @@
 #' Predict using a fitted SPM model on the whole data or on new data
 #'
 #' @inheritParams spm_smooth
-#' @param new_data **\[data.frame\]**
+#' @param new_data **\[data.frame\]** New data to predict with.
+#' @param biomass **\[data.frame\]** Biomass variable.
 #' @param ... Arguments passed on to [predict.bam].
 #'
 #' @return
@@ -15,6 +16,15 @@ setGeneric(name = "spm_predict",
                           new_data = NULL,
                           ...) {
              standardGeneric("spm_predict")
+           }
+)
+
+#' @export
+setGeneric(name = "spm_predict_biomass",
+           def = function(sspm_object,
+                          biomass = NULL,
+                          ...) {
+             standardGeneric("spm_predict_biomass")
            }
 )
 
@@ -53,14 +63,53 @@ setMethod(f = "spm_predict",
             pred_log <- spm_get_fit(sspm_object) %>%
               predict.bam(newdata = new_data, ...)
             preds_df <- data.frame(pred_log = pred_log) %>%
-              mutate(pred = exp(pred_log))
+              dplyr::mutate(pred = exp(pred_log))
 
             columns_to_keep <- spm_smoothed_data(sspm_object) %>%
-              dplyr::select(patch_id, !!spm_time_column(sspm_model_fit),
-                            !!spm_boundary_colum(spm_boundaries(sspm_model_fit)))
+              dplyr::select(patch_id, !!spm_time_column(sspm_object),
+                            !!spm_boundary_colum(spm_boundaries(sspm_object)))
 
             preds_df <- cbind(preds_df, columns_to_keep)
 
             return(preds_df)
+          }
+)
+
+# -------------------------------------------------------------------------
+
+#' @export
+#' @rdname spm_predict
+setMethod(f = "spm_predict_biomass",
+          signature(sspm_object = "sspm_fit",
+                    biomass = "character"),
+          function(sspm_object, biomass, ...) {
+
+            data <- spm_smoothed_data(sspm_object)
+
+            if (!checkmate::test_subset(biomass, names(data))) {
+              stop("`biomass` must be a column of `data`", call. = FALSE)
+            } else {
+              biomass <- data[[biomass]]
+            }
+
+            spm_predict_biomass(sspm_object, biomass, ...)
+          }
+)
+
+#' @export
+#' @rdname spm_predict
+setMethod(f = "spm_predict_biomass",
+          signature(sspm_object = "sspm_fit",
+                    biomass = "numeric"),
+          function(sspm_object, biomass, ...) {
+
+            preds <- spm_predict(sspm_object)
+
+            biomass_pred <- preds$pred * biomass
+
+            biomass_pred_df <- data.frame(biomass_pred = biomass_pred) %>%
+              cbind(select(preds, -pred, -pred_log))
+
+            return(biomass_pred_df)
           }
 )
