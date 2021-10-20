@@ -12,12 +12,20 @@ spm_plot(
   smoothed_var = NULL,
   page = NULL,
   nrow = NULL,
-  ncol = NULL
+  ncol = NULL,
+  log = NULL
 )
 
 \S4method{spm_plot}{sspm_boundary}(sspm_object)
 
-\S4method{spm_plot}{sspm_dataset}(sspm_object, smoothed_var = NULL, page = "first", nrow = 2, ncol = 4)
+\S4method{spm_plot}{sspm_dataset}(
+  sspm_object,
+  smoothed_var = NULL,
+  page = "first",
+  nrow = 2,
+  ncol = 4,
+  log = TRUE
+)
 
 \S4method{spm_plot}{sspm_fit}(sspm_object, smoothed_var = NULL, page = "first", nrow = 2, ncol = 4)
 }
@@ -32,6 +40,8 @@ spm_plot(
 \item{nrow}{\strong{[numeric]} The number of rows to paginate the plot on.}
 
 \item{ncol}{\strong{[numeric]} The number of columns to paginate the plot on.}
+
+\item{log}{\strong{[logical]} Whether to plot on a log scale, default to TRUE.}
 }
 \value{
 N/A
