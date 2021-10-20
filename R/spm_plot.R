@@ -172,7 +172,8 @@ spm_plot_routine <- function(smoothed_data, smoothed_var,
           ggforce::facet_wrap_paginate(~ .data[[time_col]],
                                        nrow = nrow, ncol = ncol,
                                        page = page_nb) +
-          ggplot2::scale_fill_viridis_c()
+          ggplot2::scale_fill_viridis_c() +
+          ggplot2::labs(fill = the_title)
 
       }
 
@@ -183,7 +184,8 @@ spm_plot_routine <- function(smoothed_data, smoothed_var,
         ggforce::facet_wrap_paginate(~ .data[[time_col]],
                                      nrow = nrow, ncol = ncol,
                                      page = 1) +
-        ggplot2::scale_fill_viridis_c()
+        ggplot2::scale_fill_viridis_c() +
+        ggplot2::labs(fill = the_title)
 
     }
 
@@ -194,12 +196,10 @@ spm_plot_routine <- function(smoothed_data, smoothed_var,
       ggforce::facet_wrap_paginate(~ .data[[time_col]],
                                    nrow = nrow, ncol = ncol,
                                    page = page) +
-      ggplot2::scale_fill_viridis_c()
+      ggplot2::scale_fill_viridis_c() +
+      ggplot2::labs(fill = the_title)
 
   }
-
-  sspm_discrete_plot <- sspm_discrete_plot +
-   ggplot2::labs(fill = the_title)
 
   return(sspm_discrete_plot)
 
