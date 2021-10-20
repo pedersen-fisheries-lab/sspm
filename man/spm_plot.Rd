@@ -5,6 +5,7 @@
 \alias{spm_plot,sspm_boundary-method}
 \alias{spm_plot,sspm_dataset-method}
 \alias{spm_plot,sspm_fit-method}
+\alias{spm_plot_biomass,sspm_fit,character-method}
 \title{Plot various \code{sspm} objects}
 \usage{
 spm_plot(
@@ -28,6 +29,8 @@ spm_plot(
 )
 
 \S4method{spm_plot}{sspm_fit}(sspm_object, smoothed_var = NULL, page = "first", nrow = 2, ncol = 4)
+
+\S4method{spm_plot_biomass}{sspm_fit,character}(sspm_object, biomass, nrow = 3, ncol = 3, page = 1)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_...]} An object from this package.}
@@ -42,6 +45,8 @@ spm_plot(
 \item{ncol}{\strong{[numeric]} The number of columns to paginate the plot on.}
 
 \item{log}{\strong{[logical]} Whether to plot on a log scale, default to TRUE.}
+
+\item{biomass}{\strong{[data.frame]} Biomass variable.}
 }
 \value{
 N/A

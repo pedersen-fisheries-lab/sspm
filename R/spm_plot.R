@@ -9,6 +9,7 @@
 #' @param nrow **\[numeric\]** The number of rows to paginate the plot on.
 #' @param ncol **\[numeric\]** The number of columns to paginate the plot on.
 #' @param log **\[logical\]** Whether to plot on a log scale, default to TRUE.
+#' @inheritParams spm_predict
 #'
 #' @return
 #' N/A
@@ -18,6 +19,13 @@ setGeneric(name = "spm_plot",
            def = function(sspm_object, smoothed_var = NULL,
                           page = NULL, nrow = NULL, ncol = NULL, log = NULL) {
              standardGeneric("spm_plot")
+           }
+)
+
+#' @export
+setGeneric(name = "spm_plot_biomass",
+           def = function(sspm_object, biomass, nrow = NULL, ncol = NULL, page = NULL) {
+             standardGeneric("spm_plot_biomass")
            }
 )
 
@@ -140,6 +148,35 @@ setMethod("spm_plot",
 
             return(sspm_discrete_plot)
 
+          }
+)
+
+#' @export
+#' @rdname spm_plot
+setMethod("spm_plot_biomass",
+          signature(sspm_object = "sspm_fit",
+                    biomass = "character"),
+          definition = function(sspm_object, biomass, nrow = 3, ncol = 3, page = 1) {
+
+            biomass_preds <- spm_predict_biomass(sspm_object, biomass)
+
+            time_col <- spm_time_column(sspm_object)
+
+            biomass_plot <- biomass_preds %>%
+              ggplot2::ggplot(aes(x = .data[[time_col]],
+                                  y = biomass_pred)) +
+              ggplot2::geom_point() +
+              ggplot2::geom_smooth() +
+
+              ggforce::facet_wrap_paginate(~patch_id,
+                                           nrow = nrow, ncol = ncol,
+                                           page = page) +
+
+              geom_line(data = spm_smoothed_data(sspm_object),
+                        aes(x = .data[[time_col]],
+                            y = .data[[biomass]]))
+
+            return(biomass_plot)
           }
 )
 
