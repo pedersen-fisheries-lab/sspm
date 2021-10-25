@@ -73,11 +73,7 @@ setMethod(f = "sspm",
               predictors_boundaries <- lapply(predictors, spm_boundaries)
               all_boundaries <- unname(append(list(biomass_boundaries),
                                               predictors_boundaries))
-
-              if (!check_identical_boundaries(all_boundaries)) {
-                cli::cli_alert_danger("not all datasets have the same boundaries object")
-                stop(call. = FALSE)
-              }
+              check_identical_boundaries(all_boundaries)
 
               # 3. combine the full_smoothed_data
               # message about catch
@@ -139,7 +135,20 @@ setMethod(f = "sspm",
 
 # Check if boundaries are identical
 check_identical_boundaries <- function(boundaries) {
-  do.call(identical, boundaries)
+  boundaries <- lapply(boundaries, spm_boundaries)
+
+  for (bound in seq_len(length(boundaries) - 1)){
+
+    bound_check <- identical(boundaries[bound],
+                             boundaries[bound + 1])
+
+    if(!bound_check){
+      cli::cli_alert_danger("not all datasets have the same boundaries object")
+      stop(call. = FALSE)
+    }
+
+  }
+
 }
 
 # Check whether of sspm_dataset class of a list of objects
