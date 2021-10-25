@@ -59,17 +59,15 @@ setMethod(f = "fit_smooths",
             # If predict, make the predict matrix
             if (predict) {
 
-              min_year <-
-                min(as.numeric(as.character(the_data[[spm_time_column(sspm_object)]])),
-                    na.rm = TRUE)
-              max_year <-
-                max(as.numeric(as.character(the_data[[spm_time_column(sspm_object)]])),
-                    na.rm = TRUE)
+              year_vector <-
+                as.numeric(as.character(the_data[[spm_time_column(sspm_object)]]))
+              year_values <-
+                sort(unique(year_vector))
 
               time_col <- spm_time_column(sspm_object)
               predict_mat <- spm_patches(boundaries) %>%
                 sf::st_set_geometry(NULL) %>%
-                tidyr::expand_grid(!!time_col := min_year:max_year)
+                tidyr::expand_grid(!!time_col := year_values)
               # tidyr::expand_grid(!!time_col := 1979:2018)
 
             }
