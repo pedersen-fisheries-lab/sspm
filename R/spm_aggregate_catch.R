@@ -115,9 +115,11 @@ setMethod(f = "spm_aggregate_catch",
                               !!spm_boundary_colum(spm_boundaries(biomass))) %>%
 
               dplyr::mutate(area_no_units = as.vector(.data$area)) %>%
+              mutate(catch_density = catch / .data$area_no_units) %>%
+
               dplyr::mutate(
                 !!catch_name :=
-                  (.data[[biomass_variable]] + catch / .data$area_no_units)) %>%
+                  (.data[[biomass_variable]] + catch_density)) %>%
               dplyr::mutate(
                 !!change_name :=
                   log(.data[[catch_name]]) - log(dplyr::lag(.data[[biomass_variable]],
