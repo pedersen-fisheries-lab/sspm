@@ -474,7 +474,7 @@
 <span class="co">#&gt; 5  0.007266922 1.0072934       P1   1999   4 POLYGON ((-64.42169 60.2712...</span>
 <span class="co">#&gt; 6  0.020199447 1.0204048       P1   2000   4 POLYGON ((-64.42169 60.2712...</span></code></pre></div>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">biomass_preds</span> <span class="op">&lt;-</span> <span class="fu">spm_predict_biomass</span><span class="op">(</span><span class="va">sspm_model_fit</span>, <span class="st">"weight_per_km2_smooth_borealis"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">biomass_preds</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/spm_predict.html">spm_predict_biomass</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, <span class="st">"weight_per_km2_smooth_borealis"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">biomass_preds</span><span class="op">)</span>
 <span class="co">#&gt;   biomass_pred patch_id year_f sfa                       geometry</span>
 <span class="co">#&gt; 1     5929.906       P1   1995   4 POLYGON ((-64.42169 60.2712...</span>
