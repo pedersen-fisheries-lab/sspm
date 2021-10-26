@@ -11,6 +11,7 @@
 #' A `dataframe` of predictions.
 #'
 #' @export
+#' @describeIn spm_predict Productivity predictions from a ssspm_fit object.
 setGeneric(name = "spm_predict",
            def = function(sspm_object,
                           new_data = NULL,
@@ -20,6 +21,7 @@ setGeneric(name = "spm_predict",
 )
 
 #' @export
+#' @describeIn spm_predict Biomass predictions from a ssspm_fit object.
 setGeneric(name = "spm_predict_biomass",
            def = function(sspm_object,
                           biomass = NULL,

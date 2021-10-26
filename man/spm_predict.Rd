@@ -2,6 +2,7 @@
 % Please edit documentation in R/predict.R
 \name{spm_predict}
 \alias{spm_predict}
+\alias{spm_predict_biomass}
 \alias{spm_predict,sspm_fit,data.frame-method}
 \alias{spm_predict,sspm_fit,missing-method}
 \alias{spm_predict,sspm_fit,list-method}
@@ -10,6 +11,8 @@
 \title{Predict with a SPM model}
 \usage{
 spm_predict(sspm_object, new_data = NULL, ...)
+
+spm_predict_biomass(sspm_object, biomass = NULL, ...)
 
 \S4method{spm_predict}{sspm_fit,data.frame}(sspm_object, new_data = NULL, ...)
 
@@ -37,3 +40,10 @@ A \code{dataframe} of predictions.
 \description{
 Predict using a fitted SPM model on the whole data or on new data
 }
+\section{Functions}{
+\itemize{
+\item \code{spm_predict}: Productivity predictions from a ssspm_fit object.
+
+\item \code{spm_predict_biomass}: Biomass predictions from a ssspm_fit object.
+}}
+
