@@ -95,7 +95,7 @@ setMethod(f = "spm_aggregate_catch",
               nrow_data <- nrow(full_smoothed_data)
               full_smoothed_data <- full_smoothed_data %>%
                 dplyr::left_join(corrections) %>%
-                dplyr::mutate(catch = .data$catch_adjustment * !!catch_variable) %>%
+                dplyr::mutate(catch = .data$catch_adjustment * .data[[!!catch_variable]]) %>%
                 dplyr::select(-.data$catch_adjustment)
               checkmate::assert_true(nrow(full_smoothed_data) == nrow_data)
             }
