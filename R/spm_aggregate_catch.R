@@ -95,8 +95,8 @@ setMethod(f = "spm_aggregate_catch",
               nrow_data <- nrow(full_smoothed_data)
               full_smoothed_data <- full_smoothed_data %>%
                 dplyr::left_join(corrections) %>%
-                dplyr::mutate(catch = catch_adjustment * !!catch_variable) %>%
-                dplyr::select(-catch_adjustment)
+                dplyr::mutate(catch = .data$catch_adjustment * !!catch_variable) %>%
+                dplyr::select(-.data$catch_adjustment)
               checkmate::assert_true(nrow(full_smoothed_data) == nrow_data)
             }
 
@@ -109,17 +109,17 @@ setMethod(f = "spm_aggregate_catch",
             # Calculate
             full_smoothed_data <- full_smoothed_data %>%
 
-              rename(catch = .data[[catch_variable]]) %>%
+              dplyr::rename(catch = .data[[catch_variable]]) %>%
 
               dplyr::group_by(.data[["patch_id"]],
                               !!spm_boundary_colum(spm_boundaries(biomass))) %>%
 
               dplyr::mutate(area_no_units = as.vector(.data$area)) %>%
-              mutate(catch_density = catch / .data$area_no_units) %>%
+              dplyr::mutate(catch_density = .data$catch / .data$area_no_units) %>%
 
               dplyr::mutate(
                 !!catch_name :=
-                  (.data[[biomass_variable]] + catch_density)) %>%
+                  (.data[[biomass_variable]] + .data$catch_density)) %>%
               dplyr::mutate(
                 !!change_name :=
                   log(.data[[catch_name]]) - log(dplyr::lag(.data[[biomass_variable]],

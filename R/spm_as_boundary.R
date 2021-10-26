@@ -171,7 +171,7 @@ setMethod(f = "spm_as_boundary",
 
                 # TODO add option for joining instead here
                 patches <- patches %>%
-                  mutate(!!boundary_column := as.factor(.data[[boundary_column]]))
+                  dplyr::mutate(!!boundary_column := as.factor(.data[[boundary_column]]))
 
               }
 

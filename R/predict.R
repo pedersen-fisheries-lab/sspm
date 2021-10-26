@@ -66,7 +66,7 @@ setMethod(f = "spm_predict",
               dplyr::mutate(pred = exp(pred_log))
 
             columns_to_keep <- spm_smoothed_data(sspm_object) %>%
-              dplyr::select(patch_id, !!spm_time_column(sspm_object),
+              dplyr::select(.data$patch_id, !!spm_time_column(sspm_object),
                             !!spm_boundary_colum(spm_boundaries(sspm_object)))
 
             preds_df <- cbind(preds_df, columns_to_keep)
@@ -111,7 +111,7 @@ setMethod(f = "spm_predict_biomass",
 
             biomass_pred_df <- data.frame(biomass_pred_with_catch = biomass_pred_with_catch,
                                           biomass_pred =  biomass_pred) %>%
-              cbind(dplyr::select(preds, -pred, -pred_log))
+              cbind(dplyr::select(.data$preds, -.data$pred, -.data$pred_log))
 
             return(biomass_pred_df)
           }
