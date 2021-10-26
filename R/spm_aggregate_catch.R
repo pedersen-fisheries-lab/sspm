@@ -94,9 +94,9 @@ setMethod(f = "spm_aggregate_catch",
               # TODO: add verification for time and boundary cols and catch_adjustment
               nrow_data <- nrow(full_smoothed_data)
               full_smoothed_data <- full_smoothed_data %>%
-                left_join(corrections) %>%
-                mutate(catch = catch_adjustment * !!catch_variable) %>%
-                select(-catch_adjustment)
+                dplyr::left_join(corrections) %>%
+                dplyr::mutate(catch = catch_adjustment * !!catch_variable) %>%
+                dplyr::select(-catch_adjustment)
               checkmate::assert_true(nrow(full_smoothed_data) == nrow_data)
             }
 
