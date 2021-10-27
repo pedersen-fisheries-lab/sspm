@@ -113,7 +113,8 @@ setMethod(f = "spm_predict_biomass",
 
             biomass_pred_df <- data.frame(biomass_pred_with_catch = biomass_pred_with_catch,
                                           biomass_pred =  biomass_pred) %>%
-              cbind(dplyr::select(preds, -.data$pred, -.data$pred_log))
+              cbind(dplyr::select(preds, -.data$pred, -.data$pred_log)) %>%
+              sf::st_as_sf()
 
             return(biomass_pred_df)
           }
