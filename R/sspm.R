@@ -82,7 +82,7 @@ setMethod(f = "sspm",
               cli::cli_alert_info(info_message)
 
               biomass_clean <- clean_data_for_joining(spm_smoothed_data(biomass))
-              joining_vars <- c("patch_id", spm_boundary_colum(spm_boundaries(biomass)))
+              joining_vars <- c("patch_id", spm_boundary_column(spm_boundaries(biomass)))
               if ("area" %in% names(biomass_clean)) {
                 joining_vars <- c(joining_vars, "area")
               }

@@ -69,7 +69,7 @@ setMethod(f = "spm_predict",
 
             columns_to_keep <- spm_smoothed_data(sspm_object) %>%
               dplyr::select(.data$patch_id, !!spm_time_column(sspm_object),
-                            !!spm_boundary_colum(spm_boundaries(sspm_object)))
+                            !!spm_boundary_column(spm_boundaries(sspm_object)))
 
             preds_df <- cbind(preds_df, columns_to_keep)
 

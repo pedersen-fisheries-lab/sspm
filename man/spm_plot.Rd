@@ -6,6 +6,7 @@
 \alias{spm_plot,sspm_dataset-method}
 \alias{spm_plot,sspm_fit-method}
 \alias{spm_plot_biomass,sspm_fit,character-method}
+\alias{spm_plot_biomass,sspm_fit,sspm_dataset-method}
 \title{Plot various \code{sspm} objects}
 \usage{
 spm_plot(
@@ -30,7 +31,9 @@ spm_plot(
 
 \S4method{spm_plot}{sspm_fit}(sspm_object, smoothed_var = NULL, page = "first", nrow = 2, ncol = 4)
 
-\S4method{spm_plot_biomass}{sspm_fit,character}(sspm_object, biomass, nrow = 3, ncol = 3, page = 1)
+\S4method{spm_plot_biomass}{sspm_fit,character}(sspm_object, biomass, use_sf, nrow = 3, ncol = 3, page = 1)
+
+\S4method{spm_plot_biomass}{sspm_fit,sspm_dataset}(sspm_object, biomass, nrow = 3, ncol = 3, page = 1)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_...]} An object from this package.}

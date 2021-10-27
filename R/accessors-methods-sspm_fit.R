@@ -157,3 +157,26 @@ setMethod("spm_boundaries<-",
             return(object)
           }
 )
+
+
+# Boundary_col ------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_fit
+#' @export
+setMethod("spm_boundary_column", signature("sspm_object" = "sspm_fit"),
+          function(sspm_object) sspm_object@boundaries@boundary_column
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_fit
+#' @export
+setMethod("spm_boundary_column<-",
+          signature("object" = "sspm_fit"),
+          function(object, value) {
+            object@boundaries@boundary_column <- value
+            validObject(object)
+            return(object)
+          }
+)

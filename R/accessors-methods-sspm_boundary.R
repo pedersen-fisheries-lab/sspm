@@ -143,13 +143,13 @@ setMethod("spm_points<-",
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setGeneric(name = "spm_boundary_colum",
-           def = function(sspm_object) standardGeneric("spm_boundary_colum")
+setGeneric(name = "spm_boundary_column",
+           def = function(sspm_object) standardGeneric("spm_boundary_column")
 )
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setMethod("spm_boundary_colum",
+setMethod("spm_boundary_column",
           signature("sspm_object" = "sspm_boundary"),
           function(sspm_object) sspm_object@boundary_column
 )
@@ -158,13 +158,13 @@ setMethod("spm_boundary_colum",
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setGeneric(name = "spm_boundary_colum<-",
-           def = function(object, value) standardGeneric("spm_boundary_colum<-")
+setGeneric(name = "spm_boundary_column<-",
+           def = function(object, value) standardGeneric("spm_boundary_column<-")
 )
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setMethod("spm_boundary_colum<-",
+setMethod("spm_boundary_column<-",
           signature("object" = "sspm_boundary"),
           function(object, value) {
             object@boundary_column <- value

@@ -10,8 +10,8 @@ test_that("Replacers work as expected", {
   }, sfa_boundaries)
 
   expect_equal({
-    spm_boundary_colum(boundary) <- "new_col"
-    spm_boundary_colum(boundary)
+    spm_boundary_column(boundary) <- "new_col"
+    spm_boundary_column(boundary)
   }, "new_col")
 
   expect_equal({

@@ -15,10 +15,10 @@
 \alias{spm_points,sspm_boundary-method}
 \alias{spm_points<-}
 \alias{spm_points<-,sspm_boundary-method}
-\alias{spm_boundary_colum}
-\alias{spm_boundary_colum,sspm_boundary-method}
-\alias{spm_boundary_colum<-}
-\alias{spm_boundary_colum<-,sspm_boundary-method}
+\alias{spm_boundary_column}
+\alias{spm_boundary_column,sspm_boundary-method}
+\alias{spm_boundary_column<-}
+\alias{spm_boundary_column<-,sspm_boundary-method}
 \alias{spm_surface_column}
 \alias{spm_surface_column,sspm_boundary-method}
 \alias{spm_surface_column<-}
@@ -53,13 +53,13 @@ spm_points(object) <- value
 
 \S4method{spm_points}{sspm_boundary}(object) <- value
 
-spm_boundary_colum(sspm_object)
+spm_boundary_column(sspm_object)
 
-\S4method{spm_boundary_colum}{sspm_boundary}(sspm_object)
+\S4method{spm_boundary_column}{sspm_boundary}(sspm_object)
 
-spm_boundary_colum(object) <- value
+spm_boundary_column(object) <- value
 
-\S4method{spm_boundary_colum}{sspm_boundary}(object) <- value
+\S4method{spm_boundary_column}{sspm_boundary}(object) <- value
 
 spm_surface_column(sspm_object)
 

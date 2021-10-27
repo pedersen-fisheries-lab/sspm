@@ -450,7 +450,7 @@ LINPRED <- function(data_frame, boundaries, time_column, var, k, m,
   args_list <- args_list[!(names(args_list) %in% unused_names)]
 
   # Make the lag matrix
-  boundary_col <- spm_boundary_colum(boundaries)
+  boundary_col <- spm_boundary_column(boundaries)
 
   lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(data_frame),
                                      ncol = k, byrow = TRUE)) %>%

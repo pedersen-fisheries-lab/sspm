@@ -14,7 +14,7 @@ setMethod("$",
           "sspm_boundary",
           function(x, name) {
             x@boundaries %>%
-              dplyr::select(c(name, spm_boundary_colum(x), "geometry"))
+              dplyr::select(c(name, spm_boundary_column(x), "geometry"))
           }
 )
 
@@ -24,7 +24,7 @@ setMethod("$",
           "sspm_discrete_boundary",
           function(x, name) {
             x@boundaries %>%
-              dplyr::select(c(name, spm_boundary_colum(x), "geometry"))
+              dplyr::select(c(name, spm_boundary_column(x), "geometry"))
           }
 )
 

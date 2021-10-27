@@ -17,14 +17,15 @@
 #' @export
 setGeneric(name = "spm_plot",
            def = function(sspm_object, smoothed_var = NULL,
-                          page = NULL, nrow = NULL, ncol = NULL, log = NULL) {
+                          page = NULL, nrow = NULL, ncol = NULL, log = TRUE) {
              standardGeneric("spm_plot")
            }
 )
 
 #' @export
 setGeneric(name = "spm_plot_biomass",
-           def = function(sspm_object, biomass, nrow = NULL, ncol = NULL, page = NULL) {
+           def = function(sspm_object, biomass, catch, use_sf = FALSE,
+                          nrow = NULL, ncol = NULL, page = NULL, log = TRUE) {
              standardGeneric("spm_plot_biomass")
            }
 )
@@ -38,7 +39,7 @@ setMethod("spm_plot",
           definition = function(sspm_object) {
 
             boundaries <- spm_boundaries(sspm_object)
-            boundary_column <- spm_boundary_colum(sspm_object)
+            boundary_column <- spm_boundary_column(sspm_object)
 
             if (checkmate::test_class(sspm_object, "sspm_discrete_boundary")) {
 
@@ -142,7 +143,7 @@ setMethod("spm_plot",
                 ggplot2::theme_light() +
                 ggplot2::labs(x = "actual") +
                 ggplot2::scale_color_viridis_d("Set") +
-                ggplot2::facet_wrap(~.data[[spm_boundary_colum(spm_boundaries(sspm_object))]])
+                ggplot2::facet_wrap(~.data[[spm_boundary_column(spm_boundaries(sspm_object))]])
 
             }
 
@@ -156,29 +157,72 @@ setMethod("spm_plot",
 setMethod("spm_plot_biomass",
           signature(sspm_object = "sspm_fit",
                     biomass = "character"),
+          definition = function(sspm_object, biomass, use_sf,
+                                nrow = 3, ncol = 3, page = 1, log = TRUE) {
+
+            biomass_preds <- spm_predict_biomass(sspm_object, biomass)
+            time_col <- spm_time_column(sspm_object)
+
+            if (log) {
+              biomass_preds$biomass_pred <- log(biomass_preds$biomass_pred)
+              the_title <- "Biomass (logged)"
+            } else {
+              the_title <- "Biomass"
+            }
+
+            if (use_sf){
+
+              biomass_plot <- ggplot2::ggplot(data = biomass_preds) +
+                ggplot2::geom_sf(ggplot2::aes(fill = .data$biomass_pred)) +
+                ggforce::facet_wrap_paginate(~ .data[[time_col]],
+                                             nrow = nrow, ncol = ncol,
+                                             page = page) +
+                ggplot2::scale_fill_viridis_c() +
+                ggplot2::labs(fill = the_title)
+
+            } else {
+
+              biomass_plot <- biomass_preds %>%
+                ggplot2::ggplot(ggplot2::aes(x = .data[[time_col]],
+                                             y = .data$biomass_pred)) +
+                ggplot2::geom_point() +
+                ggplot2::geom_smooth() +
+                ggforce::facet_wrap_paginate(~patch_id,
+                                             nrow = nrow, ncol = ncol,
+                                             page = page) +
+                ggplot2::geom_line(data = spm_smoothed_data(sspm_object),
+                                   ggplot2::aes(x = .data[[time_col]],
+                                                y = .data[[biomass]]))
+            }
+            return(biomass_plot)
+          }
+)
+
+#' @export
+#' @rdname spm_plot
+setMethod("spm_plot_biomass",
+          signature(sspm_object = "sspm_fit",
+                    biomass = "sspm_dataset"),
+          # TODO add a use_sf argument
           definition = function(sspm_object, biomass, nrow = 3, ncol = 3, page = 1) {
 
             biomass_preds <- spm_predict_biomass(sspm_object, biomass)
-
+            boundary_col <- spm_boundary_colum(sspm_object)
             time_col <- spm_time_column(sspm_object)
 
-            biomass_plot <- biomass_preds %>%
-              ggplot2::ggplot(ggplot2::aes(x = .data[[time_col]],
-                                           y = biomass_pred)) +
-              ggplot2::geom_point() +
-              ggplot2::geom_smooth() +
+            biomass_preds <- biomass_preds %>%
+              group_by(!!boundary_col, !!time_col) %>%
+              summarise(.data$biomass_pred = sum(.data$biomass_pred))
 
-              ggforce::facet_wrap_paginate(~patch_id,
-                                           nrow = nrow, ncol = ncol,
-                                           page = page) +
-
-              ggplot2::geom_line(data = spm_smoothed_data(sspm_object),
-                                 ggplot2::aes(x = .data[[time_col]],
-                                              y = .data[[biomass]]))
+            biomass_actual <- spm_data() %>%
+              group_by(sfa, year_f) %>%
+              summarise(weight_per_km2 = sum(weight_per_km2)) %>%
+              mutate(year_f = as.numeric(as.character(year_f)))
 
             return(biomass_plot)
           }
 )
+
 
 # -------------------------------------------------------------------------
 
