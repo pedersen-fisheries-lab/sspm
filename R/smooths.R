@@ -96,7 +96,7 @@ setMethod(f = "smooth_time",
                     append(list(dimension = "time", var = NULL, data_frame = data_frame,
                                 boundaries = boundaries, time_column = time_column,
                                 type = type, k = k, m = NULL, bs = bs, xt = xt,
-                                is_spm = is_spm),
+                                is_spm = is_spm, smooth_type = "s"),
                            args_list))
 
           }
@@ -115,7 +115,7 @@ setMethod(f = "smooth_space",
                     append(list(dimension = "space", var = NULL, data_frame = data_frame,
                                 boundaries = boundaries, time_column = time_column,
                                 type = type, k = k, m = NULL, bs = bs, xt = xt,
-                                is_spm = is_spm),
+                                is_spm = is_spm, smooth_type = "s"),
                            args_list))
 
           }
@@ -134,7 +134,7 @@ setMethod(f = "smooth_space_time",
                     append(list(dimension = "space_time", var = NULL, data_frame = data_frame,
                                 boundaries = boundaries, time_column = time_column,
                                 type = type, k = k, m = NULL, bs = bs, xt = xt,
-                                is_spm = is_spm),
+                                is_spm = is_spm, smooth_type = "ti"),
                            args_list))
 
           }
@@ -153,7 +153,7 @@ setMethod(f = "smooth_lag",
                     append(list(dimension = NULL, var = var, data_frame = data_frame,
                                 boundaries = boundaries, time_column = time_column,
                                 type = type, k = k, m = m, bs = NULL, xt = NULL,
-                                is_spm = NULL),
+                                is_spm = NULL, smooth_type = "s"),
                            args_list))
 
           }
@@ -163,7 +163,7 @@ setMethod(f = "smooth_lag",
 # Routine -----------------------------------------------------------------
 
 smooth_routine <- function(dimension, var, data_frame, boundaries, time_column,
-                           type, k, m, bs, xt, is_spm, ...){
+                           type, k, m, bs, xt, is_spm, smooth_type, ...){
 
   # Get args from ellipsis for extra args: this form is necessary for
   # capturing symbols as well
@@ -182,7 +182,7 @@ smooth_routine <- function(dimension, var, data_frame, boundaries, time_column,
                                   args_list))
 
   # Assemble the smooths
-  string_smooth <- assemble_smooth("s", args_and_vars$args)
+  string_smooth <- assemble_smooth(smooth_type, args_and_vars$args)
 
   return(list(smooth = string_smooth,
               vars = args_and_vars$vars))
