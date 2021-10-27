@@ -68,8 +68,7 @@ setMethod(f = "spm_aggregate_catch",
             # Get the right columns
             biomass_time_col <- spm_time_column(biomass)
             catch_time_col <- spm_time_column(catch)
-
-            # browser()
+            boundary_col <- spm_boundary_colum(spm_boundaries(biomass))
 
             # Aggregate the catch
             catch <- spm_aggregate(dataset = catch,
@@ -103,8 +102,6 @@ setMethod(f = "spm_aggregate_catch",
             # Make correct names
             catch_name <- paste(c(biomass_variable, spm_name(biomass),
                                   "with_catch"), collapse = "_")
-            change_name <- paste0(c(biomass_variable, spm_name(biomass),
-                                    "with_catch_change"), collapse = "_")
 
             # Calculate
             full_smoothed_data <- full_smoothed_data %>%
@@ -112,7 +109,7 @@ setMethod(f = "spm_aggregate_catch",
               dplyr::rename(catch = .data[[catch_variable]]) %>%
 
               dplyr::group_by(.data[["patch_id"]],
-                              !!spm_boundary_colum(spm_boundaries(biomass))) %>%
+                              .data[[boundary_col]]) %>%
 
               dplyr::mutate(area_no_units = as.vector(.data$area)) %>%
               dplyr::mutate(catch_density = .data$catch / .data$area_no_units) %>%
@@ -121,18 +118,17 @@ setMethod(f = "spm_aggregate_catch",
                 !!catch_name :=
                   (.data[[biomass_variable]] + .data$catch_density)) %>%
               dplyr::mutate(
-                !!change_name :=
+                log_productivity =
                   log(.data[[catch_name]]) - log(dplyr::lag(.data[[biomass_variable]],
-                                                            default = NA))) %>%
+                                                            default = NA)),
+                productivity = exp(log_productivity)) %>%
 
               dplyr::select(-.data$area_no_units) %>%
               dplyr::ungroup() %>%
 
-              # Replace NAs with 0s (disabled to fit script behavior better)
-              # dplyr::mutate(!!change_name := ifelse(is.na(.data[[change_name]]),
-              #                                       0, .data[[change_name]])) %>%
-
               dplyr::relocate(dplyr::starts_with(biomass_variable),
+                              .after = .data$row_ID) %>%
+              dplyr::relocate(c("log_productivity", "productivity"),
                               .after = .data$row_ID) %>%
               dplyr::mutate(!!biomass_time_col :=
                               as.numeric(as.character(.data[[biomass_time_col]])))
