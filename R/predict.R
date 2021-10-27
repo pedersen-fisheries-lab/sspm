@@ -108,10 +108,10 @@ setMethod(f = "spm_predict_biomass",
             preds <- spm_predict(sspm_object)
 
             biomass_pred_with_catch <- preds$pred * biomass
-            # catch_density <- spm_smoothed_data(sspm_object)$catch_density
-            biomass_pred <- biomass_pred_with_catch # - catch_density
+            catch_density <- spm_smoothed_data(sspm_object)$catch_density
+            biomass_pred <- biomass_pred_with_catch - catch_density
 
-            biomass_pred_df <- data.frame(#biomass_pred_with_catch = biomass_pred_with_catch,
+            biomass_pred_df <- data.frame(biomass_pred_with_catch = biomass_pred_with_catch,
                                           biomass_pred =  biomass_pred) %>%
               cbind(dplyr::select(preds, -.data$pred, -.data$pred_log))
 
