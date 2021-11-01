@@ -24,7 +24,7 @@ setGeneric(name = "spm_plot",
 
 #' @export
 setGeneric(name = "spm_plot_biomass",
-           def = function(sspm_object, biomass, catch, use_sf = FALSE,
+           def = function(sspm_object, biomass, biomass_var = NULL, catch, use_sf = FALSE,
                           nrow = NULL, ncol = NULL, page = NULL, log = TRUE) {
              standardGeneric("spm_plot_biomass")
            }
@@ -143,7 +143,7 @@ setMethod("spm_plot",
                 ggplot2::theme_light() +
                 ggplot2::labs(x = "actual") +
                 ggplot2::scale_color_viridis_d("Set") +
-                ggplot2::facet_wrap(~.data[[spm_boundary_column(spm_boundaries(sspm_object))]])
+                ggplot2::facet_wrap(~.data[[spm_boundary_column(sspm_object)]])
 
             }
 
@@ -161,10 +161,12 @@ setMethod("spm_plot_biomass",
                                 nrow = 3, ncol = 3, page = 1, log = TRUE) {
 
             biomass_preds <- spm_predict_biomass(sspm_object, biomass)
+            smoothed_data <- spm_smoothed_data(sspm_object)
             time_col <- spm_time_column(sspm_object)
 
             if (log) {
               biomass_preds$biomass_pred <- log(biomass_preds$biomass_pred)
+              smoothed_data[[biomass]] <- log(smoothed_data[[biomass]])
               the_title <- "Biomass (logged)"
             } else {
               the_title <- "Biomass"
@@ -185,14 +187,14 @@ setMethod("spm_plot_biomass",
               biomass_plot <- biomass_preds %>%
                 ggplot2::ggplot(ggplot2::aes(x = .data[[time_col]],
                                              y = .data$biomass_pred)) +
-                ggplot2::geom_point() +
-                ggplot2::geom_smooth() +
+                ggplot2::geom_line(color = "red") +
                 ggforce::facet_wrap_paginate(~patch_id,
                                              nrow = nrow, ncol = ncol,
                                              page = page) +
-                ggplot2::geom_line(data = spm_smoothed_data(sspm_object),
+                ggplot2::geom_line(data = smoothed_data,
                                    ggplot2::aes(x = .data[[time_col]],
-                                                y = .data[[biomass]]))
+                                                y = .data[[biomass]]),
+                                   color = "blue" )
             }
             return(biomass_plot)
           }
@@ -203,21 +205,40 @@ setMethod("spm_plot_biomass",
 setMethod("spm_plot_biomass",
           signature(sspm_object = "sspm_fit",
                     biomass = "sspm_dataset"),
-          # TODO add a use_sf argument
-          definition = function(sspm_object, biomass, nrow = 3, ncol = 3, page = 1) {
+          definition = function(sspm_object, biomass, biomass_var,
+                                nrow = 3, ncol = 3, page = 1) {
 
-            biomass_preds <- spm_predict_biomass(sspm_object, biomass)
-            boundary_col <- spm_boundary_colum(sspm_object)
+            biomass_preds <- spm_predict_biomass(sspm_object,
+                                                 paste0(biomass_var, "_smooth"))
+            boundary_col <- spm_boundary_column(sspm_object)
             time_col <- spm_time_column(sspm_object)
 
-            biomass_preds <- biomass_preds %>%
-              group_by(!!boundary_col, !!time_col) %>%
-              summarise(.data$biomass_pred = sum(.data$biomass_pred))
+            biomass_smooth_summary <- spm_smoothed_data(biomass) %>%
+              group_by(.data[[boundary_col]], .data[[time_col]]) %>%
+              summarise(biomass_sum = sum(.data[[paste0(biomass_var, "_smooth")]])) %>%
+              mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
 
-            biomass_actual <- spm_data() %>%
-              group_by(sfa, year_f) %>%
-              summarise(weight_per_km2 = sum(weight_per_km2)) %>%
-              mutate(year_f = as.numeric(as.character(year_f)))
+            biomass_preds <- biomass_preds %>%
+              group_by(.data[[boundary_col]], .data[[time_col]]) %>%
+              summarise(biomass_pred = sum(.data$biomass_pred))
+
+            biomass_actual <- spm_data(biomass) %>%
+              group_by(.data[[boundary_col]], .data[[time_col]]) %>%
+              summarise(biomass_sum = sum(.data[[biomass_var]])) %>%
+              mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
+
+            biomass_plot <- biomass_preds %>%
+              ggplot2::ggplot(ggplot2::aes(x = .data[[time_col]], y = .data$biomass_pred)) +
+              ggplot2::geom_line(color = "red") +
+
+              ggplot2::facet_wrap(~sfa, scales = "free") +
+              ggplot2::geom_line(data = biomass_actual,
+                                 ggplot2::aes(x = .data[[time_col]],
+                                              y = .data$biomass_sum), col = "green") +
+
+              ggplot2::geom_line(data = biomass_smooth_summary,
+                                 ggplot2:: aes(x = .data[[time_col]],
+                                               y = .data$biomass_sum), col = "blue")
 
             return(biomass_plot)
           }

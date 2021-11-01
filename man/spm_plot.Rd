@@ -15,7 +15,7 @@ spm_plot(
   page = NULL,
   nrow = NULL,
   ncol = NULL,
-  log = NULL
+  log = TRUE
 )
 
 \S4method{spm_plot}{sspm_boundary}(sspm_object)
@@ -31,9 +31,24 @@ spm_plot(
 
 \S4method{spm_plot}{sspm_fit}(sspm_object, smoothed_var = NULL, page = "first", nrow = 2, ncol = 4)
 
-\S4method{spm_plot_biomass}{sspm_fit,character}(sspm_object, biomass, use_sf, nrow = 3, ncol = 3, page = 1)
+\S4method{spm_plot_biomass}{sspm_fit,character}(
+  sspm_object,
+  biomass,
+  use_sf,
+  nrow = 3,
+  ncol = 3,
+  page = 1,
+  log = TRUE
+)
 
-\S4method{spm_plot_biomass}{sspm_fit,sspm_dataset}(sspm_object, biomass, nrow = 3, ncol = 3, page = 1)
+\S4method{spm_plot_biomass}{sspm_fit,sspm_dataset}(
+  sspm_object,
+  biomass,
+  biomass_var,
+  nrow = 3,
+  ncol = 3,
+  page = 1
+)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_...]} An object from this package.}
