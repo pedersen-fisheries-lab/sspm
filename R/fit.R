@@ -138,6 +138,11 @@ setMethod(f = "fit_smooths",
               spm_smoothed_fit(sspm_object) <- tmp_fit
             }
 
+            browser()
+            if (checkmate::test_class(tmp_fit[[form_name]], "bam.prefit")){
+              return(sspm_object)
+            }
+
             # Predict and store smoothed data to sspm level
             if (predict) {
 
