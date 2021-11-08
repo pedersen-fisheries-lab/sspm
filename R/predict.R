@@ -63,7 +63,7 @@ setMethod(f = "spm_predict",
           function(sspm_object, new_data, ...) {
 
             pred_log <- spm_get_fit(sspm_object) %>%
-              predict.bam(newdata = new_data, ...)
+              predict.bam(newdata = new_data, type = "response", ...)
             preds_df <- data.frame(pred_log = pred_log) %>%
               dplyr::mutate(pred = exp(pred_log))
 
