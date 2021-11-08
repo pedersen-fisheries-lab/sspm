@@ -214,18 +214,20 @@ setMethod("spm_plot_biomass",
             time_col <- spm_time_column(sspm_object)
 
             biomass_smooth_summary <- spm_smoothed_data(biomass) %>%
-              group_by(.data[[boundary_col]], .data[[time_col]]) %>%
-              summarise(biomass_sum = sum(.data[[paste0(biomass_var, "_smooth")]])) %>%
-              mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
+              dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
+              dplyr::summarise(biomass_sum = sum(.data[[paste0(biomass_var, "_smooth")]])) %>%
+              dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
 
             biomass_preds <- biomass_preds %>%
-              group_by(.data[[boundary_col]], .data[[time_col]]) %>%
-              summarise(biomass_pred = sum(.data$biomass_pred))
+              dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
+              dplyr::summarise(biomass_pred = sum(.data$biomass_pred))
 
             biomass_actual <- spm_data(biomass) %>%
-              group_by(.data[[boundary_col]], .data[[time_col]]) %>%
-              summarise(biomass_sum = sum(.data[[biomass_var]])) %>%
-              mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
+              dplyr::group_by(.data[[boundary_col]], .data$patch_id, .data[[time_col]]) %>%
+              dplyr::summarise(biomass_mean = mean(.data[[biomass_var]])) %>%
+              dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
+              dplyr::summarise(biomass_sum = sum(.data$biomass_mean)) %>%
+              dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
 
             biomass_plot <- biomass_preds %>%
               ggplot2::ggplot(ggplot2::aes(x = .data[[time_col]], y = .data$biomass_pred)) +
