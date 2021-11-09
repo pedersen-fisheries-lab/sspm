@@ -24,8 +24,10 @@ setGeneric(name = "spm_plot",
 
 #' @export
 setGeneric(name = "spm_plot_biomass",
-           def = function(sspm_object, biomass, biomass_var = NULL, catch, use_sf = FALSE,
-                          nrow = NULL, ncol = NULL, page = NULL, log = TRUE, ...) {
+           def = function(sspm_object, biomass, biomass_var = NULL,
+                          biomass_var_predict = NULL, biomass_var_smooth = NULL,
+                          biomass_var_origin = NULL, catch, use_sf = FALSE,
+                          nrow = NULL, ncol = NULL, page = NULL, log = TRUE) {
              standardGeneric("spm_plot_biomass")
            }
 )
@@ -161,12 +163,15 @@ setMethod("spm_plot_biomass",
                                 nrow = 3, ncol = 3, page = 1, log = TRUE) {
 
             biomass_preds <- spm_predict_biomass(sspm_object, biomass)
-            smoothed_data <- spm_smoothed_data(sspm_object)
+
+            smoothed_data <- spm_smoothed_data(sspm_object) %>%
+              dplyr::mutate(biomass = (.data[[biomass]] *
+                              as.numeric(st_area(.data$geometry)/1000)))
             time_col <- spm_time_column(sspm_object)
 
             if (log) {
-              biomass_preds$biomass_pred <- log(biomass_preds$biomass_pred)
-              smoothed_data[[biomass]] <- log(smoothed_data[[biomass]])
+              biomass_preds$biomass_pred <- log(biomass_preds$biomass)
+              smoothed_data$biomass <- log(smoothed_data$biomass)
               the_title <- "Biomass (logged)"
             } else {
               the_title <- "Biomass"
@@ -190,10 +195,10 @@ setMethod("spm_plot_biomass",
                 ggplot2::geom_line(color = "red") +
                 ggforce::facet_wrap_paginate(~patch_id,
                                              nrow = nrow, ncol = ncol,
-                                             page = page) +
+                                             page = page, scales = "free") +
                 ggplot2::geom_line(data = smoothed_data,
                                    ggplot2::aes(x = .data[[time_col]],
-                                                y = .data[[biomass]]),
+                                                y = .data$biomass),
                                    color = "blue" )
             }
             return(biomass_plot)
@@ -228,19 +233,26 @@ setMethod("spm_plot_biomass",
             time_col <- spm_time_column(sspm_object)
 
             biomass_smooth_summary <- spm_smoothed_data(biomass) %>%
+              dplyr::mutate(area = as.numeric(st_area(.data$geometry)/1000),
+                            biomass = .data[[biomass_var_smooth]] * .data$area) %>%
               dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
-              dplyr::summarise(biomass_sum = sum(.data[[biomass_var_smooth]])) %>%
+              dplyr::summarise(biomass_sum = sum(biomass)) %>%
               dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
 
             biomass_preds <- biomass_preds %>%
               dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
-              dplyr::summarise(biomass_pred = sum(.data$biomass_pred))
+              dplyr::summarise(biomass_pred = sum(.data$biomass))
 
             biomass_actual <- spm_data(biomass) %>%
+
               dplyr::group_by(.data[[boundary_col]], .data$patch_id, .data[[time_col]]) %>%
               dplyr::summarise(biomass_mean = mean(.data[[biomass_var_origin]])) %>%
+
+              dplyr::mutate(area = as.numeric(st_area(.data$geometry)/1000),
+                            biomass = biomass_mean * .data$area) %>%
+
               dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
-              dplyr::summarise(biomass_sum = sum(.data$biomass_mean)) %>%
+              dplyr::summarise(biomass_sum = sum(.data$biomass)) %>%
               dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
 
             biomass_plot <- biomass_preds %>%
@@ -254,7 +266,8 @@ setMethod("spm_plot_biomass",
 
               ggplot2::geom_line(data = biomass_smooth_summary,
                                  ggplot2:: aes(x = .data[[time_col]],
-                                               y = .data$biomass_sum), col = "blue")
+                                               y = .data$biomass_sum), col = "blue") +
+              ggplot2::scale_y_log10()
 
             return(biomass_plot)
           }
