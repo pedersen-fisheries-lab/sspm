@@ -125,8 +125,7 @@
 
 <span class="va">borealis</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">borealis_simulated</span>
 <span class="va">predator</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">predator_simulated</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>weight_per_km2_log <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">weight_per_km2</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">as.factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span>
 <span class="va">catch</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">catch_simulated</span>
 
 <span class="va">sfa_boundaries</span> <span class="op">&lt;-</span> <span class="fu">sspm</span><span class="fu">:::</span><span class="va">sfa_boundaries</span></code></pre></div>
@@ -171,7 +170,7 @@
 <span class="va">predator_dataset</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM Dataset: all_predators ‒‒</span>
-<span class="co">#&gt; →  Data              : [4833 observations, 16 variables]</span>
+<span class="co">#&gt; →  Data              : [4833 observations, 15 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
 <span class="co">#&gt; →  Time col.         : year</span>
 <span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span></code></pre></div>
@@ -302,7 +301,7 @@
 <span class="va">predator_smooth</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM Dataset: all_predators ‒‒</span>
-<span class="co">#&gt; →  Data (MAPPED)     : [1965 observations, 19 variables]</span>
+<span class="co">#&gt; →  Data (MAPPED)     : [1965 observations, 18 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
 <span class="co">#&gt; →  Time col.         : year</span>
 <span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span>
@@ -474,31 +473,40 @@
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">biomass_preds</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/spm_predict.html">spm_predict_biomass</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, <span class="st">"weight_per_km2_smooth_borealis"</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">biomass_preds</span><span class="op">)</span>
-<span class="co">#&gt; Simple feature collection with 6 features and 5 fields</span>
+<span class="co">#&gt; Simple feature collection with 6 features and 8 fields</span>
 <span class="co">#&gt; Geometry type: POLYGON</span>
 <span class="co">#&gt; Dimension:     XY</span>
 <span class="co">#&gt; Bounding box:  xmin: -64.5 ymin: 58.4628 xmax: -61.36857 ymax: 60.62184</span>
 <span class="co">#&gt; Geodetic CRS:  WGS 84</span>
-<span class="co">#&gt;   biomass_pred_with_catch biomass_pred patch_id year_f sfa</span>
-<span class="co">#&gt; 1                5457.406     5456.126       P1   1995   4</span>
-<span class="co">#&gt; 2                5454.642     5453.430       P1   1996   4</span>
-<span class="co">#&gt; 3                5454.485     5454.047       P1   1997   4</span>
-<span class="co">#&gt; 4                5453.840     5451.744       P1   1998   4</span>
-<span class="co">#&gt; 5                5455.308     5451.981       P1   1999   4</span>
-<span class="co">#&gt; 6                5456.467     5448.489       P1   2000   4</span>
-<span class="co">#&gt;                         geometry</span>
-<span class="co">#&gt; 1 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 2 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 3 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 4 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 5 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 6 POLYGON ((-64.42169 60.2712...</span></code></pre></div>
+<span class="co">#&gt;   patch_id year_f sfa     area biomass_density_with_catch biomass_density</span>
+<span class="co">#&gt; 1       P1   1995   4 20367394                   5457.406        5456.126</span>
+<span class="co">#&gt; 2       P1   1996   4 20367394                   5454.642        5453.430</span>
+<span class="co">#&gt; 3       P1   1997   4 20367394                   5454.485        5454.047</span>
+<span class="co">#&gt; 4       P1   1998   4 20367394                   5453.840        5451.744</span>
+<span class="co">#&gt; 5       P1   1999   4 20367394                   5455.308        5451.981</span>
+<span class="co">#&gt; 6       P1   2000   4 20367394                   5456.467        5448.489</span>
+<span class="co">#&gt;   biomass_with_catch      biomass                       geometry</span>
+<span class="co">#&gt; 1       111153137208 111127071762 POLYGON ((-64.42169 60.2712...</span>
+<span class="co">#&gt; 2       111096842000 111072156073 POLYGON ((-64.42169 60.2712...</span>
+<span class="co">#&gt; 3       111093645222 111084721002 POLYGON ((-64.42169 60.2712...</span>
+<span class="co">#&gt; 4       111080508244 111037824727 POLYGON ((-64.42169 60.2712...</span>
+<span class="co">#&gt; 5       111110416696 111042655473 POLYGON ((-64.42169 60.2712...</span>
+<span class="co">#&gt; 6       111134006262 110971520471 POLYGON ((-64.42169 60.2712...</span></code></pre></div>
 <ol>
 <li>We can also produce a biomass plot (note that this simulated data is very monotonous).</li>
 </ol>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">spm_plot_biomass</span><span class="op">(</span><span class="va">sspm_model_fit</span>, <span class="st">"weight_per_km2_smooth_borealis"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">spm_plot_biomass</span><span class="op">(</span><span class="va">sspm_model_fit</span>, 
+                 biomass <span class="op">=</span> <span class="st">"weight_per_km2_smooth_borealis"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-23-1.png" width="100%"></p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">spm_plot_biomass</span><span class="op">(</span><span class="va">sspm_model_fit</span>, 
+                 biomass <span class="op">=</span> <span class="va">biomass_smooth</span>, 
+                 biomass_var <span class="op">=</span> <span class="cn">NULL</span>, 
+                 biomass_var_predict <span class="op">=</span> <span class="st">"weight_per_km2_smooth_borealis"</span>,
+                 biomass_var_smooth <span class="op">=</span> <span class="st">"weight_per_km2_smooth"</span>,
+                 biomass_var_origin <span class="op">=</span> <span class="st">"weight_per_km2"</span><span class="op">)</span></code></pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-24-1.png" width="100%"></p>
 </div>
 </div>
   </div>
