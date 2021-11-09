@@ -69,8 +69,7 @@ library(dplyr)
 
 borealis <- sspm:::borealis_simulated
 predator <- sspm:::predator_simulated %>%
-  mutate(year = as.factor(year)) %>% 
-  mutate(weight_per_km2_log = log(weight_per_km2))
+  mutate(year = as.factor(year))
 catch <- sspm:::catch_simulated
 
 sfa_boundaries <- sspm:::sfa_boundaries
@@ -129,7 +128,7 @@ predator_dataset <-
 predator_dataset
 #> 
 #> ‒‒ SSPM Dataset: all_predators ‒‒
-#> →  Data              : [4833 observations, 16 variables]
+#> →  Data              : [4833 observations, 15 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year
 #> →  Coordinates cols. : lon_dec, lat_dec
@@ -284,7 +283,7 @@ predator_smooth <- predator_dataset %>%
 predator_smooth
 #> 
 #> ‒‒ SSPM Dataset: all_predators ‒‒
-#> →  Data (MAPPED)     : [1965 observations, 19 variables]
+#> →  Data (MAPPED)     : [1965 observations, 18 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year
 #> →  Coordinates cols. : lon_dec, lat_dec
@@ -474,32 +473,44 @@ head(preds)
 ``` r
 biomass_preds <- spm_predict_biomass(sspm_model_fit, "weight_per_km2_smooth_borealis")
 head(biomass_preds)
-#> Simple feature collection with 6 features and 5 fields
+#> Simple feature collection with 6 features and 8 fields
 #> Geometry type: POLYGON
 #> Dimension:     XY
 #> Bounding box:  xmin: -64.5 ymin: 58.4628 xmax: -61.36857 ymax: 60.62184
 #> Geodetic CRS:  WGS 84
-#>   biomass_pred_with_catch biomass_pred patch_id year_f sfa
-#> 1                5457.406     5456.126       P1   1995   4
-#> 2                5454.642     5453.430       P1   1996   4
-#> 3                5454.485     5454.047       P1   1997   4
-#> 4                5453.840     5451.744       P1   1998   4
-#> 5                5455.308     5451.981       P1   1999   4
-#> 6                5456.467     5448.489       P1   2000   4
-#>                         geometry
-#> 1 POLYGON ((-64.42169 60.2712...
-#> 2 POLYGON ((-64.42169 60.2712...
-#> 3 POLYGON ((-64.42169 60.2712...
-#> 4 POLYGON ((-64.42169 60.2712...
-#> 5 POLYGON ((-64.42169 60.2712...
-#> 6 POLYGON ((-64.42169 60.2712...
+#>   patch_id year_f sfa     area biomass_density_with_catch biomass_density
+#> 1       P1   1995   4 20367394                   5457.406        5456.126
+#> 2       P1   1996   4 20367394                   5454.642        5453.430
+#> 3       P1   1997   4 20367394                   5454.485        5454.047
+#> 4       P1   1998   4 20367394                   5453.840        5451.744
+#> 5       P1   1999   4 20367394                   5455.308        5451.981
+#> 6       P1   2000   4 20367394                   5456.467        5448.489
+#>   biomass_with_catch      biomass                       geometry
+#> 1       111153137208 111127071762 POLYGON ((-64.42169 60.2712...
+#> 2       111096842000 111072156073 POLYGON ((-64.42169 60.2712...
+#> 3       111093645222 111084721002 POLYGON ((-64.42169 60.2712...
+#> 4       111080508244 111037824727 POLYGON ((-64.42169 60.2712...
+#> 5       111110416696 111042655473 POLYGON ((-64.42169 60.2712...
+#> 6       111134006262 110971520471 POLYGON ((-64.42169 60.2712...
 ```
 
 18. We can also produce a biomass plot (note that this simulated data is
     very monotonous).
 
 ``` r
-spm_plot_biomass(sspm_model_fit, "weight_per_km2_smooth_borealis")
+spm_plot_biomass(sspm_model_fit, 
+                 biomass = "weight_per_km2_smooth_borealis")
 ```
 
 <img src="man/figures/README-unnamed-chunk-23-1.png" width="100%" />
+
+``` r
+spm_plot_biomass(sspm_model_fit, 
+                 biomass = biomass_smooth, 
+                 biomass_var = NULL, 
+                 biomass_var_predict = "weight_per_km2_smooth_borealis",
+                 biomass_var_smooth = "weight_per_km2_smooth",
+                 biomass_var_origin = "weight_per_km2")
+```
+
+<img src="man/figures/README-unnamed-chunk-24-1.png" width="100%" />
