@@ -45,6 +45,9 @@ spm_plot(
   sspm_object,
   biomass,
   biomass_var,
+  biomass_var_predict = NULL,
+  biomass_var_smooth = NULL,
+  biomass_var_origin = NULL,
   nrow = 3,
   ncol = 3,
   page = 1

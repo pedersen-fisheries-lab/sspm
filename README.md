@@ -69,7 +69,8 @@ library(dplyr)
 
 borealis <- sspm:::borealis_simulated
 predator <- sspm:::predator_simulated %>%
-  mutate(year = as.factor(year))
+  mutate(year = as.factor(year)) %>% 
+  mutate(weight_per_km2_log = log(weight_per_km2))
 catch <- sspm:::catch_simulated
 
 sfa_boundaries <- sspm:::sfa_boundaries
@@ -128,7 +129,7 @@ predator_dataset <-
 predator_dataset
 #> 
 #> ‒‒ SSPM Dataset: all_predators ‒‒
-#> →  Data              : [4833 observations, 15 variables]
+#> →  Data              : [4833 observations, 16 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year
 #> →  Coordinates cols. : lon_dec, lat_dec
@@ -238,12 +239,13 @@ spm_points(bounds_voronoi)
 
 ``` r
 biomass_smooth <- biomass_dataset %>%  
-  spm_smooth(weight_per_km2 ~ sfa + smooth_time(k = 3) + smooth_space(),
+  spm_smooth(weight_per_km2 ~ sfa + smooth_time(k = 3, bs = "mrf") + smooth_space() + 
+               smooth_space_time(k=c(NA, 30)),
              boundaries = bounds_voronoi,
-             drop.unused.levels = F, family=tw, method= "fREML") %>% 
+             drop.unused.levels = F, family=tw, method= "fREML", keep_fit = T) %>% 
   spm_smooth(temp_at_bottom ~ smooth_time(k = 2) + smooth_space(),
-             drop.unused.levels = F, family=gaussian, method= "fREML")
-#> ℹ  Fitting formula: weight_per_km2 ~ sfa + smooth_time(k = 3) + smooth_space() for dataset 'borealis'
+             drop.unused.levels = F, family=gaussian, method= "fREML", keep_fit = T)
+#> ℹ  Fitting formula: weight_per_km2 ~ sfa + smooth_time(k = 3, bs = 'mrf') + smooth_space() + smooth_space_time(k = c(NA, 30)) for dataset 'borealis'
 #> ℹ  Fitting formula: temp_at_bottom ~ smooth_time(k = 2) + smooth_space() for dataset 'borealis'
 
 biomass_smooth
@@ -254,7 +256,7 @@ biomass_smooth
 #> →  Time col.         : year_f
 #> →  Coordinates cols. : lon_dec, lat_dec
 #> →  Formulas          : 
-#>       – weight_per_km2 ~ sfa + smooth_time(k = 3) + smooth_space()
+#>       – weight_per_km2 ~ sfa + smooth_time(k = 3, bs = 'mrf') + smooth_space() + smooth_space_time(k = c(NA, 30))
 #>       – temp_at_bottom ~ smooth_time(k = 2) + smooth_space()
 #> →  Boundaries        : [4 observations, 3 variables]
 #> →  Smoothed Data     : [912 observations, 8 variables]
@@ -282,7 +284,7 @@ predator_smooth <- predator_dataset %>%
 predator_smooth
 #> 
 #> ‒‒ SSPM Dataset: all_predators ‒‒
-#> →  Data (MAPPED)     : [1965 observations, 18 variables]
+#> →  Data (MAPPED)     : [1965 observations, 19 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year
 #> →  Coordinates cols. : lon_dec, lat_dec
@@ -332,12 +334,12 @@ biomass_smooth_w_catch
 #> →  Time col.         : year_f
 #> →  Coordinates cols. : lon_dec, lat_dec
 #> →  Formulas          : 
-#>       – weight_per_km2 ~ sfa + smooth_time(k = 3) + smooth_space()
+#>       – weight_per_km2 ~ sfa + smooth_time(k = 3, bs = 'mrf') + smooth_space() + smooth_space_time(k = c(NA, 30))
 #>       – temp_at_bottom ~ smooth_time(k = 2) + smooth_space()
 #> →  Boundaries        : [4 observations, 3 variables]
-#> →  Smoothed Data     : [912 observations, 12 variables]
+#> →  Smoothed Data     : [912 observations, 13 variables]
 #>    ٭ smoothed vars: temp_at_bottom_smooth — weight_per_km2_smooth
-#>    ٭ vars with catch: weight_per_km2_smooth_borealis_with_catch — weight_per_km2_smooth_borealis_with_catch_change
+#>    ٭ vars with catch: weight_per_km2_smooth_borealis_with_catch
 ```
 
 12. Once data has been smoothed, we can assemble a `sspm` model object,
@@ -352,9 +354,9 @@ sspm_model <- sspm(biomass = biomass_smooth_w_catch,
 sspm_model
 #> 
 #> ‒‒ SSPM Model (2 datasets) ‒‒
-#> →  Smoothed Data     : [912 observations, 13 variables]
+#> →  Smoothed Data     : [912 observations, 14 variables]
 #>    ٭ smoothed vars: temp_at_bottom_smooth — weight_per_km2_smooth_all_predators — weight_per_km2_smooth_borealis
-#>    ٭ vars with catch: weight_per_km2_smooth_borealis_with_catch — weight_per_km2_smooth_borealis_with_catch_change
+#>    ٭ vars with catch: weight_per_km2_smooth_borealis_with_catch
 ```
 
 13. Before fitting the model, we must split data into test/train with
@@ -367,9 +369,9 @@ sspm_model <- sspm_model %>%
 sspm_model
 #> 
 #> ‒‒ SSPM Model (2 datasets) ‒‒
-#> →  Smoothed Data     : [912 observations, 14 variables] / [874 train, 38 test]
+#> →  Smoothed Data     : [912 observations, 15 variables] / [874 train, 38 test]
 #>    ٭ smoothed vars: temp_at_bottom_smooth — weight_per_km2_smooth_all_predators — weight_per_km2_smooth_borealis
-#>    ٭ vars with catch: weight_per_km2_smooth_borealis_with_catch — weight_per_km2_smooth_borealis_with_catch_change
+#>    ٭ vars with catch: weight_per_km2_smooth_borealis_with_catch
 ```
 
 14. To fit the model, we might be interested in including lagged values.
@@ -384,9 +386,9 @@ sspm_model <- sspm_model %>%
 sspm_model
 #> 
 #> ‒‒ SSPM Model (2 datasets) ‒‒
-#> →  Smoothed Data     : [912 observations, 16 variables] / [874 train, 38 test]
+#> →  Smoothed Data     : [912 observations, 17 variables] / [874 train, 38 test]
 #>    ٭ smoothed vars: temp_at_bottom_smooth — weight_per_km2_smooth_all_predators — weight_per_km2_smooth_borealis
-#>    ٭ vars with catch: weight_per_km2_smooth_borealis_with_catch — weight_per_km2_smooth_borealis_with_catch_change — weight_per_km2_smooth_borealis_with_catch_lag_1
+#>    ٭ vars with catch: weight_per_km2_smooth_borealis_with_catch — weight_per_km2_smooth_borealis_with_catch_lag_1
 #>    ٭ lagged vars: weight_per_km2_smooth_all_predators_lag_1 — weight_per_km2_smooth_borealis_with_catch_lag_1
 ```
 
@@ -394,59 +396,55 @@ sspm_model
 
 ``` r
 sspm_model_fit <- sspm_model %>% 
-  spm(weight_per_km2_smooth_borealis_with_catch_change ~ 
-        weight_per_km2_smooth_borealis_with_catch_lag_1 +
+  spm(log_productivity ~ 
+        sfa +
         weight_per_km2_smooth_all_predators_lag_1 +
         smooth_lag("weight_per_km2_smooth_borealis_with_catch") + 
-        temp_at_bottom_smooth + smooth_space())
-#> ℹ  Fitting SPM formula: weight_per_km2_smooth_borealis_with_catch_change ~ weight_per_km2_smooth_borealis_with_catch_lag_1 + weight_per_km2_smooth_all_predators_lag_1 + smooth_lag('weight_per_km2_smooth_borealis_with_catch') + temp_at_bottom_smooth + smooth_space()
-#> Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :
-#> step failure in theta estimation
-
-#> Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :
-#> step failure in theta estimation
-
-#> Warning in estimate.theta(theta, family, G$y, linkinv(eta), scale = scale1, :
-#> step failure in theta estimation
+        temp_at_bottom_smooth + 
+        smooth_space(), family = mgcv::scat)
+#> ℹ  Fitting SPM formula: log_productivity ~ sfa + weight_per_km2_smooth_all_predators_lag_1 + smooth_lag('weight_per_km2_smooth_borealis_with_catch') + temp_at_bottom_smooth + smooth_space()
 
 sspm_model_fit
 #> 
 #> ‒‒ SSPM Model Fit ‒‒
-#> →  Smoothed Data     : [912 observations, 16 variables] / [874 train, 38 test]
+#> →  Smoothed Data     : [912 observations, 17 variables] / [874 train, 38 test]
 #> →  Fit summary       : 
 #> 
-#> Family: Scaled t(Inf,0.02) 
+#> Family: Scaled t(3,0.001) 
 #> Link function: identity 
 #> 
 #> Formula:
-#> weight_per_km2_smooth_borealis_with_catch_change ~ weight_per_km2_smooth_borealis_with_catch_lag_1 + 
-#>     weight_per_km2_smooth_all_predators_lag_1 + temp_at_bottom_smooth + 
-#>     s(lag_matrix, k = 5, m = 1, by = by_matrix) + s(patch_id, 
-#>     k = 30, bs = "mrf", xt = list(penalty = pen_mat_space))
+#> log_productivity ~ sfa + weight_per_km2_smooth_all_predators_lag_1 + 
+#>     temp_at_bottom_smooth + s(lag_matrix, k = 5, m = 1, by = by_matrix) + 
+#>     s(patch_id, k = 30, bs = "mrf", xt = list(penalty = pen_mat_space))
 #> 
 #> Parametric coefficients:
-#>                                                   Estimate Std. Error t value
-#> (Intercept)                                      2.252e+00  8.040e-01   2.801
-#> weight_per_km2_smooth_borealis_with_catch_lag_1 -2.392e-04  6.701e-06 -35.694
-#> weight_per_km2_smooth_all_predators_lag_1       -2.452e-04  1.744e-04  -1.405
-#> temp_at_bottom_smooth                            3.607e-02  5.971e-03   6.041
-#>                                                 Pr(>|t|)    
-#> (Intercept)                                      0.00521 ** 
-#> weight_per_km2_smooth_borealis_with_catch_lag_1  < 2e-16 ***
-#> weight_per_km2_smooth_all_predators_lag_1        0.16026    
-#> temp_at_bottom_smooth                           2.34e-09 ***
+#>                                             Estimate Std. Error t value
+#> (Intercept)                               -8.225e-01  4.038e-02 -20.369
+#> sfa5                                       6.464e-02  1.765e-03  36.635
+#> sfa6                                       7.925e-02  2.277e-03  34.810
+#> sfa7                                       9.275e-02  2.739e-03  33.857
+#> weight_per_km2_smooth_all_predators_lag_1  2.294e-06  7.219e-06   0.318
+#> temp_at_bottom_smooth                      1.778e-03  2.880e-04   6.172
+#>                                           Pr(>|t|)    
+#> (Intercept)                                < 2e-16 ***
+#> sfa5                                       < 2e-16 ***
+#> sfa6                                       < 2e-16 ***
+#> sfa7                                       < 2e-16 ***
+#> weight_per_km2_smooth_all_predators_lag_1    0.751    
+#> temp_at_bottom_smooth                     1.06e-09 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #> Approximate significance of smooth terms:
-#>                               edf Ref.df     F  p-value    
-#> s(lag_matrix):by_matrix 1.661e-05      4  0.00 0.000147 ***
-#> s(patch_id)             2.661e+01     29 18.05  < 2e-16 ***
+#>                            edf Ref.df       F p-value    
+#> s(lag_matrix):by_matrix  4.929      5 513.205  <2e-16 ***
+#> s(patch_id)             16.509     29   1.966  <2e-16 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
-#> R-sq.(adj) =  0.607   Deviance explained = 62.1%
-#> -REML = 1276.7  Scale est. = 1         n = 836
+#> R-sq.(adj) =  0.883   Deviance explained = 71.3%
+#> -REML = 1226.3  Scale est. = 1         n = 836
 ```
 
 16. Plotting the object produces a actual vs predicted plot (with
@@ -462,27 +460,39 @@ spm_plot(sspm_model_fit)
 17. We can also extract the predictions, including for biomass.
 
 ``` r
-biomass_preds <- spm_predict(sspm_model_fit)
-head(biomass_preds)
-#>       pred_log      pred patch_id year_f sfa                       geometry
-#> 1  0.067409734 1.0697337       P1   1995   4 POLYGON ((-64.42169 60.2712...
-#> 2 -0.024165834 0.9761238       P1   1996   4 POLYGON ((-64.42169 60.2712...
-#> 3  0.022761276 1.0230223       P1   1997   4 POLYGON ((-64.42169 60.2712...
-#> 4 -0.039454314 0.9613139       P1   1998   4 POLYGON ((-64.42169 60.2712...
-#> 5  0.007266922 1.0072934       P1   1999   4 POLYGON ((-64.42169 60.2712...
-#> 6  0.020199447 1.0204048       P1   2000   4 POLYGON ((-64.42169 60.2712...
+preds <- spm_predict(sspm_model_fit)
+head(preds)
+#>       pred_log     pred patch_id year_f sfa                       geometry
+#> 1 0.0008544747 1.000855       P1   1995   4 POLYGON ((-64.42169 60.2712...
+#> 2 0.0003477638 1.000348       P1   1996   4 POLYGON ((-64.42169 60.2712...
+#> 3 0.0003183767 1.000318       P1   1997   4 POLYGON ((-64.42169 60.2712...
+#> 4 0.0001999048 1.000200       P1   1998   4 POLYGON ((-64.42169 60.2712...
+#> 5 0.0004698755 1.000470       P1   1999   4 POLYGON ((-64.42169 60.2712...
+#> 6 0.0006820664 1.000682       P1   2000   4 POLYGON ((-64.42169 60.2712...
 ```
 
 ``` r
 biomass_preds <- spm_predict_biomass(sspm_model_fit, "weight_per_km2_smooth_borealis")
 head(biomass_preds)
-#>   biomass_pred patch_id year_f sfa                       geometry
-#> 1     5929.906       P1   1995   4 POLYGON ((-64.42169 60.2712...
-#> 2     5219.547       P1   1996   4 POLYGON ((-64.42169 60.2712...
-#> 3     5737.215       P1   1997   4 POLYGON ((-64.42169 60.2712...
-#> 4     5201.781       P1   1998   4 POLYGON ((-64.42169 60.2712...
-#> 5     5394.878       P1   1999   4 POLYGON ((-64.42169 60.2712...
-#> 6     5411.334       P1   2000   4 POLYGON ((-64.42169 60.2712...
+#> Simple feature collection with 6 features and 5 fields
+#> Geometry type: POLYGON
+#> Dimension:     XY
+#> Bounding box:  xmin: -64.5 ymin: 58.4628 xmax: -61.36857 ymax: 60.62184
+#> Geodetic CRS:  WGS 84
+#>   biomass_pred_with_catch biomass_pred patch_id year_f sfa
+#> 1                5457.406     5456.126       P1   1995   4
+#> 2                5454.642     5453.430       P1   1996   4
+#> 3                5454.485     5454.047       P1   1997   4
+#> 4                5453.840     5451.744       P1   1998   4
+#> 5                5455.308     5451.981       P1   1999   4
+#> 6                5456.467     5448.489       P1   2000   4
+#>                         geometry
+#> 1 POLYGON ((-64.42169 60.2712...
+#> 2 POLYGON ((-64.42169 60.2712...
+#> 3 POLYGON ((-64.42169 60.2712...
+#> 4 POLYGON ((-64.42169 60.2712...
+#> 5 POLYGON ((-64.42169 60.2712...
+#> 6 POLYGON ((-64.42169 60.2712...
 ```
 
 18. We can also produce a biomass plot (note that this simulated data is
@@ -490,7 +500,6 @@ head(biomass_preds)
 
 ``` r
 spm_plot_biomass(sspm_model_fit, "weight_per_km2_smooth_borealis")
-#> `geom_smooth()` using method = 'loess' and formula 'y ~ x'
 ```
 
 <img src="man/figures/README-unnamed-chunk-23-1.png" width="100%" />

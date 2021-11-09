@@ -130,11 +130,12 @@ spm_points(bounds_voronoi)
 
 ```{r}
 biomass_smooth <- biomass_dataset %>%  
-  spm_smooth(weight_per_km2 ~ sfa + smooth_time(k = 3) + smooth_space(),
+  spm_smooth(weight_per_km2 ~ sfa + smooth_time(k = 3, bs = "mrf") + smooth_space() + 
+               smooth_space_time(k=c(NA, 30)),
              boundaries = bounds_voronoi,
-             drop.unused.levels = F, family=tw, method= "fREML") %>% 
+             drop.unused.levels = F, family=tw, method= "fREML", keep_fit = T) %>% 
   spm_smooth(temp_at_bottom ~ smooth_time(k = 2) + smooth_space(),
-             drop.unused.levels = F, family=gaussian, method= "fREML")
+             drop.unused.levels = F, family=gaussian, method= "fREML", keep_fit = T)
 
 biomass_smooth
 ```
@@ -212,11 +213,12 @@ sspm_model
 
 ```{r}
 sspm_model_fit <- sspm_model %>% 
-  spm(weight_per_km2_smooth_borealis_with_catch_change ~ 
-        weight_per_km2_smooth_borealis_with_catch_lag_1 +
+  spm(log_productivity ~ 
+        sfa +
         weight_per_km2_smooth_all_predators_lag_1 +
         smooth_lag("weight_per_km2_smooth_borealis_with_catch") + 
-        temp_at_bottom_smooth + smooth_space())
+        temp_at_bottom_smooth + 
+        smooth_space(), family = mgcv::scat)
 
 sspm_model_fit
 ```
@@ -229,8 +231,8 @@ spm_plot(sspm_model_fit)
 
 17. We can also extract the predictions, including for biomass.
 ```{r}
-biomass_preds <- spm_predict(sspm_model_fit)
-head(biomass_preds)
+preds <- spm_predict(sspm_model_fit)
+head(preds)
 ```
 
 ```{r}
@@ -240,5 +242,14 @@ head(biomass_preds)
 
 18. We can also produce a biomass plot (note that this simulated data is very monotonous).
 ```{r}
-spm_plot_biomass(sspm_model_fit, "weight_per_km2_smooth_borealis")
+spm_plot_biomass(sspm_model_fit, 
+                 biomass = "weight_per_km2_smooth_borealis")
+```
+```{r}
+spm_plot_biomass(sspm_model_fit, 
+                 biomass = biomass_smooth, 
+                 biomass_var = NULL, 
+                 biomass_var_predict = "weight_per_km2_smooth_borealis",
+                 biomass_var_smooth = "weight_per_km2_smooth",
+                 biomass_var_origin = "weight_per_km2")
 ```
