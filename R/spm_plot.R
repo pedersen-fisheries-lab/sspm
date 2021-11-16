@@ -249,7 +249,7 @@ setMethod("spm_plot_biomass",
               dplyr::summarise(biomass_mean = mean(.data[[biomass_var_origin]])) %>%
 
               dplyr::mutate(area = as.numeric(st_area(.data$geometry)/1000),
-                            biomass = biomass_mean * .data$area) %>%
+                            biomass = .data$biomass_mean * .data$area) %>%
 
               dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
               dplyr::summarise(biomass_sum = sum(.data$biomass)) %>%

@@ -121,7 +121,7 @@ setMethod(f = "spm_aggregate_catch",
                 log_productivity =
                   log(.data[[catch_name]]) - log(dplyr::lag(.data[[biomass_variable]],
                                                             default = NA)),
-                productivity = exp(log_productivity)) %>%
+                productivity = exp(.data$log_productivity)) %>%
 
               dplyr::select(-.data$area_no_units) %>%
               dplyr::ungroup() %>%
