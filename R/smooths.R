@@ -502,4 +502,3 @@ assemble_smooth <- function(s_type, args) {
   deparse(rlang::call2(s_type, !!!args),
           width.cutoff = 500, nlines = 1)
 }
-
