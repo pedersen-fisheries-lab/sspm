@@ -158,10 +158,10 @@
     },
     "cpp11": {
       "Package": "cpp11",
-      "Version": "0.2.7",
+      "Version": "0.4.1",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "730eebcc741a5c36761f7d4d0f5e37b8"
+      "Hash": "70976176dfd7f179f212783aab2547b1"
     },
     "crayon": {
       "Package": "crayon",
@@ -368,10 +368,10 @@
     },
     "lwgeom": {
       "Package": "lwgeom",
-      "Version": "0.2-6",
+      "Version": "0.2-8",
       "Source": "Repository",
       "Repository": "CRAN",
-      "Hash": "1db8e70ff9db156a176b642e417030ae"
+      "Hash": "68b7afe010f5ddc3d5a5c8113018bb39"
     },
     "magrittr": {
       "Package": "magrittr",
