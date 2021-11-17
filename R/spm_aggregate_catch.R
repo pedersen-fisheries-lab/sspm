@@ -69,7 +69,7 @@ setMethod(f = "spm_aggregate_catch",
             biomass_time_col <- spm_time_column(biomass)
             catch_time_col <- spm_time_column(catch)
             boundary_col <- spm_boundary_column(spm_boundaries(biomass))
-            area_col <- spm_patches_area_columnn(spm_boundaries(biomass))
+            area_col <- spm_patches_area_column(spm_boundaries(biomass))
 
             # Aggregate the catch
             catch <- spm_aggregate(dataset = catch,
