@@ -45,7 +45,7 @@ setClass("discretization_method",
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
 #' @slot boundary_column **\[character\]** The column of `data` that represents the
 #'     spatial boundaries.
-#' @slot surface_column **\[character\]** The column of `data` that represents the
+#' @slot area_column **\[character\]** The column of `data` that represents the
 #'     area of spatial boundaries.
 #' @slot method **\[[discretization_method][discretization_method-class]\]**
 #'     *(if discrete)* discretization method used.
@@ -60,7 +60,7 @@ setClass("discretization_method",
 setClass("sspm_boundary",
          slots = list(boundaries = "sf",
                       boundary_column = "character",
-                      surface_column = "character")
+                      area_column = "character")
 )
 
 #' @describeIn sspm_boundary-class sspm_discrete_boundary

@@ -178,31 +178,31 @@ setMethod("spm_boundary_column<-",
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setGeneric(name = "spm_surface_column",
-           def = function(sspm_object) standardGeneric("spm_surface_column")
+setGeneric(name = "spm_area_column",
+           def = function(sspm_object) standardGeneric("spm_area_column")
 )
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setMethod("spm_surface_column",
+setMethod("spm_area_column",
           signature("sspm_object" = "sspm_boundary"),
-          function(sspm_object) sspm_object@surface_column
+          function(sspm_object) sspm_object@area_column
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setGeneric(name = "spm_surface_column<-",
-           def = function(object, value) standardGeneric("spm_surface_column<-")
+setGeneric(name = "spm_area_column<-",
+           def = function(object, value) standardGeneric("spm_area_column<-")
 )
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setMethod("spm_surface_column<-",
+setMethod("spm_area_column<-",
           signature("object" = "sspm_boundary"),
           function(object, value) {
-            object@surface_column <- value
+            object@area_column <- value
             validObject(object)
             return(object)
           }

@@ -10,7 +10,7 @@ test_that("Accessors work as expected on `sspm_boundary` (discrete or not)", {
 
   expect_equal(spm_boundary_column(boundary), "sfa")
 
-  expect_equal(spm_surface_column(boundary), "area")
+  expect_equal(spm_area_column(boundary), "area")
 
   expect_equal(spm_points(boundary_discrete), borealis_points)
 

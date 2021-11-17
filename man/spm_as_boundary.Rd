@@ -12,21 +12,21 @@
 spm_as_boundary(
   boundaries,
   boundary_column,
-  surface_column,
+  area_column,
   patches = NULL,
   points = NULL,
   ...
 )
 
-\S4method{spm_as_boundary}{sf,`NULL`,ANY,ANY,ANY}(boundaries, boundary_column, surface_column)
+\S4method{spm_as_boundary}{sf,`NULL`,ANY,ANY,ANY}(boundaries, boundary_column, area_column)
 
-\S4method{spm_as_boundary}{sf,character,missing,missing,missing}(boundaries, boundary_column, surface_column)
+\S4method{spm_as_boundary}{sf,character,missing,missing,missing}(boundaries, boundary_column, area_column)
 
-\S4method{spm_as_boundary}{sf,character,character,missing,missing}(boundaries, boundary_column, surface_column)
+\S4method{spm_as_boundary}{sf,character,character,missing,missing}(boundaries, boundary_column, area_column)
 
-\S4method{spm_as_boundary}{sf,character,missing,ANY,ANY}(boundaries, boundary_column, surface_column, patches, points)
+\S4method{spm_as_boundary}{sf,character,missing,ANY,ANY}(boundaries, boundary_column, area_column, patches, points)
 
-\S4method{spm_as_boundary}{sf,character,character,ANY,ANY}(boundaries, boundary_column, surface_column, patches, points)
+\S4method{spm_as_boundary}{sf,character,character,ANY,ANY}(boundaries, boundary_column, area_column, patches, points)
 }
 \arguments{
 \item{boundaries}{\strong{[sf]} The sf object to cast.}
@@ -34,7 +34,7 @@ spm_as_boundary(
 \item{boundary_column}{\strong{[character]} The column that contains the possible
 subdivisions of the boundaries.}
 
-\item{surface_column}{\strong{[character]} The column that contains the surface
+\item{area_column}{\strong{[character]} The column that contains the surface
 of the subdivisions (optional).}
 
 \item{patches}{\strong{[sf]} Patches resulting from discretization.}

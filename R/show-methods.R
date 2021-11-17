@@ -146,8 +146,8 @@ cat_boundaries <- function(object, column = TRUE) {
                       cli::col_blue(object@boundary_column),
                       bullet = "arrow_right")
 
-      cli::cat_bullet(" Surface col.  : ",
-                      cli::col_blue(object@surface_column),
+      cli::cat_bullet(" Area col.     : ",
+                      cli::col_blue(object@area_column),
                       bullet = "arrow_right")
     } else {
 
