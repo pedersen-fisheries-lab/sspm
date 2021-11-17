@@ -2,42 +2,56 @@
 % Please edit documentation in R/spm_as_boundary.R
 \name{spm_as_boundary}
 \alias{spm_as_boundary}
-\alias{spm_as_boundary,sf,NULL,ANY,ANY,ANY-method}
-\alias{spm_as_boundary,sf,character,missing,missing,missing-method}
-\alias{spm_as_boundary,sf,character,character,missing,missing-method}
-\alias{spm_as_boundary,sf,character,missing,ANY,ANY-method}
-\alias{spm_as_boundary,sf,character,character,ANY,ANY-method}
+\alias{spm_as_boundary,missing,ANY,ANY,ANY-method}
+\alias{spm_as_boundary,ANY,missing,ANY,ANY-method}
+\alias{spm_as_boundary,sf,character,missing,missing-method}
+\alias{spm_as_boundary,sf,character,ANY,ANY-method}
 \title{Create a sspm_boundary object}
 \usage{
 spm_as_boundary(
   boundaries,
   boundary_column,
-  boundary_area_column,
   patches = NULL,
   points = NULL,
+  boundary_area_column = NULL,
+  patch_area_column = NULL,
   ...
 )
 
-\S4method{spm_as_boundary}{sf,`NULL`,ANY,ANY,ANY}(boundaries, boundary_column, boundary_area_column)
-
-\S4method{spm_as_boundary}{sf,character,missing,missing,missing}(boundaries, boundary_column, boundary_area_column)
-
-\S4method{spm_as_boundary}{sf,character,character,missing,missing}(boundaries, boundary_column, boundary_area_column)
-
-\S4method{spm_as_boundary}{sf,character,missing,ANY,ANY}(
+\S4method{spm_as_boundary}{missing,ANY,ANY,ANY}(
   boundaries,
   boundary_column,
-  boundary_area_column,
   patches,
-  points
+  points,
+  boundary_area_column,
+  patch_area_column
 )
 
-\S4method{spm_as_boundary}{sf,character,character,ANY,ANY}(
+\S4method{spm_as_boundary}{ANY,missing,ANY,ANY}(
   boundaries,
   boundary_column,
-  boundary_area_column,
   patches,
-  points
+  points,
+  boundary_area_column,
+  patch_area_column
+)
+
+\S4method{spm_as_boundary}{sf,character,missing,missing}(
+  boundaries,
+  boundary_column,
+  patches,
+  points,
+  boundary_area_column,
+  patch_area_column
+)
+
+\S4method{spm_as_boundary}{sf,character,ANY,ANY}(
+  boundaries,
+  boundary_column,
+  patches,
+  points,
+  boundary_area_column,
+  patch_area_column
 )
 }
 \arguments{
@@ -50,13 +64,11 @@ subdivisions of the boundaries.}
 
 \item{points}{\strong{[sf]} Sample points used for discretization.}
 
-\item{...}{further args passed onto methods}
+\item{patch_area_column}{\strong{[character]} The column that contains the area
+of the patches (optional).}
 
 \item{boundary_boundary_area_column}{\strong{[character]} The column that contains the area
 of the subdivisions (optional).}
-
-\item{patch_are}{a_column \strong{[character]} The column that contains the area
-of the patches (optional).}
 }
 \value{
 An object of class \link[=sspm_boundary-class]{sspm_boundary} or
