@@ -69,6 +69,7 @@ setMethod(f = "spm_aggregate_catch",
             biomass_time_col <- spm_time_column(biomass)
             catch_time_col <- spm_time_column(catch)
             boundary_col <- spm_boundary_column(spm_boundaries(biomass))
+            area_col <- spm_patches_area_columnn(spm_boundaries(biomass))
 
             # Aggregate the catch
             catch <- spm_aggregate(dataset = catch,
@@ -111,7 +112,7 @@ setMethod(f = "spm_aggregate_catch",
               dplyr::group_by(.data[["patch_id"]],
                               .data[[boundary_col]]) %>%
 
-              dplyr::mutate(area_no_units = as.vector(.data$area)) %>%
+              dplyr::mutate(area_no_units = as.vector(.data[[area_col]])) %>%
               dplyr::mutate(catch_density = .data$catch / .data$area_no_units) %>%
 
               dplyr::mutate(
