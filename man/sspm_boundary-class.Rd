@@ -33,5 +33,8 @@ discretization.}
 
 \item{\code{points}}{\strong{[sf or NULL]} \emph{(if discrete)} Sample points used for
 discretization.}
+
+\item{\code{patches_area_column}}{\strong{[character]} The column of \code{data} that represents the
+area of patches.}
 }}
 

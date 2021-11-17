@@ -45,7 +45,7 @@ setGeneric(name = "spm_discret_method",
 #' @rdname accessors-methods-sspm_boundary
 #' @export
 setMethod("spm_discret_method",
-          signature("sspm_object" = "sspm_boundary"),
+          signature("sspm_object" = "sspm_discrete_boundary"),
           function(sspm_object) sspm_object@method
 )
 
@@ -60,7 +60,7 @@ setGeneric(name = "spm_discret_method<-",
 #' @rdname accessors-methods-sspm_boundary
 #' @export
 setMethod("spm_discret_method<-",
-          signature("object" = "sspm_boundary"),
+          signature("object" = "sspm_discrete_boundary"),
           function(object, value) {
             object@method <- value
             validObject(object)
@@ -80,7 +80,7 @@ setGeneric(name = "spm_patches",
 #' @rdname accessors-methods-sspm_boundary
 #' @export
 setMethod("spm_patches",
-          signature("sspm_object" = "sspm_boundary"),
+          signature("sspm_object" = "sspm_discrete_boundary"),
           function(sspm_object) sspm_object@patches
 )
 
@@ -95,7 +95,7 @@ setGeneric(name = "spm_patches<-",
 #' @rdname accessors-methods-sspm_boundary
 #' @export
 setMethod("spm_patches<-",
-          signature("object" = "sspm_boundary"),
+          signature("object" = "sspm_discrete_boundary"),
           function(object, value) {
             object@patches <- value
             validObject(object)
@@ -115,7 +115,7 @@ setGeneric(name = "spm_points",
 #' @rdname accessors-methods-sspm_boundary
 #' @export
 setMethod("spm_points",
-          signature("sspm_object" = "sspm_boundary"),
+          signature("sspm_object" = "sspm_discrete_boundary"),
           function(sspm_object) sspm_object@points
 )
 
@@ -130,7 +130,7 @@ setGeneric(name = "spm_points<-",
 #' @rdname accessors-methods-sspm_boundary
 #' @export
 setMethod("spm_points<-",
-          signature("object" = "sspm_boundary"),
+          signature("object" = "sspm_discrete_boundary"),
           function(object, value) {
             object@points <- value
             validObject(object)
@@ -203,6 +203,40 @@ setMethod("spm_boundary_area_column<-",
           signature("object" = "sspm_boundary"),
           function(object, value) {
             object@boundary_area_column <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_boundary
+#' @export
+setGeneric(name = "spm_patches_area_column",
+           def = function(sspm_object) standardGeneric("spm_patches_area_column")
+)
+
+#' @rdname accessors-methods-sspm_boundary
+#' @export
+setMethod("spm_patches_area_column",
+          signature("sspm_object" = "sspm_discrete_boundary"),
+          function(sspm_object) sspm_object@patches_area_column
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_boundary
+#' @export
+setGeneric(name = "spm_patches_area_column<-",
+           def = function(object, value) standardGeneric("spm_patches_area_column<-")
+)
+
+#' @rdname accessors-methods-sspm_boundary
+#' @export
+setMethod("spm_patches_area_column<-",
+          signature("object" = "sspm_discrete_boundary"),
+          function(object, value) {
+            object@patches_area_column <- value
             validObject(object)
             return(object)
           }
