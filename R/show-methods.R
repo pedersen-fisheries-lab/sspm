@@ -165,6 +165,8 @@ cat_discretization_info <- function(object) {
   cli::cat_bullet(" Discretized   : ",
                   bullet = "arrow_right")
 
+  # TODO add " Patches area col. : "
+
   cli::cat_line("   ", paste(cli::symbol$star, cli::col_green("Points"),
                              cli::symbol$em_dash,
                              pluralize_data_info(object@points, dim_1_name = "feature")))
