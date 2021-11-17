@@ -176,9 +176,8 @@ setMethod(f = "fit_smooths",
             }
 
             nrow_smoothed_data <- nrow(full_smoothed_data)
+            browser()
             full_smoothed_data_clean <- full_smoothed_data %>%
-              dplyr::relocate(names(boundaries@boundaries),
-                              .after = dplyr::last_col()) %>%
               dplyr::relocate(dplyr::contains("smooth")) %>%
               dplyr::ungroup() %>%
               dplyr::mutate("row_ID" = 1:nrow_smoothed_data) %>%
