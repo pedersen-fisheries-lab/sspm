@@ -141,6 +141,8 @@ check_boundaries <- function(boundaries, boundary_column,
          call. = FALSE)
   }
 
+  new_boundary_area_column <- paste0("area_", boundary_column)
+
   if(!is.null(boundary_area_column)){
 
     if (!checkmate::test_subset(boundary_area_column, names(boundaries))) {
@@ -153,16 +155,18 @@ check_boundaries <- function(boundaries, boundary_column,
     boundaries <-
       dplyr::mutate(boundaries,
                     !!boundary_area_column := units::set_units(.data[[boundary_area_column]],
-                                                              value = "km^2"))
-
-    boundary_list <- list(features = boundaries,
-                          column = boundary_area_column)
+                                                              value = "km^2")) %>%
+      dplyr::rename(!!new_boundary_area_column := .data$boundary_area_column)
 
   } else {
 
-    boundary_list <- calculate_spatial_feature_areas(boundaries)
+    boundaries <- calculate_spatial_feature_areas(boundaries) %>%
+      dplyr::rename(!!new_boundary_area_column := .data$area)
 
   }
+
+  boundary_list <- list(features = boundaries,
+                        column = new_boundary_area_column )
 
   return(boundary_list)
 
@@ -188,14 +192,14 @@ check_patches <- function(patches,
                     !!patches_area_column := units::set_units(.data[[patches_area_column]],
                                                               value = "km^2"))
 
-    patches_list <- list(features = patches,
-                         column = patches_area_column)
-
   } else {
 
-    patches_list <- calculate_spatial_feature_areas(patches)
+    patches <- calculate_spatial_feature_areas(patches)
 
   }
+
+  patches_list <- list(features = patches,
+                       column = patches_area_column)
 
   return(patches_list)
 
@@ -211,10 +215,6 @@ calculate_spatial_feature_areas <- function(features){
   features <-
     dplyr::mutate(features,
                   area = units::set_units(.data$area, value = "km^2"))
-  boundary_area_column <- "area"
 
-  boundary_list <- list(features = features,
-                        column = boundary_area_column)
-
-  return(boundary_list)
+  return(features)
 }
