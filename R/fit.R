@@ -176,7 +176,7 @@ setMethod(f = "fit_smooths",
             }
 
             nrow_smoothed_data <- nrow(full_smoothed_data)
-            browser()
+
             full_smoothed_data_clean <- full_smoothed_data %>%
               dplyr::relocate(dplyr::contains("smooth")) %>%
               dplyr::ungroup() %>%
