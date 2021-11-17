@@ -162,7 +162,7 @@ cat_boundaries <- function(object, column = TRUE) {
 
 cat_discretization_info <- function(object) {
 
-  cli::cat_bullet(" Discretized   : ",
+  cli::cat_bullet(" Discretized        : ",
                   bullet = "arrow_right")
 
   # TODO add " Patches area col. : "
