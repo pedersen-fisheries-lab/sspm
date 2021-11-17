@@ -53,6 +53,8 @@ setClass("discretization_method",
 #'     discretization.
 #' @slot points **\[sf or NULL\]** *(if discrete)* Sample points used for
 #'     discretization.
+#' @slot patches_area_column **\[character\]** The column of `data` that represents the
+#'     area of patches.
 #'
 #' @name sspm_boundary-class
 #' @rdname sspm_boundary-class
@@ -66,6 +68,7 @@ setClass("sspm_boundary",
 #' @describeIn sspm_boundary-class sspm_discrete_boundary
 setClass("sspm_discrete_boundary",
          slots = list(method = "discretization_method",
+                      patches_area_column = "character",
                       patches = "sf",
                       points = "ANY"),
          contains = "sspm_boundary"

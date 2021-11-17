@@ -103,6 +103,7 @@ setMethod(f = "spm_as_boundary",
             boundary_area_column <- boundaries_list$column
 
             # Patches
+            # TODO patches vs points provision
 
             patches_list <- check_patches(patches,
                                           patch_area_column)
@@ -119,6 +120,7 @@ setMethod(f = "spm_as_boundary",
                   boundary_column = boundary_column,
                   boundary_area_column = boundary_area_column,
                   method = as_discretization_method(method = I),
+                  patches_area_column = patch_area_column,
                   patches = patches,
                   points = points)
 
