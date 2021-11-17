@@ -158,7 +158,7 @@ setMethod(f = "spm_discretize",
               new("sspm_discrete_boundary",
                   boundaries = spm_boundaries(boundary_object),
                   boundary_column = boundary_column,
-                  area_column = spm_area_column(boundary_object),
+                  boundary_area_column = spm_boundary_area_column(boundary_object),
                   method = method,
                   patches = discrete[["patches"]],
                   points = discrete[["points"]])

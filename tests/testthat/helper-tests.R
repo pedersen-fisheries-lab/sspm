@@ -23,7 +23,7 @@ discret_method <- new("discretization_method",
 boundary <- new("sspm_boundary",
                 boundaries = sfa_boundaries,
                 boundary_column = "sfa",
-                area_column = "area")
+                boundary_area_column = "area")
 
 boundary_discrete <- new("sspm_discrete_boundary",
                          boundaries = sfa_boundaries,

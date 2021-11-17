@@ -138,20 +138,20 @@ cat_boundaries <- function(object, column = TRUE) {
     cli::cli_alert_info(" Boundaries not initialized")
   } else if (ok_to_print) {
     if (column) {
-      cli::cat_bullet(" Boundaries    : ",
+      cli::cat_bullet(" Boundaries         : ",
                       pluralize_data_info(object@boundaries),
                       bullet = "arrow_right")
 
-      cli::cat_bullet(" Boundary col. : ",
+      cli::cat_bullet(" Boundary col.      : ",
                       cli::col_blue(object@boundary_column),
                       bullet = "arrow_right")
 
-      cli::cat_bullet(" Area col.     : ",
-                      cli::col_blue(object@area_column),
+      cli::cat_bullet(" Boundary area col. : ",
+                      cli::col_blue(object@boundary_area_column),
                       bullet = "arrow_right")
     } else {
 
-      cli::cat_bullet(" Boundaries        : ",
+      cli::cat_bullet(" Boundaries         : ",
                       pluralize_data_info(object@boundaries@boundaries),
                       bullet = "arrow_right")
 

@@ -15,8 +15,8 @@ test_that("Replacers work as expected", {
   }, "new_col")
 
   expect_equal({
-    spm_area_column(boundary) <- "new_col_2"
-    spm_area_column(boundary)
+    spm_boundary_area_column(boundary) <- "new_col_2"
+    spm_boundary_area_column(boundary)
   }, "new_col_2")
 
   expect_equal({

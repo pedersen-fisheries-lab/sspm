@@ -22,7 +22,7 @@ object(s) of class \code{sspm_boundary} from an \code{sf} object.
 \item{\code{boundary_column}}{\strong{[character]} The column of \code{data} that represents the
 spatial boundaries.}
 
-\item{\code{area_column}}{\strong{[character]} The column of \code{data} that represents the
+\item{\code{boundary_area_column}}{\strong{[character]} The column of \code{data} that represents the
 area of spatial boundaries.}
 
 \item{\code{method}}{\strong{[\link[=discretization_method-class]{discretization_method}]}

@@ -5,8 +5,10 @@
 #' @param boundaries **\[sf\]** The sf object to cast.
 #' @param boundary_column **\[character\]** The column that contains the possible
 #'   subdivisions of the boundaries.
-#' @param area_column **\[character\]** The column that contains the surface
+#' @param boundary_boundary_area_column **\[character\]** The column that contains the area
 #'   of the subdivisions (optional).
+#' @param patch_are a_column **\[character\]** The column that contains the area
+#'   of the patches (optional).
 #' @param ... further args passed onto methods
 #' @param patches **\[sf\]** Patches resulting from discretization.
 #' @param points **\[sf\]** Sample points used for discretization.
@@ -19,7 +21,7 @@
 setGeneric(name = "spm_as_boundary",
            def = function(boundaries,
                           boundary_column,
-                          area_column,
+                          boundary_area_column,
                           patches = NULL,
                           points = NULL,
                           ...) {
@@ -34,8 +36,8 @@ setGeneric(name = "spm_as_boundary",
 setMethod(f = "spm_as_boundary",
           signature(boundaries = "sf",
                     boundary_column = "NULL",
-                    area_column = "ANY"),
-          function(boundaries, boundary_column, area_column) {
+                    boundary_area_column = "ANY"),
+          function(boundaries, boundary_column, boundary_area_column) {
             stop("`boundary_column` cannot be NULL",
                  call. = FALSE)
           }
@@ -46,21 +48,21 @@ setMethod(f = "spm_as_boundary",
 setMethod(f = "spm_as_boundary",
           signature(boundaries = "sf",
                     boundary_column = "character",
-                    area_column = "missing",
+                    boundary_area_column = "missing",
                     patches = "missing",
                     points = "missing"),
-          function(boundaries, boundary_column, area_column) {
+          function(boundaries, boundary_column, boundary_area_column) {
 
             boundaries <- boundaries %>%
               dplyr::mutate(area = sf::st_area(boundaries))
             boundaries <-
               dplyr::mutate(boundaries,
                             area = units::set_units(.data$area, value = "km^2"))
-            area_column <- "area"
+            boundary_area_column <- "area"
 
             spm_as_boundary(boundaries = boundaries,
                             boundary_column = boundary_column,
-                            area_column = area_column)
+                            boundary_area_column = boundary_area_column)
 
           }
 )
@@ -70,25 +72,25 @@ setMethod(f = "spm_as_boundary",
 setMethod(f = "spm_as_boundary",
           signature(boundaries = "sf",
                     boundary_column = "character",
-                    area_column = "character",
+                    boundary_area_column = "character",
                     patches = "missing",
                     points = "missing"),
-          function(boundaries, boundary_column, area_column) {
+          function(boundaries, boundary_column, boundary_area_column) {
 
             if (!checkmate::test_subset(boundary_column, names(boundaries))) {
               stop("`boundary_column` must be a column of `boundaries`",
                    call. = FALSE)
             }
 
-            if (!checkmate::test_subset(area_column, names(boundaries))) {
-              stop("`area_column` must be a column of `boundaries`",
+            if (!checkmate::test_subset(boundary_area_column, names(boundaries))) {
+              stop("`boundary_area_column` must be a column of `boundaries`",
                    call. = FALSE)
             }
 
             boundary_object <- new("sspm_boundary",
                                    boundaries = boundaries,
                                    boundary_column = boundary_column,
-                                   area_column = area_column)
+                                   boundary_area_column = boundary_area_column)
 
             return(boundary_object)
 
@@ -100,10 +102,10 @@ setMethod(f = "spm_as_boundary",
 setMethod(f = "spm_as_boundary",
           signature(boundaries = "sf",
                     boundary_column = "character",
-                    area_column = "missing",
+                    boundary_area_column = "missing",
                     patches = "ANY",
                     points = "ANY"),
-          function(boundaries, boundary_column, area_column, patches, points) {
+          function(boundaries, boundary_column, boundary_area_column, patches, points) {
 
             checkmate::assert_class(patches, "sf", null.ok = TRUE)
             checkmate::assert_class(points, "sf", null.ok = TRUE)
@@ -113,7 +115,7 @@ setMethod(f = "spm_as_boundary",
             boundaries <-
               dplyr::mutate(boundaries,
                             area = units::set_units(.data$area, value = "km^2"))
-            area_column <- "area"
+            boundary_area_column <- "area"
 
             if(!(is.null(patches))){
               patches <- patches %>%
@@ -125,7 +127,7 @@ setMethod(f = "spm_as_boundary",
 
             spm_as_boundary(boundaries = boundaries,
                             boundary_column = boundary_column,
-                            area_column = area_column,
+                            boundary_area_column = boundary_area_column,
                             patches = patches,
                             points = points)
 
@@ -137,16 +139,16 @@ setMethod(f = "spm_as_boundary",
 setMethod(f = "spm_as_boundary",
           signature(boundaries = "sf",
                     boundary_column = "character",
-                    area_column = "character"),
-          function(boundaries, boundary_column, area_column, patches, points) {
+                    boundary_area_column = "character"),
+          function(boundaries, boundary_column, boundary_area_column, patches, points) {
 
             if (!checkmate::test_subset(boundary_column, names(boundaries))) {
               stop("`boundary_column` must be a column of `boundaries`",
                    call. = FALSE)
             }
 
-            if (!checkmate::test_subset(area_column, names(boundaries))) {
-              stop("`area_column` must be a column of `boundaries`",
+            if (!checkmate::test_subset(boundary_area_column, names(boundaries))) {
+              stop("`boundary_area_column` must be a column of `boundaries` OR `patches`",
                    call. = FALSE)
             }
 
@@ -181,7 +183,7 @@ setMethod(f = "spm_as_boundary",
               new("sspm_discrete_boundary",
                   boundaries = boundaries,
                   boundary_column = boundary_column,
-                  area_column = area_column,
+                  boundary_area_column = boundary_area_column,
                   method = as_discretization_method(method = I),
                   patches = patches,
                   points = points)
