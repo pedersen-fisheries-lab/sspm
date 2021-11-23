@@ -117,7 +117,9 @@ setMethod(f = "spm_as_boundary",
               dplyr::mutate(patch_id =
                               factor(.data$patch_id,
                                      levels = paste0("P", 1:length(unique(.data$patch_id))))) %>%
-              dplyr::relocate("patch_id", .after = boundary_column)
+              dplyr::relocate("patch_id", .after = boundary_column) %>%
+              # TODO add option for joining here as well
+              dplyr::mutate(!!boundary_column := as.factor(.data[[boundary_column]]))
 
             # Points
             ## TODO
