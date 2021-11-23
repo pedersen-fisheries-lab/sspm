@@ -165,8 +165,9 @@ setMethod("spm_plot_biomass",
             biomass_preds <- spm_predict_biomass(sspm_object, biomass)
 
             smoothed_data <- spm_smoothed_data(sspm_object) %>%
-              dplyr::mutate(biomass = (.data[[biomass]] *
-                              as.numeric(st_area(.data$geometry)/1000)))
+              dplyr::mutate(area = units::set_units(st_area(.data$geometry),
+                                                    value = "km^2")) %>%
+              dplyr::mutate(biomass = (.data[[biomass]] * as.numeric(area)))
             time_col <- spm_time_column(sspm_object)
 
             if (log) {
