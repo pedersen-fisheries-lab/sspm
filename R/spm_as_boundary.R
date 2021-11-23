@@ -103,7 +103,7 @@ setMethod(f = "spm_as_boundary",
             boundary_area_column <- boundaries_list$column
 
             # Patches
-            # TODO patches vs points provision
+            ## TODO patches vs points provision
 
             patches_list <- check_patches(patches,
                                           patch_area_column)
@@ -111,8 +111,16 @@ setMethod(f = "spm_as_boundary",
             patches <- patches_list$features
             patch_area_column <- patches_list$column
 
+            patches <- patches %>%
+              dplyr::mutate(patch_id =
+                              factor(paste("P", 1:dplyr::n(), sep = ""))) %>%
+              dplyr::mutate(patch_id =
+                              factor(.data$patch_id,
+                                     levels = paste0("P", 1:length(unique(.data$patch_id))))) %>%
+              dplyr::relocate("patch_id", .after = boundary_column)
+
             # Points
-            # TODO
+            ## TODO
 
             boundary_object <-
               new("sspm_discrete_boundary",
@@ -195,6 +203,7 @@ check_patches <- function(patches,
   } else {
 
     patches <- calculate_spatial_feature_areas(patches)
+    patches_area_column <- "area"
 
   }
 
