@@ -115,7 +115,6 @@ setMethod(f = "spm_predict_biomass",
             # biomass_pred <- biomass_density_with_catch
 
             pred_subset <- dplyr::select(preds, -.data$pred, -.data$pred_log) %>%
-              dplyr::mutate(area = as.numeric(st_area(.data$geometry)/1000)) %>%
               dplyr::mutate(area = st_area(.data$geometry)) %>%
               dplyr::mutate(area = units::set_units(.data$area,
                                                     value = "km^2")) %>%
