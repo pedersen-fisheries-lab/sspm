@@ -181,11 +181,11 @@ setMethod(f = "spm_predict_biomass_next_timestep",
             new_data <- spm_smoothed_data(sspm_object) %>%
               filter(year_f == next_year) %>% st_drop_geometry()
 
-            mats <- sspm:::LINPRED(spm_smoothed_data(sspm_object) %>%
-                                     filter(.data[[time_col]] %in% (next_year-5):next_year),
-                                   spm_boundaries(sspm_object),
-                                   time_col, paste0(biomass, "_lag_1"),
-                                   k = 5, m = 1)$vars
+            mats <- LINPRED(spm_smoothed_data(sspm_object) %>%
+                              filter(.data[[time_col]] %in% (next_year-5):next_year),
+                            spm_boundaries(sspm_object),
+                            time_col, paste0(biomass, "_lag_1"),
+                            k = 5, m = 1)$vars
 
             by_mat_nrow <- dim(mats$by_matrix)[1]
             mats$lag_matrix <- mats$lag_matrix[1:grid_length,]
