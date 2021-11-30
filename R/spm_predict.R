@@ -200,7 +200,7 @@ setMethod(f = "spm_predict_biomass_next_timestep",
 
             base_pred <- base %>%
               dplyr::mutate(density_next_year = density_last_year * ratio_next_year,
-                            biomass_next_year = ratio_next_year *
+                            biomass_next_year = density_next_year *
                               (as.numeric(units::set_units(st_area(base), value = "km^2"))),
                             year_f = next_year) %>%
               dplyr::select(-.data$density_next_year) %>%
