@@ -234,7 +234,8 @@ setMethod("spm_plot_biomass",
             time_col <- spm_time_column(sspm_object)
 
             biomass_smooth_summary <- spm_smoothed_data(biomass) %>%
-              dplyr::mutate(area = as.numeric(st_area(.data$geometry)/1000),
+              dplyr::mutate(area = as.numeric(units::set_units(st_area(.data$geometry),
+                                                               value = "km^2")),
                             biomass = .data[[biomass_var_smooth]] * .data$area) %>%
               dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
               dplyr::summarise(biomass_sum = sum(biomass)) %>%
@@ -249,7 +250,8 @@ setMethod("spm_plot_biomass",
               dplyr::group_by(.data[[boundary_col]], .data$patch_id, .data[[time_col]]) %>%
               dplyr::summarise(biomass_mean = mean(.data[[biomass_var_origin]])) %>%
 
-              dplyr::mutate(area = as.numeric(st_area(.data$geometry)/1000),
+              dplyr::mutate(area = as.numeric(units::set_units(st_area(.data$geometry),
+                                                               value = "km^2")),
                             biomass = .data$biomass_mean * .data$area) %>%
 
               dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
