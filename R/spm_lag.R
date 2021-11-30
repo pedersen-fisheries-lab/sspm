@@ -28,42 +28,68 @@ setMethod(f = "spm_lag",
           function(sspm_object, vars, n, default, ...) {
 
             smoothed_data <- spm_smoothed_data(sspm_object)
+            bounds <- spm_boundaries(sspm_object)
 
-            for (var in vars) {
-
-              if (var %in% colnames(smoothed_data)) {
-
-                var_name <- paste0(var, "_lag_", n)
-
-                if (is.character(default)) {
-
-                  if (default == "mean") {
-                    def_val <- mean(smoothed_data[[var]], na.rm = TRUE)
-                  } else {
-                    stop("Defaulting scheme not recognized")
-                  }
-
-                } else {
-                  def_val <- default
-                }
-
-                smoothed_data <- smoothed_data %>%
-                  dplyr::group_by(.data$patch_id,
-                                  .data[[spm_boundary_column(spm_boundaries(sspm_object))]]) %>%
-                  dplyr::mutate(!!var_name := dplyr::lag(x = .data[[var]],
-                                                         n = n, default = def_val, ...)) %>%
-                  dplyr::ungroup() %>%
-                  dplyr::relocate(var_name, .after = var)
-
-              } else {
-
-                cli::cli_alert_danger(paste0(" Column ", cli::col_magenta(var),
-                                             " does not exist in smoothed data."))
-
-              }
-            }
+            smoothed_data <- lag_data_frame(smoothed_data, bounds, vars, n, default, ...)
 
             spm_smoothed_data(sspm_object) <- smoothed_data
             return(sspm_object)
           }
 )
+
+#' @export
+#' @rdname spm_lag
+setMethod(f = "spm_lag",
+          signature(sspm_object = "sspm_fit"),
+          function(sspm_object, vars, n, default, ...) {
+
+            smoothed_data <- spm_smoothed_data(sspm_object)
+            bounds <- spm_boundaries(sspm_object)
+
+            smoothed_data <- lag_data_frame(smoothed_data, bounds, vars, n, default, ...)
+
+            spm_smoothed_data(sspm_object) <- smoothed_data
+            return(sspm_object)
+          }
+)
+
+# -------------------------------------------------------------------------
+
+lag_data_frame <- function(smoothed_data, boundaries, vars, n, default, ...){
+
+  for (var in vars) {
+
+    if (var %in% colnames(smoothed_data)) {
+
+      var_name <- paste0(var, "_lag_", n)
+
+      if (is.character(default)) {
+
+        if (default == "mean") {
+          def_val <- mean(smoothed_data[[var]], na.rm = TRUE)
+        } else {
+          stop("Defaulting scheme not recognized")
+        }
+
+      } else {
+        def_val <- default
+      }
+
+      smoothed_data <- smoothed_data %>%
+        dplyr::group_by(.data$patch_id,
+                        .data[[spm_boundary_column(boundaries)]]) %>%
+        dplyr::mutate(!!var_name := dplyr::lag(x = .data[[var]],
+                                               n = n, default = def_val, ...)) %>%
+        dplyr::ungroup() %>%
+        dplyr::relocate(var_name, .after = var)
+
+    } else {
+
+      cli::cli_alert_danger(paste0(" Column ", cli::col_magenta(var),
+                                   " does not exist in smoothed data."))
+
+    }
+  }
+
+  return(smoothed_data)
+}
