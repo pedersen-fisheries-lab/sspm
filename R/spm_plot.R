@@ -23,6 +23,7 @@ setGeneric(name = "spm_plot",
 )
 
 #' @export
+#' @rdname spm_plot
 setGeneric(name = "spm_plot_biomass",
            def = function(sspm_object, biomass, biomass_var = NULL,
                           biomass_var_predict = NULL, biomass_var_smooth = NULL,

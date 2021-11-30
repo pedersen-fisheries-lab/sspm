@@ -2,6 +2,7 @@
 % Please edit documentation in R/spm_plot.R
 \name{spm_plot}
 \alias{spm_plot}
+\alias{spm_plot_biomass}
 \alias{spm_plot,sspm_boundary-method}
 \alias{spm_plot,sspm_dataset-method}
 \alias{spm_plot,sspm_fit-method}
@@ -15,6 +16,21 @@ spm_plot(
   page = NULL,
   nrow = NULL,
   ncol = NULL,
+  log = TRUE
+)
+
+spm_plot_biomass(
+  sspm_object,
+  biomass,
+  biomass_var = NULL,
+  biomass_var_predict = NULL,
+  biomass_var_smooth = NULL,
+  biomass_var_origin = NULL,
+  catch,
+  use_sf = FALSE,
+  nrow = NULL,
+  ncol = NULL,
+  page = NULL,
   log = TRUE
 )
 
