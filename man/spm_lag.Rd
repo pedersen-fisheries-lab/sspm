@@ -3,11 +3,14 @@
 \name{spm_lag}
 \alias{spm_lag}
 \alias{spm_lag,sspm-method}
+\alias{spm_lag,sspm_fit-method}
 \title{Create lagged columns in a sspm smoothed data slot}
 \usage{
 spm_lag(sspm_object, vars, n = 1, default = "mean", ...)
 
 \S4method{spm_lag}{sspm}(sspm_object, vars, n = 1, default = "mean", ...)
+
+\S4method{spm_lag}{sspm_fit}(sspm_object, vars, n = 1, default = "mean", ...)
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_dataset]} An object of class
