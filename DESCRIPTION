@@ -33,6 +33,7 @@ Imports:
     tidyr,
     dplyr,
     purrr,
+    stringr,
     rlang
 Suggests: 
     testthat (>= 3.0.0),
