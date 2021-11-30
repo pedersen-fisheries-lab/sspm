@@ -41,9 +41,6 @@ tesselate_voronoi <- function(boundaries,
                               stratify = TRUE,
                               seed = 1) {
 
-  # TODO to be discussed
-  # 1. NAFO division
-
   # 1. Prep -----------------------------------------------------------------
 
   # Check main params
@@ -67,6 +64,7 @@ tesselate_voronoi <- function(boundaries,
   checkmate::assert_numeric(seed)
 
   unique_boundaries <- unique(boundaries[[boundary_column]])
+
   if (length(nb_samples) == 1){
     nb_samples <- rep(nb_samples, length(unique_boundaries))
     names(nb_samples) <- unique_boundaries
@@ -86,6 +84,11 @@ tesselate_voronoi <- function(boundaries,
 
   if (sample_surface){
 
+    if (is.null(nb_samples)){
+      cli::cli_alert_danger("You must scpecify nb_samples when sampling surfaces")
+      stop("nb_samples is NULL")
+    }
+
     sample_fun <- function(polygon, boundary_column, nb_samples){
       sf::st_sample(polygon,
                     size = nb_samples[polygon[[boundary_column]]])
@@ -103,6 +106,11 @@ tesselate_voronoi <- function(boundaries,
   } else {
 
     if (sample_points) {
+
+      if (is.null(with)){
+        cli::cli_alert_danger("with cannot be NULL when sampling points")
+        stop("with is NULL")
+      }
 
       set.seed(seed) ; voronoi_points <-
         suppressMessages(sf::st_join(with, boundaries)) %>%
@@ -161,6 +169,8 @@ tesselate_voronoi <- function(boundaries,
                   dplyr::mutate(patch_id = paste("P", 1:dplyr::n(), sep = "")) %>%
                   dplyr::group_by(.data$patch_id, .data[[boundary_column]]) %>%
                   dplyr::summarize() %>%
+                  sf::st_make_valid() %>%
+                  sf::st_cast("POLYGON") %>%
                   dplyr::ungroup())
   voronoi <-
     suppressAll(dplyr::mutate(voronoi,
@@ -173,13 +183,12 @@ tesselate_voronoi <- function(boundaries,
   # 4. Merge small polygons -------------------------------------------------
 
   # TODO the removal of small polygons has not been stratified
-
   small_voronoi <- voronoi$patch_id[which(voronoi$area <
                                             units::set_units(min_size, value = "km^2"))]
   voronoi_edges <- suppressMessages(sf::st_intersects(voronoi))
   names(voronoi_edges) <- voronoi$patch_id
 
-  # TODO vectorize this
+  # TODO this could maybe be vectorized
   for (i in small_voronoi) {
     current_polygons <- voronoi[voronoi_edges[[i]], ] %>%
       dplyr::filter(.data[[boundary_column]] ==
