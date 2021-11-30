@@ -7,7 +7,7 @@
 #'   subdivisions of the boundaries.
 #' @param patches **\[sf\]** Patches resulting from discretization.
 #' @param points **\[sf\]** Sample points used for discretization.
-#' @param boundary_boundary_area_column **\[character\]** The column that contains the area
+#' @param boundary_area_column **\[character\]** The column that contains the area
 #'   of the subdivisions (optional).
 #' @param patch_area_column **\[character\]** The column that contains the area
 #'   of the patches (optional).
@@ -23,8 +23,7 @@ setGeneric(name = "spm_as_boundary",
                           patches = NULL,
                           points = NULL,
                           boundary_area_column = NULL,
-                          patch_area_column = NULL,
-                          ...) {
+                          patch_area_column = NULL) {
              standardGeneric("spm_as_boundary")
            }
 )
@@ -95,7 +94,6 @@ setMethod(f = "spm_as_boundary",
             checkmate::assert_class(points, "sf", null.ok = TRUE)
 
             # Boundaries
-
             boundaries_list <- check_boundaries(boundaries, boundary_column,
                                                 boundary_area_column)
 
