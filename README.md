@@ -147,10 +147,10 @@ bounds_voronoi <- bounds %>%
 bounds_voronoi
 #> 
 #> ‒‒ SSPM Boundary (Discrete) ‒‒
-#> →  Boundaries    : [4 observations, 3 variables]
-#> →  Boundary col. : sfa
-#> →  Surface col.  : area
-#> →  Discretized   : 
+#> →  Boundaries         : [4 observations, 3 variables]
+#> →  Boundary col.      : sfa
+#> →  Boundary area col. : area_sfa
+#> →  Discretized        : 
 #>    ٭ Points — [40 features, 20 variables]
 #>    ٭ Patches — [38 features, 4 variables]
 ```
@@ -185,7 +185,7 @@ spm_plot(bounds_delaunay)
 ``` r
 spm_patches(bounds_voronoi)
 #> Simple feature collection with 38 features and 3 fields
-#> Geometry type: GEOMETRY
+#> Geometry type: POLYGON
 #> Dimension:     XY
 #> Bounding box:  xmin: -64.5 ymin: 46.00004 xmax: -46.6269 ymax: 61
 #> Geodetic CRS:  WGS 84
@@ -226,7 +226,7 @@ spm_points(bounds_voronoi)
 #> # … with 30 more rows, and 11 more variables: lat_dec <dbl>, depth <dbl>,
 #> #   temp_at_bottom <dbl>, weight <dbl>, weight_per_km2 <dbl>,
 #> #   recruit_weight <dbl>, row <int>, uniqueID <chr>, geometry <POINT [°]>,
-#> #   sfa <chr>, area [km^2]
+#> #   sfa <chr>, area_sfa [km^2]
 ```
 
 7.  The next step in this workflow is to smooth the variables to be used
@@ -257,7 +257,7 @@ biomass_smooth
 #> →  Formulas          : 
 #>       – weight_per_km2 ~ sfa + smooth_time(k = 3, bs = 'mrf') + smooth_space() + smooth_space_time(k = c(NA, 30))
 #>       – temp_at_bottom ~ smooth_time(k = 2) + smooth_space()
-#> →  Boundaries        : [4 observations, 3 variables]
+#> →  Boundaries         : [4 observations, 3 variables]
 #> →  Smoothed Data     : [912 observations, 8 variables]
 #>    ٭ smoothed vars: temp_at_bottom_smooth — weight_per_km2_smooth
 ```
@@ -289,7 +289,7 @@ predator_smooth
 #> →  Coordinates cols. : lon_dec, lat_dec
 #> →  Formulas          : 
 #>       – weight_per_km2 ~ smooth_time(k = 3) + smooth_space()
-#> →  Boundaries        : [4 observations, 3 variables]
+#> →  Boundaries         : [4 observations, 3 variables]
 #> →  Smoothed Data     : [912 observations, 7 variables]
 #>    ٭ smoothed vars: weight_per_km2_smooth
 ```
@@ -335,7 +335,7 @@ biomass_smooth_w_catch
 #> →  Formulas          : 
 #>       – weight_per_km2 ~ sfa + smooth_time(k = 3, bs = 'mrf') + smooth_space() + smooth_space_time(k = c(NA, 30))
 #>       – temp_at_bottom ~ smooth_time(k = 2) + smooth_space()
-#> →  Boundaries        : [4 observations, 3 variables]
+#> →  Boundaries         : [4 observations, 3 variables]
 #> →  Smoothed Data     : [912 observations, 13 variables]
 #>    ٭ smoothed vars: temp_at_bottom_smooth — weight_per_km2_smooth
 #>    ٭ vars with catch: weight_per_km2_smooth_borealis_with_catch
@@ -419,31 +419,31 @@ sspm_model_fit
 #> 
 #> Parametric coefficients:
 #>                                             Estimate Std. Error t value
-#> (Intercept)                               -8.225e-01  4.038e-02 -20.369
-#> sfa5                                       6.464e-02  1.765e-03  36.635
-#> sfa6                                       7.925e-02  2.277e-03  34.810
-#> sfa7                                       9.275e-02  2.739e-03  33.857
-#> weight_per_km2_smooth_all_predators_lag_1  2.294e-06  7.219e-06   0.318
-#> temp_at_bottom_smooth                      1.778e-03  2.880e-04   6.172
+#> (Intercept)                               -8.186e-01  3.923e-02 -20.869
+#> sfa5                                       6.448e-02  1.777e-03  36.285
+#> sfa6                                       7.904e-02  2.291e-03  34.504
+#> sfa7                                       9.250e-02  2.757e-03  33.552
+#> weight_per_km2_smooth_all_predators_lag_1  1.921e-06  6.878e-06   0.279
+#> temp_at_bottom_smooth                      1.767e-03  2.847e-04   6.207
 #>                                           Pr(>|t|)    
 #> (Intercept)                                < 2e-16 ***
 #> sfa5                                       < 2e-16 ***
 #> sfa6                                       < 2e-16 ***
 #> sfa7                                       < 2e-16 ***
-#> weight_per_km2_smooth_all_predators_lag_1    0.751    
-#> temp_at_bottom_smooth                     1.06e-09 ***
+#> weight_per_km2_smooth_all_predators_lag_1     0.78    
+#> temp_at_bottom_smooth                     8.64e-10 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #> Approximate significance of smooth terms:
-#>                            edf Ref.df       F p-value    
-#> s(lag_matrix):by_matrix  4.929      5 513.205  <2e-16 ***
-#> s(patch_id)             16.509     29   1.966  <2e-16 ***
+#>                            edf Ref.df       F  p-value    
+#> s(lag_matrix):by_matrix  4.932      5 505.723  < 2e-16 ***
+#> s(patch_id)             16.338     29   1.895 3.03e-07 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
-#> R-sq.(adj) =  0.883   Deviance explained = 71.3%
-#> -REML = 1226.3  Scale est. = 1         n = 836
+#> R-sq.(adj) =  0.884   Deviance explained = 71.2%
+#> -REML = 1227.9  Scale est. = 1         n = 836
 ```
 
 16. Plotting the object produces a actual vs predicted plot (with
@@ -462,12 +462,12 @@ spm_plot(sspm_model_fit)
 preds <- spm_predict(sspm_model_fit)
 head(preds)
 #>       pred_log     pred patch_id year_f sfa                       geometry
-#> 1 0.0008544747 1.000855       P1   1995   4 POLYGON ((-64.42169 60.2712...
-#> 2 0.0003477638 1.000348       P1   1996   4 POLYGON ((-64.42169 60.2712...
-#> 3 0.0003183767 1.000318       P1   1997   4 POLYGON ((-64.42169 60.2712...
-#> 4 0.0001999048 1.000200       P1   1998   4 POLYGON ((-64.42169 60.2712...
-#> 5 0.0004698755 1.000470       P1   1999   4 POLYGON ((-64.42169 60.2712...
-#> 6 0.0006820664 1.000682       P1   2000   4 POLYGON ((-64.42169 60.2712...
+#> 1 0.0008397704 1.000840       P1   1995   4 POLYGON ((-64.42169 60.2712...
+#> 2 0.0003481465 1.000348       P1   1996   4 POLYGON ((-64.42169 60.2712...
+#> 3 0.0003242303 1.000324       P1   1997   4 POLYGON ((-64.42169 60.2712...
+#> 4 0.0002014760 1.000201       P1   1998   4 POLYGON ((-64.42169 60.2712...
+#> 5 0.0004777427 1.000478       P1   1999   4 POLYGON ((-64.42169 60.2712...
+#> 6 0.0006854760 1.000686       P1   2000   4 POLYGON ((-64.42169 60.2712...
 ```
 
 ``` r
@@ -478,20 +478,20 @@ head(biomass_preds)
 #> Dimension:     XY
 #> Bounding box:  xmin: -64.5 ymin: 58.4628 xmax: -61.36857 ymax: 60.62184
 #> Geodetic CRS:  WGS 84
-#>   patch_id year_f sfa     area biomass_density_with_catch biomass_density
-#> 1       P1   1995   4 20367394                   5457.406        5456.126
-#> 2       P1   1996   4 20367394                   5454.642        5453.430
-#> 3       P1   1997   4 20367394                   5454.485        5454.047
-#> 4       P1   1998   4 20367394                   5453.840        5451.744
-#> 5       P1   1999   4 20367394                   5455.308        5451.981
-#> 6       P1   2000   4 20367394                   5456.467        5448.489
-#>   biomass_with_catch      biomass                       geometry
-#> 1       111153137208 111127071762 POLYGON ((-64.42169 60.2712...
-#> 2       111096842000 111072156073 POLYGON ((-64.42169 60.2712...
-#> 3       111093645222 111084721002 POLYGON ((-64.42169 60.2712...
-#> 4       111080508244 111037824727 POLYGON ((-64.42169 60.2712...
-#> 5       111110416696 111042655473 POLYGON ((-64.42169 60.2712...
-#> 6       111134006262 110971520471 POLYGON ((-64.42169 60.2712...
+#>   patch_id year_f sfa            area biomass_density_with_catch
+#> 1       P1   1995   4 20367.39 [km^2]                   5457.326
+#> 2       P1   1996   4 20367.39 [km^2]                   5454.644
+#> 3       P1   1997   4 20367.39 [km^2]                   5454.517
+#> 4       P1   1998   4 20367.39 [km^2]                   5453.848
+#> 5       P1   1999   4 20367.39 [km^2]                   5455.352
+#> 6       P1   2000   4 20367.39 [km^2]                   5456.485
+#>   biomass_density biomass_with_catch   biomass                       geometry
+#> 1        5456.046          111151511 111125446 POLYGON ((-64.42169 60.2712...
+#> 2        5453.432          111096891 111072206 POLYGON ((-64.42169 60.2712...
+#> 3        5454.079          111094295 111085371 POLYGON ((-64.42169 60.2712...
+#> 4        5451.752          111080672 111037989 POLYGON ((-64.42169 60.2712...
+#> 5        5452.025          111111296 111043534 POLYGON ((-64.42169 60.2712...
+#> 6        5448.507          111134383 110971897 POLYGON ((-64.42169 60.2712...
 ```
 
 18. We can also produce a biomass plot (note that this simulated data is
