@@ -165,12 +165,13 @@ tesselate_voronoi <- function(boundaries,
 
   voronoi <-
     suppressAll(voronoi %>%
+                  st_cast() %>%
+                  st_cast("POLYGON") %>%
                   sf::st_make_valid() %>%
                   dplyr::mutate(patch_id = paste("P", 1:dplyr::n(), sep = "")) %>%
                   dplyr::group_by(.data$patch_id, .data[[boundary_column]]) %>%
                   dplyr::summarize() %>%
                   sf::st_make_valid() %>%
-                  sf::st_cast("POLYGON") %>%
                   dplyr::ungroup())
   voronoi <-
     suppressAll(dplyr::mutate(voronoi,
