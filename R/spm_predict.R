@@ -11,7 +11,7 @@
 #' A `dataframe` of predictions.
 #'
 #' @export
-#' @describeIn spm_predict Productivity predictions from a ssspm_fit object.
+#' @describeIn spm_predict Productivity predictions from a sspm_fit object.
 setGeneric(name = "spm_predict",
            def = function(sspm_object,
                           new_data = NULL,
@@ -21,7 +21,7 @@ setGeneric(name = "spm_predict",
 )
 
 #' @export
-#' @describeIn spm_predict Biomass predictions from a ssspm_fit object.
+#' @describeIn spm_predict Biomass predictions from a sspm_fit object.
 setGeneric(name = "spm_predict_biomass",
            def = function(sspm_object,
                           biomass = NULL,
@@ -31,7 +31,7 @@ setGeneric(name = "spm_predict_biomass",
 )
 
 #' @export
-#' @describeIn spm_predict Biomass predictions from a ssspm_fit object.
+#' @describeIn spm_predict Biomass predictions from a sspm_fit object.
 setGeneric(name = "spm_predict_biomass_next_timestep",
            def = function(sspm_object,
                           biomass = NULL,
@@ -159,15 +159,15 @@ setMethod(f = "spm_predict_biomass_next_timestep",
             bounds <- spm_boundaries(sspm_object)
             bounds_col <- spm_boundary_column(bounds)
             time_col <- spm_time_column(sspm_object)
-            base <- spm_patches(bounds)
-            vars_names <- get_lagged_var_names(sspm_fit)
+            patches <- spm_patches(bounds)
+            vars_names <- get_lagged_var_names(sspm_object)
 
             all_years <- as.numeric(as.character(
               unique(spm_smoothed_data(sspm_object)[[time_col]])))
             max_year <- max(all_years)
             next_year <- max_year + 1
 
-            new_grid <- base %>%
+            new_grid <- patches %>%
               dplyr::select(.data[[bounds_col]], .data$patch_id) %>%
               tidyr::expand_grid(!!time_col := 2019)
             grid_length <- nrow(new_grid)
@@ -179,10 +179,13 @@ setMethod(f = "spm_predict_biomass_next_timestep",
               spm_lag(vars_names, 1, default = NA)
 
             new_data <- spm_smoothed_data(sspm_object) %>%
-              filter(year_f == next_year) %>% st_drop_geometry()
+              dplyr::filter(.data[[time_col]] == next_year) %>%
+              st_drop_geometry()
 
-            mats <- LINPRED(spm_smoothed_data(sspm_object) %>%
-                              filter(.data[[time_col]] %in% (next_year-5):next_year),
+            data_filtered <- spm_smoothed_data(sspm_object) %>%
+              dplyr::filter(.data[[time_col]] %in% (next_year-5):next_year)
+
+            mats <- LINPRED(data_filtered,
                             spm_boundaries(sspm_object),
                             time_col, paste0(biomass, "_lag_1"),
                             k = 5, m = 1)$vars
@@ -191,28 +194,30 @@ setMethod(f = "spm_predict_biomass_next_timestep",
             mats$lag_matrix <- mats$lag_matrix[1:grid_length,]
             mats$by_matrix <- mats$by_matrix[(by_mat_nrow-grid_length+1):by_mat_nrow,]
 
-            ratio_next_year <- exp(predict(sspm_fit@fit,
-                                           newdata = append(as.list(new_data), mats)))
+            ratio_next_year <-
+              exp(mgcv::predict.bam(spm_get_fit(sspm_object),
+                                    newdata = append(as.list(new_data), mats)))
 
             density_last_year <- spm_smoothed_data(sspm_object) %>%
-              dplyr::filter(year_f %in% max_year) %>%
-              pull(.data[[biomass]])
+              dplyr::filter(.data$year_f %in% max_year) %>%
+              dplyr::pull(.data[[biomass]])
 
-            base_pred <- base %>%
+            preds <- patches %>%
               dplyr::mutate(density_next_year = density_last_year * ratio_next_year,
-                            biomass_next_year = density_next_year *
-                              (as.numeric(units::set_units(st_area(base), value = "km^2"))),
+                            biomass_next_year = .data$density_next_year *
+                              (as.numeric(units::set_units(st_area(patches), value = "km^2"))),
                             year_f = next_year) %>%
               dplyr::select(-.data$density_next_year) %>%
               dplyr::relocate(.data$biomass_next_year) %>%
               dplyr::relocate(.data[[bounds_col]]) %>%
               dplyr::relocate(.data[[time_col]])
 
+            # To summarise.
             # base_pred_sum <- base_pred %>%
             #   group_by(!!time_col, !!bounds_col) %>%
             #   mutate(biomass_next_year = sum(biomass_next_year))
 
-            return(base_pred)
+            return(preds)
           }
 )
 

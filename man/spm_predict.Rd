@@ -48,10 +48,10 @@ Predict using a fitted SPM model on the whole data or on new data
 }
 \section{Functions}{
 \itemize{
-\item \code{spm_predict}: Productivity predictions from a ssspm_fit object.
+\item \code{spm_predict}: Productivity predictions from a sspm_fit object.
 
-\item \code{spm_predict_biomass}: Biomass predictions from a ssspm_fit object.
+\item \code{spm_predict_biomass}: Biomass predictions from a sspm_fit object.
 
-\item \code{spm_predict_biomass_next_timestep}: Biomass predictions from a ssspm_fit object.
+\item \code{spm_predict_biomass_next_timestep}: Biomass predictions from a sspm_fit object.
 }}
 
