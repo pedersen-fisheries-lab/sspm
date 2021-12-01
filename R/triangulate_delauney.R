@@ -119,6 +119,7 @@ triangulate_delaunay <- function(boundaries,
     delaunay_base <- boundaries %>%
       st_union() %>%
       st_convex_hull() %>%
+      st_cast() %>%
       st_cast("POLYGON") %>%
       sf::st_as_sf() %>%
       dplyr::rename(geometry = .data$x) %>%
@@ -141,15 +142,17 @@ triangulate_delaunay <- function(boundaries,
   }
 
   delaunay_mesh <- suppressAll(delaunay_mesh %>%
-    sf::st_collection_extract() %>%
-    sf::st_cast("POLYGON") %>%
-    sf::st_join(boundaries, largest = TRUE) %>%
-    sf::st_intersection(
-      sf::st_union(boundaries)) %>%
-    sf::st_make_valid() %>%
-    st_cast("POLYGON") %>%
-    sf::st_make_valid() %>%
-    dplyr::mutate(patch_id = paste0("P", 1:dplyr::n())))
+                                 sf::st_collection_extract() %>%
+                                 sf::st_cast() %>%
+                                 sf::st_cast("POLYGON") %>%
+                                 sf::st_join(boundaries, largest = TRUE) %>%
+                                 sf::st_intersection(
+                                   sf::st_union(boundaries)) %>%
+                                 sf::st_make_valid() %>%
+                                 sf::st_cast() %>%
+                                 sf::st_cast("POLYGON") %>%
+                                 sf::st_make_valid() %>%
+                                 dplyr::mutate(patch_id = paste0("P", 1:dplyr::n())))
 
   # voronoi <-
   #   suppressAll(voronoi %>%
