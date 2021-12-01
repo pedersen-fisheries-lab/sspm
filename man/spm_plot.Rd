@@ -26,7 +26,6 @@ spm_plot_biomass(
   biomass_var_predict = NULL,
   biomass_var_smooth = NULL,
   biomass_var_origin = NULL,
-  catch,
   use_sf = FALSE,
   nrow = NULL,
   ncol = NULL,
@@ -84,6 +83,19 @@ spm_plot_biomass(
 \item{log}{\strong{[logical]} Whether to plot on a log scale, default to TRUE.}
 
 \item{biomass}{\strong{[data.frame]} Biomass variable.}
+
+\item{biomass_var}{\strong{[character]} Biomass variable to plot.}
+
+\item{biomass_var_predict}{\strong{[character]} Biomass variable to plot (from
+predictions, optionnal).}
+
+\item{biomass_var_smooth}{\strong{[character]} Biomass variable to plot (smooth,
+optional).}
+
+\item{biomass_var_origin}{\strong{[character]} Biomass variable to plot (from
+original dataset, optionnal)}
+
+\item{use_sf}{\strong{[logical]} Whether to produce a spatial plot.}
 }
 \value{
 N/A

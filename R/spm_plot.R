@@ -10,6 +10,14 @@
 #' @param ncol **\[numeric\]** The number of columns to paginate the plot on.
 #' @param log **\[logical\]** Whether to plot on a log scale, default to TRUE.
 #' @inheritParams spm_predict
+#' @param biomass_var **\[character\]** Biomass variable to plot.
+#' @param biomass_var_predict **\[character\]** Biomass variable to plot (from
+#'      predictions, optionnal).
+#' @param biomass_var_smooth **\[character\]** Biomass variable to plot (smooth,
+#'      optional).
+#' @param biomass_var_origin **\[character\]** Biomass variable to plot (from
+#'      original dataset, optionnal)
+#' @param use_sf **\[logical\]** Whether to produce a spatial plot.
 #'
 #' @return
 #' N/A
@@ -27,7 +35,7 @@ setGeneric(name = "spm_plot",
 setGeneric(name = "spm_plot_biomass",
            def = function(sspm_object, biomass, biomass_var = NULL,
                           biomass_var_predict = NULL, biomass_var_smooth = NULL,
-                          biomass_var_origin = NULL, catch, use_sf = FALSE,
+                          biomass_var_origin = NULL, use_sf = FALSE,
                           nrow = NULL, ncol = NULL, page = NULL, log = TRUE) {
              standardGeneric("spm_plot_biomass")
            }
