@@ -131,7 +131,7 @@
 <code class="sourceCode R"><span class="va">bounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/spm_as_boundary.html">spm_as_boundary</a></span><span class="op">(</span>boundaries <span class="op">=</span> <span class="va">sfa_boundaries</span>, 
                           boundary_column <span class="op">=</span> <span class="st">"sfa"</span><span class="op">)</span>
 
-<span class="fu"><a href="reference/spm_plot.html">spm_plot</a></span><span class="op">(</span><span class="va">bounds</span><span class="op">)</span></code></pre></div>
+<span class="fu">spm_plot</span><span class="op">(</span><span class="va">bounds</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-3-1.png" width="100%"></p>
 <ol start="2" style="list-style-type: decimal">
 <li>The second step consists in wrapping a <code>data.frame</code>, <code>tibble</code> or <code>sf</code> object into a <code>sspm_data</code> object, with a few other pieces of relevant information, such as the name, dataset type (biomass, predictor or catch, depending on the type of information contained), time column and coordinates column (i not <code>sf</code>) and unique row identifier. Here we wrap the borealis dataset that contains the biomass information.</li>
@@ -197,10 +197,10 @@
 <li>Plotting the object shows the polygons that have been created.</li>
 </ol>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/spm_plot.html">spm_plot</a></span><span class="op">(</span><span class="va">bounds_voronoi</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">spm_plot</span><span class="op">(</span><span class="va">bounds_voronoi</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-8-1.png" width="100%"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/spm_plot.html">spm_plot</a></span><span class="op">(</span><span class="va">bounds_delaunay</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">spm_plot</span><span class="op">(</span><span class="va">bounds_delaunay</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%"></p>
 <ol start="6" style="list-style-type: decimal">
 <li>The results of the discretization can also be explored with <code><a href="reference/accessors-methods-sspm_boundary.html">spm_patches()</a></code> and <code><a href="reference/accessors-methods-sspm_boundary.html">spm_points()</a></code>.</li>
@@ -281,7 +281,7 @@
 <li>The smoothed results for any smoothed variables (listed in “smoothed vars” above) can be easily plotted:</li>
 </ol>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/spm_plot.html">spm_plot</a></span><span class="op">(</span><span class="va">biomass_smooth</span>, <span class="st">"weight_per_km2_smooth"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">spm_plot</span><span class="op">(</span><span class="va">biomass_smooth</span>, <span class="st">"weight_per_km2_smooth"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-12-1.png" width="100%"></p>
 <ol start="9" style="list-style-type: decimal">
 <li>We also smooth the <code>weight_per_km2</code> variable in the predator data.</li>
@@ -449,7 +449,7 @@
 <li>Plotting the object produces a actual vs predicted plot (with TEST/TRAIN data highlighted.</li>
 </ol>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/spm_plot.html">spm_plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu">spm_plot</span><span class="op">(</span><span class="va">sspm_model_fit</span><span class="op">)</span>
 <span class="co">#&gt; Warning: Removed 38 rows containing missing values (geom_point).</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-20-1.png" width="100%"></p>
 <ol start="17" style="list-style-type: decimal">
@@ -491,11 +491,11 @@
 <li>We can also produce a biomass plot (note that this simulated data is very monotonous).</li>
 </ol>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/spm_plot.html">spm_plot_biomass</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, 
+<code class="sourceCode R"><span class="fu">spm_plot_biomass</span><span class="op">(</span><span class="va">sspm_model_fit</span>, 
                  biomass <span class="op">=</span> <span class="st">"weight_per_km2_smooth_borealis"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-23-1.png" width="100%"></p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/spm_plot.html">spm_plot_biomass</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, 
+<code class="sourceCode R"><span class="fu">spm_plot_biomass</span><span class="op">(</span><span class="va">sspm_model_fit</span>, 
                  biomass <span class="op">=</span> <span class="va">biomass_smooth</span>, 
                  biomass_var <span class="op">=</span> <span class="cn">NULL</span>, 
                  biomass_var_predict <span class="op">=</span> <span class="st">"weight_per_km2_smooth_borealis"</span>,
