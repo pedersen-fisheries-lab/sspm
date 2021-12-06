@@ -149,6 +149,9 @@ check_boundaries <- function(boundaries, boundary_column,
          call. = FALSE)
   }
 
+  # Ensure boundaries are factors
+  boundaries[[boundary_column]] <- as.factor(boundaries[[boundary_column]])
+
   new_boundary_area_column <- paste0("area_", boundary_column)
 
   if(!is.null(boundary_area_column)){
