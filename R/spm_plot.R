@@ -242,20 +242,20 @@ setMethod("spm_plot_biomass",
             boundary_col <- spm_boundary_column(sspm_object)
             time_col <- spm_time_column(sspm_object)
 
-            biomass_smooth_summary <- spm_smoothed_data(biomass) %>%
-              dplyr::mutate(area = as.numeric(units::set_units(st_area(.data$geometry),
-                                                               value = "km^2")),
-                            biomass = .data[[biomass_var_smooth]] * .data$area) %>%
-              dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
-              dplyr::summarise(biomass_sum = sum(biomass)) %>%
-              dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
+            # biomass_smooth_summary <- spm_smoothed_data(biomass) %>%
+            #   dplyr::mutate(area = as.numeric(units::set_units(st_area(.data$geometry),
+            #                                                    value = "km^2")),
+            #                 biomass = .data[[biomass_var_smooth]] * .data$area) %>%
+            #   dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
+            #   dplyr::summarise(biomass_sum = sum(biomass)) %>%
+            #   dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
 
             biomass_preds <- biomass_preds %>%
               dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
-              dplyr::summarise(biomass_pred = sum(.data$biomass))
+              dplyr::summarise(biomass_sum = sum(.data$biomass)) %>%
+              dplyr::mutate(type = "Predictions")
 
             biomass_actual <- spm_data(biomass) %>%
-
               dplyr::group_by(.data[[boundary_col]], .data$patch_id, .data[[time_col]]) %>%
               dplyr::summarise(biomass_mean = mean(.data[[biomass_var_origin]])) %>%
 
@@ -265,23 +265,27 @@ setMethod("spm_plot_biomass",
 
               dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
               dplyr::summarise(biomass_sum = sum(.data$biomass)) %>%
-              dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
+              dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))  %>%
+              dplyr::mutate(type = "Actual")
 
             biomass_plot <- biomass_preds %>%
-              ggplot2::ggplot(ggplot2::aes(x = .data[[time_col]], y = .data$biomass_pred)) +
-              ggplot2::geom_line(color = "red") +
-
+              dplyr::bind_rows(biomass_actual) %>%
+              dplyr::filter(year_f %in% c(2006:2020)) %>%
+              ggplot2::ggplot() +
+              # ggplot2::geom_line(color = "red") +
               ggplot2::facet_wrap(~sfa, scales = "free") +
-              ggplot2::geom_line(data = biomass_actual,
-                                 ggplot2::aes(x = .data[[time_col]],
-                                              y = .data$biomass_sum), col = "green") +
+              ggplot2::geom_line(ggplot2::aes(x = .data[[time_col]],
+                                              y = .data$biomass_sum,
+                                              color = .data$type,
+                                              linetype = .data$type)) +
 
-              ggplot2::geom_line(data = biomass_smooth_summary,
-                                 ggplot2:: aes(x = .data[[time_col]],
-                                               y = .data$biomass_sum), col = "blue") +
+              # ggplot2::geom_line(data = biomass_smooth_summary,
+              #                    ggplot2:: aes(x = .data[[time_col]],
+              #                                  y = .data$biomass_sum), col = "blue") +
+
               ggplot2::scale_y_log10()
 
-            return(biomass_plot)
+            return(list(plot = biomass_plot, preds = biomass_preds))
           }
 )
 
