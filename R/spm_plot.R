@@ -270,7 +270,7 @@ setMethod("spm_plot_biomass",
 
             biomass_plot <- biomass_preds %>%
               dplyr::bind_rows(biomass_actual) %>%
-              dplyr::filter(year_f %in% c(2006:2020)) %>%
+              dplyr::filter(.data$year_f %in% c(2006:2020)) %>%
               ggplot2::ggplot() +
               # ggplot2::geom_line(color = "red") +
               ggplot2::facet_wrap(~sfa, scales = "free") +
