@@ -44,7 +44,7 @@ setMethod("show",
             cli::cat_line()
             custom_h1(paste0("SSPM Dataset: ", cli::col_blue(object@name)))
             cat_data(object)
-            cat_formulas(object)
+            # cat_formulas(object)
             cat_boundaries(object, column = FALSE)
             cat_smoothed_data(object)
             cli::cat_line()
@@ -151,7 +151,7 @@ cat_boundaries <- function(object, column = TRUE) {
                       bullet = "arrow_right")
     } else {
 
-      cli::cat_bullet(" Boundaries         : ",
+      cli::cat_bullet(" Boundaries        : ",
                       pluralize_data_info(object@boundaries@boundaries),
                       bullet = "arrow_right")
 
@@ -203,28 +203,28 @@ cat_data <- function(object) {
 
 }
 
-cat_formulas <- function(object) {
-
-  the_dataset_formulas <- spm_formulas(object)
-
-  if (length(the_dataset_formulas) != 0) {
-
-    cli::cat_bullet(" Formulas          : ",
-                    bullet = "arrow_right")
-
-    for (f_id in seq_len(length.out = length(the_dataset_formulas))) {
-
-      form <- the_dataset_formulas[[f_id]]
-      formatted <- cat_formula(form@raw_formula)
-
-      cli::cat_line("      ", cli::symbol$en_dash, " ",
-                    cli::col_yellow(formatted))
-
-    }
-
-  }
-
-}
+# cat_formulas <- function(object) {
+#
+#   the_dataset_formulas <- spm_formulas(object)
+#
+#   if (length(the_dataset_formulas) != 0) {
+#
+#     cli::cat_bullet(" Formulas          : ",
+#                     bullet = "arrow_right")
+#
+#     for (f_id in seq_len(length.out = length(the_dataset_formulas))) {
+#
+#       form <- the_dataset_formulas[[f_id]]
+#       formatted <- cat_formula(form@raw_formula)
+#
+#       cli::cat_line("      ", cli::symbol$en_dash, " ",
+#                     cli::col_yellow(formatted))
+#
+#     }
+#
+#   }
+#
+# }
 
 cat_smoothed_data <- function(object, print_columns = TRUE) {
 
@@ -254,12 +254,8 @@ cat_smoothed_data <- function(object, print_columns = TRUE) {
 
     if (print_columns) {
 
-      columns_with_smooth <-
-        names(which(sapply(colnames(object@smoothed_data),
-                           grepl, pattern = "_smooth", fixed = TRUE)))
-      columns_with_smooth <-
-        names(which(!sapply(columns_with_smooth,
-                            grepl, pattern = "lag", fixed = TRUE)))
+      columns_with_smooth <- object@smoothed_vars
+
       columns_with_catch <-
         names(which(sapply(colnames(object@smoothed_data),
                            grepl, pattern = "_with_catch", fixed = TRUE)))
@@ -334,10 +330,10 @@ format_formula <- function(form) {
   ), pattern = "\\\"", replacement = "'")
 }
 
-cat_formula <- function(formula, max_length = 1000) {
-  formatted <- format_formula(formula)
-  if (nchar(formatted) > max_length) {
-    formatted <- paste0(strtrim(formatted, max_length), "...")
-  }
-  return(formatted)
-}
+# cat_formula <- function(formula, max_length = 1000) {
+#   formatted <- format_formula(formula)
+#   if (nchar(formatted) > max_length) {
+#     formatted <- paste0(strtrim(formatted, max_length), "...")
+#   }
+#   return(formatted)
+# }
