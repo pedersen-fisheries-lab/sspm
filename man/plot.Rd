@@ -14,7 +14,8 @@
   x,
   y,
   ...,
-  smoothed_var = NULL,
+  var = NULL,
+  use_sf = FALSE,
   page = "first",
   nrow = 2,
   ncol = 4,
@@ -25,7 +26,8 @@
   x,
   y,
   ...,
-  smoothed_var = NULL,
+  predict = TRUE,
+  train_test = FALSE,
   biomass = NULL,
   use_sf = TRUE,
   biomass_var = NULL,
@@ -45,7 +47,9 @@
 
 \item{...}{NOT USED (from generic).}
 
-\item{smoothed_var}{\strong{[character]} Variable to plot.}
+\item{var}{\strong{[character]} Variable to plot.}
+
+\item{use_sf}{\strong{[logical]} Whether to produce a spatial plot.}
 
 \item{page}{\strong{[character]} Either "first" for the firs page of plots, or
 "all" for all pages}
@@ -56,9 +60,13 @@
 
 \item{log}{\strong{[logical]} Whether to plot on a log scale, default to TRUE.}
 
-\item{biomass}{\strong{[data.frame]} Biomass variable.}
+\item{predict}{\strong{[logical]} (For sspm_fit) Whether to plot a train/test
+pair plot.}
 
-\item{use_sf}{\strong{[logical]} Whether to produce a spatial plot.}
+\item{train_test}{\strong{[logical]} (For sspm_fit) Whether to plot a train/test
+pair plot.}
+
+\item{biomass}{\strong{[data.frame]} Biomass variable.}
 
 \item{biomass_var}{\strong{[character]} Biomass variable to plot.}
 

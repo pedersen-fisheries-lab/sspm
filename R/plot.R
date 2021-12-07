@@ -5,13 +5,22 @@
 #' @param x **\[sspm_...\]** An object from this package.
 #' @param y NOT USED (from generic).
 #' @param ... NOT USED (from generic).
-#' @param smoothed_var **\[character\]** Variable to plot.
+#'
+#' @param var **\[character\]** Variable to plot.
+#'
 #' @param page **\[character\]** Either "first" for the firs page of plots, or
 #'     "all" for all pages
 #' @param nrow **\[numeric\]** The number of rows to paginate the plot on.
 #' @param ncol **\[numeric\]** The number of columns to paginate the plot on.
 #' @param log **\[logical\]** Whether to plot on a log scale, default to TRUE.
+#'
 #' @inheritParams spm_predict
+#'
+#' @param train_test **\[logical\]** (For sspm_fit) Whether to plot a train/test
+#'      pair plot.
+#' @param predict **\[logical\]** (For sspm_fit) Whether to plot a train/test
+#'      pair plot.
+#'
 #' @param biomass_var **\[character\]** Biomass variable to plot.
 #' @param biomass_var_predict **\[character\]** Biomass variable to plot (from
 #'      predictions, optionnal).
@@ -79,25 +88,26 @@ setMethod("plot",
 setMethod("plot",
           signature(x = "sspm_dataset",
                     y = "missing"),
-          definition = function(x, y, ..., smoothed_var = NULL,
+          definition = function(x, y, ..., var = NULL, use_sf = FALSE,
                                 page = "first", nrow = 2, ncol = 4, log = TRUE) {
 
             smoothed_data <- spm_smoothed_data(x)
+            time_col <- spm_time_column(x)
 
-            if (is.null(smoothed_var)) {
+            if (is.null(var)) {
 
-              sspm_discrete_plot <- plot(spm_boundaries(x))
-              show(sspm_discrete_plot)
+              cli::cli_alert_danger("`var` argument not specified.")
+              cli::cli_alert_info("Please specify a variable to plot.")
 
             } else {
 
-              if (!checkmate::test_subset(smoothed_var, names(smoothed_data))) {
-                stop("`smoothed_var` must be a column of the smoothed data", call. = FALSE)
+              if (!checkmate::test_subset(var, names(smoothed_data))) {
+                stop("`var` must be a column of the smoothed data", call. = FALSE)
               }
 
               time_col <- spm_time_column(x)
 
-              sspm_discrete_plot <- spm_plot_routine(smoothed_data, smoothed_var,
+              sspm_discrete_plot <- spm_plot_routine(smoothed_data, var, use_sf,
                                                      page, nrow, ncol, time_col, log)
 
               return(sspm_discrete_plot)
@@ -111,50 +121,36 @@ setMethod("plot",
 setMethod("plot",
           signature(x = "sspm_fit",
                     y = "missing"),
-          definition = function(x, y, ..., smoothed_var = NULL,
+          definition = function(x, y, ..., predict = TRUE, train_test = FALSE,
                                 biomass = NULL, use_sf = TRUE,
                                 biomass_var = NULL, biomass_var_predict = NULL,
                                 biomass_var_smooth = NULL, biomass_var_origin = NULL,
                                 page = "first", nrow = 2, ncol = 4, log = TRUE) {
 
+            # if no biomass is provided, does a train/test plot
             if (is.null(biomass)){
 
               smoothed_data <- spm_smoothed_data(x)
 
-              if (!is.null(smoothed_var)) {
+              preds <- spm_predict(x)$pred
+              response <- spm_response(spm_formulas(x))
 
-                if (!checkmate::test_subset(smoothed_var, names(smoothed_data))) {
-                  stop("`smoothed_var` must be a column of the smoothed data", call. = FALSE)
-                }
+              smoothed_data_with_preds <- smoothed_data %>%
+                dplyr::mutate(predicted = preds,
+                              color = ifelse(.data$train_test, "TRAIN", "TEST"))
 
-                time_col <- spm_time_column(x)
-
-                sspm_discrete_plot <- spm_plot_routine(smoothed_data, smoothed_var,
-                                                       page, nrow, ncol, time_col)
-
-              } else {
-
-                preds <- spm_predict(x)$pred
-                response <- spm_response(spm_formulas(x))
-                smoothed_data_with_preds <- smoothed_data %>%
-                  dplyr::mutate(predicted = preds,
-                                color = ifelse(.data$train_test, "TRAIN", "TEST"))
-
-                sspm_discrete_plot <-
-                  ggplot2::ggplot(data = smoothed_data_with_preds) +
-                  ggplot2::geom_point(ggplot2::aes(x = exp(.data[[response]]),
-                                                   y = .data$predicted,
-                                                   col = .data$color)) +
-                  ggplot2::theme_light() +
-                  ggplot2::labs(x = "actual") +
-                  ggplot2::scale_color_viridis_d("Set") +
-                  ggplot2::facet_wrap(~.data[[spm_boundary_column(x)]])
-
-              }
-
-              return(sspm_discrete_plot)
+              sspm_discrete_plot <-
+                ggplot2::ggplot(data = smoothed_data_with_preds) +
+                ggplot2::geom_point(ggplot2::aes(x = exp(.data[[response]]),
+                                                 y = .data$predicted,
+                                                 col = .data$color)) +
+                ggplot2::theme_light() +
+                ggplot2::labs(x = "actual") +
+                ggplot2::scale_color_viridis_d("Set") +
+                ggplot2::facet_wrap(~.data[[spm_boundary_column(x)]])
 
             } else {
+              # else, make a biomass plot
 
               if (checkmate::test_class(biomass, "character")){
 
@@ -219,14 +215,6 @@ setMethod("plot",
                 boundary_col <- spm_boundary_column(x)
                 time_col <- spm_time_column(x)
 
-                # biomass_smooth_summary <- spm_smoothed_data(biomass) %>%
-                #   dplyr::mutate(area = as.numeric(units::set_units(st_area(.data$geometry),
-                #                                                    value = "km^2")),
-                #                 biomass = .data[[biomass_var_smooth]] * .data$area) %>%
-                #   dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
-                #   dplyr::summarise(biomass_sum = sum(biomass)) %>%
-                #   dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
-
                 biomass_preds <- biomass_preds %>%
                   dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
                   dplyr::summarise(biomass_sum = sum(.data$biomass)) %>%
@@ -249,17 +237,11 @@ setMethod("plot",
                   dplyr::bind_rows(biomass_actual) %>%
                   dplyr::filter(.data$year_f %in% c(2006:2020)) %>%
                   ggplot2::ggplot() +
-                  # ggplot2::geom_line(color = "red") +
                   ggplot2::facet_wrap(~sfa, scales = "free") +
                   ggplot2::geom_line(ggplot2::aes(x = .data[[time_col]],
                                                   y = .data$biomass_sum,
                                                   color = .data$type,
                                                   linetype = .data$type)) +
-
-                  # ggplot2::geom_line(data = biomass_smooth_summary,
-                  #                    ggplot2:: aes(x = .data[[time_col]],
-                  #                                  y = .data$biomass_sum), col = "blue") +
-
                   ggplot2::scale_y_log10()
 
                 return(biomass_plot)
@@ -268,69 +250,95 @@ setMethod("plot",
 
             }
 
+            return(sspm_discrete_plot)
+
           }
 )
 
 # -------------------------------------------------------------------------
 
-spm_plot_routine <- function(smoothed_data, smoothed_var,
+spm_plot_routine <- function(smoothed_data, var, use_sf,
                              page, nrow, ncol, time_col, log) {
 
   if (log) {
-    smoothed_data[[smoothed_var]] <- log(smoothed_data[[smoothed_var]])
-    the_title <- paste0(smoothed_var, " (log)")
+    smoothed_data[[var]] <- log(smoothed_data[[var]])
+    the_title <- paste0(var, " (log)")
   } else {
-    the_title <- smoothed_var
+    the_title <- var
   }
 
+  if (use_sf){
+
+    base_plot <- ggplot2::ggplot(data = smoothed_data) +
+      ggplot2::geom_sf(ggplot2::aes(fill = .data[[var]])) +
+      ggplot2::scale_fill_viridis_c() +
+      ggplot2::labs(fill = the_title) +
+      ggplot2::theme_light()
+
+    facet_by <- time_col
+
+  } else {
+
+    base_plot <- ggplot2::ggplot(data = smoothed_data) +
+      ggplot2::geom_line(ggplot2::aes(x = .data[[time_col]], y = .data[[var]])) +
+      ggplot2::labs(y = the_title) +
+      ggplot2::theme_light()
+
+    facet_by <- "patch_id"
+
+  }
+
+  # Manage facetting + pagination
   if (is.character(page)) {
 
     if (page == "all") {
 
-      time_col_levels <- length(unique(smoothed_data[[time_col]]))
+      facet_col_levels <- length(unique(smoothed_data[[facet_by]]))
       n_per_page <- nrow * ncol
-      n_pages <- time_col_levels %/% (n_per_page) +
-        (time_col_levels %% n_per_page > 1)
+      n_pages <- facet_col_levels %/% (n_per_page) +
+        (facet_col_levels %% n_per_page > 1)
 
       sspm_discrete_plot <- list()
 
       for (page_nb in seq_len(length.out = n_pages)) {
 
-        sspm_discrete_plot[[page_nb]] <-
-          ggplot2::ggplot(data = smoothed_data) +
-          ggplot2::geom_sf(ggplot2::aes(fill = .data[[smoothed_var]])) +
-          ggforce::facet_wrap_paginate(~ .data[[time_col]],
+        sspm_discrete_plot[[page_nb]] <- base_plot +
+          ggforce::facet_wrap_paginate(~ .data[[facet_by]],
                                        nrow = nrow, ncol = ncol,
-                                       page = page_nb) +
-          ggplot2::scale_fill_viridis_c() +
-          ggplot2::labs(fill = the_title)
+                                       page = page_nb)
 
       }
 
     } else {
 
-      sspm_discrete_plot <- ggplot2::ggplot(data = smoothed_data) +
-        ggplot2::geom_sf(ggplot2::aes(fill = .data[[smoothed_var]])) +
-        ggforce::facet_wrap_paginate(~ .data[[time_col]],
+      sspm_discrete_plot <- base_plot +
+        ggforce::facet_wrap_paginate(~ .data[[facet_by]],
                                      nrow = nrow, ncol = ncol,
-                                     page = 1) +
-        ggplot2::scale_fill_viridis_c() +
-        ggplot2::labs(fill = the_title)
+                                     page = 1)
 
     }
 
   } else if (is.numeric(page)) {
 
-    sspm_discrete_plot <- ggplot2::ggplot(data = smoothed_data) +
-      ggplot2::geom_sf(ggplot2::aes(fill = .data[[smoothed_var]])) +
-      ggforce::facet_wrap_paginate(~ .data[[time_col]],
+    sspm_discrete_plot <- base_plot +
+      ggforce::facet_wrap_paginate(~ .data[[facet_by]],
                                    nrow = nrow, ncol = ncol,
-                                   page = page) +
-      ggplot2::scale_fill_viridis_c() +
-      ggplot2::labs(fill = the_title)
+                                   page = page)
 
   }
 
   return(sspm_discrete_plot)
 
 }
+
+# biomass_smooth_summary <- spm_smoothed_data(biomass) %>%
+#   dplyr::mutate(area = as.numeric(units::set_units(st_area(.data$geometry),
+#                                                    value = "km^2")),
+#                 biomass = .data[[biomass_var_smooth]] * .data$area) %>%
+#   dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
+#   dplyr::summarise(biomass_sum = sum(biomass)) %>%
+#   dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
+
+# ggplot2::geom_line(data = biomass_smooth_summary,
+#                    ggplot2:: aes(x = .data[[time_col]],
+#                                  y = .data$biomass_sum), col = "blue") +
