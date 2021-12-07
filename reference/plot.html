@@ -58,7 +58,8 @@
   <span class="va">x</span>,
   <span class="va">y</span>,
   <span class="va">...</span>,
-  smoothed_var <span class="op">=</span> <span class="cn">NULL</span>,
+  var <span class="op">=</span> <span class="cn">NULL</span>,
+  use_sf <span class="op">=</span> <span class="cn">FALSE</span>,
   page <span class="op">=</span> <span class="st">"first"</span>,
   nrow <span class="op">=</span> <span class="fl">2</span>,
   ncol <span class="op">=</span> <span class="fl">4</span>,
@@ -70,7 +71,8 @@
   <span class="va">x</span>,
   <span class="va">y</span>,
   <span class="va">...</span>,
-  smoothed_var <span class="op">=</span> <span class="cn">NULL</span>,
+  predict <span class="op">=</span> <span class="cn">TRUE</span>,
+  train_test <span class="op">=</span> <span class="cn">FALSE</span>,
   biomass <span class="op">=</span> <span class="cn">NULL</span>,
   use_sf <span class="op">=</span> <span class="cn">TRUE</span>,
   biomass_var <span class="op">=</span> <span class="cn">NULL</span>,
@@ -92,8 +94,10 @@
 <dd><p>NOT USED (from generic).</p></dd>
 <dt>...</dt>
 <dd><p>NOT USED (from generic).</p></dd>
-<dt>smoothed_var</dt>
+<dt>var</dt>
 <dd><p><strong>[character]</strong> Variable to plot.</p></dd>
+<dt>use_sf</dt>
+<dd><p><strong>[logical]</strong> Whether to produce a spatial plot.</p></dd>
 <dt>page</dt>
 <dd><p><strong>[character]</strong> Either "first" for the firs page of plots, or
 "all" for all pages</p></dd>
@@ -103,10 +107,14 @@
 <dd><p><strong>[numeric]</strong> The number of columns to paginate the plot on.</p></dd>
 <dt>log</dt>
 <dd><p><strong>[logical]</strong> Whether to plot on a log scale, default to TRUE.</p></dd>
+<dt>predict</dt>
+<dd><p><strong>[logical]</strong> (For sspm_fit) Whether to plot a train/test
+pair plot.</p></dd>
+<dt>train_test</dt>
+<dd><p><strong>[logical]</strong> (For sspm_fit) Whether to plot a train/test
+pair plot.</p></dd>
 <dt>biomass</dt>
 <dd><p><strong>[data.frame]</strong> Biomass variable.</p></dd>
-<dt>use_sf</dt>
-<dd><p><strong>[logical]</strong> Whether to produce a spatial plot.</p></dd>
 <dt>biomass_var</dt>
 <dd><p><strong>[character]</strong> Biomass variable to plot.</p></dd>
 <dt>biomass_var_predict</dt>
