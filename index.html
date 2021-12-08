@@ -487,7 +487,7 @@
 <p>We can also predict the biomass one step ahead.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">biomass_one_step</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predict.html">predict</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, 
-                         next_ts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
+                            next_ts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">biomass_one_step</span><span class="op">)</span>
 <span class="co">#&gt; Simple feature collection with 6 features and 5 fields</span>
 <span class="co">#&gt; Geometry type: POLYGON</span>
