@@ -501,7 +501,7 @@ We can also predict the biomass one step ahead.
 
 ``` r
 biomass_one_step <- predict(sspm_model_fit, biomass = "weight_per_km2_borealis", 
-                         next_ts = TRUE)
+                            next_ts = TRUE)
 head(biomass_one_step)
 #> Simple feature collection with 6 features and 5 fields
 #> Geometry type: POLYGON
