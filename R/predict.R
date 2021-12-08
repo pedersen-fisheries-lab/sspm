@@ -30,7 +30,9 @@ setMethod(f = "predict",
                 new_data <- append(as.list(spm_smoothed_data(object)),
                                    formula_vars(spm_formulas(object)))
 
-              } else if (checkmate::test_class(new_data, "data.frame")){
+              } else {
+
+                checkmate::assert_class(new_data, "data.frame")
 
                 new_data <- as.list(new_data)
 
