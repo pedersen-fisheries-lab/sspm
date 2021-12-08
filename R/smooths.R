@@ -183,9 +183,16 @@ smooth_routine <- function(dimension, var, data_frame, boundaries, time_column,
 
   # Assemble the smooths
   string_smooth <- assemble_smooth(smooth_type, args_and_vars$args)
+  ret_list <- list(smooth = string_smooth,
+                   vars = args_and_vars$vars)
 
-  return(list(smooth = string_smooth,
-              vars = args_and_vars$vars))
+  if (!is.null(var)){
+    ret_list$var_smooth_lag <- var
+  } else {
+    ret_list$var_smooth_lag <- NULL
+  }
+
+  return(ret_list)
 
 }
 
