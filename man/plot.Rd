@@ -19,25 +19,26 @@
   page = "first",
   nrow = 2,
   ncol = 4,
-  log = TRUE
+  log = FALSE,
+  scales = "fixed"
 )
 
 \S4method{plot}{sspm_fit,missing}(
   x,
   y,
   ...,
-  predict = TRUE,
   train_test = FALSE,
-  biomass = NULL,
-  use_sf = TRUE,
-  biomass_var = NULL,
+  biomass = FALSE,
+  var = NULL,
   biomass_var_predict = NULL,
   biomass_var_smooth = NULL,
   biomass_var_origin = NULL,
+  use_sf = FALSE,
   page = "first",
   nrow = 2,
   ncol = 4,
-  log = TRUE
+  log = FALSE,
+  scales = "fixed"
 )
 }
 \arguments{
@@ -47,31 +48,30 @@
 
 \item{...}{NOT USED (from generic).}
 
-\item{var}{\strong{[character]} Variable to plot.}
+\item{var}{\strong{[character]} (for sspm_dataset) Variable to plot.}
 
 \item{use_sf}{\strong{[logical]} Whether to produce a spatial plot.}
 
-\item{page}{\strong{[character]} Either "first" for the firs page of plots, or
-"all" for all pages}
+\item{page}{The page to draw}
 
-\item{nrow}{\strong{[numeric]} The number of rows to paginate the plot on.}
+\item{nrow}{Number of rows per page}
 
-\item{ncol}{\strong{[numeric]} The number of columns to paginate the plot on.}
+\item{ncol}{Number of columns per page}
 
 \item{log}{\strong{[logical]} Whether to plot on a log scale, default to TRUE.}
 
-\item{predict}{\strong{[logical]} (For sspm_fit) Whether to plot a train/test
-pair plot.}
+\item{scales}{Are scales shared across all facets (the default,
+\code{"fixed"}), or do they vary across rows (\code{"free_x"}),
+columns (\code{"free_y"}), or both rows and columns (\code{"free"})?}
 
 \item{train_test}{\strong{[logical]} (For sspm_fit) Whether to plot a train/test
 pair plot.}
 
-\item{biomass}{\strong{[data.frame]} Biomass variable.}
-
-\item{biomass_var}{\strong{[character]} Biomass variable to plot.}
+\item{biomass}{\strong{[logical]} (For sspm_fit) Whether to plot a biomass
+pair plot.}
 
 \item{biomass_var_predict}{\strong{[character]} Biomass variable to plot (from
-predictions, optionnal).}
+predictions, OPTIONNAL).}
 
 \item{biomass_var_smooth}{\strong{[character]} Biomass variable to plot (smooth,
 optional).}
