@@ -192,10 +192,10 @@ setMethod("plot",
                   dplyr::select(-.data$area) %>%
                   dplyr::ungroup()
 
-              }
+                biomass_preds <- biomass_preds %>%
+                  dplyr::bind_rows(biomass_actual)
 
-              biomass_preds <- biomass_preds %>%
-                dplyr::bind_rows(biomass_actual)
+              }
 
               sspm_discrete_plot <-
                 spm_plot_routine(smoothed_data = biomass_preds, var = "biomass",
