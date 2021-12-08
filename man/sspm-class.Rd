@@ -16,12 +16,14 @@ The \strong{\code{sspm}} model object, made from biomass, predictor and catch da
 \item{\code{time_column}}{\strong{[character]} The column of \code{data} that represents the
 temporal dimension of the dataset.}
 
-\item{\code{uniqueID}}{\strong{[character]} The column of \code{data} that is unique for all
-rows of the data matrix.}
+\item{\code{uniqueID}}{\strong{[character]} The column of \code{datasets} that is unique for
+all rows of the data matrix.}
 
 \item{\code{boundaries}}{\strong{[sf]} Spatial boundaries (polygons).}
 
 \item{\code{smoothed_data}}{\strong{[ANY (sf)]} The smoothed data.}
+
+\item{\code{smoothed_vars}}{\strong{[character]} A vector storing the smoothed vars.}
 
 \item{\code{is_split}}{\strong{[logical]} Whether this object has been split into
 train/test sets.}

@@ -19,6 +19,8 @@ to be evaluated.}
 \item{\code{vars}}{\strong{[list]} List of relevant variables for the evaluation of the
 different smooths.}
 
+\item{\code{lag_vars}}{Smooth lag variables used for predictions}
+
 \item{\code{response}}{\strong{[charatcer]} The response variable in the formula.}
 
 \item{\code{is_fitted}}{\strong{[logical]} Whether this formula has already been fitted.}

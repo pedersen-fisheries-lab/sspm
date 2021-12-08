@@ -33,6 +33,8 @@ variables.}
 
 \item{\code{smoothed_data}}{\strong{[ANY (sf)]} The smoothed data.}
 
+\item{\code{smoothed_vars}}{\strong{[character]} A vector storing the smoothed vars.}
+
 \item{\code{smoothed_fit}}{\strong{[list]} The fit from smoothing the data}
 
 \item{\code{is_mapped}}{\strong{[logical]} Whether the dataset has been mapped to
