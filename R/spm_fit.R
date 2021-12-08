@@ -47,10 +47,22 @@ setMethod(f = "fit_smooths",
                    keep_fit, predict,
                    family, drop.unused.levels, method, ...) {
 
-            # Initialize/collect smoothed_data
-            full_smoothed_data <- sspm_object@smoothed_data
+            # Initialize/collect smoothed_data/vars/fit
+            full_smoothed_data <- spm_smoothed_data(sspm_object)
             if (is.null(full_smoothed_data)) {
               full_smoothed_data <- data.frame()
+            }
+
+            full_smoothed_vars <- sspm_object@smoothed_vars
+            if (is.null(full_smoothed_vars)) {
+              full_smoothed_vars <- c()
+            }
+
+            tmp_fit <- spm_smoothed_fit(sspm_object)
+            if (length(tmp_fit) == 0){
+              tmp_fit <- list()
+            } else {
+              tmp_fit <- spm_smoothed_fit(sspm_object)
             }
 
             # Get data
@@ -72,14 +84,9 @@ setMethod(f = "fit_smooths",
 
             }
 
+            # Get the length of the formula set
             formulas <- spm_formulas(sspm_object)
             formula_length <- length(formulas)
-
-            if (length(spm_smoothed_fit(sspm_object)) == 0){
-              tmp_fit <- list()
-            } else {
-              tmp_fit <- spm_smoothed_fit(sspm_object)
-            }
 
             tmp_smoothed <-
               vector(mode = "list", length = formula_length)
@@ -142,18 +149,17 @@ setMethod(f = "fit_smooths",
               return(sspm_object)
             }
 
+            response <- spm_response(form)
+            full_smoothed_vars <- c(full_smoothed_vars, response)
+
             # Predict and store smoothed data to sspm level
             if (predict) {
 
               preds <- predict(tmp_fit[[form_name]],
                                predict_mat, type = "response")
 
-              response <- spm_response(form)
-
-              column_name <- paste0(response, "_smooth")
-
               preds_df <- predict_mat %>%
-                dplyr::mutate(!!column_name := as.vector(preds)) %>%
+                dplyr::mutate(!!response := as.vector(preds)) %>%
                 dplyr::arrange(!!time_col) %>%
                 dplyr::group_by(.data$patch_id)
 
@@ -178,13 +184,14 @@ setMethod(f = "fit_smooths",
             nrow_smoothed_data <- nrow(full_smoothed_data)
 
             full_smoothed_data_clean <- full_smoothed_data %>%
-              dplyr::relocate(dplyr::contains("smooth")) %>%
+              dplyr::relocate(.data[[response]]) %>%
               dplyr::ungroup() %>%
               dplyr::mutate("row_ID" = 1:nrow_smoothed_data) %>%
               dplyr::relocate(.data$row_ID) %>%
               sf::st_as_sf()
 
             spm_smoothed_data(sspm_object) <- full_smoothed_data_clean
+            sspm_object@smoothed_vars <- full_smoothed_vars
 
             return(sspm_object)
 
@@ -238,6 +245,8 @@ setMethod(f = "fit_spm",
 
           }
 )
+
+# -------------------------------------------------------------------------
 
 process_formula_vars <- function(vars, the_data, select = TRUE) {
 
