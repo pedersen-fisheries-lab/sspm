@@ -15,10 +15,9 @@
 #' @param next_ts **\[logical\]** (For sspm_fit) Whether to plot a predictions
 #'      for next timestep.
 #'
-#' @param biomass_var_predict **\[character\]** Biomass variable to plot (from
-#'      predictions, OPTIONNAL).
 #' @param biomass_var_origin **\[character\]** Biomass variable to plot (from
 #'      original dataset, optionnal).
+#' @param biomass_data_origin **\[sspm_dataset\]** TODO
 #'
 #' @param use_sf **\[logical\]** Whether to produce a spatial plot.
 #' @param log **\[logical\]** Whether to plot on a log scale, default to TRUE.
@@ -166,8 +165,8 @@ setMethod("plot",
 
               if (next_ts) {
                 biomass_preds <- biomass_preds %>%
-                  bind_rows(predict(x, biomass = biomass, next_ts = next_ts)%>%
-                              dplyr::mutate(color = "Prediction (1 step \n ahead, NO CATCH)"))
+                  dplyr::bind_rows(predict(x, biomass = biomass, next_ts = next_ts)%>%
+                                     dplyr::mutate(color = "Prediction (1 step \n ahead, NO CATCH)"))
 
                 color_profile <- c(color_profile,
                                    "Prediction (1 step \n ahead, NO CATCH)" = "firebrick")
@@ -209,7 +208,7 @@ setMethod("plot",
               prod_preds <- predict(x) %>%
                 dplyr::mutate(color = "Predictions")
               actual <- spm_smoothed_data(x) %>%
-                dplyr::mutate(pred = exp(.data[[sspm_model_fit@formula@response]])) %>%
+                dplyr::mutate(pred = exp(.data[[x@formula@response]])) %>%
                 dplyr::mutate(color = "Actual")
 
               prod_preds <- prod_preds %>%

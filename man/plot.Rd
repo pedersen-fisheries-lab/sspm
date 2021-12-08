@@ -75,8 +75,7 @@ for next timestep.}
 \item{biomass_var_origin}{\strong{[character]} Biomass variable to plot (from
 original dataset, optionnal).}
 
-\item{biomass_var_predict}{\strong{[character]} Biomass variable to plot (from
-predictions, OPTIONNAL).}
+\item{biomass_data_origin}{\strong{[sspm_dataset]} TODO}
 }
 \value{
 A ggplot object.
