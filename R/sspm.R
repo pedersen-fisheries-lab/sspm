@@ -6,6 +6,7 @@
 #'     biomass variable.
 #' @param predictors **\[list  OF sspm_dataset (smoothed)\]** The list of predictor
 #'     datasets.
+# @param biomass_var **\[character\]** The biomass variable.
 #'
 #' @return
 #' An object of class  [sspm][sspm-class].
@@ -28,12 +29,20 @@ setMethod(f = "sspm",
                     predictors = "missing"),
           function(biomass, predictors) {
 
+            # if (!checkmate::test_subset(biomass_var,
+            #                             names(spm_data(biomass)))) {
+            #   stop("`biomass_var` must be a column of `biomass`",
+            #        call. = FALSE)
+            # }
+
             new_sspm <- new("sspm",
                             datasets = list(biomass = biomass),
                             time_column = spm_time_column(biomass),
+                            # biomass_var = biomass_var,
                             uniqueID = "row_ID",
                             boundaries = spm_boundaries(biomass),
                             smoothed_data = spm_smoothed_data(biomass),
+                            smoothed_vars = biomass@smoothed_vars,
                             is_split = FALSE)
 
           }
@@ -75,19 +84,28 @@ setMethod(f = "sspm",
                                               predictors_boundaries))
               check_identical_boundaries(all_boundaries)
 
-              # 3. combine the full_smoothed_data
-              # message about catch
+              # if (!checkmate::test_subset(biomass_var,
+              #                             names(spm_data(biomass)))) {
+              #   stop("`biomass_var` must be a column of `biomass`",
+              #        call. = FALSE)
+              # }
+
+              # 3. combine the full_smoothed_data/vars
+              # TODO message about catch
               info_message <-
                 paste0(" Joining smoothed data from all datasets")
               cli::cli_alert_info(info_message)
 
               biomass_clean <- clean_data_for_joining(spm_smoothed_data(biomass))
               joining_vars <- c("patch_id", spm_boundary_column(spm_boundaries(biomass)))
+
               if ("area" %in% names(biomass_clean)) {
                 joining_vars <- c(joining_vars, "area")
               }
 
               full_smoothed_data <- biomass_clean
+              full_smoothed_vars <- biomass@smoothed_vars
+
               for (predictor in predictors) {
 
                 the_suffix <- c(paste0("_", spm_name(biomass)),
@@ -105,6 +123,30 @@ setMethod(f = "sspm",
                                           spm_time_column(biomass)),
                                    suffix = the_suffix)
 
+                predictor_smoothed_vars <- predictor@smoothed_vars
+
+                # Check same vars
+                same_vars <-
+                  full_smoothed_vars[full_smoothed_vars %in% predictor_smoothed_vars]
+
+                if (length(same_vars) > 0){
+
+                  predictor_smoothed_vars <-
+                    predictor_smoothed_vars[!(predictor_smoothed_vars %in% same_vars)]
+                  full_smoothed_vars <-
+                    full_smoothed_vars[!(full_smoothed_vars %in% same_vars)]
+
+                  # if(biomass_var %in% same_vars){
+                  #   biomass_var <- paste0(biomass_var, "_", spm_name(biomass))
+                  # }
+
+                  same_vars <- paste0(same_vars, the_suffix)
+
+                }
+
+                full_smoothed_vars <- c(full_smoothed_vars, predictor_smoothed_vars,
+                                        same_vars)
+
               }
 
               full_smoothed_data <- full_smoothed_data %>%
@@ -114,7 +156,7 @@ setMethod(f = "sspm",
                 sf::st_as_sf() %>%
                 tibble::rowid_to_column("row_ID")
 
-              # 3. create and return object
+              # 4. create and return object
               biomass_name <- spm_name(biomass)
               all_data <- append(list(biomass = biomass),
                                  predictors)
@@ -123,15 +165,18 @@ setMethod(f = "sspm",
               new_sspm <- new("sspm",
                               datasets = all_data,
                               time_column = spm_time_column(biomass),
+                              # biomass_var = biomass_var,
                               uniqueID = "row_ID",
                               boundaries = spm_boundaries(biomass),
                               smoothed_data = full_smoothed_data,
+                              smoothed_vars = full_smoothed_vars,
                               is_split = FALSE)
 
             }
           }
 )
 
+# -------------------------------------------------------------------------
 
 # Check if boundaries are identical
 check_identical_boundaries <- function(boundaries) {
