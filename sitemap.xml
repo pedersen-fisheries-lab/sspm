@@ -55,6 +55,9 @@
     <loc>/reference/plot.html</loc>
   </url>
   <url>
+    <loc>/reference/predict.html</loc>
+  </url>
+  <url>
     <loc>/reference/smooths.html</loc>
   </url>
   <url>
@@ -80,9 +83,6 @@
   </url>
   <url>
     <loc>/reference/spm_methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/spm_predict.html</loc>
   </url>
   <url>
     <loc>/reference/spm_smooth.html</loc>
