@@ -66,7 +66,7 @@ sfa_boundaries <- sspm:::sfa_boundaries
 bounds <- spm_as_boundary(boundaries = sfa_boundaries, 
                           boundary_column = "sfa")
 
-spm_plot(bounds)
+plot(bounds)
 ```
 
 2. The second step consists in wrapping a `data.frame`, `tibble` or `sf` object into a `sspm_data` object, with a few other pieces of relevant information, such as the name, dataset type (biomass, predictor or catch, depending on the type of information contained), time column and coordinates column (i not `sf`) and unique row identifier. Here we wrap the borealis dataset that contains the biomass information.
@@ -112,11 +112,11 @@ bounds_delaunay <- bounds %>%
 5. Plotting the object shows the polygons that have been created.
 
 ```{r}
-spm_plot(bounds_voronoi)
+plot(bounds_voronoi)
 ```
 
 ```{r}
-spm_plot(bounds_delaunay)
+plot(bounds_delaunay)
 ```
 
 6. The results of the discretization can also be explored with `spm_patches()` and `spm_points()`.
@@ -130,12 +130,14 @@ spm_points(bounds_voronoi)
 
 ```{r}
 biomass_smooth <- biomass_dataset %>%  
-  spm_smooth(weight_per_km2 ~ sfa + smooth_time(k = 3, bs = "mrf") + smooth_space() + 
-               smooth_space_time(k=c(NA, 30)),
-             boundaries = bounds_voronoi,
-             drop.unused.levels = F, family=tw, method= "fREML", keep_fit = T) %>% 
-  spm_smooth(temp_at_bottom ~ smooth_time(k = 2) + smooth_space(),
-             drop.unused.levels = F, family=gaussian, method= "fREML", keep_fit = T)
+  spm_smooth(weight_per_km2 ~ sfa + smooth_time(by=sfa) + smooth_space() + 
+               smooth_space_time(k = c(NA, 30)),
+             boundaries = bounds_voronoi, drop.unused.levels = F, family=tw, 
+             method= "fREML", keep_fit = T) %>% 
+  spm_smooth(temp_at_bottom ~ smooth_time(by=sfa) + smooth_space() + 
+               smooth_space_time(k = c(NA, 30)),
+             drop.unused.levels = F, family=gaussian, method= "fREML", 
+             keep_fit = T)
 
 biomass_smooth
 ```
@@ -143,7 +145,12 @@ biomass_smooth
 8. The smoothed results for any smoothed variables (listed in "smoothed vars" above) can be easily plotted:
 
 ```{r}
-spm_plot(biomass_smooth, "weight_per_km2_smooth")
+plot(biomass_smooth, var = "weight_per_km2", log = FALSE)
+```
+You can also make a spatial plot
+
+```{r}
+plot(biomass_smooth, var = "weight_per_km2", use_sf = TRUE)
 ```
 
 9. We also smooth the `weight_per_km2` variable in the predator data.
@@ -174,9 +181,10 @@ catch_dataset
 biomass_smooth_w_catch <- 
   spm_aggregate_catch(biomass = biomass_smooth, 
                       catch = catch_dataset, 
-                      biomass_variable = "weight_per_km2_smooth",
+                      biomass_variable = "weight_per_km2",
                       catch_variable = "catch",
                       fill = mean)
+
 biomass_smooth_w_catch
 ```
 
@@ -202,8 +210,8 @@ sspm_model
 
 ```{r}
 sspm_model <- sspm_model %>% 
-  spm_lag(vars = c("weight_per_km2_smooth_borealis_with_catch", 
-                   "weight_per_km2_smooth_all_predators"), 
+  spm_lag(vars = c("weight_per_km2_borealis_with_catch", 
+                   "weight_per_km2_all_predators"), 
           n = 1)
 
 sspm_model
@@ -213,12 +221,11 @@ sspm_model
 
 ```{r}
 sspm_model_fit <- sspm_model %>% 
-  spm(log_productivity ~ 
-        sfa +
-        weight_per_km2_smooth_all_predators_lag_1 +
-        smooth_lag("weight_per_km2_smooth_borealis_with_catch") + 
-        temp_at_bottom_smooth + 
-        smooth_space(), family = mgcv::scat)
+  spm(log_productivity ~ sfa +
+        weight_per_km2_all_predators_lag_1 +
+        smooth_lag("weight_per_km2_borealis_with_catch") + 
+        smooth_space(), 
+      family = mgcv::scat)
 
 sspm_model_fit
 ```
@@ -226,30 +233,42 @@ sspm_model_fit
 16. Plotting the object produces a actual vs predicted plot (with TEST/TRAIN data highlighted.
 
 ```{r}
-spm_plot(sspm_model_fit)
+plot(sspm_model_fit, train_test = TRUE, scales = "free")
 ```
 
-17. We can also extract the predictions, including for biomass.
+17. We can also extract the predictions.
 ```{r}
-preds <- spm_predict(sspm_model_fit)
+preds <- predict(sspm_model_fit)
 head(preds)
 ```
-
+We can also get the predictions for biomass by passing the biomass variable name.
 ```{r}
-biomass_preds <- spm_predict_biomass(sspm_model_fit, "weight_per_km2_smooth_borealis")
+biomass_preds <- predict(sspm_model_fit, biomass = "weight_per_km2_borealis")
 head(biomass_preds)
 ```
 
-18. We can also produce a biomass plot (note that this simulated data is very monotonous).
+We can also predict the biomass one step ahead.
+
 ```{r}
-spm_plot_biomass(sspm_model_fit, 
-                 biomass = "weight_per_km2_smooth_borealis")
+biomass_one_step <- predict(sspm_model_fit, biomass = "weight_per_km2_borealis", 
+                            next_ts = TRUE)
+head(biomass_one_step)
 ```
+
+18. We can produce an array of plots, as timeseries or as spatial plots
+
 ```{r}
-spm_plot_biomass(sspm_model_fit, 
-                 biomass = biomass_smooth, 
-                 biomass_var = NULL, 
-                 biomass_var_predict = "weight_per_km2_smooth_borealis",
-                 biomass_var_smooth = "weight_per_km2_smooth",
-                 biomass_var_origin = "weight_per_km2")
+plot(sspm_model_fit)
+plot(sspm_model_fit, use_sf = TRUE)
+```
+
+```{r}
+plot(sspm_model_fit, biomass = "weight_per_km2_borealis")
+plot(sspm_model_fit, biomass = "weight_per_km2_borealis", use_sf = TRUE)
+```
+
+```{r}
+plot(sspm_model_fit, biomass = "weight_per_km2_borealis", next_ts = T, 
+     biomass_data_origin = biomass_smooth, 
+     biomass_var_origin = "weight_per_km2")
 ```
