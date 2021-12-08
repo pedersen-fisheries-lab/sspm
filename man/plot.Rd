@@ -28,11 +28,10 @@
   y,
   ...,
   train_test = FALSE,
-  biomass = FALSE,
-  var = NULL,
-  biomass_var_predict = NULL,
-  biomass_var_smooth = NULL,
+  biomass = NULL,
+  next_ts = FALSE,
   biomass_var_origin = NULL,
+  biomass_data_origin = NULL,
   use_sf = FALSE,
   page = "first",
   nrow = 2,
@@ -67,17 +66,17 @@ columns (\code{"free_y"}), or both rows and columns (\code{"free"})?}
 \item{train_test}{\strong{[logical]} (For sspm_fit) Whether to plot a train/test
 pair plot.}
 
-\item{biomass}{\strong{[logical]} (For sspm_fit) Whether to plot a biomass
-pair plot.}
+\item{biomass}{\strong{[character]} (For sspm_fit) The biomass variable for
+predictions.}
+
+\item{next_ts}{\strong{[logical]} (For sspm_fit) Whether to plot a predictions
+for next timestep.}
+
+\item{biomass_var_origin}{\strong{[character]} Biomass variable to plot (from
+original dataset, optionnal).}
 
 \item{biomass_var_predict}{\strong{[character]} Biomass variable to plot (from
 predictions, OPTIONNAL).}
-
-\item{biomass_var_smooth}{\strong{[character]} Biomass variable to plot (smooth,
-optional).}
-
-\item{biomass_var_origin}{\strong{[character]} Biomass variable to plot (from
-original dataset, optionnal)}
 }
 \value{
 A ggplot object.
