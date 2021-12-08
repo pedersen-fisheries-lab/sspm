@@ -66,12 +66,13 @@ setMethod(f = "map_formula",
             smooth_calls <- lapply(smooth_terms_labels, str2lang)
 
             # Modify and evaluate the calls to get the args to make a smooth
-            # TODO might be anle to simplify this
+            # TODO might be able to simplify this
             smooth_calls_modified <-
               lapply(smooth_calls, modify_call,
                      args = list(data_frame = data_frame,
                                  boundaries = substitute(boundaries),
                                  time_column = time_column))
+
             smooth_and_vars <- lapply(smooth_calls_modified, eval,
                                      envir = list(. = data_frame,
                                                   boundaries = boundaries))
@@ -80,6 +81,9 @@ setMethod(f = "map_formula",
 
             vars_list <- purrr::flatten(lapply(smooth_and_vars, `[[`, "vars"))
             vars_list <- vars_list[unique(names(vars_list))]
+
+            smooth_lag_var_list <- unique(unlist(lapply(smooth_and_vars,
+                                                        `[[`, "var_smooth_lag")))
 
             # Paste them into formula
             final_formula <- paste0(base_formula,
@@ -94,6 +98,7 @@ setMethod(f = "map_formula",
                                 raw_formula = formula,
                                 translated_formula = final_formula_casted,
                                 vars = vars_list,
+                                lag_vars = smooth_lag_var_list,
                                 type = "smooth",
                                 response = response,
                                 is_fitted = FALSE)

@@ -99,6 +99,7 @@ setClassUnion("sspm_discrete_boundaryOrNULL", c("sspm_discrete_boundary", "NULL"
 #'     [sspm_formula][sspm_formula-class] objects that specifies the smoothed
 #'     variables.
 #' @slot smoothed_data **\[ANY (sf)\]** The smoothed data.
+#' @slot smoothed_vars **\[character\]** A vector storing the smoothed vars.
 #' @slot smoothed_fit **\[list\]** The fit from smoothing the data
 #' @slot is_mapped **\[logical\]** Whether the dataset has been mapped to
 #'     boundaries (used internally).
@@ -115,6 +116,7 @@ setClass("sspm_dataset",
                       boundaries = "sspm_discrete_boundary",
                       formulas = "list",
                       smoothed_data = "ANY",
+                      smoothed_vars = "character",
                       smoothed_fit = "list",
                       is_mapped = "logical"),
          prototype = prototype(is_mapped = FALSE,
@@ -137,6 +139,7 @@ setClassUnion("DatasetORANYOrNULL", c("sspm_dataset", "ANY", "NULL"))
 #'     to be evaluated.
 #' @slot vars **\[list\]** List of relevant variables for the evaluation of the
 #'     different smooths.
+#' @slot lag_vars Smooth lag variables used for predictions
 #' @slot response **\[charatcer\]** The response variable in the formula.
 #' @slot is_fitted **\[logical\]** Whether this formula has already been fitted.
 #'
@@ -146,6 +149,7 @@ setClass("sspm_formula",
          slots = list(raw_formula = "formula",
                       translated_formula = "formula",
                       vars = "list",
+                      lag_vars = "characterOrNULL",
                       type = "character",
                       response = "character",
                       is_fitted = "logical")
@@ -161,10 +165,13 @@ setClass("sspm_formula",
 #'     [sspm_dataset][sspm_dataset-class] that define variables in the SPM model.
 #' @slot time_column **\[character\]** The column of `data` that represents the
 #'     temporal dimension of the dataset.
-#' @slot uniqueID **\[character\]** The column of `data` that is unique for all
-#'     rows of the data matrix.
+# @slot biomass_var **\[character\]** The column of `datasets` that
+#     represents the biomass.
+#' @slot uniqueID **\[character\]** The column of `datasets` that is unique for
+#'     all rows of the data matrix.
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
 #' @slot smoothed_data **\[ANY (sf)\]** The smoothed data.
+#' @slot smoothed_vars **\[character\]** A vector storing the smoothed vars.
 #' @slot is_split **\[logical\]** Whether this object has been split into
 #'     train/test sets.
 #'
@@ -173,9 +180,11 @@ setClass("sspm_formula",
 setClass("sspm",
          slots = list(datasets = "list",
                       time_column = "character",
+                      # biomass_var = "character",
                       uniqueID = "character",
                       boundaries = "sspm_discrete_boundary",
                       smoothed_data = "ANY",
+                      smoothed_vars = "character",
                       is_split = "logical"),
          prototype = prototype(datasets = list(),
                                is_split = FALSE)
@@ -188,10 +197,12 @@ setClass("sspm",
 #' The fit object for a sspm model
 #'
 #' @slot smoothed_data **\[ANY (sf)\]** The smoothed data.
-#' @slot time_column **\[character\]** The column of `data` that represents the
-#'     temporal dimension of the dataset.
-#' @slot uniqueID **\[character\]** The column of `data` that is unique for all
-#'     rows of the data matrix.
+#' @slot time_column **\[character\]** The column of `smoothed_data` that
+#'     represents the temporal dimension of the dataset.
+# @slot biomass_var **\[character\]** The column of `smoothed_data` that
+#     represents the biomass.
+#' @slot uniqueID **\[character\]** The column of `smoothed_data` that is unique
+#'     for all rows of the data matrix.
 #' @slot formula **\[list\]** The [sspm_formula][sspm_formula-class] object that
 #'     specifies the spm model.
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
