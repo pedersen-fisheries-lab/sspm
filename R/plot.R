@@ -85,6 +85,12 @@ setMethod("plot",
                                 page = "first", nrow = 2, ncol = 4,
                                 log = FALSE, scales = "fixed") {
 
+            the_smoothed_data <- spm_smoothed_data(x)
+
+            if (is.null(the_smoothed_data)){
+              stop("Dataset doesn't have any smoothed data")
+            }
+
             smoothed_data <- spm_smoothed_data(x) %>%
               dplyr::mutate(color = "Predictions")
             time_col <- spm_time_column(x)
