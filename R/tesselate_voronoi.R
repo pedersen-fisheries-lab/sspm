@@ -118,8 +118,8 @@ tesselate_voronoi <- function(boundaries,
       }
 
       set.seed(seed) ; voronoi_points <-
-        suppressMessages(sf::st_join(with, boundaries),
-                         suffix = c("", "_duplicate")) %>%
+        suppressMessages(sf::st_join(with, boundaries,
+                                     suffix = c("", "_duplicate"))) %>%
         dplyr::filter(!is.na(eval(dplyr::sym(boundary_column)))) %>%
         dplyr::group_by(.data[[boundary_column]]) %>%
         dplyr::filter(1:dplyr::n() %in%
@@ -129,7 +129,9 @@ tesselate_voronoi <- function(boundaries,
 
       # TODO checks that with is points geometry here
 
-      voronoi_points <- with
+      voronoi_points <- suppressMessages(sf::st_join(with, boundaries,
+                                                     suffix = c("", "_duplicate"))) %>%
+        dplyr::filter(!is.na(eval(dplyr::sym(boundary_column))))
 
     }
 
