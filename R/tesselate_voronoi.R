@@ -105,12 +105,12 @@ tesselate_voronoi <- function(boundaries,
 
   } else {
 
-    if (is.null(nb_samples)){
-      cli::cli_alert_danger("You must specify nb_samples when sampling surfaces or points")
-      stop("nb_samples is NULL")
-    }
-
     if (sample_points) {
+
+      if (is.null(nb_samples)){
+        cli::cli_alert_danger("You must specify nb_samples when sampling surfaces or points")
+        stop("nb_samples is NULL")
+      }
 
       if (is.null(with)){
         cli::cli_alert_danger("with cannot be NULL when sampling points")
