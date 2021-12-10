@@ -85,7 +85,7 @@ tesselate_voronoi <- function(boundaries,
   if (sample_surface){
 
     if (is.null(nb_samples)){
-      cli::cli_alert_danger("You must scpecify nb_samples when sampling surfaces")
+      cli::cli_alert_danger("You must specify nb_samples when sampling surfaces or points")
       stop("nb_samples is NULL")
     }
 
@@ -105,6 +105,11 @@ tesselate_voronoi <- function(boundaries,
 
   } else {
 
+    if (is.null(nb_samples)){
+      cli::cli_alert_danger("You must specify nb_samples when sampling surfaces or points")
+      stop("nb_samples is NULL")
+    }
+
     if (sample_points) {
 
       if (is.null(with)){
@@ -113,13 +118,16 @@ tesselate_voronoi <- function(boundaries,
       }
 
       set.seed(seed) ; voronoi_points <-
-        suppressMessages(sf::st_join(with, boundaries)) %>%
+        suppressMessages(sf::st_join(with, boundaries),
+                         suffix = c("", "_duplicate")) %>%
         dplyr::filter(!is.na(eval(dplyr::sym(boundary_column)))) %>%
         dplyr::group_by(.data[[boundary_column]]) %>%
         dplyr::filter(1:dplyr::n() %in%
                         sample(1:dplyr::n(),
                                size = nb_samples[[.data[[boundary_column]][1]]]))
     } else {
+
+      # TODO checks that with is points geometry here
 
       voronoi_points <- with
 
