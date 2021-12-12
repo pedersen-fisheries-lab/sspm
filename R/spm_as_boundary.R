@@ -205,8 +205,9 @@ check_patches <- function(patches,
 
   } else {
 
-    patches <- calculate_spatial_feature_areas(patches)
-    patches_area_column <- "area"
+    patches <- calculate_spatial_feature_areas(patches) %>%
+      dplyr::rename(patch_area = .data$area)
+    patches_area_column <- "patch_area"
 
   }
 

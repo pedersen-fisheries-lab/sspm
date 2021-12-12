@@ -79,6 +79,7 @@ setMethod(f = "sspm",
 
               # 2. Check boundaries
               biomass_boundaries <- spm_boundaries(biomass)
+              patch_area_column <- spm_patches_area_column(biomass_boundaries)
               predictors_boundaries <- lapply(predictors, spm_boundaries)
               all_boundaries <- unname(append(list(biomass_boundaries),
                                               predictors_boundaries))
@@ -99,8 +100,8 @@ setMethod(f = "sspm",
               biomass_clean <- clean_data_for_joining(spm_smoothed_data(biomass))
               joining_vars <- c("patch_id", spm_boundary_column(spm_boundaries(biomass)))
 
-              if ("area" %in% names(biomass_clean)) {
-                joining_vars <- c(joining_vars, "area")
+              if (patch_area_column %in% names(biomass_clean)) {
+                joining_vars <- c(joining_vars, patch_area_column)
               }
 
               full_smoothed_data <- biomass_clean

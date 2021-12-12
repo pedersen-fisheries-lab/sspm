@@ -6,6 +6,8 @@
 #' @param new_data **\[data.frame\]** New data to predict with.
 #' @param biomass **\[character\]** Biomass variable.
 #' @param next_ts **\[logical\]** For biomass, predict next timestep.
+#' @param aggregate **\[logical\]** For biomass predictions only, whether to
+#'    aggregate the data to the boundary level. Default to FALSE.
 #' @param ... Arguments passed on to [predict.bam].
 #'
 #' @return
@@ -21,7 +23,14 @@ NULL
 setMethod(f = "predict",
           signature(object = "sspm_fit"),
           function(object, new_data = NULL, biomass = NULL,
-                   next_ts = FALSE, ...) {
+                   next_ts = FALSE, aggregate = FALSE, ...) {
+
+            bounds <- spm_boundaries(object)
+            bounds_col <- spm_boundary_column(bounds)
+            bounds_area_col <- spm_boundary_area_column(bounds)
+            patch_area_col <- spm_patches_area_column(bounds)
+            time_col <- spm_time_column(object)
+            patches <- spm_patches(bounds)
 
             if(is.null(biomass)){
 
@@ -46,7 +55,8 @@ setMethod(f = "predict",
 
               columns_to_keep <- spm_smoothed_data(object) %>%
                 dplyr::select(.data$patch_id, !!spm_time_column(object),
-                              !!spm_boundary_column(spm_boundaries(object)))
+                              !!spm_boundary_column(spm_boundaries(object)),
+                              .data[[patch_area_col]])
 
               preds_df <- cbind(preds_df, columns_to_keep)  %>%
                 sf::st_as_sf()
@@ -62,12 +72,6 @@ setMethod(f = "predict",
               if (checkmate::test_class(biomass, "character")){
 
                 if (next_ts){
-
-                  # Collect the needed info
-                  bounds <- spm_boundaries(object)
-                  bounds_col <- spm_boundary_column(bounds)
-                  time_col <- spm_time_column(object)
-                  patches <- spm_patches(bounds)
 
                   # Check if all lagged var
                   lagged_var_names <- get_lagged_var_names(object)
@@ -88,7 +92,7 @@ setMethod(f = "predict",
                     dplyr::bind_rows(new_grid)
 
                   # Lag the vars that need lagging (even if already present,
-                  # it is needed for the new year).
+                  # it is needed to account for the new year).
                   object <- object %>%
                     spm_lag(lagged_var_names, 1, default = NA)
 
@@ -131,7 +135,8 @@ setMethod(f = "predict",
                   preds_df <- patches %>%
                     dplyr::mutate(density_next_ts = density_last_year * ratio_next_ts,
                                   biomass = .data$density_next_ts *
-                                    (as.numeric(units::set_units(st_area(patches), value = "km^2"))),
+                                    (as.numeric(units::set_units(.data[[patch_area_col]],
+                                                                 value = "km^2"))),
                                   year_f = next_ts) %>%
                     dplyr::select(-.data$density_next_ts) %>%
                     dplyr::relocate(.data$biomass) %>%
@@ -149,21 +154,29 @@ setMethod(f = "predict",
                   biomass_pred <- biomass_density_with_catch - catch_density
 
                   pred_subset <- dplyr::select(preds, -.data$pred, -.data$pred_log) %>%
-                    dplyr::mutate(area = st_area(.data$geometry)) %>%
-                    dplyr::mutate(area = units::set_units(.data$area,
-                                                          value = "km^2")) %>%
-                    dplyr::relocate(.data$area, .before = "geometry")
+                    dplyr::mutate(!!patch_area_col :=
+                                    units::set_units(.data[[patch_area_col]],
+                                                     value = "km^2")) %>%
+                    dplyr::relocate(.data[[patch_area_col]], .before = "geometry")
 
                   preds_df <- pred_subset %>%
                     cbind(data.frame(biomass_density_with_catch = biomass_density_with_catch,
                                      biomass_density =  biomass_pred)) %>%
                     dplyr::mutate(biomass_with_catch = .data$biomass_density_with_catch *
-                                    as.numeric(.data$area),
+                                    as.numeric(.data[[patch_area_col]]),
                                   biomass = .data$biomass_density *
-                                    as.numeric(.data$area)) %>%
+                                    as.numeric(.data[[patch_area_col]])) %>%
                     dplyr::relocate(.data$biomass_with_catch, .data$biomass,
                                     .before = "geometry") %>%
                     sf::st_as_sf()
+
+                }
+
+                if (aggregate) {
+
+                  preds_df <- preds_df %>%
+                    dplyr::group_by(.data[[bounds_col]], .data[[time_col]]) %>%
+                    dplyr::summarise(biomass = sum(biomass))
 
                 }
 

@@ -205,7 +205,9 @@ triangulate_delaunay <- function(boundaries,
                   area = units::set_units(.data$area, value = "km^2"),
                   patch_id =
                     factor(paste("P", 1:dplyr::n(), sep = ""),
-                           levels = paste0("P", 1:length(unique(.data$patch_id)))))
+                           levels = paste0("P", 1:length(unique(.data$patch_id))))) %>%
+    dplyr::rename(patch_area = .data$area) %>%
+    dplyr::relocate(.data$patch_area, .before = .data$geometry)
 
   # Core function must return a list of "patches" and "points"
 
