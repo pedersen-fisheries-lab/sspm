@@ -234,7 +234,7 @@ setMethod("plot",
                                  use_sf = use_sf, page = page, nrow = nrow,
                                  ncol = ncol, time_col = time_col, log = log,
                                  scales = scales, color_profile = color_profile,
-                                 lty_profil = lty_profile, aggregate = aggregate,
+                                 lty_profile = lty_profile, aggregate = aggregate,
                                  boundary_col = boundary_col)
 
             } else {
@@ -274,7 +274,7 @@ setMethod("plot",
 # -------------------------------------------------------------------------
 
 spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
-                             time_col, log, scales,color_profile, lty_profile,
+                             time_col, log, scales, color_profile, lty_profile,
                              aggregate = FALSE, boundary_col) {
 
   if (log) {
