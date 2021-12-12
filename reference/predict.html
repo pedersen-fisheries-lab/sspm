@@ -51,7 +51,14 @@
 
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S4 method for sspm_fit</span>
-<span class="fu">predict</span><span class="op">(</span><span class="va">object</span>, new_data <span class="op">=</span> <span class="cn">NULL</span>, biomass <span class="op">=</span> <span class="cn">NULL</span>, next_ts <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+<span class="fu">predict</span><span class="op">(</span>
+  <span class="va">object</span>,
+  new_data <span class="op">=</span> <span class="cn">NULL</span>,
+  biomass <span class="op">=</span> <span class="cn">NULL</span>,
+  next_ts <span class="op">=</span> <span class="cn">FALSE</span>,
+  aggregate <span class="op">=</span> <span class="cn">FALSE</span>,
+  <span class="va">...</span>
+<span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -64,6 +71,9 @@
 <dd><p><strong>[character]</strong> Biomass variable.</p></dd>
 <dt>next_ts</dt>
 <dd><p><strong>[logical]</strong> For biomass, predict next timestep.</p></dd>
+<dt>aggregate</dt>
+<dd><p><strong>[logical]</strong> For biomass predictions only, whether to
+aggregate the data to the boundary level. Default to FALSE.</p></dd>
 <dt>...</dt>
 <dd><p>Arguments passed on to <a href="https://rdrr.io/pkg/mgcv/man/predict.bam.html" class="external-link">predict.bam</a>.</p></dd>
 </dl></div>
