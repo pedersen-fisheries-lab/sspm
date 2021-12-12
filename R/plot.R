@@ -93,7 +93,7 @@ setMethod("plot",
             }
 
             smoothed_data <- spm_smoothed_data(x) %>%
-              dplyr::mutate(color = "Predictions")
+              dplyr::mutate(color = "Smoothed")
             time_col <- spm_time_column(x)
 
             if (is.null(var)) {
@@ -109,8 +109,8 @@ setMethod("plot",
 
               time_col <- spm_time_column(x)
 
-              color_profile <- c("Predictions" = "red")
-              lty_profile <- c("Predictions" = 1)
+              color_profile <- c("Smoothed" = "black")
+              lty_profile <- c("Smoothed" = 1)
 
               sspm_discrete_plot <-
                 spm_plot_routine(smoothed_data = smoothed_data, var = var,
@@ -185,7 +185,7 @@ setMethod("plot",
                   dplyr::mutate(color = next_ts_label)
 
                 time_col <- spm_time_column(x)
-                mext_ts_timestep <- unique(next_ts_preds[[time_col]])-1
+                mext_ts_timestep <- max(unique(next_ts_preds[[time_col]]))-1
 
                 biomass_preds_previous <- biomass_preds %>%
                   dplyr::filter(.data[[time_col]] == mext_ts_timestep) %>%
@@ -216,18 +216,23 @@ setMethod("plot",
                 dplyr::mutate(area =
                                 as.numeric(units::set_units(.data[[patch_area_col]],
                                                             value = "km^2")),
-                              biomass = .data[[biomass]] * .data$area) %>%
-                dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
-                dplyr::summarise(biomass = sum(.data$biomass)) %>%
-                dplyr::mutate(color = "Smooth") %>%
-                dplyr::mutate(lty = 2) %>%
-                dplyr::ungroup()
+                              biomass = .data[[biomass_origin]] * .data$area)
+
+              if (aggregate){
+                biomass_actual <-  biomass_actual %>%
+                  dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
+                  dplyr::summarise(biomass = sum(.data$biomass)) %>%
+                  dplyr::ungroup()
+              }
+
+              biomass_actual <- biomass_actual %>%
+                dplyr::mutate(color = "Smoothed")
 
               biomass_preds <- biomass_preds %>%
                 dplyr::bind_rows(biomass_actual)
 
-              color_profile <- c(color_profile, "Smooth" = "black")
-              lty_profile <- c(lty_profile, "Smooth" = 2)
+              color_profile <- c(color_profile, "Smoothed" = "black")
+              lty_profile <- c(lty_profile, "Smoothed" = 1)
 
               sspm_discrete_plot <-
                 spm_plot_routine(smoothed_data = biomass_preds, var = "biomass",
@@ -327,7 +332,7 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
       facet_col_levels <- length(unique(smoothed_data[[facet_by]]))
       n_per_page <- nrow * ncol
       n_pages <- facet_col_levels %/% (n_per_page) +
-        (facet_col_levels %% n_per_page > 1)
+        (facet_col_levels %% n_per_page >= 1)
 
       sspm_discrete_plot <- list()
 

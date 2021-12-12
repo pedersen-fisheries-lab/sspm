@@ -145,7 +145,7 @@ biomass_smooth
 8. The smoothed results for any smoothed variables (listed in "smoothed vars" above) can be easily plotted:
 
 ```{r}
-plot(biomass_smooth, var = "weight_per_km2", log = FALSE)
+plot(biomass_smooth, var = "weight_per_km2", log = FALSE, aggregate = T)
 ```
 You can also make a spatial plot
 
@@ -263,12 +263,11 @@ plot(sspm_model_fit, use_sf = TRUE)
 ```
 
 ```{r}
-plot(sspm_model_fit, biomass = "weight_per_km2_borealis")
+plot(sspm_model_fit, biomass = "weight_per_km2_borealis",  scales = "free")
 plot(sspm_model_fit, biomass = "weight_per_km2_borealis", use_sf = TRUE)
 ```
 
 ```{r}
-plot(sspm_model_fit, biomass = "weight_per_km2_borealis", next_ts = T, 
-     biomass_data_origin = biomass_smooth, 
-     biomass_var_origin = "weight_per_km2")
+plot(sspm_model_fit, biomass = "weight_per_km2_borealis", 
+     next_ts = TRUE, aggregate = TRUE, scales = "free")
 ```
