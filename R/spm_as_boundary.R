@@ -177,7 +177,7 @@ check_boundaries <- function(boundaries, boundary_column,
   }
 
   boundary_list <- list(features = boundaries,
-                        column = new_boundary_area_column )
+                        column = new_boundary_area_column)
 
   return(boundary_list)
 
