@@ -213,18 +213,18 @@
 <span class="co">#&gt; Bounding box:  xmin: -64.5 ymin: 46.00004 xmax: -46.6269 ymax: 61</span>
 <span class="co">#&gt; Geodetic CRS:  WGS 84</span>
 <span class="co">#&gt; # A tibble: 38 × 4</span>
-<span class="co">#&gt;    sfa   patch_id                                                geometry   area</span>
-<span class="co">#&gt;  * &lt;fct&gt; &lt;fct&gt;                                              &lt;POLYGON [°]&gt; [km^2]</span>
-<span class="co">#&gt;  1 4     P1       ((-64.42169 60.27125, -64.42 60.27206, -64.41666 60.27… 20367.</span>
-<span class="co">#&gt;  2 4     P2       ((-59.95566 58.64882, -60.25261 57.73692, -59.67678 58…  1719.</span>
-<span class="co">#&gt;  3 4     P3       ((-61.89804 57.6918, -61.34602 58.43681, -61.36857 58.…  3883.</span>
-<span class="co">#&gt;  4 4     P4       ((-60.50931 57.66667, -60.87958 58.41518, -61.34602 58…  4684.</span>
-<span class="co">#&gt;  5 4     P5       ((-61.34602 58.43681, -60.87958 58.41518, -60.68359 58…  2687.</span>
-<span class="co">#&gt;  6 4     P6       ((-63 60.62184, -61.66155 59.11637, -60.6936 58.90276,… 14504.</span>
-<span class="co">#&gt;  7 4     P7       ((-60.26194 59.52858, -60.73068 59.34113, -60.6936 58.…  2449.</span>
-<span class="co">#&gt;  8 4     P8       ((-59.91649 58.83888, -60.68359 58.8793, -60.87958 58.…  6259.</span>
-<span class="co">#&gt;  9 4     P9       ((-61.96379 61, -60.73068 59.34113, -60.26194 59.52858…  5308.</span>
-<span class="co">#&gt; 10 5     P10      ((-59.55703 55.21506, -59.53354 57.66667, -59.56667 57… 27940.</span>
+<span class="co">#&gt;    sfa   patch_id patch_area                                            geometry</span>
+<span class="co">#&gt;    &lt;fct&gt; &lt;fct&gt;        [km^2]                                       &lt;POLYGON [°]&gt;</span>
+<span class="co">#&gt;  1 4     P1           20367. ((-64.42169 60.27125, -64.42 60.27206, -64.41666 6…</span>
+<span class="co">#&gt;  2 4     P2            1719. ((-59.95566 58.64882, -60.25261 57.73692, -59.6767…</span>
+<span class="co">#&gt;  3 4     P3            3883. ((-61.89804 57.6918, -61.34602 58.43681, -61.36857…</span>
+<span class="co">#&gt;  4 4     P4            4684. ((-60.50931 57.66667, -60.87958 58.41518, -61.3460…</span>
+<span class="co">#&gt;  5 4     P5            2687. ((-61.34602 58.43681, -60.87958 58.41518, -60.6835…</span>
+<span class="co">#&gt;  6 4     P6           14504. ((-63 60.62184, -61.66155 59.11637, -60.6936 58.90…</span>
+<span class="co">#&gt;  7 4     P7            2449. ((-60.26194 59.52858, -60.73068 59.34113, -60.6936…</span>
+<span class="co">#&gt;  8 4     P8            6259. ((-59.91649 58.83888, -60.68359 58.8793, -60.87958…</span>
+<span class="co">#&gt;  9 4     P9            5308. ((-61.96379 61, -60.73068 59.34113, -60.26194 59.5…</span>
+<span class="co">#&gt; 10 5     P10          27940. ((-59.55703 55.21506, -59.53354 57.66667, -59.5666…</span>
 <span class="co">#&gt; # … with 28 more rows</span>
 <span class="fu"><a href="reference/accessors-methods-sspm_boundary.html">spm_points</a></span><span class="op">(</span><span class="va">bounds_voronoi</span><span class="op">)</span>
 <span class="co">#&gt; Simple feature collection with 40 features and 19 fields</span>
@@ -280,7 +280,7 @@
 <li>The smoothed results for any smoothed variables (listed in “smoothed vars” above) can be easily plotted:</li>
 </ol>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">biomass_smooth</span>, var <span class="op">=</span> <span class="st">"weight_per_km2"</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">biomass_smooth</span>, var <span class="op">=</span> <span class="st">"weight_per_km2"</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, aggregate <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-12-1.png" width="100%"> You can also make a spatial plot</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">biomass_smooth</span>, var <span class="op">=</span> <span class="st">"weight_per_km2"</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
@@ -449,18 +449,25 @@
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">preds</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predict.html">predict</a></span><span class="op">(</span><span class="va">sspm_model_fit</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">preds</span><span class="op">)</span>
-<span class="co">#&gt; Simple feature collection with 6 features and 5 fields</span>
+<span class="co">#&gt; Simple feature collection with 6 features and 6 fields</span>
 <span class="co">#&gt; Geometry type: POLYGON</span>
 <span class="co">#&gt; Dimension:     XY</span>
 <span class="co">#&gt; Bounding box:  xmin: -64.5 ymin: 58.4628 xmax: -61.36857 ymax: 60.62184</span>
 <span class="co">#&gt; Geodetic CRS:  WGS 84</span>
-<span class="co">#&gt;       pred_log     pred patch_id year_f sfa                       geometry</span>
-<span class="co">#&gt; 1  0.008623623 1.008661       P1   1995   4 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 2 -0.016062267 0.984066       P1   1996   4 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 3  0.097726961 1.102662       P1   1997   4 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 4  0.016055112 1.016185       P1   1998   4 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 5  0.010394597 1.010449       P1   1999   4 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 6  0.099560892 1.104686       P1   2000   4 POLYGON ((-64.42169 60.2712...</span></code></pre></div>
+<span class="co">#&gt;       pred_log     pred patch_id year_f sfa      patch_area</span>
+<span class="co">#&gt; 1  0.008623623 1.008661       P1   1995   4 20367.39 [km^2]</span>
+<span class="co">#&gt; 2 -0.016062267 0.984066       P1   1996   4 20367.39 [km^2]</span>
+<span class="co">#&gt; 3  0.097726961 1.102662       P1   1997   4 20367.39 [km^2]</span>
+<span class="co">#&gt; 4  0.016055112 1.016185       P1   1998   4 20367.39 [km^2]</span>
+<span class="co">#&gt; 5  0.010394597 1.010449       P1   1999   4 20367.39 [km^2]</span>
+<span class="co">#&gt; 6  0.099560892 1.104686       P1   2000   4 20367.39 [km^2]</span>
+<span class="co">#&gt;                         geometry</span>
+<span class="co">#&gt; 1 POLYGON ((-64.42169 60.2712...</span>
+<span class="co">#&gt; 2 POLYGON ((-64.42169 60.2712...</span>
+<span class="co">#&gt; 3 POLYGON ((-64.42169 60.2712...</span>
+<span class="co">#&gt; 4 POLYGON ((-64.42169 60.2712...</span>
+<span class="co">#&gt; 5 POLYGON ((-64.42169 60.2712...</span>
+<span class="co">#&gt; 6 POLYGON ((-64.42169 60.2712...</span></code></pre></div>
 <p>We can also get the predictions for biomass by passing the biomass variable name.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">biomass_preds</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predict.html">predict</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span><span class="op">)</span>
@@ -470,7 +477,7 @@
 <span class="co">#&gt; Dimension:     XY</span>
 <span class="co">#&gt; Bounding box:  xmin: -64.5 ymin: 58.4628 xmax: -61.36857 ymax: 60.62184</span>
 <span class="co">#&gt; Geodetic CRS:  WGS 84</span>
-<span class="co">#&gt;   patch_id year_f sfa            area biomass_density_with_catch</span>
+<span class="co">#&gt;   patch_id year_f sfa      patch_area biomass_density_with_catch</span>
 <span class="co">#&gt; 1       P1   1995   4 20367.39 [km^2]                   5541.089</span>
 <span class="co">#&gt; 2       P1   1996   4 20367.39 [km^2]                   4923.462</span>
 <span class="co">#&gt; 3       P1   1997   4 20367.39 [km^2]                   5912.102</span>
@@ -495,34 +502,34 @@
 <span class="co">#&gt; Bounding box:  xmin: -64.5 ymin: 57.66667 xmax: -59.65562 ymax: 61</span>
 <span class="co">#&gt; Geodetic CRS:  WGS 84</span>
 <span class="co">#&gt; # A tibble: 6 × 6</span>
-<span class="co">#&gt;   year_f sfa      biomass patch_id                               geometry   area</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt; &lt;fct&gt;                             &lt;POLYGON [°]&gt; [km^2]</span>
-<span class="co">#&gt; 1   2019 4     130032236. P1       ((-64.42169 60.27125, -64.42 60.27206… 20367.</span>
-<span class="co">#&gt; 2   2019 4      11130315. P2       ((-59.95566 58.64882, -60.25261 57.73…  1719.</span>
-<span class="co">#&gt; 3   2019 4      24737672. P3       ((-61.89804 57.6918, -61.34602 58.436…  3883.</span>
-<span class="co">#&gt; 4   2019 4      29934547. P4       ((-60.50931 57.66667, -60.87958 58.41…  4684.</span>
-<span class="co">#&gt; 5   2019 4      17161701. P5       ((-61.34602 58.43681, -60.87958 58.41…  2687.</span>
-<span class="co">#&gt; 6   2019 4      92678654. P6       ((-63 60.62184, -61.66155 59.11637, -… 14504.</span></code></pre></div>
+<span class="co">#&gt;   year_f sfa      biomass patch_id patch_area                           geometry</span>
+<span class="co">#&gt;    &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt; &lt;fct&gt;        [km^2]                      &lt;POLYGON [°]&gt;</span>
+<span class="co">#&gt; 1   2019 4     130032236. P1           20367. ((-64.42169 60.27125, -64.42 60.2…</span>
+<span class="co">#&gt; 2   2019 4      11130315. P2            1719. ((-59.95566 58.64882, -60.25261 5…</span>
+<span class="co">#&gt; 3   2019 4      24737672. P3            3883. ((-61.89804 57.6918, -61.34602 58…</span>
+<span class="co">#&gt; 4   2019 4      29934547. P4            4684. ((-60.50931 57.66667, -60.87958 5…</span>
+<span class="co">#&gt; 5   2019 4      17161701. P5            2687. ((-61.34602 58.43681, -60.87958 5…</span>
+<span class="co">#&gt; 6   2019 4      92678654. P6           14504. ((-63 60.62184, -61.66155 59.1163…</span></code></pre></div>
 <ol start="18" style="list-style-type: decimal">
 <li>We can produce an array of plots, as timeseries or as spatial plots</li>
 </ol>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span><span class="op">)</span>
-<span class="co">#&gt; Warning: Removed 1 row(s) containing missing values (geom_path).</span></code></pre></div>
+<span class="co">#&gt; Warning: Removed 1 row(s) containing missing values (geom_path).</span>
+<span class="co">#&gt; Warning: Removed 38 rows containing missing values (geom_point).</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-25-1.png" width="100%"></p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-25-2.png" width="100%"></p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,  scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-26-1.png" width="100%"></p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-26-2.png" width="100%"></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, next_ts <span class="op">=</span> <span class="cn">T</span>, 
-     biomass_data_origin <span class="op">=</span> <span class="va">biomass_smooth</span>, 
-     biomass_var_origin <span class="op">=</span> <span class="st">"weight_per_km2"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, 
+     next_ts <span class="op">=</span> <span class="cn">TRUE</span>, aggregate <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-27-1.png" width="100%"></p>
 </div>
 </div>
