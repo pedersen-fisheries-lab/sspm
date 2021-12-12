@@ -52,7 +52,8 @@ join_datasets <- function(sspm_dataset, sspm_boundary) {
   # TODO REVIEW THE COHERENCE OF ST_TRANSFORM
   joined <- suppressMessages(sf::st_transform(the_data, crs = sf::st_crs(the_patches)))
   # TODO joining patches to points but should be the opposite, keeping for rep for now
-  joined <- suppressMessages(sf::st_join(the_patches, the_data)) %>%
+  joined <- suppressMessages(sf::st_join(the_patches, the_data,
+                                         suffix	= c("", "_dup"))) %>%
     dplyr::filter(!duplicated(.data[[spm_unique_ID(sspm_dataset)]])) %>%
     dplyr::filter(!is.na(.data$patch_id))
 
