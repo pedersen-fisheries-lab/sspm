@@ -18,7 +18,7 @@
   use_sf = FALSE,
   page = "first",
   nrow = 2,
-  ncol = 4,
+  ncol = 2,
   log = FALSE,
   scales = "fixed"
 )
@@ -30,12 +30,12 @@
   train_test = FALSE,
   biomass = NULL,
   next_ts = FALSE,
-  biomass_var_origin = NULL,
-  biomass_data_origin = NULL,
+  aggregate = FALSE,
+  biomass_origin = NULL,
   use_sf = FALSE,
   page = "first",
   nrow = 2,
-  ncol = 4,
+  ncol = 2,
   log = FALSE,
   scales = "fixed"
 )
@@ -72,10 +72,11 @@ predictions.}
 \item{next_ts}{\strong{[logical]} (For sspm_fit) Whether to plot a predictions
 for next timestep.}
 
-\item{biomass_var_origin}{\strong{[character]} Biomass variable to plot (from
-original dataset, optionnal).}
+\item{aggregate}{\strong{[logical]} (For sspm_fit) For biomass predictions only,
+whether to aggregate the data to the boundary level. Default to FALSE.}
 
-\item{biomass_data_origin}{\strong{[sspm_dataset]} TODO}
+\item{biomass_origin}{\strong{[character]} Biomass variable to plot (from
+original dataset, optionnal).}
 }
 \value{
 A ggplot object.

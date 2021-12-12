@@ -6,7 +6,14 @@
 \alias{predict,sspm_fit-method}
 \title{Predict with a SPM model}
 \usage{
-\S4method{predict}{sspm_fit}(object, new_data = NULL, biomass = NULL, next_ts = FALSE, ...)
+\S4method{predict}{sspm_fit}(
+  object,
+  new_data = NULL,
+  biomass = NULL,
+  next_ts = FALSE,
+  aggregate = FALSE,
+  ...
+)
 }
 \arguments{
 \item{object}{\emph{[sspm_fit]}* Fit object to predict from.}
@@ -16,6 +23,9 @@
 \item{biomass}{\strong{[character]} Biomass variable.}
 
 \item{next_ts}{\strong{[logical]} For biomass, predict next timestep.}
+
+\item{aggregate}{\strong{[logical]} For biomass predictions only, whether to
+aggregate the data to the boundary level. Default to FALSE.}
 
 \item{...}{Arguments passed on to \link{predict.bam}.}
 }
