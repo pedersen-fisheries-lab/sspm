@@ -108,53 +108,6 @@ length_to_weigth <- function(length, sex) {
   return(weigth)
 }
 
-# This should be simple enough to test (use mgcv gam example code)
-check_model_family <- function(family) {
-
-  checkmate::check_class(family, "family")
-
-  if (!any(grepl("^Tweedie|^Negative Binomial|^poisson|^binomial|^gaussian|^Gamma|^inverse.gaussian",
-                 family))) {
-    stop(paste0("family ", family,
-                " is not currently supported by the statmod library,
-               and any randomized quantile residuals would be inaccurate."),
-         call. = FALSE)
-  }
-}
-
-# Using statmod package, this has functions for randomized quantile residuals
-rqresiduals <- function(gam.obj) {
-
-  checkmate::assert_class(gam.obj, "gam")
-  check_model_family(gam.obj$family$family)
-
-  if (grepl("^Tweedie", gam.obj$family$family)) {
-
-    if (is.null(environment(gam.obj$family$variance)$p)) {
-      p.val <- gam.obj$family$getTheta(TRUE)
-      environment(gam.obj$family$variance)$p <- p.val
-    }
-
-    qres <- statmod::qres.tweedie(gam.obj)
-
-  } else if (grepl("^Negative Binomial", gam.obj$family$family)) {
-
-    if ("extended.family" %in% class(gam.obj$family)) {
-      gam.obj$theta <- gam.obj$family$getTheta(TRUE)
-    } else {
-      gam.obj$theta <- gam.obj$family$getTheta()
-    }
-
-    qres <- statmod::qres.nbinom(gam.obj)
-
-  } else {
-
-    qres <- statmod::qresid(gam.obj)
-
-  }
-  return(qres)
-}
-
 # Suppress both messages and warnings
 suppressAll <- function(x) {
   suppressWarnings(suppressMessages(x))
@@ -183,3 +136,52 @@ multilag <- function(variable, n_lags, default = NA) {
   colnames(out_mat) <- paste0("lag", 1:n_lags)
   as.data.frame(out_mat)
 }
+
+# -------------------------------------------------------------------------
+
+# # This should be simple enough to test (use mgcv gam example code)
+# check_model_family <- function(family) {
+#
+#   checkmate::check_class(family, "family")
+#
+#   if (!any(grepl("^Tweedie|^Negative Binomial|^poisson|^binomial|^gaussian|^Gamma|^inverse.gaussian",
+#                  family))) {
+#     stop(paste0("family ", family,
+#                 " is not currently supported by the statmod library,
+#                and any randomized quantile residuals would be inaccurate."),
+#          call. = FALSE)
+#   }
+# }
+#
+# # Using statmod package, this has functions for randomized quantile residuals
+# rqresiduals <- function(gam.obj) {
+#
+#   checkmate::assert_class(gam.obj, "gam")
+#   check_model_family(gam.obj$family$family)
+#
+#   if (grepl("^Tweedie", gam.obj$family$family)) {
+#
+#     if (is.null(environment(gam.obj$family$variance)$p)) {
+#       p.val <- gam.obj$family$getTheta(TRUE)
+#       environment(gam.obj$family$variance)$p <- p.val
+#     }
+#
+#     qres <- statmod::qres.tweedie(gam.obj)
+#
+#   } else if (grepl("^Negative Binomial", gam.obj$family$family)) {
+#
+#     if ("extended.family" %in% class(gam.obj$family)) {
+#       gam.obj$theta <- gam.obj$family$getTheta(TRUE)
+#     } else {
+#       gam.obj$theta <- gam.obj$family$getTheta()
+#     }
+#
+#     qres <- statmod::qres.nbinom(gam.obj)
+#
+#   } else {
+#
+#     qres <- statmod::qresid(gam.obj)
+#
+#   }
+#   return(qres)
+# }
