@@ -24,16 +24,6 @@ jobs:
           # paper.md
           path: paper.pdf
 
-      - name: Commit changes to pdf
-        if: steps.changes.outputs.changed == 1
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add paper.pdf
-          git commit -m "build pdf"
-
-      - name: Push changes
-        if: steps.changes.outputs.changed == 1
-        uses: ad-m/github-push-action@master
+      - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: "[Bot] build pdf"
