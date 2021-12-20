@@ -1,1 +1,0 @@
-# sspm-paper
