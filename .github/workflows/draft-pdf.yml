@@ -26,5 +26,5 @@ jobs:
 
       - uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          file_pattern: *.pdf
+          file_pattern: paper.pdf
           commit_message: "[Bot] build pdf"
