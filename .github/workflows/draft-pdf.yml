@@ -7,12 +7,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+
       - name: Build draft PDF
         uses: openjournals/openjournals-draft-action@master
         with:
           journal: joss
           # This should be the path to the paper within your repo.
           paper-path: paper.md
+
       - name: Upload
         uses: actions/upload-artifact@v1
         with:
@@ -21,3 +23,17 @@ jobs:
           # PDF. Note, this should be the same directory as the input
           # paper.md
           path: paper.pdf
+
+      - name: Commit changes to pdf
+        if: steps.changes.outputs.changed == 1
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add paper.pdf
+          git commit -m "build pdf"
+
+      - name: Push changes
+        if: steps.changes.outputs.changed == 1
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
