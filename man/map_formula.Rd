@@ -16,7 +16,7 @@ map_formula(data_frame, boundaries, formula, time_column, ...)
   sspm_object,
   formula,
   boundaries,
-  keep_fit = FALSE,
+  keep_fit = TRUE,
   predict = TRUE,
   ...
 )
@@ -25,7 +25,7 @@ map_formula(data_frame, boundaries, formula, time_column, ...)
   sspm_object,
   formula,
   boundaries,
-  keep_fit = FALSE,
+  keep_fit = TRUE,
   predict = TRUE,
   ...
 )
@@ -34,7 +34,7 @@ map_formula(data_frame, boundaries, formula, time_column, ...)
   sspm_object,
   formula,
   boundaries,
-  keep_fit = FALSE,
+  keep_fit = TRUE,
   predict = TRUE,
   ...
 )
