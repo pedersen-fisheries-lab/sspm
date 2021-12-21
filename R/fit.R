@@ -100,7 +100,8 @@ setMethod(f = "fit_smooths",
                 next
               }
 
-              form_name <- paste0(spm_name(sspm_object), "_f", form_id)
+              response <- spm_response(form)
+              form_name <- paste0(spm_name(sspm_object), "_", response)
               form_vars <- formula_vars(form)
 
               # Print info
@@ -149,7 +150,6 @@ setMethod(f = "fit_smooths",
               return(sspm_object)
             }
 
-            response <- spm_response(form)
             full_smoothed_vars <- c(full_smoothed_vars, response)
 
             # Predict and store smoothed data to sspm level
