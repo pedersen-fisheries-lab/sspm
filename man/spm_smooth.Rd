@@ -9,7 +9,7 @@ spm_smooth(
   sspm_object,
   formula,
   boundaries,
-  keep_fit = FALSE,
+  keep_fit = TRUE,
   predict = TRUE,
   ...
 )
@@ -18,7 +18,7 @@ spm_smooth(
   sspm_object,
   formula,
   boundaries,
-  keep_fit = FALSE,
+  keep_fit = TRUE,
   predict = TRUE,
   ...
 )
