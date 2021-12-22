@@ -75,7 +75,8 @@ plot(bounds)
 biomass_dataset <- 
   spm_as_dataset(borealis, name = "borealis", 
                  time_column = "year_f",
-                 coords = c('lon_dec','lat_dec'), uniqueID = "uniqueID")
+                 coords = c('lon_dec','lat_dec'), 
+                 uniqueID = "uniqueID")
 
 biomass_dataset
 ```
@@ -86,7 +87,8 @@ biomass_dataset
 predator_dataset <- 
   spm_as_dataset(predator, name = "all_predators", 
                  time_column = "year",
-                 uniqueID = "uniqueID", coords = c("lon_dec", "lat_dec"))
+                 coords = c("lon_dec", "lat_dec"),
+                 uniqueID = "uniqueID")
 
 predator_dataset
 ```
@@ -132,12 +134,11 @@ spm_points(bounds_voronoi)
 biomass_smooth <- biomass_dataset %>%  
   spm_smooth(weight_per_km2 ~ sfa + smooth_time(by=sfa) + smooth_space() + 
                smooth_space_time(k = c(NA, 30)),
-             boundaries = bounds_voronoi, drop.unused.levels = F, family=tw, 
-             method= "fREML", keep_fit = T) %>% 
-  spm_smooth(temp_at_bottom ~ smooth_time(by=sfa) + smooth_space() + 
+             boundaries = bounds_voronoi, 
+             family=tw) %>% 
+  spm_smooth(temp_at_bottom ~ smooth_time(by=sfa) + smooth_space() +
                smooth_space_time(k = c(NA, 30)),
-             drop.unused.levels = F, family=gaussian, method= "fREML", 
-             keep_fit = T)
+             family=gaussian)
 
 biomass_smooth
 ```
