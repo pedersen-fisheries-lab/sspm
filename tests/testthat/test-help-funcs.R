@@ -33,13 +33,6 @@ test_that("Methods are dispatched correctly", {
 
 })
 
-test_that("Function length_to_weigth works correctly", {
-
-  expect_equal(length_to_weigth(10, "male"), 0.6331151)
-  expect_equal(length_to_weigth(10, "female"), 0.8882952)
-
-})
-
 test_that("Warnings/messages can be suppressed", {
 
   expect_failure(expect_warning(suppressAll(warning("This is a warning"))))
@@ -98,11 +91,6 @@ test_that("Methods are correctly returned", {
 
 test_that("Functons for methods are correctly dispatched", {
   expect_class({sspm:::dispatch_method("tesselate_voronoi")}, "function")
-})
-
-test_that("Not discrete message works", {
-  expect_message(message_not_discrete(biomass_dataset),
-                 "Model object 'Biomass' is not a discrete model")
 })
 
 test_that("Multilag works", {

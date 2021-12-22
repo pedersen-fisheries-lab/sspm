@@ -54,3 +54,21 @@ setMethod(f = "as_discretization_method",
 
           }
 )
+
+# Helpers -----------------------------------------------------------------
+
+# Dispatch the correct function based on the name of the method
+dispatch_method <- function(discretization_method) {
+
+  checkmate::assert_character(discretization_method)
+
+  if (discretization_method == "tesselate_voronoi") {
+    return(tesselate_voronoi)
+  } else if (discretization_method == "triangulate_delaunay") {
+    return(triangulate_delaunay)
+  } else {
+    cli::cli_alert_danger(paste0("Method '", discretization_method,
+                                 "' is not part of the supported methods."))
+    cli::cli_alert_info("See `?spm_methods()`")
+  }
+}

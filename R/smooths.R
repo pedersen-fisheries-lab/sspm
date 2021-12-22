@@ -509,3 +509,26 @@ assemble_smooth <- function(s_type, args) {
   deparse(rlang::call2(s_type, !!!args),
           width.cutoff = 500, nlines = 1)
 }
+
+# Dispatch the correct function based on the name of the method
+dispatch_smooth <- function(smooth_method) {
+
+  checkmate::assert_character(smooth_method)
+
+  if (smooth_method == "ICAR") {
+    return(ICAR)
+  } else if (smooth_method == "LINPRED") {
+    return(LINPRED)
+  } else {
+    cli::cli_alert_danger(paste0("Smoothing method '", smooth_method,
+                                 "' is not part of the supported methods."))
+    cli::cli_alert_info("See `?spm_smooth_methods()`")
+  }
+}
+
+# This function generates multilag values for a given vector
+multilag <- function(variable, n_lags, default = NA) {
+  out_mat <- sapply(1:n_lags, FUN = dplyr::lag, x = variable, default = default)
+  colnames(out_mat) <- paste0("lag", 1:n_lags)
+  as.data.frame(out_mat)
+}
