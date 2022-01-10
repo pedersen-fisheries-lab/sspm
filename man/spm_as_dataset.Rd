@@ -8,24 +8,20 @@
 \alias{spm_as_dataset,sf,ANY,ANY,ANY,ANY-method}
 \title{Create a \code{sspm_dataset} dataset structure}
 \usage{
-spm_as_dataset(
-  data,
-  name,
-  time_column,
-  uniqueID,
-  coords = NULL,
-  crs = NULL,
-  boundaries = NULL
-)
+spm_as_dataset(data, name, time_column, uniqueID, coords = NULL, ...)
 
 \S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,missingOrNULL}(
   data,
   name,
   time_column,
   uniqueID,
-  coords = NULL,
+  coords,
   crs = NULL,
-  boundaries = NULL
+  boundaries = NULL,
+  biomass = NULL,
+  density = NULL,
+  biomass_units = NULL,
+  density_units = NULL
 )
 
 \S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,list}(
@@ -33,9 +29,13 @@ spm_as_dataset(
   name,
   time_column,
   uniqueID,
-  coords = NULL,
+  coords,
   crs = NULL,
-  boundaries = NULL
+  boundaries = NULL,
+  biomass = NULL,
+  density = NULL,
+  biomass_units = "kg",
+  density_units = "kg/km^2"
 )
 
 \S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,character}(
@@ -43,9 +43,13 @@ spm_as_dataset(
   name,
   time_column,
   uniqueID,
-  coords = NULL,
+  coords,
   crs = NULL,
-  boundaries = NULL
+  boundaries = NULL,
+  biomass = NULL,
+  density = NULL,
+  biomass_units = "kg",
+  density_units = "kg/km^2"
 )
 
 \S4method{spm_as_dataset}{sf,ANY,ANY,ANY,ANY}(
@@ -53,9 +57,13 @@ spm_as_dataset(
   name,
   time_column,
   uniqueID,
-  coords = NULL,
+  coords,
   crs = NULL,
-  boundaries = NULL
+  boundaries = NULL,
+  biomass = NULL,
+  density = NULL,
+  biomass_units = "kg",
+  density_units = "kg/km^2"
 )
 }
 \arguments{
@@ -76,6 +84,14 @@ latitude of the observations.}
 
 \item{boundaries}{\strong{[sspm_boundary]} An object of class
 \link[=sspm_boundary-class]{sspm_discrete_boundary}.}
+
+\item{biomass}{\strong{[character]} Columns to be encoded as biomasses (required).}
+
+\item{density}{\strong{[character]} Columns to be encoded as densities (optionnal).}
+
+\item{biomass_units}{\strong{[character]} Units for biomass columns, default to "kg".}
+
+\item{density_units}{\strong{[character]} Units for density columns, default to "kg/km^2".}
 }
 \value{
 An object of class \code{\link[=sspm_dataset-class]{sspm_dataset}}.
