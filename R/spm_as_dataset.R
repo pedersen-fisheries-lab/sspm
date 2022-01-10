@@ -8,6 +8,10 @@
 #'     dimensions (i.e. year).
 #' @param coords **\[character\]** The column of `data` for longitude and
 #'     latitude of the observations.
+#' @param biomass **\[character\]** Columns to be encoded as biomasses (required).
+#' @param density **\[character\]** Columns to be encoded as densities (optionnal).
+#' @param biomass_units **\[character\]** Units for biomass columns, default to "kg".
+#' @param density_units **\[character\]** Units for density columns, default to "kg/km^2".
 #' @param name **\[character\]** The name of the dataset, default to "Biomass".
 #' @param uniqueID **\[character\]** The column of `data` that is unique for all
 #'     rows of the data matrix.
@@ -19,7 +23,7 @@
 #'
 #' @export
 setGeneric(name = "spm_as_dataset",
-           def = function(data, name, time_column, uniqueID, coords = NULL, crs = NULL, boundaries = NULL) {
+           def = function(data, name, time_column, uniqueID, coords = NULL, ...) {
 
              if (!checkmate::test_subset(uniqueID, names(data))) {
                stop("`uniqueID` must be a column of `data`", call. = FALSE)
@@ -47,7 +51,9 @@ setGeneric(name = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "missingOrNULL"),
-          function(data, name, time_column, uniqueID, coords, crs, boundaries) {
+          function(data, name, time_column, uniqueID, coords, crs = NULL,
+                   boundaries = NULL, biomass = NULL, density = NULL,
+                   biomass_units = NULL, density_units = NULL) {
 
             stop("Argument `coords` must be provided when data matrix is a dataframe",
                  call. = FALSE)
@@ -59,9 +65,12 @@ setMethod(f = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "list"),
-          function(data, name, time_column, uniqueID, coords, crs, boundaries) {
+          function(data, name, time_column, uniqueID, coords, crs = NULL,
+                   boundaries = NULL, biomass = NULL, density = NULL,
+                   biomass_units = "kg", density_units = "kg/km^2") {
             coords <- unlist(coords)
-            spm_as_dataset(data, name, time_column, uniqueID, coords, crs, boundaries)
+            spm_as_dataset(data, name, time_column, uniqueID, coords, crs, boundaries,
+                           biomass, density, biomass_units, density_units)
           }
 )
 
@@ -71,7 +80,9 @@ setMethod(f = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "character"),
-          function(data, name, time_column, uniqueID, coords, crs, boundaries) {
+          function(data, name, time_column, uniqueID, coords, crs = NULL,
+                   boundaries = NULL, biomass = NULL, density = NULL,
+                   biomass_units = "kg", density_units = "kg/km^2") {
 
             # Check coords
             if (!checkmate::test_subset(coords, names(data))) {
@@ -99,18 +110,8 @@ setMethod(f = "spm_as_dataset",
             new_data <- sf::st_as_sf(x = data, coords = coords, crs = crs,
                                      remove = FALSE)
 
-            the_sspm_dataset <- new("sspm_dataset",
-                                    name = name,
-                                    data = new_data,
-                                    time_column = time_column,
-                                    uniqueID = uniqueID,
-                                    coords = coords)
-
-            if (!is.null(boundaries)){
-              the_sspm_dataset <- join_datasets(the_sspm_dataset, boundaries)
-            }
-
-            return(the_sspm_dataset)
+            spm_as_dataset(new_data, name, time_column, uniqueID, coords, crs, boundaries,
+                           biomass, density, biomass_units, density_units)
           }
 )
 
@@ -119,7 +120,15 @@ setMethod(f = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "sf", coords = "ANY"),
-          function(data, name, time_column, uniqueID, coords, crs, boundaries) {
+          function(data, name, time_column, uniqueID, coords, crs = NULL,
+                   boundaries = NULL, biomass = NULL, density = NULL,
+                   biomass_units = "kg", density_units = "kg/km^2") {
+
+            # Cast columns
+            data <- cast_special_variables(data, biomass = biomass,
+                                           density = density,
+                                           biomass_units = biomass_units,
+                                           density_units = density_units)
 
             # Test if point
             if (any(sf::st_is(data, "POINT"))) {
@@ -127,6 +136,8 @@ setMethod(f = "spm_as_dataset",
               the_sspm_dataset <- new("sspm_dataset",
                                       name = name,
                                       data = data,
+                                      vars_biomass = biomass,
+                                      vars_density = density,
                                       time_column = time_column,
                                       uniqueID = uniqueID,
                                       coords = coords)
@@ -165,6 +176,8 @@ setMethod(f = "spm_as_dataset",
               the_sspm_dataset <- new("sspm_dataset",
                                       name = name,
                                       data = data,
+                                      vars_biomass = biomass,
+                                      vars_density = density,
                                       time_column = time_column,
                                       uniqueID = uniqueID,
                                       coords = coords,
@@ -180,3 +193,28 @@ setMethod(f = "spm_as_dataset",
             return(the_sspm_dataset)
           }
 )
+
+# -------------------------------------------------------------------------
+
+cast_special_variables <- function(df, biomass, density, biomass_units, density_units){
+
+  checkmate::assert_character(biomass, null.ok = TRUE)
+  checkmate::assert_character(density, null.ok = TRUE)
+  checkmate::assert_character(biomass_units, null.ok = TRUE)
+  checkmate::assert_character(density_units, null.ok = TRUE)
+
+  if (!is.null(biomass)){
+    for (b_var in biomass){
+      df[[b_var]] = biomass(df[[b_var]], biomass_units)
+    }
+  }
+
+  if (!is.null(density)){
+    for (d_var in density){
+      df[[d_var]] = biomass_density(df[[d_var]], density_units)
+    }
+
+  }
+
+  return(df)
+}
