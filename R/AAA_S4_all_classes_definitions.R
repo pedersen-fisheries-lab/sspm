@@ -110,6 +110,8 @@ setClassUnion("sspm_discrete_boundaryOrNULL", c("sspm_discrete_boundary", "NULL"
 setClass("sspm_dataset",
          slots = list(name = "character",
                       data = "ANY",
+                      vars_biomass = "characterOrNULL",
+                      vars_density = "characterOrNULL",
                       time_column = "character",
                       coords = "characterOrNULL",
                       uniqueID = "character",
