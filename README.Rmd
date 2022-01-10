@@ -73,7 +73,8 @@ plot(bounds)
 
 ```{r}
 biomass_dataset <- 
-  spm_as_dataset(borealis, name = "borealis", 
+  spm_as_dataset(borealis, name = "borealis",
+                 density = "weight_per_km2",
                  time_column = "year_f",
                  coords = c('lon_dec','lat_dec'), 
                  uniqueID = "uniqueID")
