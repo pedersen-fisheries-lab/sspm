@@ -23,11 +23,11 @@ Depends:
     mgcv,
     R (>= 3.5.0)
 Imports: 
+    stats,
     methods,
     units,
     checkmate,
     cli,
-    statmod,
     tibble,
     magrittr,
     tidyr,
