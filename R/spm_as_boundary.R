@@ -62,7 +62,6 @@ setMethod(f = "spm_as_boundary",
           function(boundaries, boundary_column, patches, points,
                    boundary_area_column, patch_area_column) {
 
-
             boundaries_list <- check_boundaries(boundaries, boundary_column,
                                                 boundary_area_column)
 
