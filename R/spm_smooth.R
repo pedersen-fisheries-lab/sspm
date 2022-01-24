@@ -108,7 +108,6 @@ setMethod(f = "spm_smooth",
               cli::cli_alert_warning(
                 paste0(" Response variable ", cli::col_br_red(response),
                        " is NOT a biomass density variable"))
-              stop("spm_smooth is designed for modelling density variables")
             }
 
             spm_formulas(sspm_object_joined) <-
