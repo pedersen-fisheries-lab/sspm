@@ -103,14 +103,64 @@ setMethod(f = "spm_smooth",
                                         ...)
 
             spm_formulas(sspm_object_joined) <-
-              append(spm_formulas(sspm_object_joined),
-                     list(sspm_formula))
+              append(spm_formulas(sspm_object_joined), list(sspm_formula))
 
             # 3. call fit with ... arguments
             sspm_object_fitted <- sspm_object_joined %>%
-              fit_smooths(boundaries = boundaries,
-                          keep_fit = keep_fit, predict = predict, ...)
+              fit_smooths(boundaries = boundaries, keep_fit = keep_fit, ...)
+
+            # 4. if predict, also generate predictions
+            if(predict){
+
+              preds_df <- predict(sspm_object_fitted)
+
+              sspm_object_fitted <-
+                join_smoothed_datasets(sspm_object_fitted, preds_df)
+
+            }
 
             return(sspm_object_fitted)
           }
 )
+
+# Helpers -----------------------------------------------------------------
+
+# Takes care of joining things when prediction is made
+join_smoothed_datasets <- function(sspm_object, preds_df){
+
+  smoothed_data <- spm_smoothed_data(sspm_object)
+  time_col <- spm_time_column(sspm_object)
+  boundaries <- spm_boundaries(sspm_object)
+  patches <- spm_patches(boundaries)
+
+  if (is.null(smoothed_data)) {
+    smoothed_data <- data.frame()
+  }
+
+  if (nrow(smoothed_data) == 0) {
+
+    smoothed_data <- preds_df %>%
+      dplyr::left_join(patches, by = c("patch_id"),
+                       suffix = c("", "_duplicate")) %>%
+      dplyr::select(-c(dplyr::ends_with("_duplicate")))
+
+  } else {
+
+    smoothed_data <- preds_df %>%
+      dplyr::left_join(smoothed_data, by = c("patch_id", time_col),
+                       suffix = c("", "_duplicate")) %>%
+      dplyr::select(-c(dplyr::ends_with("_duplicate")))
+
+  }
+
+  nrow_smoothed_data <- nrow(smoothed_data)
+  smoothed_data <-
+    smoothed_data %>%
+    dplyr::mutate("row_ID" = 1:nrow_smoothed_data) %>%
+    dplyr::relocate(.data$row_ID) %>%
+    sf::st_as_sf() # TODO check CRS
+
+  spm_smoothed_data(sspm_object) <- smoothed_data
+
+  return(sspm_object)
+}

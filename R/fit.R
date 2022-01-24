@@ -47,12 +47,13 @@ setMethod(f = "fit_smooths",
                    keep_fit, predict,
                    family, drop.unused.levels, method, ...) {
 
-            # Initialize/collect smoothed_data/vars/fit
-            full_smoothed_data <- spm_smoothed_data(sspm_object)
-            if (is.null(full_smoothed_data)) {
-              full_smoothed_data <- data.frame()
-            }
+            # Get data
+            the_data <- spm_data(sspm_object)
+            time_col <- spm_time_column(sspm_object)
+            boundaries <- spm_boundaries(sspm_object)
+            patches <- spm_patches(boundaries)
 
+            # Initialize/collect smoothed_vars/fit
             full_smoothed_vars <- sspm_object@smoothed_vars
             if (is.null(full_smoothed_vars)) {
               full_smoothed_vars <- c()
@@ -65,29 +66,11 @@ setMethod(f = "fit_smooths",
               tmp_fit <- spm_smoothed_fit(sspm_object)
             }
 
-            # Get data
-            the_data <- spm_data(sspm_object)
-
-            # If predict, make the predict matrix
-            if (predict) {
-
-              year_vector <-
-                as.numeric(as.character(the_data[[spm_time_column(sspm_object)]]))
-              year_values <-
-                sort(unique(year_vector))
-
-              time_col <- spm_time_column(sspm_object)
-              predict_mat <- spm_patches(boundaries) %>%
-                sf::st_set_geometry(NULL) %>%
-                tidyr::expand_grid(!!time_col := year_values)
-              # tidyr::expand_grid(!!time_col := 1979:2018)
-
-            }
-
             # Get the length of the formula set
             formulas <- spm_formulas(sspm_object)
             formula_length <- length(formulas)
 
+            # Fit the formulas into a list
             tmp_smoothed <-
               vector(mode = "list", length = formula_length)
 
@@ -101,7 +84,6 @@ setMethod(f = "fit_smooths",
               }
 
               response <- spm_response(form)
-              form_name <- paste0(spm_name(sspm_object), "_", response)
               form_vars <- formula_vars(form)
 
               # Print info
@@ -110,14 +92,14 @@ setMethod(f = "fit_smooths",
                        cli::col_yellow(format_formula(raw_formula(form))),
                        " for dataset ", cli::col_cyan(paste0("'", spm_name(sspm_object), "'"))))
 
-              # Modify formula env, best solution for now
+              # Modify formula env
               form_env <- attr(translated_formula(form), ".Environment")
               for (var in names(form_vars)) {
                 assign(x = var, value = form_vars[[var]], envir = form_env)
               }
 
               # Fit the formula, important to attach the vars
-              tmp_fit[[form_name]] <- tryCatch({
+              tmp_fit[[response]] <- tryCatch({
                 mgcv::bam(formula = translated_formula(form),
                           data = the_data,
                           family = family,
@@ -126,6 +108,7 @@ setMethod(f = "fit_smooths",
                           ...)
               }, error = function(e) {
 
+                # CAtch potential issue with by variables
                 if (e$message == "Can't find by variable") {
                   cli::cli_alert_danger(" mgcv failed to fit 'by' smooths")
                   cli::cli_alert_info(" Please ensure that all 'by = ...' variables are encoded as factors")
@@ -146,54 +129,15 @@ setMethod(f = "fit_smooths",
               spm_smoothed_fit(sspm_object) <- tmp_fit
             }
 
-            if (checkmate::test_class(tmp_fit[[form_name]], "bam.prefit")){
-              return(sspm_object)
-            }
-
             full_smoothed_vars <- c(full_smoothed_vars, response)
-
-            # Predict and store smoothed data to sspm level
-            if (predict) {
-
-              preds <- predict(tmp_fit[[form_name]],
-                               predict_mat, type = "response")
-
-              preds_df <- predict_mat %>%
-                dplyr::mutate(!!response := as.vector(preds)) %>%
-                dplyr::arrange(!!time_col) %>%
-                dplyr::group_by(.data$patch_id)
-
-              if (nrow(full_smoothed_data) == 0) {
-
-                full_smoothed_data <- preds_df %>%
-                  dplyr::left_join(boundaries@patches, by = c("patch_id"),
-                                   suffix = c("", "_duplicate")) %>%
-                  dplyr::select(-c(dplyr::ends_with("_duplicate")))
-
-              } else {
-
-                full_smoothed_data <- full_smoothed_data %>%
-                  dplyr::left_join(preds_df, by = c("patch_id", time_col),
-                                   suffix = c("", "_duplicate")) %>%
-                  dplyr::select(-c(dplyr::ends_with("_duplicate")))
-
-              }
-
-            }
-
-            nrow_smoothed_data <- nrow(full_smoothed_data)
-
-            full_smoothed_data_clean <- full_smoothed_data %>%
-              dplyr::relocate(.data[[response]]) %>%
-              dplyr::ungroup() %>%
-              dplyr::mutate("row_ID" = 1:nrow_smoothed_data) %>%
-              dplyr::relocate(.data$row_ID) %>%
-              sf::st_as_sf()
-
-            spm_smoothed_data(sspm_object) <- full_smoothed_data_clean
             sspm_object@smoothed_vars <- full_smoothed_vars
 
-            return(sspm_object)
+            # If the user chose not to fit the model, just return the prefit object
+            if (checkmate::test_class(tmp_fit[[response]], "bam.prefit")){
+              return(sspm_object)
+            } else {
+              return(sspm_object)
+            }
 
           }
 )
@@ -246,8 +190,9 @@ setMethod(f = "fit_spm",
           }
 )
 
-# -------------------------------------------------------------------------
+# Helpers -----------------------------------------------------------------
 
+# Process the variables into a list for proper predictions
 process_formula_vars <- function(vars, the_data, select = TRUE) {
 
   checkmate::assert_list(vars)
