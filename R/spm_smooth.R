@@ -102,6 +102,15 @@ setMethod(f = "spm_smooth",
                                         time_column = time_column,
                                         ...)
 
+            # Check that response is a density
+            response <- spm_response(sspm_formula)
+            if (!checkmate::test_choice(response, sspm_object@vars_density)){
+              cli::cli_alert_warning(
+                paste0(" Response variable ", cli::col_br_red(response),
+                       " is NOT a biomass density variable"))
+              stop("spm_smooth is designed for modelling density variables")
+            }
+
             spm_formulas(sspm_object_joined) <-
               append(spm_formulas(sspm_object_joined), list(sspm_formula))
 
