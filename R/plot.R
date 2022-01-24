@@ -6,22 +6,25 @@
 #' @param y NOT USED (from generic).
 #' @param ... NOT USED (from generic).
 #'
-#' @param var **\[character\]** (for sspm_dataset) Variable to plot.
+#' @param var **\[character\]** (For sspm_dataset) Variable to plot.
 #'
 #' @param train_test **\[logical\]** (For sspm_fit) Whether to plot a train/test
-#'      pair plot.
+#'    pair plot.
 #' @param biomass **\[character\]** (For sspm_fit) The biomass variable for
-#'      predictions.
+#'    predictions.
 #' @param next_ts **\[logical\]** (For sspm_fit) Whether to plot a predictions
-#'      for next timestep.
+#'    for next timestep.
 #' @param aggregate **\[logical\]** (For sspm_fit) For biomass predictions only,
 #'    whether to aggregate the data to the boundary level. Default to FALSE.
+#' @param interval **\[logical\]** (For sspm_fit) Whether to plot CI and Pi
+#'    intervals.
 #'
 #' @param biomass_origin **\[character\]** Biomass variable to plot (from
-#'      original dataset, optionnal).
+#'    original dataset, optionnal).
 #'
 #' @param use_sf **\[logical\]** Whether to produce a spatial plot.
-#' @param log **\[logical\]** Whether to plot on a log scale, default to TRUE.
+#' @param log **\[logical\]** For productivity, whether to plot log productivity,
+#'    (default to FALSE) for others, whether to plot on a log scale (default to TRUE).
 #' @inheritParams ggforce::facet_grid_paginate
 #'
 #' @return
@@ -110,14 +113,12 @@ setMethod("plot",
               time_col <- spm_time_column(x)
 
               color_profile <- c("Smoothed" = "black")
-              lty_profile <- c("Smoothed" = 1)
 
               sspm_discrete_plot <-
                 spm_plot_routine(smoothed_data = smoothed_data, var = var,
                                  use_sf = use_sf, page = page, nrow = nrow,
                                  ncol = ncol, time_col = time_col, log = log,
-                                 scales = scales, color_profile = color_profile,
-                                 lty_profile = lty_profile)
+                                 scales = scales, color_profile = color_profile)
 
               return(sspm_discrete_plot)
             }
@@ -132,7 +133,7 @@ setMethod("plot",
                     y = "missing"),
           definition = function(x, y, ..., train_test = FALSE, biomass = NULL,
                                 next_ts = FALSE, aggregate = FALSE,
-                                biomass_origin = NULL,
+                                interval = FALSE, biomass_origin = NULL,
                                 use_sf = FALSE, page = "first", nrow = 2,
                                 ncol = 2, log = FALSE, scales = "fixed") {
 
@@ -162,112 +163,115 @@ setMethod("plot",
                 ggplot2::geom_abline(slope = 1, intercept = 0,
                                      lty = 2, size = 0.2)
 
-            } else if (!is.null(biomass)){
-
-              color_profile <- c("Predictions" = "red")
-              lty_profile <- c("Predictions" = 1)
-              boundary_col <- spm_boundary_column(x)
-              patch_area_col <- spm_patches_area_column(spm_boundaries(x))
-
-              checkmate::assert_character(biomass)
-
-              biomass_preds <- predict(x, biomass = biomass,
-                                       aggregate = aggregate) %>%
-                dplyr::mutate(color = "Predictions")
-
-              if (next_ts) {
-
-                next_ts_label <- "Prediction (1 step \n ahead, NO CATCH)"
-
-                next_ts_preds <- predict(x, biomass = biomass,
-                                         next_ts = next_ts,
-                                         aggregate = aggregate) %>%
-                  dplyr::mutate(color = next_ts_label)
-
-                time_col <- spm_time_column(x)
-                mext_ts_timestep <- max(unique(next_ts_preds[[time_col]]))-1
-
-                biomass_preds_previous <- biomass_preds %>%
-                  dplyr::filter(.data[[time_col]] == mext_ts_timestep) %>%
-                  dplyr::mutate(color = next_ts_label)
-
-                next_ts_preds <- next_ts_preds %>%
-                  dplyr::bind_rows(biomass_preds_previous)
-
-                biomass_preds <- biomass_preds %>%
-                  dplyr::bind_rows(next_ts_preds)
-
-                color_profile <-
-                  c(color_profile, "Prediction (1 step \n ahead, NO CATCH)" =
-                      "firebrick")
-                lty_profile <-
-                  c(lty_profile, "Prediction (1 step \n ahead, NO CATCH)" = 4)
-              }
-
-              time_col <- spm_time_column(x)
-              boundary_col <- spm_boundary_column(x)
-
-              if (is.null(biomass_origin)){
-                # TODO check presence of column in data frame
-                biomass_origin <- biomass
-              }
-
-              biomass_actual <- spm_smoothed_data(x) %>%
-                dplyr::mutate(area =
-                                as.numeric(units::set_units(.data[[patch_area_col]],
-                                                            value = "km^2")),
-                              biomass = .data[[biomass_origin]] * .data$area)
-
-              if (aggregate){
-                biomass_actual <-  biomass_actual %>%
-                  dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
-                  dplyr::summarise(biomass = sum(.data$biomass)) %>%
-                  dplyr::ungroup()
-              }
-
-              biomass_actual <- biomass_actual %>%
-                dplyr::mutate(color = "Smoothed")
-
-              biomass_preds <- biomass_preds %>%
-                dplyr::bind_rows(biomass_actual)
-
-              color_profile <- c(color_profile, "Smoothed" = "black")
-              lty_profile <- c(lty_profile, "Smoothed" = 1)
-
-              sspm_discrete_plot <-
-                spm_plot_routine(smoothed_data = biomass_preds, var = "biomass",
-                                 use_sf = use_sf, page = page, nrow = nrow,
-                                 ncol = ncol, time_col = time_col, log = log,
-                                 scales = scales, color_profile = color_profile,
-                                 lty_profile = lty_profile, aggregate = aggregate,
-                                 boundary_col = boundary_col)
-
             } else {
 
-              prod_preds <- predict(x, aggregate = aggregate) %>%
-                dplyr::mutate(color = "Predictions")
+              if (!is.null(biomass)){
 
-              actual <- spm_smoothed_data(x) %>%
-                dplyr::mutate(pred = exp(.data[[x@formula@response]])) %>%
-                dplyr::mutate(color = "Actual")
+                color_profile <- c("Predictions" = "red")
 
-              prod_preds <- prod_preds %>%
-                dplyr::bind_rows(actual)
+                boundary_col <- spm_boundary_column(x)
+                patch_area_col <- spm_patches_area_column(spm_boundaries(x))
 
-              time_col <- spm_time_column(x)
+                checkmate::assert_character(biomass)
 
-              color_profile <- c("Predictions" = "red",
-                                 "Actual" = "black")
-              lty_profile <- c( "Predictions" = 1,
-                                "Actual" = 2)
+                biomass_preds <- predict(x, biomass = biomass,
+                                         aggregate = aggregate,
+                                         interval = interval) %>%
+                  dplyr::mutate(color = "Predictions")
 
-              sspm_discrete_plot <-
-                spm_plot_routine(smoothed_data = prod_preds, var = "pred",
-                                 use_sf = use_sf, page = page, nrow = nrow,
-                                 ncol = ncol, time_col = time_col, log = log,
-                                 scales = scales, color_profile = color_profile,
-                                 lty_profile = lty_profile, aggregate = aggregate,
-                                 boundary_col = boundary_col)
+                if (next_ts) {
+
+                  next_ts_label <- "Prediction (1 step \n ahead, NO CATCH)"
+
+                  next_ts_preds <- predict(x, biomass = biomass,
+                                           next_ts = next_ts,
+                                           aggregate = aggregate) %>%
+                    dplyr::mutate(color = next_ts_label)
+
+                  time_col <- spm_time_column(x)
+                  mext_ts_timestep <- max(unique(next_ts_preds[[time_col]]))-1
+
+                  biomass_preds_previous <- biomass_preds %>%
+                    dplyr::filter(.data[[time_col]] == mext_ts_timestep) %>%
+                    dplyr::mutate(color = next_ts_label)
+
+                  next_ts_preds <- next_ts_preds %>%
+                    dplyr::bind_rows(biomass_preds_previous)
+
+                  biomass_preds <- biomass_preds %>%
+                    dplyr::bind_rows(next_ts_preds)
+
+                  color_profile <-
+                    c(color_profile, "Prediction (1 step \n ahead, NO CATCH)" =
+                        "firebrick")
+                }
+
+                time_col <- spm_time_column(x)
+                boundary_col <- spm_boundary_column(x)
+
+                if (is.null(biomass_origin)){
+                  # TODO check presence of column in data frame
+                  biomass_origin <- biomass
+                }
+
+                biomass_actual <- spm_smoothed_data(x) %>%
+                  dplyr::mutate(area =
+                                  as.numeric(units::set_units(.data[[patch_area_col]],
+                                                              value = "km^2")),
+                                biomass = .data[[biomass_origin]] * .data$area)
+
+                if (aggregate){
+                  biomass_actual <-  biomass_actual %>%
+                    dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%
+                    dplyr::summarise(biomass = sum(.data$biomass)) %>%
+                    dplyr::ungroup()
+                }
+
+                biomass_actual <- biomass_actual %>%
+                  dplyr::mutate(color = "Smoothed")
+
+                biomass_preds <- biomass_preds %>%
+                  dplyr::bind_rows(biomass_actual)
+
+                color_profile <- c(color_profile, "Smoothed" = "black")
+
+                sspm_discrete_plot <-
+                  spm_plot_routine(smoothed_data = biomass_preds, var = "biomass",
+                                   use_sf = use_sf, page = page, nrow = nrow,
+                                   ncol = ncol, time_col = time_col, log = log,
+                                   scales = scales, color_profile = color_profile,
+                                   aggregate = aggregate, interval = interval,
+                                   boundary_col = boundary_col)
+
+              } else {
+
+                boundary_col <- spm_boundary_column(x)
+
+                prod_preds <- predict(x, aggregate = aggregate,
+                                      interval = interval) %>%
+                  dplyr::mutate(color = "Predictions")
+
+                actual <- spm_smoothed_data(x) %>%
+                  dplyr::mutate(pred = exp(.data[[x@formula@response]])) %>%
+                  dplyr::mutate(color = "Actual")
+
+                prod_preds <- prod_preds %>%
+                  dplyr::bind_rows(actual)
+
+                time_col <- spm_time_column(x)
+
+                color_profile <- c("Predictions" = "red",
+                                   "Actual" = "black")
+
+                sspm_discrete_plot <-
+                  spm_plot_routine(smoothed_data = prod_preds, var = "pred",
+                                   use_sf = use_sf, page = page, nrow = nrow,
+                                   ncol = ncol, time_col = time_col, log = log,
+                                   scales = scales, color_profile = color_profile,
+                                   aggregate = aggregate, interval = interval,
+                                   boundary_col = boundary_col)
+
+              }
 
             }
 
@@ -279,8 +283,9 @@ setMethod("plot",
 # -------------------------------------------------------------------------
 
 spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
-                             time_col, log, scales, color_profile, lty_profile,
-                             aggregate = FALSE, boundary_col) {
+                             time_col, log, scales, color_profile,
+                             aggregate = FALSE, interval =  FALSE,
+                             boundary_col) {
 
   if (log) {
     smoothed_data[[var]] <- log(smoothed_data[[var]])
@@ -304,17 +309,16 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
     base_plot <- ggplot2::ggplot(data = smoothed_data) +
       ggplot2::geom_line(ggplot2::aes(x = .data[[time_col]],
                                       y = .data[[var]],
-                                      color = .data$color,
-                                      linetype = .data$color)) +
+                                      color = .data$color)) +
       ggplot2::geom_point(ggplot2::aes(x = .data[[time_col]],
                                        y = .data[[var]],
-                                       color = .data$color,),
+                                       color = .data$color),
                           cex = 0.8) +
       ggplot2::labs(y = the_title) +
       ggplot2::theme_light() +
       ggplot2::scale_color_manual(values = color_profile) +
-      ggplot2::scale_linetype_manual(values = lty_profile) +
-      ggplot2::labs(color = "Type", linetype = "Type", x = "Timestep")
+      ggplot2::labs(color = "Type",
+                    x = "Timestep")
 
     if (aggregate){
       facet_by <- boundary_col
@@ -322,9 +326,44 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
       facet_by <- "patch_id"
     }
 
+    if (interval) {
+
+      if (log) {
+        base_plot <- base_plot +
+          ggplot2::geom_ribbon(
+            ggplot2::aes(x = .data[[time_col]],
+                         ymin = .data$CI_log_lower,
+                         ymax = .data$CI_log_upper,
+                         fill = .data$color), alpha = 0.5) +
+          ggplot2::geom_ribbon(
+            ggplot2::aes(x = .data[[time_col]],
+                         ymin = .data$PI_log_lower,
+                         ymax = .data$PI_log_upper,
+                         fill = .data$color), alpha = 0.3) +
+          ggplot2::scale_fill_manual(values = color_profile) +
+          ggplot2::labs(fill = "Type")
+      } else {
+        base_plot <- base_plot +
+          ggplot2::geom_ribbon(
+            ggplot2::aes(x = .data[[time_col]],
+                         ymin = .data$CI_lower,
+                         ymax = .data$CI_upper,
+                         fill = .data$color), alpha = 0.5) +
+          ggplot2::geom_ribbon(
+            ggplot2::aes(x = .data[[time_col]],
+                         ymin = .data$PI_lower,
+                         ymax = .data$PI_upper,
+                         fill = .data$color), alpha = 0.3) +
+          ggplot2::scale_fill_manual(values = color_profile) +
+          ggplot2::labs(fill = "Type")
+      }
+
+
+    }
+
   }
 
-  # Manage facetting + pagination
+  # Manage faceting + pagination
   if (is.character(page)) {
 
     if (page == "all") {
