@@ -31,6 +31,7 @@
   biomass = NULL,
   next_ts = FALSE,
   aggregate = FALSE,
+  interval = FALSE,
   biomass_origin = NULL,
   use_sf = FALSE,
   page = "first",
@@ -47,7 +48,7 @@
 
 \item{...}{NOT USED (from generic).}
 
-\item{var}{\strong{[character]} (for sspm_dataset) Variable to plot.}
+\item{var}{\strong{[character]} (For sspm_dataset) Variable to plot.}
 
 \item{use_sf}{\strong{[logical]} Whether to produce a spatial plot.}
 
@@ -57,7 +58,8 @@
 
 \item{ncol}{Number of columns per page}
 
-\item{log}{\strong{[logical]} Whether to plot on a log scale, default to TRUE.}
+\item{log}{\strong{[logical]} For productivity, whether to plot log productivity,
+(default to FALSE) for others, whether to plot on a log scale (default to TRUE).}
 
 \item{scales}{Are scales shared across all facets (the default,
 \code{"fixed"}), or do they vary across rows (\code{"free_x"}),
@@ -74,6 +76,9 @@ for next timestep.}
 
 \item{aggregate}{\strong{[logical]} (For sspm_fit) For biomass predictions only,
 whether to aggregate the data to the boundary level. Default to FALSE.}
+
+\item{interval}{\strong{[logical]} (For sspm_fit) Whether to plot CI and Pi
+intervals.}
 
 \item{biomass_origin}{\strong{[character]} Biomass variable to plot (from
 original dataset, optionnal).}

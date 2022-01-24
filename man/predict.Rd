@@ -4,16 +4,20 @@
 \alias{predict}
 \alias{predict.sspm}
 \alias{predict,sspm_fit-method}
+\alias{predict,sspm_dataset-method}
 \title{Predict with a SPM model}
 \usage{
 \S4method{predict}{sspm_fit}(
   object,
   new_data = NULL,
   biomass = NULL,
-  next_ts = FALSE,
   aggregate = FALSE,
-  ...
+  interval = FALSE,
+  next_ts = FALSE,
+  type = "response"
 )
+
+\S4method{predict}{sspm_dataset}(object, new_data = NULL, discrete = TRUE, type = "response")
 }
 \arguments{
 \item{object}{\emph{[sspm_fit]}* Fit object to predict from.}
@@ -22,12 +26,13 @@
 
 \item{biomass}{\strong{[character]} Biomass variable.}
 
-\item{next_ts}{\strong{[logical]} For biomass, predict next timestep.}
-
 \item{aggregate}{\strong{[logical]} For biomass predictions only, whether to
 aggregate the data to the boundary level. Default to FALSE.}
 
-\item{...}{Arguments passed on to \link{predict.bam}.}
+\item{interval}{\strong{[logical]} Whether or not to calculate confidence, and
+when possible, prediction intervals.}
+
+\item{next_ts}{\strong{[logical]} For biomass, predict next timestep.}
 }
 \value{
 A \code{dataframe} of predictions.
