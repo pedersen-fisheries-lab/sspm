@@ -87,6 +87,7 @@ biomass_dataset
 ```{r}
 predator_dataset <- 
   spm_as_dataset(predator, name = "all_predators", 
+                 density = "weight_per_km2",
                  time_column = "year",
                  coords = c("lon_dec", "lat_dec"),
                  uniqueID = "uniqueID")
