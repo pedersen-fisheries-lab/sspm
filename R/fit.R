@@ -208,6 +208,7 @@ process_formula_vars <- function(vars, the_data, select = TRUE) {
   return(vars)
 }
 
+# Drop the units for biomass and density variables
 spm_drop_units <- function(sspm_object){
 
   vars <- c(sspm_object@vars_biomass, sspm_object@vars_density)
