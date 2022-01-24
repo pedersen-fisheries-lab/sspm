@@ -7,24 +7,22 @@ biomass <- function(x, ...){
   validate_biomass(x)
 }
 
-new_biomass <- function(x = double(), units = "kg") {
+new_biomass <- function(x = double(), units = "kg", mode = "standard") {
 
   stopifnot(is.double(x))
   stopifnot(is.character(units))
 
-  x <- units::as_units(x, value = units)
+  if (is_units){
+    x <- units::set_units(x, value = units, mode = mode)
+  } else {
+    x <- units::as_units(x, value = units)
+  }
 
   x <- structure(x, class = c("biomass", "units"))
 }
 
 validate_biomass <- function(x){
-  num <- units(x)$numerator
-  den <- units(x)$denominator
-
-  stopifnot(length(num) == 1)
-  stopifnot(length(den) == 0)
-
-  stopifnot(num == "kg")
+  stopifnot(is.biomass(x))
   return(x)
 }
 
@@ -36,25 +34,24 @@ biomass_density <- function(x, ...){
   validate_biomass_density(x)
 }
 
-new_biomass_density <- function(x = double(), units = "kg/km^2") {
+new_biomass_density <- function(x = double(), units = "kg/km^2", mode = "standard") {
+
+  # browser()
 
   stopifnot(is.double(x))
   stopifnot(is.character(units))
 
-  x <- units::as_units(x, value = units)
+  if (is_units(x)){
+    x <- units::set_units(x, value = units, mode = mode)
+  } else {
+    x <- units::as_units(x, value = units)
+  }
 
   x <- structure(x, class = c("biomass_density", "units"))
 }
 
 validate_biomass_density <- function(x){
-  num <- units(x)$numerator
-  den <- units(x)$denominator
-
-  stopifnot(length(num) == 1)
-  stopifnot(length(den) == 2)
-
-  stopifnot(num == "kg")
-  stopifnot(den == c("km", "km"))
+  stopifnot(is.biomass_density(x))
   return(x)
 }
 
@@ -90,15 +87,65 @@ as_biomass.biomass_density <- function(x, area){
 }
 
 validate_area <- function(x){
-  stopifnot("units" %in% class(x))
+  stopifnot(is.area(x))
+  return(x)
+}
 
-  num <- units(x)$numerator
-  den <- units(x)$denominator
+# Detect and cast ---------------------------------------------------------
 
-  stopifnot(length(num) == 2)
-  stopifnot(length(den) == 0)
+detect_and_cast <- function(x){
 
-  stopifnot(num == c("km", "km"))
+  if (is.numeric(x)){
 
-  stopifnot()
+    if (has_biomass_units(x)){
+      x <- biomass(x)
+    } else if (has_biomass_density_units(x)){
+      x <- biomass_density(x)
+    }
+
+  }
+
+  return(x)
+}
+
+is_units <- function(x){
+  checkmate::test_class(x, "units")
+}
+
+is.biomass <- function(x){
+  checkmate::test_class(x, "biomass") && has_biomass_units(x)
+}
+
+is.biomass_density <- function(x){
+  checkmate::test_class(x, "biomass_density") && has_biomass_density_units(x)
+}
+
+has_biomass_units <- function(x){
+  if (is_units(x)){
+    num <- units(x)$numerator
+    den <- units(x)$denominator
+    (length(num) == 1) && (length(den) == 0) && (num == "kg")
+  } else {
+    FALSE
+  }
+}
+
+has_biomass_density_units <- function(x){
+  if (is_units(x)){
+    num <- units(x)$numerator
+    den <- units(x)$denominator
+    (length(num) == 1) && (length(den) == 2) && (num == "kg") && (den == c("km", "km"))
+  } else {
+    FALSE
+  }
+}
+
+has_area_units <- function(x){
+  if (is_units(x)){
+    num <- units(x)$numerator
+    den <- units(x)$denominator
+    (length(num) == 2) && (length(den) == 0) && (num == c("km", "km"))
+  } else {
+    FALSE
+  }
 }
