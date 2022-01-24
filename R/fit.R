@@ -135,13 +135,7 @@ setMethod(f = "fit_smooths",
             full_smoothed_vars <- c(full_smoothed_vars, response)
             sspm_object@smoothed_vars <- full_smoothed_vars
 
-            # If the user chose not to fit the model, just return the prefit object
-            if (checkmate::test_class(tmp_fit[[response]], "bam.prefit")){
-              return(sspm_object)
-            } else {
-              return(sspm_object)
-            }
-
+            return(sspm_object)
           }
 )
 
