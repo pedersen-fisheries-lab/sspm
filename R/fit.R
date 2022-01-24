@@ -47,6 +47,9 @@ setMethod(f = "fit_smooths",
                    keep_fit, predict,
                    family, drop.unused.levels, method, ...) {
 
+            # Remove units
+            sspm_object <- spm_drop_units(sspm_object)
+
             # Get data
             the_data <- spm_data(sspm_object)
             time_col <- spm_time_column(sspm_object)
@@ -209,4 +212,19 @@ process_formula_vars <- function(vars, the_data, select = TRUE) {
   }
 
   return(vars)
+}
+
+spm_drop_units <- function(sspm_object){
+
+  vars <- c(sspm_object@vars_biomass, sspm_object@vars_density)
+
+  dat <- spm_data(sspm_object)
+
+  for (var in vars){
+    dat[[var]] <- as.numeric(dat[[var]])
+  }
+
+  spm_data(sspm_object) <- dat
+
+  return(sspm_object)
 }
