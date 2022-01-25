@@ -47,8 +47,8 @@ setMethod("plot",
 
             if (checkmate::test_class(x, "sspm_discrete_boundary")) {
 
-              patches <- x@patches
-              points <- x@points
+              patches <- spm_patches(x)
+              points <- spm_points(x)
 
               sspm_discrete_plot <- ggplot2::ggplot() +
                 ggplot2::geom_sf(data = patches,

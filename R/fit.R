@@ -54,7 +54,7 @@ setMethod(f = "fit_smooths",
             patches <- spm_patches(boundaries)
 
             # Initialize/collect smoothed_vars/fit
-            full_smoothed_vars <- sspm_object@smoothed_vars
+            full_smoothed_vars <- spm_smoothed_vars(sspm_object)
             if (is.null(full_smoothed_vars)) {
               full_smoothed_vars <- c()
             }
@@ -130,7 +130,7 @@ setMethod(f = "fit_smooths",
             }
 
             full_smoothed_vars <- c(full_smoothed_vars, response)
-            sspm_object@smoothed_vars <- full_smoothed_vars
+            spm_smoothed_vars(sspm_object) <- full_smoothed_vars
 
             return(sspm_object)
           }

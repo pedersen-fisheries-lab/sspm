@@ -241,8 +241,8 @@ setMethod(f = "predict",
                                           type = type))
             names(preds) <- responses
 
-            biomass_vars <- c(object@biomass)
-            biomass_density_vars <- c(object@density)
+            biomass_vars <- c(spm_biomass_vars(object))
+            biomass_density_vars <- c(spm_density_vars(object))
 
             for (var in names(preds)){
               if (var %in% biomass_vars){

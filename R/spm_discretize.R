@@ -138,7 +138,7 @@ setMethod(f = "spm_discretize",
                                        cli::col_yellow(spm_name(method))))
 
             # Send to discretization routine
-            boundaries <- boundary_object@boundaries
+            boundaries <- spm_boundaries(boundary_object)
             boundary <- spm_boundary(boundary_object)
             other_args <- list(...)
 

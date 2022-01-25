@@ -29,20 +29,13 @@ setMethod(f = "sspm",
                     predictors = "missing"),
           function(biomass, predictors) {
 
-            # if (!checkmate::test_subset(biomass_var,
-            #                             names(spm_data(biomass)))) {
-            #   stop("`biomass_var` must be a column of `biomass`",
-            #        call. = FALSE)
-            # }
-
             new_sspm <- new("sspm",
                             datasets = list(biomass = biomass),
                             time = spm_time(biomass),
-                            # biomass_var = biomass_var,
                             uniqueID = "row_ID",
                             boundaries = spm_boundaries(biomass),
                             smoothed_data = spm_smoothed_data(biomass),
-                            smoothed_vars = biomass@smoothed_vars,
+                            smoothed_vars = spm_smoothed_vars(biomass),
                             is_split = FALSE)
 
           }
@@ -85,12 +78,6 @@ setMethod(f = "sspm",
                                               predictors_boundaries))
               check_identical_boundaries(all_boundaries)
 
-              # if (!checkmate::test_subset(biomass_var,
-              #                             names(spm_data(biomass)))) {
-              #   stop("`biomass_var` must be a column of `biomass`",
-              #        call. = FALSE)
-              # }
-
               # 3. combine the full_smoothed_data/vars
               # TODO message about catch
               info_message <-
@@ -105,7 +92,7 @@ setMethod(f = "sspm",
               }
 
               full_smoothed_data <- biomass_clean
-              full_smoothed_vars <- biomass@smoothed_vars
+              full_smoothed_vars <- spm_smoothed_vars(biomass)
 
               for (predictor in predictors) {
 
@@ -124,7 +111,7 @@ setMethod(f = "sspm",
                                           spm_time(biomass)),
                                    suffix = the_suffix)
 
-                predictor_smoothed_vars <- predictor@smoothed_vars
+                predictor_smoothed_vars <- spm_smoothed_vars(predictor)
 
                 # Check same vars
                 same_vars <-

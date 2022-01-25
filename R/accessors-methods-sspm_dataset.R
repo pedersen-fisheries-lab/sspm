@@ -145,6 +145,76 @@ setMethod("spm_time<-",
           }
 )
 
+# Biomass -----------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_dataset
+#' @export
+setGeneric(name = "spm_biomass_vars",
+           def = function(sspm_object) standardGeneric("spm_biomass_vars")
+)
+
+#' @rdname accessors-methods-sspm_dataset
+#' @export
+setMethod("spm_biomass_vars",
+          signature("sspm_object" = "sspm_dataset"),
+          function(sspm_object) sspm_object@biomass
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_dataset
+#' @export
+setGeneric(name = "spm_biomass_vars<-",
+           def = function(object, value) standardGeneric("spm_biomass_vars<-")
+)
+
+#' @rdname accessors-methods-sspm_dataset
+#' @export
+setMethod("spm_biomass_vars<-",
+          signature("object" = "sspm_dataset"),
+          function(object, value) {
+            object@biomass <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+# Biomass -----------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_dataset
+#' @export
+setGeneric(name = "spm_density_vars",
+           def = function(sspm_object) standardGeneric("spm_density_vars")
+)
+
+#' @rdname accessors-methods-sspm_dataset
+#' @export
+setMethod("spm_density_vars",
+          signature("sspm_object" = "sspm_dataset"),
+          function(sspm_object) sspm_object@density
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_dataset
+#' @export
+setGeneric(name = "spm_density_vars<-",
+           def = function(object, value) standardGeneric("spm_density_vars<-")
+)
+
+#' @rdname accessors-methods-sspm_dataset
+#' @export
+setMethod("spm_density_vars<-",
+          signature("object" = "sspm_dataset"),
+          function(object, value) {
+            object@density <- value
+            validObject(object)
+            return(object)
+          }
+)
+
 # Formulas ----------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 
@@ -233,6 +303,41 @@ setMethod("spm_smoothed_fit<-",
           signature("object" = "sspm_dataset"),
           function(object, value) {
             object@smoothed_fit <- value
+            validObject(object)
+            return(object)
+          }
+)
+
+# Smoothed var ------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_dataset
+#' @export
+setGeneric(name = "spm_smoothed_vars",
+           def = function(sspm_object) standardGeneric("spm_smoothed_vars")
+)
+
+#' @rdname accessors-methods-sspm_dataset
+#' @export
+setMethod("spm_smoothed_vars",
+          signature("sspm_object" = "sspm_dataset"),
+          function(sspm_object) sspm_object@smoothed_vars
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_dataset
+#' @export
+setGeneric(name = "spm_smoothed_vars<-",
+           def = function(object, value) standardGeneric("spm_smoothed_vars<-")
+)
+
+#' @rdname accessors-methods-sspm_dataset
+#' @export
+setMethod("spm_smoothed_vars<-",
+          signature("object" = "sspm_dataset"),
+          function(object, value) {
+            object@smoothed_vars <- value
             validObject(object)
             return(object)
           }

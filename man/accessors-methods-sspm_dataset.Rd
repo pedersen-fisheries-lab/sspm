@@ -15,6 +15,14 @@
 \alias{spm_coords_col<-,sspm_dataset-method}
 \alias{spm_time,sspm_dataset-method}
 \alias{spm_time<-,sspm_dataset-method}
+\alias{spm_biomass_vars}
+\alias{spm_biomass_vars,sspm_dataset-method}
+\alias{spm_biomass_vars<-}
+\alias{spm_biomass_vars<-,sspm_dataset-method}
+\alias{spm_density_vars}
+\alias{spm_density_vars,sspm_dataset-method}
+\alias{spm_density_vars<-}
+\alias{spm_density_vars<-,sspm_dataset-method}
 \alias{spm_formulas}
 \alias{spm_formulas,sspm_dataset-method}
 \alias{spm_formulas<-}
@@ -25,6 +33,10 @@
 \alias{spm_smoothed_fit,sspm_dataset-method}
 \alias{spm_smoothed_fit<-}
 \alias{spm_smoothed_fit<-,sspm_dataset-method}
+\alias{spm_smoothed_vars}
+\alias{spm_smoothed_vars,sspm_dataset-method}
+\alias{spm_smoothed_vars<-}
+\alias{spm_smoothed_vars<-,sspm_dataset-method}
 \alias{is_mapped}
 \alias{is_mapped,sspm_dataset-method}
 \alias{is_mapped<-}
@@ -61,6 +73,22 @@ spm_coords_col(object) <- value
 
 \S4method{spm_time}{sspm_dataset}(object) <- value
 
+spm_biomass_vars(sspm_object)
+
+\S4method{spm_biomass_vars}{sspm_dataset}(sspm_object)
+
+spm_biomass_vars(object) <- value
+
+\S4method{spm_biomass_vars}{sspm_dataset}(object) <- value
+
+spm_density_vars(sspm_object)
+
+\S4method{spm_density_vars}{sspm_dataset}(sspm_object)
+
+spm_density_vars(object) <- value
+
+\S4method{spm_density_vars}{sspm_dataset}(object) <- value
+
 spm_formulas(sspm_object)
 
 \S4method{spm_formulas}{sspm_dataset}(sspm_object)
@@ -80,6 +108,14 @@ spm_smoothed_fit(sspm_object)
 spm_smoothed_fit(object) <- value
 
 \S4method{spm_smoothed_fit}{sspm_dataset}(object) <- value
+
+spm_smoothed_vars(sspm_object)
+
+\S4method{spm_smoothed_vars}{sspm_dataset}(sspm_object)
+
+spm_smoothed_vars(object) <- value
+
+\S4method{spm_smoothed_vars}{sspm_dataset}(object) <- value
 
 is_mapped(sspm_object)
 
