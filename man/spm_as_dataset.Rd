@@ -80,6 +80,8 @@ rows of the data matrix.}
 \item{coords}{\strong{[character]} The column of \code{data} for longitude and
 latitude of the observations.}
 
+\item{...}{Arguments passed onto methods.}
+
 \item{crs}{Coordinate reference system, passed onto \link[=sf]{st_as_sf}.}
 
 \item{boundaries}{\strong{[sspm_boundary]} An object of class

@@ -33,6 +33,26 @@ aggregate the data to the boundary level. Default to FALSE.}
 when possible, prediction intervals.}
 
 \item{next_ts}{\strong{[logical]} For biomass, predict next timestep.}
+
+\item{type}{ When this has the value \code{"link"} (default) the linear predictor (possibly with
+associated standard errors) is returned. When \code{type="terms"} each component of the 
+linear predictor is returned seperately (possibly with standard errors): this includes 
+parametric model components, followed by each smooth component, but excludes
+any offset and any intercept. \code{type="iterms"} is the same, except that any standard errors 
+returned for smooth components will include the uncertainty about the intercept/overall mean.  When 
+\code{type="response"} predictions 
+on the scale of the response are returned (possibly with approximate
+standard errors). When \code{type="lpmatrix"} then a matrix is returned
+which yields the values of the linear predictor (minus any offset) when
+postmultiplied by the
+parameter vector (in this case \code{se.fit} is ignored). The latter
+option is most useful for getting variance estimates for quantities derived from
+the model: for example integrated quantities, or derivatives of smooths. A
+linear predictor matrix can also be used to implement approximate prediction
+outside \code{R} (see example code, below). }
+
+\item{discrete}{\strong{[logical]} If \code{new_data} is NULL, whether to predict
+based on a discrete prediction matrix (default to TRUE).}
 }
 \value{
 A \code{dataframe} of predictions.

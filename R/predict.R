@@ -4,12 +4,15 @@
 #'
 #' @param object *\[sspm_fit\]** Fit object to predict from.
 #' @param new_data **\[data.frame\]** New data to predict with.
+#' @param discrete **\[logical\]** If `new_data` is NULL, whether to predict
+#'    based on a discrete prediction matrix (default to TRUE).
 #' @param biomass **\[character\]** Biomass variable.
 #' @param aggregate **\[logical\]** For biomass predictions only, whether to
 #'    aggregate the data to the boundary level. Default to FALSE.
 #' @param interval **\[logical\]** Whether or not to calculate confidence, and
 #'    when possible, prediction intervals.
 #' @param next_ts **\[logical\]** For biomass, predict next timestep.
+#' @inheritParams mgcv::predict.bam
 #'
 #' @return
 #' A `dataframe` of predictions.

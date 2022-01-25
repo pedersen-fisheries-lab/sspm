@@ -17,6 +17,7 @@
 #'     rows of the data matrix.
 #' @param crs Coordinate reference system, passed onto [st_as_sf][sf].
 #' @inheritParams spm_smooth
+#' @param ... Arguments passed onto methods.
 #'
 #' @return
 #' An object of class [`sspm_dataset`][sspm_dataset-class].
