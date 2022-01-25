@@ -128,7 +128,7 @@ setMethod(f = "spm_aggregate_catch",
                   log(dplyr::lag(.data[[biomass_variable]], default = NA)),
                 # Make sure to drop units, as the backticks heuristic units uses
                 # does not work in this case
-                log_productivity = units::drop_units(log_productivity),
+                log_productivity = units::drop_units(.data$log_productivity),
                 productivity = exp(.data$log_productivity)) %>%
 
               dplyr::ungroup() %>%
