@@ -55,10 +55,14 @@
   <span class="va">object</span>,
   new_data <span class="op">=</span> <span class="cn">NULL</span>,
   biomass <span class="op">=</span> <span class="cn">NULL</span>,
-  next_ts <span class="op">=</span> <span class="cn">FALSE</span>,
   aggregate <span class="op">=</span> <span class="cn">FALSE</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+  interval <span class="op">=</span> <span class="cn">FALSE</span>,
+  next_ts <span class="op">=</span> <span class="cn">FALSE</span>,
+  type <span class="op">=</span> <span class="st">"response"</span>
+<span class="op">)</span>
+
+<span class="co"># S4 method for sspm_dataset</span>
+<span class="fu">predict</span><span class="op">(</span><span class="va">object</span>, new_data <span class="op">=</span> <span class="cn">NULL</span>, discrete <span class="op">=</span> <span class="cn">TRUE</span>, type <span class="op">=</span> <span class="st">"response"</span><span class="op">)</span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -69,13 +73,34 @@
 <dd><p><strong>[data.frame]</strong> New data to predict with.</p></dd>
 <dt>biomass</dt>
 <dd><p><strong>[character]</strong> Biomass variable.</p></dd>
-<dt>next_ts</dt>
-<dd><p><strong>[logical]</strong> For biomass, predict next timestep.</p></dd>
 <dt>aggregate</dt>
 <dd><p><strong>[logical]</strong> For biomass predictions only, whether to
 aggregate the data to the boundary level. Default to FALSE.</p></dd>
-<dt>...</dt>
-<dd><p>Arguments passed on to <a href="https://rdrr.io/pkg/mgcv/man/predict.bam.html" class="external-link">predict.bam</a>.</p></dd>
+<dt>interval</dt>
+<dd><p><strong>[logical]</strong> Whether or not to calculate confidence, and
+when possible, prediction intervals.</p></dd>
+<dt>next_ts</dt>
+<dd><p><strong>[logical]</strong> For biomass, predict next timestep.</p></dd>
+<dt>type</dt>
+<dd><p>When this has the value <code>"link"</code> (default) the linear predictor (possibly with
+associated standard errors) is returned. When <code>type="terms"</code> each component of the 
+linear predictor is returned seperately (possibly with standard errors): this includes 
+parametric model components, followed by each smooth component, but excludes
+any offset and any intercept. <code>type="iterms"</code> is the same, except that any standard errors 
+returned for smooth components will include the uncertainty about the intercept/overall mean.  When 
+<code>type="response"</code> predictions 
+on the scale of the response are returned (possibly with approximate
+standard errors). When <code>type="lpmatrix"</code> then a matrix is returned
+which yields the values of the linear predictor (minus any offset) when
+postmultiplied by the
+parameter vector (in this case <code>se.fit</code> is ignored). The latter
+option is most useful for getting variance estimates for quantities derived from
+the model: for example integrated quantities, or derivatives of smooths. A
+linear predictor matrix can also be used to implement approximate prediction
+outside <code>R</code> (see example code, below).</p></dd>
+<dt>discrete</dt>
+<dd><p><strong>[logical]</strong> If <code>new_data</code> is NULL, whether to predict
+based on a discrete prediction matrix (default to TRUE).</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -94,7 +119,7 @@ aggregate the data to the boundary level. Default to FALSE.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>

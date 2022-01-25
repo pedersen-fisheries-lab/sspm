@@ -76,6 +76,7 @@
   biomass <span class="op">=</span> <span class="cn">NULL</span>,
   next_ts <span class="op">=</span> <span class="cn">FALSE</span>,
   aggregate <span class="op">=</span> <span class="cn">FALSE</span>,
+  interval <span class="op">=</span> <span class="cn">FALSE</span>,
   biomass_origin <span class="op">=</span> <span class="cn">NULL</span>,
   use_sf <span class="op">=</span> <span class="cn">FALSE</span>,
   page <span class="op">=</span> <span class="st">"first"</span>,
@@ -95,7 +96,7 @@
 <dt>...</dt>
 <dd><p>NOT USED (from generic).</p></dd>
 <dt>var</dt>
-<dd><p><strong>[character]</strong> (for sspm_dataset) Variable to plot.</p></dd>
+<dd><p><strong>[character]</strong> (For sspm_dataset) Variable to plot.</p></dd>
 <dt>use_sf</dt>
 <dd><p><strong>[logical]</strong> Whether to produce a spatial plot.</p></dd>
 <dt>page</dt>
@@ -105,7 +106,8 @@
 <dt>ncol</dt>
 <dd><p>Number of columns per page</p></dd>
 <dt>log</dt>
-<dd><p><strong>[logical]</strong> Whether to plot on a log scale, default to TRUE.</p></dd>
+<dd><p><strong>[logical]</strong> For productivity, whether to plot log productivity,
+(default to FALSE) for others, whether to plot on a log scale (default to TRUE).</p></dd>
 <dt>scales</dt>
 <dd><p>Are scales shared across all facets (the default,
 <code>"fixed"</code>), or do they vary across rows (<code>"free_x"</code>),
@@ -122,6 +124,9 @@ for next timestep.</p></dd>
 <dt>aggregate</dt>
 <dd><p><strong>[logical]</strong> (For sspm_fit) For biomass predictions only,
 whether to aggregate the data to the boundary level. Default to FALSE.</p></dd>
+<dt>interval</dt>
+<dd><p><strong>[logical]</strong> (For sspm_fit) Whether to plot CI and Pi
+intervals.</p></dd>
 <dt>biomass_origin</dt>
 <dd><p><strong>[character]</strong> Biomass variable to plot (from
 original dataset, optionnal).</p></dd>
@@ -143,7 +148,7 @@ original dataset, optionnal).</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer></div>
