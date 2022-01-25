@@ -104,7 +104,7 @@ setMethod(f = "spm_smooth",
 
             # Check that response is a density
             response <- spm_response(sspm_formula)
-            if (!checkmate::test_choice(response, sspm_object@vars_density)){
+            if (!checkmate::test_choice(response, sspm_object@density)){
               cli::cli_alert_warning(
                 paste0(" Response variable ", cli::col_br_red(response),
                        " is NOT a biomass density variable"))
@@ -133,6 +133,30 @@ setMethod(f = "spm_smooth",
 
 # Helpers -----------------------------------------------------------------
 
+# Join datasets to patches
+join_datasets <- function(sspm_dataset, sspm_boundary) {
+
+  checkmate::assert_class(sspm_dataset, "sspm_dataset")
+  checkmate::assert_class(sspm_boundary, "sspm_discrete_boundary")
+
+  the_data <- spm_data(sspm_dataset)
+  the_patches <- sspm_boundary@patches
+
+  # TODO REVIEW THE COHERENCE OF ST_TRANSFORM
+  joined <- suppressMessages(sf::st_transform(the_data, crs = sf::st_crs(the_patches)))
+  # TODO joining patches to points but should be the opposite, keeping for rep for now
+  joined <- suppressMessages(sf::st_join(the_patches, the_data,
+                                         suffix	= c("", "_dup"))) %>%
+    dplyr::filter(!duplicated(.data[[spm_unique_ID(sspm_dataset)]])) %>%
+    dplyr::filter(!is.na(.data$patch_id))
+
+  spm_data(sspm_dataset) <- joined
+  spm_boundaries(sspm_dataset) <- sspm_boundary
+  is_mapped(sspm_dataset) <- TRUE
+
+  return(sspm_dataset)
+}
+
 # Takes care of joining things when prediction is made
 join_smoothed_datasets <- function(sspm_object, preds_df){
 
@@ -151,6 +175,7 @@ join_smoothed_datasets <- function(sspm_object, preds_df){
       dplyr::left_join(patches, by = c("patch_id"),
                        suffix = c("", "_duplicate")) %>%
       dplyr::select(-c(dplyr::ends_with("_duplicate")))
+
 
   } else {
 
