@@ -15,18 +15,18 @@
 \alias{spm_points,sspm_discrete_boundary-method}
 \alias{spm_points<-}
 \alias{spm_points<-,sspm_discrete_boundary-method}
-\alias{spm_boundary_column}
-\alias{spm_boundary_column,sspm_boundary-method}
-\alias{spm_boundary_column<-}
-\alias{spm_boundary_column<-,sspm_boundary-method}
-\alias{spm_boundary_area_column}
-\alias{spm_boundary_area_column,sspm_boundary-method}
-\alias{spm_boundary_area_column<-}
-\alias{spm_boundary_area_column<-,sspm_boundary-method}
-\alias{spm_patches_area_column}
-\alias{spm_patches_area_column,sspm_discrete_boundary-method}
-\alias{spm_patches_area_column<-}
-\alias{spm_patches_area_column<-,sspm_discrete_boundary-method}
+\alias{spm_boundary}
+\alias{spm_boundary,sspm_boundary-method}
+\alias{spm_boundary<-}
+\alias{spm_boundary<-,sspm_boundary-method}
+\alias{spm_boundary_area}
+\alias{spm_boundary_area,sspm_boundary-method}
+\alias{spm_boundary_area<-}
+\alias{spm_boundary_area<-,sspm_boundary-method}
+\alias{spm_patches_area}
+\alias{spm_patches_area,sspm_discrete_boundary-method}
+\alias{spm_patches_area<-}
+\alias{spm_patches_area<-,sspm_discrete_boundary-method}
 \title{Accessing OR replacing \code{sspm_boundary} model elements}
 \usage{
 \S4method{spm_boundaries}{sspm_boundary}(sspm_object)
@@ -57,29 +57,29 @@ spm_points(object) <- value
 
 \S4method{spm_points}{sspm_discrete_boundary}(object) <- value
 
-spm_boundary_column(sspm_object)
+spm_boundary(sspm_object)
 
-\S4method{spm_boundary_column}{sspm_boundary}(sspm_object)
+\S4method{spm_boundary}{sspm_boundary}(sspm_object)
 
-spm_boundary_column(object) <- value
+spm_boundary(object) <- value
 
-\S4method{spm_boundary_column}{sspm_boundary}(object) <- value
+\S4method{spm_boundary}{sspm_boundary}(object) <- value
 
-spm_boundary_area_column(sspm_object)
+spm_boundary_area(sspm_object)
 
-\S4method{spm_boundary_area_column}{sspm_boundary}(sspm_object)
+\S4method{spm_boundary_area}{sspm_boundary}(sspm_object)
 
-spm_boundary_area_column(object) <- value
+spm_boundary_area(object) <- value
 
-\S4method{spm_boundary_area_column}{sspm_boundary}(object) <- value
+\S4method{spm_boundary_area}{sspm_boundary}(object) <- value
 
-spm_patches_area_column(sspm_object)
+spm_patches_area(sspm_object)
 
-\S4method{spm_patches_area_column}{sspm_discrete_boundary}(sspm_object)
+\S4method{spm_patches_area}{sspm_discrete_boundary}(sspm_object)
 
-spm_patches_area_column(object) <- value
+spm_patches_area(object) <- value
 
-\S4method{spm_patches_area_column}{sspm_discrete_boundary}(object) <- value
+\S4method{spm_patches_area}{sspm_discrete_boundary}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_boundary]} An object of class

@@ -36,19 +36,19 @@ setMethod("spm_unique_ID<-",
 
 #' @rdname accessors-methods-sspm_fit
 #' @export
-setMethod("spm_time_column",
+setMethod("spm_time",
           signature("sspm_object" = "sspm_fit"),
-          function(sspm_object) sspm_object@time_column
+          function(sspm_object) sspm_object@time
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @rdname accessors-methods-sspm_fit
 #' @export
-setMethod("spm_time_column<-",
+setMethod("spm_time<-",
           signature("object" = "sspm_fit"),
           function(object, value) {
-            object@time_column <- value
+            object@time <- value
             validObject(object)
             return(object)
           }
@@ -164,18 +164,18 @@ setMethod("spm_boundaries<-",
 
 #' @rdname accessors-methods-sspm_fit
 #' @export
-setMethod("spm_boundary_column", signature("sspm_object" = "sspm_fit"),
-          function(sspm_object) sspm_object@boundaries@boundary_column
+setMethod("spm_boundary", signature("sspm_object" = "sspm_fit"),
+          function(sspm_object) sspm_object@boundaries@boundary
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @rdname accessors-methods-sspm_fit
 #' @export
-setMethod("spm_boundary_column<-",
+setMethod("spm_boundary<-",
           signature("object" = "sspm_fit"),
           function(object, value) {
-            object@boundaries@boundary_column <- value
+            object@boundaries@boundary <- value
             validObject(object)
             return(object)
           }

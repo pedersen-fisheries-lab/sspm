@@ -52,7 +52,7 @@ Custom discretization functions can be written. The function must:
 \enumerate{
 \item Accept at least 1 argument: \strong{boundaries} (the \code{sf} boundary object),
 and optionnaly \strong{with} (can be NULL) a separate object to be used for
-discretization and \strong{boundary_column}, the boundary column of
+discretization and \strong{boundary}, the boundary column of
 \strong{boundaries} (these last 2 arguments are passed and connot be
 overwritten but could be ignored).
 \item Returns a named list with 2 elements: \code{patches}. an \code{sf} object that

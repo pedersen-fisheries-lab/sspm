@@ -43,7 +43,7 @@ setMethod("plot",
           definition = function(x, y, ...) {
 
             boundaries <- spm_boundaries(x)
-            boundary_column <- spm_boundary_column(x)
+            boundary <- spm_boundary(x)
 
             if (checkmate::test_class(x, "sspm_discrete_boundary")) {
 
@@ -54,9 +54,9 @@ setMethod("plot",
                 ggplot2::geom_sf(data = patches,
                                  fill = NA, col = "#36454F") +
                 ggplot2::geom_sf(data = boundaries,
-                                 ggplot2::aes(col = .data[[boundary_column]]),
+                                 ggplot2::aes(col = .data[[boundary]]),
                                  fill = NA) +
-                ggplot2::scale_color_viridis_d(boundary_column) +
+                ggplot2::scale_color_viridis_d(boundary) +
                 ggplot2::theme_light()
 
               if(!is.null(points)){
@@ -68,9 +68,9 @@ setMethod("plot",
 
               sspm_discrete_plot <- ggplot2::ggplot() +
                 ggplot2::geom_sf(data = boundaries,
-                                 ggplot2::aes(fill = .data[[boundary_column]]),
+                                 ggplot2::aes(fill = .data[[boundary]]),
                                  col = "#36454F") +
-                ggplot2::scale_fill_viridis_d(boundary_column) +
+                ggplot2::scale_fill_viridis_d(boundary) +
                 ggplot2::theme_light()
 
             }
@@ -97,7 +97,7 @@ setMethod("plot",
 
             smoothed_data <- smoothed_data %>%
               dplyr::mutate(color = "Smoothed")
-            time_col <- spm_time_column(x)
+            time_col <- spm_time(x)
 
             if (is.null(var)) {
 
@@ -110,7 +110,7 @@ setMethod("plot",
                 stop("`var` must be a column of the smoothed data", call. = FALSE)
               }
 
-              time_col <- spm_time_column(x)
+              time_col <- spm_time(x)
 
               color_profile <- c("Smoothed" = "black")
 
@@ -158,7 +158,7 @@ setMethod("plot",
                 ggplot2::theme_light() +
                 ggplot2::labs(x = "actual") +
                 ggplot2::scale_color_viridis_d("Set") +
-                ggplot2::facet_wrap(~.data[[spm_boundary_column(x)]],
+                ggplot2::facet_wrap(~.data[[spm_boundary(x)]],
                                     scales = scales) +
                 ggplot2::geom_abline(slope = 1, intercept = 0,
                                      lty = 2, size = 0.2)
@@ -169,8 +169,8 @@ setMethod("plot",
 
                 color_profile <- c("Predictions" = "red")
 
-                boundary_col <- spm_boundary_column(x)
-                patch_area_col <- spm_patches_area_column(spm_boundaries(x))
+                boundary_col <- spm_boundary(x)
+                patch_area_col <- spm_patches_area(spm_boundaries(x))
 
                 checkmate::assert_character(biomass)
 
@@ -188,7 +188,7 @@ setMethod("plot",
                                            aggregate = aggregate) %>%
                     dplyr::mutate(color = next_ts_label)
 
-                  time_col <- spm_time_column(x)
+                  time_col <- spm_time(x)
                   mext_ts_timestep <- max(unique(next_ts_preds[[time_col]]))-1
 
                   biomass_preds_previous <- biomass_preds %>%
@@ -206,8 +206,8 @@ setMethod("plot",
                         "firebrick")
                 }
 
-                time_col <- spm_time_column(x)
-                boundary_col <- spm_boundary_column(x)
+                time_col <- spm_time(x)
+                boundary_col <- spm_boundary(x)
 
                 if (is.null(biomass_origin)){
                   # TODO check presence of column in data frame
@@ -245,7 +245,7 @@ setMethod("plot",
 
               } else {
 
-                boundary_col <- spm_boundary_column(x)
+                boundary_col <- spm_boundary(x)
 
                 prod_preds <- predict(x, aggregate = aggregate,
                                       interval = interval) %>%
@@ -258,7 +258,7 @@ setMethod("plot",
                 prod_preds <- prod_preds %>%
                   dplyr::bind_rows(actual)
 
-                time_col <- spm_time_column(x)
+                time_col <- spm_time(x)
 
                 color_profile <- c("Predictions" = "red",
                                    "Actual" = "black")

@@ -127,19 +127,19 @@ setMethod("spm_coords_col<-",
 
 #' @rdname accessors-methods-sspm_dataset
 #' @export
-setMethod("spm_time_column",
+setMethod("spm_time",
           signature("sspm_object" = "sspm_dataset"),
-          function(sspm_object) sspm_object@time_column
+          function(sspm_object) sspm_object@time
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @rdname accessors-methods-sspm_dataset
 #' @export
-setMethod("spm_time_column<-",
+setMethod("spm_time<-",
           signature("object" = "sspm_dataset"),
           function(object, value) {
-            object@time_column <- value
+            object@time <- value
             validObject(object)
             return(object)
           }

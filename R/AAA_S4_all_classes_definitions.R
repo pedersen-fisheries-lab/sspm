@@ -43,9 +43,9 @@ setClass("discretization_method",
 #' object(s) of class `sspm_boundary` from an `sf` object.
 #'
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
-#' @slot boundary_column **\[character\]** The column of `data` that represents the
+#' @slot boundary **\[character\]** The column of `data` that represents the
 #'     spatial boundaries.
-#' @slot boundary_area_column **\[character\]** The column of `data` that represents the
+#' @slot boundary_area **\[character\]** The column of `data` that represents the
 #'     area of spatial boundaries.
 #' @slot method **\[[discretization_method][discretization_method-class]\]**
 #'     *(if discrete)* discretization method used.
@@ -53,7 +53,7 @@ setClass("discretization_method",
 #'     discretization.
 #' @slot points **\[sf or NULL\]** *(if discrete)* Sample points used for
 #'     discretization.
-#' @slot patches_area_column **\[character\]** The column of `data` that represents the
+#' @slot patches_area **\[character\]** The column of `data` that represents the
 #'     area of patches.
 #'
 #' @name sspm_boundary-class
@@ -61,14 +61,14 @@ setClass("discretization_method",
 #'
 setClass("sspm_boundary",
          slots = list(boundaries = "sf",
-                      boundary_column = "character",
-                      boundary_area_column = "character")
+                      boundary = "character",
+                      boundary_area = "character")
 )
 
 #' @describeIn sspm_boundary-class sspm_discrete_boundary
 setClass("sspm_discrete_boundary",
          slots = list(method = "discretization_method",
-                      patches_area_column = "character",
+                      patches_area = "character",
                       patches = "sf",
                       points = "ANY"),
          contains = "sspm_boundary"
@@ -89,7 +89,7 @@ setClassUnion("sspm_discrete_boundaryOrNULL", c("sspm_discrete_boundary", "NULL"
 #' @slot data **\[data.frame OR sf OR tibble\]** The dataset.
 #' @slot biomass **\[character\]** The biomass columns of `data`.
 #' @slot density **\[character\]** The biomass density columns of `data`.
-#' @slot time_column **\[character\]** The column of `data` that represents the
+#' @slot time **\[character\]** The column of `data` that represents the
 #'     temporal dimension of the dataset.
 #' @slot coords **\[character\]** The columns of `data` that represent the
 #'     spatial dimension of the dataset: the two columns for longitude and
@@ -114,7 +114,7 @@ setClass("sspm_dataset",
                       data = "ANY",
                       biomass = "characterOrNULL",
                       density = "characterOrNULL",
-                      time_column = "character",
+                      time = "character",
                       coords = "characterOrNULL",
                       uniqueID = "character",
                       boundaries = "sspm_discrete_boundary",
@@ -167,7 +167,7 @@ setClass("sspm_formula",
 #'
 #' @slot datasets **\[list\]** List of
 #'     [sspm_dataset][sspm_dataset-class] that define variables in the SPM model.
-#' @slot time_column **\[character\]** The column of `data` that represents the
+#' @slot time **\[character\]** The column of `data` that represents the
 #'     temporal dimension of the dataset.
 # @slot biomass_var **\[character\]** The column of `datasets` that
 #     represents the biomass.
@@ -183,7 +183,7 @@ setClass("sspm_formula",
 #' @rdname sspm-class
 setClass("sspm",
          slots = list(datasets = "list",
-                      time_column = "character",
+                      time = "character",
                       uniqueID = "character",
                       boundaries = "sspm_discrete_boundary",
                       smoothed_data = "ANY",
@@ -200,7 +200,7 @@ setClass("sspm",
 #' The fit object for a sspm model
 #'
 #' @slot smoothed_data **\[ANY (sf)\]** The smoothed data.
-#' @slot time_column **\[character\]** The column of `smoothed_data` that
+#' @slot time **\[character\]** The column of `smoothed_data` that
 #'     represents the temporal dimension of the dataset.
 # @slot biomass_var **\[character\]** The column of `smoothed_data` that
 #     represents the biomass.
@@ -215,7 +215,7 @@ setClass("sspm",
 #' @rdname sspm_fit-class
 setClass("sspm_fit",
          slots = list(smoothed_data = "ANY",
-                      time_column = "character",
+                      time = "character",
                       uniqueID = "character",
                       formula = "sspm_formula",
                       boundaries = "sspm_discrete_boundary",

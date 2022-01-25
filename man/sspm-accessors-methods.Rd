@@ -16,10 +16,10 @@
 \alias{spm_smoothed_data,sspm-method}
 \alias{spm_smoothed_data<-}
 \alias{spm_smoothed_data<-,sspm-method}
-\alias{spm_time_column}
-\alias{spm_time_column,sspm-method}
-\alias{spm_time_column<-}
-\alias{spm_time_column<-,sspm-method}
+\alias{spm_time}
+\alias{spm_time,sspm-method}
+\alias{spm_time<-}
+\alias{spm_time<-,sspm-method}
 \alias{is_split}
 \alias{is_split,sspm-method}
 \alias{is_split<-}
@@ -58,13 +58,13 @@ spm_smoothed_data(object) <- value
 
 \S4method{spm_smoothed_data}{sspm}(object) <- value
 
-spm_time_column(sspm_object)
+spm_time(sspm_object)
 
-\S4method{spm_time_column}{sspm}(sspm_object)
+\S4method{spm_time}{sspm}(sspm_object)
 
-spm_time_column(object) <- value
+spm_time(object) <- value
 
-\S4method{spm_time_column}{sspm}(object) <- value
+\S4method{spm_time}{sspm}(object) <- value
 
 is_split(sspm_object)
 

@@ -19,7 +19,7 @@ object(s) of class \code{sspm_dataset} from a \code{data.frame}, \code{tibble} o
 
 \item{\code{density}}{\strong{[character]} The biomass density columns of \code{data}.}
 
-\item{\code{time_column}}{\strong{[character]} The column of \code{data} that represents the
+\item{\code{time}}{\strong{[character]} The column of \code{data} that represents the
 temporal dimension of the dataset.}
 
 \item{\code{coords}}{\strong{[character]} The columns of \code{data} that represent the

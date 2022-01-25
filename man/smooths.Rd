@@ -14,7 +14,7 @@
 smooth_time(
   data_frame,
   boundaries,
-  time_column,
+  time,
   type = "ICAR",
   k = NULL,
   bs = "re",
@@ -26,7 +26,7 @@ smooth_time(
 smooth_space(
   data_frame,
   boundaries,
-  time_column,
+  time,
   type = "ICAR",
   k = NULL,
   bs = "mrf",
@@ -38,7 +38,7 @@ smooth_space(
 smooth_space_time(
   data_frame,
   boundaries,
-  time_column,
+  time,
   type = "ICAR",
   k = NULL,
   bs = c("re", "mrf"),
@@ -51,7 +51,7 @@ smooth_lag(
   var,
   data_frame,
   boundaries,
-  time_column,
+  time,
   type = "LINPRED",
   k = 5,
   m = 1,
@@ -61,7 +61,7 @@ smooth_lag(
 \S4method{smooth_time}{sf,sspm_discrete_boundary}(
   data_frame,
   boundaries,
-  time_column,
+  time,
   type = "ICAR",
   k = NULL,
   bs = "re",
@@ -73,7 +73,7 @@ smooth_lag(
 \S4method{smooth_space}{sf,sspm_discrete_boundary}(
   data_frame,
   boundaries,
-  time_column,
+  time,
   type = "ICAR",
   k = NULL,
   bs = "mrf",
@@ -85,7 +85,7 @@ smooth_lag(
 \S4method{smooth_space_time}{sf,sspm_discrete_boundary}(
   data_frame,
   boundaries,
-  time_column,
+  time,
   type = "ICAR",
   k = NULL,
   bs = c("re", "mrf"),
@@ -98,7 +98,7 @@ smooth_lag(
   var,
   data_frame,
   boundaries,
-  time_column,
+  time,
   type = "LINPRED",
   k = 5,
   m = 1,
@@ -111,7 +111,7 @@ smooth_lag(
 \item{boundaries}{\strong{[sspm_boundary]} An object of class
 \link[=sspm_boundary-class]{sspm_discrete_boundary}.}
 
-\item{time_column}{\strong{[character]} The time column.}
+\item{time}{\strong{[character]} The time column.}
 
 \item{type}{\strong{[character]} Type of smooth, currently only "ICAR" is
 supported.}

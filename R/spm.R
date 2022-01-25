@@ -50,14 +50,14 @@ setMethod(f = "spm",
             #   dplyr::filter(.data$train_test == TRUE)
 
             # 2. call map_formula
-            time_column <- spm_time_column(sspm_object)
+            time <- spm_time(sspm_object)
             boundaries <- spm_boundaries(sspm_object)
 
             # Pass onto the sspm_dataset method
             sspm_formula <- map_formula(data_frame = all_data,
                                         boundaries = boundaries,
                                         formula = formula,
-                                        time_column = time_column,
+                                        time = time,
                                         ...)
 
             # Call the fit function
@@ -67,7 +67,7 @@ setMethod(f = "spm",
 
             sspm_fit <- new("sspm_fit",
                             smoothed_data = all_data,
-                            time_column = spm_time_column(sspm_object),
+                            time = spm_time(sspm_object),
                             uniqueID = spm_unique_ID(sspm_object),
                             formula = sspm_formula,
                             boundaries = spm_boundaries(sspm_object),

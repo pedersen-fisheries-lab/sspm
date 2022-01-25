@@ -13,7 +13,7 @@ The \strong{\code{sspm}} model object, made from biomass, predictor and catch da
 \item{\code{datasets}}{\strong{[list]} List of
 \link[=sspm_dataset-class]{sspm_dataset} that define variables in the SPM model.}
 
-\item{\code{time_column}}{\strong{[character]} The column of \code{data} that represents the
+\item{\code{time}}{\strong{[character]} The column of \code{data} that represents the
 temporal dimension of the dataset.}
 
 \item{\code{uniqueID}}{\strong{[character]} The column of \code{datasets} that is unique for

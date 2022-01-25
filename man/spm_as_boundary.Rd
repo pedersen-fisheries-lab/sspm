@@ -10,63 +10,63 @@
 \usage{
 spm_as_boundary(
   boundaries,
-  boundary_column,
+  boundary,
   patches = NULL,
   points = NULL,
-  boundary_area_column = NULL,
-  patch_area_column = NULL
+  boundary_area = NULL,
+  patch_area = NULL
 )
 
 \S4method{spm_as_boundary}{missing,ANY,ANY,ANY}(
   boundaries,
-  boundary_column,
+  boundary,
   patches = NULL,
   points = NULL,
-  boundary_area_column = NULL,
-  patch_area_column = NULL
+  boundary_area = NULL,
+  patch_area = NULL
 )
 
 \S4method{spm_as_boundary}{ANY,missing,ANY,ANY}(
   boundaries,
-  boundary_column,
+  boundary,
   patches = NULL,
   points = NULL,
-  boundary_area_column = NULL,
-  patch_area_column = NULL
+  boundary_area = NULL,
+  patch_area = NULL
 )
 
 \S4method{spm_as_boundary}{sf,character,missing,missing}(
   boundaries,
-  boundary_column,
+  boundary,
   patches = NULL,
   points = NULL,
-  boundary_area_column = NULL,
-  patch_area_column = NULL
+  boundary_area = NULL,
+  patch_area = NULL
 )
 
 \S4method{spm_as_boundary}{sf,character,ANY,ANY}(
   boundaries,
-  boundary_column,
+  boundary,
   patches = NULL,
   points = NULL,
-  boundary_area_column = NULL,
-  patch_area_column = NULL
+  boundary_area = NULL,
+  patch_area = NULL
 )
 }
 \arguments{
 \item{boundaries}{\strong{[sf]} The sf object to cast.}
 
-\item{boundary_column}{\strong{[character]} The column that contains the possible
+\item{boundary}{\strong{[character]} The column that contains the possible
 subdivisions of the boundaries.}
 
 \item{patches}{\strong{[sf]} Patches resulting from discretization.}
 
 \item{points}{\strong{[sf]} Sample points used for discretization.}
 
-\item{boundary_area_column}{\strong{[character]} The column that contains the area
+\item{boundary_area}{\strong{[character]} The column that contains the area
 of the subdivisions (optional).}
 
-\item{patch_area_column}{\strong{[character]} The column that contains the area
+\item{patch_area}{\strong{[character]} The column that contains the area
 of the patches (optional).}
 }
 \value{

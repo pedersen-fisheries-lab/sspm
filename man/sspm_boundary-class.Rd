@@ -19,10 +19,10 @@ object(s) of class \code{sspm_boundary} from an \code{sf} object.
 \describe{
 \item{\code{boundaries}}{\strong{[sf]} Spatial boundaries (polygons).}
 
-\item{\code{boundary_column}}{\strong{[character]} The column of \code{data} that represents the
+\item{\code{boundary}}{\strong{[character]} The column of \code{data} that represents the
 spatial boundaries.}
 
-\item{\code{boundary_area_column}}{\strong{[character]} The column of \code{data} that represents the
+\item{\code{boundary_area}}{\strong{[character]} The column of \code{data} that represents the
 area of spatial boundaries.}
 
 \item{\code{method}}{\strong{[\link[=discretization_method-class]{discretization_method}]}
@@ -34,7 +34,7 @@ discretization.}
 \item{\code{points}}{\strong{[sf or NULL]} \emph{(if discrete)} Sample points used for
 discretization.}
 
-\item{\code{patches_area_column}}{\strong{[character]} The column of \code{data} that represents the
+\item{\code{patches_area}}{\strong{[character]} The column of \code{data} that represents the
 area of patches.}
 }}
 

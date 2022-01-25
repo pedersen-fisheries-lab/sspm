@@ -12,7 +12,7 @@ The fit object for a sspm model
 \describe{
 \item{\code{smoothed_data}}{\strong{[ANY (sf)]} The smoothed data.}
 
-\item{\code{time_column}}{\strong{[character]} The column of \code{smoothed_data} that
+\item{\code{time}}{\strong{[character]} The column of \code{smoothed_data} that
 represents the temporal dimension of the dataset.}
 
 \item{\code{uniqueID}}{\strong{[character]} The column of \code{smoothed_data} that is unique

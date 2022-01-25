@@ -8,12 +8,12 @@
 \alias{spm_as_dataset,sf,ANY,ANY,ANY,ANY-method}
 \title{Create a \code{sspm_dataset} dataset structure}
 \usage{
-spm_as_dataset(data, name, time_column, uniqueID, coords = NULL, ...)
+spm_as_dataset(data, name, time, uniqueID, coords = NULL, ...)
 
 \S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,missingOrNULL}(
   data,
   name,
-  time_column,
+  time,
   uniqueID,
   coords,
   crs = NULL,
@@ -27,7 +27,7 @@ spm_as_dataset(data, name, time_column, uniqueID, coords = NULL, ...)
 \S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,list}(
   data,
   name,
-  time_column,
+  time,
   uniqueID,
   coords,
   crs = NULL,
@@ -41,7 +41,7 @@ spm_as_dataset(data, name, time_column, uniqueID, coords = NULL, ...)
 \S4method{spm_as_dataset}{data.frame,ANY,ANY,ANY,character}(
   data,
   name,
-  time_column,
+  time,
   uniqueID,
   coords,
   crs = NULL,
@@ -55,7 +55,7 @@ spm_as_dataset(data, name, time_column, uniqueID, coords = NULL, ...)
 \S4method{spm_as_dataset}{sf,ANY,ANY,ANY,ANY}(
   data,
   name,
-  time_column,
+  time,
   uniqueID,
   coords,
   crs = NULL,
@@ -71,7 +71,7 @@ spm_as_dataset(data, name, time_column, uniqueID, coords = NULL, ...)
 
 \item{name}{\strong{[character]} The name of the dataset, default to "Biomass".}
 
-\item{time_column}{\strong{[character]} The column of \code{data} for the temporal
+\item{time}{\strong{[character]} The column of \code{data} for the temporal
 dimensions (i.e. year).}
 
 \item{uniqueID}{\strong{[character]} The column of \code{data} that is unique for all

@@ -4,7 +4,7 @@
 #'
 #' @param boundaries **\[sf\]** The boundaries to be used.
 #' @param with **\[sf\]** A set of data points to use for voronoisation.
-#' @param boundary_column **\[character\]** The column in `boundaries` that is to
+#' @param boundary **\[character\]** The column in `boundaries` that is to
 #'     be used for the stratified sampling.
 #'
 #' @param sample_surface **\[logical]** Whether to sample the surfaces in
@@ -13,7 +13,7 @@
 #'     to take all points in `with`. Default to `TRUE`.
 #'
 #' @param nb_samples **\[named character vector\]** The number of samples to draw
-#'     by boundary polygons (must bear the levels of `boundary_column` as names
+#'     by boundary polygons (must bear the levels of `boundary` as names
 #'     or be a single value to be applied to each level).
 #' @param min_size **\[numeric\]** The minimum size for a triangle above which it
 #'     will be merged (in km2).
@@ -31,7 +31,7 @@
 #' @export
 triangulate_delaunay <- function(boundaries,
                                  with = NULL,
-                                 boundary_column = "sfa",
+                                 boundary = "sfa",
                                  sample_surface = FALSE,
                                  sample_points = FALSE,
                                  nb_samples = NULL,
@@ -50,10 +50,10 @@ triangulate_delaunay <- function(boundaries,
 
   checkmate::assert_logical(sample_surface)
   checkmate::assert_logical(sample_points)
-  checkmate::assert_character(boundary_column)
+  checkmate::assert_character(boundary)
 
-  if (!checkmate::test_subset(boundary_column, names(boundaries))) {
-    stop("`boundary_column` must be a column of `boundaries`",
+  if (!checkmate::test_subset(boundary, names(boundaries))) {
+    stop("`boundary` must be a column of `boundaries`",
          call. = FALSE)
   }
 
@@ -66,7 +66,7 @@ triangulate_delaunay <- function(boundaries,
   checkmate::assert_numeric(min_size)
   checkmate::assert_numeric(seed)
 
-  unique_boundaries <- unique(boundaries[[boundary_column]])
+  unique_boundaries <- unique(boundaries[[boundary]])
   if (length(nb_samples) == 1){
     nb_samples <- rep(nb_samples, length(unique_boundaries))
     names(nb_samples) <- unique_boundaries
@@ -82,18 +82,18 @@ triangulate_delaunay <- function(boundaries,
   if (getRversion() >= 3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))
 
   # 2. Create (sample) the points
-  boundaries_split <- split(boundaries, boundaries[[boundary_column]])
+  boundaries_split <- split(boundaries, boundaries[[boundary]])
 
   if (sample_surface){
 
-    sample_fun <- function(polygon, boundary_column, nb_samples){
+    sample_fun <- function(polygon, boundary, nb_samples){
       sf::st_sample(polygon,
-                    size = nb_samples[polygon[[boundary_column]]])
+                    size = nb_samples[polygon[[boundary]]])
     }
 
     set.seed(seed) ; delaunay_base <-
       lapply(boundaries_split, FUN = sample_fun,
-             boundary_column = boundary_column,
+             boundary = boundary,
              nb_samples = nb_samples) %>%
       lapply(sf::st_as_sf) %>%
       dplyr::bind_rows() %>%
@@ -104,11 +104,11 @@ triangulate_delaunay <- function(boundaries,
 
     set.seed(seed) ; delaunay_base <-
       suppressMessages(sf::st_join(with, boundaries)) %>%
-      dplyr::filter(!is.na(eval(dplyr::sym(boundary_column)))) %>%
-      dplyr::group_by(.data[[boundary_column]]) %>%
+      dplyr::filter(!is.na(eval(dplyr::sym(boundary)))) %>%
+      dplyr::group_by(.data[[boundary]]) %>%
       dplyr::filter(1:dplyr::n() %in%
                       sample(1:dplyr::n(),
-                             size = nb_samples[[.data[[boundary_column]][1]]]))
+                             size = nb_samples[[.data[[boundary]][1]]]))
 
   } else if (!is.null(with)) {
 
@@ -158,7 +158,7 @@ triangulate_delaunay <- function(boundaries,
   #   suppressAll(voronoi %>%
   #                 sf::st_make_valid() %>%
   #                 dplyr::mutate(patch_id = paste("P", 1:dplyr::n(), sep = "")) %>%
-  #                 dplyr::group_by(.data$patch_id, .data[[boundary_column]]) %>%
+  #                 dplyr::group_by(.data$patch_id, .data[[boundary]]) %>%
   #                 dplyr::summarize() %>%
   #                 dplyr::ungroup())
 
@@ -182,8 +182,8 @@ triangulate_delaunay <- function(boundaries,
   # TODO vectorize this
   for (i in small_triangle) {
     current_triangles <- delaunay_mesh[voronoi_edges[[i]], ] %>%
-      dplyr::filter(.data[[boundary_column]] ==
-                      unique(.data[[boundary_column]][.data$patch_id == i])) %>%
+      dplyr::filter(.data[[boundary]] ==
+                      unique(.data[[boundary]][.data$patch_id == i])) %>%
       dplyr::filter(.data$area == max(.data$area))
     max_id <- current_triangles$patch_id
     delaunay_mesh$patch_id[delaunay_mesh$patch_id == i] <- max_id
@@ -195,7 +195,7 @@ triangulate_delaunay <- function(boundaries,
     suppressWarnings(
       suppressMessages(
         delaunay_mesh %>%
-          dplyr::group_by(.data[[boundary_column]], .data$patch_id) %>%
+          dplyr::group_by(.data[[boundary]], .data$patch_id) %>%
           dplyr::summarize() %>%
           dplyr::ungroup()))
   delaunay_mesh <-

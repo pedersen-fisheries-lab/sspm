@@ -4,7 +4,7 @@
 #' `smooth_space()`, `smooth_space_time()`.
 #'
 #' @param data_frame **\[sf data.frame\]** The data.
-#' @param time_column **\[character\]** The time column.
+#' @param time **\[character\]** The time column.
 #' @param var **\[symbol\]** Variable (only for smooth_lag).
 #' @param type **\[character\]** Type of smooth, currently only "ICAR" is
 #'     supported.
@@ -23,7 +23,7 @@
 setGeneric(name = "smooth_time",
            def = function(data_frame,
                           boundaries,
-                          time_column,
+                          time,
                           type = "ICAR",
                           k = NULL,
                           bs = "re",
@@ -39,7 +39,7 @@ setGeneric(name = "smooth_time",
 setGeneric(name = "smooth_space",
            def = function(data_frame,
                           boundaries,
-                          time_column,
+                          time,
                           type = "ICAR",
                           k = NULL,
                           bs = "mrf",
@@ -55,7 +55,7 @@ setGeneric(name = "smooth_space",
 setGeneric(name = "smooth_space_time",
            def = function(data_frame,
                           boundaries,
-                          time_column,
+                          time,
                           type = "ICAR",
                           k = NULL,
                           bs = c("re", "mrf"),
@@ -72,7 +72,7 @@ setGeneric(name = "smooth_lag",
            def = function(var,
                           data_frame,
                           boundaries,
-                          time_column,
+                          time,
                           type = "LINPRED",
                           k = 5,
                           m = 1,
@@ -88,13 +88,13 @@ setGeneric(name = "smooth_lag",
 setMethod(f = "smooth_time",
           signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(data_frame, boundaries, time_column, type, k, bs, xt, is_spm, ...) {
+          function(data_frame, boundaries, time, type, k, bs, xt, is_spm, ...) {
 
             args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
             do.call(smooth_routine,
                     append(list(dimension = "time", var = NULL, data_frame = data_frame,
-                                boundaries = boundaries, time_column = time_column,
+                                boundaries = boundaries, time = time,
                                 type = type, k = k, m = NULL, bs = bs, xt = xt,
                                 is_spm = is_spm, smooth_type = "s"),
                            args_list))
@@ -107,13 +107,13 @@ setMethod(f = "smooth_time",
 setMethod(f = "smooth_space",
           signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(data_frame, boundaries, time_column, type, k, bs, xt, is_spm, ...) {
+          function(data_frame, boundaries, time, type, k, bs, xt, is_spm, ...) {
 
             args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
             do.call(smooth_routine,
                     append(list(dimension = "space", var = NULL, data_frame = data_frame,
-                                boundaries = boundaries, time_column = time_column,
+                                boundaries = boundaries, time = time,
                                 type = type, k = k, m = NULL, bs = bs, xt = xt,
                                 is_spm = is_spm, smooth_type = "s"),
                            args_list))
@@ -126,13 +126,13 @@ setMethod(f = "smooth_space",
 setMethod(f = "smooth_space_time",
           signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(data_frame, boundaries, time_column, type, k, bs, xt, is_spm, ...) {
+          function(data_frame, boundaries, time, type, k, bs, xt, is_spm, ...) {
 
             args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
             do.call(smooth_routine,
                     append(list(dimension = "space_time", var = NULL, data_frame = data_frame,
-                                boundaries = boundaries, time_column = time_column,
+                                boundaries = boundaries, time = time,
                                 type = type, k = k, m = NULL, bs = bs, xt = xt,
                                 is_spm = is_spm, smooth_type = "ti"),
                            args_list))
@@ -145,13 +145,13 @@ setMethod(f = "smooth_space_time",
 setMethod(f = "smooth_lag",
           signature(data_frame = "sf",
                     boundaries = "sspm_discrete_boundary"),
-          function(var, data_frame, boundaries, time_column, type, k, m, ...) {
+          function(var, data_frame, boundaries, time, type, k, m, ...) {
 
             args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
 
             do.call(smooth_routine,
                     append(list(dimension = NULL, var = var, data_frame = data_frame,
-                                boundaries = boundaries, time_column = time_column,
+                                boundaries = boundaries, time = time,
                                 type = type, k = k, m = m, bs = NULL, xt = NULL,
                                 is_spm = NULL, smooth_type = "s"),
                            args_list))
@@ -162,7 +162,7 @@ setMethod(f = "smooth_lag",
 
 # Routine -----------------------------------------------------------------
 
-smooth_routine <- function(dimension, var, data_frame, boundaries, time_column,
+smooth_routine <- function(dimension, var, data_frame, boundaries, time,
                            type, k, m, bs, xt, is_spm, smooth_type, ...){
 
   # Get args from ellipsis for extra args: this form is necessary for
@@ -175,7 +175,7 @@ smooth_routine <- function(dimension, var, data_frame, boundaries, time_column,
                                        var = var,
                                        data_frame = data_frame,
                                        boundaries = boundaries,
-                                       time_column = time_column,
+                                       time = time,
                                        k = k, m = m,
                                        bs = bs, xt = xt,
                                        is_spm = is_spm),
@@ -201,12 +201,12 @@ smooth_routine <- function(dimension, var, data_frame, boundaries, time_column,
 # Construct an ICAR penalization matrix for a given "dimension" and returns the
 # double list args_and_vars that have the args to build a new call to s() and the
 # vars necessary for the evaluation of that s() smooth
-ICAR <- function(data_frame, boundaries, time_column, dimension,
+ICAR <- function(data_frame, boundaries, time, dimension,
                  k, bs, xt, is_spm, unused_names = c("var", "m"), ...) {
 
   checkmate::assert_class(data_frame, "sf")
   checkmate::assert_class(boundaries, "sspm_discrete_boundary")
-  checkmate::assert_character(time_column)
+  checkmate::assert_character(time)
   checkmate::assert_character(dimension)
   checkmate::assert_choice(dimension, choices = c("time", "space", "space_time"))
 
@@ -215,13 +215,13 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
   args_list <- args_list[!(names(args_list) %in% unused_names)]
 
   # ---- TIME ----
-  time_levels <- levels(data_frame[[time_column]])
+  time_levels <- levels(data_frame[[time]])
   n_time_levels = as.numeric(length(time_levels))
 
   # ---- SPACE ----
   # Here we assume the hardcoded convention that the patch column is patch_id
   # (from the discretization)
-  space_column <- "patch_id"
+  space <- "patch_id"
   patches <- boundaries@patches
 
   # Setup done ----
@@ -229,7 +229,7 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
 
   if (dimension == "time") {
 
-    out_column <- list(str2lang(time_column))
+    out <- list(str2lang(time))
 
     if (is.null(k)) {
       if (!is_spm) {
@@ -275,7 +275,7 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
 
   } else if (dimension == "space") {
 
-    out_column <- list(str2lang(space_column))
+    out <- list(str2lang(space))
 
     if (is.null(k)) {
       if (!is_spm) {
@@ -289,14 +289,14 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
 
     if (is.null(xt)) {
 
-      pen_mat_space <- ICAR_space(patches, space_column)
+      pen_mat_space <- ICAR_space(patches, space)
 
     } else {
 
       checkmate::assert_list(xt)
 
       if (is.null(xt$penalty)) {
-        pen_mat_space <- ICAR_space(patches, space_column)
+        pen_mat_space <- ICAR_space(patches, space)
       } else {
         checkmate::assert_matrix(xt$penalty)
         pen_mat_space <- xt
@@ -311,7 +311,7 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
 
   } else if (dimension == "space_time") {
 
-    out_column <- list(str2lang(time_column), str2lang(space_column))
+    out <- list(str2lang(time), str2lang(space))
 
     if (is.null(k)) {
       if (is_spm) {
@@ -332,7 +332,7 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
       if (is.null(xt)) {
 
         pen_mat_time <- ICAR_time(time_levels)
-        pen_mat_space <- ICAR_space(patches, space_column)
+        pen_mat_space <- ICAR_space(patches, space)
 
         vars$pen_mat_time <- pen_mat_time
         vars$pen_mat_space <- pen_mat_space
@@ -343,33 +343,33 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
         checkmate::assert_list(xt)
         lapply(xt, checkmate::assert_list)
         checkmate::assert_names(names(xt),
-                                subset.of = c(time_column, space_column))
+                                subset.of = c(time, space))
 
-        if (is.null(xt[[time_column]]$penalty)) {
+        if (is.null(xt[[time]]$penalty)) {
           vars$pen_mat_time <- ICAR_time(time_levels)
         } else {
-          checkmate::assert_matrix(xt[[time_column]]$penalty)
-          vars$pen_mat_time <- xt[[time_column]]$penalty
+          checkmate::assert_matrix(xt[[time]]$penalty)
+          vars$pen_mat_time <- xt[[time]]$penalty
         }
 
-        if (is.null(xt[[space_column]]$penalty)) {
-          vars$pen_mat_space <- ICAR_space(patches, space_column)
+        if (is.null(xt[[space]]$penalty)) {
+          vars$pen_mat_space <- ICAR_space(patches, space)
         } else {
-          checkmate::assert_matrix(xt[[space_column]]$penalty)
-          vars$pen_mat_space <- xt[[space_column]]$penalty
+          checkmate::assert_matrix(xt[[space]]$penalty)
+          vars$pen_mat_space <- xt[[space]]$penalty
         }
 
       }
 
       xt_list <- list(xt = list(list(penalty = rlang::expr(pen_mat_time)),
                                 list(penalty = rlang::expr(pen_mat_space))))
-      names(xt_list$xt) <- c(time_column, space_column)
+      names(xt_list$xt) <- c(time, space)
 
     }
 
     if (is.null(xt)) {
 
-      pen_mat_space <- ICAR_space(patches, space_column)
+      pen_mat_space <- ICAR_space(patches, space)
 
       vars$pen_mat_space <- pen_mat_space
 
@@ -379,13 +379,13 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
       checkmate::assert_list(xt)
       lapply(xt, checkmate::assert_list)
       checkmate::assert_names(names(xt),
-                              subset.of = c(time_column, space_column))
+                              subset.of = c(time, space))
 
-      if (is.null(xt[[space_column]]$penalty)) {
-        vars$pen_mat_space <- ICAR_space(patches, space_column)
+      if (is.null(xt[[space]]$penalty)) {
+        vars$pen_mat_space <- ICAR_space(patches, space)
       } else {
-        checkmate::assert_matrix(xt[[space_column]]$penalty)
-        vars$pen_mat_space <- xt[[space_column]]$penalty
+        checkmate::assert_matrix(xt[[space]]$penalty)
+        vars$pen_mat_space <- xt[[space]]$penalty
       }
 
     }
@@ -398,7 +398,7 @@ ICAR <- function(data_frame, boundaries, time_column, dimension,
   }
 
   return(list(args = do.call(c,
-                             args = list(out_column,
+                             args = list(out,
                                          list(k = k, bs = bs),
                                          xt_list,
                                          args_list)),
@@ -425,13 +425,13 @@ ICAR_time <- function(time_levels) {
 
 }
 
-ICAR_space <- function(patches, space_column) {
+ICAR_space <- function(patches, space) {
 
-  checkmate::assert_choice(space_column, names(patches))
+  checkmate::assert_choice(space, names(patches))
 
   patches_adj_mat = suppressAll(sf::st_intersects(patches, sparse = FALSE))
-  dimnames(patches_adj_mat) = list(unique(patches[[space_column]]),
-                                   unique(patches[[space_column]]))
+  dimnames(patches_adj_mat) = list(unique(patches[[space]]),
+                                   unique(patches[[space]]))
   patches_adj_mat = patches_adj_mat + 0
   diag(patches_adj_mat) = 0
   pen_mat = diag(rowSums(patches_adj_mat)) - patches_adj_mat
@@ -445,24 +445,24 @@ ICAR_space <- function(patches, space_column) {
 # Construct the lag matrix and associated lag columns for the linear predictor
 # method of fitting the smooth
 
-LINPRED <- function(data_frame, boundaries, time_column, var, k, m,
+LINPRED <- function(data_frame, boundaries, time, var, k, m,
                     unused_names = c("dimension", "bs", "xt", "is_spm"), ...) {
 
   checkmate::assert_class(data_frame, "sf")
   checkmate::assert_class(boundaries, "sspm_discrete_boundary")
-  checkmate::assert_character(time_column)
+  checkmate::assert_character(time)
 
   # Recapture the ellipsis again
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
   args_list <- args_list[!(names(args_list) %in% unused_names)]
 
   # Make the lag matrix
-  boundary_col <- spm_boundary_column(boundaries)
+  boundary_col <- spm_boundary(boundaries)
 
   lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(data_frame),
                                      ncol = k, byrow = TRUE)) %>%
     dplyr::rename_all(.funs = gsub, pattern = "V", replacement = "lag") %>%
-    dplyr::mutate(!!time_column := data_frame[[time_column]],
+    dplyr::mutate(!!time := data_frame[[time]],
                   !!boundary_col := data_frame[[boundary_col]],
                   "patch_id" = data_frame[["patch_id"]]) %>%
     dplyr::select(dplyr::contains('lag')) %>%
@@ -470,7 +470,7 @@ LINPRED <- function(data_frame, boundaries, time_column, var, k, m,
 
   by_matrix <- data_frame %>%
     sf::st_set_geometry(NULL) %>%
-    dplyr::select(.data$patch_id, !!boundary_col, !!time_column, !!var) %>%
+    dplyr::select(.data$patch_id, !!boundary_col, !!time, !!var) %>%
     dplyr::nest_by(.data$patch_id, !!boundary_col := .data[[boundary_col]]) %>%
     dplyr::mutate(lags = list(multilag(variable = .data$data[[var]],
                                        n_lags = k,
@@ -483,13 +483,13 @@ LINPRED <- function(data_frame, boundaries, time_column, var, k, m,
     dplyr::select(-dplyr::contains(var)) %>%
     as.matrix()
 
-  out_column <- list(str2lang("lag_matrix"))
+  out <- list(str2lang("lag_matrix"))
   vars <- list()
   vars$lag_matrix <- lag_matrix
   vars$by_matrix <- by_matrix
 
   return(list(args = do.call(c,
-                             args = list(out_column,
+                             args = list(out,
                                          list(k = k, m = m,
                                               by = str2lang("by_matrix")),
                                          args_list)),

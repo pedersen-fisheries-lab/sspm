@@ -94,12 +94,12 @@ setMethod(f = "spm_smooth",
 
             # 2. call map_formula
             data_frame <- spm_data(sspm_object_joined)
-            time_column <- spm_time_column(sspm_object_joined)
+            time <- spm_time(sspm_object_joined)
 
             sspm_formula <- map_formula(data_frame = data_frame,
                                         boundaries = boundaries,
                                         formula = formula,
-                                        time_column = time_column,
+                                        time = time,
                                         ...)
 
             # Check that response is a density
@@ -161,7 +161,7 @@ join_datasets <- function(sspm_dataset, sspm_boundary) {
 join_smoothed_datasets <- function(sspm_object, preds_df){
 
   smoothed_data <- spm_smoothed_data(sspm_object)
-  time_col <- spm_time_column(sspm_object)
+  time_col <- spm_time(sspm_object)
   boundaries <- spm_boundaries(sspm_object)
   patches <- spm_patches(boundaries)
 

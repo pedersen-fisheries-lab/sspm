@@ -8,9 +8,9 @@
 \alias{spm_smooth,ANY,ANY,sspm_boundary-method}
 \title{Map model formula onto a sspm_dataset object}
 \usage{
-map_formula(data_frame, boundaries, formula, time_column, ...)
+map_formula(data_frame, boundaries, formula, time, ...)
 
-\S4method{map_formula}{sf,ANY,formula}(data_frame, boundaries, formula, time_column, ...)
+\S4method{map_formula}{sf,ANY,formula}(data_frame, boundaries, formula, time, ...)
 
 \S4method{spm_smooth}{ANY,missing,ANY}(
   sspm_object,
@@ -48,7 +48,7 @@ map_formula(data_frame, boundaries, formula, time_column, ...)
 \item{formula}{\strong{[formula]} A formula definition of the form
 response ~ smoothing_terms + ...}
 
-\item{time_column}{\strong{[character]} The time column.}
+\item{time}{\strong{[character]} The time column.}
 
 \item{...}{ a list of variables that are the covariates that this
     smooth is a function of. Transformations whose form depends on

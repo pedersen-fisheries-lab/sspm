@@ -143,31 +143,31 @@ setMethod("spm_points<-",
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setGeneric(name = "spm_boundary_column",
-           def = function(sspm_object) standardGeneric("spm_boundary_column")
+setGeneric(name = "spm_boundary",
+           def = function(sspm_object) standardGeneric("spm_boundary")
 )
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setMethod("spm_boundary_column",
+setMethod("spm_boundary",
           signature("sspm_object" = "sspm_boundary"),
-          function(sspm_object) sspm_object@boundary_column
+          function(sspm_object) sspm_object@boundary
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setGeneric(name = "spm_boundary_column<-",
-           def = function(object, value) standardGeneric("spm_boundary_column<-")
+setGeneric(name = "spm_boundary<-",
+           def = function(object, value) standardGeneric("spm_boundary<-")
 )
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setMethod("spm_boundary_column<-",
+setMethod("spm_boundary<-",
           signature("object" = "sspm_boundary"),
           function(object, value) {
-            object@boundary_column <- value
+            object@boundary <- value
             validObject(object)
             return(object)
           }
@@ -178,31 +178,31 @@ setMethod("spm_boundary_column<-",
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setGeneric(name = "spm_boundary_area_column",
-           def = function(sspm_object) standardGeneric("spm_boundary_area_column")
+setGeneric(name = "spm_boundary_area",
+           def = function(sspm_object) standardGeneric("spm_boundary_area")
 )
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setMethod("spm_boundary_area_column",
+setMethod("spm_boundary_area",
           signature("sspm_object" = "sspm_boundary"),
-          function(sspm_object) sspm_object@boundary_area_column
+          function(sspm_object) sspm_object@boundary_area
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setGeneric(name = "spm_boundary_area_column<-",
-           def = function(object, value) standardGeneric("spm_boundary_area_column<-")
+setGeneric(name = "spm_boundary_area<-",
+           def = function(object, value) standardGeneric("spm_boundary_area<-")
 )
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setMethod("spm_boundary_area_column<-",
+setMethod("spm_boundary_area<-",
           signature("object" = "sspm_boundary"),
           function(object, value) {
-            object@boundary_area_column <- value
+            object@boundary_area <- value
             validObject(object)
             return(object)
           }
@@ -212,31 +212,31 @@ setMethod("spm_boundary_area_column<-",
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setGeneric(name = "spm_patches_area_column",
-           def = function(sspm_object) standardGeneric("spm_patches_area_column")
+setGeneric(name = "spm_patches_area",
+           def = function(sspm_object) standardGeneric("spm_patches_area")
 )
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setMethod("spm_patches_area_column",
+setMethod("spm_patches_area",
           signature("sspm_object" = "sspm_discrete_boundary"),
-          function(sspm_object) sspm_object@patches_area_column
+          function(sspm_object) sspm_object@patches_area
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setGeneric(name = "spm_patches_area_column<-",
-           def = function(object, value) standardGeneric("spm_patches_area_column<-")
+setGeneric(name = "spm_patches_area<-",
+           def = function(object, value) standardGeneric("spm_patches_area<-")
 )
 
 #' @rdname accessors-methods-sspm_boundary
 #' @export
-setMethod("spm_patches_area_column<-",
+setMethod("spm_patches_area<-",
           signature("object" = "sspm_discrete_boundary"),
           function(object, value) {
-            object@patches_area_column <- value
+            object@patches_area <- value
             validObject(object)
             return(object)
           }

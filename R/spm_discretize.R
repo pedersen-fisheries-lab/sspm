@@ -23,7 +23,7 @@
 #'
 #' 1. Accept at least 1 argument: **boundaries** (the `sf` boundary object),
 #'    and optionnaly **with** (can be NULL) a separate object to be used for
-#'    discretization and **boundary_column**, the boundary column of
+#'    discretization and **boundary**, the boundary column of
 #'    **boundaries** (these last 2 arguments are passed and connot be
 #'    overwritten but could be ignored).
 #'
@@ -139,13 +139,13 @@ setMethod(f = "spm_discretize",
 
             # Send to discretization routine
             boundaries <- boundary_object@boundaries
-            boundary_column <- spm_boundary_column(boundary_object)
+            boundary <- spm_boundary(boundary_object)
             other_args <- list(...)
 
             discrete <-
               do.call(method_func(method),
                       args = append(list(boundaries = boundaries,
-                                         boundary_column = boundary_column,
+                                         boundary = boundary,
                                          with = with),
                                     other_args))
 
@@ -157,9 +157,9 @@ setMethod(f = "spm_discretize",
             new_sspm_discrete_boundary <-
               new("sspm_discrete_boundary",
                   boundaries = spm_boundaries(boundary_object),
-                  boundary_column = boundary_column,
-                  boundary_area_column = spm_boundary_area_column(boundary_object),
-                  patches_area_column = "patch_area",
+                  boundary = boundary,
+                  boundary_area = spm_boundary_area(boundary_object),
+                  patches_area = "patch_area",
                   method = method,
                   patches = discrete[["patches"]],
                   points = discrete[["points"]])

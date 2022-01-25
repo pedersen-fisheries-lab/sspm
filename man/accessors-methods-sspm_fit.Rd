@@ -3,8 +3,8 @@
 \name{spm_unique_ID,sspm_fit-method}
 \alias{spm_unique_ID,sspm_fit-method}
 \alias{spm_unique_ID<-,sspm_fit-method}
-\alias{spm_time_column,sspm_fit-method}
-\alias{spm_time_column<-,sspm_fit-method}
+\alias{spm_time,sspm_fit-method}
+\alias{spm_time<-,sspm_fit-method}
 \alias{spm_formulas,sspm_fit-method}
 \alias{spm_formulas<-,sspm_fit-method}
 \alias{spm_smoothed_data,sspm_fit-method}
@@ -15,17 +15,17 @@
 \alias{spm_get_fit<-,sspm_fit-method}
 \alias{spm_boundaries,sspm_fit-method}
 \alias{spm_boundaries<-,sspm_fit-method}
-\alias{spm_boundary_column,sspm_fit-method}
-\alias{spm_boundary_column<-,sspm_fit-method}
+\alias{spm_boundary,sspm_fit-method}
+\alias{spm_boundary<-,sspm_fit-method}
 \title{Accessing OR replacing \code{sspm_fit} model elements}
 \usage{
 \S4method{spm_unique_ID}{sspm_fit}(sspm_object)
 
 \S4method{spm_unique_ID}{sspm_fit}(object) <- value
 
-\S4method{spm_time_column}{sspm_fit}(sspm_object)
+\S4method{spm_time}{sspm_fit}(sspm_object)
 
-\S4method{spm_time_column}{sspm_fit}(object) <- value
+\S4method{spm_time}{sspm_fit}(object) <- value
 
 \S4method{spm_formulas}{sspm_fit}(sspm_object)
 
@@ -47,9 +47,9 @@ spm_get_fit(object) <- value
 
 \S4method{spm_boundaries}{sspm_fit}(object) <- value
 
-\S4method{spm_boundary_column}{sspm_fit}(sspm_object)
+\S4method{spm_boundary}{sspm_fit}(sspm_object)
 
-\S4method{spm_boundary_column}{sspm_fit}(object) <- value
+\S4method{spm_boundary}{sspm_fit}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_fit]} An object of class

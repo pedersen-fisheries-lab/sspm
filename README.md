@@ -74,13 +74,13 @@ sfa_boundaries <- sspm:::sfa_boundaries
 ```
 
 1.  The first step of the `sspm` workflow is to create a `sspm_boundary`
-    from an `sf` object, providing the `boundary_column` that delineates
-    the boundary regions. The object can then be plotted with `spm_plot`
-    (as can most `sspm` objects).
+    from an `sf` object, providing the `boundary` that delineates the
+    boundary regions. The object can then be plotted with `spm_plot` (as
+    can most `sspm` objects).
 
 ``` r
 bounds <- spm_as_boundary(boundaries = sfa_boundaries, 
-                          boundary_column = "sfa")
+                          boundary = "sfa")
 
 plot(bounds)
 ```
@@ -99,7 +99,7 @@ plot(bounds)
 biomass_dataset <- 
   spm_as_dataset(borealis, name = "borealis",
                  density = "weight_per_km2",
-                 time_column = "year_f",
+                 time = "year_f",
                  coords = c('lon_dec','lat_dec'), 
                  uniqueID = "uniqueID")
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
@@ -121,7 +121,7 @@ biomass_dataset
 predator_dataset <- 
   spm_as_dataset(predator, name = "all_predators", 
                  density = "weight_per_km2",
-                 time_column = "year",
+                 time = "year",
                  coords = c("lon_dec", "lat_dec"),
                  uniqueID = "uniqueID")
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
@@ -307,7 +307,7 @@ predator_smooth
 catch_dataset <- 
   spm_as_dataset(catch, name = "catch_data", 
                  biomass = "catch",
-                 time_column = "year_f", 
+                 time = "year_f", 
                  uniqueID = "uniqueID", coords = c("lon_start", "lat_start"))
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_start, lat_start
 #> !  Warning: sspm is assuming WGS 84 CRS is to be used for casting

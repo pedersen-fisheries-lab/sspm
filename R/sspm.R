@@ -37,7 +37,7 @@ setMethod(f = "sspm",
 
             new_sspm <- new("sspm",
                             datasets = list(biomass = biomass),
-                            time_column = spm_time_column(biomass),
+                            time = spm_time(biomass),
                             # biomass_var = biomass_var,
                             uniqueID = "row_ID",
                             boundaries = spm_boundaries(biomass),
@@ -79,7 +79,7 @@ setMethod(f = "sspm",
 
               # 2. Check boundaries
               biomass_boundaries <- spm_boundaries(biomass)
-              patch_area_column <- spm_patches_area_column(biomass_boundaries)
+              patch_area <- spm_patches_area(biomass_boundaries)
               predictors_boundaries <- lapply(predictors, spm_boundaries)
               all_boundaries <- unname(append(list(biomass_boundaries),
                                               predictors_boundaries))
@@ -98,10 +98,10 @@ setMethod(f = "sspm",
               cli::cli_alert_info(info_message)
 
               biomass_clean <- clean_data_for_joining(spm_smoothed_data(biomass))
-              joining_vars <- c("patch_id", spm_boundary_column(spm_boundaries(biomass)))
+              joining_vars <- c("patch_id", spm_boundary(spm_boundaries(biomass)))
 
-              if (patch_area_column %in% names(biomass_clean)) {
-                joining_vars <- c(joining_vars, patch_area_column)
+              if (patch_area %in% names(biomass_clean)) {
+                joining_vars <- c(joining_vars, patch_area)
               }
 
               full_smoothed_data <- biomass_clean
@@ -115,13 +115,13 @@ setMethod(f = "sspm",
                 dataset <- predictor %>%
                   spm_smoothed_data() %>%
                   clean_data_for_joining() %>%
-                  dplyr::rename(!!spm_time_column(biomass) :=
-                                  spm_time_column(predictor))
+                  dplyr::rename(!!spm_time(biomass) :=
+                                  spm_time(predictor))
 
                 full_smoothed_data <- full_smoothed_data %>%
                   dplyr::left_join(dataset,
                                    by = c(dplyr::all_of(joining_vars),
-                                          spm_time_column(biomass)),
+                                          spm_time(biomass)),
                                    suffix = the_suffix)
 
                 predictor_smoothed_vars <- predictor@smoothed_vars
@@ -165,7 +165,7 @@ setMethod(f = "sspm",
 
               new_sspm <- new("sspm",
                               datasets = all_data,
-                              time_column = spm_time_column(biomass),
+                              time = spm_time(biomass),
                               # biomass_var = biomass_var,
                               uniqueID = "row_ID",
                               boundaries = spm_boundaries(biomass),

@@ -13,7 +13,7 @@ setGeneric(name = "map_formula",
            def = function(data_frame,
                           boundaries,
                           formula,
-                          time_column,
+                          time,
                           ...) {
              standardGeneric("map_formula")
            }
@@ -32,7 +32,7 @@ setMethod(f = "map_formula",
           signature(data_frame = "sf",
                     boundaries = "ANY",
                     formula = "formula"),
-          function(data_frame, boundaries, formula, time_column, ...) {
+          function(data_frame, boundaries, formula, time, ...) {
 
             # Retrieve terms, response, and term labels
             formula_terms <- terms(formula)
@@ -71,7 +71,7 @@ setMethod(f = "map_formula",
               lapply(smooth_calls, modify_call,
                      args = list(data_frame = data_frame,
                                  boundaries = substitute(boundaries),
-                                 time_column = time_column))
+                                 time = time))
 
             smooth_and_vars <- lapply(smooth_calls_modified, eval,
                                      envir = list(. = data_frame,

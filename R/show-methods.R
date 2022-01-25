@@ -105,7 +105,7 @@ setMethod("show",
             cli::cat_line()
             custom_h1("SSPM Model Fit")
             cat_boundaries(object, column = FALSE)
-            cat_smoothed_data(object, print_columns = FALSE)
+            cat_smoothed_data(object, prints = FALSE)
             cat_spm_fit(object)
             cli::cat_line()
           }
@@ -143,11 +143,11 @@ cat_boundaries <- function(object, column = TRUE) {
                       bullet = "arrow_right")
 
       cli::cat_bullet(" Boundary col.      : ",
-                      cli::col_blue(object@boundary_column),
+                      cli::col_blue(object@boundary),
                       bullet = "arrow_right")
 
       cli::cat_bullet(" Boundary area col. : ",
-                      cli::col_blue(object@boundary_area_column),
+                      cli::col_blue(object@boundary_area),
                       bullet = "arrow_right")
     } else {
 
@@ -192,7 +192,7 @@ cat_data <- function(object) {
                   cli::col_blue(object@uniqueID),
                   bullet = "arrow_right")
   cli::cat_bullet(" Time col.         : ",
-                  cli::col_blue(object@time_column),
+                  cli::col_blue(object@time),
                   bullet = "arrow_right")
   if (!is.null(object@coords)) {
     cli::cat_bullet(" Coordinates cols. : ",
@@ -226,7 +226,7 @@ cat_data <- function(object) {
 #
 # }
 
-cat_smoothed_data <- function(object, print_columns = TRUE) {
+cat_smoothed_data <- function(object, prints = TRUE) {
 
   if (!is.null(object@smoothed_data)) {
 
@@ -252,7 +252,7 @@ cat_smoothed_data <- function(object, print_columns = TRUE) {
                       bullet = "arrow_right")
     }
 
-    if (print_columns) {
+    if (prints) {
 
       columns_with_smooth <- object@smoothed_vars
 

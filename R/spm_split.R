@@ -26,12 +26,12 @@ setMethod(f = "spm_split",
 
             # Check correct dataset name
             the_data <- spm_smoothed_data(sspm_object)
-            time_col <- spm_time_column(sspm_object)
+            time_col <- spm_time(sspm_object)
 
             # TODO add check if splitted
 
             is_factor <- FALSE
-            if (is.factor(the_data[[spm_time_column(sspm_object)]])) {
+            if (is.factor(the_data[[spm_time(sspm_object)]])) {
               is_factor <- TRUE
               the_data <- the_data %>%
                 dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))

@@ -53,7 +53,7 @@ setMethod(f = "spm_aggregate",
             checkmate::assert_function(fun)
             checkmate::assert_choice(group_by, spm_aggregation_choices())
 
-            time_col <- spm_time_column(dataset)
+            time_col <- spm_time(dataset)
             if (!is_mapped(dataset)) {
               # Need to map dataset
               dataset <- join_datasets(dataset, boundaries)

@@ -4,7 +4,7 @@
 #' [`sspm_dataset`][sspm_dataset-class].
 #'
 #' @param data **\[data.frame OR sf\]** The dataset.
-#' @param time_column **\[character\]** The column of `data` for the temporal
+#' @param time **\[character\]** The column of `data` for the temporal
 #'     dimensions (i.e. year).
 #' @param coords **\[character\]** The column of `data` for longitude and
 #'     latitude of the observations.
@@ -24,7 +24,7 @@
 #'
 #' @export
 setGeneric(name = "spm_as_dataset",
-           def = function(data, name, time_column, uniqueID, coords = NULL, ...) {
+           def = function(data, name, time, uniqueID, coords = NULL, ...) {
 
              if (!checkmate::test_subset(uniqueID, names(data))) {
                stop("`uniqueID` must be a column of `data`", call. = FALSE)
@@ -34,12 +34,12 @@ setGeneric(name = "spm_as_dataset",
                stop("`uniqueID` must be unique for each row of `data`", call. = FALSE)
              }
 
-             if (!checkmate::test_subset(time_column, names(data))) {
-               stop("`time_column` must be a column of `data`", call. = FALSE)
+             if (!checkmate::test_subset(time, names(data))) {
+               stop("`time` must be a column of `data`", call. = FALSE)
              }
 
-             if (!checkmate::test_factor(data[[time_column]])) {
-               stop("`time_column` must be a factor", call. = FALSE)
+             if (!checkmate::test_factor(data[[time]])) {
+               stop("`time` must be a factor", call. = FALSE)
              }
 
              standardGeneric("spm_as_dataset")
@@ -52,7 +52,7 @@ setGeneric(name = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "missingOrNULL"),
-          function(data, name, time_column, uniqueID, coords, crs = NULL,
+          function(data, name, time, uniqueID, coords, crs = NULL,
                    boundaries = NULL, biomass = NULL, density = NULL,
                    biomass_units = NULL, density_units = NULL) {
 
@@ -66,11 +66,11 @@ setMethod(f = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "list"),
-          function(data, name, time_column, uniqueID, coords, crs = NULL,
+          function(data, name, time, uniqueID, coords, crs = NULL,
                    boundaries = NULL, biomass = NULL, density = NULL,
                    biomass_units = "kg", density_units = "kg/km^2") {
             coords <- unlist(coords)
-            spm_as_dataset(data, name, time_column, uniqueID, coords, crs, boundaries,
+            spm_as_dataset(data, name, time, uniqueID, coords, crs, boundaries,
                            biomass, density, biomass_units, density_units)
           }
 )
@@ -81,7 +81,7 @@ setMethod(f = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "data.frame", coords = "character"),
-          function(data, name, time_column, uniqueID, coords, crs = NULL,
+          function(data, name, time, uniqueID, coords, crs = NULL,
                    boundaries = NULL, biomass = NULL, density = NULL,
                    biomass_units = "kg", density_units = "kg/km^2") {
 
@@ -111,7 +111,7 @@ setMethod(f = "spm_as_dataset",
             new_data <- sf::st_as_sf(x = data, coords = coords, crs = crs,
                                      remove = FALSE)
 
-            spm_as_dataset(new_data, name, time_column, uniqueID, coords, crs, boundaries,
+            spm_as_dataset(new_data, name, time, uniqueID, coords, crs, boundaries,
                            biomass, density, biomass_units, density_units)
           }
 )
@@ -121,7 +121,7 @@ setMethod(f = "spm_as_dataset",
 #' @export
 setMethod(f = "spm_as_dataset",
           signature(data = "sf", coords = "ANY"),
-          function(data, name, time_column, uniqueID, coords, crs = NULL,
+          function(data, name, time, uniqueID, coords, crs = NULL,
                    boundaries = NULL, biomass = NULL, density = NULL,
                    biomass_units = "kg", density_units = "kg/km^2") {
 
@@ -139,7 +139,7 @@ setMethod(f = "spm_as_dataset",
                                       data = data,
                                       biomass = biomass,
                                       density = density,
-                                      time_column = time_column,
+                                      time = time,
                                       uniqueID = uniqueID,
                                       coords = coords)
 
@@ -170,7 +170,7 @@ setMethod(f = "spm_as_dataset",
                 dplyr::rename(geometry = .data$x)
 
               boundaries <- spm_as_boundary(boundaries = boundary_data,
-                                            boundary_column = "boundary_col",
+                                            boundary = "boundary_col",
                                             patches = patches,
                                             points = NULL)
 
@@ -179,7 +179,7 @@ setMethod(f = "spm_as_dataset",
                                       data = data,
                                       biomass = biomass,
                                       density = density,
-                                      time_column = time_column,
+                                      time = time,
                                       uniqueID = uniqueID,
                                       coords = coords,
                                       is_mapped = TRUE,

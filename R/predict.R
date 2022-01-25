@@ -31,11 +31,11 @@ setMethod(f = "predict",
 
             # Get data
             bounds <- spm_boundaries(object)
-            bounds_col <- spm_boundary_column(bounds)
-            patch_area_col <- spm_patches_area_column(bounds)
-            time_col <- spm_time_column(object)
+            bounds_col <- spm_boundary(bounds)
+            patch_area_col <- spm_patches_area(bounds)
+            time_col <- spm_time(object)
             patches <- spm_patches(bounds)
-            patch_area_col <- spm_patches_area_column(bounds)
+            patch_area_col <- spm_patches_area(bounds)
 
             # If biomass variable is not provided, we are predicting productivity
             if(is.null(biomass)){
@@ -206,7 +206,7 @@ setMethod(f = "predict",
           signature(object = "sspm_dataset"),
           function(object, new_data = NULL, discrete = TRUE, type = "response") {
 
-            time_col <- spm_time_column(object)
+            time_col <- spm_time(object)
             the_fit <- spm_smoothed_fit(object)
             the_formulas <- spm_formulas(object)
             responses <- sapply(the_formulas, spm_response)
@@ -225,7 +225,7 @@ setMethod(f = "predict",
 
                 new_data <-
                   make_prediction_matrix(the_data = spm_data(object),
-                                         time_col = spm_time_column(object),
+                                         time_col = spm_time(object),
                                          patches = spm_patches(spm_boundaries(object)))
 
               } else {
@@ -316,8 +316,8 @@ get_var_names <- function(sspm_object, exclude_mats = TRUE,
   if (exclude_mats){
     var_names <- var_names %>%
       stringr::str_subset("patch_id", negate = TRUE) %>%
-      stringr::str_subset(spm_time_column(sspm_object), negate = TRUE) %>%
-      stringr::str_subset(spm_boundary_column(sspm_object), negate = TRUE)
+      stringr::str_subset(spm_time(sspm_object), negate = TRUE) %>%
+      stringr::str_subset(spm_boundary(sspm_object), negate = TRUE)
   }
   return(var_names)
 }

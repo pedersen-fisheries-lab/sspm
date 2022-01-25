@@ -49,7 +49,7 @@ setMethod(f = "fit_smooths",
 
             # Get data
             the_data <- units::drop_units(spm_data(sspm_object))
-            time_col <- spm_time_column(sspm_object)
+            time_col <- spm_time(sspm_object)
             boundaries <- spm_boundaries(sspm_object)
             patches <- spm_patches(boundaries)
 
@@ -150,7 +150,7 @@ setMethod(f = "fit_spm",
               dplyr::filter(.data$train_test == TRUE)
 
             # Get/Initializa vars of use
-            time_col_name <- spm_time_column(sspm_object)
+            time_col_name <- spm_time(sspm_object)
             the_fit <- NULL
 
             # Index formula

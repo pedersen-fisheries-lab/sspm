@@ -77,7 +77,7 @@ lag_data_frame <- function(smoothed_data, boundaries, vars, n, default, ...){
 
       smoothed_data <- smoothed_data %>%
         dplyr::group_by(.data$patch_id,
-                        .data[[spm_boundary_column(boundaries)]]) %>%
+                        .data[[spm_boundary(boundaries)]]) %>%
         dplyr::mutate(!!var_name := dplyr::lag(x = .data[[var]],
                                                n = n, default = def_val, ...)) %>%
         dplyr::ungroup() %>%

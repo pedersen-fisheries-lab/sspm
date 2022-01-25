@@ -6,7 +6,7 @@
 #'
 #' @param boundaries **\[sf\]** The boundaries to be used.
 #' @param with **\[sf\]** A set of data points to use for voronoisation.
-#' @param boundary_column **\[character\]** The column in `boundaries` that is to
+#' @param boundary **\[character\]** The column in `boundaries` that is to
 #'     be used for the stratified sampling.
 #'
 #' @param sample_surface **\[logical]** Whether to sample the surfaces in
@@ -15,7 +15,7 @@
 #'     to take all points in `with`. Default to `TRUE`.
 #'
 #' @param nb_samples **\[named character vector\]** The number of samples to draw
-#'     by boundary polygons (must bear the levels of `boundary_column` as names
+#'     by boundary polygons (must bear the levels of `boundary` as names
 #'     or be a single value to be applied to each level).
 #' @param min_size **\[numeric\]** The minimum size for a polygon above which it
 #'     will be merged (in km2).
@@ -33,7 +33,7 @@
 #' @export
 tesselate_voronoi <- function(boundaries,
                               with,
-                              boundary_column = "sfa",
+                              boundary = "sfa",
                               sample_surface = FALSE,
                               sample_points = TRUE,
                               nb_samples = NULL,
@@ -52,10 +52,10 @@ tesselate_voronoi <- function(boundaries,
 
   checkmate::assert_logical(sample_surface)
   checkmate::assert_logical(sample_points)
-  checkmate::assert_character(boundary_column)
+  checkmate::assert_character(boundary)
 
-  if (!checkmate::test_subset(boundary_column, names(boundaries))) {
-    stop("`boundary_column` must be a column of `boundaries`",
+  if (!checkmate::test_subset(boundary, names(boundaries))) {
+    stop("`boundary` must be a column of `boundaries`",
          call. = FALSE)
   }
 
@@ -63,7 +63,7 @@ tesselate_voronoi <- function(boundaries,
   checkmate::assert_numeric(min_size)
   checkmate::assert_numeric(seed)
 
-  unique_boundaries <- unique(boundaries[[boundary_column]])
+  unique_boundaries <- unique(boundaries[[boundary]])
 
   if (length(nb_samples) == 1){
     nb_samples <- rep(nb_samples, length(unique_boundaries))
@@ -80,7 +80,7 @@ tesselate_voronoi <- function(boundaries,
   if (getRversion() >= 3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))
 
   # 2. Create (sample) the points
-  boundaries_split <- split(boundaries, boundaries[[boundary_column]])
+  boundaries_split <- split(boundaries, boundaries[[boundary]])
 
   if (sample_surface){
 
@@ -89,14 +89,14 @@ tesselate_voronoi <- function(boundaries,
       stop("nb_samples is NULL")
     }
 
-    sample_fun <- function(polygon, boundary_column, nb_samples){
+    sample_fun <- function(polygon, boundary, nb_samples){
       sf::st_sample(polygon,
-                    size = nb_samples[polygon[[boundary_column]]])
+                    size = nb_samples[polygon[[boundary]]])
     }
 
     set.seed(seed) ; voronoi_points <-
       lapply(boundaries_split, FUN = sample_fun,
-             boundary_column = boundary_column,
+             boundary = boundary,
              nb_samples = nb_samples) %>%
       lapply(sf::st_as_sf) %>%
       dplyr::bind_rows() %>%
@@ -120,18 +120,18 @@ tesselate_voronoi <- function(boundaries,
       set.seed(seed) ; voronoi_points <-
         suppressMessages(sf::st_join(with, boundaries,
                                      suffix = c("", "_duplicate"))) %>%
-        dplyr::filter(!is.na(eval(dplyr::sym(boundary_column)))) %>%
-        dplyr::group_by(.data[[boundary_column]]) %>%
+        dplyr::filter(!is.na(eval(dplyr::sym(boundary)))) %>%
+        dplyr::group_by(.data[[boundary]]) %>%
         dplyr::filter(1:dplyr::n() %in%
                         sample(1:dplyr::n(),
-                               size = nb_samples[[.data[[boundary_column]][1]]]))
+                               size = nb_samples[[.data[[boundary]][1]]]))
     } else {
 
       # TODO checks that with is points geometry here
 
       voronoi_points <- suppressMessages(sf::st_join(with, boundaries,
                                                      suffix = c("", "_duplicate"))) %>%
-        dplyr::filter(!is.na(eval(dplyr::sym(boundary_column))))
+        dplyr::filter(!is.na(eval(dplyr::sym(boundary))))
 
     }
 
@@ -145,7 +145,7 @@ tesselate_voronoi <- function(boundaries,
       lapply(function(x) { x[["geometry"]] } )
 
     voronoi <- voronoi_points %>%
-      split(voronoi_points[[boundary_column]]) %>%
+      split(voronoi_points[[boundary]]) %>%
       lapply(function(x) { suppressAll(sf::st_union(x)) } ) %>%
       mapply(FUN = function(x, y) {
         suppressAll(sf::st_voronoi(x, envelope = y)) },
@@ -179,7 +179,7 @@ tesselate_voronoi <- function(boundaries,
                   st_cast("POLYGON") %>%
                   sf::st_make_valid() %>%
                   dplyr::mutate(patch_id = paste("P", 1:dplyr::n(), sep = "")) %>%
-                  dplyr::group_by(.data$patch_id, .data[[boundary_column]]) %>%
+                  dplyr::group_by(.data$patch_id, .data[[boundary]]) %>%
                   dplyr::summarize() %>%
                   sf::st_make_valid() %>%
                   dplyr::ungroup())
@@ -202,8 +202,8 @@ tesselate_voronoi <- function(boundaries,
   # TODO this could maybe be vectorized
   for (i in small_voronoi) {
     current_polygons <- voronoi[voronoi_edges[[i]], ] %>%
-      dplyr::filter(.data[[boundary_column]] ==
-                      unique(.data[[boundary_column]][.data$patch_id == i])) %>%
+      dplyr::filter(.data[[boundary]] ==
+                      unique(.data[[boundary]][.data$patch_id == i])) %>%
       dplyr::filter(.data$area == max(.data$area))
     max_id <- current_polygons$patch_id
     voronoi$patch_id[voronoi$patch_id == i] <- max_id
@@ -215,7 +215,7 @@ tesselate_voronoi <- function(boundaries,
     suppressWarnings(
       suppressMessages(
         voronoi %>%
-          dplyr::group_by(.data[[boundary_column]], .data$patch_id) %>%
+          dplyr::group_by(.data[[boundary]], .data$patch_id) %>%
           dplyr::summarize() %>%
           dplyr::ungroup()))
   voronoi <-

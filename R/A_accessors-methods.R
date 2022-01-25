@@ -143,31 +143,31 @@ setMethod("spm_smoothed_data<-",
 
 #' @rdname sspm-accessors-methods
 #' @export
-setGeneric(name = "spm_time_column",
-           def = function(sspm_object) standardGeneric("spm_time_column")
+setGeneric(name = "spm_time",
+           def = function(sspm_object) standardGeneric("spm_time")
 )
 
 #' @rdname sspm-accessors-methods
 #' @export
-setMethod("spm_time_column",
+setMethod("spm_time",
           signature("sspm_object" = "sspm"),
-          function(sspm_object) sspm_object@time_column
+          function(sspm_object) sspm_object@time
 )
 
 # Replacers ---------------------------------------------------------------
 
 #' @rdname sspm-accessors-methods
 #' @export
-setGeneric(name = "spm_time_column<-",
-           def = function(object, value) standardGeneric("spm_time_column<-")
+setGeneric(name = "spm_time<-",
+           def = function(object, value) standardGeneric("spm_time<-")
 )
 
 #' @rdname sspm-accessors-methods
 #' @export
-setMethod("spm_time_column<-",
+setMethod("spm_time<-",
           signature("object" = "sspm"),
           function(object, value) {
-            object@time_column <- value
+            object@time <- value
             validObject(object)
             return(object)
           }
