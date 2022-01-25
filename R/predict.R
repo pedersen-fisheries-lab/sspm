@@ -238,6 +238,17 @@ setMethod(f = "predict",
                                           type = type))
             names(preds) <- responses
 
+            biomass_vars <- c(object@biomass)
+            biomass_density_vars <- c(object@density)
+
+            for (var in names(preds)){
+              if (var %in% biomass_vars){
+                preds[[var]] <- set_biomass(preds[[var]])
+              } else if (var %in% biomass_density_vars){
+                preds[[var]] <- set_biomass_density(preds[[var]])
+              }
+            }
+
             if (discrete) {
               preds <- preds %>%
                 dplyr::bind_cols(new_data)
