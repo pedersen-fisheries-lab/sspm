@@ -136,8 +136,8 @@ setMethod(f = "spm_as_dataset",
               the_sspm_dataset <- new("sspm_dataset",
                                       name = name,
                                       data = data,
-                                      vars_biomass = biomass,
-                                      vars_density = density,
+                                      biomass = biomass,
+                                      density = density,
                                       time_column = time_column,
                                       uniqueID = uniqueID,
                                       coords = coords)
@@ -176,8 +176,8 @@ setMethod(f = "spm_as_dataset",
               the_sspm_dataset <- new("sspm_dataset",
                                       name = name,
                                       data = data,
-                                      vars_biomass = biomass,
-                                      vars_density = density,
+                                      biomass = biomass,
+                                      density = density,
                                       time_column = time_column,
                                       uniqueID = uniqueID,
                                       coords = coords,
@@ -205,16 +205,31 @@ cast_special_variables <- function(df, biomass, density, biomass_units, density_
 
   if (!is.null(biomass)){
     for (b_var in biomass){
-      df[[b_var]] = biomass(df[[b_var]], biomass_units)
+      df[[b_var]] <- set_biomass(df[[b_var]], units = biomass_units)
     }
   }
 
   if (!is.null(density)){
     for (d_var in density){
-      df[[d_var]] = biomass_density(df[[d_var]], density_units)
+      df[[d_var]] <- set_biomass_density(df[[d_var]], units = density_units)
     }
 
   }
 
   return(df)
+}
+
+set_biomass <- function(x, units = "kg", target_units = "kg", mode = "standard"){
+  spm_set_units(x, units, target_units, mode)
+}
+
+set_biomass_density <- function(x, units = "kg/km^2", target_units = "kg/km^2",
+                                mode = "standard"){
+  spm_set_units(x, units, target_units, mode)
+}
+
+spm_set_units <- function(x, units, target_units, mode = "standard"){
+  units(x) <- units
+  x <- units::set_units(x, target_units, mode = mode)
+  return(x)
 }
