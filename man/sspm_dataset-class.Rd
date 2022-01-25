@@ -15,6 +15,10 @@ object(s) of class \code{sspm_dataset} from a \code{data.frame}, \code{tibble} o
 
 \item{\code{data}}{\strong{[data.frame OR sf OR tibble]} The dataset.}
 
+\item{\code{biomass}}{\strong{[character]} The biomass columns of \code{data}.}
+
+\item{\code{density}}{\strong{[character]} The biomass density columns of \code{data}.}
+
 \item{\code{time_column}}{\strong{[character]} The column of \code{data} that represents the
 temporal dimension of the dataset.}
 
