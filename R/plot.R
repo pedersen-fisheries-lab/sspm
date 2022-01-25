@@ -89,13 +89,13 @@ setMethod("plot",
                                 page = "first", nrow = 2, ncol = 2,
                                 log = FALSE, scales = "fixed") {
 
-            the_smoothed_data <- spm_smoothed_data(x)
+            smoothed_data <- spm_smoothed_data(x)
 
-            if (is.null(the_smoothed_data)){
+            if (is.null(smoothed_data)){
               stop("Dataset doesn't have any smoothed data")
             }
 
-            smoothed_data <- spm_smoothed_data(x) %>%
+            smoothed_data <- units::drop_units(smoothed_data) %>%
               dplyr::mutate(color = "Smoothed")
             time_col <- spm_time_column(x)
 
