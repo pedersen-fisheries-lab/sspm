@@ -95,7 +95,7 @@ setMethod("plot",
               stop("Dataset doesn't have any smoothed data")
             }
 
-            smoothed_data <- units::drop_units(smoothed_data) %>%
+            smoothed_data <- smoothed_data %>%
               dplyr::mutate(color = "Smoothed")
             time_col <- spm_time_column(x)
 
@@ -286,6 +286,8 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
                              time_col, log, scales, color_profile,
                              aggregate = FALSE, interval =  FALSE,
                              boundary_col) {
+
+  smoothed_data <- units::drop_units(smoothed_data)
 
   if (log) {
     smoothed_data[[var]] <- log(smoothed_data[[var]])
