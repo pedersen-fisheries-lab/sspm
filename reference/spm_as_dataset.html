@@ -52,13 +52,13 @@ sspm_dataset."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">spm_as_dataset</span><span class="op">(</span><span class="va">data</span>, <span class="va">name</span>, <span class="va">time_column</span>, <span class="va">uniqueID</span>, coords <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">spm_as_dataset</span><span class="op">(</span><span class="va">data</span>, <span class="va">name</span>, <span class="va">time</span>, <span class="va">uniqueID</span>, coords <span class="op">=</span> <span class="cn">NULL</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S4 method for data.frame,ANY,ANY,ANY,missingOrNULL</span>
 <span class="fu">spm_as_dataset</span><span class="op">(</span>
   <span class="va">data</span>,
   <span class="va">name</span>,
-  <span class="va">time_column</span>,
+  <span class="va">time</span>,
   <span class="va">uniqueID</span>,
   <span class="va">coords</span>,
   crs <span class="op">=</span> <span class="cn">NULL</span>,
@@ -73,7 +73,7 @@ sspm_dataset."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
 <span class="fu">spm_as_dataset</span><span class="op">(</span>
   <span class="va">data</span>,
   <span class="va">name</span>,
-  <span class="va">time_column</span>,
+  <span class="va">time</span>,
   <span class="va">uniqueID</span>,
   <span class="va">coords</span>,
   crs <span class="op">=</span> <span class="cn">NULL</span>,
@@ -88,7 +88,7 @@ sspm_dataset."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
 <span class="fu">spm_as_dataset</span><span class="op">(</span>
   <span class="va">data</span>,
   <span class="va">name</span>,
-  <span class="va">time_column</span>,
+  <span class="va">time</span>,
   <span class="va">uniqueID</span>,
   <span class="va">coords</span>,
   crs <span class="op">=</span> <span class="cn">NULL</span>,
@@ -103,7 +103,7 @@ sspm_dataset."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
 <span class="fu">spm_as_dataset</span><span class="op">(</span>
   <span class="va">data</span>,
   <span class="va">name</span>,
-  <span class="va">time_column</span>,
+  <span class="va">time</span>,
   <span class="va">uniqueID</span>,
   <span class="va">coords</span>,
   crs <span class="op">=</span> <span class="cn">NULL</span>,
@@ -121,7 +121,7 @@ sspm_dataset."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
 <dd><p><strong>[data.frame OR sf]</strong> The dataset.</p></dd>
 <dt>name</dt>
 <dd><p><strong>[character]</strong> The name of the dataset, default to "Biomass".</p></dd>
-<dt>time_column</dt>
+<dt>time</dt>
 <dd><p><strong>[character]</strong> The column of <code>data</code> for the temporal
 dimensions (i.e. year).</p></dd>
 <dt>uniqueID</dt>

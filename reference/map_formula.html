@@ -52,10 +52,10 @@ or <code>sspm</code> object.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">map_formula</span><span class="op">(</span><span class="va">data_frame</span>, <span class="va">boundaries</span>, <span class="va">formula</span>, <span class="va">time_column</span>, <span class="va">...</span><span class="op">)</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">map_formula</span><span class="op">(</span><span class="va">data_frame</span>, <span class="va">boundaries</span>, <span class="va">formula</span>, <span class="va">time</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S4 method for sf,ANY,formula</span>
-<span class="fu">map_formula</span><span class="op">(</span><span class="va">data_frame</span>, <span class="va">boundaries</span>, <span class="va">formula</span>, <span class="va">time_column</span>, <span class="va">...</span><span class="op">)</span>
+<span class="fu">map_formula</span><span class="op">(</span><span class="va">data_frame</span>, <span class="va">boundaries</span>, <span class="va">formula</span>, <span class="va">time</span>, <span class="va">...</span><span class="op">)</span>
 
 <span class="co"># S4 method for ANY,missing,ANY</span>
 <span class="fu"><a href="spm_smooth.html">spm_smooth</a></span><span class="op">(</span>
@@ -98,7 +98,7 @@ or <code>sspm</code> object.</p>
 <dt>formula</dt>
 <dd><p><strong>[formula]</strong> A formula definition of the form
 response ~ smoothing_terms + ...</p></dd>
-<dt>time_column</dt>
+<dt>time</dt>
 <dd><p><strong>[character]</strong> The time column.</p></dd>
 <dt>...</dt>
 <dd><p>a list of variables that are the covariates that this

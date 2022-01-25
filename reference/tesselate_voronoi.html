@@ -57,7 +57,7 @@ boundary polygons, then by running  the voronoisation with
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">tesselate_voronoi</span><span class="op">(</span>
   <span class="va">boundaries</span>,
   <span class="va">with</span>,
-  boundary_column <span class="op">=</span> <span class="st">"sfa"</span>,
+  boundary <span class="op">=</span> <span class="st">"sfa"</span>,
   sample_surface <span class="op">=</span> <span class="cn">FALSE</span>,
   sample_points <span class="op">=</span> <span class="cn">TRUE</span>,
   nb_samples <span class="op">=</span> <span class="cn">NULL</span>,
@@ -73,7 +73,7 @@ boundary polygons, then by running  the voronoisation with
 <dd><p><strong>[sf]</strong> The boundaries to be used.</p></dd>
 <dt>with</dt>
 <dd><p><strong>[sf]</strong> A set of data points to use for voronoisation.</p></dd>
-<dt>boundary_column</dt>
+<dt>boundary</dt>
 <dd><p><strong>[character]</strong> The column in <code>boundaries</code> that is to
 be used for the stratified sampling.</p></dd>
 <dt>sample_surface</dt>
@@ -84,7 +84,7 @@ be used for the stratified sampling.</p></dd>
 to take all points in <code>with</code>. Default to <code>TRUE</code>.</p></dd>
 <dt>nb_samples</dt>
 <dd><p><strong>[named character vector]</strong> The number of samples to draw
-by boundary polygons (must bear the levels of <code>boundary_column</code> as names
+by boundary polygons (must bear the levels of <code>boundary</code> as names
 or be a single value to be applied to each level).</p></dd>
 <dt>min_size</dt>
 <dd><p><strong>[numeric]</strong> The minimum size for a polygon above which it

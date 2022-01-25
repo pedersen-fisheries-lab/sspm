@@ -52,51 +52,51 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">spm_as_boundary</span><span class="op">(</span>
   <span class="va">boundaries</span>,
-  <span class="va">boundary_column</span>,
+  <span class="va">boundary</span>,
   patches <span class="op">=</span> <span class="cn">NULL</span>,
   points <span class="op">=</span> <span class="cn">NULL</span>,
-  boundary_area_column <span class="op">=</span> <span class="cn">NULL</span>,
-  patch_area_column <span class="op">=</span> <span class="cn">NULL</span>
+  boundary_area <span class="op">=</span> <span class="cn">NULL</span>,
+  patch_area <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span>
 
 <span class="co"># S4 method for missing,ANY,ANY,ANY</span>
 <span class="fu">spm_as_boundary</span><span class="op">(</span>
   <span class="va">boundaries</span>,
-  <span class="va">boundary_column</span>,
+  <span class="va">boundary</span>,
   patches <span class="op">=</span> <span class="cn">NULL</span>,
   points <span class="op">=</span> <span class="cn">NULL</span>,
-  boundary_area_column <span class="op">=</span> <span class="cn">NULL</span>,
-  patch_area_column <span class="op">=</span> <span class="cn">NULL</span>
+  boundary_area <span class="op">=</span> <span class="cn">NULL</span>,
+  patch_area <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span>
 
 <span class="co"># S4 method for ANY,missing,ANY,ANY</span>
 <span class="fu">spm_as_boundary</span><span class="op">(</span>
   <span class="va">boundaries</span>,
-  <span class="va">boundary_column</span>,
+  <span class="va">boundary</span>,
   patches <span class="op">=</span> <span class="cn">NULL</span>,
   points <span class="op">=</span> <span class="cn">NULL</span>,
-  boundary_area_column <span class="op">=</span> <span class="cn">NULL</span>,
-  patch_area_column <span class="op">=</span> <span class="cn">NULL</span>
+  boundary_area <span class="op">=</span> <span class="cn">NULL</span>,
+  patch_area <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span>
 
 <span class="co"># S4 method for sf,character,missing,missing</span>
 <span class="fu">spm_as_boundary</span><span class="op">(</span>
   <span class="va">boundaries</span>,
-  <span class="va">boundary_column</span>,
+  <span class="va">boundary</span>,
   patches <span class="op">=</span> <span class="cn">NULL</span>,
   points <span class="op">=</span> <span class="cn">NULL</span>,
-  boundary_area_column <span class="op">=</span> <span class="cn">NULL</span>,
-  patch_area_column <span class="op">=</span> <span class="cn">NULL</span>
+  boundary_area <span class="op">=</span> <span class="cn">NULL</span>,
+  patch_area <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span>
 
 <span class="co"># S4 method for sf,character,ANY,ANY</span>
 <span class="fu">spm_as_boundary</span><span class="op">(</span>
   <span class="va">boundaries</span>,
-  <span class="va">boundary_column</span>,
+  <span class="va">boundary</span>,
   patches <span class="op">=</span> <span class="cn">NULL</span>,
   points <span class="op">=</span> <span class="cn">NULL</span>,
-  boundary_area_column <span class="op">=</span> <span class="cn">NULL</span>,
-  patch_area_column <span class="op">=</span> <span class="cn">NULL</span>
+  boundary_area <span class="op">=</span> <span class="cn">NULL</span>,
+  patch_area <span class="op">=</span> <span class="cn">NULL</span>
 <span class="op">)</span></code></pre></div>
     </div>
 
@@ -104,17 +104,17 @@
     <h2>Arguments</h2>
     <dl><dt>boundaries</dt>
 <dd><p><strong>[sf]</strong> The sf object to cast.</p></dd>
-<dt>boundary_column</dt>
+<dt>boundary</dt>
 <dd><p><strong>[character]</strong> The column that contains the possible
 subdivisions of the boundaries.</p></dd>
 <dt>patches</dt>
 <dd><p><strong>[sf]</strong> Patches resulting from discretization.</p></dd>
 <dt>points</dt>
 <dd><p><strong>[sf]</strong> Sample points used for discretization.</p></dd>
-<dt>boundary_area_column</dt>
+<dt>boundary_area</dt>
 <dd><p><strong>[character]</strong> The column that contains the area
 of the subdivisions (optional).</p></dd>
-<dt>patch_area_column</dt>
+<dt>patch_area</dt>
 <dd><p><strong>[character]</strong> The column that contains the area
 of the patches (optional).</p></dd>
 </dl></div>

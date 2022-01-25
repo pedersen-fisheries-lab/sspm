@@ -55,7 +55,7 @@ smooth_space(), smooth_space_time()."><meta property="og:image" content="/logo.p
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">smooth_time</span><span class="op">(</span>
   <span class="va">data_frame</span>,
   <span class="va">boundaries</span>,
-  <span class="va">time_column</span>,
+  <span class="va">time</span>,
   type <span class="op">=</span> <span class="st">"ICAR"</span>,
   k <span class="op">=</span> <span class="cn">NULL</span>,
   bs <span class="op">=</span> <span class="st">"re"</span>,
@@ -67,7 +67,7 @@ smooth_space(), smooth_space_time()."><meta property="og:image" content="/logo.p
 <span class="fu">smooth_space</span><span class="op">(</span>
   <span class="va">data_frame</span>,
   <span class="va">boundaries</span>,
-  <span class="va">time_column</span>,
+  <span class="va">time</span>,
   type <span class="op">=</span> <span class="st">"ICAR"</span>,
   k <span class="op">=</span> <span class="cn">NULL</span>,
   bs <span class="op">=</span> <span class="st">"mrf"</span>,
@@ -79,7 +79,7 @@ smooth_space(), smooth_space_time()."><meta property="og:image" content="/logo.p
 <span class="fu">smooth_space_time</span><span class="op">(</span>
   <span class="va">data_frame</span>,
   <span class="va">boundaries</span>,
-  <span class="va">time_column</span>,
+  <span class="va">time</span>,
   type <span class="op">=</span> <span class="st">"ICAR"</span>,
   k <span class="op">=</span> <span class="cn">NULL</span>,
   bs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"re"</span>, <span class="st">"mrf"</span><span class="op">)</span>,
@@ -92,7 +92,7 @@ smooth_space(), smooth_space_time()."><meta property="og:image" content="/logo.p
   <span class="va">var</span>,
   <span class="va">data_frame</span>,
   <span class="va">boundaries</span>,
-  <span class="va">time_column</span>,
+  <span class="va">time</span>,
   type <span class="op">=</span> <span class="st">"LINPRED"</span>,
   k <span class="op">=</span> <span class="fl">5</span>,
   m <span class="op">=</span> <span class="fl">1</span>,
@@ -103,7 +103,7 @@ smooth_space(), smooth_space_time()."><meta property="og:image" content="/logo.p
 <span class="fu">smooth_time</span><span class="op">(</span>
   <span class="va">data_frame</span>,
   <span class="va">boundaries</span>,
-  <span class="va">time_column</span>,
+  <span class="va">time</span>,
   type <span class="op">=</span> <span class="st">"ICAR"</span>,
   k <span class="op">=</span> <span class="cn">NULL</span>,
   bs <span class="op">=</span> <span class="st">"re"</span>,
@@ -116,7 +116,7 @@ smooth_space(), smooth_space_time()."><meta property="og:image" content="/logo.p
 <span class="fu">smooth_space</span><span class="op">(</span>
   <span class="va">data_frame</span>,
   <span class="va">boundaries</span>,
-  <span class="va">time_column</span>,
+  <span class="va">time</span>,
   type <span class="op">=</span> <span class="st">"ICAR"</span>,
   k <span class="op">=</span> <span class="cn">NULL</span>,
   bs <span class="op">=</span> <span class="st">"mrf"</span>,
@@ -129,7 +129,7 @@ smooth_space(), smooth_space_time()."><meta property="og:image" content="/logo.p
 <span class="fu">smooth_space_time</span><span class="op">(</span>
   <span class="va">data_frame</span>,
   <span class="va">boundaries</span>,
-  <span class="va">time_column</span>,
+  <span class="va">time</span>,
   type <span class="op">=</span> <span class="st">"ICAR"</span>,
   k <span class="op">=</span> <span class="cn">NULL</span>,
   bs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"re"</span>, <span class="st">"mrf"</span><span class="op">)</span>,
@@ -143,7 +143,7 @@ smooth_space(), smooth_space_time()."><meta property="og:image" content="/logo.p
   <span class="va">var</span>,
   <span class="va">data_frame</span>,
   <span class="va">boundaries</span>,
-  <span class="va">time_column</span>,
+  <span class="va">time</span>,
   type <span class="op">=</span> <span class="st">"LINPRED"</span>,
   k <span class="op">=</span> <span class="fl">5</span>,
   m <span class="op">=</span> <span class="fl">1</span>,
@@ -158,7 +158,7 @@ smooth_space(), smooth_space_time()."><meta property="og:image" content="/logo.p
 <dt>boundaries</dt>
 <dd><p><strong>[sspm_boundary]</strong> An object of class
 <a href="sspm_boundary-class.html">sspm_discrete_boundary</a>.</p></dd>
-<dt>time_column</dt>
+<dt>time</dt>
 <dd><p><strong>[character]</strong> The time column.</p></dd>
 <dt>type</dt>
 <dd><p><strong>[character]</strong> Type of smooth, currently only "ICAR" is
