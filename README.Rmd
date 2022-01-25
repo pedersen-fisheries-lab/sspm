@@ -172,6 +172,7 @@ predator_smooth
 ```{r}
 catch_dataset <- 
   spm_as_dataset(catch, name = "catch_data", 
+                 biomass = "catch",
                  time_column = "year_f", 
                  uniqueID = "uniqueID", coords = c("lon_start", "lat_start"))
 
