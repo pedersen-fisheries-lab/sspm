@@ -87,6 +87,8 @@ setClassUnion("sspm_discrete_boundaryOrNULL", c("sspm_discrete_boundary", "NULL"
 #'
 #' @slot name **\[character\]** The name of the dataset, default to "Biomass".
 #' @slot data **\[data.frame OR sf OR tibble\]** The dataset.
+#' @slot biomass **\[character\]** The biomass columns of `data`.
+#' @slot density **\[character\]** The biomass density columns of `data`.
 #' @slot time_column **\[character\]** The column of `data` that represents the
 #'     temporal dimension of the dataset.
 #' @slot coords **\[character\]** The columns of `data` that represent the
@@ -110,8 +112,8 @@ setClassUnion("sspm_discrete_boundaryOrNULL", c("sspm_discrete_boundary", "NULL"
 setClass("sspm_dataset",
          slots = list(name = "character",
                       data = "ANY",
-                      vars_biomass = "characterOrNULL",
-                      vars_density = "characterOrNULL",
+                      biomass = "characterOrNULL",
+                      density = "characterOrNULL",
                       time_column = "character",
                       coords = "characterOrNULL",
                       uniqueID = "character",
@@ -182,7 +184,6 @@ setClass("sspm_formula",
 setClass("sspm",
          slots = list(datasets = "list",
                       time_column = "character",
-                      # biomass_var = "character",
                       uniqueID = "character",
                       boundaries = "sspm_discrete_boundary",
                       smoothed_data = "ANY",
