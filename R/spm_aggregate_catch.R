@@ -60,6 +60,12 @@ setMethod(f = "spm_aggregate_catch",
                    call. = FALSE)
             }
 
+            # TODO check that catch is a biomass var!
+            if (!is_biomass(spm_data(catch)[[catch_variable]])) {
+              stop("`catch_variable` must have units of type biomass",
+                   call. = FALSE)
+            }
+
             info_message <-
               paste0(" Offsetting biomass with catch data using columns: ",
                      paste(cli::col_green(c(biomass_variable, catch_variable)), collapse = ", "))
@@ -78,6 +84,7 @@ setMethod(f = "spm_aggregate_catch",
                                    fun = fun, group_by = group_by,
                                    fill = fill, apply_to_df = apply_to_df,
                                    na.rm = TRUE, ...)
+
             catch_data <- spm_data(catch) %>%
               dplyr::rename(!!biomass_time_col := catch_time_col)
 
@@ -111,20 +118,19 @@ setMethod(f = "spm_aggregate_catch",
 
               dplyr::group_by(.data[["patch_id"]],
                               .data[[boundary_col]]) %>%
-
-              dplyr::mutate(area_no_units = as.vector(.data[[area_col]])) %>%
-              dplyr::mutate(catch_density = .data$catch / .data$area_no_units) %>%
+              dplyr::mutate(catch_density = .data$catch / .data[[area_col]]) %>%
 
               dplyr::mutate(
                 !!catch_name :=
                   (.data[[biomass_variable]] + .data$catch_density)) %>%
               dplyr::mutate(
-                log_productivity =
-                  log(.data[[catch_name]]) - log(dplyr::lag(.data[[biomass_variable]],
-                                                            default = NA)),
+                log_productivity = log(.data[[catch_name]]) -
+                  log(dplyr::lag(.data[[biomass_variable]], default = NA)),
+                # Make sure to drop units, as the backticks heuristic units uses
+                # does not work in this case
+                log_productivity = units::drop_units(log_productivity),
                 productivity = exp(.data$log_productivity)) %>%
 
-              dplyr::select(-.data$area_no_units) %>%
               dplyr::ungroup() %>%
 
               dplyr::relocate(dplyr::starts_with(biomass_variable),
