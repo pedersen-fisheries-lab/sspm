@@ -218,18 +218,3 @@ cast_special_variables <- function(df, biomass, density, biomass_units, density_
 
   return(df)
 }
-
-set_biomass <- function(x, units = "kg", target_units = "kg", mode = "standard"){
-  spm_set_units(x, units, target_units, mode)
-}
-
-set_biomass_density <- function(x, units = "kg/km^2", target_units = "kg/km^2",
-                                mode = "standard"){
-  spm_set_units(x, units, target_units, mode)
-}
-
-spm_set_units <- function(x, units, target_units, mode = "standard"){
-  units(x) <- units
-  x <- units::set_units(x, target_units, mode = mode)
-  return(x)
-}
