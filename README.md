@@ -49,7 +49,7 @@ Let’s first load the packages and the test data.
 ``` r
 library(sspm)
 #> Loading required package: sf
-#> Linking to GEOS 3.9.0, GDAL 3.2.2, PROJ 7.2.1
+#> Linking to GEOS 3.9.0, GDAL 3.2.2, PROJ 7.2.1; sf_use_s2() is TRUE
 #> Loading required package: mgcv
 #> Loading required package: nlme
 #> This is mgcv 1.8-38. For overview type 'help("mgcv-package")'.
@@ -99,9 +99,11 @@ plot(bounds)
 
 ``` r
 biomass_dataset <- 
-  spm_as_dataset(borealis, name = "borealis", 
+  spm_as_dataset(borealis, name = "borealis",
+                 density = "weight_per_km2",
                  time_column = "year_f",
-                 coords = c('lon_dec','lat_dec'), uniqueID = "uniqueID")
+                 coords = c('lon_dec','lat_dec'), 
+                 uniqueID = "uniqueID")
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
 #> !  Warning: sspm is assuming WGS 84 CRS is to be used for casting
 
@@ -120,8 +122,10 @@ biomass_dataset
 ``` r
 predator_dataset <- 
   spm_as_dataset(predator, name = "all_predators", 
+                 density = "weight_per_km2",
                  time_column = "year",
-                 uniqueID = "uniqueID", coords = c("lon_dec", "lat_dec"))
+                 coords = c("lon_dec", "lat_dec"),
+                 uniqueID = "uniqueID")
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
 #> !  Warning: sspm is assuming WGS 84 CRS is to be used for casting
 
@@ -224,7 +228,7 @@ spm_points(bounds_voronoi)
 #>  9  2012     39   109 3K       Fall           0.0218 2012           5   -50.0
 #> 10  2014     63   109 2G       Summer         0.0281 2014           5   -55.4
 #> # … with 30 more rows, and 11 more variables: lat_dec <dbl>, depth <dbl>,
-#> #   temp_at_bottom <dbl>, weight <dbl>, weight_per_km2 <dbl>,
+#> #   temp_at_bottom <dbl>, weight <dbl>, weight_per_km2 [kg/km^2],
 #> #   recruit_weight <dbl>, row <int>, uniqueID <chr>, geometry <POINT [°]>,
 #> #   sfa <fct>, area_sfa [km^2]
 ```
@@ -240,13 +244,13 @@ spm_points(bounds_voronoi)
 biomass_smooth <- biomass_dataset %>%  
   spm_smooth(weight_per_km2 ~ sfa + smooth_time(by=sfa) + smooth_space() + 
                smooth_space_time(k = c(NA, 30)),
-             boundaries = bounds_voronoi, drop.unused.levels = F, family=tw, 
-             method= "fREML", keep_fit = T) %>% 
-  spm_smooth(temp_at_bottom ~ smooth_time(by=sfa) + smooth_space() + 
+             boundaries = bounds_voronoi, 
+             family=tw) %>% 
+  spm_smooth(temp_at_bottom ~ smooth_time(by=sfa) + smooth_space() +
                smooth_space_time(k = c(NA, 30)),
-             drop.unused.levels = F, family=gaussian, method= "fREML", 
-             keep_fit = T)
+             family=gaussian)
 #> ℹ  Fitting formula: weight_per_km2 ~ sfa + smooth_time(by = sfa) + smooth_space() + smooth_space_time(k = c(NA, 30)) for dataset 'borealis'
+#> !  Response variable temp_at_bottom is NOT a biomass density variable
 #> ℹ  Fitting formula: temp_at_bottom ~ smooth_time(by = sfa) + smooth_space() + smooth_space_time(k = c(NA, 30)) for dataset 'borealis'
 
 biomass_smooth
@@ -304,6 +308,7 @@ predator_smooth
 ``` r
 catch_dataset <- 
   spm_as_dataset(catch, name = "catch_data", 
+                 biomass = "catch",
                  time_column = "year_f", 
                  uniqueID = "uniqueID", coords = c("lon_start", "lat_start"))
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_start, lat_start
@@ -489,19 +494,26 @@ head(biomass_preds)
 #> Bounding box:  xmin: -64.5 ymin: 58.4628 xmax: -61.36857 ymax: 60.62184
 #> Geodetic CRS:  WGS 84
 #>   patch_id year_f sfa      patch_area biomass_density_with_catch
-#> 1       P1   1995   4 20367.39 [km^2]                   5541.089
-#> 2       P1   1996   4 20367.39 [km^2]                   4923.462
-#> 3       P1   1997   4 20367.39 [km^2]                   5912.102
-#> 4       P1   1998   4 20367.39 [km^2]                   5448.442
-#> 5       P1   1999   4 20367.39 [km^2]                   5087.022
-#> 6       P1   2000   4 20367.39 [km^2]                   6050.898
-#>   biomass_density biomass_with_catch   biomass                       geometry
-#> 1        5539.809          112857542 112831477 POLYGON ((-64.42169 60.2712...
-#> 2        4922.250          100278095 100253409 POLYGON ((-64.42169 60.2712...
-#> 3        5911.664          120414113 120405189 POLYGON ((-64.42169 60.2712...
-#> 4        5446.346          110970556 110927873 POLYGON ((-64.42169 60.2712...
-#> 5        5083.695          103609372 103541611 POLYGON ((-64.42169 60.2712...
-#> 6        6042.921          123241030 123078545 POLYGON ((-64.42169 60.2712...
+#> 1       P1   1995   4 20367.39 [km^2]         5541.089 [kg/km^2]
+#> 2       P1   1996   4 20367.39 [km^2]         4923.462 [kg/km^2]
+#> 3       P1   1997   4 20367.39 [km^2]         5912.102 [kg/km^2]
+#> 4       P1   1998   4 20367.39 [km^2]         5448.442 [kg/km^2]
+#> 5       P1   1999   4 20367.39 [km^2]         5087.022 [kg/km^2]
+#> 6       P1   2000   4 20367.39 [km^2]         6050.898 [kg/km^2]
+#>      biomass_density  biomass_with_catch             biomass
+#> 1 5539.809 [kg/km^2] 112857542 [kg/km^2] 112831477 [kg/km^2]
+#> 2 4922.250 [kg/km^2] 100278095 [kg/km^2] 100253409 [kg/km^2]
+#> 3 5911.664 [kg/km^2] 120414113 [kg/km^2] 120405189 [kg/km^2]
+#> 4 5446.346 [kg/km^2] 110970556 [kg/km^2] 110927873 [kg/km^2]
+#> 5 5083.695 [kg/km^2] 103609372 [kg/km^2] 103541611 [kg/km^2]
+#> 6 6042.921 [kg/km^2] 123241030 [kg/km^2] 123078545 [kg/km^2]
+#>                         geometry
+#> 1 POLYGON ((-64.42169 60.2712...
+#> 2 POLYGON ((-64.42169 60.2712...
+#> 3 POLYGON ((-64.42169 60.2712...
+#> 4 POLYGON ((-64.42169 60.2712...
+#> 5 POLYGON ((-64.42169 60.2712...
+#> 6 POLYGON ((-64.42169 60.2712...
 ```
 
 We can also predict the biomass one step ahead.
@@ -517,7 +529,7 @@ head(biomass_one_step)
 #> Geodetic CRS:  WGS 84
 #> # A tibble: 6 × 6
 #>   year_f sfa      biomass patch_id patch_area                           geometry
-#>    <dbl> <fct>      <dbl> <fct>        [km^2]                      <POLYGON [°]>
+#>    <dbl> <fct>  [kg/km^2] <fct>        [km^2]                      <POLYGON [°]>
 #> 1   2019 4     130032236. P1           20367. ((-64.42169 60.27125, -64.42 60.2…
 #> 2   2019 4      11130315. P2            1719. ((-59.95566 58.64882, -60.25261 5…
 #> 3   2019 4      24737672. P3            3883. ((-61.89804 57.6918, -61.34602 58…
