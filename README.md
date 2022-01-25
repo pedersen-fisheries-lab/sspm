@@ -68,10 +68,8 @@ library(dplyr)
 #>     intersect, setdiff, setequal, union
 
 borealis <- sspm:::borealis_simulated
-predator <- sspm:::predator_simulated %>%
-  mutate(year = as.factor(year))
+predator <- sspm:::predator_simulated
 catch <- sspm:::catch_simulated
-
 sfa_boundaries <- sspm:::sfa_boundaries
 ```
 
