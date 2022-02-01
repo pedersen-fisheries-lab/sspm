@@ -2,7 +2,7 @@
 #'
 #' Predict using a fitted SPM model on the whole data or on new data
 #'
-#' @param object *\[sspm_fit\]** Fit object to predict from.
+#' @param object **\[sspm_fit\]** Fit object to predict from.
 #' @param new_data **\[data.frame\]** New data to predict with.
 #' @param discrete **\[logical\]** If `new_data` is NULL, whether to predict
 #'    based on a discrete prediction matrix (default to TRUE).
@@ -242,7 +242,7 @@ setMethod(f = "predict",
             names(preds) <- responses
 
             biomass_vars <- c(spm_biomass_vars(object))
-            biomass_density_vars <- c(spm_density_vars(object))
+            biomass_density_vars <- c( spm_density_vars(object))
 
             for (var in names(preds)){
               if (var %in% biomass_vars){

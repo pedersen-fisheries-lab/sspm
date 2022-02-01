@@ -20,7 +20,7 @@
 \S4method{predict}{sspm_dataset}(object, new_data = NULL, discrete = TRUE, type = "response")
 }
 \arguments{
-\item{object}{\emph{[sspm_fit]}* Fit object to predict from.}
+\item{object}{\strong{[sspm_fit]} Fit object to predict from.}
 
 \item{new_data}{\strong{[data.frame]} New data to predict with.}
 
