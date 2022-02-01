@@ -86,7 +86,7 @@ biomass_dataset
 predator_dataset <- 
   spm_as_dataset(predator, name = "all_predators", 
                  density = "weight_per_km2",
-                 time = "year",
+                 time = "year_f",
                  coords = c("lon_dec", "lat_dec"),
                  uniqueID = "uniqueID")
 
@@ -99,7 +99,7 @@ predator_dataset
 bounds_voronoi <- bounds %>% 
   spm_discretize(method = "tesselate_voronoi",
                  with = biomass_dataset, 
-                 nb_samples = 10)
+                 nb_samples = 30)
 
 bounds_voronoi
 ```
@@ -172,7 +172,8 @@ catch_dataset <-
   spm_as_dataset(catch, name = "catch_data", 
                  biomass = "catch",
                  time = "year_f", 
-                 uniqueID = "uniqueID", coords = c("lon_start", "lat_start"))
+                 uniqueID = "uniqueID", 
+                 coords = c("lon_dec", "lat_dec"))
 
 catch_dataset
 ```
