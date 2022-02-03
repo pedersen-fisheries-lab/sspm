@@ -147,7 +147,7 @@
 <span class="va">biomass_dataset</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM Dataset: borealis ‒‒</span>
-<span class="co">#&gt; →  Data              : [1541 observations, 18 variables]</span>
+<span class="co">#&gt; →  Data              : [1800 observations, 9 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
 <span class="co">#&gt; →  Time col.         : year_f</span>
 <span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span></code></pre></div>
@@ -158,7 +158,7 @@
 <code class="sourceCode R"><span class="va">predator_dataset</span> <span class="op">&lt;-</span> 
   <span class="fu"><a href="reference/spm_as_dataset.html">spm_as_dataset</a></span><span class="op">(</span><span class="va">predator</span>, name <span class="op">=</span> <span class="st">"all_predators"</span>, 
                  density <span class="op">=</span> <span class="st">"weight_per_km2"</span>,
-                 time <span class="op">=</span> <span class="st">"year"</span>,
+                 time <span class="op">=</span> <span class="st">"year_f"</span>,
                  coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lon_dec"</span>, <span class="st">"lat_dec"</span><span class="op">)</span>,
                  uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span><span class="op">)</span>
 <span class="co">#&gt; ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec</span>
@@ -167,9 +167,9 @@
 <span class="va">predator_dataset</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM Dataset: all_predators ‒‒</span>
-<span class="co">#&gt; →  Data              : [4833 observations, 15 variables]</span>
+<span class="co">#&gt; →  Data              : [10200 observations, 8 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
-<span class="co">#&gt; →  Time col.         : year</span>
+<span class="co">#&gt; →  Time col.         : year_f</span>
 <span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>The <code>sspm</code> workflow relies on the discretization of the boundary objects, the default method being voronoi tesselation.</li>
@@ -178,7 +178,7 @@
 <code class="sourceCode R"><span class="va">bounds_voronoi</span> <span class="op">&lt;-</span> <span class="va">bounds</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="reference/spm_discretize.html">spm_discretize</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"tesselate_voronoi"</span>,
                  with <span class="op">=</span> <span class="va">biomass_dataset</span>, 
-                 nb_samples <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>
+                 nb_samples <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>
 <span class="co">#&gt; ℹ  Discretizing using method tesselate_voronoi</span>
 
 <span class="va">bounds_voronoi</span>
@@ -188,8 +188,8 @@
 <span class="co">#&gt; →  Boundary col.      : sfa</span>
 <span class="co">#&gt; →  Boundary area col. : area_sfa</span>
 <span class="co">#&gt; →  Discretized        : </span>
-<span class="co">#&gt;    ٭ Points — [40 features, 20 variables]</span>
-<span class="co">#&gt;    ٭ Patches — [38 features, 4 variables]</span></code></pre></div>
+<span class="co">#&gt;    ٭ Points — [120 features, 11 variables]</span>
+<span class="co">#&gt;    ٭ Patches — [35 features, 4 variables]</span></code></pre></div>
 <p>The other available method is <code>triangulate_delaunay</code> for delaunay triangulation. Here the <code>a</code> argument is used to set the size of the mesh (see <code><a href="https://rdrr.io/pkg/RTriangle/man/triangulate.html" class="external-link">RTriangle::triangulate</a></code> for more details).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bounds_delaunay</span> <span class="op">&lt;-</span> <span class="va">bounds</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> 
@@ -209,49 +209,47 @@
 </ol>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/accessors-methods-sspm_boundary.html">spm_patches</a></span><span class="op">(</span><span class="va">bounds_voronoi</span><span class="op">)</span>
-<span class="co">#&gt; Simple feature collection with 38 features and 3 fields</span>
+<span class="co">#&gt; Simple feature collection with 35 features and 3 fields</span>
 <span class="co">#&gt; Geometry type: POLYGON</span>
 <span class="co">#&gt; Dimension:     XY</span>
-<span class="co">#&gt; Bounding box:  xmin: -64.5 ymin: 46.00004 xmax: -46.6269 ymax: 61</span>
+<span class="co">#&gt; Bounding box:  xmin: -64.18658 ymin: 46.00004 xmax: -46.6269 ymax: 60.84333</span>
 <span class="co">#&gt; Geodetic CRS:  WGS 84</span>
-<span class="co">#&gt; # A tibble: 38 × 4</span>
+<span class="co">#&gt; # A tibble: 35 × 4</span>
 <span class="co">#&gt;    sfa   patch_id patch_area                                            geometry</span>
 <span class="co">#&gt;    &lt;fct&gt; &lt;fct&gt;        [km^2]                                       &lt;POLYGON [°]&gt;</span>
-<span class="co">#&gt;  1 4     P1           20367. ((-64.42169 60.27125, -64.42 60.27206, -64.41666 6…</span>
-<span class="co">#&gt;  2 4     P2            1719. ((-59.95566 58.64882, -60.25261 57.73692, -59.6767…</span>
-<span class="co">#&gt;  3 4     P3            3883. ((-61.89804 57.6918, -61.34602 58.43681, -61.36857…</span>
-<span class="co">#&gt;  4 4     P4            4684. ((-60.50931 57.66667, -60.87958 58.41518, -61.3460…</span>
-<span class="co">#&gt;  5 4     P5            2687. ((-61.34602 58.43681, -60.87958 58.41518, -60.6835…</span>
-<span class="co">#&gt;  6 4     P6           14504. ((-63 60.62184, -61.66155 59.11637, -60.6936 58.90…</span>
-<span class="co">#&gt;  7 4     P7            2449. ((-60.26194 59.52858, -60.73068 59.34113, -60.6936…</span>
-<span class="co">#&gt;  8 4     P8            6259. ((-59.91649 58.83888, -60.68359 58.8793, -60.87958…</span>
-<span class="co">#&gt;  9 4     P9            5308. ((-61.96379 61, -60.73068 59.34113, -60.26194 59.5…</span>
-<span class="co">#&gt; 10 5     P10          27940. ((-59.55703 55.21506, -59.53354 57.66667, -59.5666…</span>
-<span class="co">#&gt; # … with 28 more rows</span>
+<span class="co">#&gt;  1 4     P1           31350. ((-61.49885 58.11503, -61.24738 58.14026, -60.7703…</span>
+<span class="co">#&gt;  2 4     P2           11607. ((-60.77034 60.02342, -61.24738 58.14026, -59.6984…</span>
+<span class="co">#&gt;  3 4     P3            4619. ((-59.37831 57.67423, -59.43377 57.71988, -59.4892…</span>
+<span class="co">#&gt;  4 5     P4           13657. ((-56.7447 54.34709, -56.66417 54.34705, -56.66416…</span>
+<span class="co">#&gt;  5 5     P5           14514. ((-59.6728 55.88317, -59.58696 55.95008, -58.97613…</span>
+<span class="co">#&gt;  6 5     P6           15164. ((-58.97613 57.16068, -59.58696 55.95008, -57.4711…</span>
+<span class="co">#&gt;  7 5     P7            6354. ((-57.48427 54.91192, -57.4711 55.3424, -59.58696 …</span>
+<span class="co">#&gt;  8 5     P8            7935. ((-55 54.75, -54.37418 54.75322, -53.92907 54.7535…</span>
+<span class="co">#&gt;  9 5     P9            5235. ((-56.72208 54.49769, -56.56636 55.50528, -56.6883…</span>
+<span class="co">#&gt; 10 6     P10           9317. ((-52.69796 49.24956, -52.9605 49.75061, -54.76086…</span>
+<span class="co">#&gt; # … with 25 more rows</span>
 <span class="fu"><a href="reference/accessors-methods-sspm_boundary.html">spm_points</a></span><span class="op">(</span><span class="va">bounds_voronoi</span><span class="op">)</span>
-<span class="co">#&gt; Simple feature collection with 40 features and 19 fields</span>
+<span class="co">#&gt; Simple feature collection with 120 features and 10 fields</span>
 <span class="co">#&gt; Geometry type: POINT</span>
 <span class="co">#&gt; Dimension:     XY</span>
-<span class="co">#&gt; Bounding box:  xmin: -61.77175 ymin: 46.16256 xmax: -48.20016 ymax: 59.70288</span>
+<span class="co">#&gt; Bounding box:  xmin: -62.7333 ymin: 46.10625 xmax: -47.27537 ymax: 60.35241</span>
 <span class="co">#&gt; Geodetic CRS:  WGS 84</span>
-<span class="co">#&gt; # A tibble: 40 × 20</span>
+<span class="co">#&gt; # A tibble: 120 × 11</span>
 <span class="co">#&gt; # Groups:   sfa [4]</span>
-<span class="co">#&gt;     year vessel  trip div_nafo season area_swept_km2 year_f n_samples lon_dec</span>
-<span class="co">#&gt;  * &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;    &lt;chr&gt;           &lt;dbl&gt; &lt;fct&gt;      &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt;  1  1995     39    23 2J       Fall           0.0250 1995           5   -51.9</span>
-<span class="co">#&gt;  2  1996     39    37 2G       Fall           0.0250 1996           5   -61.8</span>
-<span class="co">#&gt;  3  2011     39    95 2J       Fall           0.0250 2011           5   -49.1</span>
-<span class="co">#&gt;  4  2011     39    97 2J       Fall           0.0187 2011           5   -53.7</span>
-<span class="co">#&gt;  5  2011     39    98 3K       Fall           0.0281 2011           5   -61.2</span>
-<span class="co">#&gt;  6  2006     48   101 2G       Summer         0.0187 2006           5   -57.1</span>
-<span class="co">#&gt;  7  2009     48   104 2G       Summer         0.0156 2009           5   -61.3</span>
-<span class="co">#&gt;  8  2012     39   107 2H       Fall           0.0187 2012           5   -56.3</span>
-<span class="co">#&gt;  9  2012     39   109 3K       Fall           0.0218 2012           5   -50.0</span>
-<span class="co">#&gt; 10  2014     63   109 2G       Summer         0.0281 2014           5   -55.4</span>
-<span class="co">#&gt; # … with 30 more rows, and 11 more variables: lat_dec &lt;dbl&gt;, depth &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   temp_at_bottom &lt;dbl&gt;, weight &lt;dbl&gt;, weight_per_km2 [kg/km^2],</span>
-<span class="co">#&gt; #   recruit_weight &lt;dbl&gt;, row &lt;int&gt;, uniqueID &lt;chr&gt;, geometry &lt;POINT [°]&gt;,</span>
-<span class="co">#&gt; #   sfa &lt;fct&gt;, area_sfa [km^2]</span></code></pre></div>
+<span class="co">#&gt;    year_f sfa   weight_per_km2 temp_at_bottom lon_dec lat_dec   row uniqueID   </span>
+<span class="co">#&gt;  * &lt;fct&gt;  &lt;chr&gt;      [kg/km^2]          &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;      </span>
+<span class="co">#&gt;  1 1995   7                0            1.45    -58.8    56.3     6 y1995s7r6  </span>
+<span class="co">#&gt;  2 1995   5                0            0       -50.6    50.6    51 y1995s5r51 </span>
+<span class="co">#&gt;  3 1996   7              759.           0.605   -55.5    50.2    69 y1996s7r69 </span>
+<span class="co">#&gt;  4 1996   6            13293.           3.00    -53.4    46.4   100 y1996s6r100</span>
+<span class="co">#&gt;  5 1996   5                0            0.934   -52.8    52.2   113 y1996s5r113</span>
+<span class="co">#&gt;  6 1996   4             2050.           2.92    -53.1    50.8   125 y1996s4r125</span>
+<span class="co">#&gt;  7 1997   7             1368.           0       -57.4    55.1   147 y1997s7r147</span>
+<span class="co">#&gt;  8 1997   6               85.4          2.31    -50.7    47.7   176 y1997s6r176</span>
+<span class="co">#&gt;  9 1997   4                0            5.18    -60.9    59.6   182 y1997s4r182</span>
+<span class="co">#&gt; 10 1997   5             4535.           1.27    -51.5    49.3   206 y1997s5r206</span>
+<span class="co">#&gt; # … with 110 more rows, and 3 more variables: geometry &lt;POINT [°]&gt;,</span>
+<span class="co">#&gt; #   sfa_duplicate &lt;fct&gt;, area_sfa [km^2]</span></code></pre></div>
 <ol start="7" style="list-style-type: decimal">
 <li>The next step in this workflow is to smooth the variables to be used in the final <code>sspm</code> model, by using spatial-temporal smoothers, by passing each dataset through <code>spm_smooth</code>. Here we first smooth <code>weight_per_km2</code> as well as <code>temp_at_bottom</code>. Note that the boundary column <code>sfa</code> can be used in the formula as the data will be first joined to the provided boundaries.</li>
 </ol>
@@ -271,12 +269,12 @@
 <span class="va">biomass_smooth</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM Dataset: borealis ‒‒</span>
-<span class="co">#&gt; →  Data (MAPPED)     : [1025 observations, 21 variables]</span>
+<span class="co">#&gt; →  Data (MAPPED)     : [1801 observations, 12 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
 <span class="co">#&gt; →  Time col.         : year_f</span>
 <span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span>
 <span class="co">#&gt; →  Boundaries        : [4 observations, 3 variables]</span>
-<span class="co">#&gt; →  Smoothed Data     : [912 observations, 8 variables]</span>
+<span class="co">#&gt; →  Smoothed Data     : [840 observations, 8 variables]</span>
 <span class="co">#&gt;    ٭ smoothed vars: temp_at_bottom — weight_per_km2</span></code></pre></div>
 <ol start="8" style="list-style-type: decimal">
 <li>The smoothed results for any smoothed variables (listed in “smoothed vars” above) can be easily plotted:</li>
@@ -296,16 +294,18 @@
              boundaries <span class="op">=</span> <span class="va">bounds_voronoi</span>,
              drop.unused.levels <span class="op">=</span> <span class="cn">F</span>, family<span class="op">=</span><span class="va">tw</span>, method<span class="op">=</span> <span class="st">"fREML"</span><span class="op">)</span>
 <span class="co">#&gt; ℹ  Fitting formula: weight_per_km2 ~ smooth_time(k = 3) + smooth_space() for dataset 'all_predators'</span>
+<span class="co">#&gt; Warning in bgam.fit(G, mf, chunk.size, gp, scale, gamma, method = method, :</span>
+<span class="co">#&gt; algorithm did not converge</span>
 
 <span class="va">predator_smooth</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM Dataset: all_predators ‒‒</span>
-<span class="co">#&gt; →  Data (MAPPED)     : [1965 observations, 18 variables]</span>
+<span class="co">#&gt; →  Data (MAPPED)     : [10201 observations, 11 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
-<span class="co">#&gt; →  Time col.         : year</span>
+<span class="co">#&gt; →  Time col.         : year_f</span>
 <span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span>
 <span class="co">#&gt; →  Boundaries        : [4 observations, 3 variables]</span>
-<span class="co">#&gt; →  Smoothed Data     : [912 observations, 7 variables]</span>
+<span class="co">#&gt; →  Smoothed Data     : [1400 observations, 7 variables]</span>
 <span class="co">#&gt;    ٭ smoothed vars: weight_per_km2</span></code></pre></div>
 <ol start="10" style="list-style-type: decimal">
 <li>Before we assemble the full model with our newly smoothed data, we need to deal with the catch data. We first load the dataset.</li>
@@ -315,17 +315,18 @@
   <span class="fu"><a href="reference/spm_as_dataset.html">spm_as_dataset</a></span><span class="op">(</span><span class="va">catch</span>, name <span class="op">=</span> <span class="st">"catch_data"</span>, 
                  biomass <span class="op">=</span> <span class="st">"catch"</span>,
                  time <span class="op">=</span> <span class="st">"year_f"</span>, 
-                 uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span>, coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lon_start"</span>, <span class="st">"lat_start"</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; ℹ  Casting data matrix into simple feature collection using columns: lon_start, lat_start</span>
+                 uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span>, 
+                 coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"lon_dec"</span>, <span class="st">"lat_dec"</span><span class="op">)</span><span class="op">)</span>
+<span class="co">#&gt; ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec</span>
 <span class="co">#&gt; !  Warning: sspm is assuming WGS 84 CRS is to be used for casting</span>
 
 <span class="va">catch_dataset</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM Dataset: catch_data ‒‒</span>
-<span class="co">#&gt; →  Data              : [88579 observations, 8 variables]</span>
+<span class="co">#&gt; →  Data              : [2020 observations, 8 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
 <span class="co">#&gt; →  Time col.         : year_f</span>
-<span class="co">#&gt; →  Coordinates cols. : lon_start, lat_start</span></code></pre></div>
+<span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span></code></pre></div>
 <ol start="11" style="list-style-type: decimal">
 <li>We then need to aggregate this data. This illustrate using the <code>spm_aggregate</code> functions. Here we use <code>spm_aggregate_catch</code>:</li>
 </ol>
@@ -341,12 +342,12 @@
 <span class="va">biomass_smooth_w_catch</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM Dataset: borealis ‒‒</span>
-<span class="co">#&gt; →  Data (MAPPED)     : [1025 observations, 21 variables]</span>
+<span class="co">#&gt; →  Data (MAPPED)     : [1801 observations, 12 variables]</span>
 <span class="co">#&gt; →  Data unique ID    : uniqueID</span>
 <span class="co">#&gt; →  Time col.         : year_f</span>
 <span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span>
 <span class="co">#&gt; →  Boundaries        : [4 observations, 3 variables]</span>
-<span class="co">#&gt; →  Smoothed Data     : [912 observations, 13 variables]</span>
+<span class="co">#&gt; →  Smoothed Data     : [840 observations, 13 variables]</span>
 <span class="co">#&gt;    ٭ smoothed vars: temp_at_bottom — weight_per_km2</span>
 <span class="co">#&gt;    ٭ vars with catch: weight_per_km2_borealis_with_catch</span></code></pre></div>
 <ol start="12" style="list-style-type: decimal">
@@ -360,7 +361,7 @@
 <span class="va">sspm_model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM Model (2 datasets) ‒‒</span>
-<span class="co">#&gt; →  Smoothed Data     : [912 observations, 14 variables]</span>
+<span class="co">#&gt; →  Smoothed Data     : [840 observations, 14 variables]</span>
 <span class="co">#&gt;    ٭ smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis</span>
 <span class="co">#&gt;    ٭ vars with catch: weight_per_km2_borealis_with_catch</span></code></pre></div>
 <ol start="13" style="list-style-type: decimal">
@@ -373,7 +374,7 @@
 <span class="va">sspm_model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM Model (2 datasets) ‒‒</span>
-<span class="co">#&gt; →  Smoothed Data     : [912 observations, 15 variables] / [874 train, 38 test]</span>
+<span class="co">#&gt; →  Smoothed Data     : [840 observations, 15 variables] / [805 train, 35 test]</span>
 <span class="co">#&gt;    ٭ smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis</span>
 <span class="co">#&gt;    ٭ vars with catch: weight_per_km2_borealis_with_catch</span></code></pre></div>
 <ol start="14" style="list-style-type: decimal">
@@ -388,7 +389,7 @@
 <span class="va">sspm_model</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM Model (2 datasets) ‒‒</span>
-<span class="co">#&gt; →  Smoothed Data     : [912 observations, 17 variables] / [874 train, 38 test]</span>
+<span class="co">#&gt; →  Smoothed Data     : [840 observations, 17 variables] / [805 train, 35 test]</span>
 <span class="co">#&gt;    ٭ smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis</span>
 <span class="co">#&gt;    ٭ vars with catch: weight_per_km2_borealis_with_catch — weight_per_km2_borealis_with_catch_lag_1</span>
 <span class="co">#&gt;    ٭ lagged vars: weight_per_km2_all_predators_lag_1 — weight_per_km2_borealis_with_catch_lag_1</span></code></pre></div>
@@ -403,16 +404,14 @@
         <span class="fu"><a href="reference/smooths.html">smooth_space</a></span><span class="op">(</span><span class="op">)</span>, 
       family <span class="op">=</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/mgcv/man/scat.html" class="external-link">scat</a></span><span class="op">)</span>
 <span class="co">#&gt; ℹ  Fitting SPM formula: log_productivity ~ sfa + weight_per_km2_all_predators_lag_1 + smooth_lag('weight_per_km2_borealis_with_catch') + smooth_space()</span>
-<span class="co">#&gt; Warning in bgam.fit(G, mf, chunk.size, gp, scale, gamma, method = method, :</span>
-<span class="co">#&gt; algorithm did not converge</span>
 
 <span class="va">sspm_model_fit</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; ‒‒ SSPM Model Fit ‒‒</span>
-<span class="co">#&gt; →  Smoothed Data     : [912 observations, 17 variables] / [874 train, 38 test]</span>
+<span class="co">#&gt; →  Smoothed Data     : [840 observations, 17 variables] / [805 train, 35 test]</span>
 <span class="co">#&gt; →  Fit summary       : </span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Family: Scaled t(3,0.013) </span>
+<span class="co">#&gt; Family: Scaled t(7.607,0.19) </span>
 <span class="co">#&gt; Link function: identity </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Formula:</span>
@@ -421,30 +420,30 @@
 <span class="co">#&gt;     k = 30, bs = "mrf", xt = list(penalty = pen_mat_space))</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Parametric coefficients:</span>
-<span class="co">#&gt;                                      Estimate Std. Error t value Pr(&gt;|t|)    </span>
-<span class="co">#&gt; (Intercept)                         1.599e+00  4.379e-01   3.652 0.000277 ***</span>
-<span class="co">#&gt; sfa5                               -1.157e-01  7.614e-03 -15.190  &lt; 2e-16 ***</span>
-<span class="co">#&gt; sfa6                               -1.609e-01  1.117e-02 -14.402  &lt; 2e-16 ***</span>
-<span class="co">#&gt; sfa7                               -1.963e-01  1.274e-02 -15.409  &lt; 2e-16 ***</span>
-<span class="co">#&gt; weight_per_km2_all_predators_lag_1  3.032e-06  9.559e-05   0.032 0.974708    </span>
+<span class="co">#&gt;                                     Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="co">#&gt; (Intercept)                        5.896e-01  6.189e-02   9.525  &lt; 2e-16 ***</span>
+<span class="co">#&gt; sfa5                               5.405e-02  3.240e-02   1.668  0.09568 .  </span>
+<span class="co">#&gt; sfa6                               9.308e-02  3.022e-02   3.080  0.00214 ** </span>
+<span class="co">#&gt; sfa7                               7.824e-02  3.071e-02   2.548  0.01103 *  </span>
+<span class="co">#&gt; weight_per_km2_all_predators_lag_1 1.244e-05  1.800e-05   0.691  0.48990    </span>
 <span class="co">#&gt; ---</span>
 <span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Approximate significance of smooth terms:</span>
-<span class="co">#&gt;                            edf Ref.df        F p-value    </span>
-<span class="co">#&gt; s(lag_matrix):by_matrix  4.997      5 2224.073  &lt;2e-16 ***</span>
-<span class="co">#&gt; s(patch_id)             21.145     29    6.435  &lt;2e-16 ***</span>
+<span class="co">#&gt;                           edf Ref.df       F p-value    </span>
+<span class="co">#&gt; s(lag_matrix):by_matrix 4.958      5 117.482  &lt;2e-16 ***</span>
+<span class="co">#&gt; s(patch_id)             1.006     28   7.471  &lt;2e-16 ***</span>
 <span class="co">#&gt; ---</span>
 <span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; R-sq.(adj) =  0.675   Deviance explained = 41.8%</span>
-<span class="co">#&gt; -REML =   1128  Scale est. = 1         n = 836</span></code></pre></div>
+<span class="co">#&gt; R-sq.(adj) =  0.758   Deviance explained = 53.3%</span>
+<span class="co">#&gt; -REML =   1135  Scale est. = 1         n = 770</span></code></pre></div>
 <ol start="16" style="list-style-type: decimal">
 <li>Plotting the object produces a actual vs predicted plot (with TEST/TRAIN data highlighted.</li>
 </ol>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, train_test <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span>
-<span class="co">#&gt; Warning: Removed 38 rows containing missing values (geom_point).</span></code></pre></div>
+<span class="co">#&gt; Warning: Removed 35 rows containing missing values (geom_point).</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-21-1.png" width="100%"></p>
 <ol start="17" style="list-style-type: decimal">
 <li>We can also extract the predictions.</li>
@@ -455,22 +454,22 @@
 <span class="co">#&gt; Simple feature collection with 6 features and 6 fields</span>
 <span class="co">#&gt; Geometry type: POLYGON</span>
 <span class="co">#&gt; Dimension:     XY</span>
-<span class="co">#&gt; Bounding box:  xmin: -64.5 ymin: 58.4628 xmax: -61.36857 ymax: 60.62184</span>
+<span class="co">#&gt; Bounding box:  xmin: -64.18658 ymin: 58.11503 xmax: -60.77034 ymax: 60.84333</span>
 <span class="co">#&gt; Geodetic CRS:  WGS 84</span>
-<span class="co">#&gt;       pred_log     pred patch_id year_f sfa      patch_area</span>
-<span class="co">#&gt; 1  0.008623623 1.008661       P1   1995   4 20367.39 [km^2]</span>
-<span class="co">#&gt; 2 -0.016062267 0.984066       P1   1996   4 20367.39 [km^2]</span>
-<span class="co">#&gt; 3  0.097726961 1.102662       P1   1997   4 20367.39 [km^2]</span>
-<span class="co">#&gt; 4  0.016055112 1.016185       P1   1998   4 20367.39 [km^2]</span>
-<span class="co">#&gt; 5  0.010394597 1.010449       P1   1999   4 20367.39 [km^2]</span>
-<span class="co">#&gt; 6  0.099560892 1.104686       P1   2000   4 20367.39 [km^2]</span>
+<span class="co">#&gt;      pred_log      pred patch_id year_f sfa      patch_area</span>
+<span class="co">#&gt; 1 -0.02730678 0.9730627       P1   1995   4 31350.28 [km^2]</span>
+<span class="co">#&gt; 2 -0.19554690 0.8223848       P1   1996   4 31350.28 [km^2]</span>
+<span class="co">#&gt; 3  0.05315999 1.0545984       P1   1997   4 31350.28 [km^2]</span>
+<span class="co">#&gt; 4 -0.01628782 0.9838441       P1   1998   4 31350.28 [km^2]</span>
+<span class="co">#&gt; 5  0.03051588 1.0309863       P1   1999   4 31350.28 [km^2]</span>
+<span class="co">#&gt; 6  0.01365585 1.0137495       P1   2000   4 31350.28 [km^2]</span>
 <span class="co">#&gt;                         geometry</span>
-<span class="co">#&gt; 1 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 2 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 3 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 4 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 5 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 6 POLYGON ((-64.42169 60.2712...</span></code></pre></div>
+<span class="co">#&gt; 1 POLYGON ((-61.49885 58.1150...</span>
+<span class="co">#&gt; 2 POLYGON ((-61.49885 58.1150...</span>
+<span class="co">#&gt; 3 POLYGON ((-61.49885 58.1150...</span>
+<span class="co">#&gt; 4 POLYGON ((-61.49885 58.1150...</span>
+<span class="co">#&gt; 5 POLYGON ((-61.49885 58.1150...</span>
+<span class="co">#&gt; 6 POLYGON ((-61.49885 58.1150...</span></code></pre></div>
 <p>We can also get the predictions for biomass by passing the biomass variable name.</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">biomass_preds</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predict.html">predict</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span><span class="op">)</span>
@@ -478,29 +477,29 @@
 <span class="co">#&gt; Simple feature collection with 6 features and 8 fields</span>
 <span class="co">#&gt; Geometry type: POLYGON</span>
 <span class="co">#&gt; Dimension:     XY</span>
-<span class="co">#&gt; Bounding box:  xmin: -64.5 ymin: 58.4628 xmax: -61.36857 ymax: 60.62184</span>
+<span class="co">#&gt; Bounding box:  xmin: -64.18658 ymin: 58.11503 xmax: -60.77034 ymax: 60.84333</span>
 <span class="co">#&gt; Geodetic CRS:  WGS 84</span>
 <span class="co">#&gt;   patch_id year_f sfa      patch_area biomass_density_with_catch</span>
-<span class="co">#&gt; 1       P1   1995   4 20367.39 [km^2]         5541.089 [kg/km^2]</span>
-<span class="co">#&gt; 2       P1   1996   4 20367.39 [km^2]         4923.462 [kg/km^2]</span>
-<span class="co">#&gt; 3       P1   1997   4 20367.39 [km^2]         5912.102 [kg/km^2]</span>
-<span class="co">#&gt; 4       P1   1998   4 20367.39 [km^2]         5448.442 [kg/km^2]</span>
-<span class="co">#&gt; 5       P1   1999   4 20367.39 [km^2]         5087.022 [kg/km^2]</span>
-<span class="co">#&gt; 6       P1   2000   4 20367.39 [km^2]         6050.898 [kg/km^2]</span>
-<span class="co">#&gt;      biomass_density  biomass_with_catch             biomass</span>
-<span class="co">#&gt; 1 5539.809 [kg/km^2] 112857542 [kg/km^2] 112831477 [kg/km^2]</span>
-<span class="co">#&gt; 2 4922.250 [kg/km^2] 100278095 [kg/km^2] 100253409 [kg/km^2]</span>
-<span class="co">#&gt; 3 5911.664 [kg/km^2] 120414113 [kg/km^2] 120405189 [kg/km^2]</span>
-<span class="co">#&gt; 4 5446.346 [kg/km^2] 110970556 [kg/km^2] 110927873 [kg/km^2]</span>
-<span class="co">#&gt; 5 5083.695 [kg/km^2] 103609372 [kg/km^2] 103541611 [kg/km^2]</span>
-<span class="co">#&gt; 6 6042.921 [kg/km^2] 123241030 [kg/km^2] 123078545 [kg/km^2]</span>
+<span class="co">#&gt; 1       P1   1995   4 31350.28 [km^2]         3647.214 [kg/km^2]</span>
+<span class="co">#&gt; 2       P1   1996   4 31350.28 [km^2]         2374.311 [kg/km^2]</span>
+<span class="co">#&gt; 3       P1   1997   4 31350.28 [km^2]         2808.305 [kg/km^2]</span>
+<span class="co">#&gt; 4       P1   1998   4 31350.28 [km^2]         2627.772 [kg/km^2]</span>
+<span class="co">#&gt; 5       P1   1999   4 31350.28 [km^2]         2632.060 [kg/km^2]</span>
+<span class="co">#&gt; 6       P1   2000   4 31350.28 [km^2]         2542.133 [kg/km^2]</span>
+<span class="co">#&gt;      biomass_density biomass_with_catch        biomass</span>
+<span class="co">#&gt; 1 3646.640 [kg/km^2]     114341186 [kg] 114323179 [kg]</span>
+<span class="co">#&gt; 2 2374.120 [kg/km^2]      74435325 [kg]  74429343 [kg]</span>
+<span class="co">#&gt; 3 2807.640 [kg/km^2]      88041135 [kg]  88020295 [kg]</span>
+<span class="co">#&gt; 4 2627.087 [kg/km^2]      82381383 [kg]  82359909 [kg]</span>
+<span class="co">#&gt; 5 2631.644 [kg/km^2]      82515821 [kg]  82502764 [kg]</span>
+<span class="co">#&gt; 6 2541.481 [kg/km^2]      79696589 [kg]  79676157 [kg]</span>
 <span class="co">#&gt;                         geometry</span>
-<span class="co">#&gt; 1 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 2 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 3 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 4 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 5 POLYGON ((-64.42169 60.2712...</span>
-<span class="co">#&gt; 6 POLYGON ((-64.42169 60.2712...</span></code></pre></div>
+<span class="co">#&gt; 1 POLYGON ((-61.49885 58.1150...</span>
+<span class="co">#&gt; 2 POLYGON ((-61.49885 58.1150...</span>
+<span class="co">#&gt; 3 POLYGON ((-61.49885 58.1150...</span>
+<span class="co">#&gt; 4 POLYGON ((-61.49885 58.1150...</span>
+<span class="co">#&gt; 5 POLYGON ((-61.49885 58.1150...</span>
+<span class="co">#&gt; 6 POLYGON ((-61.49885 58.1150...</span></code></pre></div>
 <p>We can also predict the biomass one step ahead.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">biomass_one_step</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/predict.html">predict</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, 
@@ -509,24 +508,24 @@
 <span class="co">#&gt; Simple feature collection with 6 features and 5 fields</span>
 <span class="co">#&gt; Geometry type: POLYGON</span>
 <span class="co">#&gt; Dimension:     XY</span>
-<span class="co">#&gt; Bounding box:  xmin: -64.5 ymin: 57.66667 xmax: -59.65562 ymax: 61</span>
+<span class="co">#&gt; Bounding box:  xmin: -64.18658 ymin: 53.85362 xmax: -54.70013 ymax: 60.84333</span>
 <span class="co">#&gt; Geodetic CRS:  WGS 84</span>
 <span class="co">#&gt; # A tibble: 6 × 6</span>
-<span class="co">#&gt;   year_f sfa      biomass patch_id patch_area                           geometry</span>
-<span class="co">#&gt;    &lt;dbl&gt; &lt;fct&gt;  [kg/km^2] &lt;fct&gt;        [km^2]                      &lt;POLYGON [°]&gt;</span>
-<span class="co">#&gt; 1   2019 4     130032236. P1           20367. ((-64.42169 60.27125, -64.42 60.2…</span>
-<span class="co">#&gt; 2   2019 4      11130315. P2            1719. ((-59.95566 58.64882, -60.25261 5…</span>
-<span class="co">#&gt; 3   2019 4      24737672. P3            3883. ((-61.89804 57.6918, -61.34602 58…</span>
-<span class="co">#&gt; 4   2019 4      29934547. P4            4684. ((-60.50931 57.66667, -60.87958 5…</span>
-<span class="co">#&gt; 5   2019 4      17161701. P5            2687. ((-61.34602 58.43681, -60.87958 5…</span>
-<span class="co">#&gt; 6   2019 4      92678654. P6           14504. ((-63 60.62184, -61.66155 59.1163…</span></code></pre></div>
+<span class="co">#&gt;   patch_id year_f sfa     biomass patch_area                            geometry</span>
+<span class="co">#&gt;   &lt;fct&gt;     &lt;dbl&gt; &lt;fct&gt;      [kg]     [km^2]                       &lt;POLYGON [°]&gt;</span>
+<span class="co">#&gt; 1 P1         2019 4      2226128.     31350. ((-61.49885 58.11503, -61.24738 58…</span>
+<span class="co">#&gt; 2 P2         2019 4       916547.     11607. ((-60.77034 60.02342, -61.24738 58…</span>
+<span class="co">#&gt; 3 P3         2019 4       330255.      4619. ((-59.37831 57.67423, -59.43377 57…</span>
+<span class="co">#&gt; 4 P4         2019 5       800544.     13657. ((-56.7447 54.34709, -56.66417 54.…</span>
+<span class="co">#&gt; 5 P5         2019 5      1115285.     14514. ((-59.6728 55.88317, -59.58696 55.…</span>
+<span class="co">#&gt; 6 P6         2019 5     32536070.     15164. ((-58.97613 57.16068, -59.58696 55…</span></code></pre></div>
 <ol start="18" style="list-style-type: decimal">
 <li>We can produce an array of plots, as timeseries or as spatial plots</li>
 </ol>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span><span class="op">)</span>
 <span class="co">#&gt; Warning: Removed 1 row(s) containing missing values (geom_path).</span>
-<span class="co">#&gt; Warning: Removed 38 rows containing missing values (geom_point).</span></code></pre></div>
+<span class="co">#&gt; Warning: Removed 35 rows containing missing values (geom_point).</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-25-1.png" width="100%"></p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
@@ -539,7 +538,18 @@
 <p><img src="reference/figures/README-unnamed-chunk-26-2.png" width="100%"></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, 
-     next_ts <span class="op">=</span> <span class="cn">TRUE</span>, aggregate <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></code></pre></div>
+     next_ts <span class="op">=</span> <span class="cn">TRUE</span>, aggregate <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span>, interval <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+<span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span>
+<span class="co">#&gt; -Inf</span>
+
+<span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span>
+<span class="co">#&gt; -Inf</span>
+
+<span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span>
+<span class="co">#&gt; -Inf</span>
+
+<span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span>
+<span class="co">#&gt; -Inf</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-27-1.png" width="100%"></p>
 </div>
 </div>
