@@ -272,5 +272,5 @@ plot(sspm_model_fit, biomass = "weight_per_km2_borealis", use_sf = TRUE)
 
 ```{r}
 plot(sspm_model_fit, biomass = "weight_per_km2_borealis", 
-     next_ts = TRUE, aggregate = TRUE, scales = "free")
+     next_ts = TRUE, aggregate = TRUE, scales = "free", interval = T)
 ```

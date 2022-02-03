@@ -108,7 +108,7 @@ biomass_dataset <-
 biomass_dataset
 #> 
 #> ‒‒ SSPM Dataset: borealis ‒‒
-#> →  Data              : [1541 observations, 18 variables]
+#> →  Data              : [1800 observations, 9 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year_f
 #> →  Coordinates cols. : lon_dec, lat_dec
@@ -121,7 +121,7 @@ biomass_dataset
 predator_dataset <- 
   spm_as_dataset(predator, name = "all_predators", 
                  density = "weight_per_km2",
-                 time = "year",
+                 time = "year_f",
                  coords = c("lon_dec", "lat_dec"),
                  uniqueID = "uniqueID")
 #> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
@@ -130,9 +130,9 @@ predator_dataset <-
 predator_dataset
 #> 
 #> ‒‒ SSPM Dataset: all_predators ‒‒
-#> →  Data              : [4833 observations, 15 variables]
+#> →  Data              : [10200 observations, 8 variables]
 #> →  Data unique ID    : uniqueID
-#> →  Time col.         : year
+#> →  Time col.         : year_f
 #> →  Coordinates cols. : lon_dec, lat_dec
 ```
 
@@ -143,7 +143,7 @@ predator_dataset
 bounds_voronoi <- bounds %>% 
   spm_discretize(method = "tesselate_voronoi",
                  with = biomass_dataset, 
-                 nb_samples = 10)
+                 nb_samples = 30)
 #> ℹ  Discretizing using method tesselate_voronoi
 
 bounds_voronoi
@@ -153,8 +153,8 @@ bounds_voronoi
 #> →  Boundary col.      : sfa
 #> →  Boundary area col. : area_sfa
 #> →  Discretized        : 
-#>    ٭ Points — [40 features, 20 variables]
-#>    ٭ Patches — [38 features, 4 variables]
+#>    ٭ Points — [120 features, 11 variables]
+#>    ٭ Patches — [35 features, 4 variables]
 ```
 
 The other available method is `triangulate_delaunay` for delaunay
@@ -186,49 +186,47 @@ plot(bounds_delaunay)
 
 ``` r
 spm_patches(bounds_voronoi)
-#> Simple feature collection with 38 features and 3 fields
+#> Simple feature collection with 35 features and 3 fields
 #> Geometry type: POLYGON
 #> Dimension:     XY
-#> Bounding box:  xmin: -64.5 ymin: 46.00004 xmax: -46.6269 ymax: 61
+#> Bounding box:  xmin: -64.18658 ymin: 46.00004 xmax: -46.6269 ymax: 60.84333
 #> Geodetic CRS:  WGS 84
-#> # A tibble: 38 × 4
+#> # A tibble: 35 × 4
 #>    sfa   patch_id patch_area                                            geometry
 #>    <fct> <fct>        [km^2]                                       <POLYGON [°]>
-#>  1 4     P1           20367. ((-64.42169 60.27125, -64.42 60.27206, -64.41666 6…
-#>  2 4     P2            1719. ((-59.95566 58.64882, -60.25261 57.73692, -59.6767…
-#>  3 4     P3            3883. ((-61.89804 57.6918, -61.34602 58.43681, -61.36857…
-#>  4 4     P4            4684. ((-60.50931 57.66667, -60.87958 58.41518, -61.3460…
-#>  5 4     P5            2687. ((-61.34602 58.43681, -60.87958 58.41518, -60.6835…
-#>  6 4     P6           14504. ((-63 60.62184, -61.66155 59.11637, -60.6936 58.90…
-#>  7 4     P7            2449. ((-60.26194 59.52858, -60.73068 59.34113, -60.6936…
-#>  8 4     P8            6259. ((-59.91649 58.83888, -60.68359 58.8793, -60.87958…
-#>  9 4     P9            5308. ((-61.96379 61, -60.73068 59.34113, -60.26194 59.5…
-#> 10 5     P10          27940. ((-59.55703 55.21506, -59.53354 57.66667, -59.5666…
-#> # … with 28 more rows
+#>  1 4     P1           31350. ((-61.49885 58.11503, -61.24738 58.14026, -60.7703…
+#>  2 4     P2           11607. ((-60.77034 60.02342, -61.24738 58.14026, -59.6984…
+#>  3 4     P3            4619. ((-59.37831 57.67423, -59.43377 57.71988, -59.4892…
+#>  4 5     P4           13657. ((-56.7447 54.34709, -56.66417 54.34705, -56.66416…
+#>  5 5     P5           14514. ((-59.6728 55.88317, -59.58696 55.95008, -58.97613…
+#>  6 5     P6           15164. ((-58.97613 57.16068, -59.58696 55.95008, -57.4711…
+#>  7 5     P7            6354. ((-57.48427 54.91192, -57.4711 55.3424, -59.58696 …
+#>  8 5     P8            7935. ((-55 54.75, -54.37418 54.75322, -53.92907 54.7535…
+#>  9 5     P9            5235. ((-56.72208 54.49769, -56.56636 55.50528, -56.6883…
+#> 10 6     P10           9317. ((-52.69796 49.24956, -52.9605 49.75061, -54.76086…
+#> # … with 25 more rows
 spm_points(bounds_voronoi)
-#> Simple feature collection with 40 features and 19 fields
+#> Simple feature collection with 120 features and 10 fields
 #> Geometry type: POINT
 #> Dimension:     XY
-#> Bounding box:  xmin: -61.77175 ymin: 46.16256 xmax: -48.20016 ymax: 59.70288
+#> Bounding box:  xmin: -62.7333 ymin: 46.10625 xmax: -47.27537 ymax: 60.35241
 #> Geodetic CRS:  WGS 84
-#> # A tibble: 40 × 20
+#> # A tibble: 120 × 11
 #> # Groups:   sfa [4]
-#>     year vessel  trip div_nafo season area_swept_km2 year_f n_samples lon_dec
-#>  * <dbl>  <dbl> <dbl> <chr>    <chr>           <dbl> <fct>      <dbl>   <dbl>
-#>  1  1995     39    23 2J       Fall           0.0250 1995           5   -51.9
-#>  2  1996     39    37 2G       Fall           0.0250 1996           5   -61.8
-#>  3  2011     39    95 2J       Fall           0.0250 2011           5   -49.1
-#>  4  2011     39    97 2J       Fall           0.0187 2011           5   -53.7
-#>  5  2011     39    98 3K       Fall           0.0281 2011           5   -61.2
-#>  6  2006     48   101 2G       Summer         0.0187 2006           5   -57.1
-#>  7  2009     48   104 2G       Summer         0.0156 2009           5   -61.3
-#>  8  2012     39   107 2H       Fall           0.0187 2012           5   -56.3
-#>  9  2012     39   109 3K       Fall           0.0218 2012           5   -50.0
-#> 10  2014     63   109 2G       Summer         0.0281 2014           5   -55.4
-#> # … with 30 more rows, and 11 more variables: lat_dec <dbl>, depth <dbl>,
-#> #   temp_at_bottom <dbl>, weight <dbl>, weight_per_km2 [kg/km^2],
-#> #   recruit_weight <dbl>, row <int>, uniqueID <chr>, geometry <POINT [°]>,
-#> #   sfa <fct>, area_sfa [km^2]
+#>    year_f sfa   weight_per_km2 temp_at_bottom lon_dec lat_dec   row uniqueID   
+#>  * <fct>  <chr>      [kg/km^2]          <dbl>   <dbl>   <dbl> <int> <chr>      
+#>  1 1995   7                0            1.45    -58.8    56.3     6 y1995s7r6  
+#>  2 1995   5                0            0       -50.6    50.6    51 y1995s5r51 
+#>  3 1996   7              759.           0.605   -55.5    50.2    69 y1996s7r69 
+#>  4 1996   6            13293.           3.00    -53.4    46.4   100 y1996s6r100
+#>  5 1996   5                0            0.934   -52.8    52.2   113 y1996s5r113
+#>  6 1996   4             2050.           2.92    -53.1    50.8   125 y1996s4r125
+#>  7 1997   7             1368.           0       -57.4    55.1   147 y1997s7r147
+#>  8 1997   6               85.4          2.31    -50.7    47.7   176 y1997s6r176
+#>  9 1997   4                0            5.18    -60.9    59.6   182 y1997s4r182
+#> 10 1997   5             4535.           1.27    -51.5    49.3   206 y1997s5r206
+#> # … with 110 more rows, and 3 more variables: geometry <POINT [°]>,
+#> #   sfa_duplicate <fct>, area_sfa [km^2]
 ```
 
 7.  The next step in this workflow is to smooth the variables to be used
@@ -254,12 +252,12 @@ biomass_smooth <- biomass_dataset %>%
 biomass_smooth
 #> 
 #> ‒‒ SSPM Dataset: borealis ‒‒
-#> →  Data (MAPPED)     : [1025 observations, 21 variables]
+#> →  Data (MAPPED)     : [1801 observations, 12 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year_f
 #> →  Coordinates cols. : lon_dec, lat_dec
 #> →  Boundaries        : [4 observations, 3 variables]
-#> →  Smoothed Data     : [912 observations, 8 variables]
+#> →  Smoothed Data     : [840 observations, 8 variables]
 #>    ٭ smoothed vars: temp_at_bottom — weight_per_km2
 ```
 
@@ -287,16 +285,18 @@ predator_smooth <- predator_dataset %>%
              boundaries = bounds_voronoi,
              drop.unused.levels = F, family=tw, method= "fREML")
 #> ℹ  Fitting formula: weight_per_km2 ~ smooth_time(k = 3) + smooth_space() for dataset 'all_predators'
+#> Warning in bgam.fit(G, mf, chunk.size, gp, scale, gamma, method = method, :
+#> algorithm did not converge
 
 predator_smooth
 #> 
 #> ‒‒ SSPM Dataset: all_predators ‒‒
-#> →  Data (MAPPED)     : [1965 observations, 18 variables]
+#> →  Data (MAPPED)     : [10201 observations, 11 variables]
 #> →  Data unique ID    : uniqueID
-#> →  Time col.         : year
+#> →  Time col.         : year_f
 #> →  Coordinates cols. : lon_dec, lat_dec
 #> →  Boundaries        : [4 observations, 3 variables]
-#> →  Smoothed Data     : [912 observations, 7 variables]
+#> →  Smoothed Data     : [1400 observations, 7 variables]
 #>    ٭ smoothed vars: weight_per_km2
 ```
 
@@ -308,17 +308,18 @@ catch_dataset <-
   spm_as_dataset(catch, name = "catch_data", 
                  biomass = "catch",
                  time = "year_f", 
-                 uniqueID = "uniqueID", coords = c("lon_start", "lat_start"))
-#> ℹ  Casting data matrix into simple feature collection using columns: lon_start, lat_start
+                 uniqueID = "uniqueID", 
+                 coords = c("lon_dec", "lat_dec"))
+#> ℹ  Casting data matrix into simple feature collection using columns: lon_dec, lat_dec
 #> !  Warning: sspm is assuming WGS 84 CRS is to be used for casting
 
 catch_dataset
 #> 
 #> ‒‒ SSPM Dataset: catch_data ‒‒
-#> →  Data              : [88579 observations, 8 variables]
+#> →  Data              : [2020 observations, 8 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year_f
-#> →  Coordinates cols. : lon_start, lat_start
+#> →  Coordinates cols. : lon_dec, lat_dec
 ```
 
 11. We then need to aggregate this data. This illustrate using the
@@ -336,12 +337,12 @@ biomass_smooth_w_catch <-
 biomass_smooth_w_catch
 #> 
 #> ‒‒ SSPM Dataset: borealis ‒‒
-#> →  Data (MAPPED)     : [1025 observations, 21 variables]
+#> →  Data (MAPPED)     : [1801 observations, 12 variables]
 #> →  Data unique ID    : uniqueID
 #> →  Time col.         : year_f
 #> →  Coordinates cols. : lon_dec, lat_dec
 #> →  Boundaries        : [4 observations, 3 variables]
-#> →  Smoothed Data     : [912 observations, 13 variables]
+#> →  Smoothed Data     : [840 observations, 13 variables]
 #>    ٭ smoothed vars: temp_at_bottom — weight_per_km2
 #>    ٭ vars with catch: weight_per_km2_borealis_with_catch
 ```
@@ -358,7 +359,7 @@ sspm_model <- sspm(biomass = biomass_smooth_w_catch,
 sspm_model
 #> 
 #> ‒‒ SSPM Model (2 datasets) ‒‒
-#> →  Smoothed Data     : [912 observations, 14 variables]
+#> →  Smoothed Data     : [840 observations, 14 variables]
 #>    ٭ smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis
 #>    ٭ vars with catch: weight_per_km2_borealis_with_catch
 ```
@@ -373,7 +374,7 @@ sspm_model <- sspm_model %>%
 sspm_model
 #> 
 #> ‒‒ SSPM Model (2 datasets) ‒‒
-#> →  Smoothed Data     : [912 observations, 15 variables] / [874 train, 38 test]
+#> →  Smoothed Data     : [840 observations, 15 variables] / [805 train, 35 test]
 #>    ٭ smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis
 #>    ٭ vars with catch: weight_per_km2_borealis_with_catch
 ```
@@ -390,7 +391,7 @@ sspm_model <- sspm_model %>%
 sspm_model
 #> 
 #> ‒‒ SSPM Model (2 datasets) ‒‒
-#> →  Smoothed Data     : [912 observations, 17 variables] / [874 train, 38 test]
+#> →  Smoothed Data     : [840 observations, 17 variables] / [805 train, 35 test]
 #>    ٭ smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis
 #>    ٭ vars with catch: weight_per_km2_borealis_with_catch — weight_per_km2_borealis_with_catch_lag_1
 #>    ٭ lagged vars: weight_per_km2_all_predators_lag_1 — weight_per_km2_borealis_with_catch_lag_1
@@ -406,16 +407,14 @@ sspm_model_fit <- sspm_model %>%
         smooth_space(), 
       family = mgcv::scat)
 #> ℹ  Fitting SPM formula: log_productivity ~ sfa + weight_per_km2_all_predators_lag_1 + smooth_lag('weight_per_km2_borealis_with_catch') + smooth_space()
-#> Warning in bgam.fit(G, mf, chunk.size, gp, scale, gamma, method = method, :
-#> algorithm did not converge
 
 sspm_model_fit
 #> 
 #> ‒‒ SSPM Model Fit ‒‒
-#> →  Smoothed Data     : [912 observations, 17 variables] / [874 train, 38 test]
+#> →  Smoothed Data     : [840 observations, 17 variables] / [805 train, 35 test]
 #> →  Fit summary       : 
 #> 
-#> Family: Scaled t(3,0.013) 
+#> Family: Scaled t(7.607,0.19) 
 #> Link function: identity 
 #> 
 #> Formula:
@@ -424,24 +423,24 @@ sspm_model_fit
 #>     k = 30, bs = "mrf", xt = list(penalty = pen_mat_space))
 #> 
 #> Parametric coefficients:
-#>                                      Estimate Std. Error t value Pr(>|t|)    
-#> (Intercept)                         1.599e+00  4.379e-01   3.652 0.000277 ***
-#> sfa5                               -1.157e-01  7.614e-03 -15.190  < 2e-16 ***
-#> sfa6                               -1.609e-01  1.117e-02 -14.402  < 2e-16 ***
-#> sfa7                               -1.963e-01  1.274e-02 -15.409  < 2e-16 ***
-#> weight_per_km2_all_predators_lag_1  3.032e-06  9.559e-05   0.032 0.974708    
+#>                                     Estimate Std. Error t value Pr(>|t|)    
+#> (Intercept)                        5.896e-01  6.189e-02   9.525  < 2e-16 ***
+#> sfa5                               5.405e-02  3.240e-02   1.668  0.09568 .  
+#> sfa6                               9.308e-02  3.022e-02   3.080  0.00214 ** 
+#> sfa7                               7.824e-02  3.071e-02   2.548  0.01103 *  
+#> weight_per_km2_all_predators_lag_1 1.244e-05  1.800e-05   0.691  0.48990    
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
 #> Approximate significance of smooth terms:
-#>                            edf Ref.df        F p-value    
-#> s(lag_matrix):by_matrix  4.997      5 2224.073  <2e-16 ***
-#> s(patch_id)             21.145     29    6.435  <2e-16 ***
+#>                           edf Ref.df       F p-value    
+#> s(lag_matrix):by_matrix 4.958      5 117.482  <2e-16 ***
+#> s(patch_id)             1.006     28   7.471  <2e-16 ***
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 #> 
-#> R-sq.(adj) =  0.675   Deviance explained = 41.8%
-#> -REML =   1128  Scale est. = 1         n = 836
+#> R-sq.(adj) =  0.758   Deviance explained = 53.3%
+#> -REML =   1135  Scale est. = 1         n = 770
 ```
 
 16. Plotting the object produces a actual vs predicted plot (with
@@ -449,7 +448,7 @@ sspm_model_fit
 
 ``` r
 plot(sspm_model_fit, train_test = TRUE, scales = "free")
-#> Warning: Removed 38 rows containing missing values (geom_point).
+#> Warning: Removed 35 rows containing missing values (geom_point).
 ```
 
 <img src="man/figures/README-unnamed-chunk-21-1.png" width="100%" />
@@ -462,22 +461,22 @@ head(preds)
 #> Simple feature collection with 6 features and 6 fields
 #> Geometry type: POLYGON
 #> Dimension:     XY
-#> Bounding box:  xmin: -64.5 ymin: 58.4628 xmax: -61.36857 ymax: 60.62184
+#> Bounding box:  xmin: -64.18658 ymin: 58.11503 xmax: -60.77034 ymax: 60.84333
 #> Geodetic CRS:  WGS 84
-#>       pred_log     pred patch_id year_f sfa      patch_area
-#> 1  0.008623623 1.008661       P1   1995   4 20367.39 [km^2]
-#> 2 -0.016062267 0.984066       P1   1996   4 20367.39 [km^2]
-#> 3  0.097726961 1.102662       P1   1997   4 20367.39 [km^2]
-#> 4  0.016055112 1.016185       P1   1998   4 20367.39 [km^2]
-#> 5  0.010394597 1.010449       P1   1999   4 20367.39 [km^2]
-#> 6  0.099560892 1.104686       P1   2000   4 20367.39 [km^2]
+#>      pred_log      pred patch_id year_f sfa      patch_area
+#> 1 -0.02730678 0.9730627       P1   1995   4 31350.28 [km^2]
+#> 2 -0.19554690 0.8223848       P1   1996   4 31350.28 [km^2]
+#> 3  0.05315999 1.0545984       P1   1997   4 31350.28 [km^2]
+#> 4 -0.01628782 0.9838441       P1   1998   4 31350.28 [km^2]
+#> 5  0.03051588 1.0309863       P1   1999   4 31350.28 [km^2]
+#> 6  0.01365585 1.0137495       P1   2000   4 31350.28 [km^2]
 #>                         geometry
-#> 1 POLYGON ((-64.42169 60.2712...
-#> 2 POLYGON ((-64.42169 60.2712...
-#> 3 POLYGON ((-64.42169 60.2712...
-#> 4 POLYGON ((-64.42169 60.2712...
-#> 5 POLYGON ((-64.42169 60.2712...
-#> 6 POLYGON ((-64.42169 60.2712...
+#> 1 POLYGON ((-61.49885 58.1150...
+#> 2 POLYGON ((-61.49885 58.1150...
+#> 3 POLYGON ((-61.49885 58.1150...
+#> 4 POLYGON ((-61.49885 58.1150...
+#> 5 POLYGON ((-61.49885 58.1150...
+#> 6 POLYGON ((-61.49885 58.1150...
 ```
 
 We can also get the predictions for biomass by passing the biomass
@@ -489,29 +488,29 @@ head(biomass_preds)
 #> Simple feature collection with 6 features and 8 fields
 #> Geometry type: POLYGON
 #> Dimension:     XY
-#> Bounding box:  xmin: -64.5 ymin: 58.4628 xmax: -61.36857 ymax: 60.62184
+#> Bounding box:  xmin: -64.18658 ymin: 58.11503 xmax: -60.77034 ymax: 60.84333
 #> Geodetic CRS:  WGS 84
 #>   patch_id year_f sfa      patch_area biomass_density_with_catch
-#> 1       P1   1995   4 20367.39 [km^2]         5541.089 [kg/km^2]
-#> 2       P1   1996   4 20367.39 [km^2]         4923.462 [kg/km^2]
-#> 3       P1   1997   4 20367.39 [km^2]         5912.102 [kg/km^2]
-#> 4       P1   1998   4 20367.39 [km^2]         5448.442 [kg/km^2]
-#> 5       P1   1999   4 20367.39 [km^2]         5087.022 [kg/km^2]
-#> 6       P1   2000   4 20367.39 [km^2]         6050.898 [kg/km^2]
-#>      biomass_density  biomass_with_catch             biomass
-#> 1 5539.809 [kg/km^2] 112857542 [kg/km^2] 112831477 [kg/km^2]
-#> 2 4922.250 [kg/km^2] 100278095 [kg/km^2] 100253409 [kg/km^2]
-#> 3 5911.664 [kg/km^2] 120414113 [kg/km^2] 120405189 [kg/km^2]
-#> 4 5446.346 [kg/km^2] 110970556 [kg/km^2] 110927873 [kg/km^2]
-#> 5 5083.695 [kg/km^2] 103609372 [kg/km^2] 103541611 [kg/km^2]
-#> 6 6042.921 [kg/km^2] 123241030 [kg/km^2] 123078545 [kg/km^2]
+#> 1       P1   1995   4 31350.28 [km^2]         3647.214 [kg/km^2]
+#> 2       P1   1996   4 31350.28 [km^2]         2374.311 [kg/km^2]
+#> 3       P1   1997   4 31350.28 [km^2]         2808.305 [kg/km^2]
+#> 4       P1   1998   4 31350.28 [km^2]         2627.772 [kg/km^2]
+#> 5       P1   1999   4 31350.28 [km^2]         2632.060 [kg/km^2]
+#> 6       P1   2000   4 31350.28 [km^2]         2542.133 [kg/km^2]
+#>      biomass_density biomass_with_catch        biomass
+#> 1 3646.640 [kg/km^2]     114341186 [kg] 114323179 [kg]
+#> 2 2374.120 [kg/km^2]      74435325 [kg]  74429343 [kg]
+#> 3 2807.640 [kg/km^2]      88041135 [kg]  88020295 [kg]
+#> 4 2627.087 [kg/km^2]      82381383 [kg]  82359909 [kg]
+#> 5 2631.644 [kg/km^2]      82515821 [kg]  82502764 [kg]
+#> 6 2541.481 [kg/km^2]      79696589 [kg]  79676157 [kg]
 #>                         geometry
-#> 1 POLYGON ((-64.42169 60.2712...
-#> 2 POLYGON ((-64.42169 60.2712...
-#> 3 POLYGON ((-64.42169 60.2712...
-#> 4 POLYGON ((-64.42169 60.2712...
-#> 5 POLYGON ((-64.42169 60.2712...
-#> 6 POLYGON ((-64.42169 60.2712...
+#> 1 POLYGON ((-61.49885 58.1150...
+#> 2 POLYGON ((-61.49885 58.1150...
+#> 3 POLYGON ((-61.49885 58.1150...
+#> 4 POLYGON ((-61.49885 58.1150...
+#> 5 POLYGON ((-61.49885 58.1150...
+#> 6 POLYGON ((-61.49885 58.1150...
 ```
 
 We can also predict the biomass one step ahead.
@@ -523,17 +522,17 @@ head(biomass_one_step)
 #> Simple feature collection with 6 features and 5 fields
 #> Geometry type: POLYGON
 #> Dimension:     XY
-#> Bounding box:  xmin: -64.5 ymin: 57.66667 xmax: -59.65562 ymax: 61
+#> Bounding box:  xmin: -64.18658 ymin: 53.85362 xmax: -54.70013 ymax: 60.84333
 #> Geodetic CRS:  WGS 84
 #> # A tibble: 6 × 6
-#>   year_f sfa      biomass patch_id patch_area                           geometry
-#>    <dbl> <fct>  [kg/km^2] <fct>        [km^2]                      <POLYGON [°]>
-#> 1   2019 4     130032236. P1           20367. ((-64.42169 60.27125, -64.42 60.2…
-#> 2   2019 4      11130315. P2            1719. ((-59.95566 58.64882, -60.25261 5…
-#> 3   2019 4      24737672. P3            3883. ((-61.89804 57.6918, -61.34602 58…
-#> 4   2019 4      29934547. P4            4684. ((-60.50931 57.66667, -60.87958 5…
-#> 5   2019 4      17161701. P5            2687. ((-61.34602 58.43681, -60.87958 5…
-#> 6   2019 4      92678654. P6           14504. ((-63 60.62184, -61.66155 59.1163…
+#>   patch_id year_f sfa     biomass patch_area                            geometry
+#>   <fct>     <dbl> <fct>      [kg]     [km^2]                       <POLYGON [°]>
+#> 1 P1         2019 4      2226128.     31350. ((-61.49885 58.11503, -61.24738 58…
+#> 2 P2         2019 4       916547.     11607. ((-60.77034 60.02342, -61.24738 58…
+#> 3 P3         2019 4       330255.      4619. ((-59.37831 57.67423, -59.43377 57…
+#> 4 P4         2019 5       800544.     13657. ((-56.7447 54.34709, -56.66417 54.…
+#> 5 P5         2019 5      1115285.     14514. ((-59.6728 55.88317, -59.58696 55.…
+#> 6 P6         2019 5     32536070.     15164. ((-58.97613 57.16068, -59.58696 55…
 ```
 
 18. We can produce an array of plots, as timeseries or as spatial plots
@@ -541,7 +540,7 @@ head(biomass_one_step)
 ``` r
 plot(sspm_model_fit)
 #> Warning: Removed 1 row(s) containing missing values (geom_path).
-#> Warning: Removed 38 rows containing missing values (geom_point).
+#> Warning: Removed 35 rows containing missing values (geom_point).
 ```
 
 <img src="man/figures/README-unnamed-chunk-25-1.png" width="100%" />
@@ -566,7 +565,18 @@ plot(sspm_model_fit, biomass = "weight_per_km2_borealis", use_sf = TRUE)
 
 ``` r
 plot(sspm_model_fit, biomass = "weight_per_km2_borealis", 
-     next_ts = TRUE, aggregate = TRUE, scales = "free")
+     next_ts = TRUE, aggregate = TRUE, scales = "free", interval = T)
+#> Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+#> -Inf
+
+#> Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+#> -Inf
+
+#> Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+#> -Inf
+
+#> Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+#> -Inf
 ```
 
 <img src="man/figures/README-unnamed-chunk-27-1.png" width="100%" />
