@@ -37,23 +37,23 @@ setMethod(f = "predict",
             patches <- spm_patches(bounds)
             patch_area_col <- spm_patches_area(bounds)
 
+            # If no new data, take the smoothed data and the vars from the
+            # formula. In both cases, turn into a list
+            if (is.null(new_data)){
+
+              new_data <- append(as.list(spm_smoothed_data(object)),
+                                 formula_vars(spm_formulas(object)))
+
+            } else {
+
+              # Otherwise, make some checks
+              checkmate::assert_class(new_data, "data.frame")
+              new_data <- as.list(new_data)
+
+            }
+
             # If biomass variable is not provided, we are predicting productivity
             if(is.null(biomass)){
-
-              # If no new data, take the smoothed data and the vars from the
-              # formula. In both cases, turn into a list
-              if (is.null(new_data)){
-
-                new_data <- append(as.list(spm_smoothed_data(object)),
-                                   formula_vars(spm_formulas(object)))
-
-              } else {
-
-                # Otherwise, make some checks
-                checkmate::assert_class(new_data, "data.frame")
-                new_data <- as.list(new_data)
-
-              }
 
               # Retrieve the fit
               object_fit <- spm_get_fit(object)
@@ -101,7 +101,7 @@ setMethod(f = "predict",
                 stop("`biomass` must be a column of `data`", call. = FALSE)
               }
 
-              # Compute predictions for next timnestep if desired
+              # Compute predictions for next timestep if desired
               if (next_ts){
 
                 # Use helpers to get next is data
@@ -144,56 +144,155 @@ setMethod(f = "predict",
 
                 preds_df <- patches %>%
                   dplyr::mutate(density_next_ts = density_last_year * ratio_next_ts,
-                                biomass = .data$density_next_ts *
-                                  (as.numeric(units::set_units(.data[[patch_area_col]],
-                                                               value = "km^2"))),
+                                biomass = .data$density_next_ts * .data[[patch_area_col]],
                                 year_f = next_ts_data$next_ts) %>%
                   dplyr::select(-.data$density_next_ts)
+
+                if (interval) {
+
+                  # Get catch density
+                  catch_density <- spm_smoothed_data(object)$catch_density
+
+                  # Retrieve the fit
+                  object_fit <- spm_get_fit(object)
+
+                  # Compute simulations
+                  sims <- produce_sims(object_fit, new_data)
+
+                  # Confidence interval
+                  CI_prod <- confidence_interval(sims)
+
+                  # Prediction interval
+                  # PI_prod <- prediction_interval(object_fit, sims)
+
+                  # Bind all
+                  CI_df <- patches %>%
+                    sf::st_drop_geometry() %>%
+                    dplyr::mutate(
+
+                      biomass_density_lower =
+                        density_last_year * CI_prod$CI_lower,
+                      biomass_density_upper =
+                        density_last_year * CI_prod$CI_upper) %>%
+
+                    dplyr::mutate(
+
+                      CI_lower = .data$biomass_density_lower *
+                        .data[[patch_area_col]],
+                      CI_upper = .data$biomass_density_upper *
+                        .data[[patch_area_col]]) %>%
+
+                    dplyr::select(.data$CI_lower, .data$CI_upper)
+
+                  preds_df <- preds_df %>%
+                    dplyr::bind_cols(CI_df)
+
+                }
 
                 # Cosmetic changes
                 preds_df <-  preds_df %>%
                   dplyr::relocate(.data$biomass) %>%
                   dplyr::relocate(.data[[bounds_col]]) %>%
-                  dplyr::relocate(.data[[time_col]])
+                  dplyr::relocate(.data[[time_col]]) %>%
+                  dplyr::relocate(.data$patch_id)
 
               } else {
 
-                biomass <- data[[biomass]]
+                biomass_vec <- data[[biomass]]
 
                 preds <- predict(object)
 
-                biomass_density_with_catch <- preds$pred * biomass
+                biomass_density_with_catch <- preds$pred * biomass_vec
                 catch_density <- spm_smoothed_data(object)$catch_density
                 biomass_pred <- biomass_density_with_catch - catch_density
 
                 pred_subset <- dplyr::select(preds, -.data$pred, -.data$pred_log) %>%
-                  dplyr::mutate(!!patch_area_col :=
-                                  units::set_units(.data[[patch_area_col]],
-                                                   value = "km^2")) %>%
                   dplyr::relocate(.data[[patch_area_col]], .before = "geometry")
 
                 preds_df <- pred_subset %>%
                   cbind(data.frame(biomass_density_with_catch = biomass_density_with_catch,
                                    biomass_density =  biomass_pred)) %>%
                   dplyr::mutate(biomass_with_catch = .data$biomass_density_with_catch *
-                                  as.numeric(.data[[patch_area_col]]),
+                                  .data[[patch_area_col]],
                                 biomass = .data$biomass_density *
-                                  as.numeric(.data[[patch_area_col]])) %>%
+                                  .data[[patch_area_col]]) %>%
                   dplyr::relocate(.data$biomass_with_catch, .data$biomass,
                                   .before = "geometry") %>%
                   sf::st_as_sf() # TODO check CRS
+
+                if (interval) {
+
+                  # Get catch density
+                  catch_density <- spm_smoothed_data(object)$catch_density
+
+                  # Retrieve the fit
+                  object_fit <- spm_get_fit(object)
+
+                  # Compute simulations
+                  sims <- produce_sims(object_fit, new_data)
+
+                  # Confidence interval
+                  CI_prod <- confidence_interval(sims)
+
+                  # Prediction interval
+                  # PI_prod <- prediction_interval(object_fit, sims)
+
+                  # Bind all
+                  CI_df <- data %>%
+                    sf::st_drop_geometry() %>%
+                    dplyr::select(.data[[biomass]],
+                                  .data[[patch_area_col]]) %>%
+                    dplyr::mutate(
+
+                      biomass_density_with_catch_lower =
+                        .data[[biomass]] * CI_prod$CI_lower,
+                      biomass_density_with_catch_upper =
+                        .data[[biomass]] * CI_prod$CI_upper,
+
+                      biomass_density_lower = .data$biomass_density_with_catch_lower -
+                        dplyr::all_of(catch_density),
+                      biomass_density_upper = .data$biomass_density_with_catch_upper -
+                        dplyr::all_of(catch_density)) %>%
+
+                    dplyr::mutate(
+                      biomass_with_catch_lower = .data$biomass_density_with_catch_lower *
+                        .data[[patch_area_col]],
+                      biomass_with_catch_upper = .data$biomass_density_with_catch_upper *
+                        .data[[patch_area_col]],
+
+                      CI_lower = .data$biomass_density_lower *
+                       .data[[patch_area_col]],
+                      CI_upper = .data$biomass_density_upper *
+                        .data[[patch_area_col]]) %>%
+
+                    dplyr::select(.data$CI_lower, .data$CI_upper)
+
+                  preds_df <- preds_df %>%
+                    dplyr::bind_cols(CI_df)
+
+                }
 
               }
 
               if (aggregate) {
 
-                preds_df <- preds_df %>%
-                  dplyr::group_by(.data[[bounds_col]], .data[[time_col]]) %>%
-                  dplyr::summarise(biomass = sum(biomass))
+                if (interval) {
+
+                  preds_df <- preds_df %>%
+                    dplyr::group_by(.data[[bounds_col]], .data[[time_col]]) %>%
+                    dplyr::summarise(biomass = sum(.data$biomass),
+                                     CI_upper = sum(.data$CI_upper),
+                                     CI_lower = sum(.data$CI_lower))
+
+                } else {
+
+                  preds_df <- preds_df %>%
+                    dplyr::group_by(.data[[bounds_col]], .data[[time_col]]) %>%
+                    dplyr::summarise(biomass = sum(biomass))
+
+                }
 
               }
-
-
 
             }
 

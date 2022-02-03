@@ -185,6 +185,7 @@ setMethod("plot",
 
                   next_ts_preds <- predict(x, biomass = biomass,
                                            next_ts = next_ts,
+                                           interval = interval,
                                            aggregate = aggregate) %>%
                     dplyr::mutate(color = next_ts_label)
 
@@ -215,9 +216,7 @@ setMethod("plot",
                 }
 
                 biomass_actual <- spm_smoothed_data(x) %>%
-                  dplyr::mutate(area =
-                                  as.numeric(units::set_units(.data[[patch_area_col]],
-                                                              value = "km^2")),
+                  dplyr::mutate(area =.data[[patch_area_col]],
                                 biomass = .data[[biomass_origin]] * .data$area)
 
                 if (aggregate){
@@ -351,11 +350,11 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
                          ymin = .data$CI_lower,
                          ymax = .data$CI_upper,
                          fill = .data$color), alpha = 0.5) +
-          ggplot2::geom_ribbon(
-            ggplot2::aes(x = .data[[time_col]],
-                         ymin = .data$PI_lower,
-                         ymax = .data$PI_upper,
-                         fill = .data$color), alpha = 0.3) +
+          # ggplot2::geom_ribbon(
+          #   ggplot2::aes(x = .data[[time_col]],
+          #                ymin = .data$PI_lower,
+          #                ymax = .data$PI_upper,
+          #                fill = .data$color), alpha = 0.3) +
           ggplot2::scale_fill_manual(values = color_profile) +
           ggplot2::labs(fill = "Type")
       }
