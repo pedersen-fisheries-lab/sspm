@@ -75,6 +75,7 @@ lag_data_frame <- function(smoothed_data, boundaries, vars, n, default, ...){
         def_val <- default
       }
 
+      # Calculate the lag, grouping by patch ID and boundaries
       smoothed_data <- smoothed_data %>%
         dplyr::group_by(.data$patch_id,
                         .data[[spm_boundary(boundaries)]]) %>%
