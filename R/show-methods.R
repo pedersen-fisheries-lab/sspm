@@ -157,7 +157,7 @@ cat_boundaries <- function(object) {
 
 cat_discretization_info <- function(object) {
 
-  if(!is.null(object@points)){
+  if(!is.null(nrow(object@points))){
     cli::cat_line("  ", paste(cli::symbol$star, cli::col_green("Points"),
                               cli::symbol$em_dash,
                               pluralize_data_info(object@points, dim_1_name = "feature")))
