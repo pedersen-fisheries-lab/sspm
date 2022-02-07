@@ -80,6 +80,48 @@ tesselate_voronoi <- function(boundaries,
   if (getRversion() >= 3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))
 
   # 2. Create (sample) the points
+
+  voronoi_points <- sample_voronoi_points(sample_surface, sample_points, boundaries_split,
+                                          with, boundaries, boundary, nb_samples, seed)
+
+  # 3. Create patches -------------------------------------------------------
+
+  voronoi <- make_patches_voronoi(stratify, voronoi_points, boundaries, boundary)
+
+  # 4. Merge small polygons -------------------------------------------------
+
+  voronoi <- merge_small_polygons(voronoi, min_size, boundary)
+
+  # 5. Summarise and re - calculate area ------------------------------------
+
+  voronoi <-
+    suppressWarnings(
+      suppressMessages(
+        voronoi %>%
+          dplyr::group_by(.data[[boundary]], .data$patch_id) %>%
+          dplyr::summarize() %>%
+          dplyr::ungroup()))
+  voronoi <-
+    dplyr::mutate(voronoi, area = sf::st_area(voronoi))
+  voronoi <-
+    dplyr::mutate(voronoi,
+                  area = units::set_units(.data$area, value = "km^2"),
+                  patch_id = factor(paste("P", 1:dplyr::n(), sep = ""),
+                                    levels = paste0("P", 1:length(unique(.data$patch_id))))) %>%
+    dplyr::rename(patch_area = .data$area) %>%
+    dplyr::relocate(.data$patch_area, .before = .data$geometry)
+
+  # Core function must return a list of "patches" and "points"
+  return(list(patches = voronoi,
+              points = voronoi_points))
+}
+
+# Helpers -----------------------------------------------------------------
+
+# Function to sample points on a surface for tessellation
+sample_voronoi_points <- function(sample_surface, sample_points, boundaries_split,
+                                  with, boundaries, boundary, nb_samples, seed){
+
   boundaries_split <- split(boundaries, boundaries[[boundary]])
 
   if (sample_surface){
@@ -135,9 +177,15 @@ tesselate_voronoi <- function(boundaries,
 
     }
 
-  }
+    return(voronoi_points)
 
-  # 3. Create patches -------------------------------------------------------
+  }
+}
+
+# Function to make voronoi patches
+make_patches_voronoi <- function(stratify, voronoi_points, boundaries, boundary){
+
+  boundaries_split <- split(boundaries, boundaries[[boundary]])
 
   if(stratify){
 
@@ -191,7 +239,14 @@ tesselate_voronoi <- function(boundaries,
                               area = units::set_units(.data$area,
                                                       value = "km^2")))
 
-  # 4. Merge small polygons -------------------------------------------------
+  return(voronoi)
+}
+
+# -------------------------------------------------------------------------
+
+# This function makes sure smaller polygons are fused to their nearest neighbor
+
+merge_small_polygons <- function(voronoi, min_size, boundary){
 
   # TODO the removal of small polygons has not been stratified
   small_voronoi <- voronoi$patch_id[which(voronoi$area <
@@ -209,26 +264,5 @@ tesselate_voronoi <- function(boundaries,
     voronoi$patch_id[voronoi$patch_id == i] <- max_id
   }
 
-  # 5. Summarise and re - calculate area ------------------------------------
-
-  voronoi <-
-    suppressWarnings(
-      suppressMessages(
-        voronoi %>%
-          dplyr::group_by(.data[[boundary]], .data$patch_id) %>%
-          dplyr::summarize() %>%
-          dplyr::ungroup()))
-  voronoi <-
-    dplyr::mutate(voronoi, area = sf::st_area(voronoi))
-  voronoi <-
-    dplyr::mutate(voronoi,
-                  area = units::set_units(.data$area, value = "km^2"),
-                  patch_id = factor(paste("P", 1:dplyr::n(), sep = ""),
-                                    levels = paste0("P", 1:length(unique(.data$patch_id))))) %>%
-    dplyr::rename(patch_area = .data$area) %>%
-    dplyr::relocate(.data$patch_area, .before = .data$geometry)
-
-  # Core function must return a list of "patches" and "points"
-  return(list(patches = voronoi,
-              points = voronoi_points))
+  return(voronoi)
 }
