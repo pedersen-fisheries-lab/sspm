@@ -81,8 +81,8 @@ tesselate_voronoi <- function(boundaries,
 
   # 2. Create (sample) the points
 
-  voronoi_points <- sample_voronoi_points(sample_surface, sample_points, boundaries_split,
-                                          with, boundaries, boundary, nb_samples, seed)
+  voronoi_points <- sample_voronoi_points(sample_surface, sample_points, with,
+                                          boundaries, boundary, nb_samples, seed)
 
   # 3. Create patches -------------------------------------------------------
 
@@ -119,8 +119,8 @@ tesselate_voronoi <- function(boundaries,
 # Helpers -----------------------------------------------------------------
 
 # Function to sample points on a surface for tessellation
-sample_voronoi_points <- function(sample_surface, sample_points, boundaries_split,
-                                  with, boundaries, boundary, nb_samples, seed){
+sample_voronoi_points <- function(sample_surface, sample_points, with,
+                                  boundaries, boundary, nb_samples, seed){
 
   boundaries_split <- split(boundaries, boundaries[[boundary]])
 
