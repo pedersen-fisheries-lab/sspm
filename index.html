@@ -146,11 +146,10 @@
 
 <span class="va">biomass_dataset</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Dataset: borealis ‒‒</span>
-<span class="co">#&gt; →  Data              : [1800 observations, 9 variables]</span>
-<span class="co">#&gt; →  Data unique ID    : uniqueID</span>
-<span class="co">#&gt; →  Time col.         : year_f</span>
-<span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span></code></pre></div>
+<span class="co">#&gt; ‒‒ Dataset borealis ‒‒</span>
+<span class="co">#&gt; →  [1800 rows, 9 columns]</span>
+<span class="co">#&gt; →  Density : weight_per_km2</span>
+<span class="co">#&gt; →  Time : year_f</span></code></pre></div>
 <ol start="3" style="list-style-type: decimal">
 <li>We do the same with the predator data, which are of the predictor type.</li>
 </ol>
@@ -166,11 +165,10 @@
 
 <span class="va">predator_dataset</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Dataset: all_predators ‒‒</span>
-<span class="co">#&gt; →  Data              : [10200 observations, 8 variables]</span>
-<span class="co">#&gt; →  Data unique ID    : uniqueID</span>
-<span class="co">#&gt; →  Time col.         : year_f</span>
-<span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span></code></pre></div>
+<span class="co">#&gt; ‒‒ Dataset all_predators ‒‒</span>
+<span class="co">#&gt; →  [10200 rows, 8 columns]</span>
+<span class="co">#&gt; →  Density : weight_per_km2</span>
+<span class="co">#&gt; →  Time : year_f</span></code></pre></div>
 <ol start="4" style="list-style-type: decimal">
 <li>The <code>sspm</code> workflow relies on the discretization of the boundary objects, the default method being voronoi tesselation.</li>
 </ol>
@@ -183,18 +181,25 @@
 
 <span class="va">bounds_voronoi</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Boundary (Discrete) ‒‒</span>
-<span class="co">#&gt; →  Boundaries         : [4 observations, 3 variables]</span>
-<span class="co">#&gt; →  Boundary col.      : sfa</span>
-<span class="co">#&gt; →  Boundary area col. : area_sfa</span>
-<span class="co">#&gt; →  Discretized        : </span>
-<span class="co">#&gt;    ٭ Points — [120 features, 11 variables]</span>
-<span class="co">#&gt;    ٭ Patches — [35 features, 4 variables]</span></code></pre></div>
+<span class="co">#&gt; ‒‒ Boundaries (Discrete) ‒‒</span>
+<span class="co">#&gt; →  [4 rows, 3 columns]</span>
+<span class="co">#&gt;  ٭ Points — [120 features, 11 columns]</span>
+<span class="co">#&gt;  ٭ Patches — [35 features, 4 columns]</span>
+<span class="co">#&gt; →  Column : sfa</span>
+<span class="co">#&gt; →  Area : area_sfa</span></code></pre></div>
 <p>The other available method is <code>triangulate_delaunay</code> for delaunay triangulation. Here the <code>a</code> argument is used to set the size of the mesh (see <code><a href="https://rdrr.io/pkg/RTriangle/man/triangulate.html" class="external-link">RTriangle::triangulate</a></code> for more details).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">bounds_delaunay</span> <span class="op">&lt;-</span> <span class="va">bounds</span> <span class="op"><a href="reference/pipe.html">%&gt;%</a></span> 
   <span class="fu"><a href="reference/spm_discretize.html">spm_discretize</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"triangulate_delaunay"</span>, a <span class="op">=</span> <span class="fl">1</span>, q <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>
-<span class="co">#&gt; ℹ  Discretizing using method triangulate_delaunay</span></code></pre></div>
+<span class="co">#&gt; ℹ  Discretizing using method triangulate_delaunay</span>
+<span class="va">bounds_delaunay</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; ‒‒ Boundaries (Discrete) ‒‒</span>
+<span class="co">#&gt; →  [4 rows, 3 columns]</span>
+<span class="co">#&gt;  ٭ Points — </span>
+<span class="co">#&gt;  ٭ Patches — [106 features, 4 columns]</span>
+<span class="co">#&gt; →  Column : sfa</span>
+<span class="co">#&gt; →  Area : area_sfa</span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Plotting the object shows the polygons that have been created.</li>
 </ol>
@@ -268,14 +273,12 @@
 
 <span class="va">biomass_smooth</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Dataset: borealis ‒‒</span>
-<span class="co">#&gt; →  Data (MAPPED)     : [1801 observations, 12 variables]</span>
-<span class="co">#&gt; →  Data unique ID    : uniqueID</span>
-<span class="co">#&gt; →  Time col.         : year_f</span>
-<span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span>
-<span class="co">#&gt; →  Boundaries        : [4 observations, 3 variables]</span>
-<span class="co">#&gt; →  Smoothed Data     : [840 observations, 8 variables]</span>
-<span class="co">#&gt;    ٭ smoothed vars: temp_at_bottom — weight_per_km2</span></code></pre></div>
+<span class="co">#&gt; ‒‒ Dataset borealis (MAPPED) ‒‒</span>
+<span class="co">#&gt; →  [1801 rows, 12 columns]</span>
+<span class="co">#&gt; →  Density : weight_per_km2</span>
+<span class="co">#&gt; →  Time : year_f</span>
+<span class="co">#&gt; →  Smoothed data : [840 rows, 8 columns]</span>
+<span class="co">#&gt;    ٭ Smoothed vars: temp_at_bottom — weight_per_km2</span></code></pre></div>
 <ol start="8" style="list-style-type: decimal">
 <li>The smoothed results for any smoothed variables (listed in “smoothed vars” above) can be easily plotted:</li>
 </ol>
@@ -299,14 +302,12 @@
 
 <span class="va">predator_smooth</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Dataset: all_predators ‒‒</span>
-<span class="co">#&gt; →  Data (MAPPED)     : [10201 observations, 11 variables]</span>
-<span class="co">#&gt; →  Data unique ID    : uniqueID</span>
-<span class="co">#&gt; →  Time col.         : year_f</span>
-<span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span>
-<span class="co">#&gt; →  Boundaries        : [4 observations, 3 variables]</span>
-<span class="co">#&gt; →  Smoothed Data     : [1400 observations, 7 variables]</span>
-<span class="co">#&gt;    ٭ smoothed vars: weight_per_km2</span></code></pre></div>
+<span class="co">#&gt; ‒‒ Dataset all_predators (MAPPED) ‒‒</span>
+<span class="co">#&gt; →  [10201 rows, 11 columns]</span>
+<span class="co">#&gt; →  Density : weight_per_km2</span>
+<span class="co">#&gt; →  Time : year_f</span>
+<span class="co">#&gt; →  Smoothed data : [1400 rows, 7 columns]</span>
+<span class="co">#&gt;    ٭ Smoothed vars: weight_per_km2</span></code></pre></div>
 <ol start="10" style="list-style-type: decimal">
 <li>Before we assemble the full model with our newly smoothed data, we need to deal with the catch data. We first load the dataset.</li>
 </ol>
@@ -322,11 +323,10 @@
 
 <span class="va">catch_dataset</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Dataset: catch_data ‒‒</span>
-<span class="co">#&gt; →  Data              : [2020 observations, 8 variables]</span>
-<span class="co">#&gt; →  Data unique ID    : uniqueID</span>
-<span class="co">#&gt; →  Time col.         : year_f</span>
-<span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span></code></pre></div>
+<span class="co">#&gt; ‒‒ Dataset catch_data ‒‒</span>
+<span class="co">#&gt; →  [2020 rows, 8 columns]</span>
+<span class="co">#&gt; →  Biomass : catch</span>
+<span class="co">#&gt; →  Time : year_f</span></code></pre></div>
 <ol start="11" style="list-style-type: decimal">
 <li>We then need to aggregate this data. This illustrate using the <code>spm_aggregate</code> functions. Here we use <code>spm_aggregate_catch</code>:</li>
 </ol>
@@ -341,15 +341,13 @@
 
 <span class="va">biomass_smooth_w_catch</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Dataset: borealis ‒‒</span>
-<span class="co">#&gt; →  Data (MAPPED)     : [1801 observations, 12 variables]</span>
-<span class="co">#&gt; →  Data unique ID    : uniqueID</span>
-<span class="co">#&gt; →  Time col.         : year_f</span>
-<span class="co">#&gt; →  Coordinates cols. : lon_dec, lat_dec</span>
-<span class="co">#&gt; →  Boundaries        : [4 observations, 3 variables]</span>
-<span class="co">#&gt; →  Smoothed Data     : [840 observations, 13 variables]</span>
-<span class="co">#&gt;    ٭ smoothed vars: temp_at_bottom — weight_per_km2</span>
-<span class="co">#&gt;    ٭ vars with catch: weight_per_km2_borealis_with_catch</span></code></pre></div>
+<span class="co">#&gt; ‒‒ Dataset borealis (MAPPED) ‒‒</span>
+<span class="co">#&gt; →  [1801 rows, 12 columns]</span>
+<span class="co">#&gt; →  Density : weight_per_km2</span>
+<span class="co">#&gt; →  Time : year_f</span>
+<span class="co">#&gt; →  Smoothed data : [840 rows, 13 columns]</span>
+<span class="co">#&gt;    ٭ Smoothed vars: temp_at_bottom — weight_per_km2</span>
+<span class="co">#&gt;    ٭ Vars with catch: weight_per_km2_borealis_with_catch</span></code></pre></div>
 <ol start="12" style="list-style-type: decimal">
 <li>Once data has been smoothed, we can assemble a <code>sspm</code> model object, using one dataset of type biomass, one dataset of type predictor and (optionnaly) a dataset of type catch.</li>
 </ol>
@@ -360,10 +358,10 @@
 
 <span class="va">sspm_model</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Model (2 datasets) ‒‒</span>
-<span class="co">#&gt; →  Smoothed Data     : [840 observations, 14 variables]</span>
-<span class="co">#&gt;    ٭ smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis</span>
-<span class="co">#&gt;    ٭ vars with catch: weight_per_km2_borealis_with_catch</span></code></pre></div>
+<span class="co">#&gt; ‒‒ Model (2 datasets) ‒‒</span>
+<span class="co">#&gt; →  Smoothed data : [840 rows, 14 columns]</span>
+<span class="co">#&gt;    ٭ Smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis</span>
+<span class="co">#&gt;    ٭ Vars with catch: weight_per_km2_borealis_with_catch</span></code></pre></div>
 <ol start="13" style="list-style-type: decimal">
 <li>Before fitting the model, we must split data into test/train with <code>spm_split</code>.</li>
 </ol>
@@ -373,10 +371,10 @@
 
 <span class="va">sspm_model</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Model (2 datasets) ‒‒</span>
-<span class="co">#&gt; →  Smoothed Data     : [840 observations, 15 variables] / [805 train, 35 test]</span>
-<span class="co">#&gt;    ٭ smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis</span>
-<span class="co">#&gt;    ٭ vars with catch: weight_per_km2_borealis_with_catch</span></code></pre></div>
+<span class="co">#&gt; ‒‒ Model (2 datasets) ‒‒</span>
+<span class="co">#&gt; →  Smoothed data : [840 rows, 15 columns] / [805 train, 35 test]</span>
+<span class="co">#&gt;    ٭ Smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis</span>
+<span class="co">#&gt;    ٭ Vars with catch: weight_per_km2_borealis_with_catch</span></code></pre></div>
 <ol start="14" style="list-style-type: decimal">
 <li>To fit the model, we might be interested in including lagged values. This is done with <code>spm_lag</code>.</li>
 </ol>
@@ -388,10 +386,10 @@
 
 <span class="va">sspm_model</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Model (2 datasets) ‒‒</span>
-<span class="co">#&gt; →  Smoothed Data     : [840 observations, 17 variables] / [805 train, 35 test]</span>
-<span class="co">#&gt;    ٭ smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis</span>
-<span class="co">#&gt;    ٭ vars with catch: weight_per_km2_borealis_with_catch — weight_per_km2_borealis_with_catch_lag_1</span>
+<span class="co">#&gt; ‒‒ Model (2 datasets) ‒‒</span>
+<span class="co">#&gt; →  Smoothed data : [840 rows, 17 columns] / [805 train, 35 test]</span>
+<span class="co">#&gt;    ٭ Smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis</span>
+<span class="co">#&gt;    ٭ Vars with catch: weight_per_km2_borealis_with_catch — weight_per_km2_borealis_with_catch_lag_1</span>
 <span class="co">#&gt;    ٭ lagged vars: weight_per_km2_all_predators_lag_1 — weight_per_km2_borealis_with_catch_lag_1</span></code></pre></div>
 <ol start="15" style="list-style-type: decimal">
 <li>We can now fit the final spm model with <code>spm</code>.</li>
@@ -407,9 +405,9 @@
 
 <span class="va">sspm_model_fit</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; ‒‒ SSPM Model Fit ‒‒</span>
-<span class="co">#&gt; →  Smoothed Data     : [840 observations, 17 variables] / [805 train, 35 test]</span>
-<span class="co">#&gt; →  Fit summary       : </span>
+<span class="co">#&gt; ‒‒ Model fit ‒‒</span>
+<span class="co">#&gt; →  Smoothed data : [840 rows, 17 columns] / [805 train, 35 test]</span>
+<span class="co">#&gt; →  Fit summary : </span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Family: Scaled t(7.607,0.19) </span>
 <span class="co">#&gt; Link function: identity </span>
