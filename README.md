@@ -107,11 +107,10 @@ biomass_dataset <-
 
 biomass_dataset
 #> 
-#> ‒‒ SSPM Dataset: borealis ‒‒
-#> →  Data              : [1800 observations, 9 variables]
-#> →  Data unique ID    : uniqueID
-#> →  Time col.         : year_f
-#> →  Coordinates cols. : lon_dec, lat_dec
+#> ‒‒ Dataset borealis ‒‒
+#> →  [1800 rows, 9 columns]
+#> →  Density : weight_per_km2
+#> →  Time : year_f
 ```
 
 3.  We do the same with the predator data, which are of the predictor
@@ -129,11 +128,10 @@ predator_dataset <-
 
 predator_dataset
 #> 
-#> ‒‒ SSPM Dataset: all_predators ‒‒
-#> →  Data              : [10200 observations, 8 variables]
-#> →  Data unique ID    : uniqueID
-#> →  Time col.         : year_f
-#> →  Coordinates cols. : lon_dec, lat_dec
+#> ‒‒ Dataset all_predators ‒‒
+#> →  [10200 rows, 8 columns]
+#> →  Density : weight_per_km2
+#> →  Time : year_f
 ```
 
 4.  The `sspm` workflow relies on the discretization of the boundary
@@ -148,13 +146,12 @@ bounds_voronoi <- bounds %>%
 
 bounds_voronoi
 #> 
-#> ‒‒ SSPM Boundary (Discrete) ‒‒
-#> →  Boundaries         : [4 observations, 3 variables]
-#> →  Boundary col.      : sfa
-#> →  Boundary area col. : area_sfa
-#> →  Discretized        : 
-#>    ٭ Points — [120 features, 11 variables]
-#>    ٭ Patches — [35 features, 4 variables]
+#> ‒‒ Boundaries (Discrete) ‒‒
+#> →  [4 rows, 3 columns]
+#>  ٭ Points — [120 features, 11 columns]
+#>  ٭ Patches — [35 features, 4 columns]
+#> →  Column : sfa
+#> →  Area : area_sfa
 ```
 
 The other available method is `triangulate_delaunay` for delaunay
@@ -165,6 +162,14 @@ triangulation. Here the `a` argument is used to set the size of the mesh
 bounds_delaunay <- bounds %>% 
   spm_discretize(method = "triangulate_delaunay", a = 1, q = 30)
 #> ℹ  Discretizing using method triangulate_delaunay
+bounds_delaunay
+#> 
+#> ‒‒ Boundaries (Discrete) ‒‒
+#> →  [4 rows, 3 columns]
+#>  ٭ Points — 
+#>  ٭ Patches — [106 features, 4 columns]
+#> →  Column : sfa
+#> →  Area : area_sfa
 ```
 
 5.  Plotting the object shows the polygons that have been created.
@@ -251,14 +256,12 @@ biomass_smooth <- biomass_dataset %>%
 
 biomass_smooth
 #> 
-#> ‒‒ SSPM Dataset: borealis ‒‒
-#> →  Data (MAPPED)     : [1801 observations, 12 variables]
-#> →  Data unique ID    : uniqueID
-#> →  Time col.         : year_f
-#> →  Coordinates cols. : lon_dec, lat_dec
-#> →  Boundaries        : [4 observations, 3 variables]
-#> →  Smoothed Data     : [840 observations, 8 variables]
-#>    ٭ smoothed vars: temp_at_bottom — weight_per_km2
+#> ‒‒ Dataset borealis (MAPPED) ‒‒
+#> →  [1801 rows, 12 columns]
+#> →  Density : weight_per_km2
+#> →  Time : year_f
+#> →  Smoothed data : [840 rows, 8 columns]
+#>    ٭ Smoothed vars: temp_at_bottom — weight_per_km2
 ```
 
 8.  The smoothed results for any smoothed variables (listed in “smoothed
@@ -290,14 +293,12 @@ predator_smooth <- predator_dataset %>%
 
 predator_smooth
 #> 
-#> ‒‒ SSPM Dataset: all_predators ‒‒
-#> →  Data (MAPPED)     : [10201 observations, 11 variables]
-#> →  Data unique ID    : uniqueID
-#> →  Time col.         : year_f
-#> →  Coordinates cols. : lon_dec, lat_dec
-#> →  Boundaries        : [4 observations, 3 variables]
-#> →  Smoothed Data     : [1400 observations, 7 variables]
-#>    ٭ smoothed vars: weight_per_km2
+#> ‒‒ Dataset all_predators (MAPPED) ‒‒
+#> →  [10201 rows, 11 columns]
+#> →  Density : weight_per_km2
+#> →  Time : year_f
+#> →  Smoothed data : [1400 rows, 7 columns]
+#>    ٭ Smoothed vars: weight_per_km2
 ```
 
 10. Before we assemble the full model with our newly smoothed data, we
@@ -315,11 +316,10 @@ catch_dataset <-
 
 catch_dataset
 #> 
-#> ‒‒ SSPM Dataset: catch_data ‒‒
-#> →  Data              : [2020 observations, 8 variables]
-#> →  Data unique ID    : uniqueID
-#> →  Time col.         : year_f
-#> →  Coordinates cols. : lon_dec, lat_dec
+#> ‒‒ Dataset catch_data ‒‒
+#> →  [2020 rows, 8 columns]
+#> →  Biomass : catch
+#> →  Time : year_f
 ```
 
 11. We then need to aggregate this data. This illustrate using the
@@ -336,15 +336,13 @@ biomass_smooth_w_catch <-
 
 biomass_smooth_w_catch
 #> 
-#> ‒‒ SSPM Dataset: borealis ‒‒
-#> →  Data (MAPPED)     : [1801 observations, 12 variables]
-#> →  Data unique ID    : uniqueID
-#> →  Time col.         : year_f
-#> →  Coordinates cols. : lon_dec, lat_dec
-#> →  Boundaries        : [4 observations, 3 variables]
-#> →  Smoothed Data     : [840 observations, 13 variables]
-#>    ٭ smoothed vars: temp_at_bottom — weight_per_km2
-#>    ٭ vars with catch: weight_per_km2_borealis_with_catch
+#> ‒‒ Dataset borealis (MAPPED) ‒‒
+#> →  [1801 rows, 12 columns]
+#> →  Density : weight_per_km2
+#> →  Time : year_f
+#> →  Smoothed data : [840 rows, 13 columns]
+#>    ٭ Smoothed vars: temp_at_bottom — weight_per_km2
+#>    ٭ Vars with catch: weight_per_km2_borealis_with_catch
 ```
 
 12. Once data has been smoothed, we can assemble a `sspm` model object,
@@ -358,10 +356,10 @@ sspm_model <- sspm(biomass = biomass_smooth_w_catch,
 
 sspm_model
 #> 
-#> ‒‒ SSPM Model (2 datasets) ‒‒
-#> →  Smoothed Data     : [840 observations, 14 variables]
-#>    ٭ smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis
-#>    ٭ vars with catch: weight_per_km2_borealis_with_catch
+#> ‒‒ Model (2 datasets) ‒‒
+#> →  Smoothed data : [840 rows, 14 columns]
+#>    ٭ Smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis
+#>    ٭ Vars with catch: weight_per_km2_borealis_with_catch
 ```
 
 13. Before fitting the model, we must split data into test/train with
@@ -373,10 +371,10 @@ sspm_model <- sspm_model %>%
 
 sspm_model
 #> 
-#> ‒‒ SSPM Model (2 datasets) ‒‒
-#> →  Smoothed Data     : [840 observations, 15 variables] / [805 train, 35 test]
-#>    ٭ smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis
-#>    ٭ vars with catch: weight_per_km2_borealis_with_catch
+#> ‒‒ Model (2 datasets) ‒‒
+#> →  Smoothed data : [840 rows, 15 columns] / [805 train, 35 test]
+#>    ٭ Smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis
+#>    ٭ Vars with catch: weight_per_km2_borealis_with_catch
 ```
 
 14. To fit the model, we might be interested in including lagged values.
@@ -390,10 +388,10 @@ sspm_model <- sspm_model %>%
 
 sspm_model
 #> 
-#> ‒‒ SSPM Model (2 datasets) ‒‒
-#> →  Smoothed Data     : [840 observations, 17 variables] / [805 train, 35 test]
-#>    ٭ smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis
-#>    ٭ vars with catch: weight_per_km2_borealis_with_catch — weight_per_km2_borealis_with_catch_lag_1
+#> ‒‒ Model (2 datasets) ‒‒
+#> →  Smoothed data : [840 rows, 17 columns] / [805 train, 35 test]
+#>    ٭ Smoothed vars: temp_at_bottom — weight_per_km2_all_predators — weight_per_km2_borealis
+#>    ٭ Vars with catch: weight_per_km2_borealis_with_catch — weight_per_km2_borealis_with_catch_lag_1
 #>    ٭ lagged vars: weight_per_km2_all_predators_lag_1 — weight_per_km2_borealis_with_catch_lag_1
 ```
 
@@ -410,9 +408,9 @@ sspm_model_fit <- sspm_model %>%
 
 sspm_model_fit
 #> 
-#> ‒‒ SSPM Model Fit ‒‒
-#> →  Smoothed Data     : [840 observations, 17 variables] / [805 train, 35 test]
-#> →  Fit summary       : 
+#> ‒‒ Model fit ‒‒
+#> →  Smoothed data : [840 rows, 17 columns] / [805 train, 35 test]
+#> →  Fit summary : 
 #> 
 #> Family: Scaled t(7.607,0.19) 
 #> Link function: identity 

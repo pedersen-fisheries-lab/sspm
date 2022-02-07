@@ -17,7 +17,7 @@ setMethod("show",
           "sspm_boundary",
           function(object) {
             cli::cat_line()
-            custom_h1(paste0("SSPM Boundary"))
+            custom_h1(paste0("Boundaries"))
             cat_boundaries(object, column = TRUE)
             cli::cat_line()
           }
@@ -28,12 +28,9 @@ setMethod("show",
           function(object) {
             cli::cat_line()
             if (!is.null(dim(object@boundaries))) {
-              custom_h1(paste0("SSPM Boundary ", cli::col_green("(Discrete)")))
+              custom_h1(paste0("Boundaries ", cli::col_green("(Discrete)")))
             }
             cat_boundaries(object, column = TRUE)
-            if (!is.null(dim(object@boundaries))) {
-              cat_discretization_info(object)
-            }
             cli::cat_line()
           }
 )
@@ -42,10 +39,15 @@ setMethod("show",
           "sspm_dataset",
           function(object) {
             cli::cat_line()
-            custom_h1(paste0("SSPM Dataset: ", cli::col_blue(object@name)))
+
+            if (object@is_mapped) {
+              custom_h1(paste0("Dataset ", cli::col_blue(object@name), cli::col_green(" (MAPPED)")))
+            } else {
+              custom_h1(paste0("Dataset ", cli::col_blue(object@name)))
+            }
             cat_data(object)
             # cat_formulas(object)
-            cat_boundaries(object, column = FALSE)
+            # cat_boundaries(object, column = FALSE)
             cat_smoothed_data(object)
             cli::cat_line()
           }
@@ -69,17 +71,17 @@ setMethod("show",
           "sspm_formula",
           function(object) {
             cli::cat_line()
-            custom_h1("SSPM Formula")
-            cli::cat_bullet(" Response           : ",
+            custom_h1("Formula")
+            cli::cat_bullet(" Response : ",
                             object@response,
                             bullet = "arrow_right")
-            cli::cat_bullet(" Raw formula        : ",
+            cli::cat_bullet(" Raw : ",
                             format_formula(object@raw_formula),
                             bullet = "arrow_right")
-            cli::cat_bullet(" Translated formula : ",
+            cli::cat_bullet(" Translated : ",
                             format_formula(object@translated_formula),
                             bullet = "arrow_right")
-            cli::cat_bullet(" Variables          : ",
+            cli::cat_bullet(" Variables : ",
                             paste0(names(object@vars), collapse = ", "),
                             bullet = "arrow_right")
             cli::cat_line()
@@ -91,9 +93,9 @@ setMethod("show",
           function(object) {
             cli::cat_line()
             n_datasets <- length(object@datasets)
-            custom_h1(paste0("SSPM Model ",
+            custom_h1(paste0("Model ",
                              cli::pluralize(cli::col_green("({n_datasets} dataset{?s})"))))
-            cat_boundaries(object, column = FALSE)
+            # cat_boundaries(object, column = FALSE)
             cat_smoothed_data(object)
             cli::cat_line()
           }
@@ -103,8 +105,8 @@ setMethod("show",
           "sspm_fit",
           function(object) {
             cli::cat_line()
-            custom_h1("SSPM Model Fit")
-            cat_boundaries(object, column = FALSE)
+            custom_h1("Model fit")
+            # cat_boundaries(object, column = FALSE)
             cat_smoothed_data(object, prints = FALSE)
             cat_spm_fit(object)
             cli::cat_line()
@@ -138,20 +140,29 @@ cat_boundaries <- function(object, column = TRUE) {
     cli::cli_alert_info(" Boundaries not initialized")
   } else if (ok_to_print) {
     if (column) {
-      cli::cat_bullet(" Boundaries         : ",
+      cli::cat_bullet(" ",
                       pluralize_data_info(object@boundaries),
                       bullet = "arrow_right")
 
-      cli::cat_bullet(" Boundary col.      : ",
+      if (checkmate::test_class(object, "sspm_discrete_boundary")) {
+        if (!is.null(dim(object@boundaries))) {
+          cat_discretization_info(object)
+        }
+      }
+
+      cli::cat_bullet(" Column : ",
                       cli::col_blue(object@boundary),
                       bullet = "arrow_right")
 
-      cli::cat_bullet(" Boundary area col. : ",
+      cli::cat_bullet(" Area : ",
                       cli::col_blue(object@boundary_area),
                       bullet = "arrow_right")
+
+      # TODO add " Patches area col. :
+
     } else {
 
-      cli::cat_bullet(" Boundaries        : ",
+      cli::cat_bullet(" Boundaries : ",
                       pluralize_data_info(object@boundaries@boundaries),
                       bullet = "arrow_right")
 
@@ -162,15 +173,13 @@ cat_boundaries <- function(object, column = TRUE) {
 
 cat_discretization_info <- function(object) {
 
-  cli::cat_bullet(" Discretized        : ",
-                  bullet = "arrow_right")
+  # cli::cat_bullet(" Discretized : ",
+  #                 bullet = "arrow_right")
 
-  # TODO add " Patches area col. : "
-
-  cli::cat_line("   ", paste(cli::symbol$star, cli::col_green("Points"),
+  cli::cat_line(" ", paste(cli::symbol$star, cli::col_green("Points"),
                              cli::symbol$em_dash,
                              pluralize_data_info(object@points, dim_1_name = "feature")))
-  cli::cat_line("   ", paste(cli::symbol$star, cli::col_green("Patches"),
+  cli::cat_line(" ", paste(cli::symbol$star, cli::col_green("Patches"),
                              cli::symbol$em_dash,
                              pluralize_data_info(object@patches, dim_1_name = "feature")))
 
@@ -178,28 +187,40 @@ cat_discretization_info <- function(object) {
 
 cat_data <- function(object) {
 
-  if (object@is_mapped) {
-    header <- paste0(" Data ", cli::col_blue("(MAPPED)"),
-                     "     : ")
-  } else {
-    header <- " Data              : "
-  }
+  header <- " "
 
   cli::cat_bullet(header,
                   pluralize_data_info(object@data),
                   bullet = "arrow_right")
-  cli::cat_bullet(" Data unique ID    : ",
-                  cli::col_blue(object@uniqueID),
-                  bullet = "arrow_right")
-  cli::cat_bullet(" Time col.         : ",
-                  cli::col_blue(object@time),
-                  bullet = "arrow_right")
-  if (!is.null(object@coords)) {
-    cli::cat_bullet(" Coordinates cols. : ",
-                    paste(cli::col_green(object@coords),
-                          collapse = ", "),
+
+  # cli::cat_bullet(" Unique ID : ",
+  #                 cli::col_blue(object@uniqueID),
+  #                 bullet = "arrow_right")
+
+  # if (!is.null(object@coords)) {
+  #   cli::cat_bullet(" Coords : ",
+  #                   paste(cli::col_green(object@coords),
+  #                         collapse = ", "),
+  #                   bullet = "arrow_right")
+  # }
+
+  if (!is.null(object@biomass)) {
+    cli::cat_bullet(" Biomass : ",
+                    paste(cli::col_green(object@biomass),
+                          collapse =  paste0(" ", cli::symbol$em_dash, " ")),
                     bullet = "arrow_right")
   }
+
+  if (!is.null(object@density)) {
+    cli::cat_bullet(" Density : ",
+                    paste(cli::col_green(object@density),
+                          collapse =  paste0(" ", cli::symbol$em_dash, " ")),
+                    bullet = "arrow_right")
+  }
+
+  cli::cat_bullet(" Time : ",
+                  cli::col_green(object@time),
+                  bullet = "arrow_right")
 
 }
 
@@ -240,14 +261,14 @@ cat_smoothed_data <- function(object, prints = TRUE) {
                            cli::col_blue(n_test),
                            cli::col_yellow(" test"), "]")
 
-      cli::cat_bullet(" Smoothed Data     : ",
+      cli::cat_bullet(" Smoothed data : ",
                       pluralize_data_info(object@smoothed_data),
                       " /", split_info,
                       bullet = "arrow_right")
 
 
     } else {
-      cli::cat_bullet(" Smoothed Data     : ",
+      cli::cat_bullet(" Smoothed data : ",
                       pluralize_data_info(object@smoothed_data),
                       bullet = "arrow_right")
     }
@@ -270,7 +291,7 @@ cat_smoothed_data <- function(object, prints = TRUE) {
 
       if (length(columns_with_smooth) > 0) {
         the_line <-
-          paste(cli::symbol$star, "smoothed vars:",
+          paste(cli::symbol$star, "Smoothed vars:",
                 paste(cli::col_green(sort(columns_with_smooth)),
                       collapse = paste0(" ", cli::symbol$em_dash, " ")))
 
@@ -279,7 +300,7 @@ cat_smoothed_data <- function(object, prints = TRUE) {
 
       if (length(columns_with_catch) > 0) {
         the_line <-
-          paste(cli::symbol$star, "vars with catch:",
+          paste(cli::symbol$star, "Vars with catch:",
                 paste(cli::col_green(sort(columns_with_catch)),
                       collapse = paste0(" ", cli::symbol$em_dash, " ")))
 
@@ -302,7 +323,7 @@ cat_smoothed_data <- function(object, prints = TRUE) {
 cat_spm_fit <- function(object) {
   the_fit <- spm_get_fit(object)
   the_fit_summary <- summary(the_fit)
-  cli::cat_bullet(" Fit summary       : ",
+  cli::cat_bullet(" Fit summary : ",
                   bullet = "arrow_right")
   show(the_fit_summary)
 }
@@ -310,8 +331,8 @@ cat_spm_fit <- function(object) {
 # -------------------------------------------------------------------------
 
 pluralize_data_info <- function(object,
-                                dim_1_name = "observation",
-                                dim_2_name = "variable") {
+                                dim_1_name = "row",
+                                dim_2_name = "column") {
 
   dim_1 <- dim(object)[1]
   dim_2 <- dim(object)[2]
