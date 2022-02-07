@@ -98,31 +98,24 @@ setMethod(f = "spm_aggregate_catch",
 
             # Use corrections if need be
             if(!is.null(corrections)){
-              # TODO: add verification for time and boundary cols and catch_adjustment
-              nrow_data <- nrow(full_smoothed_data)
-              full_smoothed_data <- full_smoothed_data %>%
-                dplyr::left_join(corrections) %>%
-                dplyr::mutate(catch = .data$catch_adjustment * .data[[!!catch_variable]]) %>%
-                dplyr::select(-.data$catch_adjustment)
-              checkmate::assert_true(nrow(full_smoothed_data) == nrow_data)
+              full_smoothed_data <- apply_corrections(full_smoothed_data, corrections,
+                                                      catch_variable)
             }
 
             # Make correct names
             catch_name <- paste(c(biomass_variable, spm_name(biomass),
                                   "with_catch"), collapse = "_")
 
-            # Calculate
+            # Calculate productivity
             full_smoothed_data <- full_smoothed_data %>%
 
               dplyr::rename(catch = .data[[catch_variable]]) %>%
 
-              dplyr::group_by(.data[["patch_id"]],
-                              .data[[boundary_col]]) %>%
+              dplyr::group_by(.data[["patch_id"]], .data[[boundary_col]]) %>%
               dplyr::mutate(catch_density = .data$catch / .data[[area_col]]) %>%
 
               dplyr::mutate(
-                !!catch_name :=
-                  (.data[[biomass_variable]] + .data$catch_density)) %>%
+                !!catch_name := (.data[[biomass_variable]] + .data$catch_density)) %>%
               dplyr::mutate(
                 log_productivity = log(.data[[catch_name]]) -
                   log(dplyr::lag(.data[[biomass_variable]], default = NA)),
@@ -131,12 +124,15 @@ setMethod(f = "spm_aggregate_catch",
                 log_productivity = units::drop_units(.data$log_productivity),
                 productivity = exp(.data$log_productivity)) %>%
 
-              dplyr::ungroup() %>%
+              dplyr::ungroup()
 
+            # Re-arrange things
+            full_smoothed_data <-  full_smoothed_data %>%
               dplyr::relocate(dplyr::starts_with(biomass_variable),
                               .after = .data$row_ID) %>%
               dplyr::relocate(c("log_productivity", "productivity"),
                               .after = .data$row_ID) %>%
+              # TODO this might not be needed anymore
               dplyr::mutate(!!biomass_time_col :=
                               as.numeric(as.character(.data[[biomass_time_col]])))
 
@@ -146,3 +142,22 @@ setMethod(f = "spm_aggregate_catch",
 
           }
 )
+
+# Helpers -----------------------------------------------------------------
+
+apply_corrections <- function(full_data, corrections, catch_var){
+  # TODO: add verification for time and boundary cols
+  nrow_data <- nrow(full_data)
+
+  stopifnot("catch_adjustment" %in% names(full_data))
+
+  full_data <- full_data %>%
+    dplyr::left_join(corrections) %>%
+    dplyr::mutate(catch = .data$catch_adjustment *
+                    .data[[!!catch_var]]) %>%
+    dplyr::select(-.data$catch_adjustment)
+
+  checkmate::assert_true(nrow(full_data) == nrow_data)
+
+  return(full_data)
+}
