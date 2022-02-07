@@ -46,11 +46,7 @@ setMethod(f = "map_formula",
             }
 
             # Find the special calls to edit and evaluate
-            is_special <- sapply(terms_labels, grepl, pattern = "smooth_lag(", fixed = TRUE) |
-              sapply(terms_labels, grepl, pattern = "smooth_time(", fixed = TRUE) |
-              sapply(terms_labels, grepl, pattern = "smooth_space(", fixed = TRUE) |
-              sapply(terms_labels, grepl, pattern = "smooth_space_time(", fixed = TRUE)
-
+            is_special <- find_special_terms(term_labels)
             smooth_terms_labels <- terms_labels[is_special]
             other_terms <- terms_labels[!is_special]
 
@@ -73,10 +69,12 @@ setMethod(f = "map_formula",
                                  boundaries = substitute(boundaries),
                                  time = time))
 
+            # Evaluate the actual smooth_function
             smooth_and_vars <- lapply(smooth_calls_modified, eval,
                                      envir = list(. = data_frame,
                                                   boundaries = boundaries))
 
+            # Extract all keys smooths and vars
             smooth_list <- sapply(smooth_and_vars, `[[`, "smooth")
 
             vars_list <- purrr::flatten(lapply(smooth_and_vars, `[[`, "vars"))
@@ -118,4 +116,13 @@ modify_call <- function(the_call, args) {
     the_call[[names(args)[index]]] <- args[[index]]
   }
   return(the_call)
+}
+
+# This function finds special terms in the formula. We consider special any
+# term that is a custom smooth_function implemented in this package
+find_special_terms <- function(the_labels){
+  sapply(the_labels, grepl, pattern = "smooth_lag(", fixed = TRUE) |
+    sapply(the_labels, grepl, pattern = "smooth_time(", fixed = TRUE) |
+    sapply(the_labels, grepl, pattern = "smooth_space(", fixed = TRUE) |
+    sapply(the_labels, grepl, pattern = "smooth_space_time(", fixed = TRUE)
 }
