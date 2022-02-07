@@ -47,58 +47,32 @@ setMethod(f = "spm_aggregate",
                    fun,
                    group_by,
                    fill,
+                   apply_to_df,
                    ...){
 
+            # Get info
             checkmate::assert_character(variable)
             checkmate::assert_function(fun)
             checkmate::assert_choice(group_by, spm_aggregation_choices())
 
             time_col <- spm_time(dataset)
-            if (!is_mapped(dataset)) {
-              # Need to map dataset
+            if (!is_mapped(dataset)) { # Need to map dataset
               dataset <- join_datasets(dataset, boundaries)
             }
 
+            # Get data
             dataset_data <- spm_data(dataset)
 
-            if (group_by == "spacetime"){
-
-              dataset_data_tmp <- spm_data(dataset) %>%
-                dplyr::group_by(.data[[time_col]], .data$patch_id)
-
-            } else if (group_by == "space"){
-
-              dataset_data_tmp <- spm_data(dataset) %>%
-                dplyr::group_by(.data$patch_id)
-
-            } else if (group_by == "time"){
-
-              dataset_data_tmp <- spm_data(dataset) %>%
-                dplyr::group_by(.data[[time_col]])
-
-            }
+            # Group data
+            dataset_data_tmp <- group_data(dataset_data, group_by, time_col)
 
             args_list <- list(...)
 
-            if (apply_to_df) {
+            # Two ways to aggregate: by dataframe or by list. We get the correct
+            # meta-function from this function
+            the_fun <- get_apply_fun(apply_to_df)
 
-              the_fun <- function(df, groups, ...){
-                all_args <- list(...)[[1]]
-                data.frame(do.call(all_args$fun,
-                                   append(list(df), all_args$args)))
-              }
-
-            } else {
-
-              the_fun <- function(df, groups, ...){
-                all_args <- list(...)[[1]]
-                data.frame(temp = do.call(all_args$fun,
-                                          append(list(df[[all_args$variable]]),
-                                                 all_args$args)))
-              }
-
-            }
-
+            # Then we apply it
             dataset_data_tmp <- dataset_data_tmp %>%
               sf::st_set_geometry(NULL) %>%
               dplyr::group_modify(.f = the_fun,
@@ -108,6 +82,7 @@ setMethod(f = "spm_aggregate",
               dplyr::ungroup() %>%
               unique()
 
+            # We determine how best to clean up if need be
             if (checkmate::test_logical(fill)) {
               if (is.na(fill)){
                 do_completion <- TRUE
@@ -132,12 +107,14 @@ setMethod(f = "spm_aggregate",
               }
             }
 
+            # If we need to complete, we go ahead and do so
             if (do_completion) {
               dataset_data_tmp <- dataset_data_tmp %>%
                 tidyr::complete(.data[[time_col]], .data$patch_id,
                                 fill = list(temp = fill_value))
             }
 
+            # Rename before returning
             spm_data(dataset) <- dataset_data_tmp %>%
               dplyr::rename(!!variable := .data$temp)
 
@@ -145,3 +122,51 @@ setMethod(f = "spm_aggregate",
 
           }
 )
+
+# Helpers -----------------------------------------------------------------
+
+# This functions takes care of applying the proper grouping onto the data
+group_data <- function(dataset_data, group_by, time_col){
+  if (group_by == "spacetime"){
+
+    grouped_data <- dataset_data %>%
+      dplyr::group_by(.data[[time_col]], .data$patch_id)
+
+  } else if (group_by == "space"){
+
+    grouped_data <- dataset_data %>%
+      dplyr::group_by(.data$patch_id)
+
+  } else if (group_by == "time"){
+
+    grouped_data <- dataset_data %>%
+      dplyr::group_by(.data[[time_col]])
+
+  }
+  return(grouped_data)
+}
+
+# Retrurns on demand one of two functions for aggregation
+get_apply_fun <- function(apply_to_df){
+
+  if (apply_to_df) {
+
+    the_fun <- function(df, groups, ...){
+      all_args <- list(...)[[1]]
+      data.frame(do.call(all_args$fun,
+                         append(list(df), all_args$args)))
+    }
+
+  } else {
+
+    the_fun <- function(df, groups, ...){
+      all_args <- list(...)[[1]]
+      data.frame(temp = do.call(all_args$fun,
+                                append(list(df[[all_args$variable]]),
+                                       all_args$args)))
+    }
+
+  }
+
+  return(the_fun)
+}
