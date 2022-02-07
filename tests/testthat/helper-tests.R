@@ -1,3 +1,5 @@
+if (FALSE){
+
 library(testthat)
 library(checkmate)
 library(dplyr)
@@ -115,3 +117,4 @@ sspm_fit <- new("sspm_fit",
                 formula = sspm_formula,
                 boundaries = spm_boundaries(biomass_dataset_smoothed),
                 fit = bam(data = mtcars, mpg ~ wt, family = gaussian))
+}
