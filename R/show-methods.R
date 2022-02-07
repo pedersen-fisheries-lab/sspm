@@ -132,37 +132,41 @@ cat_boundaries <- function(object) {
   if (print_not_init){
     cli::cli_alert_info(" Boundaries not initialized")
   } else if (ok_to_print) {
-      cli::cat_bullet(" ",
-                      pluralize_data_info(object@boundaries),
-                      bullet = "arrow_right")
+    cli::cat_bullet(" ",
+                    pluralize_data_info(object@boundaries),
+                    bullet = "arrow_right")
 
-      if (checkmate::test_class(object, "sspm_discrete_boundary")) {
-        if (!is.null(dim(object@boundaries))) {
-          cat_discretization_info(object)
-        }
+    if (checkmate::test_class(object, "sspm_discrete_boundary")) {
+      if (!is.null(dim(object@boundaries))) {
+        cat_discretization_info(object)
       }
+    }
 
-      cli::cat_bullet(" Column : ",
-                      cli::col_blue(object@boundary),
-                      bullet = "arrow_right")
+    cli::cat_bullet(" Column : ",
+                    cli::col_blue(object@boundary),
+                    bullet = "arrow_right")
 
-      cli::cat_bullet(" Area : ",
-                      cli::col_blue(object@boundary_area),
-                      bullet = "arrow_right")
+    cli::cat_bullet(" Area : ",
+                    cli::col_blue(object@boundary_area),
+                    bullet = "arrow_right")
 
-      # TODO add " Patches area col. :
+    # TODO add " Patches area col. :
   }
 
 }
 
 cat_discretization_info <- function(object) {
 
-  cli::cat_line(" ", paste(cli::symbol$star, cli::col_green("Points"),
-                             cli::symbol$em_dash,
-                             pluralize_data_info(object@points, dim_1_name = "feature")))
-  cli::cat_line(" ", paste(cli::symbol$star, cli::col_green("Patches"),
-                             cli::symbol$em_dash,
-                             pluralize_data_info(object@patches, dim_1_name = "feature")))
+  if(!is.null(object@points)){
+    cli::cat_line("  ", paste(cli::symbol$star, cli::col_green("Points"),
+                              cli::symbol$em_dash,
+                              pluralize_data_info(object@points, dim_1_name = "feature")))
+  }
+  if(!is.null(object@patches)){
+    cli::cat_line("  ", paste(cli::symbol$star, cli::col_green("Patches"),
+                              cli::symbol$em_dash,
+                              pluralize_data_info(object@patches, dim_1_name = "feature")))
+  }
 
 }
 
