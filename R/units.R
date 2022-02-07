@@ -1,3 +1,6 @@
+
+# Setting functions -------------------------------------------------------
+
 set_biomass <- function(x, units = "kg", target_units = "kg", mode = "standard"){
   spm_set_units(x, units, target_units, mode)
 }
@@ -12,6 +15,8 @@ spm_set_units <- function(x, units, target_units, mode = "standard"){
   x <- units::set_units(x, target_units, mode = mode)
   return(x)
 }
+
+# Validation functions ----------------------------------------------------
 
 is_units <- function(x){
   checkmate::test_class(x, "units")
