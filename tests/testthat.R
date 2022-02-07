@@ -1,4 +1,4 @@
 library(testthat)
 library(sspm)
 
-test_check("sspm")
+# test_check("sspm")
