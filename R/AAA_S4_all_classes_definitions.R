@@ -123,8 +123,8 @@ setClass("sspm_dataset",
                       smoothed_vars = "character",
                       smoothed_fit = "list",
                       is_mapped = "logical"),
-         prototype = prototype(is_mapped = FALSE,
-                               smoothed_data = NULL)
+         prototype = prototype(smoothed_data = NULL,
+                               is_mapped = FALSE)
 )
 
 # ClassUnions
@@ -156,7 +156,8 @@ setClass("sspm_formula",
                       lag_vars = "characterOrNULL",
                       type = "character",
                       response = "character",
-                      is_fitted = "logical")
+                      is_fitted = "logical"),
+         prototype = prototype(is_fitted = FALSE)
 )
 
 # -------------------------------------------------------------------------
