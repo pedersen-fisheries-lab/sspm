@@ -24,14 +24,12 @@ setMethod(f = "spm_split",
           signature(sspm_object = "sspm"),
           function(sspm_object, ...) {
 
-            # Check correct dataset name
             the_data <- spm_smoothed_data(sspm_object)
             time_col <- spm_time(sspm_object)
 
-            # TODO add check if splitted
-
+            # Need to check whether time is a factor
             is_factor <- FALSE
-            if (is.factor(the_data[[spm_time(sspm_object)]])) {
+            if (is.factor(the_data[[time_col]])) {
               is_factor <- TRUE
               the_data <- the_data %>%
                 dplyr::mutate(!!time_col := as.numeric(as.character(.data[[time_col]])))
@@ -40,16 +38,20 @@ setMethod(f = "spm_split",
             the_expr <- (match.call(expand.dots = FALSE)$`...`)[[1]]
             selection <- rlang::eval_tidy(the_expr,
                                           data = the_data)
+            # TODO Review tidy eval
             # selection <- rlang::eval_tidy(str2lang(predicate),
             #                               data = the_data)
+
             the_data$train_test <- selection
             is_split(sspm_object) <- TRUE
 
+            # Re-establish factor
             if (is_factor) {
               the_data <- the_data %>%
                 dplyr::mutate(!!time_col := as.factor(.data[[time_col]]))
             }
 
+            # Relocate for nicer printing
             spm_smoothed_data(sspm_object) <- the_data %>%
               dplyr::relocate(.data$train_test, .after = .data$row_ID)
 
