@@ -18,7 +18,7 @@ setMethod("show",
           function(object) {
             cli::cat_line()
             custom_h1(paste0("Boundaries"))
-            cat_boundaries(object, column = TRUE)
+            cat_boundaries(object)
             cli::cat_line()
           }
 )
@@ -30,7 +30,7 @@ setMethod("show",
             if (!is.null(dim(object@boundaries))) {
               custom_h1(paste0("Boundaries ", cli::col_green("(Discrete)")))
             }
-            cat_boundaries(object, column = TRUE)
+            cat_boundaries(object)
             cli::cat_line()
           }
 )
@@ -46,8 +46,6 @@ setMethod("show",
               custom_h1(paste0("Dataset ", cli::col_blue(object@name)))
             }
             cat_data(object)
-            # cat_formulas(object)
-            # cat_boundaries(object, column = FALSE)
             cat_smoothed_data(object)
             cli::cat_line()
           }
@@ -60,9 +58,6 @@ setMethod("show",
             custom_h1("Discretization method")
             cli::cat_bullet(" Name : '", object@name, "'",
                             bullet = "arrow_right")
-            # TODO Print function
-            # cli::cat_bullet(" Function         :", substitute(object@method),
-            #                 bullet = "em_dash")
             cli::cat_line()
           }
 )
@@ -95,7 +90,6 @@ setMethod("show",
             n_datasets <- length(object@datasets)
             custom_h1(paste0("Model ",
                              cli::pluralize(cli::col_green("({n_datasets} dataset{?s})"))))
-            # cat_boundaries(object, column = FALSE)
             cat_smoothed_data(object)
             cli::cat_line()
           }
@@ -106,7 +100,6 @@ setMethod("show",
           function(object) {
             cli::cat_line()
             custom_h1("Model fit")
-            # cat_boundaries(object, column = FALSE)
             cat_smoothed_data(object, prints = FALSE)
             cat_spm_fit(object)
             cli::cat_line()
@@ -115,7 +108,7 @@ setMethod("show",
 
 # Helpers -----------------------------------------------------------------
 
-cat_boundaries <- function(object, column = TRUE) {
+cat_boundaries <- function(object) {
 
   print_not_init <- FALSE
 
@@ -139,7 +132,6 @@ cat_boundaries <- function(object, column = TRUE) {
   if (print_not_init){
     cli::cli_alert_info(" Boundaries not initialized")
   } else if (ok_to_print) {
-    if (column) {
       cli::cat_bullet(" ",
                       pluralize_data_info(object@boundaries),
                       bullet = "arrow_right")
@@ -159,22 +151,11 @@ cat_boundaries <- function(object, column = TRUE) {
                       bullet = "arrow_right")
 
       # TODO add " Patches area col. :
-
-    } else {
-
-      cli::cat_bullet(" Boundaries : ",
-                      pluralize_data_info(object@boundaries@boundaries),
-                      bullet = "arrow_right")
-
-    }
   }
 
 }
 
 cat_discretization_info <- function(object) {
-
-  # cli::cat_bullet(" Discretized : ",
-  #                 bullet = "arrow_right")
 
   cli::cat_line(" ", paste(cli::symbol$star, cli::col_green("Points"),
                              cli::symbol$em_dash,
@@ -223,29 +204,6 @@ cat_data <- function(object) {
                   bullet = "arrow_right")
 
 }
-
-# cat_formulas <- function(object) {
-#
-#   the_dataset_formulas <- spm_formulas(object)
-#
-#   if (length(the_dataset_formulas) != 0) {
-#
-#     cli::cat_bullet(" Formulas          : ",
-#                     bullet = "arrow_right")
-#
-#     for (f_id in seq_len(length.out = length(the_dataset_formulas))) {
-#
-#       form <- the_dataset_formulas[[f_id]]
-#       formatted <- cat_formula(form@raw_formula)
-#
-#       cli::cat_line("      ", cli::symbol$en_dash, " ",
-#                     cli::col_yellow(formatted))
-#
-#     }
-#
-#   }
-#
-# }
 
 cat_smoothed_data <- function(object, prints = TRUE) {
 
@@ -350,11 +308,3 @@ format_formula <- function(form) {
     paste0(trimws(format(form)), collapse = " ")
   ), pattern = "\\\"", replacement = "'")
 }
-
-# cat_formula <- function(formula, max_length = 1000) {
-#   formatted <- format_formula(formula)
-#   if (nchar(formatted) > max_length) {
-#     formatted <- paste0(strtrim(formatted, max_length), "...")
-#   }
-#   return(formatted)
-# }
