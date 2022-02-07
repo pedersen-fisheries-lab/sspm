@@ -46,7 +46,7 @@ setMethod(f = "map_formula",
             }
 
             # Find the special calls to edit and evaluate
-            is_special <- find_special_terms(term_labels)
+            is_special <- find_special_terms(terms_labels)
             smooth_terms_labels <- terms_labels[is_special]
             other_terms <- terms_labels[!is_special]
 
