@@ -154,7 +154,7 @@ setMethod(f = "spm_as_dataset",
                 cli::cli_alert_info("polygon geometry, boundaries argument ignored")
               }
 
-              # Create boundaries, create patch id
+              # Extract all disctinct patches and give them an ID
               patches <- data %>%
                 dplyr::select("geometry") %>%
                 dplyr::distinct() %>%
@@ -163,6 +163,7 @@ setMethod(f = "spm_as_dataset",
                                        levels = paste0("P", 1:length(unique(.data$patch_id))))) %>%
                 dplyr::mutate(boundary_col = "B1")
 
+              # Fuse all patchaes in a single boundary object
               boundary_data <- patches %>%
                 sf::st_union() %>%
                 sf::st_as_sf() %>%

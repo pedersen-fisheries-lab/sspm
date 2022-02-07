@@ -100,8 +100,6 @@ setMethod(f = "spm_as_boundary",
             boundary_area <- boundaries_list$column
 
             # Patches
-            ## TODO patches vs points provision
-
             patches_list <- check_patches(patches,
                                           patch_area)
 
@@ -163,9 +161,8 @@ check_boundaries <- function(boundaries, boundary,
     cli::cli_alert_warning("SSPM assumes areas are supplied in km^2")
 
     boundaries <-
-      dplyr::mutate(boundaries,
-                    !!boundary_area := units::set_units(.data[[boundary_area]],
-                                                              value = "km^2")) %>%
+      dplyr::mutate(boundaries, !!boundary_area :=
+                      units::set_units(.data[[boundary_area]], value = "km^2")) %>%
       dplyr::rename(!!new_boundary_area := .data$boundary_area)
 
   } else {
@@ -198,9 +195,8 @@ check_patches <- function(patches,
     cli::cli_alert_warning("SSPM assumes areas are supplied in km^2")
 
     patches <-
-      dplyr::mutate(patches,
-                    !!patches_area := units::set_units(.data[[patches_area]],
-                                                              value = "km^2"))
+      dplyr::mutate(patches, !!patches_area :=
+                      units::set_units(.data[[patches_area]], value = "km^2"))
 
   } else {
 
