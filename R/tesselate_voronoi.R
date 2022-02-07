@@ -81,8 +81,28 @@ tesselate_voronoi <- function(boundaries,
 
   # 2. Create (sample) the points
 
-  voronoi_points <- sample_voronoi_points(sample_surface, sample_points, with,
-                                          boundaries, boundary, nb_samples, seed)
+  if (sample_surface){
+
+    voronoi_points <- sample_points(mode = "surface", with,
+                                    boundaries, boundary, nb_samples, seed)
+
+  } else {
+
+    if (sample_points) {
+
+      voronoi_points <- sample_points(mode = "points", with,
+                                      boundaries, boundary, nb_samples, seed)
+
+    } else {
+
+      stopifnot(sf::st_is(with, "POINT"))
+
+      voronoi_points <- suppressMessages(sf::st_join(with, boundaries,
+                                                     suffix = c("", "_duplicate"))) %>%
+        dplyr::filter(!is.na(eval(dplyr::sym(boundary))))
+    }
+
+  }
 
   # 3. Create patches -------------------------------------------------------
 
@@ -94,175 +114,9 @@ tesselate_voronoi <- function(boundaries,
 
   # 5. Summarise and re - calculate area ------------------------------------
 
-  voronoi <-
-    suppressWarnings(
-      suppressMessages(
-        voronoi %>%
-          dplyr::group_by(.data[[boundary]], .data$patch_id) %>%
-          dplyr::summarize() %>%
-          dplyr::ungroup()))
-  voronoi <-
-    dplyr::mutate(voronoi, area = sf::st_area(voronoi))
-  voronoi <-
-    dplyr::mutate(voronoi,
-                  area = units::set_units(.data$area, value = "km^2"),
-                  patch_id = factor(paste("P", 1:dplyr::n(), sep = ""),
-                                    levels = paste0("P", 1:length(unique(.data$patch_id))))) %>%
-    dplyr::rename(patch_area = .data$area) %>%
-    dplyr::relocate(.data$patch_area, .before = .data$geometry)
+  voronoi <- cleanup_polygons(voronoi, boundary)
 
   # Core function must return a list of "patches" and "points"
   return(list(patches = voronoi,
               points = voronoi_points))
-}
-
-# Helpers -----------------------------------------------------------------
-
-# Function to sample points on a surface for tessellation
-sample_voronoi_points <- function(sample_surface, sample_points, with,
-                                  boundaries, boundary, nb_samples, seed){
-
-  boundaries_split <- split(boundaries, boundaries[[boundary]])
-
-  if (sample_surface){
-
-    if (is.null(nb_samples)){
-      cli::cli_alert_danger("You must specify nb_samples when sampling surfaces or points")
-      stop("nb_samples is NULL")
-    }
-
-    sample_fun <- function(polygon, boundary, nb_samples){
-      sf::st_sample(polygon,
-                    size = nb_samples[polygon[[boundary]]])
-    }
-
-    set.seed(seed) ; voronoi_points <-
-      lapply(boundaries_split, FUN = sample_fun,
-             boundary = boundary,
-             nb_samples = nb_samples) %>%
-      lapply(sf::st_as_sf) %>%
-      dplyr::bind_rows() %>%
-      dplyr::rename(geometry = .data$x) %>%
-      sf::st_join(boundaries)
-
-  } else {
-
-    if (sample_points) {
-
-      if (is.null(nb_samples)){
-        cli::cli_alert_danger("You must specify nb_samples when sampling surfaces or points")
-        stop("nb_samples is NULL")
-      }
-
-      if (is.null(with)){
-        cli::cli_alert_danger("with cannot be NULL when sampling points")
-        stop("with is NULL")
-      }
-
-      set.seed(seed) ; voronoi_points <-
-        suppressMessages(sf::st_join(with, boundaries,
-                                     suffix = c("", "_duplicate"))) %>%
-        dplyr::filter(!is.na(eval(dplyr::sym(boundary)))) %>%
-        dplyr::group_by(.data[[boundary]]) %>%
-        dplyr::filter(1:dplyr::n() %in%
-                        sample(1:dplyr::n(),
-                               size = nb_samples[[.data[[boundary]][1]]]))
-    } else {
-
-      # TODO checks that with is points geometry here
-
-      voronoi_points <- suppressMessages(sf::st_join(with, boundaries,
-                                                     suffix = c("", "_duplicate"))) %>%
-        dplyr::filter(!is.na(eval(dplyr::sym(boundary))))
-
-    }
-
-    return(voronoi_points)
-
-  }
-}
-
-# Function to make voronoi patches
-make_patches_voronoi <- function(stratify, voronoi_points, boundaries, boundary){
-
-  boundaries_split <- split(boundaries, boundaries[[boundary]])
-
-  if(stratify){
-
-    envelopes <- boundaries_split %>%
-      lapply(function(x) { x[["geometry"]] } )
-
-    voronoi <- voronoi_points %>%
-      split(voronoi_points[[boundary]]) %>%
-      lapply(function(x) { suppressAll(sf::st_union(x)) } ) %>%
-      mapply(FUN = function(x, y) {
-        suppressAll(sf::st_voronoi(x, envelope = y)) },
-        envelopes, SIMPLIFY = FALSE) %>%
-      lapply(function(x) { suppressAll(sf::st_cast(x)) } ) %>%
-      lapply(function(x) { suppressAll(sf::st_sf(x)) } ) %>%
-      mapply(FUN = function(x, y) { suppressAll(sf::st_intersection(x, y)) },
-             boundaries_split, SIMPLIFY = FALSE) %>%
-      dplyr::bind_rows()
-
-    voronoi <- sf::st_sf(voronoi) %>%
-      dplyr::rename(geometry = .data$x)
-
-  } else {
-
-    voronoi <-
-      suppressAll(voronoi_points %>%
-                    sf::st_union() %>%
-                    sf::st_voronoi() %>%
-                    sf::st_cast() %>%
-                    sf::st_sf())
-
-    voronoi <-
-      suppressAll(sf::st_intersection(x = boundaries, y = voronoi))
-
-  }
-
-  voronoi <-
-    suppressAll(voronoi %>%
-                  st_cast() %>%
-                  st_cast("POLYGON") %>%
-                  sf::st_make_valid() %>%
-                  dplyr::mutate(patch_id = paste("P", 1:dplyr::n(), sep = "")) %>%
-                  dplyr::group_by(.data$patch_id, .data[[boundary]]) %>%
-                  dplyr::summarize() %>%
-                  sf::st_make_valid() %>%
-                  dplyr::ungroup())
-  voronoi <-
-    suppressAll(dplyr::mutate(voronoi,
-                              area = sf::st_area(voronoi)))
-  voronoi <-
-    suppressAll(dplyr::mutate(voronoi,
-                              area = units::set_units(.data$area,
-                                                      value = "km^2")))
-
-  return(voronoi)
-}
-
-# -------------------------------------------------------------------------
-
-# This function makes sure smaller polygons are fused to their nearest neighbor
-
-merge_small_polygons <- function(voronoi, min_size, boundary){
-
-  # TODO the removal of small polygons has not been stratified
-  small_voronoi <- voronoi$patch_id[which(voronoi$area <
-                                            units::set_units(min_size, value = "km^2"))]
-  voronoi_edges <- suppressMessages(sf::st_intersects(voronoi))
-  names(voronoi_edges) <- voronoi$patch_id
-
-  # TODO this could maybe be vectorized
-  for (i in small_voronoi) {
-    current_polygons <- voronoi[voronoi_edges[[i]], ] %>%
-      dplyr::filter(.data[[boundary]] ==
-                      unique(.data[[boundary]][.data$patch_id == i])) %>%
-      dplyr::filter(.data$area == max(.data$area))
-    max_id <- current_polygons$patch_id
-    voronoi$patch_id[voronoi$patch_id == i] <- max_id
-  }
-
-  return(voronoi)
 }

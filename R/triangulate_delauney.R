@@ -67,6 +67,7 @@ triangulate_delaunay <- function(boundaries,
   checkmate::assert_numeric(seed)
 
   unique_boundaries <- unique(boundaries[[boundary]])
+
   if (length(nb_samples) == 1){
     nb_samples <- rep(nb_samples, length(unique_boundaries))
     names(nb_samples) <- unique_boundaries
@@ -86,43 +87,23 @@ triangulate_delaunay <- function(boundaries,
 
   if (sample_surface){
 
-    sample_fun <- function(polygon, boundary, nb_samples){
-      sf::st_sample(polygon,
-                    size = nb_samples[polygon[[boundary]]])
-    }
-
-    set.seed(seed) ; delaunay_base <-
-      lapply(boundaries_split, FUN = sample_fun,
-             boundary = boundary,
-             nb_samples = nb_samples) %>%
-      lapply(sf::st_as_sf) %>%
-      dplyr::bind_rows() %>%
-      dplyr::rename(geometry = .data$x) %>%
-      sf::st_join(boundaries)
+    delaunay_base <- sample_points(mode = "surface", with,
+                                   boundaries, boundary, nb_samples, seed)
 
   } else if (sample_points) {
 
-    set.seed(seed) ; delaunay_base <-
-      suppressMessages(sf::st_join(with, boundaries)) %>%
-      dplyr::filter(!is.na(eval(dplyr::sym(boundary)))) %>%
-      dplyr::group_by(.data[[boundary]]) %>%
-      dplyr::filter(1:dplyr::n() %in%
-                      sample(1:dplyr::n(),
-                             size = nb_samples[[.data[[boundary]][1]]]))
+    delaunay_base <- sample_points(mode = "points", with,
+                                   boundaries, boundary, nb_samples, seed)
 
   } else if (!is.null(with)) {
+
+    stopifnot(sf::st_is(with, "POINT"))
 
     delaunay_base <- with
 
   } else {
 
-    delaunay_base <- boundaries %>%
-      st_union() %>%
-      st_convex_hull() %>%
-      st_cast() %>%
-      st_cast("POLYGON") %>%
-      sf::st_as_sf() %>%
-      dplyr::rename(geometry = .data$x) %>%
+    delaunay_base <- make_base_from_bounds(boundaries) %>%
       # Need a temp col for ct_triangulate to work
       dplyr::mutate(temp_col = "temp")
 
@@ -137,30 +118,24 @@ triangulate_delaunay <- function(boundaries,
   if("temp_col" %in% names(delaunay_mesh)){
     delaunay_mesh <- delaunay_mesh %>% dplyr::select(-"temp_col")
   }
+
   if("npoints" %in% names(delaunay_mesh)){
     delaunay_mesh <- delaunay_mesh %>% dplyr::select(-"npoints")
   }
 
-  delaunay_mesh <- suppressAll(delaunay_mesh %>%
-                                 sf::st_collection_extract() %>%
-                                 sf::st_cast() %>%
-                                 sf::st_cast("POLYGON") %>%
-                                 sf::st_join(boundaries, largest = TRUE) %>%
-                                 sf::st_intersection(
-                                   sf::st_union(boundaries)) %>%
-                                 sf::st_make_valid() %>%
-                                 sf::st_cast() %>%
-                                 sf::st_cast("POLYGON") %>%
-                                 sf::st_make_valid() %>%
-                                 dplyr::mutate(patch_id = paste0("P", 1:dplyr::n())))
-
-  # voronoi <-
-  #   suppressAll(voronoi %>%
-  #                 sf::st_make_valid() %>%
-  #                 dplyr::mutate(patch_id = paste("P", 1:dplyr::n(), sep = "")) %>%
-  #                 dplyr::group_by(.data$patch_id, .data[[boundary]]) %>%
-  #                 dplyr::summarize() %>%
-  #                 dplyr::ungroup())
+  delaunay_mesh <-
+    suppressAll(delaunay_mesh %>%
+                  sf::st_collection_extract() %>%
+                  sf::st_cast() %>%
+                  sf::st_cast("POLYGON") %>%
+                  sf::st_join(boundaries, largest = TRUE) %>%
+                  sf::st_intersection(
+                    sf::st_union(boundaries)) %>%
+                  sf::st_make_valid() %>%
+                  sf::st_cast() %>%
+                  sf::st_cast("POLYGON") %>%
+                  sf::st_make_valid() %>%
+                  dplyr::mutate(patch_id = paste0("P", 1:dplyr::n())))
 
   delaunay_mesh <-
     suppressAll(dplyr::mutate(delaunay_mesh,
@@ -172,52 +147,15 @@ triangulate_delaunay <- function(boundaries,
 
   # 4. Merge small polygons -------------------------------------------------
 
-  # TODO the removal of small polygons has not been stratified
-
-  small_triangle <- delaunay_mesh$patch_id[which(delaunay_mesh$area <
-                                                   units::set_units(min_size, value = "km^2"))]
-  voronoi_edges <- suppressMessages(sf::st_intersects(delaunay_mesh))
-  names(voronoi_edges) <- delaunay_mesh$patch_id
-
-  # TODO vectorize this
-  for (i in small_triangle) {
-    current_triangles <- delaunay_mesh[voronoi_edges[[i]], ] %>%
-      dplyr::filter(.data[[boundary]] ==
-                      unique(.data[[boundary]][.data$patch_id == i])) %>%
-      dplyr::filter(.data$area == max(.data$area))
-    max_id <- current_triangles$patch_id
-    delaunay_mesh$patch_id[delaunay_mesh$patch_id == i] <- max_id
-  }
+  delaunay_mesh <- merge_small_polygons(delaunay_mesh, min_size, boundary)
 
   # 5. Summarise and re - calculate area ------------------------------------
 
-  delaunay_mesh <-
-    suppressWarnings(
-      suppressMessages(
-        delaunay_mesh %>%
-          dplyr::group_by(.data[[boundary]], .data$patch_id) %>%
-          dplyr::summarize() %>%
-          dplyr::ungroup()))
-  delaunay_mesh <-
-    dplyr::mutate(delaunay_mesh, area = sf::st_area(delaunay_mesh))
-  delaunay_mesh <-
-    dplyr::mutate(delaunay_mesh,
-                  area = units::set_units(.data$area, value = "km^2"),
-                  patch_id =
-                    factor(paste("P", 1:dplyr::n(), sep = ""),
-                           levels = paste0("P", 1:length(unique(.data$patch_id))))) %>%
-    dplyr::rename(patch_area = .data$area) %>%
-    dplyr::relocate(.data$patch_area, .before = .data$geometry)
-
-  # Core function must return a list of "patches" and "points"
-
-  if (any(c(sample_surface, sample_points))) {
-    points <- delaunay_base
-  } else {
-    points = NULL
-  }
+  delaunay_mesh <- cleanup_polygons(delaunay_mesh, boundary)
 
   return(list(patches = delaunay_mesh,
               points = points))
 
 }
+
+# Helpers -----------------------------------------------------------------
