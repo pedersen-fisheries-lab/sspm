@@ -261,7 +261,7 @@ setMethod(f = "predict",
                         .data[[patch_area_col]],
 
                       CI_lower = .data$biomass_density_lower *
-                       .data[[patch_area_col]],
+                        .data[[patch_area_col]],
                       CI_upper = .data$biomass_density_upper *
                         .data[[patch_area_col]]) %>%
 
