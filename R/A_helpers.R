@@ -21,6 +21,7 @@ spm_methods <- function() {
 #'
 #' Currently, only one smoothing method is supported:
 #'     * `"ICAR"`: Intrinsic Conditional Auto-Regressive models.
+#'     * `"LINPRED"`: LINear PREDictors (lag smooths).
 #'
 #' @return
 #' A `character vector` of all available smoothing methods.

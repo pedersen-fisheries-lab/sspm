@@ -12,4 +12,5 @@ A \verb{character vector} of all available smoothing methods.
 \description{
 Currently, only one smoothing method is supported:
 * \code{"ICAR"}: Intrinsic Conditional Auto-Regressive models.
+* \code{"LINPRED"}: LINear PREDictors (lag smooths).
 }
