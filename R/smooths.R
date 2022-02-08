@@ -227,6 +227,9 @@ ICAR <- function(data_frame, boundaries, time, dimension,
   # Setup done ----
   vars <- list()
 
+  # NOTE: Some code duplication is a little bit of a shame but is necessary as
+  #       previous attempst at functionnalizing this part of the code made
+  #       it seem more complicated and less easy to understand.
   if (dimension == "time") {
 
     out <- list(str2lang(time))
