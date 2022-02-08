@@ -72,6 +72,11 @@ setMethod(f = "sspm",
 
               # 2. Check boundaries
               biomass_boundaries <- spm_boundaries(biomass)
+              biomass_patches <- spm_patches(biomass_boundaries) %>%
+                dplyr::select("patch_id")
+              biomass_boundary <- spm_boundary(spm_boundaries(biomass))
+              biomass_time <- spm_time(biomass)
+
               patch_area <- spm_patches_area(biomass_boundaries)
               predictors_boundaries <- lapply(predictors, spm_boundaries)
               all_boundaries <- unname(append(list(biomass_boundaries),
@@ -79,13 +84,11 @@ setMethod(f = "sspm",
               check_identical_boundaries(all_boundaries)
 
               # 3. combine the full_smoothed_data/vars
-              # TODO message about catch
-              info_message <-
-                paste0(" Joining smoothed data from all datasets")
+              info_message <- paste0(" Joining smoothed data from all datasets")
               cli::cli_alert_info(info_message)
 
               biomass_clean <- clean_data_for_joining(spm_smoothed_data(biomass))
-              joining_vars <- c("patch_id", spm_boundary(spm_boundaries(biomass)))
+              joining_vars <- c("patch_id", biomass_boundary, biomass_time)
 
               if (patch_area %in% names(biomass_clean)) {
                 joining_vars <- c(joining_vars, patch_area)
@@ -94,6 +97,8 @@ setMethod(f = "sspm",
               full_smoothed_data <- biomass_clean
               full_smoothed_vars <- spm_smoothed_vars(biomass)
 
+              # This for loop cannot easily be a function, as it joins things
+              # consecutively to the biomass dataset
               for (predictor in predictors) {
 
                 the_suffix <- c(paste0("_", spm_name(biomass)),
@@ -102,45 +107,21 @@ setMethod(f = "sspm",
                 dataset <- predictor %>%
                   spm_smoothed_data() %>%
                   clean_data_for_joining() %>%
-                  dplyr::rename(!!spm_time(biomass) :=
-                                  spm_time(predictor))
+                  dplyr::rename(!!spm_time(biomass) := spm_time(predictor))
 
                 full_smoothed_data <- full_smoothed_data %>%
                   dplyr::left_join(dataset,
-                                   by = c(dplyr::all_of(joining_vars),
-                                          spm_time(biomass)),
+                                   by = dplyr::all_of(joining_vars),
                                    suffix = the_suffix)
 
-                predictor_smoothed_vars <- spm_smoothed_vars(predictor)
-
-                # Check same vars
-                same_vars <-
-                  full_smoothed_vars[full_smoothed_vars %in% predictor_smoothed_vars]
-
-                if (length(same_vars) > 0){
-
-                  predictor_smoothed_vars <-
-                    predictor_smoothed_vars[!(predictor_smoothed_vars %in% same_vars)]
-                  full_smoothed_vars <-
-                    full_smoothed_vars[!(full_smoothed_vars %in% same_vars)]
-
-                  # if(biomass_var %in% same_vars){
-                  #   biomass_var <- paste0(biomass_var, "_", spm_name(biomass))
-                  # }
-
-                  same_vars <- paste0(same_vars, the_suffix)
-
-                }
-
-                full_smoothed_vars <- c(full_smoothed_vars, predictor_smoothed_vars,
-                                        same_vars)
-
+                full_smoothed_vars <- sort_out_smoothed_vars(full_smoothed_vars,
+                                                             predictor,
+                                                             the_suffix)
               }
 
+              # Join to patches
               full_smoothed_data <- full_smoothed_data %>%
-                dplyr::left_join(dplyr::select(spm_patches(spm_boundaries(biomass)),
-                                               c("patch_id")),
-                                 by = "patch_id") %>%
+                dplyr::left_join(biomass_patches, by = "patch_id") %>%
                 sf::st_as_sf() %>%
                 tibble::rowid_to_column("row_ID")
 
@@ -153,7 +134,6 @@ setMethod(f = "sspm",
               new_sspm <- new("sspm",
                               datasets = all_data,
                               time = spm_time(biomass),
-                              # biomass_var = biomass_var,
                               uniqueID = "row_ID",
                               boundaries = spm_boundaries(biomass),
                               smoothed_data = full_smoothed_data,
@@ -192,7 +172,34 @@ is_sspm_dataset <- function(list_of_datasets) {
   return(checks)
 }
 
-# clean up data frame before we can join
+# Clean up data frame before we can join
 clean_data_for_joining <- function(dataset) {
   dataset %>% dplyr::select(-.data$row_ID) %>% sf::st_drop_geometry()
+}
+
+# Sort out the naming of smoothed variables
+sort_out_smoothed_vars <- function(full_smoothed_vars, predictor,
+                                   the_suffix){
+
+  # Get the predictor smoothed vars
+  predictor_smoothed_vars <- spm_smoothed_vars(predictor)
+
+  # Check which vars are the same vars
+  same_vars <-
+    full_smoothed_vars[full_smoothed_vars %in% predictor_smoothed_vars]
+
+  if (length(same_vars) > 0){
+
+    predictor_smoothed_vars <-
+      predictor_smoothed_vars[!(predictor_smoothed_vars %in% same_vars)]
+    full_smoothed_vars <-
+      full_smoothed_vars[!(full_smoothed_vars %in% same_vars)]
+
+    same_vars <- paste0(same_vars, the_suffix)
+
+  }
+
+  full_smoothed_vars <- c(full_smoothed_vars, predictor_smoothed_vars,
+                          same_vars)
+
 }
