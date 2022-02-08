@@ -29,6 +29,8 @@ check_spatial_inputs <- function(boundaries, sample_surface, sample_points,
 
 }
 
+# Check that nb_samples passed to the discretization methods are named
+# properly by name of each boundary
 check_nb_samples_formatting <- function(nb_samples, boundaries, boundary){
 
   unique_boundaries <- unique(boundaries[[boundary]])
