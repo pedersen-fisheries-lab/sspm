@@ -166,7 +166,6 @@ bounds_delaunay
 #> 
 #> ‒‒ Boundaries (Discrete) ‒‒
 #> →  [4 rows, 3 columns]
-#>   ٭ Points — [1 feature, 2 columns]
 #>   ٭ Patches — [106 features, 4 columns]
 #> →  Column : sfa
 #> →  Area : area_sfa
@@ -256,7 +255,7 @@ biomass_smooth <- biomass_dataset %>%
 
 biomass_smooth
 #> 
-#> ‒‒ Dataset borealis (MAPPED) ‒‒
+#> ‒‒ Dataset borealis (Mapped) ‒‒
 #> →  [1801 rows, 12 columns]
 #> →  Density : weight_per_km2
 #> →  Time : year_f
@@ -293,7 +292,7 @@ predator_smooth <- predator_dataset %>%
 
 predator_smooth
 #> 
-#> ‒‒ Dataset all_predators (MAPPED) ‒‒
+#> ‒‒ Dataset all_predators (Mapped) ‒‒
 #> →  [10201 rows, 11 columns]
 #> →  Density : weight_per_km2
 #> →  Time : year_f
@@ -336,7 +335,7 @@ biomass_smooth_w_catch <-
 
 biomass_smooth_w_catch
 #> 
-#> ‒‒ Dataset borealis (MAPPED) ‒‒
+#> ‒‒ Dataset borealis (Mapped) ‒‒
 #> →  [1801 rows, 12 columns]
 #> →  Density : weight_per_km2
 #> →  Time : year_f
