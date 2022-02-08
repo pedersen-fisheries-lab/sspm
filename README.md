@@ -148,8 +148,8 @@ bounds_voronoi
 #> 
 #> ‒‒ Boundaries (Discrete) ‒‒
 #> →  [4 rows, 3 columns]
-#>  ٭ Points — [120 features, 11 columns]
-#>  ٭ Patches — [35 features, 4 columns]
+#>   ٭ Points — [120 features, 11 columns]
+#>   ٭ Patches — [35 features, 4 columns]
 #> →  Column : sfa
 #> →  Area : area_sfa
 ```
@@ -166,8 +166,8 @@ bounds_delaunay
 #> 
 #> ‒‒ Boundaries (Discrete) ‒‒
 #> →  [4 rows, 3 columns]
-#>  ٭ Points — 
-#>  ٭ Patches — [106 features, 4 columns]
+#>   ٭ Points — [1 feature, 2 columns]
+#>   ٭ Patches — [106 features, 4 columns]
 #> →  Column : sfa
 #> →  Area : area_sfa
 ```
@@ -198,7 +198,7 @@ spm_patches(bounds_voronoi)
 #> Geodetic CRS:  WGS 84
 #> # A tibble: 35 × 4
 #>    sfa   patch_id patch_area                                            geometry
-#>    <fct> <fct>        [km^2]                                       <POLYGON [°]>
+#>  * <fct> <fct>        [km^2]                                       <POLYGON [°]>
 #>  1 4     P1           31350. ((-61.49885 58.11503, -61.24738 58.14026, -60.7703…
 #>  2 4     P2           11607. ((-60.77034 60.02342, -61.24738 58.14026, -59.6984…
 #>  3 4     P3            4619. ((-59.37831 57.67423, -59.43377 57.71988, -59.4892…
