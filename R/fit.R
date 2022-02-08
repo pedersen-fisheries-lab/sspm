@@ -74,6 +74,9 @@ setMethod(f = "fit_smooths",
             tmp_smoothed <-
               vector(mode = "list", length = formula_length)
 
+            # For loop, no lapply, because the for loop exits for each formula
+            # which has already been fitted and we only really fit one model
+            # per call to this function
             for (form_id in seq_len(length.out = formula_length)) {
 
               # Index formula
