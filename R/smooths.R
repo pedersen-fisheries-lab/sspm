@@ -456,32 +456,9 @@ LINPRED <- function(data_frame, boundaries, time, var, k, m,
   args_list <- as.list(match.call(expand.dots = FALSE)$`...`)
   args_list <- args_list[!(names(args_list) %in% unused_names)]
 
-  # Make the lag matrix
-  boundary_col <- spm_boundary(boundaries)
-
-  lag_matrix <- as.data.frame(matrix(-(1:k), nrow = nrow(data_frame),
-                                     ncol = k, byrow = TRUE)) %>%
-    dplyr::rename_all(.funs = gsub, pattern = "V", replacement = "lag") %>%
-    dplyr::mutate(!!time := data_frame[[time]],
-                  !!boundary_col := data_frame[[boundary_col]],
-                  "patch_id" = data_frame[["patch_id"]]) %>%
-    dplyr::select(dplyr::contains('lag')) %>%
-    as.matrix()
-
-  by_matrix <- data_frame %>%
-    sf::st_set_geometry(NULL) %>%
-    dplyr::select(.data$patch_id, !!boundary_col, !!time, !!var) %>%
-    dplyr::nest_by(.data$patch_id, !!boundary_col := .data[[boundary_col]]) %>%
-    dplyr::mutate(lags = list(multilag(variable = .data$data[[var]],
-                                       n_lags = k,
-                                       # TODO: assuming in-group mean as default
-                                       default = mean(.data$data[[var]],
-                                                      na.rm = T)))) %>%
-    tidyr::unnest(cols = c(.data$lags, .data$data)) %>%
-    dplyr::ungroup() %>%
-    dplyr::select(dplyr::contains('lag')) %>%
-    dplyr::select(-dplyr::contains(var)) %>%
-    as.matrix()
+  # Make the lag and by matrices
+  lag_matrix <- make_lag_matrix(data_frame, k, boundaries, time)
+  by_matrix <- make_by_matrix(data_frame, k, boundaries, time, var)
 
   out <- list(str2lang("lag_matrix"))
   vars <- list()
@@ -495,40 +472,4 @@ LINPRED <- function(data_frame, boundaries, time, var, k, m,
                                          args_list)),
               vars = vars))
 
-}
-
-# Accessory functions -----------------------------------------------------
-
-# This functions turns the args_and_vars returned by ICAR (and potentially any
-# any other functions like ICAR) into a call to a smooth (s, ti, etc...)
-assemble_smooth <- function(s_type, args) {
-
-  checkmate::assert_character(s_type)
-  checkmate::assert_list(args)
-
-  deparse(rlang::call2(s_type, !!!args),
-          width.cutoff = 500, nlines = 1)
-}
-
-# Dispatch the correct function based on the name of the method
-dispatch_smooth <- function(smooth_method) {
-
-  checkmate::assert_character(smooth_method)
-
-  if (smooth_method == "ICAR") {
-    return(ICAR)
-  } else if (smooth_method == "LINPRED") {
-    return(LINPRED)
-  } else {
-    cli::cli_alert_danger(paste0("Smoothing method '", smooth_method,
-                                 "' is not part of the supported methods."))
-    cli::cli_alert_info("See `?spm_smooth_methods()`")
-  }
-}
-
-# This function generates multilag values for a given vector
-multilag <- function(variable, n_lags, default = NA) {
-  out_mat <- sapply(1:n_lags, FUN = dplyr::lag, x = variable, default = default)
-  colnames(out_mat) <- paste0("lag", 1:n_lags)
-  as.data.frame(out_mat)
 }
