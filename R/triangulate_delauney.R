@@ -60,23 +60,27 @@ triangulate_delaunay <- function(boundaries,
 
     delaunay_base <- sample_points(mode = "surface", with,
                                    boundaries, boundary, nb_samples, seed)
+    points <- delaunay_base
 
   } else if (sample_points) {
 
     delaunay_base <- sample_points(mode = "points", with,
                                    boundaries, boundary, nb_samples, seed)
+    points <- delaunay_base
 
   } else if (!is.null(with)) {
 
     stopifnot(sf::st_is(with, "POINT"))
 
     delaunay_base <- with
+    points <- delaunay_base
 
   } else {
 
     delaunay_base <- make_base_from_bounds(boundaries) %>%
       # Need a temp col for ct_triangulate to work
       dplyr::mutate(temp_col = "temp")
+    points <- NULL
 
   }
 
@@ -100,8 +104,7 @@ triangulate_delaunay <- function(boundaries,
                   sf::st_cast() %>%
                   sf::st_cast("POLYGON") %>%
                   sf::st_join(boundaries, largest = TRUE) %>%
-                  sf::st_intersection(
-                    sf::st_union(boundaries)) %>%
+                  sf::st_intersection(sf::st_union(boundaries)) %>%
                   sf::st_make_valid() %>%
                   sf::st_cast() %>%
                   sf::st_cast("POLYGON") %>%
