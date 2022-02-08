@@ -305,15 +305,20 @@ setMethod(f = "predict",
           signature(object = "sspm_dataset"),
           function(object, new_data = NULL, discrete = TRUE, type = "response") {
 
+            # Gather variables
             time_col <- spm_time(object)
             the_fit <- spm_smoothed_fit(object)
             the_formulas <- spm_formulas(object)
             responses <- sapply(the_formulas, spm_response)
 
+            # Check if there is a fit
             if (is.null(spm_smoothed_fit(object))) {
               stop("fit is missing, refit model with keep_fit = TRUE")
             }
 
+            # Check or constract new_data. The "discrete" argument makes sure
+            # predictions are made from the prediction matrix to generate
+            # smoothed data.
             if (!is.null(new_data)){
 
               checkmate::assert_class(new_data, "data.frame")
@@ -335,13 +340,22 @@ setMethod(f = "predict",
 
             }
 
+            # Predict all
             preds <- as.data.frame(lapply(the_fit, mgcv::predict.bam,
                                           newdata = new_data,
                                           type = type))
             names(preds) <- responses
 
+            # If we predicted based on prediction matrix, add that
+            if (discrete) {
+              preds <- preds %>%
+                dplyr::bind_cols(new_data)
+            }
+
+            # Make sure biomass and density variables are giveb the
+            # proper units
             biomass_vars <- c(spm_biomass_vars(object))
-            biomass_density_vars <- c( spm_density_vars(object))
+            biomass_density_vars <- c(spm_density_vars(object))
 
             for (var in names(preds)){
               if (var %in% biomass_vars){
@@ -349,11 +363,6 @@ setMethod(f = "predict",
               } else if (var %in% biomass_density_vars){
                 preds[[var]] <- set_biomass_density(preds[[var]])
               }
-            }
-
-            if (discrete) {
-              preds <- preds %>%
-                dplyr::bind_cols(new_data)
             }
 
             return(preds)
