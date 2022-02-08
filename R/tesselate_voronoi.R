@@ -44,35 +44,11 @@ tesselate_voronoi <- function(boundaries,
   # 1. Prep -----------------------------------------------------------------
 
   # Check main params
-  if (is.null(boundaries)) {
-    stop("boundaries argument is missing")
-  } else {
-    checkmate::assert_class(boundaries, "sf")
-  }
 
-  checkmate::assert_logical(sample_surface)
-  checkmate::assert_logical(sample_points)
-  checkmate::assert_character(boundary)
+  check_spatial_inputs(boundaries, sample_surface, sample_points,
+                       boundary, nb_samples, min_size, seed)
 
-  if (!checkmate::test_subset(boundary, names(boundaries))) {
-    stop("`boundary` must be a column of `boundaries`",
-         call. = FALSE)
-  }
-
-  checkmate::assert_numeric(nb_samples, null.ok = TRUE)
-  checkmate::assert_numeric(min_size)
-  checkmate::assert_numeric(seed)
-
-  unique_boundaries <- unique(boundaries[[boundary]])
-
-  if (length(nb_samples) == 1){
-    nb_samples <- rep(nb_samples, length(unique_boundaries))
-    names(nb_samples) <- unique_boundaries
-  } else {
-    if(any(!(names(nb_samples) %in% unique_boundaries))){
-      stop("nb_samples incorrectly named")
-    }
-  }
+  nb_samples <- check_nb_samples_formatting(nb_samples, boundaries, boundary)
 
   # 2. Sample points, if need be --------------------------------------------
 

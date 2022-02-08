@@ -1,6 +1,51 @@
 
 # Helpers for discretization methods --------------------------------------
 
+# Function to check the spatial inputs to discretization methids
+check_spatial_inputs <- function(boundaries, sample_surface, sample_points,
+                                 boundary, nb_samples, min_size, seed){
+
+  if (is.null(boundaries)) {
+    stop("boundaries argument is missing")
+  } else {
+    checkmate::assert_class(boundaries, "sf")
+  }
+
+  checkmate::assert_logical(sample_surface)
+  checkmate::assert_logical(sample_points)
+  checkmate::assert_character(boundary)
+
+  if (!checkmate::test_subset(boundary, names(boundaries))) {
+    stop("`boundary` must be a column of `boundaries`",
+         call. = FALSE)
+  }
+
+  checkmate::assert_numeric(nb_samples, null.ok = TRUE)
+  if(all(!c(sample_surface, sample_points)) && !is.null(nb_samples)){
+    warning("nb_sample ignored")
+  }
+  checkmate::assert_numeric(min_size)
+  checkmate::assert_numeric(seed)
+
+}
+
+check_nb_samples_formatting <- function(nb_samples, boundaries, boundary){
+
+  unique_boundaries <- unique(boundaries[[boundary]])
+
+  if (length(nb_samples) == 1){
+    nb_samples <- rep(nb_samples, length(unique_boundaries))
+    names(nb_samples) <- unique_boundaries
+  } else {
+    if(any(!(names(nb_samples) %in% unique_boundaries))){
+      stop("nb_samples incorrectly named")
+    }
+  }
+
+  return(nb_samples)
+
+}
+
 # Function to sample points on a surface for tessellation on boundaries
 sample_points <- function(mode, with, boundaries, boundary, nb_samples, seed){
 
