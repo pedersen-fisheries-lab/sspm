@@ -41,7 +41,7 @@ setMethod("show",
             cli::cat_line()
 
             if (object@is_mapped) {
-              custom_h1(paste0("Dataset ", cli::col_blue(object@name), cli::col_green(" (MAPPED)")))
+              custom_h1(paste0("Dataset ", cli::col_blue(object@name), cli::col_green(" (Mapped)")))
             } else {
               custom_h1(paste0("Dataset ", cli::col_blue(object@name)))
             }
