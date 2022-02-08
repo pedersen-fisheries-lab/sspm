@@ -48,24 +48,11 @@ setMethod(f = "spm_aggregate_catch",
                    apply_to_df = FALSE,
                    ...){
 
-            if (!checkmate::test_subset(biomass_variable,
-                                        names(spm_smoothed_data(biomass)))) {
-              stop("`biomass_variable` must be a column of the smoothed data of `biomass`",
-                   call. = FALSE)
-            }
+            # Run some checks
+            run_catch_aggregation_checks(biomass_variable, biomass,
+                                         catch_variable, catch)
 
-            if (!checkmate::test_subset(catch_variable,
-                                        names(spm_data(catch)))) {
-              stop("`catch_variable` must be a column of `catch`",
-                   call. = FALSE)
-            }
-
-            # TODO check that catch is a biomass var!
-            if (!is_biomass(spm_data(catch)[[catch_variable]])) {
-              stop("`catch_variable` must have units of type biomass",
-                   call. = FALSE)
-            }
-
+            # If successful, print useful message
             info_message <-
               paste0(" Offsetting biomass with catch data using columns: ",
                      paste(cli::col_green(c(biomass_variable, catch_variable)), collapse = ", "))
@@ -145,6 +132,31 @@ setMethod(f = "spm_aggregate_catch",
 
 # Helpers -----------------------------------------------------------------
 
+# This functions operates a few checks necessary before running the aggregation
+run_catch_aggregation_checks <- function(biomass_variable, biomass,
+                                         catch_variable, catch){
+
+  if (!checkmate::test_subset(biomass_variable,
+                              names(spm_smoothed_data(biomass)))) {
+    stop("`biomass_variable` must be a column of the smoothed data of `biomass`",
+         call. = FALSE)
+  }
+
+  if (!checkmate::test_subset(catch_variable,
+                              names(spm_data(catch)))) {
+    stop("`catch_variable` must be a column of `catch`",
+         call. = FALSE)
+  }
+
+  # TODO check that catch is a biomass var!
+  if (!is_biomass(spm_data(catch)[[catch_variable]])) {
+    stop("`catch_variable` must have units of type biomass",
+         call. = FALSE)
+  }
+
+}
+
+# This function applies catch corrections
 apply_corrections <- function(full_data, corrections, catch_var){
   # TODO: add verification for time and boundary cols
   nrow_data <- nrow(full_data)
