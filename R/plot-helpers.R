@@ -64,7 +64,7 @@ plot_productivity <- function(x, aggregate, interval, use_sf, page, nrow, ncol,
 }
 
 plot_biomass <- function(x, biomass, biomass_origin, aggregate, interval,
-                         use_sf, page, nrow, ncol, log, scales){
+                         use_sf, page, nrow, ncol, log, scales, next_ts){
 
   # Check that biomass is a character
   checkmate::assert_character(biomass)
@@ -101,7 +101,8 @@ plot_biomass <- function(x, biomass, biomass_origin, aggregate, interval,
 
   # Prepare biomass_actual data
   biomass_actual <- process_actual_biomass(x, biomass_origin, biomass,
-                                           patch_area_col, boundary_col)
+                                           patch_area_col, boundary_col,
+                                           time_col, aggregate)
 
   # Put actual and predictions together
   biomass_preds <- biomass_preds %>%
@@ -141,10 +142,10 @@ process_next_ts <- function(x, biomass, interval, aggregate, next_ts_label){
 }
 
 process_actual_biomass <- function(x, biomass_origin, biomass, patch_area_col,
-                                   boundary_col){
+                                   boundary_col, time_col, aggregate){
 
   if (is.null(biomass_origin)){
-    assert_column(biomass, spm_smoothed_data(x))
+    assert_column(spm_smoothed_data(x), biomass)
     biomass_origin <- biomass
   } else {
     assert_column(biomass_origin, spm_smoothed_data(x))
@@ -154,7 +155,6 @@ process_actual_biomass <- function(x, biomass_origin, biomass, patch_area_col,
     dplyr::mutate(biomass = .data[[biomass_origin]] *
                     .data[[patch_area_col]])
 
-  # TODO review implementation of spm_aggregate to cover this use case
   if (aggregate){
     biomass_actual <-  biomass_actual %>%
       dplyr::group_by(.data[[boundary_col]], .data[[time_col]]) %>%

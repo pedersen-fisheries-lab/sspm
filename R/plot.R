@@ -147,7 +147,8 @@ setMethod("plot",
 
                 sspm_discrete_plot <- plot_biomass(x, biomass, biomass_origin,
                                                    aggregate, interval, use_sf,
-                                                   page, nrow, ncol, log, scales)
+                                                   page, nrow, ncol, log, scales,
+                                                   next_ts)
 
               } else {
 
