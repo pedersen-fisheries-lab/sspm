@@ -1,4 +1,100 @@
 
+# Higher level functions to be called by predict --------------------------
+
+predict_productivity_intervals <- function(object_fit, new_data){
+
+  # Compute simulations
+  sims <- produce_sims(object_fit, new_data)
+
+  # Confidence interval
+  CI_prod <- confidence_interval(sims)
+
+  # Prediction interval
+  PI_prod <- prediction_interval(object_fit, sims)
+
+  # Bind all
+  CI_df <- dplyr::bind_cols(CI_prod, PI_prod)
+
+  return(CI_df)
+
+}
+
+predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_col,
+                                      new_data, biomass, patch_area_col, next_ts){
+
+  if (next_ts){
+
+    CI_df_prod <- predict_productivity_intervals(object_fit, new_data)
+
+    # Get ts data
+    all_ts <- as.numeric(as.character(unique(smoothed_data[[time_col]])))
+    max_ts <- max(all_ts)
+    density_last_year <- smoothed_data %>%
+      dplyr::filter(.data[[time_col]] %in% max_ts) %>%
+      dplyr::pull(.data[[biomass]])
+
+    # Bind all
+    CI_df <- patches %>%
+      sf::st_drop_geometry() %>%
+      dplyr::mutate(
+
+        biomass_density_lower =
+          density_last_year * CI_df_prod$CI_lower,
+        biomass_density_upper =
+          density_last_year * CI_df_prod$CI_upper) %>%
+
+      dplyr::mutate(
+
+        CI_lower = .data$biomass_density_lower *
+          .data[[patch_area_col]],
+        CI_upper = .data$biomass_density_upper *
+          .data[[patch_area_col]]) %>%
+
+      dplyr::select(.data$CI_lower, .data$CI_upper)
+
+  } else {
+
+    CI_df_prod <- predict_productivity_intervals(object_fit, new_data)
+
+    # Get catch density
+    catch_density <- smoothed_data$catch_density
+
+    # Bind all
+    CI_df <- smoothed_data %>%
+      sf::st_drop_geometry() %>%
+      dplyr::select(.data[[biomass]],
+                    .data[[patch_area_col]]) %>%
+      dplyr::mutate(
+
+        biomass_density_with_catch_lower =
+          .data[[biomass]] * CI_df_prod$CI_lower,
+        biomass_density_with_catch_upper =
+          .data[[biomass]] * CI_df_prod$CI_upper,
+
+        biomass_density_lower = .data$biomass_density_with_catch_lower -
+          dplyr::all_of(catch_density),
+        biomass_density_upper = .data$biomass_density_with_catch_upper -
+          dplyr::all_of(catch_density)) %>%
+
+      dplyr::mutate(
+        biomass_with_catch_lower = .data$biomass_density_with_catch_lower *
+          .data[[patch_area_col]],
+        biomass_with_catch_upper = .data$biomass_density_with_catch_upper *
+          .data[[patch_area_col]],
+
+        CI_lower = .data$biomass_density_lower *
+          .data[[patch_area_col]],
+        CI_upper = .data$biomass_density_upper *
+          .data[[patch_area_col]]) %>%
+
+      dplyr::select(.data$CI_lower, .data$CI_upper)
+
+  }
+
+  return(CI_df)
+
+}
+
 # Functions for making intervals from bam objects -------------------------
 
 # Expect a gam fit object, returns a data.frame

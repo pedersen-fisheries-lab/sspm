@@ -1,0 +1,294 @@
+
+# Productivity / biomass predictions subroutine ---------------------------
+# These functions expect a sspm_ft object
+
+predict_productivity <- function(object, new_data, type, interval){
+
+  # Gather_info
+  time_col <- spm_time(object)
+  bounds <- spm_boundaries(object)
+  bounds_col <- spm_boundary(bounds)
+  patch_area_col <- spm_patches_area(bounds)
+  object_fit <- spm_get_fit(object)
+  smoothed_data <- spm_smoothed_data(object)
+
+  # Predict with mgcv
+  pred_log <- object_fit %>%
+    mgcv::predict.bam(newdata = new_data, type = type)
+
+  # Make a df with the log and non log version of those predictions
+  preds_df <- data.frame(pred_log = pred_log) %>%
+    dplyr::mutate(pred = exp(pred_log))
+
+  # If we want to compute the intervals, do so with the helpers
+  if (interval) {
+
+    CI_df <- predict_productivity_intervals(object_fit, new_data)
+
+    preds_df <- preds_df %>%
+      bind_cols(CI_df)
+  }
+
+  # Keep the minimum column set
+  columns_to_keep <- smoothed_data %>%
+    dplyr::select(.data$patch_id, !!time_col,
+                  !!bounds_col, !!patch_area_col)
+
+  # Bind and turn into sf object
+  preds_df <- cbind(preds_df, columns_to_keep)  %>%
+    sf::st_as_sf() # TODO verify CRS
+
+}
+
+# -------------------------------------------------------------------------
+
+predict_biomass <- function(object, new_data, biomass, next_ts,
+                            interval, aggregate){
+
+  # Get data and fit
+  time_col <- spm_time(object)
+  bounds <- spm_boundaries(object)
+  bounds_col <- spm_boundary(bounds)
+  patch_area_col <- spm_patches_area(bounds)
+  object_fit <- spm_get_fit(object)
+  patches <- spm_patches(bounds)
+  smoothed_data <- spm_smoothed_data(object)
+
+  # Verify that the biomass column character is present in the data
+  checkmate::assert_class(biomass, "character")
+  if (!checkmate::test_subset(biomass, names(smoothed_data))) {
+    stop("`biomass` must be a column of `data`", call. = FALSE)
+  }
+
+  # Compute predictions for next timestep if desired
+  if (next_ts){
+
+    next_ts_params <- predict_next_ts(object, new_data, biomass)
+
+    if (interval) {
+
+      CI_df <- predict_biomass_intervals(object_fit, patches, smoothed_data, time_col,
+                                         next_ts_params$new_data, biomass, patch_area_col,
+                                         next_ts = TRUE)
+
+      preds_df <- next_ts_params$preds_df %>%
+        bind_cols(CI_df)
+
+    }
+
+  } else { # Or not
+
+    biomass_vec <- smoothed_data[[biomass]]
+
+    preds <- predict(object)
+
+    biomass_density_with_catch <- preds$pred * biomass_vec
+    catch_density <- spm_smoothed_data(object)$catch_density
+    biomass_pred <- biomass_density_with_catch - catch_density
+
+    pred_subset <- dplyr::select(preds, -.data$pred, -.data$pred_log) %>%
+      dplyr::relocate(.data[[patch_area_col]], .before = "geometry")
+
+    # TODO better check CRS
+    preds_df <- pred_subset %>%
+      cbind(data.frame(biomass_density_with_catch = biomass_density_with_catch,
+                       biomass_density =  biomass_pred)) %>%
+      dplyr::mutate(biomass_with_catch = .data$biomass_density_with_catch *
+                      .data[[patch_area_col]],
+                    biomass = .data$biomass_density *
+                      .data[[patch_area_col]]) %>%
+      dplyr::relocate(.data$biomass_with_catch, .data$biomass,
+                      .before = "geometry") %>%
+      sf::st_as_sf()
+
+    if (interval) {
+
+      CI_df <- predict_biomass_intervals(object_fit, patches, smoothed_data, time_col,
+                                         new_data, biomass, patch_area_col, next_ts = FALSE)
+
+      preds_df <- preds_df %>%
+        bind_cols(CI_df)
+
+    }
+
+  }
+
+  if (aggregate) {
+
+    if (interval) {
+
+      preds_df <- preds_df %>%
+        dplyr::group_by(.data[[bounds_col]], .data[[time_col]]) %>%
+        dplyr::summarise(biomass = sum(.data$biomass),
+                         CI_upper = sum(.data$CI_upper),
+                         CI_lower = sum(.data$CI_lower))
+
+    } else {
+
+      preds_df <- preds_df %>%
+        dplyr::group_by(.data[[bounds_col]], .data[[time_col]]) %>%
+        dplyr::summarise(biomass = sum(biomass))
+
+    }
+
+  }
+
+  return(preds_df)
+
+}
+
+predict_next_ts <- function(object, new_data, biomass){
+
+  # Gather info
+  time_col <- spm_time(object)
+  bounds <- spm_boundaries(object)
+  patches <- spm_patches(bounds)
+  bounds_col <- spm_boundary(bounds)
+  patch_area_col <- spm_patches_area(bounds)
+  object_fit <- spm_get_fit(object)
+  smoothed_data <- spm_smoothed_data(object)
+
+  # Use helpers to get next year data
+  next_ts_data <- make_next_ts_data(object, time_col, patches, bounds_col)
+  new_data <- next_ts_data$new_data
+  max_ts <- next_ts_data$max_ts
+
+  # Apply the LINPRED in case it is needed
+  linpred_lag_vars <- spm_formulas(object)@lag_vars
+
+  if (!is.null(linpred_lag_vars)){
+    linpred <- LINPRED(next_ts_data$data_filtered,
+                       bounds, time_col, linpred_lag_vars,
+                       k = 5, m = 1)
+    mats <- linpred$vars
+
+    # Modify the mats to fit the time step under scrutiny
+    by_mat_nrow <- dim(mats$by_matrix)[1]
+    grid_length <- nrow(patches)
+    mats$lag_matrix <- mats$lag_matrix[1:grid_length,]
+    mats$by_matrix <- mats$by_matrix[(by_mat_nrow-grid_length+1):by_mat_nrow,]
+
+  } else {
+    mats <- NULL
+  }
+
+  # Append the data
+  new_data <- append(as.list(new_data), mats)
+
+  # Calculate ratio, then density, and format the output
+  ratio_next_ts <-
+    exp(mgcv::predict.bam(object_fit, new_data))
+
+  density_last_year <- smoothed_data %>%
+    dplyr::filter(.data[[time_col]] %in% max_ts) %>%
+    dplyr::pull(.data[[biomass]])
+
+  preds_df <- patches %>%
+    dplyr::mutate(density_next_ts = density_last_year * ratio_next_ts,
+                  biomass = .data$density_next_ts * .data[[patch_area_col]],
+                  year_f = next_ts_data$next_ts) %>%
+    dplyr::select(-.data$density_next_ts)
+
+  # Cosmetic changes
+  preds_df <-  preds_df %>%
+    dplyr::relocate(.data$biomass) %>%
+    dplyr::relocate(.data[[bounds_col]]) %>%
+    dplyr::relocate(.data[[time_col]]) %>%
+    dplyr::relocate(.data$patch_id)
+
+  return(list(preds_df = preds_df, new_data = new_data))
+
+}
+
+# Helpers -----------------------------------------------------------------
+
+# Build the new_data for the next timestep predictions
+make_next_ts_data <- function(object, time_col, patches, bounds_col,
+                              year_lag = 5){
+
+  # Check if all lagged var
+  lagged_var_names <- get_lagged_var_names(object)
+
+  # Get ts data
+  all_ts <- as.numeric(as.character(
+    unique(spm_smoothed_data(object)[[time_col]])))
+  max_ts <- max(all_ts)
+  next_ts <- max_ts + 1
+
+  # Make a new grid with the next timestep
+  new_grid <- patches %>%
+    dplyr::select(.data[[bounds_col]], .data$patch_id) %>%
+    tidyr::expand_grid(!!time_col := next_ts)
+
+  # Bind the new grid to the smooth data
+  spm_smoothed_data(object) <- spm_smoothed_data(object) %>%
+    dplyr::bind_rows(new_grid)
+
+  # Lag the vars that need lagging (even if already present,
+  # it is needed to account for the new year).
+  object <- object %>% spm_lag(lagged_var_names, 1, default = NA)
+
+  # Create the new data
+  new_data <- spm_smoothed_data(object) %>%
+    dplyr::filter(.data[[time_col]] == next_ts) %>%
+    st_drop_geometry()
+
+  # Filter to the past 5 years
+  data_filtered <- spm_smoothed_data(object) %>%
+    dplyr::filter(.data[[time_col]] %in% (next_ts-year_lag):next_ts)
+
+  return(list(new_data = new_data,
+              data_filtered = data_filtered,
+              max_ts = max_ts,
+              next_ts = next_ts))
+}
+
+# Obtain var names for predicting the model, excluding penalty mats
+get_var_names <- function(sspm_object, exclude_mats = TRUE,
+                          exclude_special = TRUE) {
+  var_names <- sspm_object@fit$var.summary %>%
+    names()
+  if (exclude_special){
+    var_names <- var_names %>%
+      stringr::str_subset("matrix", negate = TRUE)
+  }
+  if (exclude_mats){
+    var_names <- var_names %>%
+      stringr::str_subset("patch_id", negate = TRUE) %>%
+      stringr::str_subset(spm_time(sspm_object), negate = TRUE) %>%
+      stringr::str_subset(spm_boundary(sspm_object), negate = TRUE)
+  }
+  return(var_names)
+}
+
+# Get the vars that are lagged
+get_lagged_var_names <- function(sspm_object){
+
+  all_var_names <- get_var_names(sspm_object, exclude_special = TRUE)
+  lagged_var_names <- all_var_names %>%
+    stringr::str_subset("_lag_1")
+
+  if(!all(all_var_names %in% lagged_var_names)){
+    vars_to_print <- all_var_names[!(all_var_names %in% lagged_var_names)]
+    cli::cli_alert_warning(paste0("Not all vars are lagged vars: ",
+                                  paste0(c(vars_to_print), collapse = ", ")))
+  }
+
+  lagged_var_names <- lagged_var_names %>%
+    stringr::str_remove("_lag_1")
+
+  return(lagged_var_names)
+}
+
+# Prepare the prediction matrix
+make_prediction_matrix <- function(the_data, time_col, patches){
+
+  year_vector <- as.numeric(as.character(the_data[[time_col]]))
+  year_values <- sort(unique(year_vector))
+
+  predict_mat <- patches %>%
+    sf::st_set_geometry(NULL) %>%
+    tidyr::expand_grid(!!time_col := year_values)
+
+  return(predict_mat)
+}
