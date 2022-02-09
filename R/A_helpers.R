@@ -34,6 +34,21 @@ spm_smooth_methods <- function() {
 
 # Not exported ------------------------------------------------------------
 
+# assert that a column is part of a data_frame
+assert_column <- function(df,  col){
+
+  checkmate::assert_data_frame(df)
+  checkmate::assert_character(col)
+
+  if (!checkmate::test_subset(col, names(df))) {
+    stop(paste0("`", deparse(substitute(col)),
+                "` must be a column of `", deparse(substitute(df)), "`"),
+         call. = FALSE)
+  }
+
+}
+
+# Retrieves the 3 possible aggregation choices
 spm_aggregation_choices <- function() {
   choices <- c('space', 'time', 'spacetime')
   return(choices)
