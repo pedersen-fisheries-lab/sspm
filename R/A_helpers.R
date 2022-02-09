@@ -54,6 +54,18 @@ spm_aggregation_choices <- function() {
   return(choices)
 }
 
+# Retrieves the 2 possible level of aggregation choices
+spm_aggregation_levels_choices <- function(){
+  choices <- c("patch", "boundary")
+  return(choices)
+}
+
+# Retrieves the 2 possible level of aggregation types
+spm_aggregation_types_choices <- function(){
+  choices <- c("data", "smoothed")
+  return(choices)
+}
+
 # Suppress both messages and warnings
 suppressAll <- function(x) {
   suppressWarnings(suppressMessages(x))
