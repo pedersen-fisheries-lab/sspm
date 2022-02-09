@@ -197,7 +197,7 @@ cleanup_polygons <- function(pols, boundary){
     dplyr::mutate(pols, patch_area = units::set_units(sf::st_area(pols), value = "km^2")) %>%
     dplyr::relocate(.data$patch_area, .before = .data$geometry)
 
-  # Add a patch_ID column
+  # Add a patch_id column
   pols <-
     dplyr::mutate(pols,
                   patch_id = factor(paste("P", 1:dplyr::n(), sep = ""),
