@@ -15,10 +15,7 @@ check_spatial_inputs <- function(boundaries, sample_surface, sample_points,
   checkmate::assert_logical(sample_points)
   checkmate::assert_character(boundary)
 
-  if (!checkmate::test_subset(boundary, names(boundaries))) {
-    stop("`boundary` must be a column of `boundaries`",
-         call. = FALSE)
-  }
+  assert_column(boundaries, boundary)
 
   checkmate::assert_numeric(nb_samples, null.ok = TRUE)
   if(all(!c(sample_surface, sample_points)) && !is.null(nb_samples)){

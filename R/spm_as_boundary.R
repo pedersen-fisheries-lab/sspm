@@ -140,11 +140,7 @@ check_boundaries <- function(boundaries, boundary,
   checkmate::assert_class(boundaries, "sf")
   checkmate::assert_class(boundary, "character")
   checkmate::assert_class(boundary_area, "character", null.ok = TRUE)
-
-  if (!checkmate::test_subset(boundary, names(boundaries))) {
-    stop("`boundary` must be a column of `boundaries`",
-         call. = FALSE)
-  }
+  assert_column(boundaries, boundary)
 
   # Ensure boundaries are factors
   boundaries[[boundary]] <- as.factor(boundaries[[boundary]])
@@ -153,10 +149,7 @@ check_boundaries <- function(boundaries, boundary,
 
   if(!is.null(boundary_area)){
 
-    if (!checkmate::test_subset(boundary_area, names(boundaries))) {
-      stop("`boundary_area` must be a column of `boundaries`",
-           call. = FALSE)
-    }
+    assert_column(boundaries, boundary_area)
 
     cli::cli_alert_warning("SSPM assumes areas are supplied in km^2")
 
@@ -187,10 +180,7 @@ check_patches <- function(patches,
 
   if(!is.null(patches_area)){
 
-    if (!checkmate::test_subset(patches_area, names(patches))) {
-      stop("`boundary_area` must be a column of `boundaries`",
-           call. = FALSE)
-    }
+    assert_column(patches, patches_area)
 
     cli::cli_alert_warning("SSPM assumes areas are supplied in km^2")
 

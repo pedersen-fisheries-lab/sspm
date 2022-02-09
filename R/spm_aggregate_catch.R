@@ -136,17 +136,8 @@ setMethod(f = "spm_aggregate_catch",
 run_catch_aggregation_checks <- function(biomass_variable, biomass,
                                          catch_variable, catch){
 
-  if (!checkmate::test_subset(biomass_variable,
-                              names(spm_smoothed_data(biomass)))) {
-    stop("`biomass_variable` must be a column of the smoothed data of `biomass`",
-         call. = FALSE)
-  }
-
-  if (!checkmate::test_subset(catch_variable,
-                              names(spm_data(catch)))) {
-    stop("`catch_variable` must be a column of `catch`",
-         call. = FALSE)
-  }
+  assert_column(spm_smoothed_data(biomass), biomass_variable)
+  assert_column(spm_data(catch), catch_variable)
 
   # TODO check that catch is a biomass var!
   if (!is_biomass(spm_data(catch)[[catch_variable]])) {

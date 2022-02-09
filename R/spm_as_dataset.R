@@ -26,17 +26,13 @@
 setGeneric(name = "spm_as_dataset",
            def = function(data, name, time, uniqueID, coords = NULL, ...) {
 
-             if (!checkmate::test_subset(uniqueID, names(data))) {
-               stop("`uniqueID` must be a column of `data`", call. = FALSE)
-             }
+             assert_column(data, uniqueID)
 
              if (!(length(unique(data[[uniqueID]])) == nrow(data))) {
                stop("`uniqueID` must be unique for each row of `data`", call. = FALSE)
              }
 
-             if (!checkmate::test_subset(time, names(data))) {
-               stop("`time` must be a column of `data`", call. = FALSE)
-             }
+             assert_column(data, time)
 
              if (!checkmate::test_factor(data[[time]])) {
                stop("`time` must be a factor", call. = FALSE)

@@ -56,9 +56,7 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
 
   # Verify that the biomass column character is present in the data
   checkmate::assert_class(biomass, "character")
-  if (!checkmate::test_subset(biomass, names(smoothed_data))) {
-    stop("`biomass` must be a column of `data`", call. = FALSE)
-  }
+  assert_column(smoothed_data, biomass)
 
   # Compute predictions for next timestep if desired
   if (next_ts){
