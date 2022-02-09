@@ -23,26 +23,30 @@
 #' @rdname spm_aggregate
 setGeneric(name = "spm_aggregate",
            def = function(dataset,
-                          boundaries = NULL,
+                          boundaries,
+                          level = "patch",
+                          type = "data",
                           variable,
                           fun,
                           group_by = "spacetime",
                           fill = FALSE,
                           apply_to_df = FALSE,
                           ...){
+
              standardGeneric("spm_aggregate")
            }
 )
 
 # Methods -----------------------------------------------------------------
-
 #' @export
 #' @rdname spm_aggregate
 setMethod(f = "spm_aggregate",
           signature(dataset = "sspm_dataset",
-                    boundaries = "sspm_discrete_boundaryOrNULL"),
+                    boundaries = "missing"),
           function(dataset,
                    boundaries,
+                   level,
+                   type,
                    variable,
                    fun,
                    group_by,
@@ -50,123 +54,70 @@ setMethod(f = "spm_aggregate",
                    apply_to_df,
                    ...){
 
-            # Get info
+            if (is_mapped(dataset)) {
+              boundaries <- spm_boundaries(dataset)
+            } else {
+              cli::cli_alert_danger("no boundaries provided to aggregate an un-mapped dataset")
+              stop(call. = FALSE)
+            }
+
+            spm_aggregate(dataset, boundaries, level, type, variable, fun, group_by,
+                          fill, apply_to_df, ...)
+
+          }
+)
+
+#' @export
+#' @rdname spm_aggregate
+setMethod(f = "spm_aggregate",
+          signature(dataset = "sspm_dataset",
+                    boundaries = "sspm_discrete_boundary"),
+          function(dataset,
+                   boundaries,
+                   level,
+                   type,
+                   variable,
+                   fun,
+                   group_by,
+                   fill,
+                   apply_to_df,
+                   ...){
+
+            # Check info
             checkmate::assert_character(variable)
             checkmate::assert_function(fun)
             checkmate::assert_choice(group_by, spm_aggregation_choices())
+            checkmate::assert_choice(level, spm_aggregation_levels_choices())
+            checkmate::assert_choice(type, spm_aggregation_types_choices())
 
+            # Get data
+            bounds <- spm_boundaries(dataset)
+            boundary <- spm_boundary(bounds)
             time_col <- spm_time(dataset)
+
             if (!is_mapped(dataset)) { # Need to map dataset
               dataset <- join_datasets(dataset, boundaries)
             }
 
-            # Get data
-            dataset_data <- spm_data(dataset)
+            if (type == "data"){
 
-            # Group data
-            dataset_data_tmp <- group_data(dataset_data, group_by, time_col)
+              dataset_data <- spm_data(dataset)
+              spm_data(dataset) <-
+                spm_aggregate_routine(dataset_data, boundaries, group_by, level,
+                                      time_col, boundary, variable, fun, fill,
+                                      apply_to_df, ...)
 
-            args_list <- list(...)
+            } else if (type == "smoothed"){
 
-            # Two ways to aggregate: by dataframe or by list. We get the correct
-            # meta-function from this function
-            the_fun <- get_apply_fun(apply_to_df)
+              dataset_data <- spm_smoothed_data(dataset)
+              spm_smoothed_data(dataset) <-
+                spm_aggregate_routine(dataset_data, boundaries, group_by, level,
+                                      time_col, boundary, variable, fun, fill,
+                                      apply_to_df, ...)
 
-            # Then we apply it
-            dataset_data_tmp <- dataset_data_tmp %>%
-              sf::st_set_geometry(NULL) %>%
-              dplyr::group_modify(.f = the_fun,
-                                  ... = list(variable = variable,
-                                             fun = fun,
-                                             args = args_list)) %>%
-              dplyr::ungroup() %>%
-              unique()
-
-            # We determine how best to clean up if need be
-            if (checkmate::test_logical(fill)) {
-              if (is.na(fill)){
-                do_completion <- TRUE
-                fill_value <- fill
-              } else {
-                if (fill) {
-                  do_completion <- FALSE
-                  warning("No fill values provided, completion skipped")
-                } else {
-                  do_completion <- FALSE
-                }
-              }
-            } else {
-              if (checkmate::test_function(fill)){
-                do_completion <- TRUE
-                fill_value <- do.call(fill,
-                                      append(list(dataset_data[[variable]]),
-                                             args_list))
-              } else {
-                do_completion <- TRUE
-                fill_value <- fill
-              }
             }
-
-            # If we need to complete, we go ahead and do so
-            if (do_completion) {
-              dataset_data_tmp <- dataset_data_tmp %>%
-                tidyr::complete(.data[[time_col]], .data$patch_id,
-                                fill = list(temp = fill_value))
-            }
-
-            # Rename before returning
-            spm_data(dataset) <- dataset_data_tmp %>%
-              dplyr::rename(!!variable := .data$temp)
 
             return(dataset)
 
           }
 )
-
-# Helpers -----------------------------------------------------------------
-
-# This functions takes care of applying the proper grouping onto the data
-group_data <- function(dataset_data, group_by, time_col){
-  if (group_by == "spacetime"){
-
-    grouped_data <- dataset_data %>%
-      dplyr::group_by(.data[[time_col]], .data$patch_id)
-
-  } else if (group_by == "space"){
-
-    grouped_data <- dataset_data %>%
-      dplyr::group_by(.data$patch_id)
-
-  } else if (group_by == "time"){
-
-    grouped_data <- dataset_data %>%
-      dplyr::group_by(.data[[time_col]])
-
-  }
-  return(grouped_data)
-}
-
-# Retrurns on demand one of two functions for aggregation
-get_apply_fun <- function(apply_to_df){
-
-  if (apply_to_df) {
-
-    the_fun <- function(df, groups, ...){
-      all_args <- list(...)[[1]]
-      data.frame(do.call(all_args$fun,
-                         append(list(df), all_args$args)))
-    }
-
-  } else {
-
-    the_fun <- function(df, groups, ...){
-      all_args <- list(...)[[1]]
-      data.frame(temp = do.call(all_args$fun,
-                                append(list(df[[all_args$variable]]),
-                                       all_args$args)))
-    }
-
-  }
-
-  return(the_fun)
-}

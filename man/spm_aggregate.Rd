@@ -2,12 +2,15 @@
 % Please edit documentation in R/spm_aggregate.R
 \name{spm_aggregate}
 \alias{spm_aggregate}
-\alias{spm_aggregate,sspm_dataset,sspm_discrete_boundaryOrNULL-method}
+\alias{spm_aggregate,sspm_dataset,missing-method}
+\alias{spm_aggregate,sspm_dataset,sspm_discrete_boundary-method}
 \title{Aggregate a dataset variable based on a boundary}
 \usage{
 spm_aggregate(
   dataset,
-  boundaries = NULL,
+  boundaries,
+  level = "patch",
+  type = "data",
   variable,
   fun,
   group_by = "spacetime",
@@ -16,9 +19,24 @@ spm_aggregate(
   ...
 )
 
-\S4method{spm_aggregate}{sspm_dataset,sspm_discrete_boundaryOrNULL}(
+\S4method{spm_aggregate}{sspm_dataset,missing}(
   dataset,
-  boundaries = NULL,
+  boundaries,
+  level = "patch",
+  type = "data",
+  variable,
+  fun,
+  group_by = "spacetime",
+  fill = FALSE,
+  apply_to_df = FALSE,
+  ...
+)
+
+\S4method{spm_aggregate}{sspm_dataset,sspm_discrete_boundary}(
+  dataset,
+  boundaries,
+  level = "patch",
+  type = "data",
   variable,
   fun,
   group_by = "spacetime",
