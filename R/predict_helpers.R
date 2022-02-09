@@ -64,6 +64,7 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
   if (next_ts){
 
     next_ts_params <- predict_next_ts(object, new_data, biomass)
+    preds_df <- next_ts_params$preds_df
 
     if (interval) {
 
@@ -71,7 +72,7 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
                                          next_ts_params$new_data, biomass, patch_area_col,
                                          next_ts = TRUE)
 
-      preds_df <- next_ts_params$preds_df %>%
+      preds_df <- preds_df %>%
         bind_cols(CI_df)
 
     }
