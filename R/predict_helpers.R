@@ -104,7 +104,7 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
     if (interval) {
 
       CI_df <- predict_biomass_intervals(object_fit, patches, smoothed_data, time_col,
-                                         next_ts_params$new_data, biomass, patch_area_col,
+                                         new_data, biomass, patch_area_col,
                                          next_ts = FALSE)
 
       preds_df <- preds_df %>%
