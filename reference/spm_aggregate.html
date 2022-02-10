@@ -54,7 +54,9 @@ using a function and a filling value</p>
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">spm_aggregate</span><span class="op">(</span>
   <span class="va">dataset</span>,
-  boundaries <span class="op">=</span> <span class="cn">NULL</span>,
+  <span class="va">boundaries</span>,
+  level <span class="op">=</span> <span class="st">"patch"</span>,
+  type <span class="op">=</span> <span class="st">"data"</span>,
   <span class="va">variable</span>,
   <span class="va">fun</span>,
   group_by <span class="op">=</span> <span class="st">"spacetime"</span>,
@@ -63,10 +65,26 @@ using a function and a filling value</p>
   <span class="va">...</span>
 <span class="op">)</span>
 
-<span class="co"># S4 method for sspm_dataset,sspm_discrete_boundaryOrNULL</span>
+<span class="co"># S4 method for sspm_dataset,missing</span>
 <span class="fu">spm_aggregate</span><span class="op">(</span>
   <span class="va">dataset</span>,
-  boundaries <span class="op">=</span> <span class="cn">NULL</span>,
+  <span class="va">boundaries</span>,
+  level <span class="op">=</span> <span class="st">"patch"</span>,
+  type <span class="op">=</span> <span class="st">"data"</span>,
+  <span class="va">variable</span>,
+  <span class="va">fun</span>,
+  group_by <span class="op">=</span> <span class="st">"spacetime"</span>,
+  fill <span class="op">=</span> <span class="cn">FALSE</span>,
+  apply_to_df <span class="op">=</span> <span class="cn">FALSE</span>,
+  <span class="va">...</span>
+<span class="op">)</span>
+
+<span class="co"># S4 method for sspm_dataset,sspm_discrete_boundary</span>
+<span class="fu">spm_aggregate</span><span class="op">(</span>
+  <span class="va">dataset</span>,
+  <span class="va">boundaries</span>,
+  level <span class="op">=</span> <span class="st">"patch"</span>,
+  type <span class="op">=</span> <span class="st">"data"</span>,
   <span class="va">variable</span>,
   <span class="va">fun</span>,
   group_by <span class="op">=</span> <span class="st">"spacetime"</span>,

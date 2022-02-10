@@ -267,7 +267,7 @@
                <span class="fu"><a href="reference/smooths.html">smooth_space_time</a></span><span class="op">(</span>k <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="cn">NA</span>, <span class="fl">30</span><span class="op">)</span><span class="op">)</span>,
              family<span class="op">=</span><span class="va">gaussian</span><span class="op">)</span>
 <span class="co">#&gt; ℹ  Fitting formula: weight_per_km2 ~ sfa + smooth_time(by = sfa) + smooth_space() + smooth_space_time(k = c(NA, 30)) for dataset 'borealis'</span>
-<span class="co">#&gt; !  Response variable temp_at_bottom is NOT a biomass density variable</span>
+<span class="co">#&gt; ℹ  Note:  response variable temp_at_bottom is NOT a biomass density variable</span>
 <span class="co">#&gt; ℹ  Fitting formula: temp_at_bottom ~ smooth_time(by = sfa) + smooth_space() + smooth_space_time(k = c(NA, 30)) for dataset 'borealis'</span>
 
 <span class="va">biomass_smooth</span>
@@ -520,12 +520,12 @@
 <li>We can produce an array of plots, as timeseries or as spatial plots</li>
 </ol>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, log <span class="op">=</span> <span class="cn">T</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span>
 <span class="co">#&gt; Warning: Removed 1 row(s) containing missing values (geom_path).</span>
 <span class="co">#&gt; Warning: Removed 35 rows containing missing values (geom_point).</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-25-1.png" width="100%"></p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, log <span class="op">=</span> <span class="cn">T</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-25-2.png" width="100%"></p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,  scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></code></pre></div>
