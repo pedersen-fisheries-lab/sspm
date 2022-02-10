@@ -250,7 +250,7 @@ biomass_smooth <- biomass_dataset %>%
                smooth_space_time(k = c(NA, 30)),
              family=gaussian)
 #> ℹ  Fitting formula: weight_per_km2 ~ sfa + smooth_time(by = sfa) + smooth_space() + smooth_space_time(k = c(NA, 30)) for dataset 'borealis'
-#> !  Response variable temp_at_bottom is NOT a biomass density variable
+#> ℹ  Note:  response variable temp_at_bottom is NOT a biomass density variable
 #> ℹ  Fitting formula: temp_at_bottom ~ smooth_time(by = sfa) + smooth_space() + smooth_space_time(k = c(NA, 30)) for dataset 'borealis'
 
 biomass_smooth
@@ -535,7 +535,7 @@ head(biomass_one_step)
 18. We can produce an array of plots, as timeseries or as spatial plots
 
 ``` r
-plot(sspm_model_fit)
+plot(sspm_model_fit, log = T, scales = 'free')
 #> Warning: Removed 1 row(s) containing missing values (geom_path).
 #> Warning: Removed 35 rows containing missing values (geom_point).
 ```
@@ -543,7 +543,7 @@ plot(sspm_model_fit)
 <img src="man/figures/README-unnamed-chunk-25-1.png" width="100%" />
 
 ``` r
-plot(sspm_model_fit, use_sf = TRUE)
+plot(sspm_model_fit, log = T, use_sf = TRUE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-25-2.png" width="100%" />

@@ -262,8 +262,8 @@ head(biomass_one_step)
 18. We can produce an array of plots, as timeseries or as spatial plots
 
 ```{r}
-plot(sspm_model_fit)
-plot(sspm_model_fit, use_sf = TRUE)
+plot(sspm_model_fit, log = T, scales = 'free')
+plot(sspm_model_fit, log = T, use_sf = TRUE)
 ```
 
 ```{r}
