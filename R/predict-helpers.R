@@ -26,7 +26,7 @@ predict_productivity <- function(object, new_data, type, interval){
     CI_df <- predict_productivity_intervals(object_fit, new_data)
 
     preds_df <- preds_df %>%
-      bind_cols(CI_df)
+      dplyr::bind_cols(CI_df)
   }
 
   # Keep the minimum column set
@@ -71,7 +71,7 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
                                          next_ts = TRUE)
 
       preds_df <- preds_df %>%
-        bind_cols(CI_df)
+        dplyr::bind_cols(CI_df)
 
     }
 
@@ -107,7 +107,7 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
                                          next_ts = FALSE)
 
       preds_df <- preds_df %>%
-        bind_cols(CI_df)
+        dplyr::bind_cols(CI_df)
 
     }
 
