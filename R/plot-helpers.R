@@ -89,7 +89,8 @@ plot_biomass <- function(x, biomass, biomass_origin, aggregate, interval,
 
     next_ts_label <- "Prediction (1 step \n ahead, NO CATCH)"
     next_ts_preds <- process_next_ts(x, biomass, interval, aggregate,
-                                     next_ts_label)
+                                     next_ts_label, boundary_col, time_col,
+                                     biomass_preds)
 
     biomass_preds <- biomass_preds %>%
       dplyr::bind_rows(next_ts_preds)
@@ -120,7 +121,8 @@ plot_biomass <- function(x, biomass, biomass_origin, aggregate, interval,
 
 # -------------------------------------------------------------------------
 
-process_next_ts <- function(x, biomass, interval, aggregate, next_ts_label){
+process_next_ts <- function(x, biomass, interval, aggregate, next_ts_label,
+                            boundary_col, time_col, biomass_preds){
 
   next_ts_preds <- predict(x, biomass = biomass,
                            next_ts = TRUE,
@@ -128,7 +130,6 @@ process_next_ts <- function(x, biomass, interval, aggregate, next_ts_label){
                            aggregate = aggregate) %>%
     dplyr::mutate(color = next_ts_label)
 
-  time_col <- spm_time(x)
   next_ts_timestep <- max(unique(next_ts_preds[[time_col]]))-1
 
   biomass_preds_previous <- biomass_preds %>%
