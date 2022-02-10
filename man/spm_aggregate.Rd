@@ -51,6 +51,12 @@ spm_aggregate(
 \item{boundaries}{\strong{[sspm_discrete_boundary]} The boundaries object
 (optionnal).}
 
+\item{level}{\strong{[character]} The aggregation level, "patch" or
+"boundary".}
+
+\item{type}{\strong{[character]} The targeted type of aggregation, one of
+"data" for base data or "smoothed" for smoothed data.}
+
 \item{variable}{\strong{[character]} Variable to aggregate (ignored in case
 \code{apply_to_df} is \code{TRUE}).}
 

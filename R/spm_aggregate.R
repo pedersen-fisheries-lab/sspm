@@ -6,6 +6,10 @@
 #' @param dataset **\[sspm_dataset\]** The dataset object.
 #' @param boundaries **\[sspm_discrete_boundary\]** The boundaries object
 #'     (optionnal).
+#' @param level **\[character\]** The aggregation level, "patch" or
+#'     "boundary".
+#' @param type **\[character\]** The targeted type of aggregation, one of
+#'     "data" for base data or "smoothed" for smoothed data.
 #' @param variable **\[character\]** Variable to aggregate (ignored in case
 #'     `apply_to_df` is `TRUE`).
 #' @param fun **\[function\]** Function to use to aggregate data.
