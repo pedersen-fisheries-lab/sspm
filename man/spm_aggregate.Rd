@@ -4,10 +4,11 @@
 \alias{spm_aggregate}
 \alias{spm_aggregate,sspm_dataset,missing-method}
 \alias{spm_aggregate,sspm_dataset,sspm_discrete_boundary-method}
-\title{Aggregate a dataset variable based on a boundary}
+\alias{spm_aggregate,sspm_fit,ANY-method}
+\title{Aggregate a dataset or fit data variable based on a boundary}
 \usage{
 spm_aggregate(
-  dataset,
+  sspm_object,
   boundaries,
   level = "patch",
   type = "data",
@@ -20,7 +21,7 @@ spm_aggregate(
 )
 
 \S4method{spm_aggregate}{sspm_dataset,missing}(
-  dataset,
+  sspm_object,
   boundaries,
   level = "patch",
   type = "data",
@@ -33,7 +34,20 @@ spm_aggregate(
 )
 
 \S4method{spm_aggregate}{sspm_dataset,sspm_discrete_boundary}(
-  dataset,
+  sspm_object,
+  boundaries,
+  level = "patch",
+  type = "data",
+  variable,
+  fun,
+  group_by = "spacetime",
+  fill = FALSE,
+  apply_to_df = FALSE,
+  ...
+)
+
+\S4method{spm_aggregate}{sspm_fit,ANY}(
+  sspm_object,
   boundaries,
   level = "patch",
   type = "data",
@@ -46,7 +60,7 @@ spm_aggregate(
 )
 }
 \arguments{
-\item{dataset}{\strong{[sspm_dataset]} The dataset object.}
+\item{sspm_object}{\strong{[sspm_dataset or sspm_fit]} The dataset object.}
 
 \item{boundaries}{\strong{[sspm_discrete_boundary]} The boundaries object
 (optionnal).}
@@ -73,9 +87,9 @@ group or to \code{variable}, default to \code{FALSE}.}
 \item{...}{More arguments passed onto \code{fun}}
 }
 \value{
-Updated \code{sspm_dataset}.
+Updated \code{sspm_dataset} or \code{sspm_fit}.
 }
 \description{
-Aggregate the data contained in a dataset based on the discretized boundaries,
-using a function and a filling value
+Aggregate the data contained in a dataset or fit  based on the discretized
+boundaries, using a function and a filling value.
 }
