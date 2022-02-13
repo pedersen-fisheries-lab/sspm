@@ -5,20 +5,22 @@
 \alias{plot_trajectory,sspm_fit,sspm_dataset,character,character-method}
 \title{Plot trajectory of exploitation rate with biomass}
 \usage{
-plot_trajectory(sspm_object, dataset, biomass, catch = "catch", ...)
+plot_trajectory(sspm_object, dataset, biomass, catch, ...)
 
 \S4method{plot_trajectory}{sspm_fit,sspm_dataset,character,character}(sspm_object, dataset, biomass, catch, dataset_biomass = NULL)
 }
 \arguments{
+\item{sspm_object}{\strong{[sspm_dataset or sspm_fit]} The dataset object.}
+
 \item{dataset}{\strong{[sspm_dataset]} Corresponding biomass dataset.}
 
 \item{biomass}{\strong{[character]} Biomass variable for plotting.}
 
 \item{catch}{\strong{[character]} Catch variable for plotting}
 
-\item{...}{NOT USED (from generic).}
+\item{...}{More arguments passed onto \code{fun}}
 
-\item{biomass_dataset}{\strong{[character]} Biomass variable for plotting in
+\item{dataset_biomass}{\strong{[character]} Biomass variable for plotting in
 the biomass dataset if the variable name is different there.}
 }
 \value{

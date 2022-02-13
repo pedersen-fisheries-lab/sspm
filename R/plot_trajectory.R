@@ -4,11 +4,11 @@
 #' between catch of a given year and fishable biomass from the previous year,
 #' and that fishable biomass.
 #'
-#' @inheritParams plot
+#' @inheritParams spm_aggregate
 #' @param dataset **\[sspm_dataset\]** Corresponding biomass dataset.
 #' @param biomass **\[character\]** Biomass variable for plotting.
 #' @param catch **\[character\]** Catch variable for plotting
-#' @param biomass_dataset **\[character\]** Biomass variable for plotting in
+#' @param dataset_biomass **\[character\]** Biomass variable for plotting in
 #'    the biomass dataset if the variable name is different there.
 #'
 #' @return
@@ -20,7 +20,7 @@ setGeneric(name = "plot_trajectory",
            def = function(sspm_object,
                           dataset,
                           biomass,
-                          catch = "catch",
+                          catch,
                           ...){
 
              standardGeneric("plot_trajectory")
@@ -63,10 +63,12 @@ setMethod(f = "plot_trajectory",
 
             biomass_actual <- biomass_actual %>%
               dplyr::group_by(.data[[boundary]]) %>%
-              dplyr::mutate(catch = as.numeric(.data[["catch"]]),
+              dplyr::mutate(catch = as.numeric(.data[[catch]]),
                             biomass = as.numeric(.data$biomass),
                             biomass_w_catch = .data$biomass + .data[[catch]]) %>%
-              dplyr::mutate(biomass_lag =
+              dplyr::mutate(year_lag =
+                              dplyr::lag(.data[[time]], n = 1),
+                            biomass_lag =
                               dplyr::lag(.data$biomass, n = 1),
                             biomass_w_catch_lag =
                               dplyr::lag(.data$biomass_w_catch, n = 1),
@@ -100,36 +102,45 @@ setMethod(f = "plot_trajectory",
 
             all_preds_w_catch <- all_preds %>%
               dplyr::left_join(catch_dat, by = c("sfa", "year_f")) %>%
-              group_by(.data[[boundary]]) %>%
+              dplyr::group_by(.data[[boundary]]) %>%
               dplyr::mutate(catch = as.numeric(.data[[catch]]),
                             biomass = as.numeric(.data$biomass),
                             biomass_w_catch = .data$biomass + .data[[catch]]) %>%
-              dplyr::mutate(biomass_lag =
+              dplyr::mutate(year_lag =
+                              dplyr::lag(.data[[time]], n = 1),
+                            biomass_lag =
                               dplyr::lag(.data$biomass, n = 1),
                             biomass_w_catch_lag =
                               dplyr::lag(.data$biomass_w_catch, n = 1),
                             catch_lag =
                               dplyr::lag(.data[[catch]], n = 1)) %>%
               dplyr::mutate(ER = .data[[catch]]/.data$biomass_lag) %>%
-              dplyr::mutate(color = "blue")
+              dplyr::mutate(color = "Predictions")
 
             # stopifnot(all((all_data$biomass_w_catch_lag > all_data$catch), na.rm = T))
             # stopifnot(all((all_data$biomass_w_catch_lag > all_data$catch), na.rm = T))
 
             all_data <- all_preds_w_catch %>%
-              dplyr::bind_rows(biomass_actual_2)
+              dplyr::bind_rows(biomass_actual)
 
-            all_preds_w_catch %>%
-              filter(year_f >= 2005) %>%
+            all_data %>%
+              dplyr::filter(.data$ER > 0) %>%
+              dplyr::mutate(yr_label = paste0(.data$year_lag, " - ", .data[[time]])) %>%
+              # filter(year_f >= 2005) %>%
               # filter(year_f <= 2014) %>%
               ggplot2::ggplot() +
-              ggplot2::geom_point(ggplot2::aes(x = biomass_w_catch_lag, y = ER,
-                                               color = color)) +
-              ggplot2::geom_path(ggplot2::aes(x = biomass_w_catch_lag, y = ER,
-                                              color = color)) +
+              ggplot2::geom_point(ggplot2::aes(x = .data$biomass_lag, y = .data$ER,
+                                               color = .data$color)) +
+              ggplot2::geom_path(ggplot2::aes(x = .data$biomass_lag, y = .data$ER,
+                                              color = .data$color)) +
               ggplot2::facet_wrap(~sfa, scales = "free") +
-              # ggplot2::scale_color_manual(values = color)
-              ggplot2::theme_light()
+              ggplot2::scale_color_manual(values = c("Actual" = "black",
+                                                     "Predictions" = "red")) +
+              ggplot2::theme_light() +
+              ggplot2::labs(color = "Type") +
+              ggplot2::geom_text(ggplot2::aes(x = .data$biomass_lag, y = .data$ER,
+                                              color = .data$color, label = .data$yr_label),
+                                 hjust = 0, vjust = 0)
 
           }
 )
