@@ -65,7 +65,7 @@ setMethod(f = "spm_aggregate_catch",
             area_col <- spm_patches_area(spm_boundaries(biomass))
 
             # Aggregate the catch
-            catch <- spm_aggregate(dataset = catch,
+            catch <- spm_aggregate(sspm_object = catch,
                                    boundaries = spm_boundaries(biomass),
                                    variable = catch_variable,
                                    fun = fun, group_by = group_by,
@@ -152,7 +152,7 @@ apply_corrections <- function(full_data, corrections, catch_var){
   # TODO: add verification for time and boundary cols
   nrow_data <- nrow(full_data)
 
-  stopifnot("catch_adjustment" %in% names(full_data))
+  stopifnot("catch_adjustment" %in% names(corrections))
 
   full_data <- full_data %>%
     dplyr::left_join(corrections) %>%

@@ -52,9 +52,21 @@ spm_aggregate_routine <- function(dataset_data, boundaries, group_by, level,
 
   # If we need to complete, we go ahead and do so
   if (do_completion) {
-    dataset_data_tmp <- dataset_data_tmp %>%
-      tidyr::complete(.data[[time_col]], .data$patch_id,
-                      fill = list(temp = fill_value))
+
+    if (level == "patch"){
+
+      dataset_data_tmp <- dataset_data_tmp %>%
+        tidyr::complete(.data[[time_col]], .data$patch_id,
+                        fill = list(temp = fill_value))
+
+    } else if (level == "boundary"){
+
+      dataset_data_tmp <- dataset_data_tmp %>%
+        tidyr::complete(.data[[time_col]], .data[[boundary]],
+                        fill = list(temp = fill_value))
+
+    }
+
   }
 
   # Rename before returning
