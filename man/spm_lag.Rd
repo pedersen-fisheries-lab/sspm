@@ -28,6 +28,9 @@ lead or lag by}
     the values of the data are best avoided here: e.g. \code{s(log(x))}
     is fine, but \code{s(I(x/sd(x)))} is not (see \code{\link[mgcv]{predict.gam}}).}
 }
+\value{
+Updated \code{sspm_object}.
+}
 \description{
 This function is a wrapper around \link[dplyr:lead-lag]{lag} (note that not all
 arguments are supported). The default value for the lag is the mean of the

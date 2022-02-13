@@ -8,6 +8,9 @@
 #' @param vars **\[character\]** Names of the variables to lag.
 #' @inheritParams dplyr::lag
 #'
+#' @return
+#' Updated `sspm_object`.
+#'
 #' @export
 setGeneric(name = "spm_lag",
            def = function(sspm_object,
