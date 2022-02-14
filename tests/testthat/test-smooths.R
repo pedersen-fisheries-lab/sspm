@@ -7,9 +7,9 @@ test_that("Low - level matrix functions work as expected", {
   pen_mat_time <- sspm:::ICAR_time(c(1991, 1992, 1993, 1994))
 
   pen_mat_time_compare <- matrix(c(1, -1, 0, 0,
-                                     -1, 2, -1, 0,
-                                     0, -1, 2, -1,
-                                     0, 0, -1, 1), 4, 4)
+                                   -1, 2, -1, 0,
+                                   0, -1, 2, -1,
+                                   0, 0, -1, 1), 4, 4)
   dimnames(pen_mat_time_compare) <- list(time_levels, time_levels)
 
   expect_identical(pen_mat_time, pen_mat_time_compare)
@@ -19,12 +19,12 @@ test_that("Low - level matrix functions work as expected", {
   # Space
   pen_mat_space <- sspm:::ICAR_space(borealis_patches[1:5, ], "patch_id")
 
-  pen_mat_space_compare <- matrix(c(1, -1, 0, 0, 0,
-                                    -1, 2, 0, 0, -1,
-                                    0, 0, 1, -1, 0,
-                                    0, 0, -1, 1, 0,
-                                    0, -1, 0, 0, 1), 5, 5)
-  names_dim <- c("V1", "V2", "V3", "V4", "V5")
+  pen_mat_space_compare <- matrix(c(2, -1, -1, 0, 0,
+                                    -1, 2, -1, 0, 0,
+                                    -1, -1, 3, 0, -1,
+                                    0, 0, 0, 0, 0,
+                                    0, 0, -1, 0, 1), 5, 5)
+  names_dim <- c("P1", "P2", "P3", "P4", "P5")
   dimnames(pen_mat_space_compare) <- list(names_dim, names_dim)
 
   expect_identical(pen_mat_space, pen_mat_space_compare)
@@ -74,21 +74,21 @@ test_that("ICAR function works as expected", {
 
   # Just basic output
   res_ICAR <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "time",
-                           k = NULL, xt = NULL, bs = NULL)
+                          k = NULL, xt = NULL, bs = NULL)
   expect_equal(res_ICAR$args[[1]], substitute(year_f))
   expect_equal(res_ICAR$args$k, 24)
   expect_equal(res_ICAR$args$bs, "re")
   expect_equal(res_ICAR$args$xt, alist(penalty = pen_mat_time))
 
   res_ICAR <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space",
-                           k = NULL, xt = NULL, bs = NULL)
+                          k = NULL, xt = NULL, bs = NULL)
   expect_equal(res_ICAR$args[[1]], substitute(patch_id))
   expect_equal(res_ICAR$args$k, 30)
   expect_equal(res_ICAR$args$bs, "mrf")
   expect_equal(res_ICAR$args$xt, alist(penalty = pen_mat_space))
 
   res_ICAR <- sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space_time",
-                           k = NULL, xt = NULL, bs = NULL)
+                          k = NULL, xt = NULL, bs = NULL)
   expect_equal(res_ICAR$args[[1]], substitute(year_f))
   expect_equal(res_ICAR$args[[2]], substitute(patch_id))
   expect_equal(res_ICAR$args$k, c(24, 30))
@@ -101,18 +101,18 @@ test_that("ICAR function works as expected", {
   test_mat <- matrix(0, 5, 5)
 
   expect_identical({
-  sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space",
-              k = NULL, xt = list(penalty = test_mat), bs = NULL)$vars$pen_mat_space$penalty
+    sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space",
+                k = NULL, xt = list(penalty = test_mat), bs = NULL)$vars$pen_mat_space$penalty
   }, test_mat)
 
   expect_identical({
-  sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "time",
-              k = NULL, xt = list(penalty = test_mat), bs = NULL)$vars$pen_mat_time$penalty
+    sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "time",
+                k = NULL, xt = list(penalty = test_mat), bs = NULL)$vars$pen_mat_time$penalty
   }, test_mat)
 
   expect_identical({
-  sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space_time",
-              k = NULL, xt = list(patch_id = list(penalty = matrix(0, 5, 5))), bs = NULL)$vars$pen_mat_space
+    sspm:::ICAR(sspm_discrete_mapped, "Biomass", dimension = "space_time",
+                k = NULL, xt = list(patch_id = list(penalty = matrix(0, 5, 5))), bs = NULL)$vars$pen_mat_space
   }, test_mat)
 
   expect_identical({

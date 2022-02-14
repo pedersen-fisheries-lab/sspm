@@ -16,70 +16,70 @@ test_that("sspm data is casted correctly", {
   # Test the 3 generic cases
   expect_error({
     spm_as_dataset(data = borealis_simulated,
-                 time_column = "year_f",
-                 coords = c('lon_dec', 'lat_dec'),
-                 name = "Biomass",
-                 uniqueID = "Bad column")
+                   time = "year_f",
+                   coords = c('lon_dec', 'lat_dec'),
+                   name = "Biomass",
+                   uniqueID = "Bad column")
   }, "`uniqueID` must be a column of `data`")
 
   borealis_simulated_NU <- borealis_simulated
   borealis_simulated_NU$new_col <- "Non_unique"
   expect_error({
     spm_as_dataset(data = borealis_simulated_NU,
-                 time_column = "year_f",
-                 coords = c('lon_dec', 'lat_dec'),
-                 name = "Biomass",
-                 uniqueID = "new_col")
+                   time = "year_f",
+                   coords = c('lon_dec', 'lat_dec'),
+                   name = "Biomass",
+                   uniqueID = "new_col")
   }, "`uniqueID` must be unique for each row of `data`")
 
   expect_error({
     spm_as_dataset(data = borealis_simulated,
-                 time_column = "Bad column",
-                 coords = c('lon_dec', 'lat_dec'),
-                 name = "Biomass",
-                 uniqueID = "uniqueID")
-  }, "`time_column` must be a column of `data`")
+                   time = "Bad column",
+                   coords = c('lon_dec', 'lat_dec'),
+                   name = "Biomass",
+                   uniqueID = "uniqueID")
+  }, "`time` must be a column of `data`")
 
   # If data matrix is df, coords must be provided
   expect_error({
     spm_as_dataset(data = borealis_simulated,
-                 time_column = "year_f",
-                 name = "Biomass",
-                 uniqueID = "uniqueID")
+                   time = "year_f",
+                   name = "Biomass",
+                   uniqueID = "uniqueID")
   }, "Argument `coords` must be provided when data matrix is a dataframe")
 
   # Coords must be columns of data
   expect_error({
     spm_as_dataset(data = borealis_simulated,
-                 time_column = "year_f",
-                 coords = c('Bad column 1', 'Bad column 2'),
-                 name = "Biomass",
-                 uniqueID = "uniqueID")
+                   time = "year_f",
+                   coords = c('Bad column 1', 'Bad column 2'),
+                   name = "Biomass",
+                   uniqueID = "uniqueID")
   }, "`coords` must be columns of `data`")
 
   # When works fine
   expect_class({
     spm_as_dataset(data = borealis_simulated,
-                 time_column = "year_f",
-                 coords = c('lon_dec', 'lat_dec'),
-                 name = "Biomass",
-                 uniqueID = "uniqueID")
+                   time = "year_f",
+                   coords = c('lon_dec', 'lat_dec'),
+                   name = "Biomass",
+                   uniqueID = "uniqueID")
   }, "sspm_dataset")
 
   expect_class({
     spm_as_dataset(data = borealis_simulated,
-                 time_column = "year_f",
-                 coords = list('lon_dec', 'lat_dec'),
-                 name = "Biomass",
-                 uniqueID = "uniqueID")
+                   time = "year_f",
+                   coords = list('lon_dec', 'lat_dec'),
+                   name = "Biomass",
+                   uniqueID = "uniqueID")
   }, "sspm_dataset")
 
   expect_class({
     spm_as_dataset(data = borealis_spatial,
-                 time_column = "year_f",
-                 coords = c('lon_dec', 'lat_dec'),
-                 name = "Biomass",
-                 uniqueID = "uniqueID")
+                   time = "year_f",
+                   coords = c('lon_dec', 'lat_dec'),
+                   name = "Biomass",
+                   uniqueID = "uniqueID")
   }, "sspm_dataset")
 
 })

@@ -51,39 +51,6 @@ test_that("Calls are modified correctly", {
 
 })
 
-test_that("Families are checked correctly", {
-
-  gam_obj <- mgcv::gam(mpg ~ s(drat), data = mtcars, family = mgcv::tw)
-  fam <- gam_obj$family$family
-  sspm:::check_model_family(fam)
-
-  fam <- "crazy_family"
-  expect_error(sspm:::check_model_family(fam))
-
-})
-
-test_that("Residuals are correctly retrieved", {
-
-  # Tweedie case
-  gam_obj <- mgcv::gam(mpg ~ s(drat), data = mtcars, family = mgcv::tw)
-  res <- sspm:::rqresiduals(gam_obj)
-
-  expect_length(res, 32)
-  expect_equal(min(res), -1.860841, tolerance = 1e-07)
-  expect_equal(max(res), 1.872867, tolerance = 1e-07)
-  expect_equal(median(res), -0.0278781, tolerance = 1e-06)
-
-  # Neg bin case
-  gam_obj <- mgcv::gam(mpg ~ s(drat), data = mtcars, family = mgcv::nb)
-  set.seed(77);res <- sspm:::rqresiduals(gam_obj)
-
-  expect_length(res, 32)
-  expect_equal(min(res), -1.870483, tolerance = 1e-07)
-  expect_equal(max(res), 1.899658, tolerance = 1e-07)
-  expect_equal(median(res), -0.1017879, tolerance = 1e-06)
-
-})
-
 test_that("Methods are correctly returned", {
   expect_class({spm_methods()}, "character")
   expect_length({spm_methods()}, 2)

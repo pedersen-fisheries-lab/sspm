@@ -1,4 +1,5 @@
-if (FALSE){
+
+# Load packages -----------------------------------------------------------
 
 library(testthat)
 library(checkmate)
@@ -7,7 +8,8 @@ library(sf)
 library(mgcv)
 library(sspm)
 
-# Objects used for tests
+# Load package data -------------------------------------------------------
+
 borealis_simulated <- sspm:::borealis_simulated
 predator_simulated <- sspm:::predator_simulated
 sfa_boundaries <- sspm:::sfa_boundaries
@@ -15,6 +17,8 @@ borealis_patches <- sspm:::borealis_patches
 borealis_points <- sspm:::borealis_points
 borealis_spatial <- sspm:::borealis_simulated_spatial
 predator_spatial <- sspm:::predator_simulated_spatial
+
+# Create objects ----------------------------------------------------------
 
 # Method
 discret_method <- new("discretization_method",
@@ -24,35 +28,36 @@ discret_method <- new("discretization_method",
 # Boundaries
 boundary <- new("sspm_boundary",
                 boundaries = sfa_boundaries,
-                boundary_column = "sfa",
-                boundary_area_column = "area")
+                boundary = "sfa",
+                boundary_area = "area")
 
 boundary_discrete <- new("sspm_discrete_boundary",
                          boundaries = sfa_boundaries,
-                         boundary_column = "sfa",
+                         boundary = "sfa",
                          method = discret_method,
                          patches = borealis_patches,
-                         points = borealis_points)
+                         points = borealis_points,
+                         boundary_area = "area")
 
 # Base objects
 biomass_dataset <- new("sspm_dataset",
-                       name = "Biomass",
                        data = borealis_spatial,
-                       time_column = "year_f",
+                       time = "year_f",
+                       density = "weight_per_km2",
                        uniqueID = "uniqueID",
                        coords = c('lon_dec', 'lat_dec'))
 
 predator_dataset <- new("sspm_dataset",
-                        name = "Predator",
                         data = predator_spatial,
-                        time_column = "year",
+                        density = "weight_per_km2",
+                        time = "year",
                         uniqueID = "uniqueID",
                         coords = c('lon_dec', 'lat_dec'))
 
 catch_dataset <- new("sspm_dataset",
-                     name = "Catch",
                      data = predator_spatial,
-                     time_column = "year",
+                     biomass = "catch",
+                     time = "year",
                      uniqueID = "uniqueID",
                      coords = c('lon_dec', 'lat_dec'))
 
@@ -72,10 +77,10 @@ sspm_formula <- new("sspm_formula",
 
 # Smoothed objects
 biomass_dataset_smoothed <- new("sspm_dataset",
-                                name = "Biomass",
                                 data = borealis_spatial,
+                                density = "weight_per_km2",
                                 boundaries = boundary_discrete,
-                                time_column = "year_f",
+                                time = "year_f",
                                 uniqueID = "uniqueID",
                                 coords = c('lon_dec', 'lat_dec'),
                                 formulas = list(sspm_formula),
@@ -85,10 +90,10 @@ biomass_dataset_smoothed <- new("sspm_dataset",
                                 is_mapped = TRUE)
 
 predator_dataset_smoothed <- new("sspm_dataset",
-                                 name = "Predator",
                                  data = predator_spatial,
+                                 density = "weight_per_km2",
                                  boundaries = boundary_discrete,
-                                 time_column = "year",
+                                 time = "year",
                                  uniqueID = "uniqueID",
                                  coords = c('lon_dec', 'lat_dec'),
                                  formulas = list(sspm_formula),
@@ -104,7 +109,7 @@ all_data <- list(biomass = biomass_dataset_smoothed,
 
 sspm_model <- new("sspm",
                   datasets = all_data,
-                  time_column = spm_time_column(biomass_dataset_smoothed),
+                  time = spm_time(biomass_dataset_smoothed),
                   uniqueID = "row_ID",
                   boundaries = spm_boundaries(biomass_dataset_smoothed),
                   smoothed_data = borealis_spatial,
@@ -112,9 +117,8 @@ sspm_model <- new("sspm",
 
 sspm_fit <- new("sspm_fit",
                 smoothed_data = all_data,
-                time_column = spm_time_column(biomass_dataset_smoothed),
+                time = spm_time(biomass_dataset_smoothed),
                 uniqueID = spm_unique_ID(biomass_dataset_smoothed),
                 formula = sspm_formula,
                 boundaries = spm_boundaries(biomass_dataset_smoothed),
                 fit = bam(data = mtcars, mpg ~ wt, family = gaussian))
-}

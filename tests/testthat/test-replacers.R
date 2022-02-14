@@ -10,13 +10,13 @@ test_that("Replacers work as expected", {
   }, sfa_boundaries)
 
   expect_equal({
-    spm_boundary_column(boundary) <- "new_col"
-    spm_boundary_column(boundary)
+    spm_boundary(boundary) <- "new_col"
+    spm_boundary(boundary)
   }, "new_col")
 
   expect_equal({
-    spm_boundary_area_column(boundary) <- "new_col_2"
-    spm_boundary_area_column(boundary)
+    spm_boundary_area(boundary) <- "new_col_2"
+    spm_boundary_area(boundary)
   }, "new_col_2")
 
   expect_equal({
@@ -49,8 +49,8 @@ test_that("Replacers work as expected", {
   }, "list")
 
   expect_equal({
-    spm_time_column(sspm_model) <- "time_col"
-    spm_time_column(sspm_model)
+    spm_time(sspm_model) <- "time_col"
+    spm_time(sspm_model)
   }, "time_col")
 
   expect_equal({
@@ -128,9 +128,9 @@ test_that("Replacers work as expected", {
   }, "New_ID_2")
 
   expect_match({
-    spm_time_column(biomass_dataset) <- "new_time_column_2"
-    spm_time_column(biomass_dataset)
-  }, "new_time_column_2")
+    spm_time(biomass_dataset) <- "new_time_2"
+    spm_time(biomass_dataset)
+  }, "new_time_2")
 
   expect_equal({
     gam_fit <- list(mgcv::gam(mtcars$mpg~mtcars$disp,

@@ -8,9 +8,9 @@ test_that("Accessors work as expected on `sspm_boundary` (discrete or not)", {
 
   expect_equal(spm_boundaries(boundary), sfa_boundaries)
 
-  expect_equal(spm_boundary_column(boundary), "sfa")
+  expect_equal(spm_boundary(boundary), "sfa")
 
-  expect_equal(spm_boundary_area_column(boundary), "area")
+  expect_equal(spm_boundary_area(boundary), "area")
 
   expect_equal(spm_points(boundary_discrete), borealis_points)
 
@@ -37,11 +37,11 @@ test_that("Accessors work as expected on `sspm_dataset` (smoothed or not)", {
   expect_character(spm_coords_col(biomass_dataset_smoothed))
   expect_length(spm_coords_col(biomass_dataset_smoothed), 2)
 
-  expect_character(spm_time_column(biomass_dataset))
-  expect_length(spm_time_column(biomass_dataset), 1)
+  expect_character(spm_time(biomass_dataset))
+  expect_length(spm_time(biomass_dataset), 1)
 
-  expect_character(spm_time_column(biomass_dataset_smoothed))
-  expect_length(spm_time_column(biomass_dataset_smoothed), 1)
+  expect_character(spm_time(biomass_dataset_smoothed))
+  expect_length(spm_time(biomass_dataset_smoothed), 1)
 
   expect_class(spm_boundaries(biomass_dataset), "sspm_boundary")
   expect_class(spm_boundaries(biomass_dataset_smoothed), "sspm_discrete_boundary")
