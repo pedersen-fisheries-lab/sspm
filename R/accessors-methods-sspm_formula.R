@@ -253,3 +253,38 @@ setMethod("spm_response<-",
             return(object)
           }
 )
+
+# Lagged vars -------------------------------------------------------------
+# Accessors ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_formula
+#' @export
+setGeneric(name = "spm_lagged_vars",
+           def = function(sspm_object) standardGeneric("spm_lagged_vars")
+)
+
+#' @rdname accessors-methods-sspm_formula
+#' @export
+setMethod("spm_lagged_vars",
+          signature("sspm_object" = "sspm_formula"),
+          function(sspm_object) sspm_object@lag_vars
+)
+
+# Replacers ---------------------------------------------------------------
+
+#' @rdname accessors-methods-sspm_formula
+#' @export
+setGeneric(name = "spm_lagged_vars<-",
+           def = function(object, value) standardGeneric("spm_lagged_vars<-")
+)
+
+#' @rdname accessors-methods-sspm_formula
+#' @export
+setMethod("spm_lagged_vars<-",
+          signature("object" = "sspm_formula"),
+          function(object, value) {
+            object@lag_vars <- value
+            validObject(object)
+            return(object)
+          }
+)
