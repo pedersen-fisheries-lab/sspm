@@ -121,7 +121,9 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
         dplyr::group_by(.data[[bounds_col]], .data[[time_col]]) %>%
         dplyr::summarise(biomass = sum(.data$biomass),
                          CI_upper = sum(.data$CI_upper),
-                         CI_lower = sum(.data$CI_lower))
+                         CI_lower = sum(.data$CI_lower),
+                         PI_upper = sum(.data$PI_upper),
+                         PI_lower = sum(.data$PI_lower))
 
     } else {
 
