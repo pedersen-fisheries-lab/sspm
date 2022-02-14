@@ -574,6 +574,18 @@ plot(sspm_model_fit, biomass = "weight_per_km2_borealis",
 
 #> Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
 #> -Inf
+
+#> Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+#> -Inf
+
+#> Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+#> -Inf
+
+#> Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+#> -Inf
+
+#> Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning
+#> -Inf
 ```
 
 <img src="man/figures/README-unnamed-chunk-27-1.png" width="100%" />
