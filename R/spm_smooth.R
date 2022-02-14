@@ -104,7 +104,7 @@ setMethod(f = "spm_smooth",
 
             # Check that response is a density, issue an info if not
             response <- spm_response(sspm_formula)
-            if (!checkmate::test_choice(response, sspm_object@density)){
+            if (!checkmate::test_choice(response, spm_density_vars(sspm_object@density))){
               cli::cli_alert_info(
                 paste0(" Note:  response variable ", cli::col_br_red(response),
                        " is NOT a biomass density variable"))

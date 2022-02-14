@@ -156,7 +156,7 @@ predict_next_ts <- function(object, new_data, biomass){
   max_ts <- next_ts_data$max_ts
 
   # Apply the LINPRED in case it is needed
-  linpred_lag_vars <- spm_formulas(object)@lag_vars
+  linpred_lag_vars <- spm_lagged_vars(spm_formulas(object))
 
   if (!is.null(linpred_lag_vars)){
     linpred <- LINPRED(next_ts_data$data_filtered,
@@ -248,7 +248,7 @@ make_next_ts_data <- function(object, time_col, patches, bounds_col,
 # Obtain var names for predicting the model, excluding penalty mats
 get_var_names <- function(sspm_object, exclude_mats = TRUE,
                           exclude_special = TRUE) {
-  var_names <- sspm_object@fit$var.summary %>%
+  var_names <- spm_get_fit(sspm_object)$var.summary %>%
     names()
   if (exclude_special){
     var_names <- var_names %>%
