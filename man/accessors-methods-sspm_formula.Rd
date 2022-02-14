@@ -29,6 +29,10 @@
 \alias{spm_response,sspm_formula-method}
 \alias{spm_response<-}
 \alias{spm_response<-,sspm_formula-method}
+\alias{spm_lagged_vars}
+\alias{spm_lagged_vars,sspm_formula-method}
+\alias{spm_lagged_vars<-}
+\alias{spm_lagged_vars<-,sspm_formula-method}
 \title{Accessing OR replacing \code{sspm_formula} model elements}
 \usage{
 raw_formula(sspm_object)
@@ -86,6 +90,14 @@ spm_response(sspm_object)
 spm_response(object) <- value
 
 \S4method{spm_response}{sspm_formula}(object) <- value
+
+spm_lagged_vars(sspm_object)
+
+\S4method{spm_lagged_vars}{sspm_formula}(sspm_object)
+
+spm_lagged_vars(object) <- value
+
+\S4method{spm_lagged_vars}{sspm_formula}(object) <- value
 }
 \arguments{
 \item{sspm_object}{\strong{[sspm_formula]} An object of class
