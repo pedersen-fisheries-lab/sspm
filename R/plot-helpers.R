@@ -241,11 +241,11 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
                          ymin = .data$CI_lower,
                          ymax = .data$CI_upper,
                          fill = .data$color), alpha = 0.5) +
-          # ggplot2::geom_ribbon(
-          #   ggplot2::aes(x = .data[[time_col]],
-          #                ymin = .data$PI_lower,
-          #                ymax = .data$PI_upper,
-          #                fill = .data$color), alpha = 0.3) +
+          ggplot2::geom_ribbon(
+            ggplot2::aes(x = .data[[time_col]],
+                         ymin = .data$PI_lower,
+                         ymax = .data$PI_upper,
+                         fill = .data$color), alpha = 0.3) +
           ggplot2::scale_fill_manual(values = color_profile) +
           ggplot2::labs(fill = "Type")
       }
