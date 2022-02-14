@@ -144,13 +144,14 @@ setMethod("plot",
 
               if (!is.null(biomass)){
 
-
                 sspm_discrete_plot <- plot_biomass(x, biomass, biomass_origin,
                                                    aggregate, interval, use_sf,
                                                    page, nrow, ncol, log, scales,
                                                    next_ts)
 
               } else {
+
+                if (aggregate) stop("productivity aggregate plotting is not enabled")
 
                 sspm_discrete_plot <-
                   plot_productivity(x, aggregate, interval, use_sf, page, nrow,
