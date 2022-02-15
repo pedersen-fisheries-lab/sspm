@@ -156,7 +156,7 @@ check_boundaries <- function(boundaries, boundary,
     boundaries <-
       dplyr::mutate(boundaries, !!boundary_area :=
                       units::set_units(.data[[boundary_area]], value = "km^2")) %>%
-      dplyr::rename(!!new_boundary_area := .data$boundary_area)
+      dplyr::rename(!!new_boundary_area := .data[[boundary_area]])
 
   } else {
 

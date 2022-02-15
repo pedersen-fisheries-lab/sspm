@@ -12,7 +12,8 @@ library(sspm)
 
 borealis_simulated <- sspm:::borealis_simulated
 predator_simulated <- sspm:::predator_simulated
-sfa_boundaries <- sspm:::sfa_boundaries
+sfa_boundaries <- sspm:::sfa_boundaries %>%
+  dplyr::mutate(area = sf::st_area(sspm:::sfa_boundaries))
 borealis_patches <- sspm:::borealis_patches
 borealis_points <- sspm:::borealis_points
 borealis_spatial <- sspm:::borealis_simulated_spatial

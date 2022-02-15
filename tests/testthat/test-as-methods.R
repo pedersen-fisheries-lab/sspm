@@ -11,7 +11,21 @@ test_that("Discret method is casted correctly", {
 
 })
 
-test_that("sspm data is casted correctly", {
+test_that("Bounds method is casted correctly", {
+
+  expect_class(spm_as_boundary(sfa_boundaries, "sfa"), "sspm_boundary")
+  expect_class(spm_as_boundary(sfa_boundaries, "sfa",
+                               boundary_area = "area"), "sspm_boundary")
+
+  expect_error(spm_as_boundary(sfa_boundaries, "bad_column"),
+               "`boundary` must be a column of `boundaries`")
+  expect_error(spm_as_boundary(sfa_boundaries, "sfa",
+                               boundary_area = "bad_column"),
+               "`boundary_area` must be a column of `boundaries`")
+
+})
+
+test_that("sspm dataset is casted correctly", {
 
   # Test the 3 generic cases
   expect_error({
