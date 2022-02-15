@@ -16,7 +16,13 @@ test_that("Bounds method is casted correctly", {
   expect_class(spm_as_boundary(sfa_boundaries, "sfa"), "sspm_boundary")
   expect_class(spm_as_boundary(sfa_boundaries, "sfa",
                                boundary_area = "area"), "sspm_boundary")
+  expect_class(spm_as_boundary(sfa_boundaries, "sfa",
+                               patches = borealis_patches,
+                               patch_area = "patch_area"), "sspm_discrete_boundary")
 
+  expect_error(spm_as_boundary(sfa_boundaries, "sfa",
+                               patches = borealis_patches),
+               "`patch_area` column already present, please cast with argument `patch_area")
   expect_error(spm_as_boundary(sfa_boundaries, "bad_column"),
                "`boundary` must be a column of `boundaries`")
   expect_error(spm_as_boundary(sfa_boundaries, "sfa",

@@ -190,6 +190,10 @@ check_patches <- function(patches,
 
   } else {
 
+    if ("patch_area" %in% names(patches)){
+      stop("`patch_area` column already present, please cast with argument `patch_area`")
+    }
+
     patches <- calculate_spatial_feature_areas(patches) %>%
       dplyr::rename(patch_area = .data$area)
     patches_area <- "patch_area"
