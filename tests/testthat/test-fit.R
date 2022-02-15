@@ -1,16 +1,16 @@
 # Test fit function
 
 test_that("Fitting works as expected", {
-  skip("TODO")
 
-  sspm_discrete <- sspm_base %>%
-    spm_discretize(with_dataset = "Biomass",
-                   discretization_method = "tesselate_voronoi")
-  sspm_discrete_mapped_forms <- sspm_discrete %>%
-    map_formula(weight_per_km2 ~ smooth_space(), "Biomass")
-  sspm_discrete_mapped_fitted <- sspm_discrete_mapped_forms %>%
-    fit_smooths()
+  fit <- biomass_dataset %>%
+    spm_smooth(weight_per_km2 ~ sfa + smooth_time(by=sfa) + smooth_space() +
+                 smooth_space_time(k = c(NA, 30)),
+               boundaries = boundary_discrete,
+               family=tw) %>%
+    spm_smooth(temp_at_bottom ~ smooth_time(by=sfa) + smooth_space() +
+                 smooth_space_time(k = c(NA, 30)),
+               family=gaussian)
   intercept <-
-    sspm_discrete_mapped_fitted@datasets$Biomass@smoothed_fit[[1]]$coefficients[[1]]
-  expect_equal(intercept, 8.504188, tolerance = 1e-5)
+    fit@smoothed_fit$weight_per_km2$coefficients[[1]]
+  expect_equal(intercept, 7.84565, tolerance = 1e-5)
 })
