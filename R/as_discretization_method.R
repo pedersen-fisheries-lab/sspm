@@ -67,8 +67,10 @@ dispatch_method <- function(discretization_method) {
   } else if (discretization_method == "triangulate_delaunay") {
     return(triangulate_delaunay)
   } else {
-    cli::cli_alert_danger(paste0("Method '", discretization_method,
-                                 "' is not part of the supported methods."))
+    message <- paste0("Method '", discretization_method,
+                      "' is not part of the supported methods.")
+    cli::cli_alert_danger(message)
     cli::cli_alert_info("See `?spm_methods()`")
+    stop(message, call. = FALSE)
   }
 }

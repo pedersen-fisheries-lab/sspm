@@ -23,8 +23,8 @@ test_that("Methods are dispatched correctly", {
 
   expect_equal(dispatch_method("tesselate_voronoi"), tesselate_voronoi)
   expect_equal(dispatch_method("triangulate_delaunay"), triangulate_delaunay)
-  expect_message(dispatch_method("method_not_supported"),
-                 "Method 'method_not_supported' is not part of the supported methods.")
+  expect_error(dispatch_method("method_not_supported"),
+               "Method 'method_not_supported' is not part of the supported methods.")
 
   expect_equal(dispatch_smooth("ICAR"), ICAR)
   expect_equal(dispatch_smooth("LINPRED"), LINPRED)

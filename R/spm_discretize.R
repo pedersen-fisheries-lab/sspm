@@ -129,8 +129,10 @@ setMethod(f = "spm_discretize",
                     method = "discretization_method"),
           function(boundary_object, method, with, ...) {
 
-            if(checkmate::test_class(with, "sspm_dataset")){
+            if (checkmate::test_class(with, "sspm_dataset")){
               with <- spm_data(with)
+            } else if (!is.null(with)) {
+              stop("`with` must be a `sspm_dataset` or NULL")
             }
 
             # Info message

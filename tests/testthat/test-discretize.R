@@ -1,38 +1,47 @@
 # Test discretization step
 
 test_that("Discretization work as expected", {
-  skip("TODO")
 
-  # If error
-  expect_error({sspm_base %>%
-      spm_discretize(with_dataset = "Biomass",
-                     discretization_method = "invalid method")},
-      "Invalid discretization method.")
+  discretized <- boundary %>%
+    spm_discretize(method = "tesselate_voronoi",
+                   with = biomass_dataset,
+                   nb_samples = 30)
+  expect_class({discretized},
+      "sspm_discrete_boundary")
 
-  # If success
-  discretized <- sspm_base %>%
-    spm_discretize(with_dataset = "Biomass",
-                   discretization_method = "tesselate_voronoi")
-  expect_class({discretized}, "sspm_discrete")
+  expect_class({boundary %>%
+      spm_discretize(method = "tesselate_voronoi",
+                     with = biomass_dataset,
+                     nb_samples = c(`4` = 5, `5` = 10, `6` = 7, `7` = 2))},
+      "sspm_discrete_boundary")
 
-  expect_names(names(spm_data(spm_datasets(discretized)$Biomass)),
-               must.include = c("patch_id", "area"))
+  expect_class({boundary %>%
+      spm_discretize(method = "triangulate_delaunay",
+                     with = biomass_dataset)},
+      "sspm_discrete_boundary")
 
-  expect_equal(dim(spm_data(spm_datasets(discretized)$Biomass))[1], 1026)
-  expect_equal(dim(spm_data(spm_datasets(discretized)$Biomass))[2], 21)
+  expect_names(names(spm_boundaries(discretized)),
+               must.include = c("sfa", "area"))
+  expect_names(names(spm_patches(discretized)),
+               must.include = c("sfa", "patch_id", "patch_area"))
 
-  expect_equal(dim(spm_patches(discretized))[1], 69)
+  expect_equal(dim(spm_patches(discretized))[1], 35)
   expect_equal(dim(spm_patches(discretized))[2], 4)
 
-  expect_equal(dim(spm_points(discretized))[1], 75)
-  expect_equal(dim(spm_points(discretized))[2], 19)
+  expect_equal(dim(spm_points(discretized))[1], 120)
+  expect_equal(dim(spm_points(discretized))[2], 11)
 
-  expect_message({discretized %>%
-      spm_discretize(discretization_method = "tesselate_voronoi")},
-      "Model 'Model test' is already discretized")
+  # ----------------------------------------------------------------------
 
-  expect_message({discretized %>%
-    spm_discretize(discretization_method = "tesselate_voronoi")},
-    "Model 'Model test' is already discretized")
+  expect_error({boundary %>%
+      spm_discretize(method = "tesselate_voronoi",
+                     with = borealis_simulated,
+                     nb_samples = 30)},
+      "`with` must be a `sspm_dataset` or NULL")
+
+  expect_error({boundary %>%
+      spm_discretize(method = "wrong_method",
+                     with = biomass_dataset)},
+      "Method 'wrong_method' is not part of the supported methods.")
 
 })
