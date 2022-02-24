@@ -133,12 +133,16 @@ spm_points(bounds_voronoi)
 
 ```{r}
 biomass_smooth <- biomass_dataset %>%  
-  spm_smooth(weight_per_km2 ~ sfa + smooth_time(by=sfa) + smooth_space() + 
-               smooth_space_time(k = c(NA, 30)),
+  spm_smooth(weight_per_km2 ~ sfa + smooth_time(by=sfa, xt = list()) + 
+               smooth_space() + 
+               smooth_space_time(bs = c(NULL, "mrf"), 
+                                 k = c(NA, 30)),
              boundaries = bounds_voronoi, 
              family=tw) %>% 
-  spm_smooth(temp_at_bottom ~ smooth_time(by=sfa) + smooth_space() +
-               smooth_space_time(k = c(NA, 30)),
+  spm_smooth(temp_at_bottom ~ smooth_time(by=sfa, xt = list()) + 
+               smooth_space() +
+               smooth_space_time(bs = c(NULL, "mrf"),
+                                 k = c(NA, 30)),
              family=gaussian)
 
 biomass_smooth
@@ -147,7 +151,7 @@ biomass_smooth
 8. The smoothed results for any smoothed variables (listed in "smoothed vars" above) can be easily plotted:
 
 ```{r}
-plot(biomass_smooth, var = "weight_per_km2", log = FALSE, aggregate = T)
+plot(biomass_smooth, var = "weight_per_km2", log = FALSE)
 ```
 You can also make a spatial plot
 
@@ -159,7 +163,7 @@ plot(biomass_smooth, var = "weight_per_km2", use_sf = TRUE)
 
 ```{r}
 predator_smooth <- predator_dataset %>%  
-  spm_smooth(weight_per_km2 ~ smooth_time(k = 3) + smooth_space(),
+  spm_smooth(weight_per_km2 ~ smooth_time() + smooth_space(),
              boundaries = bounds_voronoi,
              drop.unused.levels = F, family=tw, method= "fREML")
 
