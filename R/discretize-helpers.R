@@ -85,7 +85,8 @@ sample_points <- function(mode, with, boundaries, boundary, nb_samples, seed){
 
     set.seed(seed) ; the_points <-
       suppressMessages(sf::st_join(with, boundaries,
-                                   suffix = c("", "_duplicate"))) %>%
+                                   suffix = c("_duplicate", ""))) %>%
+      dplyr::select(-dplyr::contains("duplicate")) %>%
       dplyr::filter(!is.na(eval(dplyr::sym(boundary)))) %>%
       dplyr::group_by(.data[[boundary]]) %>%
       dplyr::filter(1:dplyr::n() %in%
