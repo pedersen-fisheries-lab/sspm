@@ -267,6 +267,7 @@ ICAR <- function(data_frame, boundaries, time, dimension,
           checkmate::assert_matrix(xt$penalty)
           pen_mat_time <- xt
         }
+
       }
 
       # Create symbol and assign to list
