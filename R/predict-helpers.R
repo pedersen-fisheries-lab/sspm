@@ -23,7 +23,7 @@ predict_productivity <- function(object, new_data, type, interval){
   # If we want to compute the intervals, do so with the helpers
   if (interval) {
 
-    CI_df <- predict_productivity_intervals(object_fit, new_data)
+    CI_df <- predict_intervals(object_fit, new_data)
 
     preds_df <- preds_df %>%
       dplyr::bind_cols(CI_df)

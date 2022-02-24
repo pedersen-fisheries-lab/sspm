@@ -1,30 +1,53 @@
 
-# Higher level functions to be called by predict --------------------------
-
-predict_productivity_intervals <- function(object_fit, new_data){
+#' GAM confidence and prediction intervals
+#'
+#' Computes CI from posterior, and PI for Tweedie and scat gams.
+#'
+#' @param object_fit **\[gam OR bam\]** The fit to use for predictions.
+#' @param new_data **\[data.frame\]** The data to predict onto.
+#' @param n **\[numeric\]** The number of simulations to run for parameters.
+#' @param CI **\[logical\]** Whether to compute the CI.
+#' @param PI **\[logical\]** Whether to compute the PI.
+#' @param ... further arguments passed to the quantile function.
+#'
+#' @return
+#' A `data.frame` with intervals.
+#'
+#' @rdname intervals
+#' @export
+predict_intervals <- function(object_fit, new_data, n = 1000,
+                              CI = TRUE, PI = TRUE, ...){
 
   # Compute simulations
-  sims <- produce_sims(object_fit, new_data)
+  sims <- produce_sims(object_fit, new_data, n)
+  CI_df <- NULL
 
-  # Confidence interval
-  CI_prod <- confidence_interval(sims)
+  if (!CI & !PI) stop("at least one of CI or PI must be TRUE")
 
-  # Prediction interval
-  PI_prod <- prediction_interval(object_fit, sims)
+  if (CI) {
+    # Confidence interval
+    CI_prod <- confidence_interval(sims, ...)
+    CI_df <- dplyr::bind_cols(CI_df, CI_prod)
+  }
 
-  # Bind all
-  CI_df <- dplyr::bind_cols(CI_prod, PI_prod)
+  if (PI) {
+    # Prediction interval
+    PI_prod <- prediction_interval(object_fit, sims, ...)
+    CI_df <- dplyr::bind_cols(CI_df, PI_prod)
+  }
 
   return(CI_df)
 
 }
+
+NULL
 
 predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_col,
                                       new_data, biomass, patch_area_col, next_ts){
 
   if (next_ts){
 
-    CI_df_prod <- predict_productivity_intervals(object_fit, new_data)
+    CI_df_prod <- predict_intervals(object_fit, new_data)
 
     # Get ts data
     all_ts <- as.numeric(as.character(unique(smoothed_data[[time_col]])))
@@ -69,7 +92,7 @@ predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_c
 
   } else {
 
-    CI_df_prod <- predict_productivity_intervals(object_fit, new_data)
+    CI_df_prod <- predict_intervals(object_fit, new_data)
 
     # Get catch density
     catch_density <- smoothed_data$catch_density
@@ -134,7 +157,7 @@ predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_c
 
 # Expect a gam fit object, returns a data.frame
 
-produce_sims <- function(fit, new_data, n = 1000){
+produce_sims <- function(fit, new_data, n){
 
   checkmate::assert_class(fit, "gam")
 
@@ -211,7 +234,7 @@ prediction_interval <- function(fit, sims, ...){
 
   } else {
 
-    stop("PI is only supported for sspm_fit if the family is scat")
+    stop("PI is only supported for sspm_fit if the family is scat or Tweedie")
 
   }
 
