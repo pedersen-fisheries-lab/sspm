@@ -53,19 +53,25 @@ spm_aggregate_routine <- function(dataset_data, boundaries, group_by, level,
   # If we need to complete, we go ahead and do so
   if (do_completion) {
 
+    old_units <- units(dataset_data_tmp$temp)
+
     if (level == "patch"){
 
       dataset_data_tmp <- dataset_data_tmp %>%
+        dplyr::mutate(temp = as.numeric(temp)) %>%
         tidyr::complete(.data[[time_col]], .data$patch_id,
-                        fill = list(temp = fill_value))
+                        fill = list(temp = as.numeric(fill_value)))
 
     } else if (level == "boundary"){
 
       dataset_data_tmp <- dataset_data_tmp %>%
+        dplyr::mutate(temp = as.numeric(temp)) %>%
         tidyr::complete(.data[[time_col]], .data[[boundary]],
-                        fill = list(temp = fill_value))
+                        fill = list(temp = as.numeric(fill_value)))
 
     }
+
+    units(dataset_data_tmp$temp) <- old_units
 
   }
 
