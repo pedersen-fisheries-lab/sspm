@@ -133,7 +133,7 @@ setMethod(f = "smooth_space_time",
 
             do.call(smooth_routine,
                     append(list(dimension = "space_time", var = NULL,
-                                data_frame = data_frame,\boundaries = boundaries,
+                                data_frame = data_frame, boundaries = boundaries,
                                 time = time, type = type, k = k, m = NULL, bs = bs,
                                 xt = xt, is_spm = is_spm, smooth_type = "ti"),
                            args_list))
