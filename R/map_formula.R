@@ -121,8 +121,20 @@ modify_call <- function(the_call, args) {
 # This function finds special terms in the formula. We consider special any
 # term that is a custom smooth_function implemented in this package
 find_special_terms <- function(the_labels){
-  sapply(the_labels, grepl, pattern = "smooth_lag(", fixed = TRUE) |
-    sapply(the_labels, grepl, pattern = "smooth_time(", fixed = TRUE) |
-    sapply(the_labels, grepl, pattern = "smooth_space(", fixed = TRUE) |
-    sapply(the_labels, grepl, pattern = "smooth_space_time(", fixed = TRUE)
+
+  lag_detect <- sapply(the_labels, grepl,
+                       pattern = "smooth_lag(", fixed = TRUE)
+  time_detect <- sapply(the_labels, grepl,
+                        pattern = "smooth_time(", fixed = TRUE)
+  space_detect <- sapply(the_labels, grepl,
+                         pattern = "smooth_space(", fixed = TRUE)
+  space_time_detect <- sapply(the_labels, grepl,
+                              pattern = "smooth_space_time(", fixed = TRUE)
+
+  if((any(time_detect) | any(space_detect)) & any(space_time_detect)) {
+    cli::cli_alert_warning(paste0("smooth_space_time should not be combined ",
+                                  "with calls to smooth_space or smooth_time"))
+  }
+
+  return(lag_detect | time_detect | space_detect | space_time_detect)
 }
