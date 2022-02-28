@@ -351,7 +351,8 @@ ICAR <- function(data_frame, boundaries, time, dimension,
       xt_list <- NULL
 
     } else if (identical(bs, c("mrf", "mrf")) |
-               identical(bs, c(NULL, "mrf"))){ # If mrf specified, provide the matrix
+               identical(bs, c(NULL, "mrf")) |
+               identical(bs, c("re", "mrf"))){ # If mrf specified, provide the matrix
 
       if (identical(bs, c(NULL, "mrf"))) bs <- c("re", "mrf")
 
