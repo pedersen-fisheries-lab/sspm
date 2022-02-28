@@ -27,7 +27,7 @@ setGeneric(name = "smooth_time",
                           type = "ICAR",
                           k = NULL,
                           bs = "re",
-                          xt = list(),
+                          xt = NA,
                           is_spm = FALSE,
                           ...) {
              standardGeneric("smooth_time")
@@ -57,10 +57,9 @@ setGeneric(name = "smooth_space_time",
                           boundaries,
                           time,
                           type = "ICAR",
-                          k = NULL,
+                          k = c(NA, 30),
                           bs = c("re", "mrf"),
-                          xt = list(time = NULL,
-                                    space = NULL),
+                          xt = list(NA, NULL),
                           is_spm = FALSE,
                           ...) {
              standardGeneric("smooth_space_time")

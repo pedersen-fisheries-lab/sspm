@@ -18,12 +18,11 @@ ICAR <- function(data_frame, boundaries, time, dimension,
 
   # ---- TIME ----
   time_levels <- levels(data_frame[[time]])
-  n_time_levels = as.numeric(length(time_levels))
 
   # ---- SPACE ----
   # Here we assume the hardcoded convention that the patch column is patch_id
   # (from the discretization)
-  space_id <- "patch_id"
+  space <- "patch_id"
   patches <- spm_patches(boundaries)
 
   # Setup done ----
@@ -36,7 +35,7 @@ ICAR <- function(data_frame, boundaries, time, dimension,
 
     out <- list(str2lang(time))
 
-    ret <- ICAR_s_time(bs, xt, vars, k, n_time_levels)
+    ret <- ICAR_s_time(time_levels, bs, xt, vars, k, is_spm)
     k <- ret$k
     bs <- ret$bs
     xt <- ret$xt
@@ -45,9 +44,9 @@ ICAR <- function(data_frame, boundaries, time, dimension,
 
   } else if (dimension == "space") {
 
-    out <- list(str2lang(space_id))
+    out <- list(str2lang(space))
 
-    ret <- ICAR_s_space(bs, xt, vars, k, is_spm)
+    ret <- ICAR_s_space(patches, space, bs, xt, vars, k, is_spm)
     k <- ret$k
     bs <- ret$bs
     xt <- ret$xt
@@ -58,27 +57,27 @@ ICAR <- function(data_frame, boundaries, time, dimension,
 
     out <- list(str2lang(time), str2lang(space))
 
-    ret <- ICAR_s_space_time(????)
-
-
-
-    xt_list <- list(xt = list(list(penalty = rlang::expr(pen_mat_time)),
-                              list(penalty = rlang::expr(pen_mat_space))))
+    ret <- ICAR_s_space_time(patches, space, time_levels, bs, xt, vars, k, is_spm)
+    k <- ret$k
+    bs <- ret$bs
+    xt <- ret$xt
+    vars <- ret$vars
+    xt_list <- ret$xt_list
     names(xt_list$xt) <- c(time, space)
 
   }
 
+  return(list(args = do.call(c,
+                             args = list(out,
+                                         list(k = k, bs = bs),
+                                         xt_list,
+                                         args_list)),
+              vars = vars))
 }
 
-return(list(args = do.call(c,
-                           args = list(out,
-                                       list(k = k, bs = bs),
-                                       xt_list,
-                                       args_list)),
-            vars = vars))
-}
+ICAR_s_time <- function(time_levels, bs, xt, vars, k, is_spm){
 
-ICAR_s_time <- function(bs, xt, vars, k, n_time_levels){
+  n_time_levels <- as.numeric(length(time_levels))
 
   if (is.null(k)) {
     if (!is_spm) {
@@ -100,6 +99,10 @@ ICAR_s_time <- function(bs, xt, vars, k, n_time_levels){
       xt_list <- NULL
 
     } else {
+
+      if(is.na(xt)){
+        xt <- list()
+      }
 
       checkmate::assert_list(xt)
 
@@ -145,7 +148,7 @@ ICAR_s_time <- function(bs, xt, vars, k, n_time_levels){
   return(list(k = k, bs = bs, xt = xt, vars = vars, xt_list = xt_list))
 }
 
-ICAR_s_space <- function(bs, xt, vars, k, is_spm){
+ICAR_s_space <- function(patches, space, bs, xt, vars, k, is_spm){
 
   if (is.null(k)) {
     if (!is_spm) {
@@ -182,12 +185,35 @@ ICAR_s_space <- function(bs, xt, vars, k, is_spm){
   return(list(k = k, bs = bs, xt = xt, vars = vars, xt_list = xt_list))
 }
 
-ICAR_s_space_time <- function(bs, xt, vars, k, n_time_levels, is_spm){
+ICAR_s_space_time <- function(patches, space, time_levels, bs, xt, vars, k, is_spm){
 
-  # TODO add checks on bs, xt, k dimensions ?
+  if (length(xt) == 0){
+    xt <- list(NULL, NULL)
+  }
 
-  ret_time <- ICAR_s_time(bs[1], xt[1], vars, k[1], n_time_levels)
-  ret_space <- ICAR_s_space(bs[2], xt[2], vars, k[2], is_spm)
+  checkmate::assert_true(length(bs) == 2)
+  checkmate::assert_true(length(xt) == 2)
+  checkmate::assert_true(length(k) == 2)
+
+  ret_time <- ICAR_s_time(time_levels, bs[1], xt[[1]], vars, k[1], is_spm)
+  ret_space <- ICAR_s_space(patches, space, bs[2], xt[[2]], vars, k[2], is_spm)
+
+  bs <- c(ret_time$bs, ret_space$bs)
+  vars <- c(ret_time$vars, ret_space$vars)
+  k <- c(ret_time$k, ret_space$k)
+  xt <- list(ret_time$xt, ret_space$xt)
+
+  xt_list <- list(xt = list(ret_time$xt_list, ret_space$xt_list))
+
+  if(!is.null(xt_list$xt[[1]])){
+    xt_list$xt[[1]] <- list(penalty = rlang::expr(pen_mat_time))
+  }
+
+  if(!is.null(xt_list$xt[[2]])){
+    xt_list$xt[[2]] <- list(penalty = rlang::expr(pen_mat_space))
+  }
+
+  return(list(k = k, bs = bs, xt = xt, vars = vars, xt_list = xt_list))
 
 }
 
