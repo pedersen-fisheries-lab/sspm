@@ -133,16 +133,14 @@ spm_points(bounds_voronoi)
 
 ```{r}
 biomass_smooth <- biomass_dataset %>%  
-  spm_smooth(weight_per_km2 ~ sfa + smooth_time(by=sfa, xt = list()) + 
+  spm_smooth(weight_per_km2 ~ sfa + smooth_time(by = sfa) + 
                smooth_space() + 
-               smooth_space_time(bs = c(NULL, "mrf"), 
-                                 k = c(NA, 30)),
+               smooth_space_time(),
              boundaries = bounds_voronoi, 
-             family=tw) %>% 
-  spm_smooth(temp_at_bottom ~ smooth_time(by=sfa, xt = list()) + 
+             family=tw)%>% 
+  spm_smooth(temp_at_bottom ~ smooth_time(by=sfa, xt = NULL) +
                smooth_space() +
-               smooth_space_time(bs = c(NULL, "mrf"),
-                                 k = c(NA, 30)),
+               smooth_space_time(xt = NULL),
              family=gaussian)
 
 biomass_smooth
