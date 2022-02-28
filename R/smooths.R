@@ -222,7 +222,7 @@ ICAR <- function(data_frame, boundaries, time, dimension,
   # Here we assume the hardcoded convention that the patch column is patch_id
   # (from the discretization)
   space <- "patch_id"
-  patches <- boundaries@patches
+  patches <- spm_patches(boundaries)
 
   # Setup done ----
   vars <- list()
