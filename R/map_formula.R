@@ -127,10 +127,10 @@ find_special_terms <- function(the_labels){
   space_detect <- simple_str_detect(the_labels, "smooth_space(")
   space_time_detect <- simple_str_detect(the_labels, "smooth_space_time(")
 
-  if((any(time_detect) | any(space_detect)) & any(space_time_detect)) {
-    cli::cli_alert_warning(paste0("smooth_space_time should not be combined ",
-                                  "with calls to smooth_space or smooth_time"))
-  }
+  # if((any(time_detect) | any(space_detect)) & any(space_time_detect)) {
+  #   cli::cli_alert_warning(paste0("smooth_space_time should not be combined ",
+  #                                 "with calls to smooth_space or smooth_time"))
+  # }
 
   return(lag_detect | time_detect | space_detect | space_time_detect)
 }
