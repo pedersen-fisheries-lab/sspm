@@ -18,7 +18,7 @@ smooth_time(
   type = "ICAR",
   k = NULL,
   bs = "re",
-  xt = NULL,
+  xt = NA,
   is_spm = FALSE,
   ...
 )
@@ -40,9 +40,9 @@ smooth_space_time(
   boundaries,
   time,
   type = "ICAR",
-  k = NULL,
+  k = c(NA, 30),
   bs = c("re", "mrf"),
-  xt = NULL,
+  xt = list(NA, NULL),
   is_spm = FALSE,
   ...
 )
@@ -65,7 +65,7 @@ smooth_lag(
   type = "ICAR",
   k = NULL,
   bs = "re",
-  xt = NULL,
+  xt = NA,
   is_spm = FALSE,
   ...
 )
@@ -87,9 +87,9 @@ smooth_lag(
   boundaries,
   time,
   type = "ICAR",
-  k = NULL,
+  k = c(NA, 30),
   bs = c("re", "mrf"),
-  xt = NULL,
+  xt = list(NA, NULL),
   is_spm = FALSE,
   ...
 )

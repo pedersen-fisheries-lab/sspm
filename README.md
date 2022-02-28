@@ -242,16 +242,18 @@ spm_points(bounds_voronoi)
 
 ``` r
 biomass_smooth <- biomass_dataset %>%  
-  spm_smooth(weight_per_km2 ~ sfa + smooth_time(by=sfa) + smooth_space() + 
-               smooth_space_time(k = c(NA, 30)),
+  spm_smooth(weight_per_km2 ~ sfa + smooth_time(by = sfa) + 
+               smooth_space() + 
+               smooth_space_time(),
              boundaries = bounds_voronoi, 
-             family=tw) %>% 
-  spm_smooth(temp_at_bottom ~ smooth_time(by=sfa) + smooth_space() +
-               smooth_space_time(k = c(NA, 30)),
+             family=tw)%>% 
+  spm_smooth(temp_at_bottom ~ smooth_time(by=sfa, xt = NULL) +
+               smooth_space() +
+               smooth_space_time(xt = NULL),
              family=gaussian)
-#> ℹ  Fitting formula: weight_per_km2 ~ sfa + smooth_time(by = sfa) + smooth_space() + smooth_space_time(k = c(NA, 30)) for dataset 'borealis'
+#> ℹ  Fitting formula: weight_per_km2 ~ sfa + smooth_time(by = sfa) + smooth_space() + smooth_space_time() for dataset 'borealis'
 #> ℹ  Note:  response variable temp_at_bottom is NOT a biomass density variable
-#> ℹ  Fitting formula: temp_at_bottom ~ smooth_time(by = sfa) + smooth_space() + smooth_space_time(k = c(NA, 30)) for dataset 'borealis'
+#> ℹ  Fitting formula: temp_at_bottom ~ smooth_time(by = sfa, xt = NULL) + smooth_space() + smooth_space_time(xt = NULL) for dataset 'borealis'
 
 biomass_smooth
 #> 
@@ -267,7 +269,7 @@ biomass_smooth
     vars” above) can be easily plotted:
 
 ``` r
-plot(biomass_smooth, var = "weight_per_km2", log = FALSE, aggregate = T)
+plot(biomass_smooth, var = "weight_per_km2", log = FALSE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-12-1.png" width="100%" /> You
@@ -283,10 +285,10 @@ plot(biomass_smooth, var = "weight_per_km2", use_sf = TRUE)
 
 ``` r
 predator_smooth <- predator_dataset %>%  
-  spm_smooth(weight_per_km2 ~ smooth_time(k = 3) + smooth_space(),
+  spm_smooth(weight_per_km2 ~ smooth_time() + smooth_space(),
              boundaries = bounds_voronoi,
              drop.unused.levels = F, family=tw, method= "fREML")
-#> ℹ  Fitting formula: weight_per_km2 ~ smooth_time(k = 3) + smooth_space() for dataset 'all_predators'
+#> ℹ  Fitting formula: weight_per_km2 ~ smooth_time() + smooth_space() for dataset 'all_predators'
 
 predator_smooth
 #> 
