@@ -122,14 +122,10 @@ modify_call <- function(the_call, args) {
 # term that is a custom smooth_function implemented in this package
 find_special_terms <- function(the_labels){
 
-  lag_detect <- sapply(the_labels, grepl,
-                       pattern = "smooth_lag(", fixed = TRUE)
-  time_detect <- sapply(the_labels, grepl,
-                        pattern = "smooth_time(", fixed = TRUE)
-  space_detect <- sapply(the_labels, grepl,
-                         pattern = "smooth_space(", fixed = TRUE)
-  space_time_detect <- sapply(the_labels, grepl,
-                              pattern = "smooth_space_time(", fixed = TRUE)
+  lag_detect <- simple_str_detect(the_labels, "smooth_lag(")
+  time_detect <- simple_str_detect(the_labels, "smooth_time(")
+  space_detect <- simple_str_detect(the_labels, "smooth_space(")
+  space_time_detect <- simple_str_detect(the_labels, "smooth_space_time(")
 
   if((any(time_detect) | any(space_detect)) & any(space_time_detect)) {
     cli::cli_alert_warning(paste0("smooth_space_time should not be combined ",
@@ -137,4 +133,10 @@ find_special_terms <- function(the_labels){
   }
 
   return(lag_detect | time_detect | space_detect | space_time_detect)
+}
+
+# Simple implementation of string detection on a vector for our purposes
+simple_str_detect <- function(labs, pat){
+  sapply(labs, grepl,
+         pattern = pat, fixed = TRUE)
 }
