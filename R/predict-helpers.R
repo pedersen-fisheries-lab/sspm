@@ -77,26 +77,33 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
 
   } else { # Or not
 
-    biomass_vec <- smoothed_data[[biomass]]
-
     preds <- predict(object)
 
-    biomass_density_with_catch <- preds$pred * biomass_vec
-    catch_density <- spm_smoothed_data(object)$catch_density
-    biomass_pred <- biomass_density_with_catch - catch_density
+    preds_df <- smoothed_data %>%
+      dplyr::select(.data[[time_col]], .data$patch_id, .data[[biomass]],
+                    .data$catch_density, .data[[bounds_col]]) %>%
+      dplyr::left_join(sf::st_drop_geometry(preds),
+                       by = c(dplyr::all_of(c(time_col, bounds_col)), "patch_id")) %>%
+      dplyr::arrange(.data$patch_id, .data[[time_col]]) %>%
+      dplyr::group_by(.data$patch_id, .data[[bounds_col]]) %>%
 
-    pred_subset <- dplyr::select(preds, -.data$pred, -.data$pred_log) %>%
-      dplyr::relocate(.data[[patch_area_col]], .before = "geometry")
+      dplyr::mutate(biomass_density_with_catch =
+                      .data$pred * dplyr::lag(.data[[biomass]])) %>%
+      dplyr::mutate(biomass_density = .data$biomass_density_with_catch -
+                      .data$catch_density) %>%
 
-    # TODO better check CRS
-    preds_df <- pred_subset %>%
-      cbind(data.frame(biomass_density_with_catch = biomass_density_with_catch,
-                       biomass_density =  biomass_pred)) %>%
+      dplyr::ungroup() %>%
+
+      dplyr::select(-.data$pred, -.data$pred_log, -.data[[biomass]],
+                    -.data$catch_density) %>%
+      dplyr::relocate(.data[[patch_area_col]], .before = "geometry") %>%
+
       dplyr::mutate(biomass_with_catch = .data$biomass_density_with_catch *
                       .data[[patch_area_col]],
                     biomass = .data$biomass_density *
                       .data[[patch_area_col]]) %>%
       dplyr::relocate(.data$biomass_with_catch, .data$biomass,
+                      .data$biomass_density_with_catch, .data$biomass_density,
                       .before = "geometry") %>%
       sf::st_as_sf()
 
