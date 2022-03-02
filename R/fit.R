@@ -207,16 +207,3 @@ process_formula_vars <- function(vars, the_data, select = TRUE) {
 
   return(vars)
 }
-
-# Remove the units on vars
-remove_units <- function(dat_list){
-  browser()
-  ret <- lapply(dat_list, function(x){
-    if (is.numeric(x)){
-      as.numeric(x)
-    } else {
-      x
-    }
-  })
-  return(ret)
-}
