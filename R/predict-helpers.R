@@ -10,7 +10,8 @@ predict_productivity <- function(object, new_data, type, interval){
   bounds_col <- spm_boundary(bounds)
   patch_area_col <- spm_patches_area(bounds)
   object_fit <- spm_get_fit(object)
-  smoothed_data <- spm_smoothed_data(object)
+  smoothed_data <- spm_smoothed_data(object) %>%
+    dplyr::arrange(.data$patch_id, .data[[time_col]])
 
   # Predict with mgcv
   pred_log <- object_fit %>%
@@ -52,7 +53,8 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
   patch_area_col <- spm_patches_area(bounds)
   object_fit <- spm_get_fit(object)
   patches <- spm_patches(bounds)
-  smoothed_data <- spm_smoothed_data(object)
+  smoothed_data <- spm_smoothed_data(object) %>%
+    dplyr::arrange(.data$patch_id, .data[[time_col]])
 
   # Verify that the biomass column character is present in the data
   checkmate::assert_class(biomass, "character")
@@ -84,7 +86,6 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
                     .data$catch_density, .data[[bounds_col]]) %>%
       dplyr::left_join(sf::st_drop_geometry(preds),
                        by = c(dplyr::all_of(c(time_col, bounds_col)), "patch_id")) %>%
-      dplyr::arrange(.data$patch_id, .data[[time_col]]) %>%
       dplyr::group_by(.data$patch_id, .data[[bounds_col]]) %>%
 
       dplyr::mutate(biomass_density_with_catch =
