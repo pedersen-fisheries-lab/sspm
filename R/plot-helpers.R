@@ -15,11 +15,11 @@ plot_train_test <- function(x, scales){
   # TRAIN / TEST pairs plot
   sspm_discrete_plot <-
     ggplot2::ggplot(data = smoothed_data_with_preds) +
-    ggplot2::geom_point(ggplot2::aes(x = exp(.data[[response]]),
-                                     y = .data$predicted,
+    ggplot2::geom_point(ggplot2::aes(y = exp(.data[[response]]),
+                                     x = .data$predicted,
                                      col = .data$color)) +
     ggplot2::theme_light() +
-    ggplot2::labs(x = "actual") +
+    ggplot2::labs(y = "observed", x = "predicted") +
     ggplot2::scale_color_viridis_d("Set") +
     ggplot2::facet_wrap(~.data[[spm_boundary(x)]],
                         scales = scales) +
