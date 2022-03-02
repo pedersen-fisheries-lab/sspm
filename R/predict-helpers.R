@@ -39,6 +39,8 @@ predict_productivity <- function(object, new_data, type, interval){
   preds_df <- cbind(preds_df, columns_to_keep)  %>%
     sf::st_as_sf() # TODO verify CRS
 
+  return(preds_df)
+
 }
 
 # -------------------------------------------------------------------------
