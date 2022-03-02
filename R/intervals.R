@@ -43,7 +43,8 @@ predict_intervals <- function(object_fit, new_data, n = 1000,
 NULL
 
 predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_col,
-                                      new_data, biomass, patch_area_col, next_ts){
+                                      new_data, biomass, patch_area_col, next_ts,
+                                      bounds_col){
 
   if (next_ts){
 
@@ -100,27 +101,36 @@ predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_c
     # Bind all
     CI_df <- smoothed_data %>%
       sf::st_drop_geometry() %>%
-      dplyr::select(.data[[biomass]],
-                    .data[[patch_area_col]]) %>%
+      dplyr::select(.data[[biomass]], .data$patch_id, .data[[time_col]],
+                    .data[[bounds_col]], .data[[patch_area_col]]) %>%
+
+      dplyr::bind_cols(CI_df_prod) %>%
+
+      dplyr::arrange(.data$patch_id, .data[[time_col]]) %>%
+      dplyr::group_by(.data$patch_id, .data[[bounds_col]]) %>%
       dplyr::mutate(
 
         # CI
         biomass_density_with_catch_lower =
-          .data[[biomass]] * CI_df_prod$CI_lower,
+          dplyr::lag(.data[[biomass]]) * .data$CI_lower,
         biomass_density_with_catch_upper =
-          .data[[biomass]] * CI_df_prod$CI_upper,
+          dplyr::lag(.data[[biomass]]) * .data$CI_upper,
 
-        biomass_density_lower = .data$biomass_density_with_catch_lower -
+        # PI
+        biomass_density_with_catch_lower_P =
+          dplyr::lag(.data[[biomass]]) * .data$PI_lower,
+        biomass_density_with_catch_upper_P =
+          dplyr::lag(.data[[biomass]]) * .data$PI_upper) %>%
+
+      dplyr::ungroup() %>%
+
+      # CI
+      dplyr::mutate(biomass_density_lower = .data$biomass_density_with_catch_lower -
           dplyr::all_of(catch_density),
         biomass_density_upper = .data$biomass_density_with_catch_upper -
           dplyr::all_of(catch_density),
 
         # PI
-        biomass_density_with_catch_lower_P =
-          .data[[biomass]] * CI_df_prod$PI_lower,
-        biomass_density_with_catch_upper_P =
-          .data[[biomass]] * CI_df_prod$PI_upper,
-
         biomass_density_lower_P = .data$biomass_density_with_catch_lower_P -
           dplyr::all_of(catch_density),
         biomass_density_upper_P = .data$biomass_density_with_catch_upper_P -
@@ -143,6 +153,8 @@ predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_c
           .data[[patch_area_col]],
         PI_upper = .data$biomass_density_upper_P *
           .data[[patch_area_col]]) %>%
+
+      dplyr::ungroup() %>%
 
       dplyr::select(.data$CI_lower, .data$CI_upper,
                     .data$PI_lower, .data$PI_upper)

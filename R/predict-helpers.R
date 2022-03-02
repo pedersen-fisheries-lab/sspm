@@ -70,7 +70,7 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
 
       CI_df <- predict_biomass_intervals(object_fit, patches, smoothed_data, time_col,
                                          next_ts_params$new_data, biomass, patch_area_col,
-                                         next_ts = TRUE)
+                                         next_ts = TRUE, bounds_col)
 
       preds_df <- preds_df %>%
         dplyr::bind_cols(CI_df)
@@ -112,7 +112,7 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
 
       CI_df <- predict_biomass_intervals(object_fit, patches, smoothed_data, time_col,
                                          new_data, biomass, patch_area_col,
-                                         next_ts = FALSE)
+                                         next_ts = FALSE, bounds_col)
 
       preds_df <- preds_df %>%
         dplyr::bind_cols(CI_df)
