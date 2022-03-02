@@ -148,7 +148,7 @@ setMethod(f = "fit_spm",
 
             # Here we fit the full spm
             # Get train dataset
-            all_data <- spm_smoothed_data(sspm_object)
+            all_data <- units::drop_units(spm_smoothed_data(sspm_object))
             the_data <- all_data %>%
               dplyr::filter(.data$train_test == TRUE)
 
@@ -206,4 +206,17 @@ process_formula_vars <- function(vars, the_data, select = TRUE) {
   }
 
   return(vars)
+}
+
+# Remove the units on vars
+remove_units <- function(dat_list){
+  browser()
+  ret <- lapply(dat_list, function(x){
+    if (is.numeric(x)){
+      as.numeric(x)
+    } else {
+      x
+    }
+  })
+  return(ret)
 }
