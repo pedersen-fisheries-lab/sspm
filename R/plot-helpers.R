@@ -36,7 +36,7 @@ plot_productivity <- function(x, aggregate, interval, use_sf, page, nrow, ncol,
                               log, scales){
 
   boundary_col <- spm_boundary(x)
-  resp <- spm_response(spm_formulas(sspm_model_fit))
+  resp <- spm_response(spm_formulas(x))
 
   prod_preds <- predict(x, aggregate = aggregate,
                         interval = interval) %>%
