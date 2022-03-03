@@ -206,11 +206,11 @@ ICAR_s_space_time <- function(patches, space, time_levels, bs, xt, vars, k, is_s
   xt_list <- list(xt = list(ret_time$xt_list, ret_space$xt_list))
 
   if(!is.null(xt_list$xt[[1]])){
-    xt_list$xt[[1]] <- list(penalty = rlang::expr(pen_mat_time))
+    xt_list$xt[[1]] <- list(penalty = str2lang("pen_mat_time"))
   }
 
   if(!is.null(xt_list$xt[[2]])){
-    xt_list$xt[[2]] <- list(penalty = rlang::expr(pen_mat_space))
+    xt_list$xt[[2]] <- list(penalty = str2lang("pen_mat_space"))
   }
 
   return(list(k = k, bs = bs, xt = xt, vars = vars, xt_list = xt_list))
