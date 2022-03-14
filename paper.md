@@ -54,7 +54,7 @@ The GAM biomass estimates are consistent with those of the current tool in use f
 
 # Package design
 
-![The sspm workflow.\label{fig:workflow}](figures/flowchart.png){ width=90% }
+![The sspm workflow.\label{fig:workflow}](figures/flowchart.png)<!--{ width=90% }-->
 
 # Application to simulated data
 
