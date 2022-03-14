@@ -22,7 +22,7 @@ bibliography: paper.bib
 
 # Abstract
 
-Spatial Surplus Production Models (SSPMs) are spatially explicit models of fisheries productivity designed to inform stock management. Like other fisheries management tools, such models can be technically convoluted and their deployment is often limited by code availability, quality and accessibility. We present the R package sspm, a flexible framework aimed at making SSPMs easier for managers to apply in the context of the Northern Shrimp (*Pandalus borealis*) fisheries. Although one of the most economically important stocks in Canadian waters, the Northern Shrimp in shrimp fishing areas (SFAs) 4 to 6 currently lack a population model to predict how fishing pressure and changing environmental conditions may affect future shrimp abundance. To fill this gap, we developed a lag-1 autoregressive SSPM that included predictors such as Atlantic Cod (*Gadus morhua*) density, alternate predator density, temperature, and Northern Shrimp biomass. This model was later adapted into the sspm package. We will show how the model design is effectively abstracted by the package design and further demonstrate how the package can be easily used by managers to forecast fisheries productivity under different management regimes. Finally we will discuss choices in the design of the user interface and reflect on best practices when it comes to adapting research code into management tools.
+Productivity models such as Surplus Production Models (SPMs) models can be used to inform stock management of fisheries. However, those models often share three main flaws: (1) they are usually not spatially explicit, (2) fail to incorporate ecosystem predictors and therefore are ill-suited to ecosystem-based management of stocks, and (3) their deployment is often limited by code availability, quality and accessibility. To fill this gap, we developed a lag-1 autoregressive SSPM based on Generalized Additive Models (GAMs), broadly applicable to spatially-structured populations, and bundled into an R package. We applied this model to one of the most economically important invertebrate populations in Canadian waters, Northern Shrimp (Pandalus borealis) in the Newfoundland and Labrador Shelves. This stock currently lacks a population model to predict how fishing pressure and changing environmental conditions may affect future shrimp abundance in the region. Our model incorporates relevant ecosystem predictors for this stock, such as Atlantic Cod (Gadus morhua) density, alternate predator density, temperature, and stock biomass. In addition, the model is deployed through the R package sspm, a flexible framework aimed at making SSPMs easier to apply to spatially structured populations. The package allows for a repeatable and open workflow and improves the accessibility of SSPMs.
 
 # Summary
 
@@ -30,15 +30,34 @@ TBD
 
 # Statement of need
 
-TBD
+1. The Northern Shrimp stock in the Newfoundland and Labrador Shelves currently lacks a population model
+2. Current SPM models are rarely spatially explicit and isually cannot account for relevent ecosystem drivers
+3. Fisheries managers lack user-friendly, flexible tools to implement and apply Spatial SPMs
 
 # Introduction
 
-TBD
+(1) Modelling spatially-structured populations => of interest
+(2) Especially of interest by fisheries models
+(3) Process based models vs statistical models 
+(4) SPM models => but still lack ability to go about uncertainty
+(5) In this paper, we develop a model...
+(6) We apply this model to the Shrimp Fishery (some background)
+(7) We make this tool flexible and user-friendly: This is an R package
+
+# Model
+
+Rho => varying prod => covariance matrix => precision => basis functions and Gams
+
+# Results
+
+The GAM biomass estimates are consistent with those of the current tool in use for the assessment of the stock, Ogmap, and provide valuable insights about the drivers of the rapid increase and decline of shrimp in the southern end of the shelf. Our approach demonstrates the model’s ability to become a useful tool for modelling spatially-structured populations like fisheries stocks. The sspm package successfully modularizes each step of the modelling process and implements a range of useful features for modeling spatially-structured populations: spatial discretization, simplified GAM syntax, prediction intervals and scenario based forecasts for longer-term trends. In a fisheries context, It illustrates how our model can be easily used by managers to forecast fisheries productivity under different management regimes. The package is also a tool to think about design choices when conceiving a user interface for managers and on best practices when it comes to adapting research code into management tools. Finally, our approach demonstrates how open source software tools can improve the accessibility and reliability of models for fisheries management.
 
 # Package design
 
-TBD
+TBD => need a graph
+![The sspm workflow.\label{fig:workflow}](figures/flowchart.svg)
+
+# Application to simulated data
 
 # Citations
 
