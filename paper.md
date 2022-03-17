@@ -36,13 +36,21 @@ TBD
 
 # Introduction
 
-(1) Modelling spatially-structured populations => of interest
-(2) Especially of interest by fisheries models
-(3) Process based models vs statistical models 
-(4) SPM models => but still lack ability to go about uncertainty
-(5) In this paper, we develop a model...
-(6) We apply this model to the Shrimp Fishery (some background)
-(7) We make this tool flexible and user-friendly: This is an R package
+Population modelling is an exercise of interest within environmental sciences and adjacent fields. From early models that addressed simple dynamics such as exponential growth and density dependence, modern models are now ackowledging the non-stationary nature of wild populations. In addition, population models applied to resource management, such as fisheries models, are incresaingly concerned with how stocks varies accross time and space. Resource managers are becoming more and more interested in how ecosystem factors such as predator abundance and the abiotic varaibles impact the spatial structure of mechanisms like productivity and density dependence. Althought the non-statitionnaity of a wide range of populations has been demonstrated and established, and despite the push for more "ecosystem based management" methods in fisheries management, efforts to include spatial dynamics in fisheries models are rare.
+
+One family of population models that rarely account for spatial structure is the family of surplus production models (SPMs). 
+
+$$B_{t+1} = g(b_{t}) * e^{\epsilon}$$
+
+Population models in fisheries science usually fall under two categories: process-based models and statistical models. Process based models often rely on differential equations and are based on replicating the underlying processes (predation, recruitment, dispersal) behind popupaltion dynamics. Statistical models, on the other hand, rely on fitting a model to data using distributionnal assumptions, and present the advantage of naturally measuring uncertainty around predictions. This is useful in a management context where uncertainty around decision-making is an important information to have on hand.
+
+In this paper...
+
+We apply...
+
+We make it flexible and user friendly...
+
+![Northward shift of weighted centroid of biomass trawled.\label{fig:shift}](figures/shift.png)
 
 # Model
 
