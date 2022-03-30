@@ -22,37 +22,47 @@ bibliography: paper.bib
 
 # Abstract
 
-Productivity models such as Surplus Production Models (SPMs) models can be used to inform stock management of fisheries. However, those models often share three main flaws: (1) they are usually not spatially explicit, (2) fail to incorporate ecosystem predictors and therefore are ill-suited to ecosystem-based management of stocks, and (3) their deployment is often limited by code availability, quality and accessibility. To fill this gap, we developed a lag-1 autoregressive SSPM based on Generalized Additive Models (GAMs), broadly applicable to spatially-structured populations, and bundled into an R package. We applied this model to one of the most economically important invertebrate populations in Canadian waters, Northern Shrimp (Pandalus borealis) in the Newfoundland and Labrador Shelves. This stock currently lacks a population model to predict how fishing pressure and changing environmental conditions may affect future shrimp abundance in the region. Our model incorporates relevant ecosystem predictors for this stock, such as Atlantic Cod (Gadus morhua) density, alternate predator density, temperature, and stock biomass. In addition, the model is deployed through the R package sspm, a flexible framework aimed at making SSPMs easier to apply to spatially structured populations. The package allows for a repeatable and open workflow and improves the accessibility of SSPMs.
+Productivity models such as Surplus Production Models (SPMs) models can be used to inform stock management of fisheries. However, those models often share three main flaws: (1) they are usually not spatially explicit, (2) fail to incorporate ecosystem predictors and therefore are ill-suited to ecosystem-based management of stocks, and (3) their deployment is often limited by code availability, quality and accessibility. To fill this gap, we developed a lag-1 autoregressive spatial SPM based on Generalized Additive Models (GAMs), broadly applicable to spatially-structured populations, and bundled into an R package. We applied this model to one of the most economically important invertebrate populations in Canadian waters, Northern Shrimp (Pandalus borealis) in the Newfoundland and Labrador Shelves. This stock currently lacks a population model to predict how fishing pressure and changing environmental conditions may affect future shrimp abundance in the region. Our model incorporates relevant ecosystem predictors for this stock, such as Atlantic Cod (Gadus morhua) density, alternate predator density, temperature, and stock biomass. In addition, the model is deployed through the R package sspm, a flexible framework aimed at making SSPMs easier to apply to spatially structured populations. The package allows for a repeatable and open workflow and improves the accessibility of SSPMs.
 
 # Summary
 
-TBD
+The R package sspm is designed to make spatially-explicit surplus production models more applicable. The package uses Generalized Additive Models (GAMs) to fit a surplus production model to biomass and harvest data. The package includes a range of features to manage biomass and harvest data. Those features are organise in a stepwise workflow:
+
+1. Ingestion of variables as well as spatial boundaries and discretization into patches, using the user's method of choice (random or custom sampling, voroinoi tesselation or delaunay triangulation).
+2. Smoothing data using spatio-temporal GAMs smoothers.
+3. Computation of productivity values taking into account harvest information.
+4. Fitting of SPMs to smoothed data with GAMs.
+5. Visualization of results, including confidence and prediction intervals.
+6. One step ahead prediction of biomass.
+
+Although it was developed in a fisheries context, the package is suitable to model spatially-structured population dynamics in general.
 
 # Statement of need
 
-1. The Northern Shrimp stock in the Newfoundland and Labrador Shelves currently lacks a population model
-2. Current SPM models are rarely spatially explicit and isually cannot account for relevent ecosystem drivers
-3. Fisheries managers lack user-friendly, flexible tools to implement and apply Spatial SPMs
+1. Population models, in particular fisheries productivity models, rarely integrates important spatially-structured ecosystem drivers
+2. The Northern Shrimp stock in the Newfoundland and Labrador Shelves currently lacks a population model 
+3. Current SPM models are rarely spatially explicit and isually cannot account for relevent ecosystem drivers
+4. Fisheries managers lack user-friendly, flexible tools to implement and apply Spatial SPMs
 
 # Introduction
 
-Population modelling is an exercise of interest within environmental sciences and adjacent fields. From early models that addressed simple dynamics such as exponential growth and density dependence, modern models are now ackowledging the non-stationary nature of wild populations. In addition, population models applied to resource management, such as fisheries models, are incresaingly concerned with how stocks varies accross time and space. Resource managers are becoming more and more interested in how ecosystem factors such as predator abundance and the abiotic varaibles impact the spatial structure of mechanisms like productivity and density dependence. Althought the non-statitionnaity of a wide range of populations has been demonstrated and established, and despite the push for more "ecosystem based management" methods in fisheries management, efforts to include spatial dynamics in fisheries models are rare.
+Population modelling is an exercise of interest within environmental sciences and adjacent fields. From early models that addressed simple dynamics such as exponential growth and density dependence, modern models are now ackowledging the non-stationary nature of wild populations. In addition, population models applied to resource management, such as fisheries models, are incresaingly concerned with how stocks varies accross time and space. Resource managers are becoming more and more interested in how ecosystem factors such as predator abundance or abiotic varaibles impact the spatio-temporal variablibity of mechanisms like productivity and density dependence. 
 
-One family of population models that rarely account for spatial structure is the family of surplus production models (SPMs). 
-
-$$B_{t+1} = g(b_{t}) * e^{\epsilon}$$
+Althought the non-statitionnaity of a wide range of populations has been demonstrated and established, and despite the push for more ecosystem-based management methods in fisheries management, efforts to include spatial dynamics and ecosystem variables in fisheries models are rare. One family of population models that rarely account for spatial structure is the family of Surplus production models (SPMs). SPMs are well-established tools for single-stock modelling. They usually assume spatially constant productivity. This assumption is a strong limitation in the context of the current global changes that are affecting fisheries, such as climate change. The global warming of waters is already having an impact on the spatial structure of stocks, as evidenced by the consistant northward shift of the northern Shrimp biomass (figure 1). In this context, fisheries producvity is likely to be a mobing target, and managers are in need for better methods that account for varying productivity
 
 Population models in fisheries science usually fall under two categories: process-based models and statistical models. Process based models often rely on differential equations and are based on replicating the underlying processes (predation, recruitment, dispersal) behind popupaltion dynamics. Statistical models, on the other hand, rely on fitting a model to data using distributionnal assumptions, and present the advantage of naturally measuring uncertainty around predictions. This is useful in a management context where uncertainty around decision-making is an important information to have on hand.
 
-In this paper...
-
-We apply...
-
-We make it flexible and user friendly...
+In this paper, we implement a statistical model for the population of northern shrimp of the Newfoundland and Labrador Shelves that accounts for varying productivity accross time and space. The model is implemented via a R package designed for this type ps spatial surplus productivity modelling, the sspm package. We exemplify how to successfully implement a spatial model with sspm and discuss the applicability of the framework to the other spatially structured populations.
 
 ![Northward shift of weighted centroid of biomass trawled.\label{fig:shift}](figures/shift.png)
 
 # Model
+
+Surplus production models (SPMs), are simply defined as such:
+
+$$b_{t+1} = g(b_{t}) * e^{\epsilon}$$
+
+With $b$ the biomass, $e^{\epsilon}$ an eror term, and $g$ a function of the biomass and time which, in the case of fisheries, usually involves some measure of harvest throught by catch.
 
 Rho => varying prod => covariance matrix => precision => basis functions and Gams
 
@@ -68,6 +78,7 @@ The GAM biomass estimates are consistent with those of the current tool in use f
 
 # Citations
 
+<!--
 Citations to entries in paper.bib should be in
 [rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
 format.
@@ -79,18 +90,20 @@ For a quick reference, the following citation commands can be used:
 - `@author:2001`  ->  "Author et al. (2001)"
 - `[@author:2001]` -> "(Author et al., 2001)"
 - `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
+- 
 
-# Figures
-<!--
 Figures can be included like this:
 ![Caption for example figure.\label{fig:example}](figure.png)
 and referenced from text using \autoref{fig:example}.
 
 Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% }-->
+![Caption for example figure.](figure.png){ width=20% }
+-->
 
 # Acknowledgements
 
 TBD
 
 # References
+
+TBD
