@@ -26,7 +26,7 @@ Productivity models such as Surplus Production Models (SPMs) models can be used 
 
 # Summary
 
-The R package sspm is designed to make spatially-explicit surplus production models more applicable. The package uses Generalized Additive Models (GAMs) to fit a surplus production model to biomass and harvest data. The package includes a range of features to manage biomass and harvest data. Those features are organise in a stepwise workflow, whose implementation is described in more detailed in figure 2.
+The R package sspm is designed to make spatially-explicit surplus production models more applicable. The package uses Generalized Additive Models (GAMs) to fit a surplus production model to biomass and harvest data. The package includes a range of features to manage biomass and harvest data. Those features are organise in a stepwise workflow, whose implementation is described in more detailed in (\autoref{fig:workflow}).
 
 1. Ingestion of variables as well as spatial boundaries and discretization into patches, using the user's method of choice (random or custom sampling, voroinoi tesselation or delaunay triangulation).
 2. Smoothing data using spatio-temporal GAMs smoothers.
@@ -54,7 +54,7 @@ Population models in fisheries science usually fall under two categories: proces
 
 In this paper, we implement a statistical model for the population of northern shrimp of the Newfoundland and Labrador Shelves that accounts for varying productivity accross time and space. The model is implemented via a R package designed for this type ps spatial surplus productivity modelling, the sspm package. We exemplify how to successfully implement a spatial model with sspm and discuss the applicability of the framework to the other spatially structured populations.
 
-![Northward shift of weighted centroid of biomass trawled.\label{fig:shift}](figures/shift.png){width=75%}
+<!-- ![Northward shift of weighted centroid of biomass trawled.\label{fig:shift}](figures/shift.png){width=75%} -->
 
 # Model
 
@@ -72,7 +72,7 @@ The GAM biomass estimates are consistent with those of the current tool in use f
 
 # Package design
 
-The package follows an object oriented design, making use of the S4 class systems. (\autoref{fig:workflow})
+The package follows an object oriented design, making use of the S4 class systems.
 
 ![The sspm workflow.\label{fig:workflow}](figures/flowchart.png)<!--{ width=90% }-->
 
