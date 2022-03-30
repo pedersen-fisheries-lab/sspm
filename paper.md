@@ -7,10 +7,10 @@ tags:
   - modelling
   - GAM
 authors:
-  - name: Valentin Lucet^[co-first author] # note this makes a footnote saying 'co-first author'
+  - name: Valentin Lucet^[co-first author]
     orcid: 0000-0003-0268-818X
-    affiliation: 1 # (Multiple affiliations must be quoted)
-  - name: Eric Pedersen^[co-first author] # note this makes a footnote saying 'co-first author'
+    affiliation: 1
+  - name: Eric Pedersen^[co-first author]
     orcid: 0000-0003-1016-540X
     affiliation: 1
 affiliations:
