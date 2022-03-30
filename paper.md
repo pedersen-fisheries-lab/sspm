@@ -74,9 +74,14 @@ The GAM biomass estimates are consistent with those of the current tool in use f
 
 The package follows an object oriented design, making use of the S4 class systems. The different classes in the package work together to produce a stepwise workflow. 
 
-1. The first pillar package's design is the recognition of 3 types of data: **trawl**, **predictors**, and catch (i.e. **harvest**). The first step in the workflow is to ingest the data into *sspm_dataset* objects via the spm_datasent() function.
-2. The second pillar is the concept of boundary data, the spatial polygons that 
+1. The first pillar of the package's design is the concept of boundary data, the spatial polygons that sets the boundary of the spatial model. The boundary data is ingested into a *sspm_boundary* object using the *spm_as_boundary()* function.
+2. The boundary data is then discretized into a *sspm_discrete_boundary* object with the *spm_discretize()* function, dividing the boundary area into discrete patches.
+3. The second pillar is the recognition of 3 types of data: **trawl**, **predictors**, and catch (i.e. **harvest**). The first step in the workflow is to ingest the data into *sspm_dataset* objects via the *spm_as_dataset()* function.
+4. The first proper modelling step is to smooth the biomass and predictors data by combining a *sspm_dataset*, and a *sspm_discrete_boundary*. The user specifies a formula which is described in more details in table 1. 
+5. ...
 
+TODO table 1
+  
 ![The sspm workflow.\label{fig:workflow}](figures/flowchart.png){width=90%}
 
 # Application to simulated data
