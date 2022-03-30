@@ -26,7 +26,7 @@ Productivity models such as Surplus Production Models (SPMs) models can be used 
 
 # Summary
 
-The R package sspm is designed to make spatially-explicit surplus production models more applicable. The package uses Generalized Additive Models (GAMs) to fit a surplus production model to biomass and harvest data. The package includes a range of features to manage biomass and harvest data. Those features are organise in a stepwise workflow:
+The R package sspm is designed to make spatially-explicit surplus production models more applicable. The package uses Generalized Additive Models (GAMs) to fit a surplus production model to biomass and harvest data. The package includes a range of features to manage biomass and harvest data. Those features are organise in a stepwise workflow, whose implementation is described in more detailed in (\autoref{fig:workflow}).
 
 1. Ingestion of variables as well as spatial boundaries and discretization into patches, using the user's method of choice (random or custom sampling, voroinoi tesselation or delaunay triangulation).
 2. Smoothing data using spatio-temporal GAMs smoothers.
@@ -48,7 +48,7 @@ Although it was developed in a fisheries context, the package is suitable to mod
 
 Population modelling is an exercise of interest within environmental sciences and adjacent fields. From early models that addressed simple dynamics such as exponential growth and density dependence, modern models are now ackowledging the non-stationary nature of wild populations. In addition, population models applied to resource management, such as fisheries models, are incresaingly concerned with how stocks varies accross time and space. Resource managers are becoming more and more interested in how ecosystem factors such as predator abundance or abiotic varaibles impact the spatio-temporal variablibity of mechanisms like productivity and density dependence. 
 
-Althought the non-statitionnaity of a wide range of populations has been demonstrated and established, and despite the push for more ecosystem-based management methods in fisheries management, efforts to include spatial dynamics and ecosystem variables in fisheries models are rare. One family of population models that rarely account for spatial structure is the family of Surplus production models (SPMs). SPMs are well-established tools for single-stock modelling. They usually assume spatially constant productivity. This assumption is a strong limitation in the context of the current global changes that are affecting fisheries, such as climate change. The global warming of waters is already having an impact on the spatial structure of stocks, as evidenced by the consistant northward shift of the northern Shrimp biomass (figure 1). In this context, fisheries producvity is likely to be a mobing target, and managers are in need for better methods that account for varying productivity
+Althought the non-statitionnaity of a wide range of populations has been demonstrated and established, and despite the push for more ecosystem-based management methods in fisheries management, efforts to include spatial dynamics and ecosystem variables in fisheries models are rare. One family of population models that rarely account for spatial structure is the family of Surplus production models (SPMs). SPMs are well-established tools for single-stock modelling. They usually assume spatially constant productivity. This assumption is a strong limitation in the context of the current global changes that are affecting fisheries, such as climate change. The global warming of waters is already having an impact on the spatial structure of stocks, as evidenced by the consistant northward shift of the northern Shrimp biomass (\autoref{fig:shift}). In this context, fisheries producvity is likely to be a mobing target, and managers are in need for better methods that account for varying productivity
 
 Population models in fisheries science usually fall under two categories: process-based models and statistical models. Process based models often rely on differential equations and are based on replicating the underlying processes (predation, recruitment, dispersal) behind popupaltion dynamics. Statistical models, on the other hand, rely on fitting a model to data using distributionnal assumptions, and present the advantage of naturally measuring uncertainty around predictions. This is useful in a management context where uncertainty around decision-making is an important information to have on hand.
 
@@ -72,11 +72,13 @@ The GAM biomass estimates are consistent with those of the current tool in use f
 
 # Package design
 
+The package follows an object oriented design, making use of the S4 class systems. 
+
 ![The sspm workflow.\label{fig:workflow}](figures/flowchart.png)<!--{ width=90% }-->
 
 # Application to simulated data
 
-# Citations
+We present an example using simulated biomass and harvest data. Using real trawl and fishing data provided by DFO, we generated fake data for each spatio-temporal units. ...
 
 <!--
 Citations to entries in paper.bib should be in
