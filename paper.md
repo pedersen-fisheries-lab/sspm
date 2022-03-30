@@ -73,6 +73,7 @@ The GAM biomass estimates are consistent with those of the current tool in use f
 # Package design
 
 The package follows an object oriented design, making use of the S4 class systems. (\autoref{fig:workflow})
+
 ![The sspm workflow.\label{fig:workflow}](figures/flowchart.png)<!--{ width=90% }-->
 
 # Application to simulated data
