@@ -26,7 +26,7 @@ Productivity models such as Surplus Production Models (SPMs) models can be used 
 
 # Summary
 
-The R package sspm is designed to make spatially-explicit surplus production models more applicable. The package uses Generalized Additive Models (GAMs) to fit a surplus production model to biomass and harvest data. The package includes a range of features to manage biomass and harvest data. Those features are organise in a stepwise workflow, whose implementation is described in more detailed in (\autoref{fig:workflow}).
+The R package sspm is designed to make spatially-explicit surplus production models more applicable. The package uses Generalized Additive Models (GAMs) to fit a surplus production model to biomass and harvest data. The package includes a range of features to manage biomass and harvest data. Those features are organise in a stepwise workflow, whose implementation is described in more detailed in \autoref{fig:workflow}.
 
 1. Ingestion of variables as well as spatial boundaries and discretization into patches, using the user's method of choice (random or custom sampling, voroinoi tesselation or delaunay triangulation).
 2. Smoothing data using spatio-temporal GAMs smoothers.
