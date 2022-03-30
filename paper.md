@@ -54,7 +54,7 @@ Population models in fisheries science usually fall under two categories: proces
 
 In this paper, we implement a statistical model for the population of northern shrimp of the Newfoundland and Labrador Shelves that accounts for varying productivity accross time and space. The model is implemented via a R package designed for this type ps spatial surplus productivity modelling, the sspm package. We exemplify how to successfully implement a spatial model with sspm and discuss the applicability of the framework to the other spatially structured populations.
 
-![Northward shift of weighted centroid of biomass trawled.\label{fig:shift}](figures/shift.png)
+![Northward shift of weighted centroid of biomass trawled.\label{fig:shift}](figures/shift.png){width=50%}
 
 # Model
 
