@@ -82,7 +82,8 @@ The package follows an object oriented design, making use of the S4 class system
 6. The second modelling step consists in modelling productivity per se. Once again, a gam formula with custom syntax is used (see Table 1 for more details).
 7. The resulting object contains the model fit. Predictions can be obtained using the built in `predict()` method, and plots with the `plot()` method.
 
-| **Smoothing context** | **Syntax**            | **Description**                                                    | **GAM equivalent**             |
+![Table.\label{tab:formula}]
+| **Context** | **Syntax**            | **Description**                                                    | **GAM equivalent**             |
 |-----------------------|-----------------------|--------------------------------------------------------------------|--------------------------------|
 | Biomass               | `smooth_time`         | `re` smoother for time steps with penalty matrix                   | `s(bs = 're', ...)`            |
 |                       | `smooth_space()`      | `mrf` smoother for patches with penalty matrix                     | `s(bs = 'mrf', ...)`           |
