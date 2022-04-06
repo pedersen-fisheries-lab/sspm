@@ -91,7 +91,7 @@ The package follows an object oriented design, making use of the S4 class system
 
 ![Table 1.\label{tab:formula}]
 
-| **Context** | **Syntax**            | **Description**                                                    | **GAM equivalent**              |
+| **Context** | **Syntax**            | **Description**                                                    | **GAM equivalent**   
 |-----------------------|-----------------------|--------------------------------------------------------------------|--------------------------------|
 | Biomass               | `smooth_time`         | `re` smoother for time steps with penalty matrix                   | `s(bs = 're', ...)`            |
 |                       | `smooth_space()`      | `mrf` smoother for patches with penalty matrix                     | `s(bs = 'mrf', ...)`           |
