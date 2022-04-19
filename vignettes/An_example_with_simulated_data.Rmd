@@ -1,8 +1,8 @@
 ---
-title: "Introduction to the sspm workflow"
+title: "An example with simulated data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction_to_the_sspm_workflow}
+  %\VignetteIndexEntry{An_example_with_simulated_data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
