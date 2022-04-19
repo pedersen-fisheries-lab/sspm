@@ -18,6 +18,8 @@
 predict_intervals <- function(object_fit, new_data, n = 1000,
                               CI = TRUE, PI = TRUE, ...){
 
+  stopifnot(n > 1)
+
   # Compute simulations
   sims <- produce_sims(object_fit, new_data, n)
   CI_df <- NULL
