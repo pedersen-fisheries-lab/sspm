@@ -42,5 +42,8 @@ Suggests:
     ggforce,
     lwgeom,
     tweedie,
-    sfdct
+    sfdct,
+    knitr,
+    rmarkdown
 Config/testthat/edition: 3
+VignetteBuilder: knitr
