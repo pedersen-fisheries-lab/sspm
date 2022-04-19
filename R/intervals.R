@@ -188,7 +188,7 @@ find_quantiles <- function(mat, prob = c(0.025, 0.975), name, MARGIN = 1,
                            na.rm = TRUE, compute_exp = TRUE) {
 
   quants <- t(apply(mat, MARGIN = MARGIN, FUN = stats::quantile,
-                    prob = prob, na.rm = na.rm)) %>%
+                    probs = prob, na.rm = na.rm)) %>%
     as.data.frame()
 
   colnames(quants) <-  paste0(name, c("_log_lower", "_log_upper"))
