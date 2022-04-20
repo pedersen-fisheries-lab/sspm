@@ -92,7 +92,7 @@ plot(bounds_voronoi)
 ```
 
 ```{r}
-# plot(bounds_delaunay)
+plot(bounds_delaunay)
 ```
 
 6. The results of the discretization can also be explored with `spm_patches()` and `spm_points()`.
