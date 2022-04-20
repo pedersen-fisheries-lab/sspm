@@ -81,7 +81,7 @@ The other available method is `triangulate_delaunay` for delaunay triangulation.
 
 ```{r}
 bounds_delaunay <- bounds %>%
-  spm_discretize(method = "triangulate_delaunay", a = 1, q = 30)
+  spm_discretize(method = "triangulate_delaunay", a = 1, q = 40)
 bounds_delaunay
 ```
 
