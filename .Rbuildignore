@@ -12,3 +12,4 @@ man/figures/make_hex
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^cran-comments\.md$
