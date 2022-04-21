@@ -190,9 +190,10 @@
 <span class="co">#&gt; →  Area : <span style="color: #0000BB;">area_sfa</span></span></code></pre></div>
 <p>The other available method is <code>triangulate_delaunay</code> for delaunay triangulation. Here the <code>a</code> argument is used to set the size of the mesh (see <code><a href="https://rdrr.io/pkg/RTriangle/man/triangulate.html" class="external-link">RTriangle::triangulate</a></code> for more details).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># bounds_delaunay &lt;- bounds %&gt;% </span>
-<span class="co">#   spm_discretize(method = "triangulate_delaunay", a = 1, q = 30)</span>
-<span class="co"># bounds_delaunay</span></code></pre></div>
+<code class="sourceCode R"><span class="co">## Not run</span>
+<span class="va">bounds_delaunay</span> <span class="op">&lt;-</span> <span class="va">bounds</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/spm_discretize.html">spm_discretize</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"triangulate_delaunay"</span>, a <span class="op">=</span> <span class="fl">1</span>, q <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>
+<span class="va">bounds_delaunay</span></code></pre></div>
 <ol start="5" style="list-style-type: decimal">
 <li>Plotting the object shows the polygons that have been created.</li>
 </ol>
@@ -200,7 +201,8 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">bounds_voronoi</span><span class="op">)</span></code></pre></div>
 <p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot(bounds_delaunay)</span></code></pre></div>
+<code class="sourceCode R"><span class="co">## Not run</span>
+<span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">bounds_delaunay</span><span class="op">)</span></code></pre></div>
 <ol start="6" style="list-style-type: decimal">
 <li>The results of the discretization can also be explored with <code><a href="../reference/accessors-methods-sspm_boundary.html">spm_patches()</a></code> and <code><a href="../reference/accessors-methods-sspm_boundary.html">spm_points()</a></code>.</li>
 </ol>
@@ -552,8 +554,37 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-26-2.png" width="700"></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># plot(sspm_model_fit, biomass = "weight_per_km2_borealis", </span>
-<span class="co">#      next_ts = TRUE, aggregate = TRUE, scales = "free", interval = T)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,
+     next_ts <span class="op">=</span> <span class="cn">TRUE</span>, aggregate <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span>, interval <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #BBBB00;">!</span> Not all vars are lagged vars: weight_per_km2_borealis_with_catch</span>
+<span class="co">#&gt; Warning in matrix(qrc[-1], nrow(pm$X), ncol(pm$X) - 1, byrow = TRUE): data</span>
+<span class="co">#&gt; length exceeds size of matrix</span>
+<span class="co">#&gt; Warning: Removed 2 row(s) containing missing values (geom_path).</span>
+<span class="co">#&gt; Warning: Removed 8 rows containing missing values (geom_point).</span>
+<span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span>
+<span class="co">#&gt; -Inf</span>
+
+<span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span>
+<span class="co">#&gt; -Inf</span>
+
+<span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span>
+<span class="co">#&gt; -Inf</span>
+
+<span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span>
+<span class="co">#&gt; -Inf</span>
+
+<span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span>
+<span class="co">#&gt; -Inf</span>
+
+<span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span>
+<span class="co">#&gt; -Inf</span>
+
+<span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span>
+<span class="co">#&gt; -Inf</span>
+
+<span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span>
+<span class="co">#&gt; -Inf</span></code></pre></div>
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-27-1.png" width="700"></p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
