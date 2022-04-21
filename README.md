@@ -28,10 +28,12 @@ model.
 
 ## Installation
 
-<!-- You can install the released version of sspm from [CRAN](https://CRAN.R-project.org) with: -->
-<!-- ``` r -->
-<!-- install.packages("sspm") -->
-<!-- ``` -->
+You can install the released version of sspm from
+[CRAN](https://CRAN.R-project.org) with:
+
+``` r
+install.packages("sspm")
+```
 
 You can install the development version from
 [GitHub](https://github.com/) with:
@@ -43,9 +45,9 @@ devtools::install_github("pedersen-fisheries-lab/sspm")
 devtools::install_github("pedersen-fisheries-lab/sspm", build_vignettes = TRUE)
 ```
 
-## Vignette
+## Vignettes
 
-See the vignette for an introduction to the `sspm` workflow.
+See the vignettes for an introduction to the `sspm` workflow.
 
 ``` r
 browseVignettes("sspm")
