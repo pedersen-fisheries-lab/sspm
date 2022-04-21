@@ -23,7 +23,7 @@ Useful links:
 
 Authors:
 \itemize{
-  \item Eric Pedersen \email{eric.pedersen@concordia.ca}
+  \item Eric Pedersen \email{eric.pedersen@concordia.ca} [copyright holder]
 }
 
 }

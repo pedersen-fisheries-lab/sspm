@@ -4,7 +4,7 @@ Title: Spatial Surplus Production Model Framework for Northern Shrimp Population
 Version: 0.8.0
 Authors@R: c(
     person("Valentin", "Lucet", email = "valentin.lucet@gmail.com", role = c("aut", "cre")),
-    person("Eric", "Pedersen", email = "eric.pedersen@concordia.ca", role = c("aut")))
+    person("Eric", "Pedersen", email = "eric.pedersen@concordia.ca", role = c("aut", "cph")))
 Description: The goal of `sspm` is to implement a gam-based spatial surplus 
     production model, aimed at modeling northern shrimp population in Atlantic 
     Canada but potentially to any stock in any location. The package is 
