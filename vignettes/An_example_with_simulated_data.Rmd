@@ -79,7 +79,8 @@ bounds_voronoi
 
 The other available method is `triangulate_delaunay` for delaunay triangulation. Here the `a` argument is used to set the size of the mesh (see `RTriangle::triangulate` for more details).
 
-```{r}
+```{r, eval = FALSE}
+## Not run
 bounds_delaunay <- bounds %>%
   spm_discretize(method = "triangulate_delaunay", a = 1, q = 30)
 bounds_delaunay
@@ -91,8 +92,9 @@ bounds_delaunay
 plot(bounds_voronoi)
 ```
 
-```{r}
-# plot(bounds_delaunay)
+```{r, eval = FALSE}
+## Not run
+plot(bounds_delaunay)
 ```
 
 6. The results of the discretization can also be explored with `spm_patches()` and `spm_points()`.
@@ -247,6 +249,6 @@ plot(sspm_model_fit, biomass = "weight_per_km2_borealis", use_sf = TRUE)
 ```
 
 ```{r}
-# plot(sspm_model_fit, biomass = "weight_per_km2_borealis", 
-#      next_ts = TRUE, aggregate = TRUE, scales = "free", interval = T)
+plot(sspm_model_fit, biomass = "weight_per_km2_borealis",
+     next_ts = TRUE, aggregate = TRUE, scales = "free", interval = T)
 ```
