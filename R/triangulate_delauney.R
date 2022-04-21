@@ -125,7 +125,8 @@ triangulate_delaunay <- function(boundaries,
 
   # 5. Summarise and re - calculate area ------------------------------------
 
-  delaunay_mesh <- cleanup_polygons(delaunay_mesh, boundary)
+  delaunay_mesh <- cleanup_polygons(delaunay_mesh, boundary) %>%
+    sf::st_make_valid()
 
   return(list(patches = delaunay_mesh,
               points = points))
