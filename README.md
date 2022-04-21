@@ -39,6 +39,8 @@ You can install the development version from
 ``` r
 # install.packages("devtools")
 devtools::install_github("pedersen-fisheries-lab/sspm")
+# if you wish to build the vignettes:
+devtools::install_github("pedersen-fisheries-lab/sspm", build_vignettes = TRUE)
 ```
 
 ## Vignette
