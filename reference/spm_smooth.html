@@ -257,6 +257,19 @@ effects and custom smooths, and can make use of specific smoothing terms
 <code><a href="smooths.html">smooth_time()</a></code>, <code><a href="smooths.html">smooth_space()</a></code>, <code><a href="smooths.html">smooth_space_time()</a></code>.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="va">biomass_smooth</span> <span class="op">&lt;-</span> <span class="va">biomass_dataset</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">    <span class="fu">spm_smooth</span><span class="op">(</span><span class="va">weight_per_km2</span> <span class="op">~</span> <span class="va">sfa</span> <span class="op">+</span> <span class="fu"><a href="smooths.html">smooth_time</a></span><span class="op">(</span>by <span class="op">=</span> <span class="va">sfa</span><span class="op">)</span> <span class="op">+</span></span>
+<span class="r-in">               <span class="fu"><a href="smooths.html">smooth_space</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
+<span class="r-in">               <span class="fu"><a href="smooths.html">smooth_space_time</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span class="r-in">               boundaries <span class="op">=</span> <span class="va">bounds_voronoi</span>,</span>
+<span class="r-in">               family <span class="op">=</span> <span class="va">tw</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

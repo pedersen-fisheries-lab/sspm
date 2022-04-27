@@ -146,9 +146,31 @@ original dataset, optionnal).</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A ggplot object.</p>
+    <p>A ggplot2 plot object.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="co"># To plot a boundary object and visualize patches/points</span></span>
+<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_boundary</span><span class="op">)</span></span>
+<span class="r-in"><span class="co"># To plot a dataset variable</span></span>
+<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">biomass_smooth</span>, var <span class="op">=</span> <span class="st">"weight_per_km2"</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">biomass_smooth</span>, var <span class="op">=</span> <span class="st">"weight_per_km2"</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span class="co"># To plot a fitted model</span></span>
+<span class="r-in"><span class="co"># Test-train plot</span></span>
+<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, train_test <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span>
+<span class="r-in"><span class="co"># Timeseries plot</span></span>
+<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, log <span class="op">=</span> <span class="cn">T</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, log <span class="op">=</span> <span class="cn">T</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,  scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,</span>
+<span class="r-in">     next_ts <span class="op">=</span> <span class="cn">TRUE</span>, aggregate <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span>, interval <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

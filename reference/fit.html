@@ -277,7 +277,20 @@ smoothing model.</p></dd>
 <dd><p>Should selection penalties be added to the smooth effects, so that they can in principle be 
 penalized out of the model? See <code>gamma</code> to increase penalization.  Has the side effect that smooths no longer have a fixed effect component (improper prior from a Bayesian perspective) allowing REML comparison of models with the same fixed effect structure.</p></dd>
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    <p>A object of the class <code><a href="sspm_fit-class.html">sspm_fit</a></code>.</p>
+    </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="fu">fit_smooths</span><span class="op">(</span>boundaries <span class="op">=</span> <span class="va">boundaries</span>, keep_fit <span class="op">=</span> <span class="cn">TRUE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span class="r-in"><span class="fu">fit_spm</span><span class="op">(</span>sspm_object <span class="op">=</span> <span class="va">sspm_object</span>, sspm_formula <span class="op">=</span> <span class="va">sspm_formula</span>, <span class="va">...</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

@@ -124,6 +124,17 @@ group or to <code>variable</code>, default to <code>FALSE</code>.</p></dd>
     <p>Updated <code>sspm_dataset</code>.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="fu">spm_aggregate_catch</span><span class="op">(</span>biomass <span class="op">=</span> <span class="va">biomass_smooth</span>, catch <span class="op">=</span> <span class="va">catch_dataset</span>,</span>
+<span class="r-in">                    biomass_variable <span class="op">=</span> <span class="st">"weight_per_km2"</span>,</span>
+<span class="r-in">                    catch_variable <span class="op">=</span> <span class="st">"catch"</span>,</span>
+<span class="r-in">                    fill <span class="op">=</span> <span class="va">mean</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

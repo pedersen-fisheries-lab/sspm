@@ -98,10 +98,10 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pedersen-fisheries-lab.github.io/sspm/" class="external-link">sspm</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: sf</span>
-<span class="co">#&gt; Linking to GEOS 3.9.1, GDAL 3.4.0, PROJ 8.1.1; sf_use_s2() is TRUE</span>
+<span class="co">#&gt; Linking to GEOS 3.10.2, GDAL 3.4.2, PROJ 8.2.1; sf_use_s2() is TRUE</span>
 <span class="co">#&gt; Loading required package: mgcv</span>
 <span class="co">#&gt; Loading required package: nlme</span>
-<span class="co">#&gt; This is mgcv 1.8-39. For overview type 'help("mgcv-package")'.</span></code></pre></div>
+<span class="co">#&gt; This is mgcv 1.8-40. For overview type 'help("mgcv-package")'.</span></code></pre></div>
 <p>The following example shows the typical <code>sspm</code> workflow. Let’s first load the packages and the test data.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pedersen-fisheries-lab.github.io/sspm/" class="external-link">sspm</a></span><span class="op">)</span>
@@ -557,8 +557,8 @@
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,
      next_ts <span class="op">=</span> <span class="cn">TRUE</span>, aggregate <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span>, interval <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>
 <span class="co">#&gt; <span style="color: #BBBB00;">!</span> Not all vars are lagged vars: weight_per_km2_borealis_with_catch</span>
-<span class="co">#&gt; Warning in matrix(qrc[-1], nrow(pm$X), ncol(pm$X) - 1, byrow = TRUE): data</span>
-<span class="co">#&gt; length exceeds size of matrix</span>
+<span class="co">#&gt; Warning in matrix(qrc[-1], nrow(pm$X), ncol(pm$X) - 1, byrow = TRUE): non-empty</span>
+<span class="co">#&gt; data for zero-extent matrix</span>
 <span class="co">#&gt; Warning: Removed 2 row(s) containing missing values (geom_path).</span>
 <span class="co">#&gt; Warning: Removed 8 rows containing missing values (geom_point).</span>
 <span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span>

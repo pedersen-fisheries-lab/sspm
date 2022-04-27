@@ -231,6 +231,19 @@ even with factor variables present.</p></dd>
     <p>An object of type <code>sspm_fit</code>.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="va">sspm_model_fit</span> <span class="op">&lt;-</span> <span class="va">sspm_model</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span>
+<span class="r-in">    <span class="fu">spm</span><span class="op">(</span><span class="va">log_productivity</span> <span class="op">~</span> <span class="va">sfa</span> <span class="op">+</span></span>
+<span class="r-in">    <span class="va">weight_per_km2_all_predators_lag_1</span> <span class="op">+</span></span>
+<span class="r-in">    <span class="fu"><a href="smooths.html">smooth_space</a></span><span class="op">(</span>by <span class="op">=</span> <span class="va">weight_per_km2_borealis_with_catch</span><span class="op">)</span> <span class="op">+</span></span>
+<span class="r-in">    <span class="fu"><a href="smooths.html">smooth_space</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span class="r-in">    family <span class="op">=</span> <span class="fu">mgcv</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/mgcv/man/scat.html" class="external-link">scat</a></span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

@@ -120,6 +120,19 @@ based on a discrete prediction matrix (default to TRUE).</p></dd>
     <p>A <code>dataframe</code> of predictions.</p>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
+<span class="r-in"><span class="co"># Predictions for a model fit (usually, productivity)</span></span>
+<span class="r-in"><span class="fu">predict</span><span class="op">(</span><span class="va">sspm_model_fit</span><span class="op">)</span></span>
+<span class="r-in"><span class="co"># To get biomass predictions, provide the variable name</span></span>
+<span class="r-in"><span class="fu">predict</span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span><span class="op">)</span></span>
+<span class="r-in"><span class="co"># To get the next timestep predictions</span></span>
+<span class="r-in"><span class="fu">predict</span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, next_ts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span class="r-in"><span class="op">}</span></span>
+<span class="r-in"></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>

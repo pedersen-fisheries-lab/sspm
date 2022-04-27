@@ -79,7 +79,8 @@ object, using the list of possible methods in <code><a href="spm_methods.html">s
     <dl><dt>name</dt>
 <dd><p><strong>[character]</strong> The name of the method.</p></dd>
 <dt>method</dt>
-<dd><p><strong>[character]</strong> The name of the method.</p></dd>
+<dd><p><strong>[character]</strong> If custom method, the function to use. See
+<code><a href="spm_discretize.html">spm_discretize</a></code> for more details.</p></dd>
 </dl></div>
     <div id="value">
     <h2>Value</h2>
@@ -90,6 +91,16 @@ object, using the list of possible methods in <code><a href="spm_methods.html">s
     <div class="dont-index"><p><a href="spm_methods.html">spm_methods</a>.</p></div>
     </div>
 
+    <div id="ref-examples">
+    <h2>Examples</h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu">as_discretization_method</span><span class="op">(</span><span class="st">"tesselate_voronoi"</span><span class="op">)</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ‒‒ <span style="font-weight: bold;">Discretization method</span> ‒‒</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> →  Name : 'tesselate_voronoi'</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-in"></span>
+</code></pre></div>
+    </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top"><h2 data-toc-skip>Contents</h2>
