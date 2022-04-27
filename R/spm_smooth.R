@@ -22,6 +22,16 @@
 #' effects and custom smooths, and can make use of specific smoothing terms
 #' `smooth_time()`, `smooth_space()`, `smooth_space_time()`.
 #'
+#' @examples
+#' \dontrun{
+#' biomass_smooth <- biomass_dataset %>%
+#'     spm_smooth(weight_per_km2 ~ sfa + smooth_time(by = sfa) +
+#'                smooth_space() +
+#'                smooth_space_time(),
+#'                boundaries = bounds_voronoi,
+#'                family = tw)
+#' }
+#'
 #' @export
 setGeneric(name = "spm_smooth",
            def = function(sspm_object,

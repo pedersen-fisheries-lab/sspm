@@ -29,3 +29,10 @@ The \code{data.frame} matching the request.
 \description{
 WIP extract variables from sspm objects
 }
+\examples{
+\dontrun{
+sspm_boundary$lat
+sspm_dataset$biomass
+}
+
+}

@@ -11,6 +11,12 @@
 #' @return
 #' An object of class  [sspm][sspm-class].
 #'
+#' @examples
+#' \dontrun{
+#' sspm_model <- sspm(biomass = biomass_smooth_w_catch,
+#'                    predictors = predator_smooth)
+#' }
+#'
 #' @rdname sspm-constructor
 #' @export
 setGeneric(name = "sspm",

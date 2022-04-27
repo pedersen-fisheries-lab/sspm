@@ -16,6 +16,12 @@
 #' An object of class [sspm_boundary][sspm_boundary-class] or
 #' [sspm_discrete_boundary][sspm_discrete_boundary-class].
 #'
+#' @examples
+#' sfa_boundaries <- sspm:::sfa_boundaries
+#' bounds <- spm_as_boundary(boundaries = sfa_boundaries,
+#'                           boundary = "sfa")
+#' plot(bounds)
+#'
 #' @export
 setGeneric(name = "spm_as_boundary",
            def = function(boundaries,

@@ -60,3 +60,14 @@ A \code{dataframe} of predictions.
 \description{
 Predict using a fitted SPM model on the whole data or on new data
 }
+\examples{
+\dontrun{
+# Predictions for a model fit (usually, productivity)
+predict(sspm_model_fit)
+# To get biomass predictions, provide the variable name
+predict(sspm_model_fit, biomass = "weight_per_km2_borealis")
+# To get the next timestep predictions
+predict(sspm_model_fit, biomass = "weight_per_km2_borealis", next_ts = TRUE)
+}
+
+}

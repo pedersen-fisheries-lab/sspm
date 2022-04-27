@@ -13,6 +13,10 @@
 #' @return
 #' A `data.frame` with intervals.
 #'
+#' @examples
+#' gam1 <- gam(cyl ~ mpg, data=mtcars, family = tw)
+#' predict_intervals(gam1)
+#'
 #' @rdname intervals
 #' @export
 predict_intervals <- function(object_fit, new_data, n = 1000,

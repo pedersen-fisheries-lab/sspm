@@ -23,6 +23,16 @@
 #' @return
 #' Updated `sspm_dataset` or `sspm_fit`.
 #'
+#' @examples
+#' \dontrun{
+#' spm_aggregate(sspm_object = catch,
+#'               boundaries = spm_boundaries(biomass),
+#'               variable = catch_variable,
+#'               fun = fun, group_by = group_by,
+#'               fill = fill, apply_to_df = apply_to_df,
+#'               na.rm = TRUE, ...)
+#' }
+#'
 #' @export
 #' @rdname spm_aggregate
 setGeneric(name = "spm_aggregate",

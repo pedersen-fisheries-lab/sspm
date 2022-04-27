@@ -8,6 +8,15 @@
 #' @inheritParams base::Extract
 #'
 #' @rdname accessors-methods-sspm_fit
+#'
+#' @return
+#' The object in the required slot.
+#'
+#' @examples
+#' \dontrun{
+#' spm_formulas(sspm_object)
+#' ...
+#' }
 
 # Unique ID ---------------------------------------------------------------
 # Accessors ---------------------------------------------------------------

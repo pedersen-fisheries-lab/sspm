@@ -73,3 +73,10 @@ A named list with three elements (each an \code{sf} object):
 \description{
 Generates delaunay triangles with \link[sfdct:ct_triangulate]{ct_triangulate()}.
 }
+\examples{
+borealis <- sspm:::borealis_simulated
+sfa_boundaries <- sspm:::sfa_boundaries
+triangulate_delaunay(sfa_boundaries, with = borealis, sample_surface = TRUE,
+                     boundary = "sfa", nb_samples = 10)
+
+}

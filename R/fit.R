@@ -9,6 +9,15 @@
 #' @inheritParams mgcv::bam
 #' @inheritDotParams mgcv::bam
 #'
+#' @return
+#' A object of the class [`sspm_fit`][sspm_fit-class].
+#'
+#' @examples
+#' \dontrun{
+#' fit_smooths(boundaries = boundaries, keep_fit = TRUE, ...)
+#' fit_spm(sspm_object = sspm_object, sspm_formula = sspm_formula, ...)
+#' }
+#'
 #' @rdname fit
 setGeneric(name = "fit_smooths",
            def = function(sspm_object,

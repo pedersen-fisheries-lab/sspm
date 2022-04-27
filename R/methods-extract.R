@@ -8,6 +8,12 @@
 #' @return
 #' The `data.frame` matching the request.
 #'
+#' @examples
+#' \dontrun{
+#' sspm_boundary$lat
+#' sspm_dataset$biomass
+#' }
+#'
 #' @export
 #' @rdname extract-methods
 setMethod("$",

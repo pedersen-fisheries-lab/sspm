@@ -62,7 +62,16 @@ spm_get_fit(object) <- value
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
 }
+\value{
+The object in the required slot.
+}
 \description{
 All methods described here allow to access the elements of contained in
 objects of class \link[=sspm_fit-class]{sspm_fit}.
+}
+\examples{
+\dontrun{
+spm_formulas(sspm_object)
+...
+}
 }

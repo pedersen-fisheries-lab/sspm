@@ -15,7 +15,8 @@ as_discretization_method(name, method)
 \arguments{
 \item{name}{\strong{[character]} The name of the method.}
 
-\item{method}{\strong{[character]} The name of the method.}
+\item{method}{\strong{[character]} If custom method, the function to use. See
+\code{\link{spm_discretize}} for more details.}
 }
 \value{
 An objectof class \code{\link[=discretization_method-class]{discretization_method}}.
@@ -23,6 +24,10 @@ An objectof class \code{\link[=discretization_method-class]{discretization_metho
 \description{
 Cast a character value into \code{\link[=discretization_method-class]{discretization_method}}
 object, using the list of possible methods in \code{\link{spm_methods}}.
+}
+\examples{
+as_discretization_method("tesselate_voronoi")
+
 }
 \seealso{
 \link{spm_methods}.

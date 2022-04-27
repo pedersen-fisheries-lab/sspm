@@ -62,3 +62,12 @@ Updated \code{sspm_dataset}.
 Aggregate the catch data contained in a catch dataset and update the biomass
 dataset with the subtracted catch.
 }
+\examples{
+\dontrun{
+spm_aggregate_catch(biomass = biomass_smooth, catch = catch_dataset,
+                    biomass_variable = "weight_per_km2",
+                    catch_variable = "catch",
+                    fill = mean)
+}
+
+}

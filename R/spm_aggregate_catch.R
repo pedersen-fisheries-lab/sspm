@@ -14,6 +14,14 @@
 #' @return
 #' Updated `sspm_dataset`.
 #'
+#' @examples
+#' \dontrun{
+#' spm_aggregate_catch(biomass = biomass_smooth, catch = catch_dataset,
+#'                     biomass_variable = "weight_per_km2",
+#'                     catch_variable = "catch",
+#'                     fill = mean)
+#' }
+#'
 #' @export
 setGeneric(name = "spm_aggregate_catch",
            def = function(biomass,

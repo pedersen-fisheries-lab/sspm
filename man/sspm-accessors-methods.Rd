@@ -93,7 +93,16 @@ spm_unique_ID(object) <- value
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
 }
+\value{
+The object in the required slot.
+}
 \description{
 All methods described here allow to access the elements of contained in
 objects of the different classes of the package.
+}
+\examples{
+\dontrun{
+spm_name(sspm_object)
+...
+}
 }

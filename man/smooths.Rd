@@ -153,3 +153,10 @@ A list of 2 lists:
 A full sspm formula contains calls to the smoothing terms \code{smooth_time()},
 \code{smooth_space()}, \code{smooth_space_time()}.
 }
+\examples{
+\dontrun{
+# Not meant to be used directly
+smooth_time(borealis_data, bounds_voronoi, time = "year")
+}
+
+}

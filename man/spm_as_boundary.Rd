@@ -76,3 +76,10 @@ An object of class \link[=sspm_boundary-class]{sspm_boundary} or
 \description{
 Create a sspm_boundary object.
 }
+\examples{
+sfa_boundaries <- sspm:::sfa_boundaries
+bounds <- spm_as_boundary(boundaries = sfa_boundaries,
+                          boundary = "sfa")
+plot(bounds)
+
+}

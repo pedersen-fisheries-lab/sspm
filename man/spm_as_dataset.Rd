@@ -102,3 +102,13 @@ An object of class \code{\link[=sspm_dataset-class]{sspm_dataset}}.
 This casts a \code{data.frame} or \code{sf} object into  an object of class
 \code{\link[=sspm_dataset-class]{sspm_dataset}}.
 }
+\examples{
+borealis <- sspm:::borealis_simulated
+biomass_dataset <- spm_as_dataset(borealis, name = "borealis",
+                                  density = "weight_per_km2",
+                                  time = "year_f",
+                                  coords = c('lon_dec','lat_dec'),
+                                  uniqueID = "uniqueID")
+biomass_dataset
+
+}

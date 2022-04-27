@@ -8,6 +8,15 @@
 #' @inheritParams base::Extract
 #'
 #' @rdname accessors-methods-sspm_dataset
+#'
+#' @return
+#' The object in the required slot.
+#'
+#' @examples
+#' \dontrun{
+#' spm_data(sspm_object)
+#' ...
+#' }
 
 # Data --------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------

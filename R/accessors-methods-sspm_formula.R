@@ -9,6 +9,15 @@
 #' @inheritParams base::Extract
 #'
 #' @rdname accessors-methods-sspm_formula
+#'
+#' @return
+#' The object in the required slot.
+#'
+#' @examples
+#' \dontrun{
+#' translated_formula(sspm_object)
+#' ...
+#' }
 
 # Raw formula -------------------------------------------------------------
 # Accessors ---------------------------------------------------------------

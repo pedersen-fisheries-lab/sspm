@@ -93,3 +93,14 @@ Updated \code{sspm_dataset} or \code{sspm_fit}.
 Aggregate the data contained in a dataset or fit  based on the discretized
 boundaries, using a function and a filling value.
 }
+\examples{
+\dontrun{
+spm_aggregate(sspm_object = catch,
+              boundaries = spm_boundaries(biomass),
+              variable = catch_variable,
+              fun = fun, group_by = group_by,
+              fill = fill, apply_to_df = apply_to_df,
+              na.rm = TRUE, ...)
+}
+
+}

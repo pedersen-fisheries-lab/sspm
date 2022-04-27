@@ -172,7 +172,17 @@ smoothing model.}
 penalized out of the model? See \code{gamma} to increase penalization.  Has the side effect that smooths no longer have a fixed effect component (improper prior from a Bayesian perspective) allowing REML comparison of models with the same fixed effect structure. 
 }
 }
+\value{
+A object of the class \code{\link[=sspm_fit-class]{sspm_fit}}.
+}
 \description{
 Once formulas have been mapped onto a sspm discrete object, the GAMs can be
 fitted with this function. Arguments can be passed onto \code{bam}.
+}
+\examples{
+\dontrun{
+fit_smooths(boundaries = boundaries, keep_fit = TRUE, ...)
+fit_spm(sspm_object = sspm_object, sspm_formula = sspm_formula, ...)
+}
+
 }

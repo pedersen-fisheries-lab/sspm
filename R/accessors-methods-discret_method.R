@@ -9,6 +9,15 @@
 #' @inheritParams base::Extract
 #'
 #' @rdname accessors-methods-discret_method
+#'
+#' @return
+#' The object in the required slot.
+#'
+#' @examples
+#' \dontrun{
+#' method_func(sspm_object)
+#' ...
+#' }
 
 # Function ----------------------------------------------------------------
 # Accessors ---------------------------------------------------------------

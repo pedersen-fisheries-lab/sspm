@@ -11,6 +11,16 @@
 #' @return
 #' An object of type `sspm_fit`.
 #'
+#' @examples
+#' \dontrun{
+#' sspm_model_fit <- sspm_model %>%
+#'     spm(log_productivity ~ sfa +
+#'     weight_per_km2_all_predators_lag_1 +
+#'     smooth_space(by = weight_per_km2_borealis_with_catch) +
+#'     smooth_space(),
+#'     family = mgcv::scat)
+#' }
+#'
 #' @export
 setGeneric(name = "spm",
            def = function(sspm_object,

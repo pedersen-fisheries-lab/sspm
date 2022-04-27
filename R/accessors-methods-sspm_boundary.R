@@ -8,6 +8,14 @@
 #'
 #' @inheritParams base::Extract
 #'
+#' @return
+#' The object in the required slot.
+#'
+#' @examples
+#' \dontrun{
+#' spm_boundaries(sspm_object)
+#' ...
+#' }
 
 # Boundaries --------------------------------------------------------------
 # Accessors ---------------------------------------------------------------

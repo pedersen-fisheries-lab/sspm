@@ -10,6 +10,15 @@
 #'
 #' @aliases spm_
 #' @rdname sspm-accessors-methods
+#'
+#' @return
+#' The object in the required slot.
+#'
+#' @examples
+#' \dontrun{
+#' spm_name(sspm_object)
+#' ...
+#' }
 
 # Name --------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------

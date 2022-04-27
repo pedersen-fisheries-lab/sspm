@@ -140,7 +140,16 @@ is_mapped(object) <- value
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
 }
+\value{
+The object in the required slot.
+}
 \description{
 All methods described here allow to access the elements of contained in
 objects of class \link[=sspm_dataset-class]{sspm_dataset}.
+}
+\examples{
+\dontrun{
+spm_data(sspm_object)
+...
+}
 }

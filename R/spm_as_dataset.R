@@ -19,6 +19,15 @@
 #' @inheritParams spm_smooth
 #' @param ... Arguments passed onto methods.
 #'
+#' @examples
+#' borealis <- sspm:::borealis_simulated
+#' biomass_dataset <- spm_as_dataset(borealis, name = "borealis",
+#'                                   density = "weight_per_km2",
+#'                                   time = "year_f",
+#'                                   coords = c('lon_dec','lat_dec'),
+#'                                   uniqueID = "uniqueID")
+#' biomass_dataset
+#'
 #' @return
 #' An object of class [`sspm_dataset`][sspm_dataset-class].
 #'

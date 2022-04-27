@@ -4,12 +4,16 @@
 #' object, using the list of possible methods in [`spm_methods`][spm_methods].
 #'
 #' @param name **\[character\]** The name of the method.
-#' @param method **\[character\]** The name of the method.
+#' @param method **\[character\]** If custom method, the function to use. See
+#'     [`spm_discretize`][spm_discretize] for more details.
 #'
 #' @return
 #' An objectof class [`discretization_method`][discretization_method-class].
 #'
 #' @seealso [spm_methods].
+#'
+#' @examples
+#' as_discretization_method("tesselate_voronoi")
 #'
 #' @export
 setGeneric(name = "as_discretization_method",

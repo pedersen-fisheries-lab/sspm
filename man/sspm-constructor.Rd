@@ -28,3 +28,10 @@ An object of class  \link[=sspm-class]{sspm}.
 \description{
 Create a sspm_model object.
 }
+\examples{
+\dontrun{
+sspm_model <- sspm(biomass = biomass_smooth_w_catch,
+                   predictors = predator_smooth)
+}
+
+}

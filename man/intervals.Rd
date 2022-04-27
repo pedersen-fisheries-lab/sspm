@@ -25,3 +25,8 @@ A \code{data.frame} with intervals.
 \description{
 Computes CI from posterior, and PI for Tweedie and scat gams.
 }
+\examples{
+gam1 <- gam(cyl ~ mpg, data=mtcars, family = tw)
+predict_intervals(gam1)
+
+}

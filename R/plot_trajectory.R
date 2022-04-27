@@ -12,7 +12,13 @@
 #'    the biomass dataset if the variable name is different there.
 #'
 #' @return
-#' A plot.
+#' A ggplot2 plot object.
+#'
+#' @examples
+#' \dontrun{
+#' plot_trajectory(sspm_fit, borealis_dataset_fitted,
+#'                 "weight_per_km2", "catch")
+#' }
 #'
 #' @export
 #' @rdname plot_trajectory

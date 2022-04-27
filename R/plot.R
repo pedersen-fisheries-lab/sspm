@@ -28,7 +28,26 @@
 #' @inheritParams ggforce::facet_grid_paginate
 #'
 #' @return
-#' A ggplot object.
+#' A ggplot2 plot object.
+#'
+#' @examples
+#' \dontrun{
+#' # To plot a boundary object and visualize patches/points
+#' plot(sspm_boundary)
+#' # To plot a dataset variable
+#' plot(biomass_smooth, var = "weight_per_km2", log = FALSE)
+#' plot(biomass_smooth, var = "weight_per_km2", use_sf = TRUE)
+#' # To plot a fitted model
+#' # Test-train plot
+#' plot(sspm_model_fit, train_test = TRUE, scales = "free")
+#' # Timeseries plot
+#' plot(sspm_model_fit, log = T, scales = 'free')
+#' plot(sspm_model_fit, log = T, use_sf = TRUE)
+#' plot(sspm_model_fit, biomass = "weight_per_km2_borealis",  scales = "free")
+#' plot(sspm_model_fit, biomass = "weight_per_km2_borealis", use_sf = TRUE)
+#' plot(sspm_model_fit, biomass = "weight_per_km2_borealis",
+#'      next_ts = TRUE, aggregate = TRUE, scales = "free", interval = T)
+#' }
 #'
 #' @export
 #' @name plot

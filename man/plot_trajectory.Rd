@@ -24,10 +24,17 @@ plot_trajectory(sspm_object, dataset, biomass, catch, ...)
 the biomass dataset if the variable name is different there.}
 }
 \value{
-A plot.
+A ggplot2 plot object.
 }
 \description{
 Provides a trajectory plot for exploitation rate (ER), defined as the ratio
 between catch of a given year and fishable biomass from the previous year,
 and that fishable biomass.
+}
+\examples{
+\dontrun{
+plot_trajectory(sspm_fit, borealis_dataset_fitted,
+                "weight_per_km2", "catch")
+}
+
 }

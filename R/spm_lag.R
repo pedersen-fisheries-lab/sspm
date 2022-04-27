@@ -11,6 +11,14 @@
 #' @return
 #' Updated `sspm_object`.
 #'
+#' @examples
+#' \dontrun{
+#' sspm_model <- sspm_model %>%
+#'     spm_lag(vars = c("weight_per_km2_borealis_with_catch",
+#'                      "weight_per_km2_all_predators"),
+#'                      n = 1)
+#' }
+#'
 #' @export
 setGeneric(name = "spm_lag",
            def = function(sspm_object,

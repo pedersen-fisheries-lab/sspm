@@ -17,6 +17,16 @@
 #' @return
 #' A `dataframe` of predictions.
 #'
+#' @examples
+#' \dontrun{
+#' # Predictions for a model fit (usually, productivity)
+#' predict(sspm_model_fit)
+#' # To get biomass predictions, provide the variable name
+#' predict(sspm_model_fit, biomass = "weight_per_km2_borealis")
+#' # To get the next timestep predictions
+#' predict(sspm_model_fit, biomass = "weight_per_km2_borealis", next_ts = TRUE)
+#' }
+#'
 #' @export
 #' @name predict
 #' @aliases predict.sspm

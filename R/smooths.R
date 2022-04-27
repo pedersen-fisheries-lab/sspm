@@ -18,6 +18,12 @@
 #' * `args`, contains the arguments to be passed on to the mgcv smooths
 #' * `vars`, contains variables relevant to the evaluation of the smooth.
 #'
+#' @examples
+#' \dontrun{
+#' # Not meant to be used directly
+#' smooth_time(borealis_data, bounds_voronoi, time = "year")
+#' }
+#'
 #' @rdname smooths
 #' @export
 setGeneric(name = "smooth_time",

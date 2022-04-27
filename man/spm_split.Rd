@@ -20,3 +20,10 @@ The updated sspm object.
 \description{
 Split data before fitting spm (WIP).
 }
+\examples{
+\dontrun{
+sspm_model <- sspm_model \%>\%
+    spm_split(year_f \%in\% c(1990:2017))
+}
+
+}

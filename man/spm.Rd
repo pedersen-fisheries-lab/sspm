@@ -121,3 +121,14 @@ An object of type \code{sspm_fit}.
 \description{
 Fit an spm model to a sspm object
 }
+\examples{
+\dontrun{
+sspm_model_fit <- sspm_model \%>\%
+    spm(log_productivity ~ sfa +
+    weight_per_km2_all_predators_lag_1 +
+    smooth_space(by = weight_per_km2_borealis_with_catch) +
+    smooth_space(),
+    family = mgcv::scat)
+}
+
+}

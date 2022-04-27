@@ -36,3 +36,12 @@ This function is a wrapper around \link[dplyr:lead-lag]{lag} (note that not all
 arguments are supported). The default value for the lag is the mean of the
 series.
 }
+\examples{
+\dontrun{
+sspm_model <- sspm_model \%>\%
+    spm_lag(vars = c("weight_per_km2_borealis_with_catch",
+                     "weight_per_km2_all_predators"),
+                     n = 1)
+}
+
+}

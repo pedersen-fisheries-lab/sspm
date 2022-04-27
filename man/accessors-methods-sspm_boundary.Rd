@@ -92,7 +92,16 @@ spm_patches_area(object) <- value
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
 }
+\value{
+The object in the required slot.
+}
 \description{
 All methods described here allow to access the elements of contained in
 objects of class \link[=sspm_boundary-class]{sspm_boundary}.
+}
+\examples{
+\dontrun{
+spm_boundaries(sspm_object)
+...
+}
 }

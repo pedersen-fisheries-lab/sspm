@@ -146,3 +146,14 @@ object. The formula makes use of specific smoothing terms \code{smooth_time()},
 effects and custom smooths, and can make use of specific smoothing terms
 \code{smooth_time()}, \code{smooth_space()}, \code{smooth_space_time()}.
 }
+\examples{
+\dontrun{
+biomass_smooth <- biomass_dataset \%>\%
+    spm_smooth(weight_per_km2 ~ sfa + smooth_time(by = sfa) +
+               smooth_space() +
+               smooth_space_time(),
+               boundaries = bounds_voronoi,
+               family = tw)
+}
+
+}
