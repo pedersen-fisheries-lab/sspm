@@ -62,7 +62,7 @@ The package follows an object oriented design, making use of the S4 class system
 4. The first proper modelling step is to smooth the biomass and predictors data by combining a `sspm_dataset`, and a `sspm_discrete_boundary`. The user specifies a gam formula with custom smooth terms (see \autoref{tab:formula} for more details). The output is still a `sspm_dataset` object with a `smoothed_data` slot which contains the smoothed predictions for all patches.
 5. Then, catch is integrated into the biomass data by calling `spm_aggregate_catch` on the two `sspm_dataset` that contains catch and smoothed biomass. Productivity and (both log and non log) is calculated at this step.
 6. The next step consists in combining all relevant datasets for the modelling of productivity (i.e. the newly created productivity dataset and the predictor(s) dataset(s)) with a call to `sspm()`. Additionally, the user may apply lags to the variables with `spm_lag()` and determine the split between testing and training data with `spm_split()`.
-7. The second modelling step consists in modelling productivity per se. Once again, a gam formula with custom syntax is used (see \autoref{tab:formula} for more details).
+7. The second modelling step consists in modelling productivity per se. Once again, a gam formula with custom syntax is used.
 8. The resulting object contains the model fit. Predictions can be obtained using the built-in `predict()` method, and plots with the `plot()` method.
 
 ![The sspm workflow.\label{fig:workflow}](figures/flowchart.png){width=90%}
