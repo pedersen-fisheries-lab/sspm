@@ -16,24 +16,23 @@ knitr::opts_chunk$set(
 
 ```{r setup}
 library(sspm)
-```
-
-The following example shows the typical `sspm` workflow. Let's first load the packages and the test data.
-
-```{r}
-library(sspm)
 library(mgcv)
 library(dplyr)
 
-borealis <- borealis_simulated
-predator <- predator_simulated
-catch <- catch_simulated
-sfa_boundaries <- sfa_boundaries
+```
+
+The following example shows the typical `sspm` workflow. We will use simulated data.
+
+```{r data}
+sfa_boundaries
+borealis_simulated
+predator_simulated
+catch_simulated
 ```
 
 1. The first step of the `sspm` workflow is to create a `sspm_boundary` from an `sf` object, providing the `boundary` that delineates the boundary regions. The object can then be plotted with `spm_plot` (as can most `sspm` objects). 
 
-```{r}
+```{r boundaries}
 bounds <- spm_as_boundary(boundaries = sfa_boundaries, 
                           boundary = "sfa")
 
@@ -44,7 +43,7 @@ plot(bounds)
 
 ```{r}
 biomass_dataset <- 
-  spm_as_dataset(borealis, name = "borealis",
+  spm_as_dataset(borealis_simulated, name = "borealis",
                  density = "weight_per_km2",
                  time = "year_f",
                  coords = c('lon_dec','lat_dec'), 
@@ -57,7 +56,7 @@ biomass_dataset
 
 ```{r}
 predator_dataset <- 
-  spm_as_dataset(predator, name = "all_predators", 
+  spm_as_dataset(predator_simulated, name = "all_predators", 
                  density = "weight_per_km2",
                  time = "year_f",
                  coords = c("lon_dec", "lat_dec"),
@@ -147,7 +146,7 @@ predator_smooth
 
 ```{r}
 catch_dataset <- 
-  spm_as_dataset(catch, name = "catch_data", 
+  spm_as_dataset(catch_simulated, name = "catch_data", 
                  biomass = "catch",
                  time = "year_f", 
                  uniqueID = "uniqueID", 
