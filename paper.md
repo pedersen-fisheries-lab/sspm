@@ -10,7 +10,7 @@ authors:
   - name: Valentin Lucet^[co-first author]
     orcid: 0000-0003-0268-818X
     affiliation: 1
-  - name: Eric Pedersen^[co-first author]
+  - name: Eric J. Pedersen^[co-first author]
     orcid: 0000-0003-1016-540X
     affiliation: 1
 affiliations:
@@ -78,7 +78,7 @@ Figure sizes can be customized by adding an optional second parameter:
 
 # Acknowledgements
 
-This research was supported by the canadian Department of Fisheries of Oceans (DFO) Sustainable fisheries Science Fund, and by a Discovery Grant from the canadian Natural Sciences and Engineering Research Council (NSERC) to E.Pedersen. We thank Fonya Irvine and John-Philip Williams for their help in testing the package and providing feedback on model implementation.
+This research was supported by the canadian Department of Fisheries of Oceans (DFO) Sustainable fisheries Science Fund, and by a Discovery Grant from the canadian Natural Sciences and Engineering Research Council (NSERC) to E. J.Pedersen. We thank Fonya Irvine and John-Philip Williams for their help in testing the package and providing feedback on model implementation.
 
 # References
 
