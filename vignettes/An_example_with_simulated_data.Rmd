@@ -28,7 +28,7 @@ library(dplyr)
 borealis <- borealis_simulated
 predator <- predator_simulated
 catch <- catch_simulated
-sfa_boundaries <- sspm:::sfa_boundaries
+sfa_boundaries <- sfa_boundaries
 ```
 
 1. The first step of the `sspm` workflow is to create a `sspm_boundary` from an `sf` object, providing the `boundary` that delineates the boundary regions. The object can then be plotted with `spm_plot` (as can most `sspm` objects). 
