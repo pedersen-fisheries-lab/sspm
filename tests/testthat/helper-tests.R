@@ -10,14 +10,16 @@ library(sspm)
 
 # Load package data -------------------------------------------------------
 
-borealis_simulated <- borealis_simulated
-predator_simulated <- predator_simulated
+data(borealis_simulated, package = "sspm")
+data(predator_simulated, package = "sspm")
+data(sfa_boundaries, package = "sspm")
+data(catch_simulated, package = "sspm")
 sfa_boundaries <- sfa_boundaries %>%
   dplyr::mutate(area = sf::st_area(sfa_boundaries))
 borealis_patches <- sspm:::borealis_patches
 borealis_points <- sspm:::borealis_points
-borealis_spatial <- sspm:::borealis_simulated_spatial
-predator_spatial <- sspm:::predator_simulated_spatial
+borealis_spatial <- sspm:::borealis_spatial
+predator_spatial <- sspm:::predator_spatial
 
 # Create objects ----------------------------------------------------------
 
@@ -56,7 +58,7 @@ predator_dataset <- new("sspm_dataset",
                         coords = c('lon_dec', 'lat_dec'))
 
 catch_dataset <- new("sspm_dataset",
-                     data = predator_spatial,
+                     data = catch_simulated,
                      biomass = "catch",
                      time = "year",
                      uniqueID = "uniqueID",
