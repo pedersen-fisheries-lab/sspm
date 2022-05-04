@@ -78,7 +78,7 @@ Figure sizes can be customized by adding an optional second parameter:
 
 # Acknowledgements
 
-This research was supported by funding from [...].
+This research was supported by the canadian Department of Fisheries of Oceans (DFO) Sustainable fisheries Science Fund, and by a Discovery Grant from the canadian Natural Sciences and Engineering Research Council (NSERC) to E.Pedersen. We thank Fonya Irvine for her help in testing the package and providing feedback on model implementation.
 
 # References
 
