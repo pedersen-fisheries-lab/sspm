@@ -135,6 +135,9 @@ involving factor variables you might want to turn this off. Only do so if you kn
 even with factor variables present.}
   }}
 }
+\value{
+An updated \link[=sspm_dataset-class]{sspm_dataset}.
+}
 \description{
 With a formula, smooth a variable in a sspm dataset. See Details for
 more explanations.

@@ -22,6 +22,9 @@
 #' effects and custom smooths, and can make use of specific smoothing terms
 #' `smooth_time()`, `smooth_space()`, `smooth_space_time()`.
 #'
+#' @return
+#' An updated [sspm_dataset][sspm_dataset-class].
+#'
 #' @examples
 #' \dontrun{
 #' biomass_smooth <- biomass_dataset %>%
