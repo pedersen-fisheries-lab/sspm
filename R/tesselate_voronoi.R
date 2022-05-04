@@ -31,8 +31,8 @@
 #'     * `points`, the points used for the tessellation.
 #'
 #' @examples
-#' borealis <- borealis_simulated
-#' sfa_boundaries <- sfa_boundaries
+#' data(borealis_simulated, package = "sspm")
+#' data(sfa_boundaries, package = "sspm")
 #' tesselate_voronoi(sfa_boundaries, with = borealis, sample_surface = TRUE,
 #'                   boundary = "sfa", nb_samples = 10)
 #'
