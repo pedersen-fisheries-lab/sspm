@@ -25,9 +25,9 @@ library(sspm)
 library(mgcv)
 library(dplyr)
 
-borealis <- sspm:::borealis_simulated
-predator <- sspm:::predator_simulated
-catch <- sspm:::catch_simulated
+borealis <- borealis_simulated
+predator <- predator_simulated
+catch <- catch_simulated
 sfa_boundaries <- sspm:::sfa_boundaries
 ```
 
