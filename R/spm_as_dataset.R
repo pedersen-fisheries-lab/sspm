@@ -20,7 +20,7 @@
 #' @param ... Arguments passed onto methods.
 #'
 #' @examples
-#' borealis <- sspm:::borealis_simulated
+#' borealis <- borealis_simulated
 #' biomass_dataset <- spm_as_dataset(borealis, name = "borealis",
 #'                                   density = "weight_per_km2",
 #'                                   time = "year_f",
