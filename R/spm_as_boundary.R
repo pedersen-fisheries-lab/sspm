@@ -17,7 +17,7 @@
 #' [sspm_discrete_boundary][sspm_discrete_boundary-class].
 #'
 #' @examples
-#' data("sfa_boundaries", package = "sspm")
+#' sfa_boundaries
 #' bounds <- spm_as_boundary(boundaries = sfa_boundaries,
 #'                           boundary = "sfa")
 #' plot(bounds)
