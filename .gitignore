@@ -10,7 +10,6 @@ staging/
 .Ruserdata
 .Rprofile
 man/figures/make_hex
-data/
 docs/
 pkgdown/
 *.rds
