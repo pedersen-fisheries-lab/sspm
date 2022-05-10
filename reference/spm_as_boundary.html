@@ -126,8 +126,8 @@ of the patches (optional).</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"sfa_boundaries"</span>, package <span class="op">=</span> <span class="st">"sspm"</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>data set ‘sfa_boundaries’ not found</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">sfa_boundaries</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'sfa_boundaries' not found</span>
 <span class="r-in"><span class="va">bounds</span> <span class="op">&lt;-</span> <span class="fu">spm_as_boundary</span><span class="op">(</span>boundaries <span class="op">=</span> <span class="va">sfa_boundaries</span>,</span>
 <span class="r-in">                          boundary <span class="op">=</span> <span class="st">"sfa"</span><span class="op">)</span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'boundaries' in selecting a method for function 'spm_as_boundary': object 'sfa_boundaries' not found</span>
