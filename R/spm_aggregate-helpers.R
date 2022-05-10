@@ -1,5 +1,5 @@
 
-# Aggregation helpers ----------------------------------------------------- v
+# Aggregation helpers -----------------------------------------------------
 
 spm_aggregate_routine <- function(dataset_data, boundaries, group_by, level,
                                   time_col, boundary, variable, fun, fill,

@@ -9,13 +9,12 @@
 #' @return
 #' The updated object.
 #'
-#' @examples
-#' \dontrun{
-#' map_formula(data_frame = all_data, boundaries = boundaries,
-#'             formula = formula, time = time, ...)
-#'
-#' }
-#'
+# Examples
+# \dontrun{
+# map_formula(data_frame = all_data, boundaries = boundaries,
+#             formula = formula, time = time, ...)
+#
+# }
 setGeneric(name = "map_formula",
            def = function(data_frame,
                           boundaries,
