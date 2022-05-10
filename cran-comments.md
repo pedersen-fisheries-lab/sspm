@@ -1,18 +1,21 @@
+## Resubmission
+
+We addressed all comments: 
+- remove redundancy in description
+- fixed rd files and examples
+- removed examples on unexported functions
+
 ## R CMD check results
-Duration: 3m 23.5s
+Duration: 4m 52.3s
 
 > checking CRAN incoming feasibility ... NOTE
   Maintainer: ‘Valentin Lucet <valentin.lucet@gmail.com>’
   
   New submission
   
-  Possibly mis-spelled words in DESCRIPTION:
-    Pedersen (13:60)
-    SPMs (12:42)
-    al (13:72)
-    et (13:69)
-    gam (9:51)
-    gams (13:30)
-    sspm (9:27)
+  Possibly misspelled words in DESCRIPTION:
+    SPMs (12:8)
+    gam (9:26)
+    gams (12:72)
 
 0 errors ✓ | 0 warnings ✓ | 1 note x
