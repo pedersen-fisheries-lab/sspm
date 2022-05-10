@@ -6,10 +6,10 @@
 ^README\.Rmd$
 man/figures/make_hex
 ^\.github$
-^data$
 ^LICENSE\.md$
 ^codecov\.yml$
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
 ^cran-comments\.md$
+^CRAN-SUBMISSION$
