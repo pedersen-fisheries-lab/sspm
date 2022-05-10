@@ -78,71 +78,71 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">gam1</span> <span class="op">&lt;-</span> <span class="fu">gam</span><span class="op">(</span><span class="va">cyl</span> <span class="op">~</span> <span class="va">mpg</span>, data<span class="op">=</span><span class="va">mtcars</span>, family <span class="op">=</span> <span class="va">tw</span><span class="op">)</span></span>
 <span class="r-in"><span class="fu">predict_intervals</span><span class="op">(</span><span class="va">gam1</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     CI_log_lower CI_log_upper CI_lower  CI_upper PI_log_lower</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4               1.695366     1.807265 5.448638  6.093760    1.9452079</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag           1.695366     1.807265 5.448638  6.093760    1.2412340</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Datsun 710              1.607045     1.734125 4.988048  5.663971    1.1118669</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet 4 Drive          1.677468     1.790053 5.351986  5.989772    1.1352445</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet Sportabout       1.801793     1.906651 6.060506  6.730512    1.9579507</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Valiant                 1.828032     1.933963 6.221628  6.916869    1.9977735</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Duster 360              1.985694     2.117059 7.284099  8.306669    2.9225876</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 240D               1.526318     1.673972 4.601202  5.333312    1.0163514</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 230                1.607045     1.734125 4.988048  5.663971    1.0947993</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 280                1.780223     1.884077 5.931180  6.580278    1.9534881</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 280C               1.840420     1.946255 6.299184  7.002415    1.9944963</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SE              1.900802     2.011787 6.691258  7.476664    2.0673383</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SL              1.861984     1.969769 6.436492  7.169017    1.9521102</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SLC             1.950083     2.071557 7.029269  7.937175    2.8905697</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cadillac Fleetwood      2.132625     2.318038 8.436987 10.155728    3.8293388</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lincoln Continental     2.132625     2.318038 8.436987 10.155728    3.6868770</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Chrysler Imperial       1.970044     2.098233 7.170994  8.151754    2.9578336</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fiat 128                1.104616     1.376507 3.018066  3.961040    0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Honda Civic             1.208630     1.450150 3.348895  4.263752    0.8614704</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Toyota Corolla          1.024894     1.323776 2.786799  3.757583    0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Toyota Corona           1.672619     1.785575 5.326097  5.963011    1.7904725</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dodge Challenger        1.938405     2.056299 6.947658  7.816988    2.0993535</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AMC Javelin             1.950083     2.071557 7.029269  7.937175    2.8759762</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Camaro Z28              2.024603     2.167641 7.573106  8.737647    3.0355072</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pontiac Firebird        1.780223     1.884077 5.931180  6.580278    1.9466033</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fiat X1-9               1.377711     1.565797 3.965815  4.786488    0.9113929</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Porsche 914-2           1.446269     1.613276 4.247237  5.019228    0.9769099</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lotus Europa            1.208630     1.450150 3.348895  4.263752    0.8370433</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ford Pantera L          1.925914     2.042081 6.861415  7.706629    2.8357561</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ferrari Dino            1.758005     1.862473 5.800854  6.439639    1.9720913</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Maserati Bora           1.958302     2.082421 7.087286  8.023871    2.7922493</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Volvo 142E              1.677468     1.790053 5.351986  5.989772    1.7555392</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4               1.691319     1.803573 5.426633  6.071304    1.8659503</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag           1.691319     1.803573 5.426633  6.071304    1.8436863</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Datsun 710              1.602322     1.731241 4.964548  5.647657    1.7614507</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet 4 Drive          1.673062     1.788705 5.328457  5.981701    1.0979078</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet Sportabout       1.798563     1.903106 6.040960  6.706695    1.9820452</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Valiant                 1.825626     1.930217 6.206682  6.891008    2.0108649</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Duster 360              1.977153     2.119362 7.222154  8.325826    2.9377667</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 240D               1.523727     1.671013 4.589300  5.317553    1.0232746</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 230                1.602322     1.731241 4.964548  5.647657    1.0789605</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 280                1.777178     1.881583 5.913147  6.563886    1.9671966</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 280C               1.838002     1.944476 6.283972  6.989967    2.0012297</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SE              1.896961     2.012096 6.665605  7.478979    2.3550841</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SL              1.859162     1.969224 6.418356  7.165117    1.9725552</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SLC             1.943639     2.072265 6.984123  7.942796    2.7664380</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cadillac Fleetwood      2.124769     2.316032 8.370963 10.135375    3.8749311</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Lincoln Continental     2.124769     2.316032 8.370963 10.135375    3.7280411</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Chrysler Imperial       1.962501     2.097572 7.117107  8.146370    2.7554967</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Fiat 128                1.101476     1.383675 3.008604  3.989538    0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Honda Civic             1.206454     1.455242 3.341615  4.285522    0.8967723</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Toyota Corolla          1.022557     1.331348 2.780295  3.786142    0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Toyota Corona           1.667744     1.785038 5.300197  5.959805    1.1053550</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dodge Challenger        1.931842     2.057859 6.902211  7.829189    2.6770063</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AMC Javelin             1.943639     2.072265 6.984123  7.942796    2.2361595</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Camaro Z28              2.016201     2.168303 7.509743  8.743431    3.0097153</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pontiac Firebird        1.777178     1.881583 5.913147  6.563886    1.8521803</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Fiat X1-9               1.371082     1.566123 3.939612  4.788048    0.9295841</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Porsche 914-2           1.438136     1.613244 4.212836  5.019066    0.9862955</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Lotus Europa            1.206454     1.455242 3.341615  4.285522    0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ford Pantera L          1.920253     2.042248 6.822683  7.707915    2.1642465</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ferrari Dino            1.755674     1.859918 5.787345  6.423208    2.0209679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Maserati Bora           1.951274     2.082481 7.037647  8.024349    2.7441842</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Volvo 142E              1.673062     1.788705 5.328457  5.981701    1.7735486</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>                     PI_log_upper  PI_lower    PI_upper</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4              10.786975  6.995086   48386.437</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag          10.529396  3.459880   37398.866</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Datsun 710             10.285222  3.040029   29296.474</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet 4 Drive         11.180674  3.111934   71730.697</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet Sportabout      12.007838  7.084793  164035.489</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Valiant                11.871495  7.372622  143128.126</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Duster 360             13.958047 18.589328 1153195.169</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 240D               9.500415  2.763095   13365.271</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 230               10.207841  2.988583   27114.968</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 280               11.514804  7.053247  100187.995</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 280C              12.382110  7.348500  238496.427</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SE             12.840865  7.903758  377326.223</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SL             12.971290  7.043535  429892.117</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SLC            12.965459 18.003563  427392.694</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Cadillac Fleetwood     15.378966 46.032093 4775293.356</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lincoln Continental    15.674122 39.919981 6414825.944</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Chrysler Imperial      14.336180 19.256209 1683153.965</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fiat 128                7.907693  1.000000    2718.113</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Honda Civic             8.492453  2.366638    4877.816</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Toyota Corolla          7.247340  1.000000    1404.365</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Toyota Corona          11.154603  5.992283   69884.734</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Dodge Challenger       13.487337  8.160892  720238.245</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> AMC Javelin            13.261074 17.742736  574395.613</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Camaro Z28             14.327674 20.811530 1668898.573</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Pontiac Firebird       11.756352  7.004854  127561.221</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Fiat X1-9               8.762276  2.487785    6388.634</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Porsche 914-2           9.184849  2.656235    9748.304</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Lotus Europa            8.016833  2.309528    3031.560</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ford Pantera L         13.122280 17.043282  499958.236</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Ferrari Dino           10.994440  7.185688   59542.172</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Maserati Bora          13.525298 16.317681  748104.810</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Volvo 142E             10.648334  5.786567   42122.361</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4              10.920317  6.462074   55288.306</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Mazda RX4 Wag          10.739649  6.319792   46149.853</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Datsun 710             10.254315  5.820875   28404.851</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet 4 Drive         11.162436  2.997887   70434.292</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Hornet Sportabout      11.798066  7.257571  132994.898</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Valiant                12.494435  7.469775  266848.094</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Duster 360             13.555565 18.873649  771093.568</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 240D              10.018059  2.782291   22427.857</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 230               10.451514  2.941620   34596.714</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 280               11.916043  7.150603  149648.241</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 280C              12.080146  7.398148  176335.929</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SE             12.617272 10.539016  301725.118</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SL             12.645182  7.189022  310265.089</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Merc 450SLC            13.283418 15.901890  587374.417</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Cadillac Fleetwood     15.774418 48.179378 7091576.339</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Lincoln Continental    16.002116 41.597542 8904936.480</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Chrysler Imperial      13.712972 15.728851  902543.769</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Fiat 128                7.327431  1.000000    1521.468</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Honda Civic             7.945333  2.451677    2822.372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Toyota Corolla          7.272622  1.000000    1440.322</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Toyota Corona          10.934556  3.020297   56081.229</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dodge Challenger       13.294357 14.541496  593835.096</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> AMC Javelin            13.449064  9.357325  693193.504</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Camaro Z28             14.150919 20.281626 1398511.301</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Pontiac Firebird       11.510278  6.373701   99735.608</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Fiat X1-9               9.030264  2.533455    8352.061</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Porsche 914-2           9.385925  2.681283   11919.433</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Lotus Europa            8.264220  1.000000    3882.444</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ford Pantera L         13.574117  8.708038  785532.676</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Ferrari Dino           11.652311  7.545625  114956.739</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Maserati Bora          13.686854 15.551922  879275.692</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Volvo 142E             10.661517  5.891724   42681.338</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

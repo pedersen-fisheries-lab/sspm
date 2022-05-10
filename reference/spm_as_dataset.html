@@ -154,15 +154,20 @@ latitude of the observations.</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">borealis_simulated</span>, package <span class="op">=</span> <span class="st">"sspm"</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>data set ‘borealis_simulated’ not found</span>
 <span class="r-in"><span class="va">biomass_dataset</span> <span class="op">&lt;-</span> <span class="fu">spm_as_dataset</span><span class="op">(</span><span class="va">borealis_simulated</span>, name <span class="op">=</span> <span class="st">"borealis"</span>,</span>
 <span class="r-in">                                  density <span class="op">=</span> <span class="st">"weight_per_km2"</span>,</span>
 <span class="r-in">                                  time <span class="op">=</span> <span class="st">"year_f"</span>,</span>
 <span class="r-in">                                  coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'lon_dec'</span>,<span class="st">'lat_dec'</span><span class="op">)</span>,</span>
 <span class="r-in">                                  uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in isTRUE(lhs):</span> object 'borealis_simulated' not found</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span>  Casting data matrix into simple feature collection using columns: <span style="color: #00BB00;">lon_dec</span>, <span style="color: #00BB00;">lat_dec</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span>  Warning: sspm is assuming WGS 84 CRS is to be used for casting</span>
 <span class="r-in"><span class="va">biomass_dataset</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'biomass_dataset' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ‒‒ <span style="font-weight: bold;">Dataset </span><span style="color: #0000BB; font-weight: bold;">borealis</span> ‒‒</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> →  [<span style="color: #0000BB;">1800</span> rows, <span style="color: #0000BB;">9</span> columns]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> →  Density : <span style="color: #00BB00;">weight_per_km2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> →  Time : <span style="color: #00BB00;">year_f</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

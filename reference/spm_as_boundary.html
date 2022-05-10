@@ -127,12 +127,20 @@ of the patches (optional).</p></dd>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="va">sfa_boundaries</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'sfa_boundaries' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 4 features and 1 field</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: MULTIPOLYGON</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -64.18658 ymin: 46.00004 xmax: -46.6269 ymax: 60.84333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   sfa                       geometry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   4 MULTIPOLYGON (((-59.36453 5...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   5 MULTIPOLYGON (((-55 53.75, ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   6 MULTIPOLYGON (((-49.9269 49...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   7 MULTIPOLYGON (((-54.48779 4...</span>
 <span class="r-in"><span class="va">bounds</span> <span class="op">&lt;-</span> <span class="fu">spm_as_boundary</span><span class="op">(</span>boundaries <span class="op">=</span> <span class="va">sfa_boundaries</span>,</span>
 <span class="r-in">                          boundary <span class="op">=</span> <span class="st">"sfa"</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'boundaries' in selecting a method for function 'spm_as_boundary': object 'sfa_boundaries' not found</span>
 <span class="r-in"><span class="fu"><a href="plot.html">plot</a></span><span class="op">(</span><span class="va">bounds</span><span class="op">)</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in h(simpleError(msg, call)):</span> error in evaluating the argument 'x' in selecting a method for function 'plot': object 'bounds' not found</span>
+<span class="r-plt img"><img src="spm_as_boundary-1.png" alt="" width="700" height="433"></span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>
