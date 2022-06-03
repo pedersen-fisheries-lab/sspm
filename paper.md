@@ -1,23 +1,27 @@
 ---
-title: 'The sspm R package: spatial surplus production models for the management of northern shrimp fisheries'
+title: 'The sspm R package: spatial surplus production models for the management of
+  northern shrimp fisheries'
 tags:
-  - R
-  - fisheries
-  - management
-  - modelling
-  - GAM
+- R
+- fisheries
+- management
+- modelling
+- GAM
+date: "13 August 2017"
+output:
+  word_document: default
+  pdf_document: default
 authors:
-  - name: Valentin Lucet^[co-first author]
-    orcid: 0000-0003-0268-818X
-    affiliation: 1
-  - name: Eric J. Pedersen^[co-first author]
-    orcid: 0000-0003-1016-540X
-    affiliation: 1
-affiliations:
- - name: Concordia University, Montreal, Quebec, CA
-   index: 1
-date: 13 August 2017
+- name: Valentin Lucet^[co-first author]
+  orcid: 0000-0003-0268-818X
+  affiliation: 1
+- name: Eric J. Pedersen^[co-first author]
+  orcid: 0000-0003-1016-540X
+  affiliation: 1
 bibliography: paper.bib
+affiliations:
+- name: Concordia University, Montreal, Quebec, CA
+  index: 1
 ---
 
 # Statement of need
@@ -31,24 +35,28 @@ bibliography: paper.bib
 
 <!-- Pop models are important tools in fisheries science, but most are obsolete as they fail to account for ecosystem variables and spatio-temporal dynamics -->
 
-Population modelling is an exercise of interest within environmental sciences and adjacent fields. Early population models tended to address simple dynamics such as exponential growth and density dependence [@gotelli_primer_2008], whereas modern population models increasingly acknowledge the non-stationary nature of wild populations [@thorson_importance_2015; @thorson_using_2017]. More specifically, population models applied to resource management, such as fisheries models, increasingly address how stocks vary across space and time. Resource managers are becoming increasingly interested in how ecosystem factors such as predator abundance and abiotic variables impact the spatio-temporal variability of mechanisms like productivity and density dependence. However, efforts to include spatial dynamics and ecosystem variables in fisheries models are rare. Although the non-stationarity of stocks has been established [@zhang_longer_2021; @szuwalski_climate_2016], and despite the push for more ecosystem-based management methods in fisheries management [@crowder_impacts_2008; @berkes_implementing_2012; @tam_towards_2017], applications are lacking. 
+Population modelling is an exercise of interest within environmental sciences and adjacent fields. Early population models such as the logistic model assumed that while the abundance of a population might change over time, the environmental conditions governing parameters affecting that rate of change (such as the maximum rate of growth or the carrying capacity of the population) stay constant over time [@gotelli_primer_2008]. Modern population models increasingly acknowledge the non-stationary nature of wild populations, and work to incorporate environmental fluctuations into dynamic models [@thorson_importance_2015; @thorson_using_2017]. Population models designed to answer applied resource management questions, such as fisheries stock models, increasingly address how the dynamics of stocks vary across space and time. 
+
+Resource managers are becoming increasingly interested in how variation in ecosystem factors such as predator abundance and abiotic variables impact the spatiotemporal variability of population parameters such as productivity [@zhang_longer_2021; @szuwalski_climate_2016]. Further, treating spatially structured stocks as single unstructured stocks can lead to substantially biased estimates of population change [@thorson_importance_2015]. However, stock models that explicitly incorporate spatial dynamics and time-varying ecosystem variables still rare in fisheries science, despite the push for more ecosystem-based management methods in fisheries management [@crowder_impacts_2008; @berkes_implementing_2012; @tam_towards_2017]. 
 
 <!-- SPMs are simple, old pop models, in need of updating to account for the non-stationarity of the mechanisms that maintain stocks -->
 
-One family of population models that rarely account for spatial structure is the family of Surplus production models (SPMs). SPMs are well-known tools for single-stock modelling. They model the entire biomass of a stock and are useful in data-poor contexts where the age and sex structure of the population is not accessible [@prager_suite_1994; @punt_extending_2003]. Basic SPMs are only based on simple mechanics of logistic growth [@walters_surplus_2008], and therefore are widely viewed as a limited tool for modelling stocks. One main limitation of SPMs is that they usually assume spatially constant productivity. This assumption is a strong handicap in the context of the current global changes that are affecting global fisheries, such as climate change, which is already having an impact on the spatial structure of economically important stocks. One example is that of the Northern Shrimp (Pandalus borealis) in the Newfoundland and Labrador Shelves. This stock currently lacks a population model to predict how fishing pressure and changing environmental conditions may affect future abundance in the region. In the context of climate change and shifting ranges, fisheries productivity is likely to be a moving target [@karp_accounting_2019], and managers need better methods that account for varying productivity [@szuwalski_climate_2016].
+  Surplus production models (SPMs) are one of the classic models used in fisheries, and are based on modelling changes in the total biomass of a stock in a given location over time (i.e. *surplus production*) as a function of current stock abundance and fishing pressure [@walters_surplus_2008]. They are useful in data-poor contexts where the age and sex structure of the population is not accessible, or when age- or length-structure do not change substantially over time [@prager_suite_1994; @punt_extending_2003]. Classically, SPMs assumed single unstructured stocks with purely logistic dynamics [@walters_surplus_2008], and as such have been viewed as a limited tool for modelling more complex stocks. 
+  
+Two limitations of classic SPMs is the assumption of spatially constant productivity, and that stock productivity is affected only by stock abundance and fishing. These assumptions ignore the effect of global changes that are affecting fisheries, such as climate change, that affect the growth rates of stocks independently of fishing pressure. One example is that of the Northern Shrimp (*Pandalus borealis*) in the Newfoundland and Labrador Shelves, which has undergone several periods of large-scale biomass change in the last two decades, despite a relatively constant harvest regime [@dfo_assessment_2019]. These stocks currently lack a population model to understand the drivers of this change, and to predict how fishing pressure and changing environmental conditions may affect future abundance in the region. In the context of climate change and shifting ranges, fisheries productivity is likely to be a moving target [@karp_accounting_2019], and managers need better methods that account for varying productivity [@szuwalski_climate_2016].
 
 <!-- Any pop models, including SPMs, can either be process based or statistical: we decide to implement a statistical approach so that we can benefit from confidence intervals -->
 
-Population models like SPMs usually fall under two categories: process-based models and statistical models. Process based models often rely on differential equations and are based on replicating the underlying processes (predation, recruitment, dispersal) behind population dynamics. Statistical models, on the other hand, rely on fitting a model to data using distributional assumptions, and present the advantage of naturally measuring uncertainty around predictions. This is useful in a management context where uncertainty around decision-making is important information to have on hand. In this paper, we use a statistical approach to fitting SPMs using GAMs (generalized additive models). We apply this approach to the population of northern shrimp of the Newfoundland and Labrador Shelves, leveraging the smoothing properties of GAMs to account for varying productivity across time and space. The resulting model is a spatial SPM (SSPM), implemented via a R package `sspm`.
+Population models like SPMs usually fall under two categories: process-based models and statistical models. Process-based models often rely on differential equations and are based on replicating the underlying processes (predation, recruitment, dispersal) behind population dynamics. Statistical models, on the other hand, rely on fitting a model to data using distributional assumptions, allowing for estimation of parameter uncertainty and ranges of model predictions. This is useful in a management context where uncertainty around decision-making is important information to have on hand. Statistical models also allow for straight-forward estimation of spatial variation in population parameters such as maximum productivity or density dependence from data, in the absence of theory predicting how these parameters should vary. In this paper, we use a statistical approach to fitting SPMs using Generalized Additive Models (GAMS), estimated using the `mgcv` R package [@wood_generalized_2017] as the backend. We apply this approach to the population of northern shrimp of the Newfoundland and Labrador Shelves, leveraging the smoothing properties of GAMs to account for varying productivity across time and space. The resulting model is a spatial SPM (SSPM), implemented via a R package `sspm`.
 
-The R package sspm is designed to make spatially-explicit surplus production models (SSPM) more applicable. The package uses Generalized Additive Models (GAMs) to fit a SSPM to biomass and harvest data. The package includes a range of features to manage biomass and harvest data. Those features are organized in a stepwise workflow, whose implementation is described in more detail in \autoref{fig:workflow}.
+While the initial application of this model was to Northern Shrimp, The R package `sspm` is designed to make spatially-explicit surplus production models (SSPM) simpler to estimate and apply to any spatially structured stock. The package uses GAMs to estimate spatially varying biomass, and to estimate SSPMs based on changes in fitted biomass, observed catch, and spatially structured environmental predictors. The package includes a range of features to manage biomass and harvest data. Those features are organized in a stepwise workflow, whose implementation is described in more detail in \autoref{fig:workflow}.
 
-1. Ingestion of variables as well as spatial boundaries and discretization into patches, using the user's method of choice (random or custom sampling, voronoi tessellation or Delaunay triangulation).
-2. Smoothing data using spatio-temporal GAMs smoothers.
-3. Computation of productivity values taking into account harvest information.
-4. Fitting of SSPMs to smoothed data with GAMs.
+1. Discretization and aggregation of spatially structured observations into discrete patches, with a range of methods of discretization (random or custom sampling, Voronoi tessellation or Delaunay triangulation).
+2. Spatiotemporal smoothing of biomass and environmental predictors using GAMs.
+3. Computation of surplus productivity based on biomass density and fishing effort.
+4. Fitting of SSPMs to productivity data with GAMs.
 5. Visualization of results, including confidence and prediction intervals.
-6. One step ahead prediction of biomass.
+6. One-step-ahead prediction of biomass for model validation and scenario-based forecasting.
 
 Although it was developed in a fisheries context, the package is suitable to model spatially-structured population dynamics in general.
 
@@ -56,14 +64,16 @@ Although it was developed in a fisheries context, the package is suitable to mod
 
 The package follows an object oriented design, making use of the S4 class systems. The different classes in the package work together to produce a stepwise workflow  (\autoref{fig:workflow}). 
 
-1. The first pillar of the package's design is the concept of boundary data, the spatial polygons that sets the boundary of the spatial model. The boundary data is ingested into a `sspm_boundary` object with a call to `spm_as_boundary()`.
-2. The boundary data is then discretized into a `sspm_discrete_boundary` object with the `spm_discretize()` function, dividing the boundary area into discrete patches.
-3. The second pillar is the recognition of 3 types of data: **trawl**, **predictors**, and **catch** (i.e. harvest). The next step in the workflow is to ingest the data into `sspm_dataset` objects via a call to `spm_as_dataset()`.
-4. The first proper modelling step is to smooth the biomass and predictors data by combining a `sspm_dataset`, and a `sspm_discrete_boundary`. The user specifies a gam formula with custom smooth terms. The output is still a `sspm_dataset` object with a `smoothed_data` slot which contains the smoothed predictions for all patches.
-5. Then, catch is integrated into the biomass data by calling `spm_aggregate_catch` on the two `sspm_dataset` that contains catch and smoothed biomass. Productivity and (both log and non log) is calculated at this step.
-6. The next step consists in combining all relevant datasets for the modelling of productivity (i.e. the newly created productivity dataset and the predictor(s) dataset(s)) with a call to `sspm()`. Additionally, the user may apply lags to the variables with `spm_lag()` and determine the split between testing and training data with `spm_split()`.
-7. The second modelling step consists in modelling productivity per se. Once again, a gam formula with custom syntax is used.
-8. The resulting object contains the model fit. Predictions can be obtained using the built-in `predict()` method, and plots with the `plot()` method.
+The key workflow steps are: 
+
+1. Delineation of the boundary of the region of interest for the model. Boundary data is provided as a shapefile and converted into a `sspm_boundary` object with a call to `spm_as_boundary()`.
+2. The region within the boundary is discretized into patches with the `spm_discretize()` function, creating a `sspm_discrete_boundary` object.
+3. The `spm_as_dataset()` function turns user-provided data frames of raw observations into `sspm_dataset` objects that explicitly track locations, data types, and aggregation scales for each input. `sspm` recognizes three types of data: **trawl** (i.e. biomass estimates from scientific surveys), **predictors**, and **catch** (i.e. harvest). 
+4. The `spm_smooth` function use spatiotemporal GAM models to smooth the biomass and predictor data, based on the spatial structure from `sspm_discrete_boundary`. The user specifies a GAM formula with custom smooth terms. The output is another `sspm_dataset` object with a `smoothed_data` slot which contains the smoothed predictions for all patches.
+5. The `spm_aggregate_catch` function aggregates catch into patches and years, and calculates patch-specific productivity for each year as the ratio of estimated biomass density plus catch from the next year, divided by estimated biomass density of the current year. The result is returned as a `sspm_dataset`.
+6. The `sspm` function combines productivity and predictor datasets into a single dataset. Additionally, the user may create lagged versions of predictors with `spm_lag()` and split data into testing and training sets for model validation with `spm_split()` at this stage.
+7. The `spm()` function is used to fit a SSPM model to the output of step 6, using a GAM model with custom syntax able to model a range of SSPMs. The output is an [OBJECT_TYPE] object.
+8. Predictions from the fitted model can be obtained using the built-in `predict()` method, and plots with the `plot()` method.
 
 ![The sspm workflow.\label{fig:workflow}](figures/flowchart.png){width=90%}
 
