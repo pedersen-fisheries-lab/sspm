@@ -13,3 +13,4 @@ man/figures/make_hex
 ^pkgdown$
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
+^paper$
