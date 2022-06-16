@@ -38,6 +38,9 @@
       <a href="../articles/Package_and_workflow_design.html">Package and workflow design</a>
     </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/pedersen-fisheries-lab/sspm/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
@@ -82,18 +85,30 @@
     <h2>Arguments</h2>
     <dl><dt>object</dt>
 <dd><p><strong>[sspm_fit]</strong> Fit object to predict from.</p></dd>
+
+
 <dt>new_data</dt>
 <dd><p><strong>[data.frame]</strong> New data to predict with.</p></dd>
+
+
 <dt>biomass</dt>
 <dd><p><strong>[character]</strong> Biomass variable.</p></dd>
+
+
 <dt>aggregate</dt>
 <dd><p><strong>[logical]</strong> For biomass predictions only, whether to
 aggregate the data to the boundary level. Default to FALSE.</p></dd>
+
+
 <dt>interval</dt>
 <dd><p><strong>[logical]</strong> Whether or not to calculate confidence, and
 when possible, prediction intervals.</p></dd>
+
+
 <dt>next_ts</dt>
 <dd><p><strong>[logical]</strong> For biomass, predict next timestep.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>When this has the value <code>"link"</code> (default) the linear predictor (possibly with
 associated standard errors) is returned. When <code>type="terms"</code> each component of the 
@@ -111,13 +126,18 @@ option is most useful for getting variance estimates for quantities derived from
 the model: for example integrated quantities, or derivatives of smooths. A
 linear predictor matrix can also be used to implement approximate prediction
 outside <code>R</code> (see example code, below).</p></dd>
+
+
 <dt>discrete</dt>
 <dd><p><strong>[logical]</strong> If <code>new_data</code> is NULL, whether to predict
 based on a discrete prediction matrix (default to TRUE).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A <code>dataframe</code> of predictions.</p>
+    
+
+<p>A <code>dataframe</code> of predictions.</p>
     </div>
 
     <div id="ref-examples">
@@ -145,7 +165,7 @@ based on a discrete prediction matrix (default to TRUE).</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

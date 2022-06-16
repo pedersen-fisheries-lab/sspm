@@ -40,6 +40,9 @@ series."><meta property="og:image" content="/logo.png"><!-- mathjax --><script s
       <a href="../articles/Package_and_workflow_design.html">Package and workflow design</a>
     </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/pedersen-fisheries-lab/sspm/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
@@ -81,22 +84,33 @@ series.</p>
     <dl><dt>sspm_object</dt>
 <dd><p><strong>[sspm_dataset]</strong> An object of class
 <a href="sspm_dataset-class.html">sspm_dataset</a>.</p></dd>
+
+
 <dt>vars</dt>
 <dd><p><strong>[character]</strong> Names of the variables to lag.</p></dd>
+
+
 <dt>n</dt>
 <dd><p>Positive integer of length 1, giving the number of positions to
 lead or lag by</p></dd>
+
+
 <dt>default</dt>
 <dd><p>Value used for non-existent rows. Defaults to <code>NA</code>.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>a list of variables that are the covariates that this
     smooth is a function of. Transformations whose form depends on
     the values of the data are best avoided here: e.g. <code>s(log(x))</code>
     is fine, but <code>s(I(x/sd(x)))</code> is not (see <code><a href="https://rdrr.io/pkg/mgcv/man/predict.gam.html" class="external-link">predict.gam</a></code>).</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Updated <code>sspm_object</code>.</p>
+    
+
+<p>Updated <code>sspm_object</code>.</p>
     </div>
 
     <div id="ref-examples">
@@ -122,7 +136,7 @@ lead or lag by</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

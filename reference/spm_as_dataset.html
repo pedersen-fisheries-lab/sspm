@@ -39,6 +39,9 @@ sspm_dataset."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
       <a href="../articles/Package_and_workflow_design.html">Package and workflow design</a>
     </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/pedersen-fisheries-lab/sspm/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
@@ -132,36 +135,61 @@ sspm_dataset."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
     <h2>Arguments</h2>
     <dl><dt>data</dt>
 <dd><p><strong>[data.frame OR sf]</strong> The dataset.</p></dd>
+
+
 <dt>name</dt>
 <dd><p><strong>[character]</strong> The name of the dataset, default to "Biomass".</p></dd>
+
+
 <dt>time</dt>
 <dd><p><strong>[character]</strong> The column of <code>data</code> for the temporal
 dimensions (i.e. year).</p></dd>
+
+
 <dt>uniqueID</dt>
 <dd><p><strong>[character]</strong> The column of <code>data</code> that is unique for all
 rows of the data matrix.</p></dd>
+
+
 <dt>coords</dt>
 <dd><p><strong>[character]</strong> The column of <code>data</code> for longitude and
 latitude of the observations.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>Arguments passed onto methods.</p></dd>
+
+
 <dt>crs</dt>
 <dd><p>Coordinate reference system, passed onto st_as_sf.</p></dd>
+
+
 <dt>boundaries</dt>
 <dd><p><strong>[sspm_boundary]</strong> An object of class
 <a href="sspm_boundary-class.html">sspm_discrete_boundary</a>.</p></dd>
+
+
 <dt>biomass</dt>
 <dd><p><strong>[character]</strong> Columns to be encoded as biomasses (required).</p></dd>
+
+
 <dt>density</dt>
 <dd><p><strong>[character]</strong> Columns to be encoded as densities (optionnal).</p></dd>
+
+
 <dt>biomass_units</dt>
 <dd><p><strong>[character]</strong> Units for biomass columns, default to "kg".</p></dd>
+
+
 <dt>density_units</dt>
 <dd><p><strong>[character]</strong> Units for density columns, default to "kg/km^2".</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class <code><a href="sspm_dataset-class.html">sspm_dataset</a></code>.</p>
+    
+
+<p>An object of class <code><a href="sspm_dataset-class.html">sspm_dataset</a></code>.</p>
     </div>
 
     <div id="ref-examples">
@@ -196,7 +224,7 @@ latitude of the observations.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

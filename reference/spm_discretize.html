@@ -39,6 +39,9 @@ discretization_method object class."><meta property="og:image" content="/logo.pn
       <a href="../articles/Package_and_workflow_design.html">Package and workflow design</a>
     </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/pedersen-fisheries-lab/sspm/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
@@ -91,21 +94,30 @@ discretization_method object class."><meta property="og:image" content="/logo.pn
     <dl><dt>boundary_object</dt>
 <dd><p><strong>[sspm]</strong> An object of class
 <a href="sspm-class.html">sspm_boundary</a>.</p></dd>
+
+
 <dt>method</dt>
 <dd><p><strong>[character OR method]</strong>
 Either a <code>character</code> from the list of available methods
 (see <a href="spm_methods.html">spm_methods</a> for the list) <strong>OR</strong> an object of class
 <a href="discretization_method-class.html">discretization_method</a>.</p></dd>
+
+
 <dt>with</dt>
 <dd><p><strong>[sspm_dataset OR sf]</strong> Either an object of class sspm_dataset or
 a set of custom points.</p></dd>
+
+
 <dt>...</dt>
 <dd><p><strong>[named list]</strong> Further arguments to be passed onto the function
 used in <code>method</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>An object of class <a href="sspm-class.html">sspm_discrete_boundary</a> (the updated
+    
+
+<p>An object of class <a href="sspm-class.html">sspm_discrete_boundary</a> (the updated
 and discretized <code>sspm</code> object given as input).</p>
     </div>
     <div id="details">
@@ -157,7 +169,7 @@ stores the points that were used for discretization.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

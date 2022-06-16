@@ -40,6 +40,9 @@ st_voronoi()."><meta property="og:image" content="/logo.png"><!-- mathjax --><sc
       <a href="../articles/Package_and_workflow_design.html">Package and workflow design</a>
     </li>
   </ul></li>
+<li>
+  <a href="../news/index.html">Changelog</a>
+</li>
       </ul><ul class="nav navbar-nav navbar-right"><li>
   <a href="https://github.com/pedersen-fisheries-lab/sspm/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
@@ -84,34 +87,53 @@ boundary polygons, then by running  the voronoisation with
     <h2>Arguments</h2>
     <dl><dt>boundaries</dt>
 <dd><p><strong>[sf]</strong> The boundaries to be used.</p></dd>
+
+
 <dt>with</dt>
 <dd><p><strong>[sf]</strong> A set of data points to use for voronoisation.</p></dd>
+
+
 <dt>boundary</dt>
 <dd><p><strong>[character]</strong> The column in <code>boundaries</code> that is to
 be used for the stratified sampling.</p></dd>
+
+
 <dt>sample_surface</dt>
 <dd><p><strong>[logical]</strong> Whether to sample the surfaces in
 <code>boundaries</code>, Default to <code>FALSE</code>.</p></dd>
+
+
 <dt>sample_points</dt>
 <dd><p><strong>[logical]</strong> Whether to sample points from <code>with</code> or
 to take all points in <code>with</code>. Default to <code>TRUE</code>.</p></dd>
+
+
 <dt>nb_samples</dt>
 <dd><p><strong>[named character vector]</strong> The number of samples to draw
 by boundary polygons (must bear the levels of <code>boundary</code> as names
 or be a single value to be applied to each level).</p></dd>
+
+
 <dt>min_size</dt>
 <dd><p><strong>[numeric]</strong> The minimum size for a polygon above which it
 will be merged (in km2).</p></dd>
+
+
 <dt>stratify</dt>
 <dd><p><strong>[logical]</strong> Whether the discretization happens within the
 boundaries or whether the whole area is to be used (default to TRUE).</p></dd>
+
+
 <dt>seed</dt>
 <dd><p><strong>[numeric]</strong> Passed onto <code><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed()</a></code>,
 important for reproducibility of sampling.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A named list with three elements (each an <code>sf</code> object):
+    
+
+<p>A named list with three elements (each an <code>sf</code> object):
 * <code>patches</code>, the voronoi polygons generated
 * <code>points</code>, the points used for the tessellation.</p>
     </div>
@@ -177,7 +199,7 @@ important for reproducibility of sampling.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
