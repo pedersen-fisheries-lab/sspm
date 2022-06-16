@@ -75,16 +75,7 @@ The key workflow steps are:
 7. The `spm()` function is used to fit a SSPM model to the output of step 6, using a GAM model with custom syntax able to model a range of SSPMs. The output is an `sspm` object.
 8. Predictions from the fitted model can be obtained using the built-in `predict()` method, and plots with the `plot()` method.
 
-![The sspm workflow.\label{fig:workflow}](figures/flowchart.png){width=90%}
-
-<!--
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](figure.png)
-and referenced from text using \autoref{fig:example}.
-
-Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% }
--->
+![The sspm workflow.\label{fig:workflow}](paper/figures/flowchart.png){width=90%}
 
 # Acknowledgements
 
