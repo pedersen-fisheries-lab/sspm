@@ -17,11 +17,13 @@ authors:
   affiliation: 1
 - name: Eric J. Pedersen^[co-first author]
   orcid: 0000-0003-1016-540X
-  affiliation: 1
+  affiliation: "1, 2"
 bibliography: paper.bib
 affiliations:
-- name: Concordia University, Montreal, Quebec, CA
+- name: Department of Biology, Concordia University, Montreal, CA
   index: 1
+- name: Department of Biology, Memorial University of Newfoundland, St. John's, CA
+  index: 2
 ---
 
 # Statement of need
@@ -41,7 +43,7 @@ Resource managers are becoming increasingly interested in how variation in ecosy
 
 <!-- SPMs are simple, old pop models, in need of updating to account for the non-stationarity of the mechanisms that maintain stocks -->
 
-  Surplus production models (SPMs) are one of the classic models used in fisheries, and are based on modelling changes in the total biomass of a stock in a given location over time (i.e. *surplus production*) as a function of current stock abundance and fishing pressure [@walters_surplus_2008]. They are useful in data-poor contexts where the age and sex structure of the population is not accessible, or when age- or length-structure do not change substantially over time [@prager_suite_1994; @punt_extending_2003]. Classically, SPMs assumed single unstructured stocks with purely logistic dynamics [@walters_surplus_2008], and as such have been viewed as a limited tool for modelling more complex stocks. 
+Surplus production models (SPMs) are one of the classic models used in fisheries, and are based on modelling changes in the total biomass of a stock in a given location over time (i.e. *surplus production*) as a function of current stock abundance and fishing pressure [@walters_surplus_2008]. They are useful in data-poor contexts where the age and sex structure of the population is not accessible, or when age- or length-structure do not change substantially over time [@prager_suite_1994; @punt_extending_2003]. Classically, SPMs assumed single unstructured stocks with purely logistic dynamics [@walters_surplus_2008], and as such have been viewed as a limited tool for modelling more complex stocks. 
   
 Two limitations of classic SPMs is the assumption of spatially constant productivity, and that stock productivity is affected only by stock abundance and fishing. These assumptions ignore the effect of global changes that are affecting fisheries, such as climate change, that affect the growth rates of stocks independently of fishing pressure. One example is that of the Northern Shrimp (*Pandalus borealis*) in the Newfoundland and Labrador Shelves, which has undergone several periods of large-scale biomass change in the last two decades, despite a relatively constant harvest regime [@dfo_assessment_2019]. These stocks currently lack a population model to understand the drivers of this change, and to predict how fishing pressure and changing environmental conditions may affect future abundance in the region. In the context of climate change and shifting ranges, fisheries productivity is likely to be a moving target [@karp_accounting_2019], and managers need better methods that account for varying productivity [@szuwalski_climate_2016].
 
