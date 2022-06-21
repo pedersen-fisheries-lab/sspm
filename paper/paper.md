@@ -9,8 +9,8 @@ tags:
 - GAM
 date: "13 August 2017"
 output:
-  word_document: default
   pdf_document: default
+  word_document: default
 authors:
 - name: Valentin Lucet^[co-first author]
   orcid: 0000-0003-0268-818X
@@ -77,7 +77,7 @@ The key workflow steps are:
 7. The `spm()` function is used to fit a SSPM model to the output of step 6, using a GAM model with custom syntax able to model a range of SSPMs. The output is an `sspm` object.
 8. Predictions from the fitted model can be obtained using the built-in `predict()` method, and plots with the `plot()` method.
 
-![The sspm workflow.\label{fig:workflow}](paper/figures/flowchart.png){width=90%}
+![The sspm workflow.\label{fig:workflow}](../man/figures/flowchart.png){width=90%}
 
 # Acknowledgements
 
