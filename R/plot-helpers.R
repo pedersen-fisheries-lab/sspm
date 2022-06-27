@@ -202,6 +202,7 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
     base_plot <- ggplot2::ggplot(data = smoothed_data) +
       ggplot2::geom_line(ggplot2::aes(x = .data[[time_col]],
                                       y = .data[[var]],
+                                      size = c(1,1),
                                       color = .data$color)) +
       ggplot2::geom_point(ggplot2::aes(x = .data[[time_col]],
                                        y = .data[[var]],
