@@ -119,7 +119,7 @@ setMethod(f = "fit_smooths",
                           ...)
               }, error = function(e) {
 
-                # CAtch potential issue with by variables
+                # Catch potential issue with by variables
                 if (e$message == "Can't find by variable") {
                   cli::cli_alert_danger(" mgcv failed to fit 'by' smooths")
                   cli::cli_alert_info(" Please ensure that all 'by = ...' variables are encoded as factors")
