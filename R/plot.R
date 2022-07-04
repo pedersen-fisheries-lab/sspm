@@ -149,10 +149,11 @@ setMethod("plot",
           signature(x = "sspm_fit",
                     y = "missing"),
           definition = function(x, y, ..., train_test = FALSE, biomass = NULL,
-                                next_ts = FALSE, aggregate = FALSE,
-                                interval = FALSE, biomass_origin = NULL,
-                                use_sf = FALSE, page = "first", nrow = 2,
-                                ncol = 2, log = FALSE, scales = "fixed") {
+                                next_ts = FALSE, smoothed_biomass = FALSE,
+                                aggregate = FALSE, interval = FALSE,
+                                biomass_origin = NULL, use_sf = FALSE,
+                                page = "first", nrow = 2, ncol = 2,
+                                log = FALSE, scales = "fixed") {
 
             # If no biomass is provided, does a train/test plot (default)
             if (train_test){
@@ -166,7 +167,7 @@ setMethod("plot",
                 sspm_discrete_plot <- plot_biomass(x, biomass, biomass_origin,
                                                    aggregate, interval, use_sf,
                                                    page, nrow, ncol, log, scales,
-                                                   next_ts)
+                                                   next_ts, smoothed_biomass)
 
               } else {
 

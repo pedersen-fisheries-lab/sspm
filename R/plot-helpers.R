@@ -65,14 +65,14 @@ plot_productivity <- function(x, aggregate, interval, use_sf, page, nrow, ncol,
 }
 
 plot_biomass <- function(x, biomass, biomass_origin, aggregate, interval,
-                         use_sf, page, nrow, ncol, log, scales, next_ts){
+                         use_sf, page, nrow, ncol, log, scales,
+                         next_ts, smoothed_biomass){
 
   # Check that biomass is a character
   checkmate::assert_character(biomass)
 
   # Start up color profile info vector
-  color_profile <- c("Predictions" = "red",
-                     "Smoothed" = "black")
+  color_profile <- c("Predictions" = "red")
 
   # Collect info
   boundary_col <- spm_boundary(x)
@@ -85,6 +85,22 @@ plot_biomass <- function(x, biomass, biomass_origin, aggregate, interval,
                            aggregate = aggregate,
                            interval = interval) %>%
     dplyr::mutate(color = "Predictions")
+
+  if (smoothed_biomass){
+
+    # Prepare biomass_actual data
+    biomass_actual <- process_actual_biomass(x, biomass_origin, biomass,
+                                             patch_area_col, boundary_col,
+                                             time_col, aggregate)
+
+    # Put actual and predictions together
+    biomass_preds <- biomass_preds %>%
+      dplyr::bind_rows(biomass_actual)
+
+    color_profile <-
+      c(color_profile, "Smoothed" = "black")
+
+  }
 
   if (next_ts) {
 
@@ -100,15 +116,6 @@ plot_biomass <- function(x, biomass, biomass_origin, aggregate, interval,
       c(color_profile, "Prediction (1 step \n ahead, NO CATCH)" =
           "firebrick")
   }
-
-  # Prepare biomass_actual data
-  biomass_actual <- process_actual_biomass(x, biomass_origin, biomass,
-                                           patch_area_col, boundary_col,
-                                           time_col, aggregate)
-
-  # Put actual and predictions together
-  biomass_preds <- biomass_preds %>%
-    dplyr::bind_rows(biomass_actual)
 
   sspm_discrete_plot <-
     spm_plot_routine(smoothed_data = biomass_preds, var = "biomass",
