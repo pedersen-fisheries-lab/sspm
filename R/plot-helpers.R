@@ -214,7 +214,14 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
                     x = "Timestep")
 
     if (aggregate){
+
       facet_by <- boundary_col
+      facet_col_levels <- length(unique(smoothed_data[[facet_by]]))
+
+      if (facet_col_levels == 1) {
+        nrow <- ncol <- 1
+      }
+
     } else {
       facet_by <- "patch_id"
     }
@@ -261,7 +268,6 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
 
     if (page == "all") {
 
-      facet_col_levels <- length(unique(smoothed_data[[facet_by]]))
       n_per_page <- nrow * ncol
       n_pages <- facet_col_levels %/% (n_per_page) +
         (facet_col_levels %% n_per_page >= 1)
