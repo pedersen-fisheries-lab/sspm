@@ -14,6 +14,8 @@
 #'    predictions.
 #' @param next_ts **\[logical\]** (For sspm_fit) Whether to plot a predictions
 #'    for next timestep.
+#' @param smoothed_biomass **\[logical\]** (For sspm_fit) Whether to plot a the
+#'    smoothed biomass used for predictions.
 #' @param aggregate **\[logical\]** (For sspm_fit) For biomass predictions only,
 #'    whether to aggregate the data to the boundary level. Default to FALSE.
 #' @param interval **\[logical\]** (For sspm_fit) Whether to plot CI and Pi

@@ -30,6 +30,7 @@
   train_test = FALSE,
   biomass = NULL,
   next_ts = FALSE,
+  smoothed_biomass = FALSE,
   aggregate = FALSE,
   interval = FALSE,
   biomass_origin = NULL,
@@ -73,6 +74,9 @@ predictions.}
 
 \item{next_ts}{\strong{[logical]} (For sspm_fit) Whether to plot a predictions
 for next timestep.}
+
+\item{smoothed_biomass}{\strong{[logical]} (For sspm_fit) Whether to plot a the
+smoothed biomass used for predictions.}
 
 \item{aggregate}{\strong{[logical]} (For sspm_fit) For biomass predictions only,
 whether to aggregate the data to the boundary level. Default to FALSE.}
