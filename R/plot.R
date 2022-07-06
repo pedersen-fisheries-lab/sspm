@@ -8,6 +8,9 @@
 #'
 #' @param var **\[character\]** (For sspm_dataset) Variable to plot.
 #'
+#' @param interval **\[logical\]** (For sspm_fit & sspm_dataset) Whether to plot
+#'    CI and Pi intervals.
+#'
 #' @param train_test **\[logical\]** (For sspm_fit) Whether to plot a train/test
 #'    pair plot.
 #' @param biomass **\[character\]** (For sspm_fit) The biomass variable for
@@ -18,8 +21,6 @@
 #'    smoothed biomass used for predictions.
 #' @param aggregate **\[logical\]** (For sspm_fit) For biomass predictions only,
 #'    whether to aggregate the data to the boundary level. Default to FALSE.
-#' @param interval **\[logical\]** (For sspm_fit) Whether to plot CI and Pi
-#'    intervals.
 #'
 #' @param biomass_origin **\[character\]** Biomass variable to plot (from
 #'    original dataset, optionnal).
@@ -106,11 +107,12 @@ setMethod("plot",
 setMethod("plot",
           signature(x = "sspm_dataset",
                     y = "missing"),
-          definition = function(x, y, ..., var = NULL, use_sf = FALSE,
+          definition = function(x, y, ..., var = NULL,
+                                use_sf = FALSE, interval = FALSE,
                                 page = "first", nrow = 2, ncol = 2,
                                 log = FALSE, scales = "fixed") {
 
-            smoothed_data <- spm_smoothed_data(x)
+            smoothed_data <- predict(x, interval = TRUE)
 
             if (is.null(smoothed_data)){
               stop("Dataset doesn't have any smoothed data")
@@ -137,7 +139,8 @@ setMethod("plot",
                 spm_plot_routine(smoothed_data = smoothed_data, var = var,
                                  use_sf = use_sf, page = page, nrow = nrow,
                                  ncol = ncol, time_col = time_col, log = log,
-                                 scales = scales, color_profile = color_profile)
+                                 scales = scales, color_profile = color_profile,
+                                 interval = interval)
 
               return(sspm_discrete_plot)
             }

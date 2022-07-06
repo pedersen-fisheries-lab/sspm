@@ -16,6 +16,7 @@
   ...,
   var = NULL,
   use_sf = FALSE,
+  interval = FALSE,
   page = "first",
   nrow = 2,
   ncol = 2,
@@ -53,6 +54,9 @@
 
 \item{use_sf}{\strong{[logical]} Whether to produce a spatial plot.}
 
+\item{interval}{\strong{[logical]} (For sspm_fit & sspm_dataset) Whether to plot
+CI and Pi intervals.}
+
 \item{page}{The page to draw}
 
 \item{nrow}{Number of rows per page}
@@ -80,9 +84,6 @@ smoothed biomass used for predictions.}
 
 \item{aggregate}{\strong{[logical]} (For sspm_fit) For biomass predictions only,
 whether to aggregate the data to the boundary level. Default to FALSE.}
-
-\item{interval}{\strong{[logical]} (For sspm_fit) Whether to plot CI and Pi
-intervals.}
 
 \item{biomass_origin}{\strong{[character]} Biomass variable to plot (from
 original dataset, optionnal).}
