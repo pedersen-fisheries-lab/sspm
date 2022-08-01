@@ -112,7 +112,9 @@ setMethod("plot",
                                 page = "first", nrow = 2, ncol = 2,
                                 log = FALSE, scales = "fixed") {
 
-            smoothed_data <- predict(x, interval = TRUE)
+            browser()
+
+            smoothed_data <- predict(x, interval = interval)
 
             if (is.null(smoothed_data)){
               stop("Dataset doesn't have any smoothed data")
