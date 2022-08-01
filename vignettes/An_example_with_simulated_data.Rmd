@@ -189,7 +189,7 @@ sspm_model
 
 ```{r}
 sspm_model <- sspm_model %>% 
-  spm_lag(vars = c("weight_per_km2_borealis_with_catch", 
+  spm_lag(vars = c("weight_per_km2_borealis", 
                    "weight_per_km2_all_predators"), 
           n = 1)
 
@@ -202,7 +202,7 @@ sspm_model
 sspm_model_fit <- sspm_model %>% 
   spm(log_productivity ~ sfa +
         weight_per_km2_all_predators_lag_1 +
-        smooth_space(by = weight_per_km2_borealis_with_catch_lag_1) +
+        smooth_space(by = weight_per_km2_borealis_lag_1) +
         smooth_space(), 
       family = mgcv::scat)
 
