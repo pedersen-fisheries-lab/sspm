@@ -112,8 +112,6 @@ setMethod("plot",
                                 page = "first", nrow = 2, ncol = 2,
                                 log = FALSE, scales = "fixed") {
 
-            browser()
-
             smoothed_data <- predict(x, interval = interval)
 
             if (is.null(smoothed_data)){
