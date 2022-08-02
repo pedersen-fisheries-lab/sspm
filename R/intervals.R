@@ -83,19 +83,19 @@ predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_c
       dplyr::mutate(
 
         # CI
-        CI_lower = .data$biomass_density_lower *
+        biomass_CI_lower = .data$biomass_density_lower *
           .data[[patch_area_col]],
-        CI_upper = .data$biomass_density_upper *
+        biomass_CI_upper = .data$biomass_density_upper *
           .data[[patch_area_col]],
 
         # PI
-        PI_lower = .data$biomass_density_lower_P *
+        biomass_PI_lower = .data$biomass_density_lower_P *
           .data[[patch_area_col]],
-        PI_upper = .data$biomass_density_upper_P *
+        biomass_PI_upper = .data$biomass_density_upper_P *
           .data[[patch_area_col]]) %>%
 
-      dplyr::select(.data$CI_lower, .data$CI_upper,
-                    .data$PI_lower, .data$PI_upper)
+      dplyr::select(.data$biomass_CI_lower, .data$biomass_CI_upper,
+                    .data$biomass_PI_lower, .data$biomass_PI_upper)
 
   } else {
 
@@ -149,21 +149,21 @@ predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_c
         #   .data[[patch_area_col]],
 
         # CI
-        CI_lower = .data$biomass_density_lower *
+        biomass_CI_lower = .data$biomass_density_lower *
           .data[[patch_area_col]],
-        CI_upper = .data$biomass_density_upper *
+        biomass_CI_upper = .data$biomass_density_upper *
           .data[[patch_area_col]],
 
         # PI
-        PI_lower = .data$biomass_density_lower_P *
+        biomass_PI_lower = .data$biomass_density_lower_P *
           .data[[patch_area_col]],
-        PI_upper = .data$biomass_density_upper_P *
+        biomass_PI_upper = .data$biomass_density_upper_P *
           .data[[patch_area_col]]) %>%
 
       dplyr::ungroup() %>%
 
-      dplyr::select(.data$CI_lower, .data$CI_upper,
-                    .data$PI_lower, .data$PI_upper)
+      dplyr::select(.data$biomass_CI_lower, .data$biomass_CI_upper,
+                    .data$biomass_PI_lower, .data$biomass_PI_upper)
 
   }
 

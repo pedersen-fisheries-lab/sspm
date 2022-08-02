@@ -236,35 +236,34 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
     if (interval) {
 
       if (log) {
-        base_plot <- base_plot +
-          ggplot2::geom_ribbon(
-            ggplot2::aes(x = .data[[time_col]],
-                         ymin = .data$CI_log_lower,
-                         ymax = .data$CI_log_upper,
-                         fill = .data$color), alpha = 0.5) +
-          ggplot2::geom_ribbon(
-            ggplot2::aes(x = .data[[time_col]],
-                         ymin = .data$PI_log_lower,
-                         ymax = .data$PI_log_upper,
-                         fill = .data$color), alpha = 0.3) +
-          ggplot2::scale_fill_manual(values = color_profile) +
-          ggplot2::labs(fill = "Type")
+
+        CI_lower_name <- paste0(var, "_CI_log_lower")
+        CI_upper_name <- paste0(var, "_CI_log_upper")
+        PI_lower_name <- paste0(var, "_CI_log_lower")
+        PI_upper_name <- paste0(var, "_CI_log_upper")
+
       } else {
-        base_plot <- base_plot +
-          ggplot2::geom_ribbon(
-            ggplot2::aes(x = .data[[time_col]],
-                         ymin = .data$CI_lower,
-                         ymax = .data$CI_upper,
-                         fill = .data$color), alpha = 0.5) +
-          ggplot2::geom_ribbon(
-            ggplot2::aes(x = .data[[time_col]],
-                         ymin = .data$PI_lower,
-                         ymax = .data$PI_upper,
-                         fill = .data$color), alpha = 0.3) +
-          ggplot2::scale_fill_manual(values = color_profile) +
-          ggplot2::labs(fill = "Type")
+
+        CI_lower_name <- paste0(var, "_CI_lower")
+        CI_upper_name <- paste0(var, "_CI_upper")
+        PI_lower_name <- paste0(var, "_CI_lower")
+        PI_upper_name <- paste0(var, "_CI_upper")
+
       }
 
+      base_plot <- base_plot +
+        ggplot2::geom_ribbon(
+          ggplot2::aes(x = .data[[time_col]],
+                       ymin = .data[[CI_lower_name]],
+                       ymax = .data[[CI_upper_name]],
+                       fill = .data$color), alpha = 0.5) # +
+        # ggplot2::geom_ribbon(
+        #   ggplot2::aes(x = .data[[time_col]],
+        #                ymin = .data[[CI_lower_name]],
+        #                ymax = .data[[CI_upper_name]],
+        #                fill = .data$color), alpha = 0.3) +
+        # ggplot2::scale_fill_manual(values = color_profile) +
+        # ggplot2::labs(fill = "Type")
 
     }
 
