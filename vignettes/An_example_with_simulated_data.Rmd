@@ -122,7 +122,7 @@ biomass_smooth
 8. The smoothed results for any smoothed variables (listed in "smoothed vars" above) can be easily plotted:
 
 ```{r}
-plot(biomass_smooth, var = "weight_per_km2", log = FALSE)
+plot(biomass_smooth, var = "weight_per_km2", log = FALSE, interval = T)
 ```
 You can also make a spatial plot
 

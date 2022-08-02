@@ -112,7 +112,8 @@ setMethod("plot",
                                 page = "first", nrow = 2, ncol = 2,
                                 log = FALSE, scales = "fixed") {
 
-            smoothed_data <- predict(x, interval = interval)
+            smoothed_data <- predict(x, interval = interval) %>%
+              sf::st_as_sf()
 
             if (is.null(smoothed_data)){
               stop("Dataset doesn't have any smoothed data")

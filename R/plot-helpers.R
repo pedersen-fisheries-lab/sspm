@@ -239,15 +239,15 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
 
         CI_lower_name <- paste0(var, "_CI_log_lower")
         CI_upper_name <- paste0(var, "_CI_log_upper")
-        PI_lower_name <- paste0(var, "_CI_log_lower")
-        PI_upper_name <- paste0(var, "_CI_log_upper")
+        PI_lower_name <- paste0(var, "_PI_log_lower")
+        PI_upper_name <- paste0(var, "_PI_log_upper")
 
       } else {
 
         CI_lower_name <- paste0(var, "_CI_lower")
         CI_upper_name <- paste0(var, "_CI_upper")
-        PI_lower_name <- paste0(var, "_CI_lower")
-        PI_upper_name <- paste0(var, "_CI_upper")
+        PI_lower_name <- paste0(var, "_PI_lower")
+        PI_upper_name <- paste0(var, "_PI_upper")
 
       }
 
@@ -256,14 +256,19 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
           ggplot2::aes(x = .data[[time_col]],
                        ymin = .data[[CI_lower_name]],
                        ymax = .data[[CI_upper_name]],
-                       fill = .data$color), alpha = 0.5) # +
-        # ggplot2::geom_ribbon(
-        #   ggplot2::aes(x = .data[[time_col]],
-        #                ymin = .data[[CI_lower_name]],
-        #                ymax = .data[[CI_upper_name]],
-        #                fill = .data$color), alpha = 0.3) +
-        # ggplot2::scale_fill_manual(values = color_profile) +
-        # ggplot2::labs(fill = "Type")
+                       fill = .data$color), alpha = 0.5)  +
+        ggplot2::scale_fill_manual(values = color_profile) +
+        ggplot2::labs(fill = "Type")
+
+      if (PI_lower_name %in% names(smoothed_data) &
+          PI_upper_name %in% names(smoothed_data)){
+        base_plot <- base_plot +
+          ggplot2::geom_ribbon(
+            ggplot2::aes(x = .data[[time_col]],
+                         ymin = .data[[PI_lower_name]],
+                         ymax = .data[[PI_upper_name]],
+                         fill = .data$color), alpha = 0.3)
+      }
 
     }
 
