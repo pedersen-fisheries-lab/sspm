@@ -17,7 +17,13 @@
   type = "response"
 )
 
-\S4method{predict}{sspm_dataset}(object, new_data = NULL, discrete = TRUE, type = "response")
+\S4method{predict}{sspm_dataset}(
+  object,
+  new_data = NULL,
+  discrete = TRUE,
+  type = "response",
+  interval = FALSE
+)
 }
 \arguments{
 \item{object}{\strong{[sspm_fit]} Fit object to predict from.}

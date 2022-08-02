@@ -85,7 +85,8 @@ setMethod(f = "predict",
 #' @rdname predict
 setMethod(f = "predict",
           signature(object = "sspm_dataset"),
-          function(object, new_data = NULL, discrete = TRUE, type = "response") {
+          function(object, new_data = NULL, discrete = TRUE, type = "response",
+                   interval = FALSE) {
 
             # Gather variables
             time_col <- spm_time(object)
@@ -130,8 +131,22 @@ setMethod(f = "predict",
 
             # If we predicted based on prediction matrix, add that
             if (discrete) {
-              preds <- preds %>%
-                dplyr::bind_cols(new_data)
+              preds <- new_data %>%
+                dplyr::bind_cols(preds)
+            }
+
+            if (interval) {
+
+              CIs <- lapply(the_fit, sspm::predict_intervals,
+                            new_data = new_data, PI=FALSE)
+              CIs <- mapply(CIs, names(CIs),
+                            FUN = function(x,y){
+                              names(x) <- paste0(y,"_",names(x));return(x)},
+                            SIMPLIFY = F)
+              if (discrete) {
+                preds <- preds %>%
+                  dplyr::bind_cols(CIs)
+              }
             }
 
             # Make sure biomass and density variables are giveb the

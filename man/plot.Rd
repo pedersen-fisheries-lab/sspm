@@ -16,6 +16,7 @@
   ...,
   var = NULL,
   use_sf = FALSE,
+  interval = FALSE,
   page = "first",
   nrow = 2,
   ncol = 2,
@@ -30,6 +31,7 @@
   train_test = FALSE,
   biomass = NULL,
   next_ts = FALSE,
+  smoothed_biomass = FALSE,
   aggregate = FALSE,
   interval = FALSE,
   biomass_origin = NULL,
@@ -51,6 +53,9 @@
 \item{var}{\strong{[character]} (For sspm_dataset) Variable to plot.}
 
 \item{use_sf}{\strong{[logical]} Whether to produce a spatial plot.}
+
+\item{interval}{\strong{[logical]} (For sspm_fit & sspm_dataset) Whether to plot
+CI and Pi intervals.}
 
 \item{page}{The page to draw}
 
@@ -74,11 +79,11 @@ predictions.}
 \item{next_ts}{\strong{[logical]} (For sspm_fit) Whether to plot a predictions
 for next timestep.}
 
+\item{smoothed_biomass}{\strong{[logical]} (For sspm_fit) Whether to plot a the
+smoothed biomass used for predictions.}
+
 \item{aggregate}{\strong{[logical]} (For sspm_fit) For biomass predictions only,
 whether to aggregate the data to the boundary level. Default to FALSE.}
-
-\item{interval}{\strong{[logical]} (For sspm_fit) Whether to plot CI and Pi
-intervals.}
 
 \item{biomass_origin}{\strong{[character]} Biomass variable to plot (from
 original dataset, optionnal).}

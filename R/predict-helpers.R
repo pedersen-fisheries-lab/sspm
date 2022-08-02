@@ -130,10 +130,10 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
       preds_df <- preds_df %>%
         dplyr::group_by(.data[[bounds_col]], .data[[time_col]]) %>%
         dplyr::summarise(biomass = sum(.data$biomass),
-                         CI_upper = sum(.data$CI_upper),
-                         CI_lower = sum(.data$CI_lower),
-                         PI_upper = sum(.data$PI_upper),
-                         PI_lower = sum(.data$PI_lower))
+                         biomass_CI_upper = sum(.data$biomass_CI_upper),
+                         biomass_CI_lower = sum(.data$biomass_CI_lower),
+                         biomass_PI_upper = sum(.data$biomass_PI_upper),
+                         biomass_PI_lower = sum(.data$biomass_PI_lower))
 
     } else {
 
@@ -299,7 +299,7 @@ make_prediction_matrix <- function(the_data, time_col, patches){
   year_values <- sort(unique(year_vector))
 
   predict_mat <- patches %>%
-    sf::st_set_geometry(NULL) %>%
+    # sf::st_set_geometry(NULL) %>%
     tidyr::expand_grid(!!time_col := year_values)
 
   return(predict_mat)

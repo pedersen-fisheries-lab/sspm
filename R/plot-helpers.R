@@ -65,14 +65,14 @@ plot_productivity <- function(x, aggregate, interval, use_sf, page, nrow, ncol,
 }
 
 plot_biomass <- function(x, biomass, biomass_origin, aggregate, interval,
-                         use_sf, page, nrow, ncol, log, scales, next_ts){
+                         use_sf, page, nrow, ncol, log, scales,
+                         next_ts, smoothed_biomass){
 
   # Check that biomass is a character
   checkmate::assert_character(biomass)
 
   # Start up color profile info vector
-  color_profile <- c("Predictions" = "red",
-                     "Smoothed" = "black")
+  color_profile <- c("Predictions" = "red")
 
   # Collect info
   boundary_col <- spm_boundary(x)
@@ -85,6 +85,22 @@ plot_biomass <- function(x, biomass, biomass_origin, aggregate, interval,
                            aggregate = aggregate,
                            interval = interval) %>%
     dplyr::mutate(color = "Predictions")
+
+  if (smoothed_biomass){
+
+    # Prepare biomass_actual data
+    biomass_actual <- process_actual_biomass(x, biomass_origin, biomass,
+                                             patch_area_col, boundary_col,
+                                             time_col, aggregate)
+
+    # Put actual and predictions together
+    biomass_preds <- biomass_preds %>%
+      dplyr::bind_rows(biomass_actual)
+
+    color_profile <-
+      c(color_profile, "Smoothed" = "black")
+
+  }
 
   if (next_ts) {
 
@@ -100,15 +116,6 @@ plot_biomass <- function(x, biomass, biomass_origin, aggregate, interval,
       c(color_profile, "Prediction (1 step \n ahead, NO CATCH)" =
           "firebrick")
   }
-
-  # Prepare biomass_actual data
-  biomass_actual <- process_actual_biomass(x, biomass_origin, biomass,
-                                           patch_area_col, boundary_col,
-                                           time_col, aggregate)
-
-  # Put actual and predictions together
-  biomass_preds <- biomass_preds %>%
-    dplyr::bind_rows(biomass_actual)
 
   sspm_discrete_plot <-
     spm_plot_routine(smoothed_data = biomass_preds, var = "biomass",
@@ -229,35 +236,39 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
     if (interval) {
 
       if (log) {
-        base_plot <- base_plot +
-          ggplot2::geom_ribbon(
-            ggplot2::aes(x = .data[[time_col]],
-                         ymin = .data$CI_log_lower,
-                         ymax = .data$CI_log_upper,
-                         fill = .data$color), alpha = 0.5) +
-          ggplot2::geom_ribbon(
-            ggplot2::aes(x = .data[[time_col]],
-                         ymin = .data$PI_log_lower,
-                         ymax = .data$PI_log_upper,
-                         fill = .data$color), alpha = 0.3) +
-          ggplot2::scale_fill_manual(values = color_profile) +
-          ggplot2::labs(fill = "Type")
+
+        CI_lower_name <- paste0(var, "_CI_log_lower")
+        CI_upper_name <- paste0(var, "_CI_log_upper")
+        PI_lower_name <- paste0(var, "_PI_log_lower")
+        PI_upper_name <- paste0(var, "_PI_log_upper")
+
       } else {
-        base_plot <- base_plot +
-          ggplot2::geom_ribbon(
-            ggplot2::aes(x = .data[[time_col]],
-                         ymin = .data$CI_lower,
-                         ymax = .data$CI_upper,
-                         fill = .data$color), alpha = 0.5) +
-          ggplot2::geom_ribbon(
-            ggplot2::aes(x = .data[[time_col]],
-                         ymin = .data$PI_lower,
-                         ymax = .data$PI_upper,
-                         fill = .data$color), alpha = 0.3) +
-          ggplot2::scale_fill_manual(values = color_profile) +
-          ggplot2::labs(fill = "Type")
+
+        CI_lower_name <- paste0(var, "_CI_lower")
+        CI_upper_name <- paste0(var, "_CI_upper")
+        PI_lower_name <- paste0(var, "_PI_lower")
+        PI_upper_name <- paste0(var, "_PI_upper")
+
       }
 
+      base_plot <- base_plot +
+        ggplot2::geom_ribbon(
+          ggplot2::aes(x = .data[[time_col]],
+                       ymin = .data[[CI_lower_name]],
+                       ymax = .data[[CI_upper_name]],
+                       fill = .data$color), alpha = 0.5)  +
+        ggplot2::scale_fill_manual(values = color_profile) +
+        ggplot2::labs(fill = "Type")
+
+      if (PI_lower_name %in% names(smoothed_data) &
+          PI_upper_name %in% names(smoothed_data)){
+        base_plot <- base_plot +
+          ggplot2::geom_ribbon(
+            ggplot2::aes(x = .data[[time_col]],
+                         ymin = .data[[PI_lower_name]],
+                         ymax = .data[[PI_upper_name]],
+                         fill = .data$color), alpha = 0.3)
+      }
 
     }
 
