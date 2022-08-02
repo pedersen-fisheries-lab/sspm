@@ -132,7 +132,7 @@ setMethod(f = "predict",
             # If we predicted based on prediction matrix, add that
             if (discrete) {
               preds <- new_data %>%
-                bind_cols(preds)
+                dplyr::bind_cols(preds)
             }
 
             if (interval) {
