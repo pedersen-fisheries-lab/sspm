@@ -15,6 +15,8 @@
   y,
   ...,
   var = NULL,
+  point_size = 1,
+  line_size = 1,
   use_sf = FALSE,
   interval = FALSE,
   page = "first",
@@ -28,6 +30,8 @@
   x,
   y,
   ...,
+  point_size = 1,
+  line_size = 1,
   train_test = FALSE,
   biomass = NULL,
   next_ts = FALSE,
@@ -51,6 +55,12 @@
 \item{...}{NOT USED (from generic).}
 
 \item{var}{\strong{[character]} (For sspm_dataset) Variable to plot.}
+
+\item{point_size}{\strong{[numeric]} Passed on to ggplot size parameter for
+point size.}
+
+\item{line_size}{\strong{[numeric]} Passed on to ggplot size parameter for line
+size.}
 
 \item{use_sf}{\strong{[logical]} Whether to produce a spatial plot.}
 
