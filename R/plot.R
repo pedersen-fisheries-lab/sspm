@@ -6,6 +6,11 @@
 #' @param y NOT USED (from generic).
 #' @param ... NOT USED (from generic).
 #'
+#' @param line_size **\[numeric\]** Passed on to ggplot size parameter for line
+#'    size.
+#' @param point_size **\[numeric\]** Passed on to ggplot size parameter for
+#'    point size.
+#'
 #' @param var **\[character\]** (For sspm_dataset) Variable to plot.
 #'
 #' @param interval **\[logical\]** (For sspm_fit & sspm_dataset) Whether to plot
@@ -108,6 +113,7 @@ setMethod("plot",
           signature(x = "sspm_dataset",
                     y = "missing"),
           definition = function(x, y, ..., var = NULL,
+                                point_size = 1, line_size = 1,
                                 use_sf = FALSE, interval = FALSE,
                                 page = "first", nrow = 2, ncol = 2,
                                 log = FALSE, scales = "fixed") {
@@ -141,7 +147,8 @@ setMethod("plot",
                                  use_sf = use_sf, page = page, nrow = nrow,
                                  ncol = ncol, time_col = time_col, log = log,
                                  scales = scales, color_profile = color_profile,
-                                 interval = interval)
+                                 interval = interval, point_size = point_size,
+                                 line_size = line_size)
 
               return(sspm_discrete_plot)
             }
@@ -154,7 +161,9 @@ setMethod("plot",
 setMethod("plot",
           signature(x = "sspm_fit",
                     y = "missing"),
-          definition = function(x, y, ..., train_test = FALSE, biomass = NULL,
+          definition = function(x, y, ...,
+                                point_size = 1, line_size = 1,
+                                train_test = FALSE, biomass = NULL,
                                 next_ts = FALSE, smoothed_biomass = FALSE,
                                 aggregate = FALSE, interval = FALSE,
                                 biomass_origin = NULL, use_sf = FALSE,
@@ -173,7 +182,9 @@ setMethod("plot",
                 sspm_discrete_plot <- plot_biomass(x, biomass, biomass_origin,
                                                    aggregate, interval, use_sf,
                                                    page, nrow, ncol, log, scales,
-                                                   next_ts, smoothed_biomass)
+                                                   next_ts, smoothed_biomass,
+                                                   point_size = point_size,
+                                                   line_size = line_size)
 
               } else {
 
@@ -181,7 +192,8 @@ setMethod("plot",
 
                 sspm_discrete_plot <-
                   plot_productivity(x, aggregate, interval, use_sf, page, nrow,
-                                    ncol, log, scales)
+                                    ncol, log, scales, point_size = point_size,
+                                    line_size = line_size)
 
               }
 
