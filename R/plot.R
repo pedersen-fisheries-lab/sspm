@@ -14,7 +14,9 @@
 #' @param var **\[character\]** (For sspm_dataset) Variable to plot.
 #'
 #' @param interval **\[logical\]** (For sspm_fit & sspm_dataset) Whether to plot
-#'    CI and Pi intervals.
+#'    CI and PI intervals.
+#' @param show_CI **\[character\]** Whether to show the CIs.
+#' @param show_PI **\[character\]** Whether to show the PIs.
 #'
 #' @param train_test **\[logical\]** (For sspm_fit) Whether to plot a train/test
 #'    pair plot.
@@ -116,7 +118,8 @@ setMethod("plot",
                                 point_size = 1, line_size = 1,
                                 use_sf = FALSE, interval = FALSE,
                                 page = "first", nrow = 2, ncol = 2,
-                                log = FALSE, scales = "fixed") {
+                                log = FALSE, scales = "fixed",
+                                show_PI = TRUE, show_CI = TRUE) {
 
             smoothed_data <- predict(x, interval = interval) %>%
               sf::st_as_sf()
@@ -168,7 +171,8 @@ setMethod("plot",
                                 aggregate = FALSE, interval = FALSE,
                                 biomass_origin = NULL, use_sf = FALSE,
                                 page = "first", nrow = 2, ncol = 2,
-                                log = FALSE, scales = "fixed") {
+                                log = FALSE, scales = "fixed",
+                                show_PI = TRUE, show_CI = TRUE) {
 
             # If no biomass is provided, does a train/test plot (default)
             if (train_test){
@@ -184,7 +188,8 @@ setMethod("plot",
                                                    page, nrow, ncol, log, scales,
                                                    next_ts, smoothed_biomass,
                                                    point_size = point_size,
-                                                   line_size = line_size)
+                                                   line_size = line_size,
+                                                   show_PI = show_PI, show_CI = show_CI)
 
               } else {
 
@@ -193,7 +198,8 @@ setMethod("plot",
                 sspm_discrete_plot <-
                   plot_productivity(x, aggregate, interval, use_sf, page, nrow,
                                     ncol, log, scales, point_size = point_size,
-                                    line_size = line_size)
+                                    line_size = line_size,
+                                    show_PI = show_PI, show_CI = show_CI)
 
               }
 
