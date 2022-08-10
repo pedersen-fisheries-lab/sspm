@@ -187,8 +187,6 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
                              aggregate = FALSE, interval =  FALSE,
                              boundary_col = NULL, line_size, point_size) {
 
-  browser()
-
   smoothed_data <- units::drop_units(smoothed_data) %>%
     dplyr::mutate(linesize = line_size, pointsize = point_size)
 
