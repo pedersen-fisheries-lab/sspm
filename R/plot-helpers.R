@@ -144,7 +144,8 @@ process_next_ts <- function(x, biomass, interval, aggregate, next_ts_label,
 
   biomass_preds_previous <- biomass_preds %>%
     dplyr::filter(.data[[time_col]] == next_ts_timestep) %>%
-    dplyr::mutate(color = next_ts_label)
+    dplyr::mutate(color = next_ts_label) %>%
+    tidyr::drop_na()
 
   next_ts_preds <- next_ts_preds %>%
     dplyr::bind_rows(biomass_preds_previous)
