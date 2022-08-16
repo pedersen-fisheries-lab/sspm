@@ -33,7 +33,8 @@ plot_train_test <- function(x, scales){
 # -------------------------------------------------------------------------
 
 plot_productivity <- function(x, aggregate, interval, use_sf, page, nrow, ncol,
-                              log, scales){
+                              log, scales, point_size, line_size,
+                              show_PI, show_CI){
 
   boundary_col <- spm_boundary(x)
   resp <- spm_response(spm_formulas(x))
@@ -60,13 +61,16 @@ plot_productivity <- function(x, aggregate, interval, use_sf, page, nrow, ncol,
                      ncol = ncol, time_col = time_col, log = log,
                      scales = scales, color_profile = color_profile,
                      aggregate = aggregate, interval = interval,
-                     boundary_col = boundary_col)
+                     boundary_col = boundary_col, point_size = point_size,
+                     line_size = line_size,
+                     show_PI = show_PI, show_CI = show_CI )
 
 }
 
 plot_biomass <- function(x, biomass, biomass_origin, aggregate, interval,
                          use_sf, page, nrow, ncol, log, scales,
-                         next_ts, smoothed_biomass){
+                         next_ts, smoothed_biomass, point_size, line_size,
+                         show_PI, show_CI){
 
   # Check that biomass is a character
   checkmate::assert_character(biomass)
@@ -123,7 +127,9 @@ plot_biomass <- function(x, biomass, biomass_origin, aggregate, interval,
                      ncol = ncol, time_col = time_col, log = log,
                      scales = scales, color_profile = color_profile,
                      aggregate = aggregate, interval = interval,
-                     boundary_col = boundary_col)
+                     boundary_col = boundary_col, point_size = point_size,
+                     line_size = line_size,
+                     show_PI = show_PI, show_CI = show_CI)
 
 }
 
@@ -142,7 +148,8 @@ process_next_ts <- function(x, biomass, interval, aggregate, next_ts_label,
 
   biomass_preds_previous <- biomass_preds %>%
     dplyr::filter(.data[[time_col]] == next_ts_timestep) %>%
-    dplyr::mutate(color = next_ts_label)
+    dplyr::mutate(color = next_ts_label) %>%
+    tidyr::drop_na()
 
   next_ts_preds <- next_ts_preds %>%
     dplyr::bind_rows(biomass_preds_previous)
@@ -183,9 +190,11 @@ process_actual_biomass <- function(x, biomass_origin, biomass, patch_area_col,
 spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
                              time_col, log, scales, color_profile,
                              aggregate = FALSE, interval =  FALSE,
-                             boundary_col = NULL) {
+                             boundary_col = NULL, line_size, point_size,
+                             show_PI = FALSE, show_CI = FALSE) {
 
-  smoothed_data <- units::drop_units(smoothed_data)
+  smoothed_data <- units::drop_units(smoothed_data) %>%
+    dplyr::mutate(linesize = line_size, pointsize = point_size)
 
   if (log) {
     smoothed_data[[var]] <- log(smoothed_data[[var]])
@@ -209,11 +218,12 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
     base_plot <- ggplot2::ggplot(data = smoothed_data) +
       ggplot2::geom_line(ggplot2::aes(x = .data[[time_col]],
                                       y = .data[[var]],
-                                      color = .data$color)) +
+                                      color = .data$color),
+                         size = smoothed_data$linesize) +
       ggplot2::geom_point(ggplot2::aes(x = .data[[time_col]],
                                        y = .data[[var]],
                                        color = .data$color),
-                          cex = 0.8) +
+                          cex = smoothed_data$pointsize) +
       ggplot2::labs(y = the_title) +
       ggplot2::theme_light() +
       ggplot2::scale_color_manual(values = color_profile) +
@@ -251,17 +261,22 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
 
       }
 
-      base_plot <- base_plot +
-        ggplot2::geom_ribbon(
-          ggplot2::aes(x = .data[[time_col]],
-                       ymin = .data[[CI_lower_name]],
-                       ymax = .data[[CI_upper_name]],
-                       fill = .data$color), alpha = 0.5)  +
-        ggplot2::scale_fill_manual(values = color_profile) +
-        ggplot2::labs(fill = "Type")
+      if(show_CI){
+
+        base_plot <- base_plot +
+          ggplot2::geom_ribbon(
+            ggplot2::aes(x = .data[[time_col]],
+                         ymin = .data[[CI_lower_name]],
+                         ymax = .data[[CI_upper_name]],
+                         fill = .data$color), alpha = 0.5)  +
+          ggplot2::scale_fill_manual(values = color_profile) +
+          ggplot2::labs(fill = "Type")
+
+      }
 
       if (PI_lower_name %in% names(smoothed_data) &
-          PI_upper_name %in% names(smoothed_data)){
+          PI_upper_name %in% names(smoothed_data) &
+          show_PI){
         base_plot <- base_plot +
           ggplot2::geom_ribbon(
             ggplot2::aes(x = .data[[time_col]],
@@ -269,7 +284,6 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
                          ymax = .data[[PI_upper_name]],
                          fill = .data$color), alpha = 0.3)
       }
-
     }
 
   }

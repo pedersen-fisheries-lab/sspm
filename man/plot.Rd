@@ -15,19 +15,25 @@
   y,
   ...,
   var = NULL,
+  point_size = 1,
+  line_size = 1,
   use_sf = FALSE,
   interval = FALSE,
   page = "first",
   nrow = 2,
   ncol = 2,
   log = FALSE,
-  scales = "fixed"
+  scales = "fixed",
+  show_PI = TRUE,
+  show_CI = TRUE
 )
 
 \S4method{plot}{sspm_fit,missing}(
   x,
   y,
   ...,
+  point_size = 1,
+  line_size = 1,
   train_test = FALSE,
   biomass = NULL,
   next_ts = FALSE,
@@ -40,7 +46,9 @@
   nrow = 2,
   ncol = 2,
   log = FALSE,
-  scales = "fixed"
+  scales = "fixed",
+  show_PI = TRUE,
+  show_CI = TRUE
 )
 }
 \arguments{
@@ -52,10 +60,16 @@
 
 \item{var}{\strong{[character]} (For sspm_dataset) Variable to plot.}
 
+\item{point_size}{\strong{[numeric]} Passed on to ggplot size parameter for
+point size.}
+
+\item{line_size}{\strong{[numeric]} Passed on to ggplot size parameter for line
+size.}
+
 \item{use_sf}{\strong{[logical]} Whether to produce a spatial plot.}
 
 \item{interval}{\strong{[logical]} (For sspm_fit & sspm_dataset) Whether to plot
-CI and Pi intervals.}
+CI and PI intervals.}
 
 \item{page}{The page to draw}
 
@@ -69,6 +83,10 @@ CI and Pi intervals.}
 \item{scales}{Are scales shared across all facets (the default,
 \code{"fixed"}), or do they vary across rows (\code{"free_x"}),
 columns (\code{"free_y"}), or both rows and columns (\code{"free"})?}
+
+\item{show_PI}{\strong{[character]} Whether to show the PIs.}
+
+\item{show_CI}{\strong{[character]} Whether to show the CIs.}
 
 \item{train_test}{\strong{[logical]} (For sspm_fit) Whether to plot a train/test
 pair plot.}
