@@ -191,7 +191,7 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
                              time_col, log, scales, color_profile,
                              aggregate = FALSE, interval =  FALSE,
                              boundary_col = NULL, line_size, point_size,
-                             show_PI, show_CI) {
+                             show_PI = FALSE, show_CI = FALSE) {
 
   smoothed_data <- units::drop_units(smoothed_data) %>%
     dplyr::mutate(linesize = line_size, pointsize = point_size)
