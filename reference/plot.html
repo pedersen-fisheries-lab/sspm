@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sspm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.1.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.9.1.9009</span>
       </span>
     </div>
 
@@ -66,41 +66,51 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="co"># S4 method for sspm_boundary,missing</span>
-<span class="fu">plot</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="co"># S4 method for sspm_dataset,missing</span>
-<span class="fu">plot</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">y</span>,
-  <span class="va">...</span>,
-  var <span class="op">=</span> <span class="cn">NULL</span>,
-  use_sf <span class="op">=</span> <span class="cn">FALSE</span>,
-  page <span class="op">=</span> <span class="st">"first"</span>,
-  nrow <span class="op">=</span> <span class="fl">2</span>,
-  ncol <span class="op">=</span> <span class="fl">2</span>,
-  log <span class="op">=</span> <span class="cn">FALSE</span>,
-  scales <span class="op">=</span> <span class="st">"fixed"</span>
-<span class="op">)</span>
-
-<span class="co"># S4 method for sspm_fit,missing</span>
-<span class="fu">plot</span><span class="op">(</span>
-  <span class="va">x</span>,
-  <span class="va">y</span>,
-  <span class="va">...</span>,
-  train_test <span class="op">=</span> <span class="cn">FALSE</span>,
-  biomass <span class="op">=</span> <span class="cn">NULL</span>,
-  next_ts <span class="op">=</span> <span class="cn">FALSE</span>,
-  aggregate <span class="op">=</span> <span class="cn">FALSE</span>,
-  interval <span class="op">=</span> <span class="cn">FALSE</span>,
-  biomass_origin <span class="op">=</span> <span class="cn">NULL</span>,
-  use_sf <span class="op">=</span> <span class="cn">FALSE</span>,
-  page <span class="op">=</span> <span class="st">"first"</span>,
-  nrow <span class="op">=</span> <span class="fl">2</span>,
-  ncol <span class="op">=</span> <span class="fl">2</span>,
-  log <span class="op">=</span> <span class="cn">FALSE</span>,
-  scales <span class="op">=</span> <span class="st">"fixed"</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="co"># S4 method for sspm_boundary,missing</span></span>
+<span><span class="fu">plot</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for sspm_dataset,missing</span></span>
+<span><span class="fu">plot</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">y</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  var <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  point_size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  line_size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  use_sf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  interval <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  page <span class="op">=</span> <span class="st">"first"</span>,</span>
+<span>  nrow <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  ncol <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  log <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  scales <span class="op">=</span> <span class="st">"fixed"</span>,</span>
+<span>  show_PI <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  show_CI <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S4 method for sspm_fit,missing</span></span>
+<span><span class="fu">plot</span><span class="op">(</span></span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">y</span>,</span>
+<span>  <span class="va">...</span>,</span>
+<span>  point_size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  line_size <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  train_test <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  biomass <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  next_ts <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  smoothed_biomass <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  aggregate <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  interval <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  biomass_origin <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  use_sf <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  page <span class="op">=</span> <span class="st">"first"</span>,</span>
+<span>  nrow <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  ncol <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>  log <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  scales <span class="op">=</span> <span class="st">"fixed"</span>,</span>
+<span>  show_PI <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  show_CI <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -121,8 +131,23 @@
 <dd><p><strong>[character]</strong> (For sspm_dataset) Variable to plot.</p></dd>
 
 
+<dt>point_size</dt>
+<dd><p><strong>[numeric]</strong> Passed on to ggplot size parameter for
+point size.</p></dd>
+
+
+<dt>line_size</dt>
+<dd><p><strong>[numeric]</strong> Passed on to ggplot size parameter for line
+size.</p></dd>
+
+
 <dt>use_sf</dt>
 <dd><p><strong>[logical]</strong> Whether to produce a spatial plot.</p></dd>
+
+
+<dt>interval</dt>
+<dd><p><strong>[logical]</strong> (For sspm_fit &amp; sspm_dataset) Whether to plot
+CI and PI intervals.</p></dd>
 
 
 <dt>page</dt>
@@ -148,6 +173,14 @@
 columns (<code>"free_y"</code>), or both rows and columns (<code>"free"</code>)?</p></dd>
 
 
+<dt>show_PI</dt>
+<dd><p><strong>[character]</strong> Whether to show the PIs.</p></dd>
+
+
+<dt>show_CI</dt>
+<dd><p><strong>[character]</strong> Whether to show the CIs.</p></dd>
+
+
 <dt>train_test</dt>
 <dd><p><strong>[logical]</strong> (For sspm_fit) Whether to plot a train/test
 pair plot.</p></dd>
@@ -163,14 +196,14 @@ predictions.</p></dd>
 for next timestep.</p></dd>
 
 
+<dt>smoothed_biomass</dt>
+<dd><p><strong>[logical]</strong> (For sspm_fit) Whether to plot a the
+smoothed biomass used for predictions.</p></dd>
+
+
 <dt>aggregate</dt>
 <dd><p><strong>[logical]</strong> (For sspm_fit) For biomass predictions only,
 whether to aggregate the data to the boundary level. Default to FALSE.</p></dd>
-
-
-<dt>interval</dt>
-<dd><p><strong>[logical]</strong> (For sspm_fit) Whether to plot CI and Pi
-intervals.</p></dd>
 
 
 <dt>biomass_origin</dt>
@@ -187,24 +220,24 @@ original dataset, optionnal).</p></dd>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># To plot a boundary object and visualize patches/points</span></span>
-<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_boundary</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># To plot a dataset variable</span></span>
-<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">biomass_smooth</span>, var <span class="op">=</span> <span class="st">"weight_per_km2"</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">biomass_smooth</span>, var <span class="op">=</span> <span class="st">"weight_per_km2"</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># To plot a fitted model</span></span>
-<span class="r-in"><span class="co"># Test-train plot</span></span>
-<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, train_test <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Timeseries plot</span></span>
-<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, log <span class="op">=</span> <span class="cn">T</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, log <span class="op">=</span> <span class="cn">T</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,  scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,</span>
-<span class="r-in">     next_ts <span class="op">=</span> <span class="cn">TRUE</span>, aggregate <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span>, interval <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
-<span class="r-in"></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># To plot a boundary object and visualize patches/points</span></span></span>
+<span class="r-in"><span><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_boundary</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># To plot a dataset variable</span></span></span>
+<span class="r-in"><span><span class="fu">plot</span><span class="op">(</span><span class="va">biomass_smooth</span>, var <span class="op">=</span> <span class="st">"weight_per_km2"</span>, log <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot</span><span class="op">(</span><span class="va">biomass_smooth</span>, var <span class="op">=</span> <span class="st">"weight_per_km2"</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># To plot a fitted model</span></span></span>
+<span class="r-in"><span><span class="co"># Test-train plot</span></span></span>
+<span class="r-in"><span><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, train_test <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Timeseries plot</span></span></span>
+<span class="r-in"><span><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, log <span class="op">=</span> <span class="cn">T</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, log <span class="op">=</span> <span class="cn">T</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,  scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">plot</span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,</span></span>
+<span class="r-in"><span>     next_ts <span class="op">=</span> <span class="cn">TRUE</span>, aggregate <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span>, interval <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -219,7 +252,7 @@ original dataset, optionnal).</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.5.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
