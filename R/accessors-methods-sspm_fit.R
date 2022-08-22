@@ -5,6 +5,8 @@
 #'
 #' @param sspm_object **\[sspm_fit\]** An object of class
 #'     [sspm_fit][sspm_fit-class].
+#' @param object **\[sspm_fit\]** An object of class
+#'     [sspm_fit][sspm_fit-class].
 #' @inheritParams base::Extract
 #'
 #' @rdname accessors-methods-sspm_fit

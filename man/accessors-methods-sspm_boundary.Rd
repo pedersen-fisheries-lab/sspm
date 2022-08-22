@@ -85,6 +85,9 @@ spm_patches_area(object) <- value
 \item{sspm_object}{\strong{[sspm_boundary]} An object of class
 \link[=sspm_boundary-class]{sspm_boundary}.}
 
+\item{object}{\strong{[sspm_boundary]} An object of class
+\link[=sspm_boundary-class]{sspm_boundary}.}
+
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
 }

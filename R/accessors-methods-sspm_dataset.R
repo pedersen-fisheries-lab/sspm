@@ -5,6 +5,8 @@
 #'
 #' @param sspm_object **\[sspm_dataset\]** An object of class
 #'     [sspm_dataset][sspm_dataset-class].
+#' @param object **\[sspm_dataset\]** An object of class
+#'     [sspm_dataset][sspm_dataset-class].
 #' @inheritParams base::Extract
 #'
 #' @rdname accessors-methods-sspm_dataset

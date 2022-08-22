@@ -25,6 +25,9 @@ method_func(object) <- value
 \item{sspm_object}{\strong{[discretization_method]} An object of class
 \link[=discretization_method-class]{discretization_method}.}
 
+\item{object}{\strong{[discretization_method]} An object of class
+\link[=discretization_method-class]{discretization_method}.}
+
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
 }

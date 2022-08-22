@@ -5,7 +5,8 @@
 #'
 #' @param sspm_object **\[sspm_formula\]** An object of class
 #'     [sspm_formula][sspm_formula-class].
-#'
+#' @param object **\[sspm_formula\]** An object of class
+#'     [sspm_formula][sspm_formula-class].
 #' @inheritParams base::Extract
 #'
 #' @rdname accessors-methods-sspm_formula

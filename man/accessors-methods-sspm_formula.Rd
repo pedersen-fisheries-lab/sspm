@@ -103,6 +103,9 @@ spm_lagged_vars(object) <- value
 \item{sspm_object}{\strong{[sspm_formula]} An object of class
 \link[=sspm_formula-class]{sspm_formula}.}
 
+\item{object}{\strong{[sspm_formula]} An object of class
+\link[=sspm_formula-class]{sspm_formula}.}
+
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
 }

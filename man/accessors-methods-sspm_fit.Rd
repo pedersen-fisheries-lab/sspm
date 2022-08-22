@@ -55,6 +55,9 @@ spm_get_fit(object) <- value
 \item{sspm_object}{\strong{[sspm_fit]} An object of class
 \link[=sspm_fit-class]{sspm_fit}.}
 
+\item{object}{\strong{[sspm_fit]} An object of class
+\link[=sspm_fit-class]{sspm_fit}.}
+
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
 }

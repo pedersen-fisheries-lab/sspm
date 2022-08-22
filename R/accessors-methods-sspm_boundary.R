@@ -5,6 +5,8 @@
 #'
 #' @param sspm_object **\[sspm_boundary\]** An object of class
 #'     [sspm_boundary][sspm_boundary-class].
+#' @param object **\[sspm_boundary\]** An object of class
+#'     [sspm_boundary][sspm_boundary-class].
 #'
 #' @inheritParams base::Extract
 #'

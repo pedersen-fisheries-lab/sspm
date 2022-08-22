@@ -5,7 +5,8 @@
 #'
 #' @param sspm_object **\[discretization_method\]** An object of class
 #'   [discretization_method][discretization_method-class].
-#'
+#' @param object **\[discretization_method\]** An object of class
+#'     [discretization_method][discretization_method-class].
 #' @inheritParams base::Extract
 #'
 #' @rdname accessors-methods-discret_method

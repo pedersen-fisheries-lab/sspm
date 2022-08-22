@@ -5,6 +5,8 @@
 #'
 #' @param sspm_object **\[sspm OR adjacent\]** An object of class
 #'     [sspm][sspm-class] or others derivative classes.
+#' @param object **\[sspm OR adjacent\]** An object of class
+#'     [sspm][sspm-class] or others derivative classes.
 #' @inheritParams base::Extract
 #' @inheritParams spm_as_dataset
 #'

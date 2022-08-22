@@ -86,6 +86,9 @@ spm_unique_ID(object) <- value
 \item{sspm_object}{\strong{[sspm OR adjacent]} An object of class
 \link[=sspm-class]{sspm} or others derivative classes.}
 
+\item{object}{\strong{[sspm OR adjacent]} An object of class
+\link[=sspm-class]{sspm} or others derivative classes.}
+
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
 }
