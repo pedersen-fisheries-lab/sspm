@@ -39,7 +39,29 @@ setClass("discretization_method",
 
 #' sspm boundary structure
 #'
-#' One of the first step in the `sspm` workflow is to create one or more
+#' One of the first steps in the `sspm` workflow is to create one or more
+#' object(s) of class `sspm_boundary` from an `sf` object.
+#'
+#' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
+#' @slot boundary **\[character\]** The column of `data` that represents the
+#'     spatial boundaries.
+#' @slot boundary_area **\[character\]** The column of `data` that represents the
+#'     area of spatial boundaries.
+#'
+#' @name sspm_boundary-class
+#' @rdname sspm_boundary-class
+#'
+setClass("sspm_boundary",
+         slots = list(boundaries = "sf",
+                      boundary = "character",
+                      boundary_area = "character")
+)
+
+# -------------------------------------------------------------------------
+
+#' sspm discrete boundary structure
+#'
+#' One of the first steps in the `sspm` workflow is to create one or more
 #' object(s) of class `sspm_boundary` from an `sf` object.
 #'
 #' @slot boundaries **\[sf\]** Spatial boundaries (polygons).
@@ -56,16 +78,9 @@ setClass("discretization_method",
 #' @slot patches_area **\[character\]** The column of `data` that represents the
 #'     area of patches.
 #'
-#' @name sspm_boundary-class
-#' @rdname sspm_boundary-class
+#' @name sspm_discrete_boundary-class
+#' @rdname sspm_discrete_boundary-class
 #'
-setClass("sspm_boundary",
-         slots = list(boundaries = "sf",
-                      boundary = "character",
-                      boundary_area = "character")
-)
-
-#' @describeIn sspm_boundary-class sspm_discrete_boundary
 setClass("sspm_discrete_boundary",
          slots = list(method = "discretization_method",
                       patches_area = "character",
