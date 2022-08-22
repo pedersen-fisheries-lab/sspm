@@ -6,7 +6,7 @@
 \alias{_PACKAGE}
 \title{sspm: Spatial Surplus Production Model Framework for Northern Shrimp Populations}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
 Implement a gam-based spatial surplus production model, aimed at modeling northern shrimp population in Atlantic Canada but potentially to any stock in any location. The package is opinionated in its implementation of SPMs as it internally makes the choice to use penalized spatial gams with time lags. However, it also aims to provide options for the user to customize their model.
 }

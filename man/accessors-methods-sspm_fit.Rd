@@ -55,10 +55,6 @@ spm_get_fit(object) <- value
 \item{sspm_object}{\strong{[sspm_fit]} An object of class
 \link[=sspm_fit-class]{sspm_fit}.}
 
-\item{object}{
-    object from which to extract element(s) or in which to replace element(s).
-  }
-
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
 }

@@ -3,17 +3,11 @@
 \docType{class}
 \name{sspm_boundary-class}
 \alias{sspm_boundary-class}
-\alias{sspm_discrete_boundary-class}
 \title{sspm boundary structure}
 \description{
-One of the first step in the \code{sspm} workflow is to create one or more
+One of the first steps in the \code{sspm} workflow is to create one or more
 object(s) of class \code{sspm_boundary} from an \code{sf} object.
 }
-\section{Functions}{
-\itemize{
-\item \code{sspm_discrete_boundary-class}: sspm_discrete_boundary
-}}
-
 \section{Slots}{
 
 \describe{
@@ -24,17 +18,5 @@ spatial boundaries.}
 
 \item{\code{boundary_area}}{\strong{[character]} The column of \code{data} that represents the
 area of spatial boundaries.}
-
-\item{\code{method}}{\strong{[\link[=discretization_method-class]{discretization_method}]}
-\emph{(if discrete)} discretization method used.}
-
-\item{\code{patches}}{\strong{[sf]} \emph{(if discrete)} Patches resulting from
-discretization.}
-
-\item{\code{points}}{\strong{[sf or NULL]} \emph{(if discrete)} Sample points used for
-discretization.}
-
-\item{\code{patches_area}}{\strong{[character]} The column of \code{data} that represents the
-area of patches.}
 }}
 

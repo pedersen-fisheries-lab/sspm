@@ -133,10 +133,6 @@ is_mapped(object) <- value
 \item{sspm_object}{\strong{[sspm_dataset]} An object of class
 \link[=sspm_dataset-class]{sspm_dataset}.}
 
-\item{object}{
-    object from which to extract element(s) or in which to replace element(s).
-  }
-
 \item{value}{typically an array-like \R object of a similar class as
     \code{x}.}
 }
