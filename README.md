@@ -3,7 +3,7 @@
 
 # sspm
 
-<img src='man/figures/logo.png' style='text-align: right;' height="150" width="130"/>
+<img src='man/figures/logo.png' style='float: right;' height="150" width="130"/>
 
 <!-- badges: start -->
 
