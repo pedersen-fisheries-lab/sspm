@@ -18,7 +18,7 @@ Release](https://img.shields.io/github/v/release/pedersen-fisheries-lab/sspm?lab
 [![CRAN
 Version](https://img.shields.io/cran/v/sspm?label=CRAN%20Version)](https://CRAN.R-project.org/package=sspm)
 [![GitHub
-Version](https://img.shields.io/github/r-package/v/pedersen-fisheries-lab/sspm?label=GitHub%20Version)](https://github.com/pedersen-fisheries-lab/sspm/blob/dev/DESCRIPTION)
+Version](https://img.shields.io/github/r-package/v/pedersen-fisheries-lab/sspm?label=GitHub%20Version)](https://github.com/pedersen-fisheries-lab/sspm/blob/main/DESCRIPTION)
 <!-- badges: end -->
 
 The goal of `sspm` is to implement a gam-based spatial surplus
