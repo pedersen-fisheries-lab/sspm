@@ -24,7 +24,7 @@ The package follows an object oriented design, making use of the S4 class system
 
 3. The second pillar is the recognition of 3 types of data: **trawl**, **predictors**, and **catch** (i.e. harvest). The next step in the workflow is to ingest the data into `sspm_dataset` objects via a call to `spm_as_dataset()`.
 
-4. The first proper modelling step is to smooth the biomass and predictors data by combining a `sspm_dataset`, and a `sspm_discrete_boundary`. The user specifies a gam formula with custom smooth terms (see \autoref{tab:formula} for more details). The output is still a `sspm_dataset` object with a `smoothed_data` slot which contains the smoothed predictions for all patches.
+4. The first proper modelling step is to smooth the biomass and predictors data by combining a `sspm_dataset`, and a `sspm_discrete_boundary`. The user specifies a gam formula with custom smooth terms (see the [details section of the `spm_smooth()` function](https://pedersen-fisheries-lab.github.io/sspm/reference/spm_smooth.html#details) for more details). The output is still a `sspm_dataset` object with a `smoothed_data` slot which contains the smoothed predictions for all patches.
 
 5. Then, catch is integrated into the biomass data by calling `spm_aggregate_catch` on the two `sspm_dataset` that contains catch and smoothed biomass. Productivity and (both log and non log) is calculated at this step.
 
