@@ -10,41 +10,78 @@ reference:
   desc: Create a spatial boundaries object for your model
 - contents:
   - spm_as_boundary
+  - sspm_boundary-class
 
 - subtitle: Discretizing boundaries
   desc: Discretize your spatial boundaries object into patches
 - contents:
   - spm_discretize
+  - sspm_discrete_boundary-class
+  - tesselate_voronoi
+  - triangulate_delaunay
+  - spm_methods
+  - as_discretization_method
+  - discretization_method-class
 
 - subtitle: Casting datasets
   desc: Create dataset objects for your raw variables
 - contents:
   - spm_as_dataset
+  - sspm_dataset-class
 
 - subtitle: Smoothing biomass
   desc: Smooth the raw variables using gams
 - contents:
   - spm_smooth
+  - spm_smooth_methods
+  - smooth_time
+  - smooth_space
+  - smooth_space_time
 
 - subtitle: Aggregating catch
   desc: Aggregate the catch data according to discretized boundaries
 - contents:
   - spm_aggregate_catch
+  - spm_aggregate
 
 - subtitle: Assembling and modifiying SSPM objects
   desc: Assemble the model object and prepare it for fitting
 - contents:
   - sspm
+  - sspm-class
   - spm_split
   - spm_lag
 
 - subtitle: Fitting the surplus production model
   desc: Fit the model
 - contents:
-  - fit
+  - spm
+  - sspm_fit-class
+  - sspm_formula-class
 
 - subtitle: Predict and plot
   desc: Predict and plot results
 - contents:
   - predict
+  - predict_intervals
   - plot
+  - plot_trajectory
+
+- title: Datasets
+  desc: Datasets used in the vignette
+- contents:
+  - borealis_simulated
+  - catch_simulated
+  - predator_simulated
+  - sfa_boundaries
+
+- title: Accessors
+  desc: Accessors method for various objects
+- contents:
+  - starts_with("spm_boundaries")
+  - starts_with("sspm_boundary")
+  - extract
+  - spm_data
+  - spm_unique_ID
+  - raw_formula
+  - method_func
