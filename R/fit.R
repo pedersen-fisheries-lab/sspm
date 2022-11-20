@@ -12,6 +12,8 @@
 #' @return
 #' A object of the class [`sspm_fit`][sspm_fit-class].
 #'
+#' @keywords internal
+#'
 # Examples
 # \dontrun{
 # fit_smooths(boundaries = boundaries, keep_fit = TRUE, ...)
@@ -48,6 +50,7 @@ setGeneric(name = "fit_spm",
 # Methods -----------------------------------------------------------------
 
 #' @rdname fit
+#' @keywords internal
 setMethod(f = "fit_smooths",
           signature(sspm_object = "sspm_dataset",
                     boundaries = "sspm_discrete_boundary"),
