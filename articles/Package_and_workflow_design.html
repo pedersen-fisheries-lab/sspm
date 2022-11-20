@@ -98,19 +98,49 @@
 
     
     
-<p>The package follows an object oriented design, making use of the S4 class systems. The different classes in the package work together to produce a stepwise workflow.</p>
+<p>The package follows an object oriented design, making use of the S4
+class systems. The different classes in the package work together to
+produce a stepwise workflow.</p>
 <div class="figure">
 <img src="../reference/figures/flowchart.png" style="width:100.0%" alt=""><p class="caption">The sspm workflow.</p>
 </div>
 <ol style="list-style-type: decimal">
-<li><p>The first pillar of the package’s design is the concept of boundary data, the spatial polygons that sets the boundary of the spatial model. The boundary data is ingested into a <code>sspm_boundary</code> object with a call to <code><a href="../reference/spm_as_boundary.html">spm_as_boundary()</a></code>.</p></li>
-<li><p>The boundary data is then discretized into a <code>sspm_discrete_boundary</code> object with the <code><a href="../reference/spm_discretize.html">spm_discretize()</a></code> function, dividing the boundary area into discrete patches.</p></li>
-<li><p>The second pillar is the recognition of 3 types of data: <strong>trawl</strong>, <strong>predictors</strong>, and <strong>catch</strong> (i.e. harvest). The next step in the workflow is to ingest the data into <code>sspm_dataset</code> objects via a call to <code><a href="../reference/spm_as_dataset.html">spm_as_dataset()</a></code>.</p></li>
-<li><p>The first proper modelling step is to smooth the biomass and predictors data by combining a <code>sspm_dataset</code>, and a <code>sspm_discrete_boundary</code>. The user specifies a gam formula with custom smooth terms (see  for more details). The output is still a <code>sspm_dataset</code> object with a <code>smoothed_data</code> slot which contains the smoothed predictions for all patches.</p></li>
-<li><p>Then, catch is integrated into the biomass data by calling <code>spm_aggregate_catch</code> on the two <code>sspm_dataset</code> that contains catch and smoothed biomass. Productivity and (both log and non log) is calculated at this step.</p></li>
-<li><p>The next step consists in combining all relevant datasets for the modelling of productivity (i.e. the newly created productivity dataset and the predictor(s) dataset(s)) with a call to <code><a href="../reference/sspm-constructor.html">sspm()</a></code>. Additionally, the user may apply lags to the variables with <code><a href="../reference/spm_lag.html">spm_lag()</a></code> and determine the split between testing and training data with <code><a href="../reference/spm_split.html">spm_split()</a></code>.</p></li>
-<li><p>The second modelling step consists in modelling productivity per se. Once again, a gam formula with custom syntax is used (see  for more details).</p></li>
-<li><p>The resulting object contains the model fit. Predictions can be obtained using the built-in <code><a href="../reference/predict.html">predict()</a></code> method, and plots with the <code><a href="../reference/plot.html">plot()</a></code> method.</p></li>
+<li><p>The first pillar of the package’s design is the concept of
+boundary data, the spatial polygons that sets the boundary of the
+spatial model. The boundary data is ingested into a
+<code>sspm_boundary</code> object with a call to
+<code><a href="../reference/spm_as_boundary.html">spm_as_boundary()</a></code>.</p></li>
+<li><p>The boundary data is then discretized into a
+<code>sspm_discrete_boundary</code> object with the
+<code><a href="../reference/spm_discretize.html">spm_discretize()</a></code> function, dividing the boundary area into
+discrete patches.</p></li>
+<li><p>The second pillar is the recognition of 3 types of data:
+<strong>trawl</strong>, <strong>predictors</strong>, and
+<strong>catch</strong> (i.e. harvest). The next step in the workflow is
+to ingest the data into <code>sspm_dataset</code> objects via a call to
+<code><a href="../reference/spm_as_dataset.html">spm_as_dataset()</a></code>.</p></li>
+<li><p>The first proper modelling step is to smooth the biomass and
+predictors data by combining a <code>sspm_dataset</code>, and a
+<code>sspm_discrete_boundary</code>. The user specifies a gam formula
+with custom smooth terms (see for more details). The output is still a
+<code>sspm_dataset</code> object with a <code>smoothed_data</code> slot
+which contains the smoothed predictions for all patches.</p></li>
+<li><p>Then, catch is integrated into the biomass data by calling
+<code>spm_aggregate_catch</code> on the two <code>sspm_dataset</code>
+that contains catch and smoothed biomass. Productivity and (both log and
+non log) is calculated at this step.</p></li>
+<li><p>The next step consists in combining all relevant datasets for the
+modelling of productivity (i.e. the newly created productivity dataset
+and the predictor(s) dataset(s)) with a call to <code><a href="../reference/sspm-constructor.html">sspm()</a></code>.
+Additionally, the user may apply lags to the variables with
+<code><a href="../reference/spm_lag.html">spm_lag()</a></code> and determine the split between testing and
+training data with <code><a href="../reference/spm_split.html">spm_split()</a></code>.</p></li>
+<li><p>The second modelling step consists in modelling productivity per
+se. Once again, a gam formula with custom syntax is used (see for more
+details).</p></li>
+<li><p>The resulting object contains the model fit. Predictions can be
+obtained using the built-in <code><a href="../reference/predict.html">predict()</a></code> method, and plots
+with the <code><a href="../reference/plot.html">plot()</a></code> method.</p></li>
 </ol>
 </div>
 
