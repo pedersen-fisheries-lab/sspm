@@ -3,7 +3,7 @@
 
 # sspm
 
-<img src='man/figures/logo.png' style='float: right;' height="150" width="130"/>
+<img src="man/figures/logo.png" style="float: right;" height="150" width="130"/>
 
 <!-- badges: start -->
 
@@ -19,6 +19,8 @@ Release](https://img.shields.io/github/v/release/pedersen-fisheries-lab/sspm?lab
 Version](https://img.shields.io/cran/v/sspm?label=CRAN%20Version)](https://CRAN.R-project.org/package=sspm)
 [![GitHub
 Version](https://img.shields.io/github/r-package/v/pedersen-fisheries-lab/sspm?label=GitHub%20Version)](https://github.com/pedersen-fisheries-lab/sspm/blob/main/DESCRIPTION)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.04724/status.svg)](https://doi.org/)
+
 <!-- badges: end -->
 
 The goal of `sspm` is to implement a gam-based spatial surplus
@@ -48,10 +50,59 @@ devtools::install_github("pedersen-fisheries-lab/sspm")
 devtools::install_github("pedersen-fisheries-lab/sspm", build_vignettes = TRUE)
 ```
 
-## Vignettes
+## Purpose
 
-See the vignettes for an introduction to the `sspm` workflow.
+The `sspm` package follows a strict workflow, where spatial boundaries
+need to be defined and discretized into patches, so that we can apply a
+spatial GAM to the data. You can either use of of our built in methods
+for discretization or implement your own. Below is an example of a
+discretized set of patches:
+
+<img src="man/figures/patches.png"
+style="display: block; margin: 1em auto;;width:70.0%" />
+
+Then, we provide a framework to ingest trawling and fishing data, and
+smoothing the model spatially:
+
+<img src="man/figures/smoothed.png"
+style="display: block; margin: 1em auto;;width:70.0%" />
+
+Finally, the package allows for calculating the surplus production on a
+yearly basis, and model the impact of different variables on that
+productivity. You can then produce **one step ahead predictions** for
+the biomass.
+
+<img src="man/figures/preds.png"
+style="display: block; margin: 1em auto;;width:70.0%" />
+
+For an overview of the package design, please see our [workflow
+diagram](https://pedersen-fisheries-lab.github.io/sspm/articles/Package_and_workflow_design.html).
+
+### Getting started
+
+See the example vignette for an introduction to the `sspm` workflow.
 
 ``` r
 browseVignettes("sspm")
 ```
+
+## See also
+
+`sspm` is opinionanted in its workflow and its use of GAMS, but other
+frameworks exist to make use of surplus production models (usually not
+in spatial capacity, however):
+
+- [`openmse`](https://openmse.com/features-assessment-models/3-sp/)
+- [`TropFishR`](https://github.com/tokami/TropFishR)
+
+## Cite this package
+
+You can cite this package like this “we ran a spatial surplus production
+model using the the R package sspm (Lucet & Pedersen 2022)”. Here is the
+full bibliographic reference to include in your reference list (don’t
+forget to update the ‘last accessed’ date):
+
+> Lucet, V., E. Pedersen (2022). The sspm R package: spatial surplus
+> production models for the management of northern shrimp fisheries. The
+> Journal of Open Source Software
+> (<https://joss.theoj.org/papers/d05fcbbc7ff3d1d2bc3c56466f2e21e5#>)
