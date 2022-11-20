@@ -1,13 +1,50 @@
 template:
   params:
     bootswatch: flatly
-# reference:
-# - title: Layers
-# - subtitle: Geoms
-#   desc: Geom is short for geometric element
-# - contents:
-#   - starts_with("geom")
-# - subtitle: Stats
-#   desc: Statistical transformations transform data before display.
-#   contents:
-#   - starts_with("stat")
+
+reference:
+
+- title: Workflow steps
+
+- subtitle: Casting boundaries
+  desc: Create a spatial boundaries object for your model
+- contents:
+  - spm_as_boundary
+
+- subtitle: Discretizing boundaries
+  desc: Discretize your spatial boundaries object into patches
+- contents:
+  - spm_discretize
+
+- subtitle: Casting datasets
+  desc: Create dataset objects for your raw variables
+- contents:
+  - spm_as_dataset
+
+- subtitle: Smoothing biomass
+  desc: Smooth the raw variables using gams
+- contents:
+  - spm_smooth
+
+- subtitle: Aggregating catch
+  desc: Aggregate the catch data according to discretized boundaries
+- contents:
+  - spm_aggregate_catch
+
+- subtitle: Assembling and modifiying SSPM objects
+  desc: Assemble the model object and prepare it for fitting
+- contents:
+  - sspm
+  - spm_split
+  - spm_lag
+
+- subtitle: Fitting the surplus production model
+  desc: Fit the model
+- contents:
+  - fit
+
+- subtitle: Predict and plot
+  desc: Predict and plot results
+- contents:
+  - predict
+  - plot
