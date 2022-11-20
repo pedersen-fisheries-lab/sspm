@@ -99,10 +99,13 @@ in spatial capacity, however):
 
 You can cite this package like this “we ran a spatial surplus production
 model using the the R package sspm (Lucet & Pedersen 2022)”. Here is the
-full bibliographic reference to include in your reference list (don’t
-forget to update the ‘last accessed’ date):
+full bibliographic reference to include in your reference list
+(publication pending, don’t forget to update the ‘last accessed’ date):
 
 > Lucet, V., E. Pedersen (2022). The sspm R package: spatial surplus
 > production models for the management of northern shrimp fisheries. The
 > Journal of Open Source Software
 > (<https://joss.theoj.org/papers/d05fcbbc7ff3d1d2bc3c56466f2e21e5#>)
+
+Or see the [package citation
+page](https://pedersen-fisheries-lab.github.io/sspm/authors.html#citation).
