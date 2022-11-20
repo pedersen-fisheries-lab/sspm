@@ -15,6 +15,7 @@
 #' }
 #'
 #' @export
+#' @aliases extract
 #' @rdname extract-methods
 setMethod("$",
           "sspm_boundary",

@@ -2,6 +2,7 @@
 % Please edit documentation in R/methods-extract.R
 \name{$,sspm_boundary-method}
 \alias{$,sspm_boundary-method}
+\alias{extract}
 \alias{$,sspm_discrete_boundary-method}
 \alias{$,sspm_dataset-method}
 \alias{$,sspm-method}
