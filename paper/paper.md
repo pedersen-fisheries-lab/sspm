@@ -81,7 +81,7 @@ The key workflow steps are:
 
 # Acknowledgements
 
-This research was supported by the canadian Department of Fisheries of Oceans (DFO) Sustainable fisheries Science Fund, and by a Discovery Grant from the canadian Natural Sciences and Engineering Research Council (NSERC) to E. J.Pedersen. We thank Fonya Irvine and John-Philip Williams for their help in testing the package and providing feedback on model implementation.
+This research was supported by Fisheries and Oceans Canada (DFO) Sustainable fisheries Science Fund, and by a Discovery Grant from the canadian Natural Sciences and Engineering Research Council (NSERC) to E. J.Pedersen. We thank Fonya Irvine and John-Philip Williams for their help in testing the package and providing feedback on model implementation.
 
 # References
 
