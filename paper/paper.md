@@ -53,7 +53,7 @@ Population models like SPMs usually fall under the two following categories: pro
 
 While the initial application of this model was modelling Newfoundland and Labrador Northern Shrimp stocks [@pedersenNewSpatialEcosystembased2021], the R package `sspm` is designed to make spatially-explicit surplus production models (SSPM) easier to estimate and apply to any spatially structured stock. The package uses GAMs to estimate spatiotemporally varying biomass, and to estimate SSPMs based on changes in fitted biomass, observed catch, and spatially structured environmental predictors. It includes a range of features to manage biomass and harvest data. Those features are organized in a stepwise workflow, whose implementation is described in more detail in \autoref{fig:workflow}.
 
-1. Discretization and aggregation of spatially structured observations into discrete patches, with a range of methods of discretization (random or custom sampling, Voronoi tessellation or Delaunay triangulation).
+1. Discretization and aggregation of spatially structured observations into discrete patches, with a range of methods of discretization (random or custom sampling, Voronoi tessellation, or Delaunay triangulation).
 2. Spatiotemporal smoothing of biomass and environmental predictors using GAMs.
 3. Computation of surplus productivity based on biomass density and fishing effort.
 4. Fitting of SSPMs to productivity data with GAMs.
