@@ -60,7 +60,7 @@ While the initial application of this model was modelling Newfoundland and Labra
 5. Visualization of results, including confidence and prediction intervals.
 6. One-step-ahead prediction of biomass for model validation and scenario-based forecasting.
 
-Although it was developed in a fisheries context, the package is suitable to model spatially-structured population dynamics in general.
+Although it was developed in a fisheries context, the package is suited to model spatially-structured population dynamics in general.
 
 # Package design
 
