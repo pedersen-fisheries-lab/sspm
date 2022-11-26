@@ -75,7 +75,7 @@ The key workflow steps are:
 5. The `spm_aggregate_catch()` function aggregates catch into patches and years and calculates patch-specific productivity for each year as the ratio of estimated biomass density plus catch from the next year divided by estimated biomass density of the current year. The result is returned as a `sspm_dataset`.
 6. The `sspm()` function combines productivity and predictor datasets into a single dataset. Additionally, the user may create lagged versions of predictors with `spm_lag()` and split data into testing and training sets for model validation with `spm_split()` at this stage.
 7. The `spm()` function is used to fit a SSPM model to the output of step 6, using a GAM model with custom syntax able to model a range of SSPMs. The output is an `sspm` object.
-8. Predictions from the fitted model can be obtained using the built-in `predict()` method, and plots with the `plot()` method.
+8. Predictions from the fitted model can be obtained using the built-in `predict()` method. Plots can be generated with the `plot()` method.
 
 ![The sspm workflow.\label{fig:workflow}](../man/figures/flowchart.png){width=90%}
 
