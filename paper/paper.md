@@ -72,7 +72,7 @@ The package follows an object oriented design, making use of the S4 class system
 
 The key workflow steps are: 
 
-1. Delineation of the boundary of the region of interest for the model. Boundary data is provided as a shapefile and converted into a `sspm_boundary` object with a call to `spm_as_boundary()`.
+1. Provided boundary data in the form of a shapefile is converted into a `sspm_boundary` object using `spm_as_boundary()` to define the boundary/region of interest.
 2. The region within the boundary is discretized into patches with the `spm_discretize()` function, creating a `sspm_discrete_boundary` object.
 3. The `spm_as_dataset()` function turns user-provided data frames of raw observations into `sspm_dataset` objects that explicitly track locations, data types, and aggregation scales for each input. `sspm` recognizes three types of data: **trawl** (i.e. biomass estimates from scientific surveys), **predictors**, and **catch** (i.e., harvest). 
 4. The `spm_smooth()` function use spatiotemporal GAMs to smooth the biomass and predictor data, based on the spatial structure from `sspm_discrete_boundary`. The user specifies a GAM formula with custom smooth terms. The output is another `sspm_dataset` object with a `smoothed_data` slot which contains the smoothed predictions for all patches.
