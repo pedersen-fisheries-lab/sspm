@@ -68,7 +68,7 @@ Although it was developed in a fisheries context, the package is suited to model
 
 # Package design
 
-The package follows an object oriented design, making use of the S4 class systems. The different classes in the package work together to produce a stepwise workflow  (\autoref{fig:workflow}). 
+The package follows an object oriented design, making use of the S4 class systems to model a stepwise workflow: (\autoref{fig:workflow}). 
 
 The key workflow steps are: 
 
