@@ -55,14 +55,7 @@ We have chosen a statistical approach to fitting SPMs. Statistical models allow 
 
 In this paper, we use a statistical approach to fitting SPMs using Generalized Additive Models (GAMS), estimated using the `mgcv` R package [@wood_generalized_2017] as the backend. We apply this approach to the population of Northern Shrimp of the Newfoundland and Labrador Shelves, leveraging the smoothing properties of GAMs to account for varying productivity across time and space. The resulting model is a spatial SPM (SSPM), implemented via an R package: `sspm`.
 
-While the initial application of this model was modelling Newfoundland and Labrador Northern Shrimp stocks [@pedersenNewSpatialEcosystembased2021], the R package `sspm` is designed to make spatially-explicit surplus production models (SSPM) easier to estimate and apply to any spatially structured stock. The package uses GAMs to smooth spatiotemporally varying biomass, and to fit SSPMs based on changes in fitted biomass, observed catch, and spatially structured environmental predictors. It includes a range of features to manipulate harvest and biomass data. Those features are organized in a stepwise workflow, whose implementation is described in more detail in \autoref{fig:workflow}.
-
-1. Discretization and aggregation of spatially structured observations into discrete patches, with a range of methods of discretization (random or custom sampling, Voronoi tessellation, or Delaunay triangulation).
-2. Spatiotemporal smoothing of biomass and environmental predictors using GAMs.
-3. Computation of surplus productivity based on biomass density and fishing effort.
-4. Fitting of SSPMs to productivity estimates with GAMs.
-5. Visualization of results, including confidence and prediction intervals.
-6. One-step-ahead projections of biomass for model validation and scenario-based predictions.
+While the initial application of this model was modelling Newfoundland and Labrador Northern Shrimp stocks [@pedersenNewSpatialEcosystembased2021], the R package `sspm` is designed to make spatially-explicit surplus production models (SSPM) easier to estimate and apply to any spatially structured stock. The package uses GAMs to smooth spatiotemporally varying biomass, and to fit SSPMs based on changes in fitted biomass, observed catch, and spatially structured environmental predictors. It includes a range of features to manipulate harvest and biomass data. Those features are organized in a stepwise workflow, whose implementation is described in more detail in \autoref{fig:workflow} and in the next section.
 
 Although it was developed in a fisheries context, the package is suited to model spatially-structured population dynamics in general.
 
@@ -72,14 +65,23 @@ The package follows an object oriented design, making use of the S4 class system
 
 The key workflow steps are: 
 
-1. Provided boundary data in the form of a shapefile is converted into a `sspm_boundary` object using `spm_as_boundary()` to define the boundary/region of interest.
-2. The region within the boundary is discretized into patches with the `spm_discretize()` function, creating a `sspm_discrete_boundary` object.
-3. The `spm_as_dataset()` function turns user-provided data frames of raw observations into `sspm_dataset` objects that explicitly track locations, data types, and aggregation scales for each input. `sspm` recognizes three types of data: **trawl** (i.e. biomass estimates from scientific surveys), **predictors**, and **catch** (i.e., harvest). 
-4. The `spm_smooth()` function use spatiotemporal GAMs to smooth the biomass and predictor data, based on the spatial structure from `sspm_discrete_boundary`. The user specifies a GAM formula with custom smooth terms. The output is another `sspm_dataset` object with a `smoothed_data` slot which contains the smoothed predictions for all patches.
-5. The `spm_aggregate_catch()` function aggregates catch into patches and years and calculates patch-specific productivity for each year as the ratio of estimated biomass density plus catch from the next year divided by estimated biomass density of the current year. The result is returned as a `sspm_dataset`.
-6. The `sspm()` function combines productivity and predictor datasets into a single dataset. Additionally, the user may create lagged versions of predictors with `spm_lag()` and split data into testing and training sets for model validation with `spm_split()` at this stage.
-7. The `spm()` function is used to fit a SSPM model to the output of step 6, using a GAM model with custom syntax able to model a range of SSPMs. The output is an `sspm` object.
-8. Predictions from the fitted model can be obtained using the built-in `predict()` method. Plots can be generated with the `plot()` method.
+* Discretization and aggregation of spatially structured observations into discrete patches, with a range of methods of discretization (random or custom sampling, Voronoi tessellation, or Delaunay triangulation).
+	1. Provided boundary data in the form of a shapefile is converted into a `sspm_boundary` object using `spm_as_boundary()` to define the boundary/region of interest.
+	2. The region within the boundary is discretized into patches with the `spm_discretize()` function, creating a `sspm_discrete_boundary` object.
+
+* Spatiotemporal smoothing of biomass and environmental predictors using GAMs.
+	3. The `spm_as_dataset()` function turns user-provided data frames of raw observations into `sspm_dataset` objects that explicitly track locations, data types, and aggregation scales for each input. `sspm` recognizes three types of data: **trawl** (i.e. biomass estimates from scientific surveys), **predictors**, and **catch** (i.e., harvest). 
+	4. The `spm_smooth()` function use spatiotemporal GAMs to smooth the biomass and predictor data, based on the spatial structure from `sspm_discrete_boundary`. The user specifies a GAM formula with custom smooth terms. The output is another `sspm_dataset` object with a `smoothed_data` slot which contains the smoothed predictions for all patches.
+
+* Computation of surplus productivity based on biomass density and fishing effort.
+	5. The `spm_aggregate_catch()` function aggregates catch into patches and years and calculates patch-specific productivity for each year as the ratio of estimated biomass density plus catch from the next year divided by estimated biomass density of the current year. The result is returned as a `sspm_dataset`.
+	6. The `sspm()` function combines productivity and predictor datasets into a single dataset. Additionally, the user may create lagged versions of predictors with `spm_lag()` and split data into testing and training sets for model validation with `spm_split()` at this stage.
+
+* Fitting of SSPMs to productivity estimates with GAMs.
+	7. The `spm()` function is used to fit a SSPM model to the output of step 6, using a GAM model with custom syntax able to model a range of SSPMs. The output is an `sspm` object.
+
+* Visualization of results, and one-step-ahead projections of biomass for model validation and scenario-based predictions.
+	8. Plots can be generated with the `plot()` method. Predictions from the fitted model can be obtained using the built-in `predict()` method, including confidence and prediction intervals
 
 ![The sspm workflow. Gray cylinders represent raw, unprocessed sources of data. Each blue diamond shape represents a function processing a raw input and validating it, or producing an intermediate package object, represented as a green object. Secondary objects like formulas, which must be created by the user, are represented by a purple document shape. Finally, outputs are represented by a red document shape. The steps of the workflow as described above are denoted by dotted lines and corresponding step number. \label{fig:workflow}](../man/figures/flowchart.png){width=90%}
 
