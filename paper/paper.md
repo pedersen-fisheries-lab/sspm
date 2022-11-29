@@ -60,9 +60,9 @@ While the initial application of this model was modelling Newfoundland and Labra
 1. Discretization and aggregation of spatially structured observations into discrete patches, with a range of methods of discretization (random or custom sampling, Voronoi tessellation, or Delaunay triangulation).
 2. Spatiotemporal smoothing of biomass and environmental predictors using GAMs.
 3. Computation of surplus productivity based on biomass density and fishing effort.
-4. Fitting of SSPMs to productivity data with GAMs.
+4. Fitting of SSPMs to productivity estimates with GAMs.
 5. Visualization of results, including confidence and prediction intervals.
-6. One-step-ahead prediction of biomass for model validation and scenario-based forecasting.
+6. One-step-ahead projections of biomass for model validation and scenario-based predictions.
 
 Although it was developed in a fisheries context, the package is suited to model spatially-structured population dynamics in general.
 
