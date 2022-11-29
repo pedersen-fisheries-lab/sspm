@@ -28,10 +28,7 @@ affiliations:
 
 # Statement of need
 
-1. Population models, in particular fisheries productivity models, rarely integrate important spatially-structured ecosystem drivers
-2. The Northern Shrimp stock in the Newfoundland and Labrador Shelves currently lacks a population model 
-3. Current SPM models are rarely spatially explicit and usually cannot account for relevant ecosystem drivers
-4. Fisheries managers lack user-friendly, flexible tools to implement and apply SSPMs
+Population models are important tools for making management decisions, especially in fisheries, where predictive methods like Surplus Productivity Models (SPMs) are widely used. Fisheries analysts and managers often lack user-friendly, flexible tools to implement and apply SPMs. In addition, SPMs are rarely spatially explicit and usually cannot account for relevant ecosystem drivers. Therefore, there is a need for tools that implement spatially explicit surplus production models (SSPMs). The Northern Shrimp stock in the Newfoundland and Labrador Shelves is an example of a stock in need of an SSPM that can integrate important spatially-structured ecosystem drivers.
 
 # Summary
 
