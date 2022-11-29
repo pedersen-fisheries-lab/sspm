@@ -81,7 +81,7 @@ The key workflow steps are:
 7. The `spm()` function is used to fit a SSPM model to the output of step 6, using a GAM model with custom syntax able to model a range of SSPMs. The output is an `sspm` object.
 8. Predictions from the fitted model can be obtained using the built-in `predict()` method. Plots can be generated with the `plot()` method.
 
-![The sspm workflow.\label{fig:workflow}](../man/figures/flowchart.png){width=90%}
+![The sspm workflow. Gray cylinders represent raw, unprocessed sources of data. Each blue diamond shape represents a function processing a raw input and validating it, or producing an intermediate package object, represented as a green object. Secondary objects like formulas, which must be created by the user, are represented by a purple document shape. Finally, outputs are represented by a red document shape. The steps of the workflow as described above are denoted by dotted lines and corresponding step number. \label{fig:workflow}](../man/figures/flowchart.png){width=90%}
 
 # Acknowledgements
 
