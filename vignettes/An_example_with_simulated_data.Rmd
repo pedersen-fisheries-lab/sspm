@@ -119,7 +119,7 @@ biomass_smooth <- biomass_dataset %>%
 biomass_smooth
 ```
 
-8. The smoothed results for any smoothed variables (listed in "smoothed vars" above) can be easily plotted:
+8. The smoothed results for any smoothed variables (listed in "smoothed vars" above) can be easily plotted. Here the 4 panels represent 4 different patches in the same SFA. The panels show a very similar pattern due to the nature of the simulated data we are using. The data points are actually different, but the differences are not noticeable in this example case.
 
 ```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE, fig.align='center'}
 plot(biomass_smooth, var = "weight_per_km2", log = FALSE, interval = T)
