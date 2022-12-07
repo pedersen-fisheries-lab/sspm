@@ -74,7 +74,8 @@ An object of class \link[=sspm_boundary-class]{sspm_boundary} or
 \link[=sspm_discrete_boundary-class]{sspm_discrete_boundary}.
 }
 \description{
-Create a sspm_boundary object.
+Create a sspm_boundary object. A boundary object serves as a basis to encode
+the spatial extent of the model.
 }
 \examples{
 sfa_boundaries

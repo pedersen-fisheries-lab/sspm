@@ -100,7 +100,8 @@ An object of class \code{\link[=sspm_dataset-class]{sspm_dataset}}.
 }
 \description{
 This casts a \code{data.frame} or \code{sf} object into  an object of class
-\code{\link[=sspm_dataset-class]{sspm_dataset}}.
+\code{\link[=sspm_dataset-class]{sspm_dataset}}. This object is the format the package
+uses to manage and manipulate the modeling data.
 }
 \examples{
 data(borealis_simulated, package = "sspm")

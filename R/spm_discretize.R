@@ -1,7 +1,8 @@
 #' Discretize a `sspm` model object
 #'
 #' Discretize a [sspm][sspm-class] model object with a function from a
-#' [discretization_method][discretization_method-class] object class.
+#' [discretization_method][discretization_method-class] object class. This
+#' function divides the boundary polygons into smaller patches.
 #'
 #' @param boundary_object **\[sspm\]** An object of class
 #'    [sspm_boundary][sspm-class].
