@@ -124,3 +124,10 @@ full bibliographic reference to include in your reference list
 
 Or see the [package citation
 page](https://pedersen-fisheries-lab.github.io/sspm/authors.html#citation).
+
+## Code of Conduct 
+
+Please note that the sspm project is released with a [Contributor Code
+of
+Conduct]([https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).](https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).)
+By contributing to this project, you agree to abide by its terms.

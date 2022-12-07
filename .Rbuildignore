@@ -14,3 +14,4 @@ man/figures/make_hex
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
 ^paper$
+^CODE_OF_CONDUCT\.md$
