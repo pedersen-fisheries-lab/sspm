@@ -1,7 +1,8 @@
 #' Create a `sspm_dataset` dataset structure
 #'
 #' This casts a `data.frame` or `sf` object into  an object of class
-#' [`sspm_dataset`][sspm_dataset-class].
+#' [`sspm_dataset`][sspm_dataset-class]. This object is the format the package
+#' uses to manage and manipulate the modeling data.
 #'
 #' @param data **\[data.frame OR sf\]** The dataset.
 #' @param time **\[character\]** The column of `data` for the temporal

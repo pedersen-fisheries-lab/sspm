@@ -1,6 +1,7 @@
 #' Create a sspm_boundary object
 #'
-#' Create a sspm_boundary object.
+#' Create a sspm_boundary object. A boundary object serves as a basis to encode
+#' the spatial extent of the model.
 #'
 #' @param boundaries **\[sf\]** The sf object to cast.
 #' @param boundary **\[character\]** The column that contains the possible

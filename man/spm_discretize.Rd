@@ -45,7 +45,8 @@ and discretized \code{sspm} object given as input).
 }
 \description{
 Discretize a \link[=sspm-class]{sspm} model object with a function from a
-\link[=discretization_method-class]{discretization_method} object class.
+\link[=discretization_method-class]{discretization_method} object class. This
+function divides the boundary polygons into smaller patches.
 }
 \details{
 Custom discretization functions can be written. The function must:
