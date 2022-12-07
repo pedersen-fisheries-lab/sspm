@@ -209,6 +209,13 @@ sspm_model_fit <- sspm_model %>%
 sspm_model_fit
 ```
 
+It is possible to access the GAM fit object in order to look at it in more details and, for example, evaluate the goodness of fit.
+
+```{r}
+gam_fit <- spm_get_fit(sspm_model_fit)
+summary(gam_fit)
+```
+
 16. Plotting the object produces a actual vs predicted plot (with TEST/TRAIN data highlighted.
 
 ```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE, fig.align='center'}
@@ -220,6 +227,7 @@ plot(sspm_model_fit, train_test = TRUE, scales = "free")
 preds <- predict(sspm_model_fit)
 head(preds)
 ```
+
 We can also get the predictions for biomass by passing the biomass variable name.
 ```{r}
 biomass_preds <- predict(sspm_model_fit, biomass = "weight_per_km2_borealis")
