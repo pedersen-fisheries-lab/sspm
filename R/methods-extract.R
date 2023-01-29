@@ -64,18 +64,3 @@ setMethod("$",
             }
           }
 )
-
-#' @export
-#' @rdname extract-methods
-setMethod("$",
-          "sspm_fit",
-          function(x, name) {
-            if (is.null(x@smoothed_data)) {
-              x@data %>%
-                dplyr::select(c(name, spm_time(x), "geometry"))
-            } else {
-              x@smoothed_data %>%
-                dplyr::select(c(name, spm_time(x), "geometry"))
-            }
-          }
-)
