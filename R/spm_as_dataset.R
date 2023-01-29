@@ -164,12 +164,13 @@ setMethod(f = "spm_as_dataset",
               patches <- data %>%
                 dplyr::select("geometry") %>%
                 dplyr::distinct() %>%
+                dplyr::mutate(patch_id = paste("P", 1:dplyr::n(), sep = "")) %>%
                 dplyr::mutate(patch_id =
-                                factor(paste("P", 1:dplyr::n(), sep = ""),
-                                       levels = paste0("P", 1:length(unique(.data$patch_id))))) %>%
+                                factor(patch_id, levels =
+                                         paste0("P", 1:length(unique(.data$patch_id))))) %>%
                 dplyr::mutate(boundary_col = "B1")
 
-              # Fuse all patchaes in a single boundary object
+              # Fuse all patches in a single boundary object
               boundary_data <- patches %>%
                 sf::st_union() %>%
                 sf::st_as_sf() %>%
