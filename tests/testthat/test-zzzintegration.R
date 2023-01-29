@@ -73,7 +73,8 @@ test_that("Worklow works as expected", {
     spm(log_productivity ~ sfa +
           weight_per_km2_all_predators_lag_1 +
           smooth_space(by = weight_per_km2_borealis_lag_1) +
-          smooth_space(),
+          smooth_space() +
+          smooth_lag("weight_per_km2_borealis"),
         family = mgcv::scat)
 
   gam_fit <- spm_get_fit(sspm_model_fit)
