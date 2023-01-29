@@ -102,4 +102,15 @@ test_that("sspm dataset is casted correctly", {
                    uniqueID = "uniqueID")
   }, "sspm_dataset")
 
+  test_polygons <- borealis_patches %>%
+    mutate(year_f = as.factor("2000"),
+           uniqueID = 1:nrow(borealis_patches))
+
+  expect_class({
+    spm_as_dataset(data = test_polygons,
+                   time = "year_f",
+                   name = "Biomass",
+                   uniqueID = "uniqueID")
+  }, "sspm_dataset")
+
 })

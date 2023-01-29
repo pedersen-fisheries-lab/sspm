@@ -36,6 +36,11 @@ test_that("Replacers work as expected", {
     spm_patches(boundary_discrete)
   }, sfa_boundaries)
 
+  expect_equal({
+    spm_patches_area(boundary_discrete) <- "new_col_3"
+    spm_patches_area(boundary_discrete)
+  }, "new_col_3")
+
   # SSPM
 
   expect_class({
@@ -143,5 +148,17 @@ test_that("Replacers work as expected", {
     spm_formulas(biomass_dataset_smoothed) <- list(sspm_formula)
     spm_formulas(biomass_dataset_smoothed)
   }, list(sspm_formula))
+
+  expect_equal({
+    spm_biomass_vars(catch_dataset) <- c("catch", "catch_replaced")
+    spm_biomass_vars(catch_dataset)
+  }, c("catch", "catch_replaced"))
+
+  expect_equal({
+    spm_density_vars(biomass_dataset) <- c("weight_per_km2",
+                                         "weight_per_km2_replaced")
+    spm_density_vars(biomass_dataset)
+  }, c("weight_per_km2",
+       "weight_per_km2_replaced"))
 
 })

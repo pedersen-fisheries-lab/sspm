@@ -67,6 +67,8 @@ test_that("Main smooth functions work as expected", {
   expect_equal(dim(res_space_time$vars$pen_mat_time), c(24, 24))
   expect_equal(dim(res_space_time$vars$pen_mat_space), c(69, 69))
 
+  # res_lag <- smooth_lag(dataset = "Biomass", sspm_object = sspm_discrete_mapped)
+
 })
 
 test_that("ICAR function works as expected", {
