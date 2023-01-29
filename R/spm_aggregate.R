@@ -138,38 +138,38 @@ setMethod(f = "spm_aggregate",
           }
 )
 
-#' @export
-#' @rdname spm_aggregate
-setMethod(f = "spm_aggregate",
-          signature(sspm_object = "sspm_fit"),
-          function(sspm_object,
-                   variable,
-                   fun,
-                   group_by,
-                   fill,
-                   apply_to_df,
-                   ...){
-
-            # Check info
-            checkmate::assert_character(variable)
-            checkmate::assert_function(fun)
-            checkmate::assert_choice(group_by, spm_aggregation_choices())
-
-            # Get info
-            dataset_data <- spm_smoothed_data(sspm_object)
-            bounds <- spm_boundaries(sspm_object)
-            boundary <- spm_boundary(bounds)
-            time_col <- spm_time(sspm_object)
-
-            # Verify column
-            assert_column(dataset_data, variable)
-
-            spm_smoothed_data(sspm_object) <-
-              spm_aggregate_routine(dataset_data, bounds, group_by, "boundary",
-                                    time_col, boundary, variable, fun, fill,
-                                    apply_to_df, ...)
-
-            return(sspm_object)
-
-          }
-)
+# # @export
+# # @rdname spm_aggregate
+# setMethod(f = "spm_aggregate",
+#           signature(sspm_object = "sspm_fit"),
+#           function(sspm_object,
+#                    variable,
+#                    fun,
+#                    group_by,
+#                    fill,
+#                    apply_to_df,
+#                    ...){
+#
+#             # Check info
+#             checkmate::assert_character(variable)
+#             checkmate::assert_function(fun)
+#             checkmate::assert_choice(group_by, spm_aggregation_choices())
+#
+#             # Get info
+#             dataset_data <- spm_smoothed_data(sspm_object)
+#             bounds <- spm_boundaries(sspm_object)
+#             boundary <- spm_boundary(bounds)
+#             time_col <- spm_time(sspm_object)
+#
+#             # Verify column
+#             assert_column(dataset_data, variable)
+#
+#             spm_smoothed_data(sspm_object) <-
+#               spm_aggregate_routine(dataset_data, bounds, group_by, "boundary",
+#                                     time_col, boundary, variable, fun, fill,
+#                                     apply_to_df, ...)
+#
+#             return(sspm_object)
+#
+#           }
+# )
