@@ -95,5 +95,6 @@ test_that("Accesors work as expected on `sspm_formula`", {
   expect_formula(raw_formula(sspm_formula))
   expect_formula(translated_formula(sspm_formula))
   expect_list(formula_vars(sspm_formula))
+  expect_character(formula_type(sspm_formula))
 
 })

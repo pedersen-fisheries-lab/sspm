@@ -100,6 +100,21 @@ test_that("Replacers work as expected", {
     names(formula_vars(sspm_formula))
   }, identical.to = c("a", "b"))
 
+  expect_match({
+    formula_type(sspm_formula) <- "my_type"
+    formula_type(sspm_formula)
+  }, "my_type")
+
+  expect_match({
+    spm_lagged_vars(sspm_formula) <- "lag_vars"
+    spm_lagged_vars(sspm_formula)
+  }, "lag_vars")
+
+  expect_match({
+    spm_response(sspm_formula) <- "response"
+    spm_response(sspm_formula)
+  }, "response")
+
   # Dataset
 
   expect_data_frame({
