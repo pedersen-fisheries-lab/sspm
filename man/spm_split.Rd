@@ -18,7 +18,7 @@ spm_split(sspm_object, ...)
 The updated sspm object.
 }
 \description{
-Split data before fitting spm (WIP).
+Split data before fitting spm.
 }
 \examples{
 \dontrun{

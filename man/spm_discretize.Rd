@@ -7,7 +7,6 @@
 \alias{spm_discretize,sspm_boundary,character,ANY-method}
 \alias{spm_discretize,sspm_boundary,function,ANY-method}
 \alias{spm_discretize,sspm_boundary,discretization_method,ANY-method}
-\alias{spm_discretize,sspm_discrete_boundary,ANY,ANY-method}
 \title{Discretize a \code{sspm} model object}
 \usage{
 spm_discretize(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
@@ -21,8 +20,6 @@ spm_discretize(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 \S4method{spm_discretize}{sspm_boundary,`function`,ANY}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
 \S4method{spm_discretize}{sspm_boundary,discretization_method,ANY}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
-
-\S4method{spm_discretize}{sspm_discrete_boundary,ANY,ANY}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 }
 \arguments{
 \item{boundary_object}{\strong{[sspm]} An object of class

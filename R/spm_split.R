@@ -1,6 +1,6 @@
 #' Split data in test and train sets
 #'
-#' Split data before fitting spm (WIP).
+#' Split data before fitting spm.
 #'
 #' @param sspm_object **\[sspm\]** An object of class [sspm][sspm-class].
 #' @param ... **\[expression\]** Expression to evaluate to split data.
