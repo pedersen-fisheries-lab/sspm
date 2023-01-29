@@ -65,7 +65,6 @@ reference:
   - predict
   - predict_intervals
   - plot
-  - plot_trajectory
 
 - title: Datasets
   desc: Datasets used in the vignette
