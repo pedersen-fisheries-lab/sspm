@@ -7,12 +7,6 @@ custom_h1 <- function(text) {
     cli::symbol$figure_dash, cli::symbol$figure_dash)
 }
 
-custom_h3 <- function(text) {
-  cli::cat_line(
-    cli::symbol$figure_dash,
-    " ", cli::style_bold(text), " ")
-}
-
 setMethod("show",
           "sspm_boundary",
           function(object) {
