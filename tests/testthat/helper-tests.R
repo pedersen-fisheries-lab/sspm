@@ -138,10 +138,12 @@ sspm_model <- new("sspm",
                   smoothed_data = borealis_spatial,
                   is_split = FALSE)
 
+fit_bam <- bam(data = mtcars, mpg ~ wt, family = gaussian)
+
 sspm_fit <- new("sspm_fit",
                 smoothed_data = all_data,
                 time = spm_time(biomass_dataset_smoothed),
                 uniqueID = spm_unique_ID(biomass_dataset_smoothed),
                 formula = sspm_formula,
                 boundaries = spm_boundaries(biomass_dataset_smoothed),
-                fit = bam(data = mtcars, mpg ~ wt, family = gaussian))
+                fit = fit_bam)

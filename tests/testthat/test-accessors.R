@@ -98,3 +98,12 @@ test_that("Accesors work as expected on `sspm_formula`", {
   expect_character(formula_type(sspm_formula))
 
 })
+
+test_that("Accesors work as expected on `sspm_fit`", {
+
+  expect_character(spm_unique_ID(sspm_fit))
+  expect_character(spm_time(sspm_fit))
+  expect_class(spm_get_fit(sspm_fit), "bam")
+
+})
+

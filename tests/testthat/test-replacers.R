@@ -176,4 +176,36 @@ test_that("Replacers work as expected", {
   }, c("weight_per_km2",
        "weight_per_km2_replaced"))
 
+  ## Fit
+
+  expect_equal({
+    spm_unique_ID(sspm_fit) <- "uniqueID"
+    spm_unique_ID(sspm_fit)
+  }, "uniqueID")
+
+  expect_equal({
+    spm_time(sspm_fit) <- "timevar"
+    spm_time(sspm_fit)
+  }, "timevar")
+
+  expect_equal({
+    spm_formulas(sspm_fit) <- sspm_formula
+    spm_formulas(sspm_fit)
+  }, sspm_formula)
+
+  expect_equal({
+    spm_get_fit(sspm_fit) <- fit_bam
+    spm_get_fit(sspm_fit)
+  }, fit_bam)
+
+  expect_equal({
+    spm_boundaries(sspm_fit) <- spm_boundaries(biomass_dataset_smoothed)
+    spm_boundaries(sspm_fit)
+  }, spm_boundaries(biomass_dataset_smoothed))
+
+  expect_equal({
+    spm_boundary(sspm_fit) <- "sfa"
+    spm_boundary(sspm_fit)
+  }, "sfa")
+
 })
