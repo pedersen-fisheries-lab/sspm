@@ -94,8 +94,8 @@ predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_c
         biomass_PI_upper = .data$biomass_density_upper_P *
           .data[[patch_area_col]]) %>%
 
-      dplyr::select(.data$biomass_CI_lower, .data$biomass_CI_upper,
-                    .data$biomass_PI_lower, .data$biomass_PI_upper)
+      dplyr::select("biomass_CI_lower", "biomass_CI_upper",
+                    "biomass_PI_lower", "biomass_PI_upper")
 
   } else {
 
@@ -107,8 +107,8 @@ predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_c
     # Bind all
     CI_df <- smoothed_data %>%
       sf::st_drop_geometry() %>%
-      dplyr::select(.data[[biomass]], .data$patch_id, .data[[time_col]],
-                    .data[[bounds_col]], .data[[patch_area_col]]) %>%
+      dplyr::select(all_of(biomass), "patch_id", all_of(time_col),
+                    all_of(bounds_col), all_of(patch_area_col)) %>%
 
       dplyr::bind_cols(CI_df_prod) %>%
 
@@ -132,15 +132,15 @@ predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_c
 
       # CI
       dplyr::mutate(biomass_density_lower = .data$biomass_density_with_catch_lower -
-          dplyr::all_of(catch_density),
+          catch_density,
         biomass_density_upper = .data$biomass_density_with_catch_upper -
-          dplyr::all_of(catch_density),
+          catch_density,
 
         # PI
         biomass_density_lower_P = .data$biomass_density_with_catch_lower_P -
-          dplyr::all_of(catch_density),
+          catch_density,
         biomass_density_upper_P = .data$biomass_density_with_catch_upper_P -
-          dplyr::all_of(catch_density)) %>%
+          catch_density) %>%
 
       dplyr::mutate(
         # biomass_with_catch_lower = .data$biomass_density_with_catch_lower *
@@ -162,8 +162,8 @@ predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_c
 
       dplyr::ungroup() %>%
 
-      dplyr::select(.data$biomass_CI_lower, .data$biomass_CI_upper,
-                    .data$biomass_PI_lower, .data$biomass_PI_upper)
+      dplyr::select("biomass_CI_lower", "biomass_CI_upper",
+                    "biomass_PI_lower", "biomass_PI_upper")
 
   }
 

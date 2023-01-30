@@ -26,14 +26,14 @@ make_by_matrix <- function(data_frame, k, boundaries, time, var){
 
   by_mat <- data_frame %>%
     sf::st_set_geometry(NULL) %>%
-    dplyr::select(.data$patch_id, !!boundary_col, !!time, !!var) %>%
+    dplyr::select("patch_id", !!boundary_col, !!time, !!var) %>%
     dplyr::nest_by(.data$patch_id, !!boundary_col := .data[[boundary_col]]) %>%
     dplyr::mutate(lags = list(multilag(variable = .data$data[[var]],
                                        n_lags = k,
                                        # TODO: assuming in-group mean as default
                                        default = mean(.data$data[[var]],
                                                       na.rm = T)))) %>%
-    tidyr::unnest(cols = c(.data$lags, .data$data)) %>%
+    tidyr::unnest(cols = c("lags", "data")) %>%
     dplyr::ungroup() %>%
     dplyr::select(dplyr::contains('lag')) %>%
     dplyr::select(-dplyr::contains(var)) %>%
