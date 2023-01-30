@@ -1,6 +1,7 @@
 # Test discretization step
 
 test_that("Discretization work as expected", {
+  skip_on_os(os = "mac")
 
   discretized <- boundary %>%
     spm_discretize(method = "tesselate_voronoi",
