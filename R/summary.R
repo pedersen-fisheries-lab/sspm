@@ -6,7 +6,7 @@
 #' @param biomass **\[character\]** Biomass variable.
 #'
 #' @return
-#' Nothing is returned, a summary is printed.
+#' Nothing is returned, but a summary is printed.
 #'
 #' @examples
 #' \dontrun{

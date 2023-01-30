@@ -14,7 +14,7 @@
 \item{biomass}{\strong{[character]} Biomass variable.}
 }
 \value{
-Nothing is returned, a summary is printed.
+Nothing is returned, but a summary is printed.
 }
 \description{
 Summarises a \code{sspm_fit} object, both in terms of productivity and biomass.
