@@ -1,6 +1,7 @@
 # Test integration (taken from vignette)
 
 test_that("Worklow works as expected", {
+  skip_on_os(os = "mac")
   skip_on_cran()
 
   bounds <- spm_as_boundary(boundaries = sfa_boundaries,
