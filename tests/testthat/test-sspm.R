@@ -15,7 +15,6 @@ test_that("sspm object are created correcly", {
   expect_class(sspm_model_split, "sspm")
   expect_true(is_split(sspm_model_split))
 
-
   sspm_model_lag <- sspm_model_split %>%
     spm_lag(vars = c("weight_per_km2_biomass_test",
                      "weight_per_km2_predator_test"),
