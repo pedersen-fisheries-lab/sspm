@@ -107,8 +107,8 @@ predict_biomass_intervals <- function(object_fit, patches, smoothed_data, time_c
     # Bind all
     CI_df <- smoothed_data %>%
       sf::st_drop_geometry() %>%
-      dplyr::select(all_of(biomass), "patch_id", all_of(time_col),
-                    all_of(bounds_col), all_of(patch_area_col)) %>%
+      dplyr::select(dplyr::all_of(biomass), "patch_id", dplyr::all_of(time_col),
+                    dplyr::all_of(bounds_col), dplyr::all_of(patch_area_col)) %>%
 
       dplyr::bind_cols(CI_df_prod) %>%
 

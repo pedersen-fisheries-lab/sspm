@@ -84,8 +84,8 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
     preds <- predict(object)
 
     preds_df <- smoothed_data %>%
-      dplyr::select(all_of(time_col), "patch_id", all_of(biomass),
-                    "catch_density", all_of(bounds_col)) %>%
+      dplyr::select(dplyr::all_of(time_col), "patch_id", dplyr::all_of(biomass),
+                    "catch_density", dplyr::all_of(bounds_col)) %>%
       dplyr::left_join(sf::st_drop_geometry(preds),
                        by = c(c(time_col, bounds_col), "patch_id")) %>%
       dplyr::group_by(.data$patch_id, .data[[bounds_col]]) %>%
@@ -97,9 +97,9 @@ predict_biomass <- function(object, new_data, biomass, next_ts,
 
       dplyr::ungroup() %>%
 
-      dplyr::select(-"pred", -"pred_log", -all_of(biomass),
+      dplyr::select(-"pred", -"pred_log", -dplyr::all_of(biomass),
                     -"catch_density") %>%
-      dplyr::relocate(all_of(patch_area_col), .before = "geometry") %>%
+      dplyr::relocate(dplyr::all_of(patch_area_col), .before = "geometry") %>%
 
       dplyr::mutate(biomass_with_catch = .data$biomass_density_with_catch *
                       .data[[patch_area_col]],
@@ -204,8 +204,8 @@ predict_next_ts <- function(object, new_data, biomass){
   # Cosmetic changes
   preds_df <-  preds_df %>%
     dplyr::relocate("biomass") %>%
-    dplyr::relocate(all_of(bounds_col)) %>%
-    dplyr::relocate(all_of(time_col)) %>%
+    dplyr::relocate(dplyr::all_of(bounds_col)) %>%
+    dplyr::relocate(dplyr::all_of(time_col)) %>%
     dplyr::relocate("patch_id")
 
   return(list(preds_df = preds_df, new_data = new_data))
@@ -229,7 +229,7 @@ make_next_ts_data <- function(object, time_col, patches, bounds_col,
 
   # Make a new grid with the next timestep
   new_grid <- patches %>%
-    dplyr::select(all_of(bounds_col), "patch_id") %>%
+    dplyr::select(dplyr::all_of(bounds_col), "patch_id") %>%
     tidyr::expand_grid(!!time_col := next_ts)
 
   # Bind the new grid to the smooth data

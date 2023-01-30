@@ -58,6 +58,7 @@ reference:
   - spm
   - sspm_fit-class
   - sspm_formula-class
+  - summary
 
 - subtitle: Predict and plot
   desc: Predict and plot results

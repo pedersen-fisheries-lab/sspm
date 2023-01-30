@@ -3,7 +3,7 @@
 #' @import sf cli mgcv
 #' @importFrom rlang .data :=
 #' @importFrom methods new show validObject slot
-#' @importFrom stats terms as.formula
+#' @importFrom stats terms as.formula sd
 #' @importFrom graphics par
 
 # OldClasses --------------------------------------------------------------

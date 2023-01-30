@@ -78,6 +78,8 @@ test_that("Worklow works as expected", {
           smooth_lag("weight_per_km2_borealis"),
         family = mgcv::scat)
 
+  summary(sspm_model_fit, biomass = "weight_per_km2_borealis")
+
   gam_fit <- spm_get_fit(sspm_model_fit)
 
   preds <- predict(sspm_model_fit)

@@ -81,7 +81,7 @@ setMethod(f = "spm_aggregate_catch",
                                    na.rm = TRUE, ...)
 
             catch_data <- spm_data(catch) %>%
-              dplyr::rename(!!biomass_time_col := all_of(catch_time_col))
+              dplyr::rename(!!biomass_time_col := dplyr::all_of(catch_time_col))
 
             # First, join data
             full_smoothed_data <- spm_smoothed_data(biomass) %>%
@@ -104,7 +104,7 @@ setMethod(f = "spm_aggregate_catch",
             # Calculate productivity
             full_smoothed_data <- full_smoothed_data %>%
 
-              dplyr::rename(catch = all_of(catch_variable)) %>%
+              dplyr::rename(catch = dplyr::all_of(catch_variable)) %>%
 
               dplyr::group_by(.data[["patch_id"]], .data[[boundary_col]]) %>%
               dplyr::mutate(catch_density = .data$catch / .data[[area_col]]) %>%

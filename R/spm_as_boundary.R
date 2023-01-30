@@ -119,7 +119,7 @@ setMethod(f = "spm_as_boundary",
               dplyr::mutate(patch_id =
                               factor(.data$patch_id,
                                      levels = paste0("P", 1:length(unique(.data$patch_id))))) %>%
-              dplyr::relocate("patch_id", .after = all_of(boundary)) %>%
+              dplyr::relocate("patch_id", .after = dplyr::all_of(boundary)) %>%
               # TODO add option for joining here as well
               dplyr::mutate(!!boundary := as.factor(.data[[boundary]]))
 
@@ -163,7 +163,7 @@ check_boundaries <- function(boundaries, boundary,
     boundaries <-
       dplyr::mutate(boundaries, !!boundary_area :=
                       units::set_units(.data[[boundary_area]], value = "km^2")) %>%
-      dplyr::rename(!!new_boundary_area := all_of(boundary_area))
+      dplyr::rename(!!new_boundary_area := dplyr::all_of(boundary_area))
 
   } else {
 

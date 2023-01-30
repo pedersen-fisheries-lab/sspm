@@ -216,6 +216,12 @@ gam_fit <- spm_get_fit(sspm_model_fit)
 summary(gam_fit)
 ```
 
+You can also use the summary method.
+
+```{r}
+summary(sspm_model_fit, biomass = "weight_per_km2_borealis")
+```
+
 16. Plotting the object produces a actual vs predicted plot (with TEST/TRAIN data highlighted.
 
 ```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE, fig.align='center'}

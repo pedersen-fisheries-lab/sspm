@@ -21,7 +21,7 @@ setMethod("$",
           "sspm_boundary",
           function(x, name) {
             x@boundaries %>%
-              dplyr::select(c(all_of(name), spm_boundary(x), "geometry"))
+              dplyr::select(c(dplyr::all_of(name), spm_boundary(x), "geometry"))
           }
 )
 
@@ -31,7 +31,7 @@ setMethod("$",
           "sspm_discrete_boundary",
           function(x, name) {
             x@boundaries %>%
-              dplyr::select(c(all_of(name), spm_boundary(x), "geometry"))
+              dplyr::select(c(dplyr::all_of(name), spm_boundary(x), "geometry"))
           }
 )
 
@@ -42,10 +42,10 @@ setMethod("$",
           function(x, name) {
             if (is.null(x@smoothed_data)) {
               x@data %>%
-                dplyr::select(c(all_of(name), spm_time(x), "geometry"))
+                dplyr::select(c(dplyr::all_of(name), spm_time(x), "geometry"))
             } else {
               x@smoothed_data %>%
-                dplyr::select(c(all_of(name), spm_time(x), "geometry"))
+                dplyr::select(c(dplyr::all_of(name), spm_time(x), "geometry"))
             }
           }
 )
@@ -57,10 +57,10 @@ setMethod("$",
           function(x, name) {
             if (is.null(x@smoothed_data)) {
               x@data %>%
-                dplyr::select(c(all_of(name), spm_time(x), "geometry"))
+                dplyr::select(c(dplyr::all_of(name), spm_time(x), "geometry"))
             } else {
               x@smoothed_data %>%
-                dplyr::select(c(all_of(name), spm_time(x), "geometry"))
+                dplyr::select(c(dplyr::all_of(name), spm_time(x), "geometry"))
             }
           }
 )
