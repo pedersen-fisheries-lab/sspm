@@ -60,7 +60,8 @@ While the initial application of this model was modelling Newfoundland and Labra
 5. Visualization of results, including confidence and prediction intervals.
 6. One-step-ahead prediction of biomass for model validation and scenario-based forecasting.
 
-Although it was developed in a fisheries context, the package is suitable to model spatially-structured population dynamics in general.
+  Although it was developed in a fisheries context, the package is suitable to model spatially-structured population dynamics in general. 
+
 
 # Package design
 
@@ -79,9 +80,18 @@ The key workflow steps are:
 
 ![The sspm workflow.\label{fig:workflow}](../man/figures/flowchart.png){width=90%}
 
+
+# Connections to other spatiotemporal stock assessment approaches
+
+The general approach used by `sspm` of using a statistical model to estimate spatiotemporally varying population varying biomass indices is closely connected to approaches used by other modern model-based spatial abundance estimation software, such as the `VAST` R package [@thorson2019Guidance] and the `sdmTMB` R package [@anderson2022sdmTMB]. Our method shares the same approach as both `VAST` and `sdmTMB` of using spatially explicit models to estimate local biomass density (\autoref{fig:workflow} steps 1,2, and 4), then aggregating up from those models to predict aggregate stock-level metrics such as total biomass and productivity (\autoref{fig:workflow} steps 8). The multiplicative surplus production model used by `sspm` is also similar to the vector-autoregessive model for biomass changes used by these two packages, as both `VAST` and `sdmTMB` can model local temporal changes as autoregressive processes on the link-scale of a generalized linear model [@thorson2019Guidance]. 
+
+One major difference between the `sspm` package and other model-based spatiotemporal modelling packages is its special-purpose nature. The `spm_smooth` function uses a computationally simpler (although somewhat less flexible) Conditional Autoregressive (CAR) model [@rueGaussianMarkovRandom2005] for modelling spatial variation in covariates and biomass, as compared to the more complex spatial random effects possible with `VAST` and `sdmTMB`; this has the advantage of computational speed and less user knowledge of how to set up complex spatial grids, although it is less flexible. This means that `sspm` should be easier to adapt to novel fisheries than more complex packages that require more user modelling knowledge. 
+
+The other benefit of `sspm`, relative to other modelling packages,  is the ability to model productivity rates directly (\autoref{fig:workflow} steps 5 and 6), rather than implicitly via an auto-regressive processes as used in `VAST` or `sdmTMB`. This means that  it is possible in `sspm` to model nonlinear relationships between environmental covariates and productivity, or to easily include factors such as time-lagged effects of predictors on productivity in a given year. This approach does, however, sacrifice the ability to propagate measurement error into uncertainty about rates of change. One of the future directions for development of this package is to include variance propagation methods into the surplus production modelling step.
+
 # Acknowledgements
 
-This research was supported by the canadian Department of Fisheries of Oceans (DFO) Sustainable fisheries Science Fund, and by a Discovery Grant from the canadian Natural Sciences and Engineering Research Council (NSERC) to E. J.Pedersen. We thank Fonya Irvine and John-Philip Williams for their help in testing the package and providing feedback on model implementation.
+This research was supported by the Canadian Department of Fisheries of Oceans (DFO) Sustainable fisheries Science Fund, and by a Discovery Grant from the Canadian Natural Sciences and Engineering Research Council (NSERC) to E. J.Pedersen. We thank Fonya Irvine and John-Philip Williams for their help in testing the package and providing feedback on model implementation.
 
 # References
 
