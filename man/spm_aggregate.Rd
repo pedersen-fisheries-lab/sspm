@@ -4,7 +4,6 @@
 \alias{spm_aggregate}
 \alias{spm_aggregate,sspm_dataset,missing-method}
 \alias{spm_aggregate,sspm_dataset,sspm_discrete_boundary-method}
-\alias{spm_aggregate,sspm_fit,ANY-method}
 \title{Aggregate a dataset or fit data variable based on a boundary}
 \usage{
 spm_aggregate(
@@ -34,19 +33,6 @@ spm_aggregate(
 )
 
 \S4method{spm_aggregate}{sspm_dataset,sspm_discrete_boundary}(
-  sspm_object,
-  boundaries,
-  level = "patch",
-  type = "data",
-  variable,
-  fun,
-  group_by = "spacetime",
-  fill = FALSE,
-  apply_to_df = FALSE,
-  ...
-)
-
-\S4method{spm_aggregate}{sspm_fit,ANY}(
   sspm_object,
   boundaries,
   level = "patch",

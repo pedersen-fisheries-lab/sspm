@@ -9,6 +9,8 @@
 #' @return
 #' The updated object.
 #'
+#' @keywords internal
+#'
 # Examples
 # \dontrun{
 # map_formula(data_frame = all_data, boundaries = boundaries,

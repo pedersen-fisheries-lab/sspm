@@ -26,13 +26,13 @@ is_biomass <- function(x){
   is_units(x) && has_biomass_units(x)
 }
 
-is_area <- function(x){
-  is_units(x) && has_area_units(x)
-}
+# is_area <- function(x){
+#   is_units(x) && has_area_units(x)
+# }
 
-is_biomass_density <- function(x){
-  is_units(x) && has_biomass_density_units(x)
-}
+# is_biomass_density <- function(x){
+#   is_units(x) && has_biomass_density_units(x)
+# }
 
 has_biomass_units <- function(x){
   if (is_units(x)){
@@ -44,22 +44,22 @@ has_biomass_units <- function(x){
   }
 }
 
-has_biomass_density_units <- function(x){
-  if (is_units(x)){
-    num <- units(x)$numerator
-    den <- units(x)$denominator
-    (length(num) == 1) && (length(den) == 2) && (num == "kg") && (den == c("km", "km"))
-  } else {
-    FALSE
-  }
-}
+# has_biomass_density_units <- function(x){
+#   if (is_units(x)){
+#     num <- units(x)$numerator
+#     den <- units(x)$denominator
+#     (length(num) == 1) && (length(den) == 2) && (num == "kg") && (den == c("km", "km"))
+#   } else {
+#     FALSE
+#   }
+# }
 
-has_area_units <- function(x){
-  if (is_units(x)){
-    num <- units(x)$numerator
-    den <- units(x)$denominator
-    (length(num) == 2) && (length(den) == 0) && (num == c("km", "km"))
-  } else {
-    FALSE
-  }
-}
+# has_area_units <- function(x){
+#   if (is_units(x)){
+#     num <- units(x)$numerator
+#     den <- units(x)$denominator
+#     (length(num) == 2) && (length(den) == 0) && (num == c("km", "km"))
+#   } else {
+#     FALSE
+#   }
+# }

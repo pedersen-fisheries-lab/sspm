@@ -117,7 +117,7 @@ setMethod(f = "sspm",
 
                 full_smoothed_data <- full_smoothed_data %>%
                   dplyr::left_join(dataset,
-                                   by = dplyr::all_of(joining_vars),
+                                   by = joining_vars,
                                    suffix = the_suffix)
 
                 full_smoothed_vars <- sort_out_smoothed_vars(full_smoothed_vars,
@@ -180,7 +180,7 @@ is_sspm_dataset <- function(list_of_datasets) {
 
 # Clean up data frame before we can join
 clean_data_for_joining <- function(dataset) {
-  dataset %>% dplyr::select(-.data$row_ID) %>% sf::st_drop_geometry()
+  dataset %>% dplyr::select(-"row_ID") %>% sf::st_drop_geometry()
 }
 
 # Sort out the naming of smoothed variables

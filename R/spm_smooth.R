@@ -202,7 +202,7 @@ join_smoothed_datasets <- function(sspm_object, preds_df){
   smoothed_data <-
     smoothed_data %>%
     dplyr::mutate("row_ID" = 1:nrow_smoothed_data) %>%
-    dplyr::relocate(.data$row_ID) %>%
+    dplyr::relocate("row_ID") %>%
     sf::st_as_sf() # TODO check CRS
 
   spm_smoothed_data(sspm_object) <- smoothed_data

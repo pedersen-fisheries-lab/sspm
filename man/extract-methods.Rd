@@ -2,10 +2,10 @@
 % Please edit documentation in R/methods-extract.R
 \name{$,sspm_boundary-method}
 \alias{$,sspm_boundary-method}
+\alias{extract}
 \alias{$,sspm_discrete_boundary-method}
 \alias{$,sspm_dataset-method}
 \alias{$,sspm-method}
-\alias{$,sspm_fit-method}
 \title{Extract methods}
 \usage{
 \S4method{$}{sspm_boundary}(x, name)
@@ -15,8 +15,6 @@
 \S4method{$}{sspm_dataset}(x, name)
 
 \S4method{$}{sspm}(x, name)
-
-\S4method{$}{sspm_fit}(x, name)
 }
 \arguments{
 \item{x}{\strong{[sspm_...]} An object from this package.}

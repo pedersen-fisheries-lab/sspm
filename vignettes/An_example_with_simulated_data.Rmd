@@ -2,7 +2,7 @@
 title: "An example with simulated data"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{An_example_with_simulated_data}
+  # %\VignetteIndexEntry{An example with simulated data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -31,7 +31,7 @@ catch_simulated
 
 1. The first step of the `sspm` workflow is to create a `sspm_boundary` from an `sf` object, providing the `boundary` that delineates the boundary regions. The object can then be plotted with `spm_plot` (as can most `sspm` objects). 
 
-```{r boundaries}
+```{r boundaries, fig.width=7, fig.height=5, fig.fullwidth=TRUE, fig.align='center'}
 bounds <- spm_as_boundary(boundaries = sfa_boundaries, 
                           boundary = "sfa")
 
@@ -86,7 +86,7 @@ bounds_delaunay
 
 5. Plotting the object shows the polygons that have been created.
 
-```{r}
+```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE, fig.align='center'}
 plot(bounds_voronoi)
 ```
 
@@ -119,14 +119,14 @@ biomass_smooth <- biomass_dataset %>%
 biomass_smooth
 ```
 
-8. The smoothed results for any smoothed variables (listed in "smoothed vars" above) can be easily plotted:
+8. The smoothed results for any smoothed variables (listed in "smoothed vars" above) can be easily plotted. Here the 4 panels represent 4 different patches in the same SFA. The panels show a very similar pattern due to the nature of the simulated data we are using. The data points are actually different, but the differences are not noticeable in this example case.
 
-```{r}
+```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE, fig.align='center'}
 plot(biomass_smooth, var = "weight_per_km2", log = FALSE, interval = T)
 ```
 You can also make a spatial plot
 
-```{r}
+```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE, fig.align='center'}
 plot(biomass_smooth, var = "weight_per_km2", use_sf = TRUE)
 ```
 
@@ -209,9 +209,22 @@ sspm_model_fit <- sspm_model %>%
 sspm_model_fit
 ```
 
-16. Plotting the object produces a actual vs predicted plot (with TEST/TRAIN data highlighted.
+It is possible to access the GAM fit object in order to look at it in more details and, for example, evaluate the goodness of fit.
 
 ```{r}
+gam_fit <- spm_get_fit(sspm_model_fit)
+summary(gam_fit)
+```
+
+You can also use the summary method.
+
+```{r}
+summary(sspm_model_fit, biomass = "weight_per_km2_borealis")
+```
+
+16. Plotting the object produces a actual vs predicted plot (with TEST/TRAIN data highlighted.
+
+```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE, fig.align='center'}
 plot(sspm_model_fit, train_test = TRUE, scales = "free")
 ```
 
@@ -220,6 +233,7 @@ plot(sspm_model_fit, train_test = TRUE, scales = "free")
 preds <- predict(sspm_model_fit)
 head(preds)
 ```
+
 We can also get the predictions for biomass by passing the biomass variable name.
 ```{r}
 biomass_preds <- predict(sspm_model_fit, biomass = "weight_per_km2_borealis")
@@ -236,17 +250,17 @@ head(biomass_one_step)
 
 18. We can produce an array of plots, as timeseries or as spatial plots
 
-```{r}
+```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE, fig.align='center'}
 plot(sspm_model_fit, log = T, scales = 'free')
 plot(sspm_model_fit, log = T, use_sf = TRUE)
 ```
 
-```{r}
+```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE, fig.align='center'}
 plot(sspm_model_fit, biomass = "weight_per_km2_borealis",  scales = "free")
 plot(sspm_model_fit, biomass = "weight_per_km2_borealis", use_sf = TRUE)
 ```
 
-```{r}
+```{r, fig.width=7, fig.height=5, fig.fullwidth=TRUE, fig.align='center'}
 plot(sspm_model_fit, biomass = "weight_per_km2_borealis",
      next_ts = TRUE, aggregate = TRUE, scales = "free", 
      smoothed_biomass = TRUE, interval = T)

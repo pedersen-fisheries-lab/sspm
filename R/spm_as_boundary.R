@@ -1,6 +1,7 @@
 #' Create a sspm_boundary object
 #'
-#' Create a sspm_boundary object.
+#' Create a sspm_boundary object. A boundary object serves as a basis to encode
+#' the spatial extent of the model.
 #'
 #' @param boundaries **\[sf\]** The sf object to cast.
 #' @param boundary **\[character\]** The column that contains the possible
@@ -118,7 +119,7 @@ setMethod(f = "spm_as_boundary",
               dplyr::mutate(patch_id =
                               factor(.data$patch_id,
                                      levels = paste0("P", 1:length(unique(.data$patch_id))))) %>%
-              dplyr::relocate("patch_id", .after = boundary) %>%
+              dplyr::relocate("patch_id", .after = dplyr::all_of(boundary)) %>%
               # TODO add option for joining here as well
               dplyr::mutate(!!boundary := as.factor(.data[[boundary]]))
 
@@ -162,12 +163,12 @@ check_boundaries <- function(boundaries, boundary,
     boundaries <-
       dplyr::mutate(boundaries, !!boundary_area :=
                       units::set_units(.data[[boundary_area]], value = "km^2")) %>%
-      dplyr::rename(!!new_boundary_area := .data[[boundary_area]])
+      dplyr::rename(!!new_boundary_area := dplyr::all_of(boundary_area))
 
   } else {
 
     boundaries <- calculate_spatial_feature_areas(boundaries) %>%
-      dplyr::rename(!!new_boundary_area := .data$area)
+      dplyr::rename(!!new_boundary_area := "area")
 
   }
 
@@ -201,7 +202,7 @@ check_patches <- function(patches,
     }
 
     patches <- calculate_spatial_feature_areas(patches) %>%
-      dplyr::rename(patch_area = .data$area)
+      dplyr::rename(patch_area = "area")
     patches_area <- "patch_area"
 
   }

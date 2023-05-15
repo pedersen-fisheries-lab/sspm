@@ -89,41 +89,6 @@ setMethod("translated_formula<-",
           }
 )
 
-# Dataset -----------------------------------------------------------------
-# Accessors ---------------------------------------------------------------
-
-#' @rdname accessors-methods-sspm_formula
-#' @export
-setGeneric(name = "dataset",
-           def = function(sspm_object) standardGeneric("dataset")
-)
-
-#' @rdname accessors-methods-sspm_formula
-#' @export
-setMethod("dataset",
-          signature("sspm_object" = "sspm_formula"),
-          function(sspm_object) sspm_object@dataset
-)
-
-# Replacers ---------------------------------------------------------------
-
-#' @rdname accessors-methods-sspm_formula
-#' @export
-setGeneric(name = "dataset<-",
-           def = function(object, value) standardGeneric("dataset<-")
-)
-
-#' @rdname accessors-methods-sspm_formula
-#' @export
-setMethod("dataset<-",
-          signature("object" = "sspm_formula"),
-          function(object, value) {
-            object@dataset <- value
-            validObject(object)
-            return(object)
-          }
-)
-
 # Vars --------------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
 

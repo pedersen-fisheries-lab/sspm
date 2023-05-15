@@ -36,6 +36,11 @@ test_that("Replacers work as expected", {
     spm_patches(boundary_discrete)
   }, sfa_boundaries)
 
+  expect_equal({
+    spm_patches_area(boundary_discrete) <- "new_col_3"
+    spm_patches_area(boundary_discrete)
+  }, "new_col_3")
+
   # SSPM
 
   expect_class({
@@ -95,6 +100,21 @@ test_that("Replacers work as expected", {
     names(formula_vars(sspm_formula))
   }, identical.to = c("a", "b"))
 
+  expect_match({
+    formula_type(sspm_formula) <- "my_type"
+    formula_type(sspm_formula)
+  }, "my_type")
+
+  expect_match({
+    spm_lagged_vars(sspm_formula) <- "lag_vars"
+    spm_lagged_vars(sspm_formula)
+  }, "lag_vars")
+
+  expect_match({
+    spm_response(sspm_formula) <- "response"
+    spm_response(sspm_formula)
+  }, "response")
+
   # Dataset
 
   expect_data_frame({
@@ -143,5 +163,49 @@ test_that("Replacers work as expected", {
     spm_formulas(biomass_dataset_smoothed) <- list(sspm_formula)
     spm_formulas(biomass_dataset_smoothed)
   }, list(sspm_formula))
+
+  expect_equal({
+    spm_biomass_vars(catch_dataset) <- c("catch", "catch_replaced")
+    spm_biomass_vars(catch_dataset)
+  }, c("catch", "catch_replaced"))
+
+  expect_equal({
+    spm_density_vars(biomass_dataset) <- c("weight_per_km2",
+                                         "weight_per_km2_replaced")
+    spm_density_vars(biomass_dataset)
+  }, c("weight_per_km2",
+       "weight_per_km2_replaced"))
+
+  ## Fit
+
+  expect_equal({
+    spm_unique_ID(sspm_fit) <- "uniqueID"
+    spm_unique_ID(sspm_fit)
+  }, "uniqueID")
+
+  expect_equal({
+    spm_time(sspm_fit) <- "timevar"
+    spm_time(sspm_fit)
+  }, "timevar")
+
+  expect_equal({
+    spm_formulas(sspm_fit) <- sspm_formula
+    spm_formulas(sspm_fit)
+  }, sspm_formula)
+
+  expect_equal({
+    spm_get_fit(sspm_fit) <- fit_bam
+    spm_get_fit(sspm_fit)
+  }, fit_bam)
+
+  expect_equal({
+    spm_boundaries(sspm_fit) <- spm_boundaries(biomass_dataset_smoothed)
+    spm_boundaries(sspm_fit)
+  }, spm_boundaries(biomass_dataset_smoothed))
+
+  expect_equal({
+    spm_boundary(sspm_fit) <- "sfa"
+    spm_boundary(sspm_fit)
+  }, "sfa")
 
 })

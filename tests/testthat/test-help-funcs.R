@@ -19,6 +19,20 @@ test_that("Aggregation choices are retrieved", {
 
 })
 
+test_that("Aggregation levels are retrieved", {
+
+  choices <- spm_aggregation_levels_choices()
+  expect_equal(choices, c("patch", "boundary"))
+
+})
+
+test_that("Aggregation types are retrieved", {
+
+  choices <- spm_aggregation_types_choices()
+  expect_equal(choices, c("data", "smoothed"))
+
+})
+
 test_that("Methods are dispatched correctly", {
 
   expect_equal(dispatch_method("tesselate_voronoi"), tesselate_voronoi)

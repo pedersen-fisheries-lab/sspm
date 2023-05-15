@@ -93,7 +93,7 @@ lag_data_frame <- function(smoothed_data, boundaries, vars, n, default, ...){
         dplyr::mutate(!!var_name := dplyr::lag(x = .data[[var]],
                                                n = n, default = def_val, ...)) %>%
         dplyr::ungroup() %>%
-        dplyr::relocate(var_name, .after = var)
+        dplyr::relocate(dplyr::all_of(var_name), .after = dplyr::all_of(var))
 
     } else {
 

@@ -1,7 +1,8 @@
 #' Create a `sspm_dataset` dataset structure
 #'
 #' This casts a `data.frame` or `sf` object into  an object of class
-#' [`sspm_dataset`][sspm_dataset-class].
+#' [`sspm_dataset`][sspm_dataset-class]. This object is the format the package
+#' uses to manage and manipulate the modeling data.
 #'
 #' @param data **\[data.frame OR sf\]** The dataset.
 #' @param time **\[character\]** The column of `data` for the temporal
@@ -159,21 +160,22 @@ setMethod(f = "spm_as_dataset",
                 cli::cli_alert_info("polygon geometry, boundaries argument ignored")
               }
 
-              # Extract all disctinct patches and give them an ID
+              # Extract all distinct patches and give them an ID
               patches <- data %>%
                 dplyr::select("geometry") %>%
                 dplyr::distinct() %>%
+                dplyr::mutate(patch_id = paste("P", 1:dplyr::n(), sep = "")) %>%
                 dplyr::mutate(patch_id =
-                                factor(paste("P", 1:dplyr::n(), sep = ""),
-                                       levels = paste0("P", 1:length(unique(.data$patch_id))))) %>%
+                                factor(patch_id, levels =
+                                         paste0("P", 1:length(unique(.data$patch_id))))) %>%
                 dplyr::mutate(boundary_col = "B1")
 
-              # Fuse all patchaes in a single boundary object
+              # Fuse all patches in a single boundary object
               boundary_data <- patches %>%
                 sf::st_union() %>%
                 sf::st_as_sf() %>%
                 dplyr::mutate(boundary_col = "B1") %>%
-                dplyr::rename(geometry = .data$x)
+                dplyr::rename(geometry = "x")
 
               boundaries <- spm_as_boundary(boundaries = boundary_data,
                                             boundary = "boundary_col",

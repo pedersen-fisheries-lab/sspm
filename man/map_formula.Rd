@@ -71,3 +71,4 @@ The updated object.
 This functions is now used internally to map a formula onto a \code{sspm_dataset}
 or \code{sspm} object.
 }
+\keyword{internal}

@@ -9,10 +9,6 @@
 \alias{translated_formula,sspm_formula-method}
 \alias{translated_formula<-}
 \alias{translated_formula<-,sspm_formula-method}
-\alias{dataset}
-\alias{dataset,sspm_formula-method}
-\alias{dataset<-}
-\alias{dataset<-,sspm_formula-method}
 \alias{formula_vars}
 \alias{formula_vars,sspm_formula-method}
 \alias{formula_vars<-}
@@ -50,14 +46,6 @@ translated_formula(sspm_object)
 translated_formula(object) <- value
 
 \S4method{translated_formula}{sspm_formula}(object) <- value
-
-dataset(sspm_object)
-
-\S4method{dataset}{sspm_formula}(sspm_object)
-
-dataset(object) <- value
-
-\S4method{dataset}{sspm_formula}(object) <- value
 
 formula_vars(sspm_object)
 
