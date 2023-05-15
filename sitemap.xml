@@ -4,6 +4,9 @@
     <loc>/404.html</loc>
   </url>
   <url>
+    <loc>/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
     <loc>/LICENSE-text.html</loc>
   </url>
   <url>
@@ -76,9 +79,6 @@
     <loc>/reference/plot.html</loc>
   </url>
   <url>
-    <loc>/reference/plot_trajectory.html</loc>
-  </url>
-  <url>
     <loc>/reference/predator_simulated.html</loc>
   </url>
   <url>
@@ -149,6 +149,9 @@
   </url>
   <url>
     <loc>/reference/sspm_formula-class.html</loc>
+  </url>
+  <url>
+    <loc>/reference/summary.html</loc>
   </url>
   <url>
     <loc>/reference/tesselate_voronoi.html</loc>

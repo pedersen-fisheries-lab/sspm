@@ -1,8 +1,8 @@
 pandoc: 2.19.2
-pkgdown: 2.0.6
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   An_example_with_simulated_data: An_example_with_simulated_data.html
   Package_and_workflow_design: Package_and_workflow_design.html
-last_built: 2022-11-20T06:18Z
+last_built: 2023-05-15T13:19Z
 

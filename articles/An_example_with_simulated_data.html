@@ -101,10 +101,10 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://pedersen-fisheries-lab.github.io/sspm/" class="external-link">sspm</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; Loading required package: sf</span></span>
-<span><span class="co">#&gt; Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1; sf_use_s2() is TRUE</span></span>
+<span><span class="co">#&gt; Linking to GEOS 3.10.2, GDAL 3.4.1, PROJ 8.2.1; sf_use_s2() is TRUE</span></span>
 <span><span class="co">#&gt; Loading required package: mgcv</span></span>
 <span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.8-41. For overview type 'help("mgcv-package")'.</span></span>
+<span><span class="co">#&gt; This is mgcv 1.8-42. For overview type 'help("mgcv-package")'.</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -146,7 +146,7 @@ We will use simulated data.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 1995   7               68.2          0       -<span style="color: #BB0000;">54.1</span>    54.5     8 y1995s7r8 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1995   7               93.6          1.86    -<span style="color: #BB0000;">54.9</span>    53.7     9 y1995s7r9 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1995   7               25.4          1.74    -<span style="color: #BB0000;">54.7</span>    50.5    10 y1995s7r10</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 1,790 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 1,790 more rows</span></span></span>
 <span><span class="va">predator_simulated</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 10,200 × 7</span></span></span>
 <span><span class="co">#&gt;    year_f sfa   weight_per_km2 lon_dec lat_dec   row uniqueID  </span></span>
@@ -161,7 +161,7 @@ We will use simulated data.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 1995   7               0      -<span style="color: #BB0000;">50.2</span>    50.1     8 y1995s7r8 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1995   7               0      -<span style="color: #BB0000;">54.6</span>    54.0     9 y1995s7r9 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1995   7             131.     -<span style="color: #BB0000;">52.8</span>    51.0    10 y1995s7r10</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 10,190 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 10,190 more rows</span></span></span>
 <span><span class="va">catch_simulated</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 2,020 × 7</span></span></span>
 <span><span class="co">#&gt;    year_f sfa   catch lon_dec lat_dec   row uniqueID  </span></span>
@@ -176,7 +176,7 @@ We will use simulated data.</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 1991   4        0    -<span style="color: #BB0000;">56.4</span>    54.4     8 y1991s4r8 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1991   4      539.   -<span style="color: #BB0000;">58.9</span>    55.6     9 y1991s4r9 </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1991   4     <span style="text-decoration: underline;">4</span>234.   -<span style="color: #BB0000;">55.2</span>    53.2    10 y1991s4r10</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 2,010 more rows</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 2,010 more rows</span></span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>The first step of the <code>sspm</code> workflow is to create a
 <code>sspm_boundary</code> from an <code>sf</code> object, providing the
@@ -189,7 +189,7 @@ can then be plotted with <code>spm_plot</code> (as can most
 <span>                          boundary <span class="op">=</span> <span class="st">"sfa"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">bounds</span><span class="op">)</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/boundaries-1.png" width="700"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/boundaries-1.png" width="672" style="display: block; margin: auto;"></p>
 <ol start="2" style="list-style-type: decimal">
 <li>The second step consists in wrapping a <code>data.frame</code>,
 <code>tibble</code> or <code>sf</code> object into a
@@ -269,7 +269,7 @@ details).</p>
 </ol>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">bounds_voronoi</span><span class="op">)</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Not run</span></span>
 <span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">bounds_delaunay</span><span class="op">)</span></span></code></pre></div>
@@ -297,7 +297,7 @@ details).</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 4     P8            <span style="text-decoration: underline;">1</span>580. ((-60.85729 60.08226, -60.87677 60.07412, -61.2755…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 4     P9            <span style="text-decoration: underline;">7</span>244. ((-60.55198 59.91351, -60.70791 59.55391, -61.2203…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 4     P10           <span style="text-decoration: underline;">1</span>570. ((-59.93021 58.87649, -60.19091 58.62062, -60.0961…</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 82 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 82 more rows</span></span></span>
 <span><span class="fu"><a href="../reference/accessors-methods-sspm_boundary.html">spm_points</a></span><span class="op">(</span><span class="va">bounds_voronoi</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Simple feature collection with 120 features and 9 fields</span></span>
 <span><span class="co">#&gt; Geometry type: POINT</span></span>
@@ -318,8 +318,8 @@ details).</p>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span> 1997               0           0.649   -<span style="color: #BB0000;">55.3</span>    54.7   144 y1997s7r144</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span> 1997            <span style="text-decoration: underline;">1</span>430.          0       -<span style="color: #BB0000;">54.4</span>    50.2   149 y1997s7r149</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">10</span> 1997               0           5.18    -<span style="color: #BB0000;">60.9</span>    59.6   182 y1997s4r182</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 110 more rows, and 3 more variables: geometry &lt;POINT [°]&gt;, sfa &lt;fct&gt;,</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   area_sfa [km^2]</span></span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 110 more rows</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3 more variables: geometry &lt;POINT [°]&gt;, sfa &lt;fct&gt;, area_sfa [km^2]</span></span></span></code></pre></div>
 <ol start="7" style="list-style-type: decimal">
 <li>The next step in this workflow is to smooth the variables to be used
 in the final <code>sspm</code> model, by using spatial-temporal
@@ -354,15 +354,19 @@ joined to the provided boundaries.</li>
 <span><span class="co">#&gt;    ★ Smoothed vars: <span style="color: #00BB00;">temp_at_bottom</span> — <span style="color: #00BB00;">weight_per_km2</span></span></span></code></pre></div>
 <ol start="8" style="list-style-type: decimal">
 <li>The smoothed results for any smoothed variables (listed in “smoothed
-vars” above) can be easily plotted:</li>
+vars” above) can be easily plotted. Here the 4 panels represent 4
+different patches in the same SFA. The panels show a very similar
+pattern due to the nature of the simulated data we are using. The data
+points are actually different, but the differences are not noticeable in
+this example case.</li>
 </ol>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">biomass_smooth</span>, var <span class="op">=</span> <span class="st">"weight_per_km2"</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, interval <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-10-1.png" width="700">
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;">
 You can also make a spatial plot</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">biomass_smooth</span>, var <span class="op">=</span> <span class="st">"weight_per_km2"</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
 <ol start="9" style="list-style-type: decimal">
 <li>We also smooth the <code>weight_per_km2</code> variable in the
 predator data.</li>
@@ -487,8 +491,12 @@ This is done with <code>spm_lag</code>.</li>
 <span><span class="va">sspm_model_fit</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; ‒‒ <span style="font-weight: bold;">Model fit</span> ‒‒</span></span>
-<span><span class="co">#&gt; →  Smoothed data : [<span style="color: #0000BB;">2208</span> rows, <span style="color: #0000BB;">17</span> columns] / [<span style="color: #0000BB;">2116</span><span style="color: #BBBB00;"> train, </span><span style="color: #0000BB;">92</span><span style="color: #BBBB00;"> test</span>]</span></span>
-<span><span class="co">#&gt; →  Fit summary : </span></span>
+<span><span class="co">#&gt; →  Smoothed data : [<span style="color: #0000BB;">2208</span> rows, <span style="color: #0000BB;">17</span> columns] / [<span style="color: #0000BB;">2116</span><span style="color: #BBBB00;"> train, </span><span style="color: #0000BB;">92</span><span style="color: #BBBB00;"> test</span>]</span></span></code></pre></div>
+<p>It is possible to access the GAM fit object in order to look at it in
+more details and, for example, evaluate the goodness of fit.</p>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gam_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/accessors-methods-sspm_fit.html">spm_get_fit</a></span><span class="op">(</span><span class="va">sspm_model_fit</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/summary.html">summary</a></span><span class="op">(</span><span class="va">gam_fit</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Family: Scaled t(6.899,0.191) </span></span>
 <span><span class="co">#&gt; Link function: identity </span></span>
@@ -501,9 +509,9 @@ This is done with <code>spm_lag</code>.</li>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Parametric coefficients:</span></span>
 <span><span class="co">#&gt;                                      Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span><span class="co">#&gt; (Intercept)                         6.543e-01  9.082e-02   7.205 8.22e-13 ***</span></span>
+<span><span class="co">#&gt; (Intercept)                         6.543e-01  9.082e-02   7.205 8.23e-13 ***</span></span>
 <span><span class="co">#&gt; sfa5                                1.232e-01  9.212e-02   1.337   0.1813    </span></span>
-<span><span class="co">#&gt; sfa6                                8.236e-02  1.113e-01   0.740   0.4594    </span></span>
+<span><span class="co">#&gt; sfa6                                8.237e-02  1.113e-01   0.740   0.4594    </span></span>
 <span><span class="co">#&gt; sfa7                                1.897e-01  1.219e-01   1.557   0.1197    </span></span>
 <span><span class="co">#&gt; weight_per_km2_all_predators_lag_1 -2.324e-05  9.952e-06  -2.335   0.0196 *  </span></span>
 <span><span class="co">#&gt; ---</span></span>
@@ -518,18 +526,39 @@ This is done with <code>spm_lag</code>.</li>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; R-sq.(adj) =  0.608   Deviance explained =   42%</span></span>
 <span><span class="co">#&gt; -REML =   2967  Scale est. = 1         n = 2024</span></span></code></pre></div>
+<p>You can also use the summary method.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/summary.html">summary</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; ── Productivity ────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt;   sfa      mean       min       max        sd</span></span>
+<span><span class="co">#&gt; 1   4 0.9829993 0.6558748  1.167317 0.1261706</span></span>
+<span><span class="co">#&gt; 2   5 0.9996588 0.5341907  1.416869 0.1946489</span></span>
+<span><span class="co">#&gt; 3   6 1.0216360 0.6376662  1.342542 0.1330741</span></span>
+<span><span class="co">#&gt; 4   7 1.2607570 0.6164355 11.900781 1.3685709</span></span>
+<span><span class="co">#&gt; ── Biomass density ─────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt;   sfa               mean                 min                max        sd</span></span>
+<span><span class="co">#&gt; 1   4 2839.774 [kg/km^2] 2658.4625 [kg/km^2] 2982.157 [kg/km^2]  63.63953</span></span>
+<span><span class="co">#&gt; 2   5 3035.531 [kg/km^2] 2586.0874 [kg/km^2] 3504.003 [kg/km^2] 127.18733</span></span>
+<span><span class="co">#&gt; 3   6 3229.678 [kg/km^2] 2130.2745 [kg/km^2] 4189.721 [kg/km^2] 536.19968</span></span>
+<span><span class="co">#&gt; 4   7 3209.223 [kg/km^2]  667.0252 [kg/km^2] 4395.057 [kg/km^2] 235.50977</span></span>
+<span><span class="co">#&gt; ── Biomass (with catch) ────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt;   sfa          mean             min           max       sd</span></span>
+<span><span class="co">#&gt; 1   4  9012426 [kg] 4218908.61 [kg] 21412809 [kg]  5547377</span></span>
+<span><span class="co">#&gt; 2   5 10062752 [kg] 4545389.74 [kg] 26679324 [kg]  5108720</span></span>
+<span><span class="co">#&gt; 3   6 19219724 [kg] 5692095.24 [kg] 36903092 [kg]  6463058</span></span>
+<span><span class="co">#&gt; 4   7 16929893 [kg]    4549.22 [kg] 45160741 [kg] 10441022</span></span></code></pre></div>
 <ol start="16" style="list-style-type: decimal">
 <li>Plotting the object produces a actual vs predicted plot (with
 TEST/TRAIN data highlighted.</li>
 </ol>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, train_test <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removed 92 rows containing missing values (`geom_point()`).</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;"></p>
 <ol start="17" style="list-style-type: decimal">
 <li>We can also extract the predictions.</li>
 </ol>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">preds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict.html">predict</a></span><span class="op">(</span><span class="va">sspm_model_fit</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">preds</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Simple feature collection with 6 features and 6 fields</span></span>
@@ -538,12 +567,12 @@ TEST/TRAIN data highlighted.</li>
 <span><span class="co">#&gt; Bounding box:  xmin: -64.18658 ymin: 59.47292 xmax: -62.26589 ymax: 60.84335</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
 <span><span class="co">#&gt;      pred_log      pred patch_id year_f sfa      patch_area</span></span>
-<span><span class="co">#&gt; 1 -0.08672783 0.9169266       P1   1995   4 5866.769 [km^2]</span></span>
-<span><span class="co">#&gt; 2 -0.22531868 0.7982618       P1   1996   4 5866.769 [km^2]</span></span>
-<span><span class="co">#&gt; 3  0.01525631 1.0153733       P1   1997   4 5866.769 [km^2]</span></span>
-<span><span class="co">#&gt; 4  0.06903202 1.0714705       P1   1998   4 5866.769 [km^2]</span></span>
-<span><span class="co">#&gt; 5  0.07017219 1.0726929       P1   1999   4 5866.769 [km^2]</span></span>
-<span><span class="co">#&gt; 6  0.10157292 1.1069106       P1   2000   4 5866.769 [km^2]</span></span>
+<span><span class="co">#&gt; 1 -0.08672907 0.9169255       P1   1995   4 5866.769 [km^2]</span></span>
+<span><span class="co">#&gt; 2 -0.22531718 0.7982630       P1   1996   4 5866.769 [km^2]</span></span>
+<span><span class="co">#&gt; 3  0.01525722 1.0153742       P1   1997   4 5866.769 [km^2]</span></span>
+<span><span class="co">#&gt; 4  0.06903285 1.0714714       P1   1998   4 5866.769 [km^2]</span></span>
+<span><span class="co">#&gt; 5  0.07017255 1.0726933       P1   1999   4 5866.769 [km^2]</span></span>
+<span><span class="co">#&gt; 6  0.10157357 1.1069114       P1   2000   4 5866.769 [km^2]</span></span>
 <span><span class="co">#&gt;                         geometry</span></span>
 <span><span class="co">#&gt; 1 POLYGON ((-62.93792 60.8145...</span></span>
 <span><span class="co">#&gt; 2 POLYGON ((-62.93792 60.8145...</span></span>
@@ -553,7 +582,7 @@ TEST/TRAIN data highlighted.</li>
 <span><span class="co">#&gt; 6 POLYGON ((-62.93792 60.8145...</span></span></code></pre></div>
 <p>We can also get the predictions for biomass by passing the biomass
 variable name.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">biomass_preds</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict.html">predict</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">biomass_preds</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Simple feature collection with 6 features and 8 fields</span></span>
@@ -562,18 +591,18 @@ variable name.</p>
 <span><span class="co">#&gt; Bounding box:  xmin: -64.18658 ymin: 59.47292 xmax: -62.26589 ymax: 60.84335</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 9</span></span></span>
-<span><span class="co">#&gt;   year_f patch_id sfa   patch_area biomass_with_catch   biomass biomas…¹ bioma…²</span></span>
-<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494;">[km^2]</span>               <span style="color: #949494;">[kg]</span>      <span style="color: #949494;">[kg]</span> <span style="color: #949494;">[kg/km^</span>… <span style="color: #949494;">[kg/km</span>…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   <span style="text-decoration: underline;">1</span>995 P1       4          <span style="text-decoration: underline;">5</span>867.                <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span> </span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>   <span style="text-decoration: underline;">1</span>996 P1       4          <span style="text-decoration: underline;">5</span>867.          17<span style="text-decoration: underline;">447</span>783. 17<span style="text-decoration: underline;">443</span>366.    <span style="text-decoration: underline;">2</span>974.   <span style="text-decoration: underline;">2</span>973.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>   <span style="text-decoration: underline;">1</span>997 P1       4          <span style="text-decoration: underline;">5</span>867.          16<span style="text-decoration: underline;">951</span>564. 16<span style="text-decoration: underline;">949</span>023.    <span style="text-decoration: underline;">2</span>889.   <span style="text-decoration: underline;">2</span>889.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   <span style="text-decoration: underline;">1</span>998 P1       4          <span style="text-decoration: underline;">5</span>867.          16<span style="text-decoration: underline;">556</span>674. 16<span style="text-decoration: underline;">555</span>294.    <span style="text-decoration: underline;">2</span>822.   <span style="text-decoration: underline;">2</span>822.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>   <span style="text-decoration: underline;">1</span>999 P1       4          <span style="text-decoration: underline;">5</span>867.          16<span style="text-decoration: underline;">578</span>042. 16<span style="text-decoration: underline;">572</span>881.    <span style="text-decoration: underline;">2</span>826.   <span style="text-decoration: underline;">2</span>825.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>   <span style="text-decoration: underline;">2</span>000 P1       4          <span style="text-decoration: underline;">5</span>867.          16<span style="text-decoration: underline;">331</span>012. 16<span style="text-decoration: underline;">326</span>595.    <span style="text-decoration: underline;">2</span>784.   <span style="text-decoration: underline;">2</span>783.</span></span>
-<span><span class="co">#&gt; <span style="color: #949494;"># … with 1 more variable: geometry &lt;POLYGON [°]&gt;, and abbreviated variable</span></span></span>
-<span><span class="co">#&gt; <span style="color: #949494;">#   names ¹​biomass_density_with_catch, ²​biomass_density</span></span></span></code></pre></div>
+<span><span class="co">#&gt;   year_f patch_id sfa   patch_area biomass_with_catch   biomass</span></span>
+<span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494;">[km^2]</span>               <span style="color: #949494;">[kg]</span>      <span style="color: #949494;">[kg]</span></span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   <span style="text-decoration: underline;">1</span>995 P1       4          <span style="text-decoration: underline;">5</span>867.                <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span> </span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>   <span style="text-decoration: underline;">1</span>996 P1       4          <span style="text-decoration: underline;">5</span>867.          17<span style="text-decoration: underline;">447</span>758. 17<span style="text-decoration: underline;">443</span>342.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>   <span style="text-decoration: underline;">1</span>997 P1       4          <span style="text-decoration: underline;">5</span>867.          16<span style="text-decoration: underline;">951</span>531. 16<span style="text-decoration: underline;">948</span>989.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   <span style="text-decoration: underline;">1</span>998 P1       4          <span style="text-decoration: underline;">5</span>867.          16<span style="text-decoration: underline;">556</span>639. 16<span style="text-decoration: underline;">555</span>259.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>   <span style="text-decoration: underline;">1</span>999 P1       4          <span style="text-decoration: underline;">5</span>867.          16<span style="text-decoration: underline;">578</span>010. 16<span style="text-decoration: underline;">572</span>848.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>   <span style="text-decoration: underline;">2</span>000 P1       4          <span style="text-decoration: underline;">5</span>867.          16<span style="text-decoration: underline;">330</span>976. 16<span style="text-decoration: underline;">326</span>560.</span></span>
+<span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3 more variables: biomass_density_with_catch [kg/km^2],</span></span></span>
+<span><span class="co">#&gt; <span style="color: #949494;">#   biomass_density [kg/km^2], geometry &lt;POLYGON [°]&gt;</span></span></span></code></pre></div>
 <p>We can also predict the biomass one step ahead.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">biomass_one_step</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/predict.html">predict</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, </span>
 <span>                            next_ts <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">biomass_one_step</span><span class="op">)</span></span>
@@ -585,33 +614,33 @@ variable name.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
 <span><span class="co">#&gt;   patch_id year_f sfa     biomass patch_area                            geometry</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494;">[kg]</span>     <span style="color: #949494;">[km^2]</span>                       <span style="color: #949494; font-style: italic;">&lt;POLYGON [°]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> P1         <span style="text-decoration: underline;">2</span>019 4     15<span style="text-decoration: underline;">847</span>797.      <span style="text-decoration: underline;">5</span>867. ((-62.93792 60.81457, -62.99813 60…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> P2         <span style="text-decoration: underline;">2</span>019 4     17<span style="text-decoration: underline;">016</span>407.      <span style="text-decoration: underline;">6</span>294. ((-61.47678 59.40916, -61.27552 59…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> P3         <span style="text-decoration: underline;">2</span>019 4      4<span style="text-decoration: underline;">305</span>195.      <span style="text-decoration: underline;">1</span>594. ((-61.98352 59.91756, -62.14032 59…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> P4         <span style="text-decoration: underline;">2</span>019 4      5<span style="text-decoration: underline;">116</span>919.      <span style="text-decoration: underline;">1</span>882. ((-61.60726 58.17744, -61.55968 58…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> P5         <span style="text-decoration: underline;">2</span>019 4      5<span style="text-decoration: underline;">125</span>076.      <span style="text-decoration: underline;">1</span>890. ((-61.54308 58.72455, -60.98005 58…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> P6         <span style="text-decoration: underline;">2</span>019 4      5<span style="text-decoration: underline;">804</span>063.      <span style="text-decoration: underline;">2</span>149. ((-62.81971 59.18792, -62.54312 59…</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> P1         <span style="text-decoration: underline;">2</span>019 4     15<span style="text-decoration: underline;">847</span>765.      <span style="text-decoration: underline;">5</span>867. ((-62.93792 60.81457, -62.99813 60…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> P2         <span style="text-decoration: underline;">2</span>019 4     17<span style="text-decoration: underline;">016</span>411.      <span style="text-decoration: underline;">6</span>294. ((-61.47678 59.40916, -61.27552 59…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> P3         <span style="text-decoration: underline;">2</span>019 4      4<span style="text-decoration: underline;">305</span>196.      <span style="text-decoration: underline;">1</span>594. ((-61.98352 59.91756, -62.14032 59…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> P4         <span style="text-decoration: underline;">2</span>019 4      5<span style="text-decoration: underline;">116</span>918.      <span style="text-decoration: underline;">1</span>882. ((-61.60726 58.17744, -61.55968 58…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> P5         <span style="text-decoration: underline;">2</span>019 4      5<span style="text-decoration: underline;">125</span>077.      <span style="text-decoration: underline;">1</span>890. ((-61.54308 58.72455, -60.98005 58…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> P6         <span style="text-decoration: underline;">2</span>019 4      5<span style="text-decoration: underline;">804</span>049.      <span style="text-decoration: underline;">2</span>149. ((-62.81971 59.18792, -62.54312 59…</span></span></code></pre></div>
 <ol start="18" style="list-style-type: decimal">
 <li>We can produce an array of plots, as timeseries or as spatial
 plots</li>
 </ol>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, log <span class="op">=</span> <span class="cn">T</span>, scales <span class="op">=</span> <span class="st">'free'</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removed 1 row containing missing values (`geom_line()`).</span></span>
 <span><span class="co">#&gt; Warning: Removed 92 rows containing missing values (`geom_point()`).</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, log <span class="op">=</span> <span class="cn">T</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-23-2.png" width="700"></p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,  scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removed 1 row containing missing values (`geom_line()`).</span></span>
 <span><span class="co">#&gt; Warning: Removed 92 rows containing missing values (`geom_point()`).</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-24-2.png" width="700"></p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;"></p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,</span>
 <span>     next_ts <span class="op">=</span> <span class="cn">TRUE</span>, aggregate <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span>, </span>
 <span>     smoothed_biomass <span class="op">=</span> <span class="cn">TRUE</span>, interval <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
@@ -640,7 +669,7 @@ plots</li>
 <span></span>
 <span><span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span></span>
 <span><span class="co">#&gt; -Inf</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;"></p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -658,7 +687,7 @@ plots</li>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

@@ -122,9 +122,11 @@ to ingest the data into <code>sspm_dataset</code> objects via a call to
 <li><p>The first proper modelling step is to smooth the biomass and
 predictors data by combining a <code>sspm_dataset</code>, and a
 <code>sspm_discrete_boundary</code>. The user specifies a gam formula
-with custom smooth terms (see for more details). The output is still a
-<code>sspm_dataset</code> object with a <code>smoothed_data</code> slot
-which contains the smoothed predictions for all patches.</p></li>
+with custom smooth terms (see the <a href="https://pedersen-fisheries-lab.github.io/sspm/reference/spm_smooth.html#details" class="external-link">details
+section of the <code>spm_smooth()</code> function</a> for more details).
+The output is still a <code>sspm_dataset</code> object with a
+<code>smoothed_data</code> slot which contains the smoothed predictions
+for all patches.</p></li>
 <li><p>Then, catch is integrated into the biomass data by calling
 <code>spm_aggregate_catch</code> on the two <code>sspm_dataset</code>
 that contains catch and smoothed biomass. Productivity and (both log and
@@ -159,7 +161,7 @@ with the <code><a href="../reference/plot.html">plot()</a></code> method.</p></l
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

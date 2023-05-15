@@ -60,14 +60,174 @@
     </div>
 
     <table class="ref-index"><colgroup><col class="alias"><col class="title"></colgroup><tbody><tr><th colspan="2">
-          <h2 id="all-functions">All functions <a href="#all-functions" class="anchor" aria-hidden="true"></a></h2>
+          <h2 id="workflow-steps">Workflow steps <a href="#workflow-steps" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p>
         </th>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h3 id="casting-boundaries">Casting boundaries <a href="#casting-boundaries" class="anchor" aria-hidden="true"></a></h3>
+          <p class="section-desc"></p><p>Create a spatial boundaries object for your model</p>
+        </th>
       </tr></tbody><tbody><tr><td>
-          <p><code><a href="accessors-methods-discret_method.html">method_func()</a></code> <code><a href="accessors-methods-discret_method.html">`method_func&lt;-`()</a></code> <code><a href="accessors-methods-discret_method.html">spm_name(<i>&lt;discretization_method&gt;</i>)</a></code> <code><a href="accessors-methods-discret_method.html">`spm_name&lt;-`(<i>&lt;discretization_method&gt;</i>)</a></code> </p>
+          <p><code><a href="spm_as_boundary.html">spm_as_boundary()</a></code> </p>
         </td>
-        <td><p>Accessing OR replacing <code>discretization_method</code> model elements</p></td>
+        <td><p>Create a sspm_boundary object</p></td>
       </tr><tr><td>
+          <p><code><a href="sspm_boundary-class.html">sspm_boundary-class</a></code> </p>
+        </td>
+        <td><p>sspm boundary structure</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h3 id="discretizing-boundaries">Discretizing boundaries <a href="#discretizing-boundaries" class="anchor" aria-hidden="true"></a></h3>
+          <p class="section-desc"></p><p>Discretize your spatial boundaries object into patches</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="spm_discretize.html">spm_discretize</a></code> <code><a href="spm_discretize.html">spm_discretize,sspm_boundary,missing,ANY-method</a></code> <code><a href="spm_discretize.html">spm_discretize,sspm_boundary,ANY,missing-method</a></code> <code><a href="spm_discretize.html">spm_discretize,sspm_boundary,character,ANY-method</a></code> <code><a href="spm_discretize.html">spm_discretize,sspm_boundary,function,ANY-method</a></code> <code><a href="spm_discretize.html">spm_discretize,sspm_boundary,discretization_method,ANY-method</a></code> </p>
+        </td>
+        <td><p>Discretize a <code>sspm</code> model object</p></td>
+      </tr><tr><td>
+          <p><code><a href="sspm_discrete_boundary-class.html">sspm_discrete_boundary-class</a></code> </p>
+        </td>
+        <td><p>sspm discrete boundary structure</p></td>
+      </tr><tr><td>
+          <p><code><a href="tesselate_voronoi.html">tesselate_voronoi()</a></code> </p>
+        </td>
+        <td><p>Perform voronoi tesselation</p></td>
+      </tr><tr><td>
+          <p><code><a href="triangulate_delaunay.html">triangulate_delaunay()</a></code> </p>
+        </td>
+        <td><p>Perform delaunay triangulation</p></td>
+      </tr><tr><td>
+          <p><code><a href="spm_methods.html">spm_methods()</a></code> </p>
+        </td>
+        <td><p>Get the list of available discretization methods</p></td>
+      </tr><tr><td>
+          <p><code><a href="as_discretization_method.html">as_discretization_method</a></code> <code><a href="as_discretization_method.html">as_discretization_method,character,ANY-method</a></code> <code><a href="as_discretization_method.html">as_discretization_method,missing,function-method</a></code> </p>
+        </td>
+        <td><p>Cast into a <code>discretization_method</code> object</p></td>
+      </tr><tr><td>
+          <p><code><a href="discretization_method-class.html">discretization_method-class</a></code> </p>
+        </td>
+        <td><p>sspm discretization method class</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h3 id="casting-datasets">Casting datasets <a href="#casting-datasets" class="anchor" aria-hidden="true"></a></h3>
+          <p class="section-desc"></p><p>Create dataset objects for your raw variables</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="spm_as_dataset.html">spm_as_dataset()</a></code> </p>
+        </td>
+        <td><p>Create a <code>sspm_dataset</code> dataset structure</p></td>
+      </tr><tr><td>
+          <p><code><a href="sspm_dataset-class.html">sspm_dataset-class</a></code> </p>
+        </td>
+        <td><p>sspm dataset structure</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h3 id="smoothing-biomass">Smoothing biomass <a href="#smoothing-biomass" class="anchor" aria-hidden="true"></a></h3>
+          <p class="section-desc"></p><p>Smooth the raw variables using gams</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="spm_smooth.html">spm_smooth()</a></code> </p>
+        </td>
+        <td><p>Smooth a variable in a sspm dataset</p></td>
+      </tr><tr><td>
+          <p><code><a href="spm_smooth_methods.html">spm_smooth_methods()</a></code> </p>
+        </td>
+        <td><p>Get the list of available smoothing methods</p></td>
+      </tr><tr><td>
+          <p><code><a href="smooths.html">smooth_time()</a></code> <code><a href="smooths.html">smooth_space()</a></code> <code><a href="smooths.html">smooth_space_time()</a></code> <code><a href="smooths.html">smooth_lag()</a></code> </p>
+        </td>
+        <td><p>sspm Smoothing functions</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h3 id="aggregating-catch">Aggregating catch <a href="#aggregating-catch" class="anchor" aria-hidden="true"></a></h3>
+          <p class="section-desc"></p><p>Aggregate the catch data according to discretized boundaries</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="spm_aggregate_catch.html">spm_aggregate_catch()</a></code> </p>
+        </td>
+        <td><p>Update biomass value from catch adta</p></td>
+      </tr><tr><td>
+          <p><code><a href="spm_aggregate.html">spm_aggregate()</a></code> </p>
+        </td>
+        <td><p>Aggregate a dataset or fit data variable based on a boundary</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h3 id="assembling-and-modifiying-sspm-objects">Assembling and modifiying SSPM objects <a href="#assembling-and-modifiying-sspm-objects" class="anchor" aria-hidden="true"></a></h3>
+          <p class="section-desc"></p><p>Assemble the model object and prepare it for fitting</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="sspm-constructor.html">sspm()</a></code> </p>
+        </td>
+        <td><p>Create a <code>sspm</code> model object</p></td>
+      </tr><tr><td>
+          <p><code><a href="sspm-class.html">sspm-class</a></code> </p>
+        </td>
+        <td><p>sspm model class</p></td>
+      </tr><tr><td>
+          <p><code><a href="spm_split.html">spm_split()</a></code> </p>
+        </td>
+        <td><p>Split data in test and train sets</p></td>
+      </tr><tr><td>
+          <p><code><a href="spm_lag.html">spm_lag()</a></code> </p>
+        </td>
+        <td><p>Create lagged columns in a sspm smoothed data slot</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h3 id="fitting-the-surplus-production-model">Fitting the surplus production model <a href="#fitting-the-surplus-production-model" class="anchor" aria-hidden="true"></a></h3>
+          <p class="section-desc"></p><p>Fit the model</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="spm.html">spm()</a></code> </p>
+        </td>
+        <td><p>Fit an SPM model</p></td>
+      </tr><tr><td>
+          <p><code><a href="sspm_fit-class.html">sspm_fit-class</a></code> </p>
+        </td>
+        <td><p>sspm fit</p></td>
+      </tr><tr><td>
+          <p><code><a href="sspm_formula-class.html">sspm_formula-class</a></code> </p>
+        </td>
+        <td><p>sspm formula object</p></td>
+      </tr><tr><td>
+          <p><code><a href="summary.html">summary(<i>&lt;sspm_fit&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Summarises <code>sspm_fit</code> objects</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h3 id="predict-and-plot">Predict and plot <a href="#predict-and-plot" class="anchor" aria-hidden="true"></a></h3>
+          <p class="section-desc"></p><p>Predict and plot results</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="predict.html">predict(<i>&lt;sspm_fit&gt;</i>)</a></code> <code><a href="predict.html">predict(<i>&lt;sspm_dataset&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Predict with a SPM model</p></td>
+      </tr><tr><td>
+          <p><code><a href="intervals.html">predict_intervals()</a></code> </p>
+        </td>
+        <td><p>GAM confidence and prediction intervals</p></td>
+      </tr><tr><td>
+          <p><code><a href="plot.html">plot(<i>&lt;sspm_boundary&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;sspm_dataset&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;sspm_fit&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Plot <code>sspm</code> objects</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="datasets">Datasets <a href="#datasets" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Datasets used in the vignette</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="borealis_simulated.html">borealis_simulated</a></code> </p>
+        </td>
+        <td><p>Simulated biomass data</p></td>
+      </tr><tr><td>
+          <p><code><a href="catch_simulated.html">catch_simulated</a></code> </p>
+        </td>
+        <td><p>Simulated catch data</p></td>
+      </tr><tr><td>
+          <p><code><a href="predator_simulated.html">predator_simulated</a></code> </p>
+        </td>
+        <td><p>Simulated predator data</p></td>
+      </tr><tr><td>
+          <p><code><a href="sfa_boundaries.html">sfa_boundaries</a></code> </p>
+        </td>
+        <td><p>SFA boundaries data</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="accessors">Accessors <a href="#accessors" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Accessors method for various objects</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
           <p><code><a href="accessors-methods-sspm_boundary.html">spm_boundaries(<i>&lt;sspm_boundary&gt;</i>)</a></code> <code><a href="accessors-methods-sspm_boundary.html">`spm_boundaries&lt;-`(<i>&lt;sspm_boundary&gt;</i>)</a></code> <code><a href="accessors-methods-sspm_boundary.html">spm_discret_method()</a></code> <code><a href="accessors-methods-sspm_boundary.html">`spm_discret_method&lt;-`()</a></code> <code><a href="accessors-methods-sspm_boundary.html">spm_patches()</a></code> <code><a href="accessors-methods-sspm_boundary.html">`spm_patches&lt;-`()</a></code> <code><a href="accessors-methods-sspm_boundary.html">spm_points()</a></code> <code><a href="accessors-methods-sspm_boundary.html">`spm_points&lt;-`()</a></code> <code><a href="accessors-methods-sspm_boundary.html">spm_boundary()</a></code> <code><a href="accessors-methods-sspm_boundary.html">`spm_boundary&lt;-`()</a></code> <code><a href="accessors-methods-sspm_boundary.html">spm_boundary_area()</a></code> <code><a href="accessors-methods-sspm_boundary.html">`spm_boundary_area&lt;-`()</a></code> <code><a href="accessors-methods-sspm_boundary.html">spm_patches_area()</a></code> <code><a href="accessors-methods-sspm_boundary.html">`spm_patches_area&lt;-`()</a></code> </p>
         </td>
         <td><p>Accessing OR replacing <code>sspm_boundary</code> model elements</p></td>
@@ -80,149 +240,25 @@
         </td>
         <td><p>Accessing OR replacing <code>sspm_fit</code> model elements</p></td>
       </tr><tr><td>
-          <p><code><a href="accessors-methods-sspm_formula.html">raw_formula()</a></code> <code><a href="accessors-methods-sspm_formula.html">`raw_formula&lt;-`()</a></code> <code><a href="accessors-methods-sspm_formula.html">translated_formula()</a></code> <code><a href="accessors-methods-sspm_formula.html">`translated_formula&lt;-`()</a></code> <code><a href="accessors-methods-sspm_formula.html">dataset()</a></code> <code><a href="accessors-methods-sspm_formula.html">`dataset&lt;-`()</a></code> <code><a href="accessors-methods-sspm_formula.html">formula_vars()</a></code> <code><a href="accessors-methods-sspm_formula.html">`formula_vars&lt;-`()</a></code> <code><a href="accessors-methods-sspm_formula.html">formula_type()</a></code> <code><a href="accessors-methods-sspm_formula.html">`formula_type&lt;-`()</a></code> <code><a href="accessors-methods-sspm_formula.html">is_fitted()</a></code> <code><a href="accessors-methods-sspm_formula.html">`is_fitted&lt;-`()</a></code> <code><a href="accessors-methods-sspm_formula.html">spm_response()</a></code> <code><a href="accessors-methods-sspm_formula.html">`spm_response&lt;-`()</a></code> <code><a href="accessors-methods-sspm_formula.html">spm_lagged_vars()</a></code> <code><a href="accessors-methods-sspm_formula.html">`spm_lagged_vars&lt;-`()</a></code> </p>
-        </td>
-        <td><p>Accessing OR replacing <code>sspm_formula</code> model elements</p></td>
-      </tr><tr><td>
-          <p><code><a href="as_discretization_method.html">as_discretization_method</a></code> <code><a href="as_discretization_method.html">as_discretization_method,character,ANY-method</a></code> <code><a href="as_discretization_method.html">as_discretization_method,missing,function-method</a></code> </p>
-        </td>
-        <td><p>Cast into a <code>discretization_method</code> object</p></td>
-      </tr><tr><td>
-          <p><code><a href="borealis_simulated.html">borealis_simulated</a></code> </p>
-        </td>
-        <td><p>Simulated biomass data</p></td>
-      </tr><tr><td>
-          <p><code><a href="catch_simulated.html">catch_simulated</a></code> </p>
-        </td>
-        <td><p>Simulated catch data</p></td>
-      </tr><tr><td>
-          <p><code><a href="discretization_method-class.html">discretization_method-class</a></code> </p>
-        </td>
-        <td><p>sspm discretization method class</p></td>
-      </tr><tr><td>
-          <p><code><a href="extract-methods.html">`$`(<i>&lt;sspm_boundary&gt;</i>)</a></code> <code><a href="extract-methods.html">`$`(<i>&lt;sspm_discrete_boundary&gt;</i>)</a></code> <code><a href="extract-methods.html">`$`(<i>&lt;sspm_dataset&gt;</i>)</a></code> <code><a href="extract-methods.html">`$`(<i>&lt;sspm&gt;</i>)</a></code> <code><a href="extract-methods.html">`$`(<i>&lt;sspm_fit&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Extract methods</p></td>
-      </tr><tr><td>
-          <p><code><a href="fit.html">fit_smooths()</a></code> <code><a href="fit.html">fit_spm()</a></code> </p>
-        </td>
-        <td><p>Fit the GAM part of a sspm model</p></td>
-      </tr><tr><td>
-          <p><code><a href="intervals.html">predict_intervals()</a></code> </p>
-        </td>
-        <td><p>GAM confidence and prediction intervals</p></td>
-      </tr><tr><td>
-          <p><code><a href="map_formula.html">map_formula()</a></code> <code><a href="map_formula.html">spm_smooth(<i>&lt;ANY&gt;</i>,<i>&lt;missing&gt;</i>,<i>&lt;ANY&gt;</i>)</a></code> <code><a href="map_formula.html">spm_smooth(<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="map_formula.html">spm_smooth(<i>&lt;ANY&gt;</i>,<i>&lt;ANY&gt;</i>,<i>&lt;sspm_boundary&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Map model formula onto a sspm_dataset object</p></td>
-      </tr><tr><td>
-          <p><code><a href="plot.html">plot(<i>&lt;sspm_boundary&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;sspm_dataset&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> <code><a href="plot.html">plot(<i>&lt;sspm_fit&gt;</i>,<i>&lt;missing&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Plot <code>sspm</code> objects</p></td>
-      </tr><tr><td>
-          <p><code><a href="plot_trajectory.html">plot_trajectory()</a></code> </p>
-        </td>
-        <td><p>Plot trajectory of exploitation rate with biomass</p></td>
-      </tr><tr><td>
-          <p><code><a href="predator_simulated.html">predator_simulated</a></code> </p>
-        </td>
-        <td><p>Simulated predator data</p></td>
-      </tr><tr><td>
-          <p><code><a href="predict.html">predict(<i>&lt;sspm_fit&gt;</i>)</a></code> <code><a href="predict.html">predict(<i>&lt;sspm_dataset&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Predict with a SPM model</p></td>
-      </tr><tr><td>
-          <p><code><a href="sfa_boundaries.html">sfa_boundaries</a></code> </p>
-        </td>
-        <td><p>SFA boundaries data</p></td>
-      </tr><tr><td>
-          <p><code><a href="smooths.html">smooth_time()</a></code> <code><a href="smooths.html">smooth_space()</a></code> <code><a href="smooths.html">smooth_space_time()</a></code> <code><a href="smooths.html">smooth_lag()</a></code> </p>
-        </td>
-        <td><p>sspm Smoothing functions</p></td>
-      </tr><tr><td>
-          <p><code><a href="spm.html">spm()</a></code> </p>
-        </td>
-        <td><p>Fit an SPM model</p></td>
-      </tr><tr><td>
-          <p><code><a href="spm_aggregate.html">spm_aggregate()</a></code> </p>
-        </td>
-        <td><p>Aggregate a dataset or fit data variable based on a boundary</p></td>
-      </tr><tr><td>
-          <p><code><a href="spm_aggregate_catch.html">spm_aggregate_catch()</a></code> </p>
-        </td>
-        <td><p>Update biomass value from catch adta</p></td>
-      </tr><tr><td>
-          <p><code><a href="spm_as_boundary.html">spm_as_boundary()</a></code> </p>
-        </td>
-        <td><p>Create a sspm_boundary object</p></td>
-      </tr><tr><td>
-          <p><code><a href="spm_as_dataset.html">spm_as_dataset()</a></code> </p>
-        </td>
-        <td><p>Create a <code>sspm_dataset</code> dataset structure</p></td>
-      </tr><tr><td>
-          <p><code><a href="spm_discretize.html">spm_discretize</a></code> <code><a href="spm_discretize.html">spm_discretize,sspm_boundary,missing,ANY-method</a></code> <code><a href="spm_discretize.html">spm_discretize,sspm_boundary,ANY,missing-method</a></code> <code><a href="spm_discretize.html">spm_discretize,sspm_boundary,character,ANY-method</a></code> <code><a href="spm_discretize.html">spm_discretize,sspm_boundary,function,ANY-method</a></code> <code><a href="spm_discretize.html">spm_discretize,sspm_boundary,discretization_method,ANY-method</a></code> <code><a href="spm_discretize.html">spm_discretize,sspm_discrete_boundary,ANY,ANY-method</a></code> </p>
-        </td>
-        <td><p>Discretize a <code>sspm</code> model object</p></td>
-      </tr><tr><td>
-          <p><code><a href="spm_lag.html">spm_lag()</a></code> </p>
-        </td>
-        <td><p>Create lagged columns in a sspm smoothed data slot</p></td>
-      </tr><tr><td>
-          <p><code><a href="spm_methods.html">spm_methods()</a></code> </p>
-        </td>
-        <td><p>Get the list of available discretization methods</p></td>
-      </tr><tr><td>
-          <p><code><a href="spm_smooth.html">spm_smooth()</a></code> </p>
-        </td>
-        <td><p>Smooth a variable in a sspm dataset</p></td>
-      </tr><tr><td>
-          <p><code><a href="spm_smooth_methods.html">spm_smooth_methods()</a></code> </p>
-        </td>
-        <td><p>Get the list of available smoothing methods</p></td>
-      </tr><tr><td>
-          <p><code><a href="spm_split.html">spm_split()</a></code> </p>
-        </td>
-        <td><p>Split data in test and train sets</p></td>
-      </tr><tr><td>
           <p><code><a href="sspm-accessors-methods.html">spm_name()</a></code> <code><a href="sspm-accessors-methods.html">`spm_name&lt;-`()</a></code> <code><a href="sspm-accessors-methods.html">spm_datasets()</a></code> <code><a href="sspm-accessors-methods.html">`spm_datasets&lt;-`()</a></code> <code><a href="sspm-accessors-methods.html">spm_boundaries()</a></code> <code><a href="sspm-accessors-methods.html">`spm_boundaries&lt;-`()</a></code> <code><a href="sspm-accessors-methods.html">spm_smoothed_data()</a></code> <code><a href="sspm-accessors-methods.html">`spm_smoothed_data&lt;-`()</a></code> <code><a href="sspm-accessors-methods.html">spm_time()</a></code> <code><a href="sspm-accessors-methods.html">`spm_time&lt;-`()</a></code> <code><a href="sspm-accessors-methods.html">is_split()</a></code> <code><a href="sspm-accessors-methods.html">`is_split&lt;-`()</a></code> <code><a href="sspm-accessors-methods.html">spm_unique_ID()</a></code> <code><a href="sspm-accessors-methods.html">`spm_unique_ID&lt;-`()</a></code> </p>
         </td>
         <td><p>Accessing OR replacing <code>sspm</code> model elements</p></td>
-      </tr><tr><td>
-          <p><code><a href="sspm-class.html">sspm-class</a></code> </p>
-        </td>
-        <td><p>sspm model class</p></td>
-      </tr><tr><td>
-          <p><code><a href="sspm-constructor.html">sspm()</a></code> </p>
-        </td>
-        <td><p>Create a <code>sspm</code> model object</p></td>
       </tr><tr><td>
           <p><code><a href="sspm_boundary-class.html">sspm_boundary-class</a></code> </p>
         </td>
         <td><p>sspm boundary structure</p></td>
       </tr><tr><td>
-          <p><code><a href="sspm_dataset-class.html">sspm_dataset-class</a></code> </p>
+          <p><code><a href="extract-methods.html">`$`(<i>&lt;sspm_boundary&gt;</i>)</a></code> <code><a href="extract-methods.html">`$`(<i>&lt;sspm_discrete_boundary&gt;</i>)</a></code> <code><a href="extract-methods.html">`$`(<i>&lt;sspm_dataset&gt;</i>)</a></code> <code><a href="extract-methods.html">`$`(<i>&lt;sspm&gt;</i>)</a></code> </p>
         </td>
-        <td><p>sspm dataset structure</p></td>
+        <td><p>Extract methods</p></td>
       </tr><tr><td>
-          <p><code><a href="sspm_discrete_boundary-class.html">sspm_discrete_boundary-class</a></code> </p>
+          <p><code><a href="accessors-methods-sspm_formula.html">raw_formula()</a></code> <code><a href="accessors-methods-sspm_formula.html">`raw_formula&lt;-`()</a></code> <code><a href="accessors-methods-sspm_formula.html">translated_formula()</a></code> <code><a href="accessors-methods-sspm_formula.html">`translated_formula&lt;-`()</a></code> <code><a href="accessors-methods-sspm_formula.html">formula_vars()</a></code> <code><a href="accessors-methods-sspm_formula.html">`formula_vars&lt;-`()</a></code> <code><a href="accessors-methods-sspm_formula.html">formula_type()</a></code> <code><a href="accessors-methods-sspm_formula.html">`formula_type&lt;-`()</a></code> <code><a href="accessors-methods-sspm_formula.html">is_fitted()</a></code> <code><a href="accessors-methods-sspm_formula.html">`is_fitted&lt;-`()</a></code> <code><a href="accessors-methods-sspm_formula.html">spm_response()</a></code> <code><a href="accessors-methods-sspm_formula.html">`spm_response&lt;-`()</a></code> <code><a href="accessors-methods-sspm_formula.html">spm_lagged_vars()</a></code> <code><a href="accessors-methods-sspm_formula.html">`spm_lagged_vars&lt;-`()</a></code> </p>
         </td>
-        <td><p>sspm discrete boundary structure</p></td>
+        <td><p>Accessing OR replacing <code>sspm_formula</code> model elements</p></td>
       </tr><tr><td>
-          <p><code><a href="sspm_fit-class.html">sspm_fit-class</a></code> </p>
+          <p><code><a href="accessors-methods-discret_method.html">method_func()</a></code> <code><a href="accessors-methods-discret_method.html">`method_func&lt;-`()</a></code> <code><a href="accessors-methods-discret_method.html">spm_name(<i>&lt;discretization_method&gt;</i>)</a></code> <code><a href="accessors-methods-discret_method.html">`spm_name&lt;-`(<i>&lt;discretization_method&gt;</i>)</a></code> </p>
         </td>
-        <td><p>sspm fit</p></td>
-      </tr><tr><td>
-          <p><code><a href="sspm_formula-class.html">sspm_formula-class</a></code> </p>
-        </td>
-        <td><p>sspm formula object</p></td>
-      </tr><tr><td>
-          <p><code><a href="tesselate_voronoi.html">tesselate_voronoi()</a></code> </p>
-        </td>
-        <td><p>Perform voronoi tesselation</p></td>
-      </tr><tr><td>
-          <p><code><a href="triangulate_delaunay.html">triangulate_delaunay()</a></code> </p>
-        </td>
-        <td><p>Perform delaunay triangulation</p></td>
+        <td><p>Accessing OR replacing <code>discretization_method</code> model elements</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -236,7 +272,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
