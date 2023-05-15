@@ -7,12 +7,6 @@ custom_h1 <- function(text) {
     cli::symbol$figure_dash, cli::symbol$figure_dash)
 }
 
-custom_h3 <- function(text) {
-  cli::cat_line(
-    cli::symbol$figure_dash,
-    " ", cli::style_bold(text), " ")
-}
-
 setMethod("show",
           "sspm_boundary",
           function(object) {
@@ -101,7 +95,6 @@ setMethod("show",
             cli::cat_line()
             custom_h1("Model fit")
             cat_smoothed_data(object, prints = FALSE)
-            cat_spm_fit(object)
             cli::cat_line()
           }
 )
@@ -280,14 +273,6 @@ cat_smoothed_data <- function(object, prints = TRUE) {
     }
   }
 
-}
-
-cat_spm_fit <- function(object) {
-  the_fit <- spm_get_fit(object)
-  the_fit_summary <- summary(the_fit)
-  cli::cat_bullet(" Fit summary : ",
-                  bullet = "arrow_right")
-  show(the_fit_summary)
 }
 
 # -------------------------------------------------------------------------

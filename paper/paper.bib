@@ -1,4 +1,100 @@
 
+@article{pedersen_stochastic_2017,
+	title = {A stochastic surplus production model in continuous time},
+	volume = {18},
+	issn = {1467-2979},
+	url = {https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12174},
+	doi = {10.1111/faf.12174},
+	language = {en},
+	number = {2},
+	urldate = {2023-05-02},
+	journal = {Fish and Fisheries},
+	author = {Pedersen, Martin W and Berg, Casper W},
+	year = {2017},
+	pages = {226--243},
+}
+
+@article{winker_jabba_2018,
+	title = {{JABBA}: {Just} {Another} {Bayesian} {Biomass} {Assessment}},
+	volume = {204},
+	issn = {0165-7836},
+	shorttitle = {{JABBA}},
+	url = {https://www.sciencedirect.com/science/article/pii/S0165783618300845},
+	doi = {10.1016/j.fishres.2018.03.010},
+	language = {en},
+	urldate = {2023-05-02},
+	journal = {Fisheries Research},
+	author = {Winker, Henning and Carvalho, Felipe and Kapur, Maia},
+	month = aug,
+	year = {2018},
+	pages = {275--288},
+}
+
+
+@article{thorson_spatio-temporal_2019,
+	title = {Spatio-temporal models of intermediate complexity for ecosystem assessments: {A} new tool for spatial fisheries management},
+	volume = {20},
+	copyright = {© 2019 John Wiley \& Sons Ltd},
+	issn = {1467-2979},
+	shorttitle = {Spatio-temporal models of intermediate complexity for ecosystem assessments},
+	url = {https://onlinelibrary.wiley.com/doi/abs/10.1111/faf.12398},
+	doi = {https://doi.org/10.1111/faf.12398},
+	language = {en},
+	number = {6},
+	urldate = {2021-03-30},
+	journal = {Fish and Fisheries},
+	author = {Thorson, James T. and Adams, Grant and Holsman, Kirstin},
+	year = {2019},
+	note = {\_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/faf.12398},
+	pages = {1083--1099},
+}
+
+
+@book{rueGaussianMarkovRandom2005,
+  title = {Gaussian {{Markov}} random fields: theory and applications},
+  author = {Rue, Havard and Held, Leonhard},
+  year = {2005},
+  publisher = {{CRC press}},
+  address = {{New York}}
+}
+
+
+@misc{anderson2022sdmTMB,
+  title = {{{sdmTMB}}: an {{R}} package for fast, flexible, and user-friendly generalized linear mixed effects models with spatial and spatiotemporal random fields},
+  shorttitle = {{{sdmTMB}}},
+  author = {Anderson, Sean C. and Ward, Eric J. and English, Philina A. and Barnett, Lewis A. K.},
+  year = {2022},
+  month = may,
+  primaryclass = {New Results},
+  pages = {2022.03.24.485545},
+  publisher = {{bioRxiv}},
+  doi = {10.1101/2022.03.24.485545},
+  urldate = {2023-05-01},
+  abstract = {Geostatistical data\textemdash spatially referenced observations related to some continuous spatial phenomenon\textemdash{} are ubiquitous in ecology and can reveal ecological processes and inform management decisions. However, appropriate models to analyze these data, such as generalized linear mixed effects models (GLMMs) with Gaussian random fields, are often computationally intensive and challenging to implement, interpret, and evaluate.Here, we introduce the R package sdmTMB, which implements predictive-process SPDE- (stochastic partial differential equation) based spatial and spatiotemporal models. Estimation is conducted via maximum marginal likelihood with Template Model Builder (TMB) but can be extended to penalized likelihood or Bayesian inference. We describe the statistical model, illustrate the package's use through two case studies, and compare the functionality, speed, and interface to related software.We highlight advantages of using sdmTMB for this class of models: (1) sdmTMB provides a flexible interface familiar to users of glm(), lme4, glmmTMB, or mgcv; (2) estimation is often faster than alternatives; (3) sdmTMB provides simple out-of-sample cross validation; (4) non-stationary processes (time-varying and spatially varying coefficients) are easily constructed with a formula interface; and (5) sdmTMB includes features not available as a combination in related packages (e.g., delta/hurdle models, penalized smoothers and break-point effects, anisotropy, abundance index standardization).We hope that sdmTMB's user-friendly interface will open this useful class of models to a wider audience within species distribution modelling and beyond.},
+  archiveprefix = {bioRxiv},
+  chapter = {New Results},
+  copyright = {\textcopyright{} 2022, Posted by Cold Spring Harbor Laboratory. This pre-print is available under a Creative Commons License (Attribution 4.0 International), CC BY 4.0, as described at http://creativecommons.org/licenses/by/4.0/},
+  langid = {english}
+}
+
+
+
+@article{thorson2019Guidance,
+  title = {Guidance for decisions using the {{Vector Autoregressive Spatio-Temporal}} ({{VAST}}) package in stock, ecosystem, habitat and climate assessments},
+  author = {Thorson, James T.},
+  year = {2019},
+  month = feb,
+  journal = {Fisheries Research},
+  volume = {210},
+  pages = {143--161},
+  issn = {0165-7836},
+  doi = {10.1016/j.fishres.2018.10.013},
+  urldate = {2023-05-01},
+  abstract = {Fisheries scientists provide stock, ecosystem, habitat, and climate assessments to support interdisplinary fisheries management in the US and worldwide. These assessment activities have evolved different models, using different review standards, and are communicated using different vocabulary. Recent research shows that spatio-temporal models can estimate population density for multiple locations, times, and species, and that this is a ``common currency'' for addressing core goals in stock, ecosystem, habitat, and climate assessments. I therefore review the history and ``design principles'' for one spatio-temporal modelling package, the Vector Autoregressive Spatio-Temporal (VAST) package. I then provide guidance on fifteen major decisions that must be made by users of VAST, including: whether to use a univariate or multivariate model; when to include spatial and/or spatio-temporal variation; how many factors to use within a multivariate model; whether to include density or catchability covariates; and when to include a temporal correlation on model components. I finally demonstrate these decisions using three case studies. The first develops indices of abundance, distribution shift, and range expansion for arrowtooth flounder (Atheresthes stomias) in the Eastern Bering Sea, showing the range expansion for this species. The second involves ``species ordination'' of eight groundfishes in the Gulf of Alaska bottom trawl survey, which highlights the different spatial distribution of flathead sole (Hippoglossoides elassodon) relative to sablefish (Anoplopoma fimbria) and dover sole (Microstomus pacificus). The third involves a short-term forecast of the proportion of coastwide abundance for five groundfishes within three spatial strata in the US West Coast groundfish bottom trawl survey, and predicts large interannual variability (and high uncertainty) in the distribution of lingcod (Ophiodon elongatus). I conclude by recommending further research exploring the benefits and limitations of a ``common currency'' approach to stock, ecosystem, habitat, and climate assessments, and discuss extending this approach to optimal survey design and economic assessments.},
+  langid = {english}
+}
+
+
 @article{thorson_using_2017,
 	title = {Using spatio-temporal models of population growth and movement to monitor overlap between human impacts and fish populations},
 	volume = {54},
@@ -29,7 +125,8 @@
 	editor = {Maravelias, Christos},
 	month = apr,
 	year = {2019},
-	pages = {fsz048},
+	pages = {1305--1315},
+	volume = {76},
 	file = {Karp et al. - 2019 - Accounting for shifting distributions and changing.pdf:/home/vlucet/Zotero/storage/JP6BDALA/Karp et al. - 2019 - Accounting for shifting distributions and changing.pdf:application/pdf},
 }
 
@@ -146,10 +243,12 @@
 
 @article{prager_suite_1994,
 	title = {A suite of extensions to a nonequilibrium surplus-production},
+	journal = {Fishery Bulletin - National Oceanic and Atmospheric Administration},
 	language = {en},
 	author = {Prager, Michael H},
 	year = {1994},
-	pages = {17},
+	volume = {92},
+	pages = {374--389},
 	file = {Prager - A suite of extensions to a nonequilibrium surplus-.pdf:/home/vlucet/Zotero/storage/4HHXRZ4Y/Prager - A suite of extensions to a nonequilibrium surplus-.pdf:application/pdf},
 }
 
@@ -201,7 +300,6 @@
 	file = {Snapshot:/home/vlucet/Zotero/storage/L24AL4DI/a-primer-of-ecology-9780878933181.html:text/html},
 }
 
-
 @article{thorson_importance_2015,
 	title = {The importance of spatial models for estimating the strength of density dependence},
 	volume = {96},
@@ -216,7 +314,6 @@
 	year = {2015},
 	pages = {1202--1212},
 }
-
 
 @book{walters_fisheries_2004,
 	address = {Princeton, N.J., U.S.A.},
@@ -244,7 +341,7 @@
 @techreport{dfo_assessment_2019,
 	type = {techreport},
 	institution = {Canadian Science Advisory Secretariat (CSAS)},
-	title = {An assessment of {Northern} {Shrimp} (\textit{{Pandalus} borealis}) in {Shrimp} {Fishing} {Areas} 4–6 and of {Striped} {Shrimp} (\textit{{Pandalus} montagui}) in shrimp fishing area 4 in 2018},
+	title = {An Assessment of {Northern} {Shrimp} (Pandalus borealis) in {Shrimp} {Fishing} {Areas} 4–6 and of {Striped} {Shrimp} (Pandalus montagui) in Shrimp Fishing Area 4 in 2018},
 	number = {2019/027},
 	author = {{DFO}},
 	year = {2019},
@@ -252,15 +349,12 @@
 }
 
 @techreport{pedersenNewSpatialEcosystembased2021,
-	type = {Can. {Sci}. {Advis}. {Sec}. {Res}. {Doc}.},
-	title = {A new spatial ecosystem-based surplus production model for {SFA} 4-6 {Northern} {Shrimp}},
-	number = {2022/nn},
+	type = {Canadian Science Advisory Secretariat (CSAS) Research Document},
+	title = {A New Spatial Ecosystem-Based Surplus Production Model for {SFA} 4-6 {Northern} {Shrimp}},
 	author = {Pedersen, Eric J. and Skanes, Katherine and Le Corre, Nicolas and Koen-Alonso, Mariano and Baker, Krista},
 	year = {2022},
-	pages = {in press},
+	url = {https://www.dfo-mpo.gc.ca/csas-sccs/Publications/ResDocs-DocRech/2022/2022_062-eng.html}
 }
-
-
 
 @article{plaganyi2014Multispecies,
 	title = {Multispecies fisheries management and conservation: tactical applications using models of intermediate complexity},
@@ -277,5 +371,3 @@
 	year = {2014},
 	pages = {1--22},
 }
-
-

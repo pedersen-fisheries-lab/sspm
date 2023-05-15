@@ -68,7 +68,7 @@ sample_points <- function(mode, with, boundaries, boundary, nb_samples, seed){
              nb_samples = nb_samples) %>%
       lapply(sf::st_as_sf) %>%
       dplyr::bind_rows() %>%
-      dplyr::rename(geometry = .data$x) %>%
+      dplyr::rename(geometry = "x") %>%
       sf::st_join(boundaries)
 
   } else if (mode == "points") {
@@ -121,7 +121,7 @@ make_patches_voronoi <- function(stratify, voronoi_points, boundaries, boundary)
       dplyr::bind_rows()
 
     voronoi <- sf::st_sf(voronoi) %>%
-      dplyr::rename(geometry = .data$x)
+      dplyr::rename(geometry = "x")
 
   } else {
 
@@ -196,7 +196,7 @@ cleanup_polygons <- function(pols, boundary){
   # Add an area column
   pols <-
     dplyr::mutate(pols, patch_area = units::set_units(sf::st_area(pols), value = "km^2")) %>%
-    dplyr::relocate(.data$patch_area, .before = .data$geometry)
+    dplyr::relocate("patch_area", .before = "geometry")
 
   # Add a patch_id column
   pols <-
@@ -216,6 +216,6 @@ make_base_from_bounds <- function(boundaries){
     sf::st_cast() %>%
     sf::st_cast("POLYGON") %>%
     sf::st_as_sf() %>%
-    dplyr::rename(geometry = .data$x)
+    dplyr::rename(geometry = "x")
 
 }

@@ -12,6 +12,8 @@ test_that("Accessors work as expected on `sspm_boundary` (discrete or not)", {
 
   expect_equal(spm_boundary_area(boundary), "area")
 
+  expect_equal(spm_patches_area(boundary_discrete), "patch_area")
+
   expect_equal(spm_points(boundary_discrete), borealis_points)
 
   expect_equal(spm_patches(boundary_discrete), borealis_patches)
@@ -58,6 +60,10 @@ test_that("Accessors work as expected on `sspm_dataset` (smoothed or not)", {
   expect_list(spm_formulas(biomass_dataset_smoothed))
   expect_length(spm_formulas(biomass_dataset_smoothed), 1)
 
+  expect_null(spm_biomass_vars(biomass_dataset))
+  expect_equal(spm_biomass_vars(catch_dataset), "catch")
+  expect_equal(spm_density_vars(biomass_dataset), "weight_per_km2")
+
 })
 
 test_that("Accessors work as expected on `sspm`", {
@@ -89,5 +95,15 @@ test_that("Accesors work as expected on `sspm_formula`", {
   expect_formula(raw_formula(sspm_formula))
   expect_formula(translated_formula(sspm_formula))
   expect_list(formula_vars(sspm_formula))
+  expect_character(formula_type(sspm_formula))
 
 })
+
+test_that("Accesors work as expected on `sspm_fit`", {
+
+  expect_character(spm_unique_ID(sspm_fit))
+  expect_character(spm_time(sspm_fit))
+  expect_class(spm_get_fit(sspm_fit), "bam")
+
+})
+

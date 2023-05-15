@@ -1,7 +1,8 @@
 #' Discretize a `sspm` model object
 #'
 #' Discretize a [sspm][sspm-class] model object with a function from a
-#' [discretization_method][discretization_method-class] object class.
+#' [discretization_method][discretization_method-class] object class. This
+#' function divides the boundary polygons into smaller patches.
 #'
 #' @param boundary_object **\[sspm\]** An object of class
 #'    [sspm_boundary][sspm-class].
@@ -129,6 +130,11 @@ setMethod(f = "spm_discretize",
                     method = "discretization_method"),
           function(boundary_object, method, with, ...) {
 
+            if (checkmate::test_class(boundary_object,
+                                      "sspm_discrete_boundary")) {
+              stop(" Boundary is already discretized")
+            }
+
             if (checkmate::test_class(with, "sspm_dataset")){
               with <- spm_data(with)
             } else if (!is.null(with)) {
@@ -167,16 +173,5 @@ setMethod(f = "spm_discretize",
                   points = discrete[["points"]])
 
             return(new_sspm_discrete_boundary)
-          }
-)
-
-# RE-discretization not allowed for now
-#' @rdname spm_discretize
-#' @export
-setMethod(f = "spm_discretize",
-          signature(boundary_object = "sspm_discrete_boundary"),
-          function(boundary_object, method, with, ...) {
-
-            cli::cli_alert_danger(paste0(" Boundary is already discretized"))
           }
 )

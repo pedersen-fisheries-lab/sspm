@@ -179,3 +179,4 @@ A object of the class \code{\link[=sspm_fit-class]{sspm_fit}}.
 Once formulas have been mapped onto a sspm discrete object, the GAMs can be
 fitted with this function. Arguments can be passed onto \code{bam}.
 }
+\keyword{internal}

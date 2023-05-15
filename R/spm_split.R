@@ -1,6 +1,6 @@
 #' Split data in test and train sets
 #'
-#' Split data before fitting spm (WIP).
+#' Split data before fitting spm.
 #'
 #' @param sspm_object **\[sspm\]** An object of class [sspm][sspm-class].
 #' @param ... **\[expression\]** Expression to evaluate to split data.
@@ -44,7 +44,7 @@ setMethod(f = "spm_split",
             the_expr <- (match.call(expand.dots = FALSE)$`...`)[[1]]
             selection <- rlang::eval_tidy(the_expr,
                                           data = the_data)
-            # TODO Review tidy eval
+
             # selection <- rlang::eval_tidy(str2lang(predicate),
             #                               data = the_data)
 
@@ -59,7 +59,7 @@ setMethod(f = "spm_split",
 
             # Relocate for nicer printing
             spm_smoothed_data(sspm_object) <- the_data %>%
-              dplyr::relocate(.data$train_test, .after = .data$row_ID)
+              dplyr::relocate("train_test", .after = "row_ID")
 
             return(sspm_object)
           }
