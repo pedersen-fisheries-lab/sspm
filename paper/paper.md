@@ -1,6 +1,5 @@
 ---
-title: 'The sspm R package: spatial surplus production models for the management of
-  northern shrimp fisheries'
+title: 'The sspm R package for spatially-explicit surplus production population models'
 tags:
 - R
 - fisheries
