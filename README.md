@@ -95,6 +95,12 @@ in spatial capacity, however):
 - [`openmse`](https://openmse.com/features-assessment-models/3-sp/)
 - [`TropFishR`](https://github.com/tokami/TropFishR)
 
+## Issues and support
+
+If you have found an issue with this package or are seeking support,
+open an issue on this repository describing the problem and including a
+minimal reproducible example.
+
 ## Cite this package
 
 You can cite this package like this “we ran a spatial surplus production
@@ -109,3 +115,10 @@ full bibliographic reference to include in your reference list
 
 Or see the [package citation
 page](https://pedersen-fisheries-lab.github.io/sspm/authors.html#citation).
+
+## Code of Conduct
+
+Please note that the sspm project is released with a [Contributor Code
+of
+Conduct](%5Bhttps://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html).\](<https://contributor-covenant.org/version/2/1/CODE_OF_CONDUCT.html>).)
+By contributing to this project, you agree to abide by its terms.
