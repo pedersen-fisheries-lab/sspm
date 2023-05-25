@@ -67,7 +67,7 @@ The key workflow steps are:
 	2. The region within the boundary is discretized into patches with the `spm_discretize()` function, creating a `sspm_discrete_boundary` object.
 
 * Spatiotemporal smoothing of biomass and environmental predictors using GAMs.
-	3. The `spm_as_dataset()` function turns user-provided data frames of raw observations into `sspm_dataset` objects that explicitly track locations, data types, and aggregation scales for each input. `sspm` recognizes three types of data: **trawl** (i.e. biomass estimates from scientific surveys), **predictors**, and **catch** (i.e., harvest). 
+	3. The `spm_as_dataset()` function turns user-provided data frames of raw observations into `sspm_dataset` objects that explicitly track locations, data types, and aggregation scales for each input. `sspm` recognizes three types of data: **trawl** (i.e., biomass estimates from scientific surveys), **predictors**, and **catch** (i.e., harvest). 
 	4. The `spm_smooth()` uses GAMs to calculate spatially smoothed yearly estimates of biomass and environmental predictors for each patch from trawl-level data, based on the spatial structure from the `sspm_discrete_boundary` object. The user specifies a GAM formula with custom smooth terms. The output is another `sspm_dataset` object with a `smoothed_data` slot which contains the smoothed predictions for all patches.
 
 * Computation of surplus production based on biomass density and fishing effort.
