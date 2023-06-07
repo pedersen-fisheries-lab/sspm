@@ -1,3 +1,9 @@
+# sspm 1.0.0
+
+* JOSS release
+* documentation and testing suite improved 
+* added summary functions and fixed issues in plotting variables
+
 # sspm 0.9.2
 
 * Improved plotting, stability and user experience
