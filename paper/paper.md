@@ -11,10 +11,12 @@ output:
   pdf_document: default
   word_document: default
 authors:
-- name: Valentin Lucet^[co-first author]
+- name: Valentin Lucet
+  equal-contrib: true
   orcid: 0000-0003-0268-818X
   affiliation: 1
-- name: Eric J. Pedersen^[co-first author]
+- name: Eric J. Pedersen
+  equal-contrib: true
   orcid: 0000-0003-1016-540X
   affiliation: "1, 2"
 bibliography: paper.bib
