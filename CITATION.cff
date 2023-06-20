@@ -1,0 +1,15 @@
+cff-version: 1.1.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Lucet
+    given-names: Valentin
+    orcid: https://orcid.org/0000-0003-0268-818X
+  - family-names: Pedersen
+    given-names: Eric
+    orcid: https://orcid.org/0000-0003-1016-540X
+  - family-names: Huynh
+    given-names: Quang
+    orcid: https://orcid.org/0000-0001-7835-4376
+title: pedersen-fisheries-lab/sspm: sspm v1.0.0 Zenodo + JOSS release
+version: v1.0.0
+date-released: 2023-06-07
