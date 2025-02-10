@@ -10,7 +10,7 @@ as_discretization_method(name, method)
 
 \S4method{as_discretization_method}{character,ANY}(name)
 
-\S4method{as_discretization_method}{missing,`function`}(method)
+\S4method{as_discretization_method}{missing,function}(method)
 }
 \arguments{
 \item{name}{\strong{[character]} The name of the method.}

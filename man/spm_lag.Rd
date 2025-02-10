@@ -19,9 +19,12 @@ spm_lag(sspm_object, vars, n = 1, default = "mean", ...)
 \item{vars}{\strong{[character]} Names of the variables to lag.}
 
 \item{n}{Positive integer of length 1, giving the number of positions to
-lead or lag by}
+lag or lead by}
 
-\item{default}{Value used for non-existent rows. Defaults to \code{NA}.}
+\item{default}{The value used to pad \code{x} back to its original size after the
+lag or lead has been applied. The default, \code{NULL}, pads with a missing
+value. If supplied, this must be a vector with size 1, which will be cast
+to the type of \code{x}.}
 
 \item{...}{ a list of variables that are the covariates that this
     smooth is a function of. Transformations whose form depends on

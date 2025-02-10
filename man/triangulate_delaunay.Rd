@@ -53,13 +53,16 @@ on the mesh boundary.}
     \item{\code{j}}{If \code{TRUE} jettisons vertices that are not part of
 the final triangulation from the output.}
     \item{\code{D}}{If \code{TRUE} produce a conforming Delaunay
-triangulation. This ensures that all the triangles in the mesh are
-truly Delaunay, and not merely constrained Delaunay.  This option
-invokes Ruppert's original algorithm, which splits every
-subsegment whose diametral circle is encroached.  It usually
+triangulation. This ensures that all the triangles in the mesh
+are truly Delaunay, and not merely constrained Delaunay. This
+option invokes Ruppert's original algorithm, which splits every
+subsegment whose diametral circle is encroached. It usually
 increases the number of vertices and triangles.}
-    \item{\code{S}}{Specifies the maximum number of added Steiner points.}
-    \item{\code{V}}{Verbosity level. Specify higher values  for more detailed
+    \item{\code{S}}{Specifies the maximum number of added Steiner points. If
+set to \code{Inf}, there is no limit on the number of Steine
+points added - but this can lead to huge amounts of memory being
+allocated.}
+    \item{\code{V}}{Verbosity level. Specify higher values for more detailed
 information about what the Triangle library is doing.}
     \item{\code{Q}}{If \code{TRUE} suppresses all explanation of what the
 Triangle library is doing, unless an error occurs.}
