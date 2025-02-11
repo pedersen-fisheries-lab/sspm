@@ -1,5 +1,7 @@
 # sspm 1.0.2
 
+* re-submission to CRAN: fixed cran check notes
+
 # sspm 1.0.1
 
 * update packages and tests
