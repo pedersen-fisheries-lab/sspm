@@ -22,10 +22,10 @@ borealis_patches <- sspm:::borealis_patches
 borealis_points <- sspm:::borealis_points
 
 borealis_spatial <- sspm:::borealis_spatial %>%
-  mutate(year = as.numeric(as.character(year_f)))
+  dplyr::mutate(year = as.numeric(as.character(year_f)))
 
 predator_spatial <- sspm:::predator_spatial %>%
-  mutate(year = as.numeric(as.character(year_f)))
+  dplyr::mutate(year = as.numeric(as.character(year_f)))
 
 borealis_spatial_joined <- borealis_spatial %>%
   st_join(select(borealis_patches, "patch_id")) %>%
