@@ -14,6 +14,7 @@
 #' The object in the required slot.
 #'
 #' @examples
+#' #' \dontrun{
 #' data(borealis_simulated, package = "sspm")
 #' biomass_dataset <- spm_as_dataset(borealis_simulated, name = "borealis",
 #'                                   density = "weight_per_km2",
@@ -21,6 +22,7 @@
 #'                                   coords = c('lon_dec','lat_dec'),
 #'                                   uniqueID = "uniqueID")
 #' spm_boundaries(biomass_dataset)
+#' }
 
 # Boundaries --------------------------------------------------------------
 # Accessors ---------------------------------------------------------------
