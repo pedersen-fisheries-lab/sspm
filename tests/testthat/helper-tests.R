@@ -28,11 +28,11 @@ predator_spatial <- sspm:::predator_spatial %>%
   dplyr::mutate(year = as.numeric(as.character(year_f)))
 
 borealis_spatial_joined <- borealis_spatial %>%
-  st_join(select(borealis_patches, "patch_id")) %>%
+  st_join(dplyr::select(borealis_patches, "patch_id")) %>%
   dplyr::mutate("row_ID" = 1:nrow(borealis_spatial))
 
 predator_spatial_joined <- predator_spatial %>%
-  st_join(select(borealis_patches, "patch_id")) %>%
+  st_join(dplyr::select(borealis_patches, "patch_id")) %>%
   dplyr::mutate("row_ID" = 1:nrow(predator_spatial))
 
 # Create objects ----------------------------------------------------------
