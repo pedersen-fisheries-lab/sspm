@@ -63,6 +63,11 @@ stores the points that were used for discretization.
 sfa_boundaries
 bounds <- spm_as_boundary(boundaries = sfa_boundaries,
                           boundary = "sfa")
+biomass_dataset <- spm_as_dataset(data.frame(borealis_simulated), name = "borealis",
+                                  density = "weight_per_km2",
+                                  time = "year_f",
+                                  coords = c('lon_dec','lat_dec'),
+                                  uniqueID = "uniqueID")
 bounds_voronoi <- bounds \%>\%
   spm_discretize(method = "tesselate_voronoi",
                  with = biomass_dataset,
