@@ -31,12 +31,12 @@ setMethod("summary",
 
             prod_sum <- predict(object) %>%
               sf::st_drop_geometry() %>%
-              dplyr::select(pred, dplyr::all_of(boundary_var)) %>%
+              dplyr::select("pred", dplyr::all_of(boundary_var)) %>%
               dplyr::group_by(.data[[boundary_var]]) %>%
-              dplyr::summarise(mean = mean(pred),
-                               min = min(pred),
-                               max = max(pred),
-                               sd = sd(pred)) %>%
+              dplyr::summarise(mean = mean(.data$pred),
+                               min = min(.data$pred),
+                               max = max(.data$pred),
+                               sd = sd(.data$pred)) %>%
               dplyr::ungroup() %>%
               as.data.frame()
 
@@ -49,23 +49,23 @@ setMethod("summary",
 
               bio_den_sum <- predict(object, biomass = biomass) %>%
                 sf::st_drop_geometry() %>%
-                dplyr::select(biomass_density, dplyr::all_of(boundary_var)) %>%
+                dplyr::select("biomass_density", dplyr::all_of(boundary_var)) %>%
                 dplyr::group_by(.data[[boundary_var]]) %>%
-                dplyr::summarise(mean = mean(biomass_density, na.rm = TRUE),
-                                 min = min(biomass_density, na.rm = TRUE),
-                                 max = max(biomass_density, na.rm = TRUE),
-                                 sd = sd(biomass_density, na.rm = TRUE)) %>%
+                dplyr::summarise(mean = mean(.data$biomass_density, na.rm = TRUE),
+                                 min = min(.data$biomass_density, na.rm = TRUE),
+                                 max = max(.data$biomass_density, na.rm = TRUE),
+                                 sd = sd(.data$biomass_density, na.rm = TRUE)) %>%
                 dplyr::ungroup() %>%
                 as.data.frame()
 
               bio_sum <- predict(object, biomass = biomass) %>%
                 sf::st_drop_geometry() %>%
-                dplyr::select(biomass_with_catch, dplyr::all_of(boundary_var)) %>%
+                dplyr::select("biomass_with_catch", dplyr::all_of(boundary_var)) %>%
                 dplyr::group_by(.data[[boundary_var]]) %>%
-                dplyr::summarise(mean = mean(biomass_with_catch, na.rm = TRUE),
-                                 min = min(biomass_with_catch, na.rm = TRUE),
-                                 max = max(biomass_with_catch, na.rm = TRUE),
-                                 sd = sd(biomass_with_catch, na.rm = TRUE)) %>%
+                dplyr::summarise(mean = mean(.data$biomass_with_catch, na.rm = TRUE),
+                                 min = min(.data$biomass_with_catch, na.rm = TRUE),
+                                 max = max(.data$biomass_with_catch, na.rm = TRUE),
+                                 sd = sd(.data$biomass_with_catch, na.rm = TRUE)) %>%
                 dplyr::ungroup() %>%
                 as.data.frame()
 

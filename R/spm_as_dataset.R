@@ -166,7 +166,7 @@ setMethod(f = "spm_as_dataset",
                 dplyr::distinct() %>%
                 dplyr::mutate(patch_id = paste("P", 1:dplyr::n(), sep = "")) %>%
                 dplyr::mutate(patch_id =
-                                factor(patch_id, levels =
+                                factor(.data$patch_id, levels =
                                          paste0("P", 1:length(unique(.data$patch_id))))) %>%
                 dplyr::mutate(boundary_col = "B1")
 

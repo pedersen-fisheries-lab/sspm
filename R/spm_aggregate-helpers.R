@@ -58,14 +58,14 @@ spm_aggregate_routine <- function(dataset_data, boundaries, group_by, level,
     if (level == "patch"){
 
       dataset_data_tmp <- dataset_data_tmp %>%
-        dplyr::mutate(temp = as.numeric(temp)) %>%
+        dplyr::mutate(temp = as.numeric(.data$temp)) %>%
         tidyr::complete(.data[[time_col]], .data$patch_id,
                         fill = list(temp = as.numeric(fill_value)))
 
     } else if (level == "boundary"){
 
       dataset_data_tmp <- dataset_data_tmp %>%
-        dplyr::mutate(temp = as.numeric(temp)) %>%
+        dplyr::mutate(temp = as.numeric(.data$temp)) %>%
         tidyr::complete(.data[[time_col]], .data[[boundary]],
                         fill = list(temp = as.numeric(fill_value)))
 
