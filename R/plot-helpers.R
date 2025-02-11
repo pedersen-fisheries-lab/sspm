@@ -24,7 +24,7 @@ plot_train_test <- function(x, scales){
     ggplot2::facet_wrap(~.data[[spm_boundary(x)]],
                         scales = scales) +
     ggplot2::geom_abline(slope = 1, intercept = 0,
-                         lty = 2, size = 0.2)
+                         lty = 2, linewidth = 0.2)
 
   return(sspm_discrete_plot)
 
@@ -219,7 +219,7 @@ spm_plot_routine <- function(smoothed_data, var, use_sf, page, nrow, ncol,
       ggplot2::geom_line(ggplot2::aes(x = .data[[time_col]],
                                       y = .data[[var]],
                                       color = .data$color),
-                         size = smoothed_data$linesize) +
+                         linewidth = smoothed_data$linesize) +
       ggplot2::geom_point(ggplot2::aes(x = .data[[time_col]],
                                        y = .data[[var]],
                                        color = .data$color),
