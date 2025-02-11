@@ -15,10 +15,13 @@
 #' The object in the required slot.
 #'
 #' @examples
-#' \dontrun{
-#' spm_formulas(sspm_object)
-#' ...
-#' }
+#' data(borealis_simulated, package = "sspm")
+#' biomass_dataset <- spm_as_dataset(borealis_simulated, name = "borealis",
+#'                                   density = "weight_per_km2",
+#'                                   time = "year_f",
+#'                                   coords = c('lon_dec','lat_dec'),
+#'                                   uniqueID = "uniqueID")
+#' spm_formulas(biomass_dataset)
 
 # Unique ID ---------------------------------------------------------------
 # Accessors ---------------------------------------------------------------

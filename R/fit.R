@@ -14,11 +14,12 @@
 #'
 #' @keywords internal
 #'
-# Examples
-# \dontrun{
-# fit_smooths(boundaries = boundaries, keep_fit = TRUE, ...)
-# fit_spm(sspm_object = sspm_object, sspm_formula = sspm_formula, ...)
-# }
+#' @examples
+#' \dontrun{
+#' fit_smooths(boundaries = boundaries, keep_fit = TRUE, ...)
+#' fit_spm(sspm_object = sspm_object, sspm_formula = sspm_formula, ...)
+#' }
+
 #' @rdname fit
 setGeneric(name = "fit_smooths",
            def = function(sspm_object,

@@ -15,10 +15,8 @@
 #' The object in the required slot.
 #'
 #' @examples
-#' \dontrun{
-#' method_func(sspm_object)
-#' ...
-#' }
+#' method <- as_discretization_method("tesselate_voronoi")
+#' method_func(method)
 
 # Function ----------------------------------------------------------------
 # Accessors ---------------------------------------------------------------

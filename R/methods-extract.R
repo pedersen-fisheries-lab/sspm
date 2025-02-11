@@ -9,10 +9,10 @@
 #' The `data.frame` matching the request.
 #'
 #' @examples
-#' \dontrun{
-#' sspm_boundary$lat
-#' sspm_dataset$biomass
-#' }
+#' sfa_boundaries
+#' bounds <- spm_as_boundary(boundaries = sfa_boundaries,
+#'                           boundary = "sfa")
+#' bounds$area_sfa
 #'
 #' @export
 #' @aliases extract
