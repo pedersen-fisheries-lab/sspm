@@ -4,6 +4,7 @@
 #'
 #' @name %>%
 #' @rdname pipe
+#' @return pipe operator
 #' @keywords internal
 #' @export
 #' @importFrom magrittr %>%
