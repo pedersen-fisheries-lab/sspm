@@ -1,165 +1,57 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>/404.html</loc>
-  </url>
-  <url>
-    <loc>/CODE_OF_CONDUCT.html</loc>
-  </url>
-  <url>
-    <loc>/CONTRIBUTING.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>/articles/An_example_with_simulated_data.html</loc>
-  </url>
-  <url>
-    <loc>/articles/Package_and_workflow_design.html</loc>
-  </url>
-  <url>
-    <loc>/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>/authors.html</loc>
-  </url>
-  <url>
-    <loc>/index.html</loc>
-  </url>
-  <url>
-    <loc>/news/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/accessors-methods-discret_method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/accessors-methods-sspm_boundary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/accessors-methods-sspm_dataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/accessors-methods-sspm_fit.html</loc>
-  </url>
-  <url>
-    <loc>/reference/accessors-methods-sspm_formula.html</loc>
-  </url>
-  <url>
-    <loc>/reference/as_discretization_method.html</loc>
-  </url>
-  <url>
-    <loc>/reference/borealis_simulated.html</loc>
-  </url>
-  <url>
-    <loc>/reference/catch_simulated.html</loc>
-  </url>
-  <url>
-    <loc>/reference/discretization_method-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/extract-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/fit.html</loc>
-  </url>
-  <url>
-    <loc>/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>/reference/intervals.html</loc>
-  </url>
-  <url>
-    <loc>/reference/map_formula.html</loc>
-  </url>
-  <url>
-    <loc>/reference/pipe.html</loc>
-  </url>
-  <url>
-    <loc>/reference/plot.html</loc>
-  </url>
-  <url>
-    <loc>/reference/predator_simulated.html</loc>
-  </url>
-  <url>
-    <loc>/reference/predict.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sfa_boundaries.html</loc>
-  </url>
-  <url>
-    <loc>/reference/smooths.html</loc>
-  </url>
-  <url>
-    <loc>/reference/spm.html</loc>
-  </url>
-  <url>
-    <loc>/reference/spm_aggregate.html</loc>
-  </url>
-  <url>
-    <loc>/reference/spm_aggregate_catch.html</loc>
-  </url>
-  <url>
-    <loc>/reference/spm_as_boundary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/spm_as_dataset.html</loc>
-  </url>
-  <url>
-    <loc>/reference/spm_discretize.html</loc>
-  </url>
-  <url>
-    <loc>/reference/spm_lag.html</loc>
-  </url>
-  <url>
-    <loc>/reference/spm_methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/spm_smooth.html</loc>
-  </url>
-  <url>
-    <loc>/reference/spm_smooth_methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/spm_split.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sspm-accessors-methods.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sspm-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sspm-constructor.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sspm-package.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sspm_boundary-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sspm_dataset-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sspm_discrete_boundary-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sspm_fit-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/sspm_formula-class.html</loc>
-  </url>
-  <url>
-    <loc>/reference/summary.html</loc>
-  </url>
-  <url>
-    <loc>/reference/tesselate_voronoi.html</loc>
-  </url>
-  <url>
-    <loc>/reference/triangulate_delaunay.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>/404.html</loc></url>
+<url><loc>/CODE_OF_CONDUCT.html</loc></url>
+<url><loc>/CONTRIBUTING.html</loc></url>
+<url><loc>/LICENSE-text.html</loc></url>
+<url><loc>/LICENSE.html</loc></url>
+<url><loc>/articles/An_example_with_simulated_data.html</loc></url>
+<url><loc>/articles/Package_and_workflow_design.html</loc></url>
+<url><loc>/articles/index.html</loc></url>
+<url><loc>/authors.html</loc></url>
+<url><loc>/index.html</loc></url>
+<url><loc>/news/index.html</loc></url>
+<url><loc>/reference/accessors-methods-discret_method.html</loc></url>
+<url><loc>/reference/accessors-methods-sspm_boundary.html</loc></url>
+<url><loc>/reference/accessors-methods-sspm_dataset.html</loc></url>
+<url><loc>/reference/accessors-methods-sspm_fit.html</loc></url>
+<url><loc>/reference/accessors-methods-sspm_formula.html</loc></url>
+<url><loc>/reference/as_discretization_method.html</loc></url>
+<url><loc>/reference/borealis_simulated.html</loc></url>
+<url><loc>/reference/catch_simulated.html</loc></url>
+<url><loc>/reference/discretization_method-class.html</loc></url>
+<url><loc>/reference/extract-methods.html</loc></url>
+<url><loc>/reference/fit.html</loc></url>
+<url><loc>/reference/index.html</loc></url>
+<url><loc>/reference/intervals.html</loc></url>
+<url><loc>/reference/map_formula.html</loc></url>
+<url><loc>/reference/pipe.html</loc></url>
+<url><loc>/reference/plot.html</loc></url>
+<url><loc>/reference/predator_simulated.html</loc></url>
+<url><loc>/reference/predict.html</loc></url>
+<url><loc>/reference/sfa_boundaries.html</loc></url>
+<url><loc>/reference/smooths.html</loc></url>
+<url><loc>/reference/spm.html</loc></url>
+<url><loc>/reference/spm_aggregate.html</loc></url>
+<url><loc>/reference/spm_aggregate_catch.html</loc></url>
+<url><loc>/reference/spm_as_boundary.html</loc></url>
+<url><loc>/reference/spm_as_dataset.html</loc></url>
+<url><loc>/reference/spm_discretize.html</loc></url>
+<url><loc>/reference/spm_lag.html</loc></url>
+<url><loc>/reference/spm_methods.html</loc></url>
+<url><loc>/reference/spm_smooth.html</loc></url>
+<url><loc>/reference/spm_smooth_methods.html</loc></url>
+<url><loc>/reference/spm_split.html</loc></url>
+<url><loc>/reference/sspm-accessors-methods.html</loc></url>
+<url><loc>/reference/sspm-class.html</loc></url>
+<url><loc>/reference/sspm-constructor.html</loc></url>
+<url><loc>/reference/sspm-package.html</loc></url>
+<url><loc>/reference/sspm_boundary-class.html</loc></url>
+<url><loc>/reference/sspm_dataset-class.html</loc></url>
+<url><loc>/reference/sspm_discrete_boundary-class.html</loc></url>
+<url><loc>/reference/sspm_fit-class.html</loc></url>
+<url><loc>/reference/sspm_formula-class.html</loc></url>
+<url><loc>/reference/summary.html</loc></url>
+<url><loc>/reference/tesselate_voronoi.html</loc></url>
+<url><loc>/reference/triangulate_delaunay.html</loc></url>
 </urlset>
+
