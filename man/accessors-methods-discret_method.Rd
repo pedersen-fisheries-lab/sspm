@@ -39,8 +39,6 @@ All methods described here allow to access the elements of contained in
 objects of class \link[=discretization_method-class]{discretization_method}.
 }
 \examples{
-\dontrun{
-method_func(sspm_object)
-...
-}
+method <- as_discretization_method("tesselate_voronoi")
+method_func(method)
 }

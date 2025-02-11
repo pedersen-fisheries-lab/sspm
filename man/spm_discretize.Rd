@@ -59,8 +59,10 @@ stores the points that were used for discretization.
 }
 }
 \examples{
-\dontrun{
 # Voronoi tesselation
+sfa_boundaries
+bounds <- spm_as_boundary(boundaries = sfa_boundaries,
+                          boundary = "sfa")
 bounds_voronoi <- bounds \%>\%
   spm_discretize(method = "tesselate_voronoi",
                  with = biomass_dataset,
@@ -75,9 +77,6 @@ custom_func <- function(boundaries, ...){
   return(list(patches = c(),
               points = c())
          )
-}
-
-spm_discretize(boundary_object, method = custom_func)
 }
 
 }

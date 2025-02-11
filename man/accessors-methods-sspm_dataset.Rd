@@ -147,8 +147,11 @@ All methods described here allow to access the elements of contained in
 objects of class \link[=sspm_dataset-class]{sspm_dataset}.
 }
 \examples{
-\dontrun{
-spm_data(sspm_object)
-...
-}
+data(borealis_simulated, package = "sspm")
+biomass_dataset <- spm_as_dataset(borealis_simulated, name = "borealis",
+                                  density = "weight_per_km2",
+                                  time = "year_f",
+                                  coords = c('lon_dec','lat_dec'),
+                                  uniqueID = "uniqueID")
+spm_data(biomass_dataset)
 }

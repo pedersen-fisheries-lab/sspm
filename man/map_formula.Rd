@@ -71,4 +71,10 @@ The updated object.
 This functions is now used internally to map a formula onto a \code{sspm_dataset}
 or \code{sspm} object.
 }
+\examples{
+\dontrun{
+map_formula(data_frame = all_data, boundaries = boundaries,
+            formula = formula, time = time, ...)
+}
+}
 \keyword{internal}

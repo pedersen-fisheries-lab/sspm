@@ -105,8 +105,12 @@ All methods described here allow to access the elements of contained in
 objects of class \link[=sspm_formula-class]{sspm_formula}.
 }
 \examples{
-\dontrun{
-translated_formula(sspm_object)
-...
-}
+form <- new("sspm_formula",
+            raw_formula = as.formula("weight_per_km2 ~ smooth_time()"),
+            translated_formula = as.formula("weight_per_km2 ~ s(year_f,
+                      k = 24L, bs = 're', xt = list(penalty = pen_mat_time))"),
+                    vars = list(pen_mat_time = matrix(),
+                                pen_mat_space = matrix()),
+                    response = "weight_per_km2")
+translated_formula(form)
 }
