@@ -1,3 +1,5 @@
+# sspm 1.0.2
+
 # sspm 1.0.1
 
 * update packages and tests
