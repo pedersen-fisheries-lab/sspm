@@ -111,10 +111,40 @@ objects of class <a href="discretization_method-class.html">discretization_metho
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="fu">method_func</span><span class="op">(</span><span class="va">sspm_object</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">...</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">method</span> <span class="op">&lt;-</span> <span class="fu"><a href="as_discretization_method.html">as_discretization_method</a></span><span class="op">(</span><span class="st">"tesselate_voronoi"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">method_func</span><span class="op">(</span><span class="va">method</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> function (boundaries, with, boundary = "sfa", sample_surface = FALSE, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     sample_points = TRUE, nb_samples = NULL, min_size = 1500, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     stratify = TRUE, seed = 1) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     check_spatial_inputs(boundaries, sample_surface, sample_points, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         boundary, nb_samples, min_size, seed)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     nb_samples &lt;- check_nb_samples_formatting(nb_samples, boundaries, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         boundary)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     if (sample_surface) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         voronoi_points &lt;- sample_points(mode = "surface", with, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             boundaries, boundary, nb_samples, seed)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     else {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         if (sample_points) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             voronoi_points &lt;- sample_points(mode = "points", </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 with, boundaries, boundary, nb_samples, seed)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         else {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             stopifnot(sf::st_is(with, "POINT"))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>             voronoi_points &lt;- suppressMessages(sf::st_join(with, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 boundaries, suffix = c("", "_duplicate"))) %&gt;% </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>                 dplyr::filter(!is.na(eval(dplyr::sym(boundary))))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     voronoi &lt;- make_patches_voronoi(stratify, voronoi_points, </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>         boundaries, boundary)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     voronoi &lt;- merge_small_polygons(voronoi, min_size, boundary)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     voronoi &lt;- cleanup_polygons(voronoi, boundary)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     return(list(patches = voronoi, points = voronoi_points))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;bytecode: 0x55c67eba3450&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;environment: namespace:sspm&gt;</span>
 </code></pre></div>
     </div>
   </div>

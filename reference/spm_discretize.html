@@ -133,12 +133,32 @@ stores the points that were used for discretization.</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="co"># Voronoi tesselation</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Voronoi tesselation</span></span></span>
+<span class="r-in"><span><span class="va">sfa_boundaries</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 4 features and 2 fields</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: MULTIPOLYGON</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -64.18658 ymin: 46.00004 xmax: -46.6269 ymax: 60.84333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   sfa                       geometry               area</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   4 MULTIPOLYGON (((-59.36453 5...  47575648300 [m^2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   5 MULTIPOLYGON (((-55 53.75, ...  62857719164 [m^2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   6 MULTIPOLYGON (((-49.9269 49... 178716060645 [m^2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   7 MULTIPOLYGON (((-54.48779 4... 147799572836 [m^2]</span>
+<span class="r-in"><span><span class="va">bounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="spm_as_boundary.html">spm_as_boundary</a></span><span class="op">(</span>boundaries <span class="op">=</span> <span class="va">sfa_boundaries</span>,</span></span>
+<span class="r-in"><span>                          boundary <span class="op">=</span> <span class="st">"sfa"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">biomass_dataset</span> <span class="op">&lt;-</span> <span class="fu"><a href="spm_as_dataset.html">spm_as_dataset</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span><span class="va">borealis_simulated</span><span class="op">)</span>, name <span class="op">=</span> <span class="st">"borealis"</span>,</span></span>
+<span class="r-in"><span>                                  density <span class="op">=</span> <span class="st">"weight_per_km2"</span>,</span></span>
+<span class="r-in"><span>                                  time <span class="op">=</span> <span class="st">"year_f"</span>,</span></span>
+<span class="r-in"><span>                                  coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'lon_dec'</span>,<span class="st">'lat_dec'</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>                                  uniqueID <span class="op">=</span> <span class="st">"uniqueID"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span>  Casting data matrix into simple feature collection using columns: <span style="color: #00BB00;">lon_dec</span>, <span style="color: #00BB00;">lat_dec</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span>  Warning: sspm is assuming WGS 84 CRS is to be used for casting</span>
 <span class="r-in"><span><span class="va">bounds_voronoi</span> <span class="op">&lt;-</span> <span class="va">bounds</span> <span class="op"><a href="pipe.html">%&gt;%</a></span></span></span>
 <span class="r-in"><span>  <span class="fu">spm_discretize</span><span class="op">(</span>method <span class="op">=</span> <span class="st">"tesselate_voronoi"</span>,</span></span>
 <span class="r-in"><span>                 with <span class="op">=</span> <span class="va">biomass_dataset</span>,</span></span>
 <span class="r-in"><span>                 nb_samples <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span>  Discretizing using method <span style="color: #BBBB00;">tesselate_voronoi</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Custom method</span></span></span>
 <span class="r-in"><span><span class="va">custom_func</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">boundaries</span>, <span class="va">...</span><span class="op">)</span><span class="op">{</span></span></span>
@@ -150,9 +170,6 @@ stores the points that were used for discretization.</p></li>
 <span class="r-in"><span>              points <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span>         <span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">spm_discretize</span><span class="op">(</span><span class="va">boundary_object</span>, method <span class="op">=</span> <span class="va">custom_func</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

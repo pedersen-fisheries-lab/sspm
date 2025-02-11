@@ -98,10 +98,30 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span> <span class="co"># \dontrun{</span></span></span>
-<span class="r-in"><span><span class="va">sspm_boundary</span><span class="op">$</span><span class="va">lat</span></span></span>
-<span class="r-in"><span><span class="va">sspm_dataset</span><span class="op">$</span><span class="va">biomass</span></span></span>
-<span class="r-in"><span><span class="op">}</span> <span class="co"># }</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">sfa_boundaries</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 4 features and 2 fields</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: MULTIPOLYGON</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -64.18658 ymin: 46.00004 xmax: -46.6269 ymax: 60.84333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   sfa                       geometry               area</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   4 MULTIPOLYGON (((-59.36453 5...  47575648300 [m^2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   5 MULTIPOLYGON (((-55 53.75, ...  62857719164 [m^2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   6 MULTIPOLYGON (((-49.9269 49... 178716060645 [m^2]</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   7 MULTIPOLYGON (((-54.48779 4... 147799572836 [m^2]</span>
+<span class="r-in"><span><span class="va">bounds</span> <span class="op">&lt;-</span> <span class="fu"><a href="spm_as_boundary.html">spm_as_boundary</a></span><span class="op">(</span>boundaries <span class="op">=</span> <span class="va">sfa_boundaries</span>,</span></span>
+<span class="r-in"><span>                          boundary <span class="op">=</span> <span class="st">"sfa"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">bounds</span><span class="op">$</span><span class="va">area_sfa</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Simple feature collection with 4 features and 2 fields</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geometry type: MULTIPOLYGON</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Dimension:     XY</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Bounding box:  xmin: -64.18658 ymin: 46.00004 xmax: -46.6269 ymax: 60.84333</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Geodetic CRS:  WGS 84</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           area_sfa sfa                       geometry</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1  47575.65 [km^2]   4 MULTIPOLYGON (((-59.36453 5...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2  62857.72 [km^2]   5 MULTIPOLYGON (((-55 53.75, ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3 178716.06 [km^2]   6 MULTIPOLYGON (((-49.9269 49...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4 147799.57 [km^2]   7 MULTIPOLYGON (((-54.48779 4...</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
