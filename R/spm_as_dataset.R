@@ -16,7 +16,7 @@
 #' @param name **\[character\]** The name of the dataset, default to "Biomass".
 #' @param uniqueID **\[character\]** The column of `data` that is unique for all
 #'     rows of the data matrix.
-#' @param crs Coordinate reference system, passed onto [st_as_sf][sf].
+#' @param crs Coordinate reference system, passed onto \link[sf]{st_as_sf}.
 #' @inheritParams spm_smooth
 #' @param ... Arguments passed onto methods.
 #'

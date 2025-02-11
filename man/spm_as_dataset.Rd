@@ -82,7 +82,7 @@ latitude of the observations.}
 
 \item{...}{Arguments passed onto methods.}
 
-\item{crs}{Coordinate reference system, passed onto \link[=sf]{st_as_sf}.}
+\item{crs}{Coordinate reference system, passed onto \link[sf]{st_as_sf}.}
 
 \item{boundaries}{\strong{[sspm_boundary]} An object of class
 \link[=sspm_boundary-class]{sspm_discrete_boundary}.}
