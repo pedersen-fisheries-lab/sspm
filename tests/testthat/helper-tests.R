@@ -29,14 +29,14 @@ borealis_spatial_joined <- borealis_spatial %>%
   dplyr::group_by("sfa", "year", "patch_id") %>%
   dplyr::slice_head(n=1) %>%
   dplyr::ungroup() %>%
-  dplyr::mutate("row_ID" = 1:n())
+  dplyr::mutate("row_ID" = 1:dplyr::n())
 
 predator_spatial_joined <- predator_spatial %>%
   st_join(dplyr::select(borealis_patches, "patch_id")) %>%
   dplyr::group_by("sfa", "year", "patch_id") %>%
   dplyr::slice_head(n=1) %>%
   dplyr::ungroup() %>%
-  dplyr::mutate("row_ID" = 1:n())
+  dplyr::mutate("row_ID" = 1:dplyr::n())
 
 # Create objects ----------------------------------------------------------
 
