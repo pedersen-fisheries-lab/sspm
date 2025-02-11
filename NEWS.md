@@ -1,3 +1,7 @@
+# sspm 1.0.3
+
+* re-submission to CRAN: fixed cran manual reviewer comments
+
 # sspm 1.0.2
 
 * re-submission to CRAN: fixed cran check notes
