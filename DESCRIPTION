@@ -1,7 +1,7 @@
 Package: sspm
 Type: Package
 Title: Spatial Surplus Production Model Framework for Northern Shrimp Populations
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
     person("Valentin", "Lucet", email = "valentin.lucet@gmail.com", role = c("aut", "cre", "cph")),
     person("Eric", "Pedersen", email = "eric.pedersen@concordia.ca", role = c("aut")))
@@ -16,7 +16,7 @@ BugReports: https://github.com/pedersen-fisheries-lab/sspm/issues
 URL: https://pedersen-fisheries-lab.github.io/sspm/
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.3.2
 Depends: 
     sf,
     mgcv,
@@ -33,8 +33,7 @@ Imports:
     dplyr,
     purrr,
     stringr,
-    rlang,
-    RTriangle
+    rlang
 Suggests: 
     testthat (>= 3.0.0),
     covr,

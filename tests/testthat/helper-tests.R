@@ -15,25 +15,28 @@ data(predator_simulated, package = "sspm")
 data(sfa_boundaries, package = "sspm")
 data(catch_simulated, package = "sspm")
 
-sfa_boundaries <- sfa_boundaries %>%
-  dplyr::mutate(area = sf::st_area(sfa_boundaries))
-
 borealis_patches <- sspm:::borealis_patches
 borealis_points <- sspm:::borealis_points
 
 borealis_spatial <- sspm:::borealis_spatial %>%
-  mutate(year = as.numeric(as.character(year_f)))
+  dplyr::mutate(year = as.numeric(as.character(year_f)))
 
 predator_spatial <- sspm:::predator_spatial %>%
-  mutate(year = as.numeric(as.character(year_f)))
+  dplyr::mutate(year = as.numeric(as.character(year_f)))
 
 borealis_spatial_joined <- borealis_spatial %>%
-  st_join(select(borealis_patches, "patch_id")) %>%
-  dplyr::mutate("row_ID" = 1:nrow(borealis_spatial))
+  st_join(dplyr::select(borealis_patches, "patch_id")) %>%
+  dplyr::group_by("sfa", "year", "patch_id") %>%
+  dplyr::slice_head(n=1) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate("row_ID" = 1:n())
 
 predator_spatial_joined <- predator_spatial %>%
-  st_join(select(borealis_patches, "patch_id")) %>%
-  dplyr::mutate("row_ID" = 1:nrow(predator_spatial))
+  st_join(dplyr::select(borealis_patches, "patch_id")) %>%
+  dplyr::group_by("sfa", "year", "patch_id") %>%
+  dplyr::slice_head(n=1) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate("row_ID" = 1:n())
 
 # Create objects ----------------------------------------------------------
 

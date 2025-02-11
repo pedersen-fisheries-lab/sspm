@@ -70,7 +70,8 @@ Different terms can use different numbers of knots, unless they share a covariat
  Smoothing parameters must be supplied in the order that the smooth terms appear in the model 
 formula. Negative elements indicate that the parameter should be estimated, and hence a mixture 
 of fixed and estimated parameters is possible. If smooths share smoothing parameters then \code{length(sp)} 
-must correspond to the number of underlying smoothing parameters.}
+must correspond to the number of underlying smoothing parameters. Note that \code{discrete=TRUE}may result in
+re-ordering of variables in tensor product smooths for improved efficiency, and \code{sp} must be supplied in re-ordered order.}
     \item{\code{min.sp}}{Lower bounds can be supplied for the smoothing parameters. Note
 that if this option is used then the smoothing parameters \code{full.sp}, in the 
 returned object, will need to be added to what is supplied here to get the 
@@ -90,7 +91,7 @@ Reset to \code{4*p} if \code{chunk.size < 4*p} where \code{p} is the number of c
 section of AR1 correlation. Very first observation in data frame does not need this. If \code{NULL} then 
 there are no breaks in AR1 correlaion.}
     \item{\code{discrete}}{with \code{method="fREML"} it is possible to discretize covariates for storage and efficiency reasons.
-If \code{discrete} is \code{TRUE}, a number or a vector of numbers for each smoother term, then discretization happens. If numbers are supplied they give the number of discretization bins.}
+If \code{discrete} is \code{TRUE}, a number or a vector of numbers for each smoother term, then discretization happens. If numbers are supplied they give the number of discretization bins. Parametric terms use the maximum number specified.}
     \item{\code{cluster}}{\code{bam} can compute the computationally dominant QR decomposition in parallel using \link[parallel:clusterApply]{parLapply}
 from the \code{parallel} package, if it is supplied with a cluster on which to do this (a cluster here can be some cores of a 
 single machine). See details and example code. 
@@ -98,7 +99,7 @@ single machine). See details and example code.
     \item{\code{nthreads}}{Number of threads to use for non-cluster computation (e.g. combining results from cluster nodes).
 If \code{NA} set to \code{max(1,length(cluster))}. See details.}
     \item{\code{gc.level}}{to keep the memory footprint down, it can help to call the garbage collector often, but this takes 
-a substatial amount of time. Setting this to zero means that garbage collection only happens when R decides it should. Setting to 2 gives frequent garbage collection. 1 is in between. Not as much of a problem as it used to be.
+a substatial amount of time. Setting this to zero means that garbage collection only happens when R decides it should. Setting to 2 gives frequent garbage collection. 1 is in between. Not as much of a problem as it used to be, but can really matter for very large datasets.
 }
     \item{\code{use.chol}}{By default \code{bam} uses a very stable QR update approach to obtaining the QR decomposition
 of the model matrix. For well conditioned models an alternative accumulates the crossproduct of the model matrix
@@ -113,6 +114,7 @@ involving factor variables you might want to turn this off. Only do so if you kn
     \item{\code{fit}}{if \code{FALSE} then the model is set up for fitting but not estimated, and an object is returned, suitable for passing as the \code{G} argument to \code{bam}.}
     \item{\code{drop.intercept}}{Set to \code{TRUE} to force the model to really not have the a constant in the parametric model part,
 even with factor variables present.}
+    \item{\code{in.out}}{If supplied then this is a two item list of intial values. \code{sp} is initial smoothing parameter estiamtes and \code{scale} the initial scale parameter estimate (set to 1 if famiy does not have one).}
   }}
 }
 \value{

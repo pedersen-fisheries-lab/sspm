@@ -3,7 +3,6 @@
 \docType{package}
 \name{sspm-package}
 \alias{sspm-package}
-\alias{_PACKAGE}
 \title{sspm: Spatial Surplus Production Model Framework for Northern Shrimp Populations}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}

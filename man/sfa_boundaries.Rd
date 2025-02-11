@@ -9,6 +9,7 @@ A data frame and sf object:
 \describe{
 \item{sfa}{SFA ID number}
 \item{geometry}{sf geometry}
+\item{area}{sf geometry area}
 }
 }
 \source{

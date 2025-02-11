@@ -56,9 +56,6 @@ triangulate_delaunay <- function(boundaries,
 
   # 2. Sample points, if need be --------------------------------------------
 
-  # Make sure seed options are set correctly
-  if (getRversion() >= 3.6) suppressWarnings(RNGkind(sample.kind = "Rounding"))
-
   # 2. Create (sample) the points
   boundaries_split <- split(boundaries, boundaries[[boundary]])
 

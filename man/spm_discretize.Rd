@@ -17,7 +17,7 @@ spm_discretize(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
 \S4method{spm_discretize}{sspm_boundary,character,ANY}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
-\S4method{spm_discretize}{sspm_boundary,`function`,ANY}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
+\S4method{spm_discretize}{sspm_boundary,function,ANY}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 
 \S4method{spm_discretize}{sspm_boundary,discretization_method,ANY}(boundary_object, method = "tesselate_voronoi", with = NULL, ...)
 }

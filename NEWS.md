@@ -1,3 +1,8 @@
+# sspm 1.0.1
+
+* update packages and tests
+* fix errors for cran submission
+
 # sspm 1.0.0
 
 * JOSS release

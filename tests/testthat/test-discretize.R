@@ -73,7 +73,7 @@ test_that("Discretization work as expected", {
   expect_names(names(spm_patches(discretized)),
                must.include = c("sfa", "patch_id", "patch_area"))
 
-  expect_equal(dim(spm_patches(discretized))[1], 92)
+  expect_equal(dim(spm_patches(discretized))[1], 85)
   expect_equal(dim(spm_patches(discretized))[2], 4)
 
   expect_equal(dim(spm_points(discretized))[1], 120)
