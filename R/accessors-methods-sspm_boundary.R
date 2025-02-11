@@ -14,7 +14,7 @@
 #' The object in the required slot.
 #'
 #' @examples
-#' #' \dontrun{
+#' \dontrun{
 #' data(borealis_simulated, package = "sspm")
 #' biomass_dataset <- spm_as_dataset(borealis_simulated, name = "borealis",
 #'                                   density = "weight_per_km2",
