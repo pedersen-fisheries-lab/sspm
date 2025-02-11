@@ -15,9 +15,6 @@ data(predator_simulated, package = "sspm")
 data(sfa_boundaries, package = "sspm")
 data(catch_simulated, package = "sspm")
 
-sfa_boundaries <- sfa_boundaries %>%
-  dplyr::mutate(area = sf::st_area(sfa_boundaries))
-
 borealis_patches <- sspm:::borealis_patches
 borealis_points <- sspm:::borealis_points
 
