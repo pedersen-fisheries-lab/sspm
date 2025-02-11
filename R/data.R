@@ -6,6 +6,7 @@
 #' \describe{
 #'   \item{sfa}{SFA ID number}
 #'   \item{geometry}{sf geometry}
+#'   \item{area}{sf geometry area}
 #' }
 #' @source \url{https://www.dfo-mpo.gc.ca/fisheries-peches/ifmp-gmp/shrimp-crevette/shrimp-crevette-2018-002-eng.html}
 "sfa_boundaries"
