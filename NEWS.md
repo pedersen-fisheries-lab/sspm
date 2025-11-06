@@ -1,3 +1,7 @@
+# sspm 1.1.0
+
+* fixing tests in anticipation of a change in mgcv
+
 # sspm 1.0.3
 
 * re-submission to CRAN: fixed cran manual reviewer comments
