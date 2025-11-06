@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">sspm</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.0</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@
       <h1 data-toc-skip>An example with simulated data</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/pedersen-fisheries-lab/sspm/blob/v1.0.3/vignettes/An_example_with_simulated_data.Rmd" class="external-link"><code>vignettes/An_example_with_simulated_data.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pedersen-fisheries-lab/sspm/blob/main/vignettes/An_example_with_simulated_data.Rmd" class="external-link"><code>vignettes/An_example_with_simulated_data.Rmd</code></a></small>
       <div class="hidden name"><code>An_example_with_simulated_data.Rmd</code></div>
 
     </div>
@@ -96,7 +96,7 @@
 <span><span class="co">#&gt; Linking to GEOS 3.12.1, GDAL 3.8.4, PROJ 9.4.0; sf_use_s2() is TRUE</span></span>
 <span><span class="co">#&gt; Loading required package: mgcv</span></span>
 <span><span class="co">#&gt; Loading required package: nlme</span></span>
-<span><span class="co">#&gt; This is mgcv 1.9-1. For overview type 'help("mgcv-package")'.</span></span>
+<span><span class="co">#&gt; This is mgcv 1.9-3. For overview type 'help("mgcv-package")'.</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">mgcv</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -523,22 +523,22 @@ more details and, for example, evaluate the goodness of fit.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/summary.html">summary</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ── Productivity ────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt;   sfa      mean       min       max        sd</span></span>
-<span><span class="co">#&gt; 1   4 0.9832311 0.6525740  1.162395 0.1264616</span></span>
-<span><span class="co">#&gt; 2   5 0.9997828 0.5368250  1.411977 0.1888341</span></span>
+<span><span class="co">#&gt; 1   4 0.9832311 0.6525739  1.162395 0.1264617</span></span>
+<span><span class="co">#&gt; 2   5 0.9997828 0.5368248  1.411977 0.1888341</span></span>
 <span><span class="co">#&gt; 3   6 1.0212750 0.6745112  1.315847 0.1341058</span></span>
-<span><span class="co">#&gt; 4   7 1.2698200 0.6146554 11.900818 1.3920692</span></span>
+<span><span class="co">#&gt; 4   7 1.2698199 0.6146548 11.900818 1.3920693</span></span>
 <span><span class="co">#&gt; ── Biomass density ─────────────────────────────────────────────────────────────</span></span>
-<span><span class="co">#&gt;   sfa               mean                 min                max        sd</span></span>
-<span><span class="co">#&gt; 1   4 2841.073 [kg/km^2] 2660.9857 [kg/km^2] 2975.946 [kg/km^2]  63.03607</span></span>
-<span><span class="co">#&gt; 2   5 3041.162 [kg/km^2] 2551.7906 [kg/km^2] 3590.994 [kg/km^2] 143.79974</span></span>
-<span><span class="co">#&gt; 3   6 3226.922 [kg/km^2] 2115.0441 [kg/km^2] 4173.462 [kg/km^2] 528.03234</span></span>
-<span><span class="co">#&gt; 4   7 3209.607 [kg/km^2]  667.0919 [kg/km^2] 4397.810 [kg/km^2] 242.45339</span></span>
+<span><span class="co">#&gt;   sfa               mean                min                max        sd</span></span>
+<span><span class="co">#&gt; 1   4 2841.073 [kg/km^2] 2660.985 [kg/km^2] 2975.945 [kg/km^2]  63.03612</span></span>
+<span><span class="co">#&gt; 2   5 3041.162 [kg/km^2] 2551.791 [kg/km^2] 3590.993 [kg/km^2] 143.79976</span></span>
+<span><span class="co">#&gt; 3   6 3226.922 [kg/km^2] 2115.044 [kg/km^2] 4173.462 [kg/km^2] 528.03225</span></span>
+<span><span class="co">#&gt; 4   7 3209.607 [kg/km^2]  667.092 [kg/km^2] 4397.809 [kg/km^2] 242.45332</span></span>
 <span><span class="co">#&gt; ── Biomass (with catch) ────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt;   sfa          mean              min           max       sd</span></span>
-<span><span class="co">#&gt; 1   4 12303684 [kg] 4273382.277 [kg] 31182211 [kg]  8392040</span></span>
-<span><span class="co">#&gt; 2   5 11289489 [kg] 5414527.798 [kg] 23610411 [kg]  4525524</span></span>
-<span><span class="co">#&gt; 3   6 19247927 [kg] 3459958.818 [kg] 65388037 [kg] 10251234</span></span>
-<span><span class="co">#&gt; 4   7 17633584 [kg]    4549.233 [kg] 60226352 [kg] 11329850</span></span></code></pre></div>
+<span><span class="co">#&gt; 1   4 12303683 [kg] 4273381.520 [kg] 31182209 [kg]  8392039</span></span>
+<span><span class="co">#&gt; 2   5 11289488 [kg] 5414527.323 [kg] 23610408 [kg]  4525524</span></span>
+<span><span class="co">#&gt; 3   6 19247926 [kg] 3459958.832 [kg] 65388033 [kg] 10251233</span></span>
+<span><span class="co">#&gt; 4   7 17633583 [kg]    4549.233 [kg] 60226347 [kg] 11329850</span></span></code></pre></div>
 <ol start="16" style="list-style-type: decimal">
 <li>Plotting the object produces a actual vs predicted plot (with
 TEST/TRAIN data highlighted.</li>
@@ -560,12 +560,12 @@ TEST/TRAIN data highlighted.</li>
 <span><span class="co">#&gt; Bounding box:  xmin: -64.18658 ymin: 59.66424 xmax: -62.83338 ymax: 60.80996</span></span>
 <span><span class="co">#&gt; Geodetic CRS:  WGS 84</span></span>
 <span><span class="co">#&gt;      pred_log      pred patch_id year_f sfa      patch_area</span></span>
-<span><span class="co">#&gt; 1 -0.08863808 0.9151767       P1   1995   4 3328.183 [km^2]</span></span>
-<span><span class="co">#&gt; 2 -0.22422073 0.7991387       P1   1996   4 3328.183 [km^2]</span></span>
-<span><span class="co">#&gt; 3  0.01638827 1.0165233       P1   1997   4 3328.183 [km^2]</span></span>
-<span><span class="co">#&gt; 4  0.06999510 1.0725029       P1   1998   4 3328.183 [km^2]</span></span>
-<span><span class="co">#&gt; 5  0.07119768 1.0737935       P1   1999   4 3328.183 [km^2]</span></span>
-<span><span class="co">#&gt; 6  0.10258972 1.1080367       P1   2000   4 3328.183 [km^2]</span></span>
+<span><span class="co">#&gt; 1 -0.08863812 0.9151767       P1   1995   4 3328.183 [km^2]</span></span>
+<span><span class="co">#&gt; 2 -0.22422105 0.7991385       P1   1996   4 3328.183 [km^2]</span></span>
+<span><span class="co">#&gt; 3  0.01638835 1.0165234       P1   1997   4 3328.183 [km^2]</span></span>
+<span><span class="co">#&gt; 4  0.06999519 1.0725030       P1   1998   4 3328.183 [km^2]</span></span>
+<span><span class="co">#&gt; 5  0.07119760 1.0737934       P1   1999   4 3328.183 [km^2]</span></span>
+<span><span class="co">#&gt; 6  0.10258982 1.1080368       P1   2000   4 3328.183 [km^2]</span></span>
 <span><span class="co">#&gt;                         geometry</span></span>
 <span><span class="co">#&gt; 1 POLYGON ((-63.11402 59.6642...</span></span>
 <span><span class="co">#&gt; 2 POLYGON ((-63.11402 59.6642...</span></span>
@@ -588,10 +588,10 @@ variable name.</p>
 <span><span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494;">[km^2]</span>               <span style="color: #949494;">[kg]</span>     <span style="color: #949494;">[kg]</span></span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span>   <span style="text-decoration: underline;">1</span>995 P1       4          <span style="text-decoration: underline;">3</span>328.                <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span> </span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span>   <span style="text-decoration: underline;">1</span>996 P1       4          <span style="text-decoration: underline;">3</span>328.           9<span style="text-decoration: underline;">908</span>909. 9<span style="text-decoration: underline;">904</span>492.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>   <span style="text-decoration: underline;">1</span>997 P1       4          <span style="text-decoration: underline;">3</span>328.           9<span style="text-decoration: underline;">627</span>426. 9<span style="text-decoration: underline;">623</span>010.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   <span style="text-decoration: underline;">1</span>998 P1       4          <span style="text-decoration: underline;">3</span>328.           9<span style="text-decoration: underline;">401</span>565. 9<span style="text-decoration: underline;">393</span>489.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>   <span style="text-decoration: underline;">1</span>999 P1       4          <span style="text-decoration: underline;">3</span>328.           9<span style="text-decoration: underline;">414</span>290. 9<span style="text-decoration: underline;">409</span>129.</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>   <span style="text-decoration: underline;">2</span>000 P1       4          <span style="text-decoration: underline;">3</span>328.           9<span style="text-decoration: underline;">273</span>920. 9<span style="text-decoration: underline;">269</span>504.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span>   <span style="text-decoration: underline;">1</span>997 P1       4          <span style="text-decoration: underline;">3</span>328.           9<span style="text-decoration: underline;">627</span>425. 9<span style="text-decoration: underline;">623</span>009.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span>   <span style="text-decoration: underline;">1</span>998 P1       4          <span style="text-decoration: underline;">3</span>328.           9<span style="text-decoration: underline;">401</span>564. 9<span style="text-decoration: underline;">393</span>488.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span>   <span style="text-decoration: underline;">1</span>999 P1       4          <span style="text-decoration: underline;">3</span>328.           9<span style="text-decoration: underline;">414</span>290. 9<span style="text-decoration: underline;">409</span>128.</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span>   <span style="text-decoration: underline;">2</span>000 P1       4          <span style="text-decoration: underline;">3</span>328.           9<span style="text-decoration: underline;">273</span>919. 9<span style="text-decoration: underline;">269</span>502.</span></span>
 <span><span class="co">#&gt; <span style="color: #949494;"># ℹ 3 more variables: biomass_density_with_catch [kg/km^2],</span></span></span>
 <span><span class="co">#&gt; <span style="color: #949494;">#   biomass_density [kg/km^2], geometry &lt;POLYGON [°]&gt;</span></span></span></code></pre></div>
 <p>We can also predict the biomass one step ahead.</p>
@@ -607,10 +607,10 @@ variable name.</p>
 <span><span class="co">#&gt; <span style="color: #949494;"># A tibble: 6 × 6</span></span></span>
 <span><span class="co">#&gt;   patch_id year_f sfa     biomass patch_area                            geometry</span></span>
 <span><span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494;">[kg]</span>     <span style="color: #949494;">[km^2]</span>                       <span style="color: #949494; font-style: italic;">&lt;POLYGON [°]&gt;</span></span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> P1         <span style="text-decoration: underline;">2</span>019 4      8<span style="text-decoration: underline;">986</span>220.      <span style="text-decoration: underline;">3</span>328. ((-63.11402 59.66424, -62.83338 60…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> P2         <span style="text-decoration: underline;">2</span>019 4     11<span style="text-decoration: underline;">093</span>752.      <span style="text-decoration: underline;">4</span>099. ((-62.00856 58.53059, -61.78999 58…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">1</span> P1         <span style="text-decoration: underline;">2</span>019 4      8<span style="text-decoration: underline;">986</span>219.      <span style="text-decoration: underline;">3</span>328. ((-63.11402 59.66424, -62.83338 60…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">2</span> P2         <span style="text-decoration: underline;">2</span>019 4     11<span style="text-decoration: underline;">093</span>751.      <span style="text-decoration: underline;">4</span>099. ((-62.00856 58.53059, -61.78999 58…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">3</span> P3         <span style="text-decoration: underline;">2</span>019 4      8<span style="text-decoration: underline;">939</span>169.      <span style="text-decoration: underline;">3</span>308. ((-61.80265 59.43396, -61.97171 59…</span></span>
-<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> P4         <span style="text-decoration: underline;">2</span>019 4     18<span style="text-decoration: underline;">479</span>002.      <span style="text-decoration: underline;">6</span>814. ((-61.48231 59.06057, -61.78999 58…</span></span>
+<span><span class="co">#&gt; <span style="color: #BCBCBC;">4</span> P4         <span style="text-decoration: underline;">2</span>019 4     18<span style="text-decoration: underline;">479</span>001.      <span style="text-decoration: underline;">6</span>814. ((-61.48231 59.06057, -61.78999 58…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">5</span> P5         <span style="text-decoration: underline;">2</span>019 4      4<span style="text-decoration: underline;">534</span>086.      <span style="text-decoration: underline;">1</span>677. ((-59.37831 57.67423, -59.43377 57…</span></span>
 <span><span class="co">#&gt; <span style="color: #BCBCBC;">6</span> P6         <span style="text-decoration: underline;">2</span>019 4      6<span style="text-decoration: underline;">205</span>772.      <span style="text-decoration: underline;">2</span>282. ((-59.70893 58.16354, -60.11445 58…</span></span></code></pre></div>
 <ol start="18" style="list-style-type: decimal">
@@ -645,22 +645,10 @@ plots</li>
 <span><span class="co">#&gt; (`geom_line()`).</span></span>
 <span><span class="co">#&gt; Warning: Removed 4 rows containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_point()`).</span></span>
-<span><span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span></span>
-<span><span class="co">#&gt; -Inf</span></span>
-<span><span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span></span>
-<span><span class="co">#&gt; -Inf</span></span>
-<span><span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span></span>
-<span><span class="co">#&gt; -Inf</span></span>
-<span><span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span></span>
-<span><span class="co">#&gt; -Inf</span></span>
-<span><span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span></span>
-<span><span class="co">#&gt; -Inf</span></span>
-<span><span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span></span>
-<span><span class="co">#&gt; -Inf</span></span>
-<span><span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span></span>
-<span><span class="co">#&gt; -Inf</span></span>
-<span><span class="co">#&gt; Warning in max(ids, na.rm = TRUE): no non-missing arguments to max; returning</span></span>
-<span><span class="co">#&gt; -Inf</span></span></code></pre></div>
+<span><span class="co">#&gt; Warning: Removed 100 rows containing missing values or values outside the scale range</span></span>
+<span><span class="co">#&gt; (`geom_ribbon()`).</span></span>
+<span><span class="co">#&gt; Removed 100 rows containing missing values or values outside the scale range</span></span>
+<span><span class="co">#&gt; (`geom_ribbon()`).</span></span></code></pre></div>
 <p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;"></p>
   </div>
 
@@ -679,7 +667,7 @@ plots</li>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
 </div>
 
       </footer>
