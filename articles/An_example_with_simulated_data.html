@@ -83,7 +83,7 @@
       <h1 data-toc-skip>An example with simulated data</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/pedersen-fisheries-lab/sspm/blob/main/vignettes/An_example_with_simulated_data.Rmd" class="external-link"><code>vignettes/An_example_with_simulated_data.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/pedersen-fisheries-lab/sspm/blob/v1.1.0/vignettes/An_example_with_simulated_data.Rmd" class="external-link"><code>vignettes/An_example_with_simulated_data.Rmd</code></a></small>
       <div class="hidden name"><code>An_example_with_simulated_data.Rmd</code></div>
 
     </div>
@@ -181,7 +181,7 @@ can then be plotted with <code>spm_plot</code> (as can most
 <span>                          boundary <span class="op">=</span> <span class="st">"sfa"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">bounds</span><span class="op">)</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/boundaries-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/boundaries-1.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
 <ol start="2" style="list-style-type: decimal">
 <li>The second step consists in wrapping a <code>data.frame</code>,
 <code>tibble</code> or <code>sf</code> object into a
@@ -261,7 +261,7 @@ details).</p>
 </ol>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">bounds_voronoi</span><span class="op">)</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-6-1.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co">## Not run</span></span>
 <span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">bounds_delaunay</span><span class="op">)</span></span></code></pre></div>
@@ -354,11 +354,11 @@ this example case.</li>
 </ol>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">biomass_smooth</span>, var <span class="op">=</span> <span class="st">"weight_per_km2"</span>, log <span class="op">=</span> <span class="cn">FALSE</span>, interval <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-10-1.png" width="672" style="display: block; margin: auto;">
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-10-1.png" class="r-plt" width="672" style="display: block; margin: auto;">
 You can also make a spatial plot</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">biomass_smooth</span>, var <span class="op">=</span> <span class="st">"weight_per_km2"</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-11-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-11-1.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
 <ol start="9" style="list-style-type: decimal">
 <li>We also smooth the <code>weight_per_km2</code> variable in the
 predator data.</li>
@@ -547,7 +547,7 @@ TEST/TRAIN data highlighted.</li>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, train_test <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removed 85 rows containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-21-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-21-1.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
 <ol start="17" style="list-style-type: decimal">
 <li>We can also extract the predictions.</li>
 </ol>
@@ -623,20 +623,20 @@ plots</li>
 <span><span class="co">#&gt; (`geom_line()`).</span></span>
 <span><span class="co">#&gt; Warning: Removed 85 rows containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-25-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-25-1.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, log <span class="op">=</span> <span class="cn">T</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-25-2.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-25-2.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,  scales <span class="op">=</span> <span class="st">"free"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Warning: Removed 1 row containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_line()`).</span></span>
 <span><span class="co">#&gt; Warning: Removed 85 rows containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_point()`).</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-26-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-26-1.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>, use_sf <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-26-2.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-26-2.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/plot.html">plot</a></span><span class="op">(</span><span class="va">sspm_model_fit</span>, biomass <span class="op">=</span> <span class="st">"weight_per_km2_borealis"</span>,</span>
 <span>     next_ts <span class="op">=</span> <span class="cn">TRUE</span>, aggregate <span class="op">=</span> <span class="cn">TRUE</span>, scales <span class="op">=</span> <span class="st">"free"</span>, </span>
@@ -649,7 +649,7 @@ plots</li>
 <span><span class="co">#&gt; (`geom_ribbon()`).</span></span>
 <span><span class="co">#&gt; Removed 100 rows containing missing values or values outside the scale range</span></span>
 <span><span class="co">#&gt; (`geom_ribbon()`).</span></span></code></pre></div>
-<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-27-1.png" width="672" style="display: block; margin: auto;"></p>
+<p><img src="An_example_with_simulated_data_files/figure-html/unnamed-chunk-27-1.png" class="r-plt" width="672" style="display: block; margin: auto;"></p>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -667,7 +667,7 @@ plots</li>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
 </div>
 
       </footer>
