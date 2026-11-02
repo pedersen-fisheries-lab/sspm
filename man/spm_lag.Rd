@@ -35,7 +35,7 @@ to the type of \code{x}.}
 Updated \code{sspm_object}.
 }
 \description{
-This function is a wrapper around \link[dplyr:lead-lag]{lag} (note that not all
+This function is a wrapper around \link[dplyr:lag]{lag} (note that not all
 arguments are supported). The default value for the lag is the mean of the
 series.
 }

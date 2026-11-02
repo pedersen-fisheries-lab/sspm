@@ -37,7 +37,7 @@ or be a single value to be applied to each level).}
 \item{min_size}{\strong{[numeric]} The minimum size for a triangle above which it
 will be merged (in km2).}
 
-\item{seed}{\strong{[numeric]} Passed onto \code{\link[base:Random]{set.seed()}},
+\item{seed}{\strong{[numeric]} Passed onto \code{\link[base:set.seed]{set.seed()}},
 important for reproducibility of sampling.}
 
 \item{...}{

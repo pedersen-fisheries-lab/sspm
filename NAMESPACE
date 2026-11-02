@@ -166,12 +166,18 @@ import(mgcv)
 import(sf)
 importFrom(graphics,par)
 importFrom(magrittr,"%>%")
-importFrom(methods,new)
-importFrom(methods,show)
-importFrom(methods,slot)
-importFrom(methods,validObject)
-importFrom(rlang,":=")
-importFrom(rlang,.data)
-importFrom(stats,as.formula)
-importFrom(stats,sd)
-importFrom(stats,terms)
+importFrom(methods,
+  new,
+  show,
+  slot,
+  validObject
+)
+importFrom(rlang,
+  ":=",
+  .data
+)
+importFrom(stats,
+  as.formula,
+  sd,
+  terms
+)

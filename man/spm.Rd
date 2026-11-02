@@ -49,7 +49,7 @@ included in \code{formula} (this used to conform to the behaviour of
 Mallows' Cp/UBRE/AIC for known scale. \code{"GACV.Cp"} is equivalent, but using GACV in place of GCV. \code{"REML"} 
 for REML estimation, including of unknown scale, \code{"P-REML"} for REML estimation, but using a Pearson estimate 
 of the scale. \code{"ML"} and \code{"P-ML"} are similar, but using maximum likelihood in place of REML. Default 
-\code{"fREML"} uses fast REML computation.}
+\code{"fREML"} uses fast REML computation. When \code{discrete=TRUE} then \code{"NCV"} is also possible.}
     \item{\code{control}}{A list of fit control parameters to replace defaults returned by 
 \code{\link[mgcv]{gam.control}}. Any control parameters not supplied stay at their default values.}
     \item{\code{select}}{Should selection penalties be added to the smooth effects, so that they can in principle be 
@@ -115,6 +115,7 @@ involving factor variables you might want to turn this off. Only do so if you kn
     \item{\code{drop.intercept}}{Set to \code{TRUE} to force the model to really not have the a constant in the parametric model part,
 even with factor variables present.}
     \item{\code{in.out}}{If supplied then this is a two item list of intial values. \code{sp} is initial smoothing parameter estiamtes and \code{scale} the initial scale parameter estimate (set to 1 if famiy does not have one).}
+    \item{\code{nei}}{list describing neighbourhood structure for NCV model smoothing parameter selection. See \code{\link[mgcv]{NCV}} for details.}
   }}
 }
 \value{

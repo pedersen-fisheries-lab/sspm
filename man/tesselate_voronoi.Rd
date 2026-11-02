@@ -40,7 +40,7 @@ will be merged (in km2).}
 \item{stratify}{\strong{[logical]} Whether the discretization happens within the
 boundaries or whether the whole area is to be used (default to TRUE).}
 
-\item{seed}{\strong{[numeric]} Passed onto \code{\link[base:Random]{set.seed()}},
+\item{seed}{\strong{[numeric]} Passed onto \code{\link[base:set.seed]{set.seed()}},
 important for reproducibility of sampling.}
 }
 \value{
@@ -51,7 +51,7 @@ A named list with three elements (each an \code{sf} object):
 \description{
 Generates voronoi polygons by first performing stratified sampling across
 boundary polygons, then by running  the voronoisation with
-\link[sf:geos_unary]{st_voronoi()}.
+\link[sf:st_voronoi]{st_voronoi()}.
 }
 \examples{
 data(borealis_simulated, package = "sspm")

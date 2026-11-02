@@ -22,6 +22,7 @@ Useful links:
 
 Authors:
 \itemize{
+  \item Valentin Lucet \email{valentin.lucet@gmail.com} [copyright holder]
   \item Eric Pedersen \email{eric.pedersen@concordia.ca}
 }
 
