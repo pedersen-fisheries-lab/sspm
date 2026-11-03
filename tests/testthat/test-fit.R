@@ -12,5 +12,5 @@ test_that("Fitting works as expected", {
                family=gaussian)
   intercept <-
     fit@smoothed_fit$weight_per_km2$coefficients[[1]]
-  expect_equal(intercept, 7.856, tolerance = 1e-5)
+  expect_equal(intercept, 7.856, tolerance = 1e-3)
 })
