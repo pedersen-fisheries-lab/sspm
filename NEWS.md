@@ -1,3 +1,5 @@
+# sspm 1.1.1
+
 # sspm 1.1.0
 
 * fixing tests in anticipation of a change in mgcv
